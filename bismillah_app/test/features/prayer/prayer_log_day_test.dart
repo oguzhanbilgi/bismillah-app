@@ -100,4 +100,61 @@ void main() {
       isTrue,
     );
   });
+
+  test('equal-time same-status undone tie-break is order-independent', () {
+    // Aynı loggedAt + aynı status, yalnız `undone` farklı: eşitlikte
+    // tombstone kazanamaz ve sonuç argüman sırasından bağımsızdır.
+    final plainNone = PrayerEntry(
+      prayerName: PrayerName.isha,
+      status: PrayerCompletionStatus.none,
+      loggedAt: t1,
+    );
+    final undoneNone = PrayerEntry(
+      prayerName: PrayerName.isha,
+      status: PrayerCompletionStatus.none,
+      loggedAt: t1,
+      undone: true,
+    );
+
+    final ab = PrayerEntry.resolveCompletedWins(plainNone, undoneNone);
+    final ba = PrayerEntry.resolveCompletedWins(undoneNone, plainNone);
+    expect(ab, ba);
+    expect(ab.undone, isFalse);
+
+    // Zaman damgası hiç yokken de deterministik.
+    const noTimePlain = PrayerEntry(
+      prayerName: PrayerName.isha,
+      status: PrayerCompletionStatus.none,
+    );
+    const noTimeUndone = PrayerEntry(
+      prayerName: PrayerName.isha,
+      status: PrayerCompletionStatus.none,
+      undone: true,
+    );
+    expect(
+      PrayerEntry.resolveCompletedWins(noTimePlain, noTimeUndone),
+      PrayerEntry.resolveCompletedWins(noTimeUndone, noTimePlain),
+    );
+  });
+
+  test('completed entry still beats incomplete entry after tie-break fix', () {
+    final completed = PrayerEntry(
+      prayerName: PrayerName.fajr,
+      status: PrayerCompletionStatus.qada,
+      loggedAt: t1,
+    );
+    final incomplete = PrayerEntry(
+      prayerName: PrayerName.fajr,
+      status: PrayerCompletionStatus.none,
+      loggedAt: t1,
+    );
+    expect(
+      PrayerEntry.resolveCompletedWins(completed, incomplete),
+      PrayerEntry.resolveCompletedWins(incomplete, completed),
+    );
+    expect(
+      PrayerEntry.resolveCompletedWins(incomplete, completed).isCompleted,
+      isTrue,
+    );
+  });
 }

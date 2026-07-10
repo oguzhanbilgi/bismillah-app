@@ -43,12 +43,47 @@ final class DuaFavorite implements Classified {
         'Tombstone deletedAt taşımak zorundadır (§15)',
       );
     }
+    if (!deleted && deletedAt != null) {
+      throw ArgumentError.value(
+        deletedAt,
+        'deletedAt',
+        'Aktif favori deletedAt taşıyamaz (tombstone alanı)',
+      );
+    }
   }
 
   final ContentId duaId;
   final UtcDateTime addedAt;
   final bool deleted;
   final UtcDateTime? deletedAt;
+
+  /// Çakışma çözümü (10_DATA_MODEL §14): **tombstone > add** — silme
+  /// niyeti güçlüdür; aynı durumda geç zaman damgası kazanır (LWW).
+  /// Sıra-bağımsızdır: `resolve(a, b) == resolve(b, a)`.
+  static DuaFavorite resolveTombstoneWins(DuaFavorite a, DuaFavorite b) {
+    assert(a.duaId == b.duaId, 'Aynı duanın kayıtları çözülür');
+    if (a.deleted != b.deleted) {
+      return a.deleted ? a : b;
+    }
+    if (a.deleted && a.deletedAt != b.deletedAt) {
+      return a.deletedAt!.isAfter(b.deletedAt!) ? a : b;
+    }
+    if (a.addedAt != b.addedAt) {
+      return a.addedAt.isAfter(b.addedAt) ? a : b;
+    }
+    return a; // tüm alanlar eşit — iki kopya aynı değerdir
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is DuaFavorite &&
+      other.duaId == duaId &&
+      other.addedAt == addedAt &&
+      other.deleted == deleted &&
+      other.deletedAt == deletedAt;
+
+  @override
+  int get hashCode => Object.hash(duaId, addedAt, deleted, deletedAt);
 
   @override
   SensitivityClass get sensitivityClass => SensitivityClass.medium;

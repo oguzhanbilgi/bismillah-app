@@ -32,7 +32,9 @@ final class PlanItem {
   bool get isCompleted => status == PlanItemStatus.completed;
 
   /// Item bazlı completed-wins (10_DATA_MODEL §14): tamamlanma kaybolmaz;
-  /// ikisi de tamamlanmışsa erken `completedAt` kazanır. Sıra-bağımsız.
+  /// ikisi de tamamlanmışsa erken `completedAt` kazanır. Kalan eşitlikler
+  /// kalıcı alanlarla (type → targetRef → sizeParam) deterministik kırılır —
+  /// sıra-bağımsızlık test zorunluluğudur (§2-6).
   static PlanItem resolveCompletedWins(PlanItem a, PlanItem b) {
     assert(a.itemId == b.itemId, 'Aynı öğenin kopyaları çözülür');
     if (a.isCompleted != b.isCompleted) {
@@ -43,8 +45,53 @@ final class PlanItem {
     if (at != null && bt != null && at != bt) {
       return at.isBefore(bt) ? a : b;
     }
-    return at != null || bt == null ? a : b;
+    if ((at == null) != (bt == null)) {
+      return at != null ? a : b; // zaman damgalı olan deterministik önce
+    }
+    return _tieBreak(a, b) <= 0 ? a : b;
   }
+
+  /// Zamanlar eşit/yokken kalan alanlar üzerinde toplam sıralama.
+  /// Rastgelelik ve "şimdi" kullanılmaz — yalnız kalıcı alanlar.
+  static int _tieBreak(PlanItem a, PlanItem b) {
+    final typeCmp = a.type.index.compareTo(b.type.index);
+    if (typeCmp != 0) {
+      return typeCmp;
+    }
+    final refCmp = _compareNullable(a.targetRef, b.targetRef);
+    if (refCmp != 0) {
+      return refCmp;
+    }
+    return _compareNullable(a.sizeParam, b.sizeParam);
+  }
+
+  /// Null-güvenli karşılaştırma; null deterministik olarak önce gelir.
+  static int _compareNullable(Comparable<dynamic>? x, Comparable<dynamic>? y) {
+    if (x == null && y == null) {
+      return 0;
+    }
+    if (x == null) {
+      return -1;
+    }
+    if (y == null) {
+      return 1;
+    }
+    return Comparable.compare(x, y);
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is PlanItem &&
+      other.itemId == itemId &&
+      other.type == type &&
+      other.targetRef == targetRef &&
+      other.sizeParam == sizeParam &&
+      other.status == status &&
+      other.completedAt == completedAt;
+
+  @override
+  int get hashCode =>
+      Object.hash(itemId, type, targetRef, sizeParam, status, completedAt);
 }
 
 /// Bir günün planı (10_DATA_MODEL §4). 30 günlük çatı = 30 DailyPlan

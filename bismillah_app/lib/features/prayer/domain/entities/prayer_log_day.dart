@@ -35,7 +35,9 @@ final class PrayerEntry {
   ///    geri aldığı kayıttan KESİN olarak daha yeniyse geçerlidir.
   /// 2. İkisi de tamamlanmışsa erken `loggedAt` kazanır (ilk kayıt gerçeği).
   /// 3. İkisi de tamamlanmamışsa geç `loggedAt` kazanır (son niyet).
-  /// 4. Kalan eşitlikler enum sırasıyla deterministik kırılır.
+  /// 4. Kalan eşitlikler durum enum sırası, sonra `undone` bayrağıyla
+  ///    deterministik kırılır — eşit zamanda tombstone kazanamaz
+  ///    ("kayıt kutsaldır", §31).
   static PrayerEntry resolveCompletedWins(PrayerEntry a, PrayerEntry b) {
     assert(a.prayerName == b.prayerName, 'Aynı vakit kayıtları çözülür');
 
@@ -61,7 +63,16 @@ final class PrayerEntry {
     if ((aTime == null) != (bTime == null)) {
       return aTime != null ? a : b; // zaman damgalı olan deterministik önce
     }
-    return a.status.index <= b.status.index ? a : b;
+    if (a.status != b.status) {
+      return a.status.index < b.status.index ? a : b;
+    }
+    // Aynı durum + aynı zaman: açık geri alma işareti OLMAYAN kayıt korunur —
+    // eşitlikte tombstone kazanamaz; sonraki merge'lerde tamamlanmış kaydı
+    // düşürme riski taşıyan bayrak ancak KESİN daha yeni kanıtla yaşar.
+    if (a.undone != b.undone) {
+      return a.undone ? b : a;
+    }
+    return a; // tüm alanlar eşit — iki kopya aynı değerdir
   }
 
   static bool _isStrictlyNewer(PrayerEntry x, PrayerEntry y) {
