@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:bismillah_app/app/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 /// Tipografi token'ları (03_DESIGN_SYSTEM §5).
 ///
@@ -114,14 +113,14 @@ abstract final class AppTypography {
 
   /// Material TextTheme eşlemesi (03_DESIGN_SYSTEM §5 Flutter notları).
   static TextTheme textTheme() => const TextTheme(
-        displaySmall: display,
-        headlineMedium: h1,
-        titleLarge: h2,
-        titleMedium: h3,
-        bodyLarge: body,
-        bodyMedium: bodySmall,
-        bodySmall: caption,
-        labelLarge: button,
-        labelSmall: navLabel,
-      );
+    displaySmall: display,
+    headlineMedium: h1,
+    titleLarge: h2,
+    titleMedium: h3,
+    bodyLarge: body,
+    bodyMedium: bodySmall,
+    bodySmall: caption,
+    labelLarge: button,
+    labelSmall: navLabel,
+  );
 }

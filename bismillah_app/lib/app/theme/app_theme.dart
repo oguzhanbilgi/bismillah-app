@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:bismillah_app/app/theme/app_colors.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/app_typography.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
+import 'package:flutter/material.dart';
 
 /// Uygulama temasının tek kurulum noktası (06_FLUTTER_ARCHITECTURE §9).
 ///
@@ -46,8 +45,9 @@ abstract final class AppTheme {
         backgroundColor: AppColors.surface,
         indicatorColor: AppColors.primarySoft,
         height: AppSizes.bottomNavHeight,
-        labelTextStyle:
-            const WidgetStatePropertyAll<TextStyle>(AppTypography.navLabel),
+        labelTextStyle: const WidgetStatePropertyAll<TextStyle>(
+          AppTypography.navLabel,
+        ),
         iconTheme: WidgetStateProperty.resolveWith(
           (states) => IconThemeData(
             color: states.contains(WidgetState.selected)

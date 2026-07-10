@@ -37,7 +37,8 @@ final class AnalyticsEvent {
   final String name;
   final Map<String, AnalyticsParamValue> params;
 
-  factory AnalyticsEvent.appOpened() => const AnalyticsEvent._('app_opened', {});
+  factory AnalyticsEvent.appOpened() =>
+      const AnalyticsEvent._('app_opened', {});
 
   factory AnalyticsEvent.screenViewed({required String screenId}) =>
       AnalyticsEvent._('screen_viewed', {'screen_id': BucketValue(screenId)});
@@ -46,10 +47,9 @@ final class AnalyticsEvent {
       AnalyticsEvent._('tab_selected', {'tab': BucketValue(tab)});
 
   factory AnalyticsEvent.assistantFabOpened({required String sourceScreen}) =>
-      AnalyticsEvent._(
-        'fab_assistant_opened',
-        {'source_screen': BucketValue(sourceScreen)},
-      );
+      AnalyticsEvent._('fab_assistant_opened', {
+        'source_screen': BucketValue(sourceScreen),
+      });
 
   factory AnalyticsEvent.routeError({required String path}) =>
       AnalyticsEvent._('route_error', {'path': BucketValue(path)});
@@ -59,6 +59,5 @@ final class AnalyticsEvent {
   factory AnalyticsEvent.unsafeForValidation({
     required String name,
     required Map<String, AnalyticsParamValue> params,
-  }) =>
-      AnalyticsEvent._(name, params);
+  }) => AnalyticsEvent._(name, params);
 }

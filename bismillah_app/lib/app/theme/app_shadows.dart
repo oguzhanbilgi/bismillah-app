@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:bismillah_app/app/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 /// Gölge token'ları (03_DESIGN_SYSTEM §8): alçak, dağınık, sıcak.
 /// Gölge rengi saf siyah değil, mürekkep tonudur.

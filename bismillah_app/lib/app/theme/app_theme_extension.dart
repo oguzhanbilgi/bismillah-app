@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:bismillah_app/app/theme/app_colors.dart';
 import 'package:bismillah_app/app/theme/app_shadows.dart';
+import 'package:flutter/material.dart';
 
 /// Material `ColorScheme`'e sığmayan marka token'larının tema uzantısı
 /// (06_FLUTTER_ARCHITECTURE §9). Koyu tema (V2) ikinci bir örnek tanımıyla
@@ -39,18 +38,18 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   final List<BoxShadow> floatingShadow;
 
   static AppThemeExtension light() => AppThemeExtension(
-        primarySoft: AppColors.primarySoft,
-        surfaceAlt: AppColors.surfaceAlt,
-        accentGold: AppColors.accentGold,
-        textPrimary: AppColors.textPrimary,
-        textSecondary: AppColors.textSecondary,
-        textTertiary: AppColors.textTertiary,
-        divider: AppColors.divider,
-        warning: AppColors.warning,
-        disabled: AppColors.disabled,
-        cardShadow: AppShadows.card,
-        floatingShadow: AppShadows.floating,
-      );
+    primarySoft: AppColors.primarySoft,
+    surfaceAlt: AppColors.surfaceAlt,
+    accentGold: AppColors.accentGold,
+    textPrimary: AppColors.textPrimary,
+    textSecondary: AppColors.textSecondary,
+    textTertiary: AppColors.textTertiary,
+    divider: AppColors.divider,
+    warning: AppColors.warning,
+    disabled: AppColors.disabled,
+    cardShadow: AppShadows.card,
+    floatingShadow: AppShadows.floating,
+  );
 
   /// Kısa erişim: `AppThemeExtension.of(context)`.
   static AppThemeExtension of(BuildContext context) =>

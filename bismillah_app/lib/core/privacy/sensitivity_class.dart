@@ -24,16 +24,16 @@ enum SensitivityClass {
 extension SensitivityClassRules on SensitivityClass {
   /// Bu sınıftaki veri log satırına yazılabilir mi?
   bool get isLoggable => switch (this) {
-        SensitivityClass.publicContent || SensitivityClass.low => true,
-        _ => false,
-      };
+    SensitivityClass.publicContent || SensitivityClass.low => true,
+    _ => false,
+  };
 
   /// Bu sınıftaki veri analytics'e HAM olarak gidebilir mi?
   /// (High sınıfı yalnız kova/enum eventlerle temsil edilir.)
   bool get isRawAnalyticsAllowed => switch (this) {
-        SensitivityClass.publicContent || SensitivityClass.low => true,
-        _ => false,
-      };
+    SensitivityClass.publicContent || SensitivityClass.low => true,
+    _ => false,
+  };
 
   /// Bu sınıftaki veri herhangi bir katmanda saklanabilir mi?
   bool get isStorable => this != SensitivityClass.restricted;

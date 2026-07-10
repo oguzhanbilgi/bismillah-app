@@ -10,8 +10,9 @@ abstract final class ErrorMapper {
       StorageException() => const StorageFailure(),
       PermissionException() => const PermissionFailure(),
       AuthException() => const AuthFailure(),
-      ContentValidationException() =>
-        const ValidationFailure(messageKey: 'errorContentValidation'),
+      ContentValidationException() => const ValidationFailure(
+        messageKey: 'errorContentValidation',
+      ),
       _ => const UnexpectedFailure(),
     };
   }

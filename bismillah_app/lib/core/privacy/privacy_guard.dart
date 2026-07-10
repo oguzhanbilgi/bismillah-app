@@ -69,6 +69,5 @@ abstract final class PrivacyGuard {
 
   /// Verilen hassasiyet sınıfının saklanıp saklanamayacağı.
   /// [SensitivityClass.restricted] hiçbir katmanda saklanamaz.
-  static bool canStore(SensitivityClass sensitivity) =>
-      sensitivity.isStorable;
+  static bool canStore(SensitivityClass sensitivity) => sensitivity.isStorable;
 }

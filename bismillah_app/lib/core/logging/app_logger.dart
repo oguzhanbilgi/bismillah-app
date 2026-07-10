@@ -9,7 +9,9 @@ import 'package:flutter/foundation.dart';
 enum LogLevel { debug, info, warning, error }
 
 final class AppLogger {
-  const AppLogger({this.minimumLevel = kDebugMode ? LogLevel.debug : LogLevel.warning});
+  const AppLogger({
+    this.minimumLevel = kDebugMode ? LogLevel.debug : LogLevel.warning,
+  });
 
   final LogLevel minimumLevel;
 

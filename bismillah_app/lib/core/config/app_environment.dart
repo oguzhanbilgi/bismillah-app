@@ -22,8 +22,8 @@ final class AppEnvironment {
 
   /// Uygulama adı eki (dev/staging build'leri ayırt etmek için).
   String get appNameSuffix => switch (flavor) {
-        Flavor.development => ' Dev',
-        Flavor.staging => ' Beta',
-        Flavor.production => '',
-      };
+    Flavor.development => ' Dev',
+    Flavor.staging => ' Beta',
+    Flavor.production => '',
+  };
 }
