@@ -25,5 +25,6 @@ abstract final class AppSizes {
   static const double iconLg = 32;
   static const double progressRingLarge = 96;
   static const double progressRingSmall = 32;
+  static const double progressBarHeight = 8;
   static const double maxContentWidth = 480;
 }

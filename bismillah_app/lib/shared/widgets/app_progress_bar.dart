@@ -1,5 +1,6 @@
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
+import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
 /// Yumuşak uçlu ilerleme çubuğu (03_DESIGN_SYSTEM §20): zümrüt dolgu,
@@ -25,7 +26,7 @@ class AppProgressBar extends StatelessWidget {
         borderRadius: AppRadius.pillAll,
         child: LinearProgressIndicator(
           value: value,
-          minHeight: 8,
+          minHeight: AppSizes.progressBarHeight,
           color: scheme.primary,
           backgroundColor: ext.surfaceAlt,
         ),

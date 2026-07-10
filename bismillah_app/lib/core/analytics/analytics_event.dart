@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Tipli analytics event sözlüğü (06_FLUTTER_ARCHITECTURE §21).
 ///
 /// Parametre değerleri serbest `String` OLAMAZ — yalnız [AnalyticsParamValue]
@@ -54,8 +56,9 @@ final class AnalyticsEvent {
   factory AnalyticsEvent.routeError({required String path}) =>
       AnalyticsEvent._('route_error', {'path': BucketValue(path)});
 
-  /// Test/iç kullanım: sözlük dışı ham event üretimi yalnız testlerde
-  /// PrivacyGuard doğrulamasını denemek içindir.
+  /// Sözlük dışı ham event üretimi YALNIZ testlerde PrivacyGuard
+  /// doğrulamasını denemek içindir — üretim kodunda kullanılamaz.
+  @visibleForTesting
   factory AnalyticsEvent.unsafeForValidation({
     required String name,
     required Map<String, AnalyticsParamValue> params,
