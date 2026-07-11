@@ -1,3 +1,4 @@
+import 'package:bismillah_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 /// Firebase Core başlatma sonucu — Firebase tipleri bu dosyanın dışına
@@ -23,25 +24,33 @@ abstract interface class FirebaseInitializer {
   Future<FirebaseInitStatus> initialize();
 }
 
-/// Gerçek Firebase Core başlatıcısı.
+/// Gerçek Firebase Core başlatıcısı (TASK 019: FlutterFire bağlı).
 ///
-/// ÖNEMLİ (TASK 018 durumu): repoda `firebase_options.dart` ve platform
-/// config dosyaları (google-services.json / GoogleService-Info.plist)
-/// YOKTUR ve native platform klasörleri henüz oluşturulmamıştır. Gerçek
-/// cihazda Firebase auth için FlutterFire CLI yapılandırması ayrı görevde
-/// gelecektir; o zamana dek bu başlatıcı `unavailable` döner ve uygulama
-/// kalıcı lokal kimlikle çalışır (07 §146: ilk gerçek anonim auth'ta
-/// remap ile UID yükseltilir).
+/// Proje `bismillah-app-dev-oguzhan`; [DefaultFirebaseOptions.currentPlatform]
+/// FlutterFire CLI tarafından üretildi (Android+iOS). Başlatma yapılandırılmış
+/// seçeneklerle yapılır — Android'de `google-services.json` de mevcuttur.
+///
+/// `currentPlatform` yapılandırılmamış platformlarda (web/windows/macos/linux)
+/// `UnsupportedError` fırlatır; test ortamında da native kanal yoktur. Her iki
+/// durum da yakalanır ve `unavailable` döner — uygulama kalıcı lokal kimlikle
+/// çalışmaya devam eder (07 §146: ilk gerçek anonim auth'ta remap ile UID
+/// yükseltilir). Firestore/sync BAŞLATILMAZ; bu yalnız Core zeminidir.
 final class DefaultFirebaseInitializer implements FirebaseInitializer {
   const DefaultFirebaseInitializer();
 
   @override
   Future<FirebaseInitStatus> initialize() async {
     try {
-      await Firebase.initializeApp();
+      // Hot restart / tekrar çağrı güvenliği: zaten başlatılmışsa
+      // duplicate-app fırlatmasını önle.
+      if (Firebase.apps.isEmpty) {
+        await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        );
+      }
       return const FirebaseInitStatus.available();
-      // Config yokluğu platforma göre Exception YA DA Error olarak yüzer
-      // (MissingPluginException, FirebaseException, UnsupportedError...);
+      // Başarısızlık platforma göre Exception YA DA Error olarak yüzer
+      // (UnsupportedError, MissingPluginException, FirebaseException...);
       // hepsi aynı karara çıkar: Firebase yok, lokal kimlikle devam.
     } catch (e) {
       return FirebaseInitStatus.unavailable(e.runtimeType.toString());

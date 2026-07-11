@@ -88,17 +88,17 @@ test/                  # Smoke + birim testleri
   son ekleri (`.dev`/`.staging`) Gradle product flavor kurulumuyla ayrı
   görevde eklenecek. iOS dosyaları üretildi ancak **iOS build macOS/Xcode
   gerektirir — Windows'ta derlenmedi/test edilmedi.**
-- **Firebase config durumu: EKSİK (kullanıcı aksiyonu gerekli).** Repoda
-  `firebase_options.dart` ve platform config (`google-services.json` /
-  `GoogleService-Info.plist`) YOKTUR. Bunları üretmek için: onaylı bir
-  Firebase projesi seçilip `dart pub global activate flutterfire_cli` +
-  `flutterfire configure` (Android+iOS, `com.bismillah.app`) çalıştırılmalı
-  — bu adım interaktif Firebase login gerektirir ve otomatik yapılamaz.
-  Üretildikten sonra `DefaultFirebaseInitializer`,
-  `DefaultFirebaseOptions.currentPlatform` ile tek satırda bağlanır. O
-  zamana dek uygulama kalıcı `local-*` fallback kimliğiyle çalışır ve ilk
-  gerçek anonim auth'ta remap veriyi taşır (07 §146). Testler Firebase
-  projesi GEREKTİRMEZ (fake'ler).
+- **Firebase config durumu: BAĞLI (TASK 019).** FlutterFire ile Firebase
+  projesi `bismillah-app-dev-oguzhan` yapılandırıldı: `lib/firebase_options.dart`
+  (Android+iOS, `com.bismillah.app`), `android/app/google-services.json` ve
+  Gradle plugin'leri mevcut. `DefaultFirebaseInitializer` artık
+  `Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)`
+  çağırıyor; yapılandırılmamış platform (web/desktop) veya native kanalı
+  olmayan test ortamında `unavailable` dönüp kalıcı `local-*` kimliğe düşer.
+  **iOS native `GoogleService-Info.plist` yerleştirilmedi** (FlutterFire
+  Windows davranışı); Dart seçenekleri mevcut ama iOS build macOS/Xcode
+  gerektirir. Firebase Console'da **Anonim kimlik doğrulama etkin**. Firestore
+  sync HÂLÂ YOK. Testler canlı Firebase projesi GEREKTİRMEZ (fake'ler).
 - AI asistan implementasyonu — AI SDK client'a eklenmeyecek; çağrılar Cloud
   Functions proxy'sinden geçecek.
 - Gerçek onboarding akışı, namaz vakti hesabı, içerik (ayet/hadis/dua) —
@@ -110,12 +110,30 @@ test/                  # Smoke + birim testleri
 - Marka yazı tipleri (Plus Jakarta Sans, Amiri, Uthmanic Hafs vb.) — asset
   görevinde; tipografi token'ları hazır.
 
-## Secrets Uyarısı
+## Secrets Politikası
 
-Bu repoda API anahtarı, servis hesabı, keystore, `google-services.json` /
-`GoogleService-Info.plist` YOKTUR ve commit edilmez. AI sağlayıcı anahtarları
-yalnız sunucu tarafında (Secret Manager) yaşar
-(`docs/07_FIREBASE_ARCHITECTURE.md §35`).
+**Firebase istemci yapılandırması commit EDİLİR** (TASK 019 kararı — standart
+istemci-config politikası):
+
+- `lib/firebase_options.dart` ve `android/app/google-services.json` Firebase
+  **istemci** yapılandırmasıdır; bir uygulamaya gömülmek üzere tasarlanmış
+  public tanımlayıcılar taşır (app ID, proje ID, istemci API anahtarı).
+- Bunlar **yetkilendirme sırrı DEĞİLDİR**: içerdikleri API anahtarı tek başına
+  hiçbir kullanıcı verisine erişim vermez.
+- Güvenlik, anahtarı gizlemeye değil şunlara dayanır: **Firebase Authentication,
+  Security Rules, (Google Cloud Console'da) API anahtarı kısıtlamaları** ve
+  ileride **App Check**.
+
+**ASLA commit edilmeyen GERÇEK sırlar** (`.gitignore` ile engelli):
+servis hesabı / Admin SDK private key'leri (`service-account*.json`,
+`*adminsdk*.json`), OAuth client secret'ları, Firebase CLI token'ları,
+imzalama keystore'ları (`*.jks` / `*.keystore` / `android/key.properties`),
+gizli ortam değerleri (`.env`). AI sağlayıcı anahtarları yalnız sunucu tarafında
+(Secret Manager) yaşar (`docs/07_FIREBASE_ARCHITECTURE.md §35`).
+
+**iOS:** `GoogleService-Info.plist` henüz repoda yoktur (FlutterFire Windows'ta
+yerleştiremedi); macOS'ta üretildiğinde aynı istemci-config politikasıyla
+commit edilir.
 
 ## Sıradaki Görevler
 

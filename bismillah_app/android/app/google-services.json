@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "797805965562",
+    "project_id": "bismillah-app-dev-oguzhan",
+    "storage_bucket": "bismillah-app-dev-oguzhan.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797805965562:android:dc775cb1509827bb97d943",
+        "android_client_info": {
+          "package_name": "com.bismillah.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANoI_0ALaChie5sHezgT-2YnCh2N9Pu2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -88,9 +88,13 @@ void main() {
   });
 
   test(
-      'DefaultFirebaseInitializer reports unavailable in test env '
-      '(no platform config) instead of crashing', () async {
+      'DefaultFirebaseInitializer (with generated options) reports '
+      'unavailable in test env — no native channel — instead of crashing',
+      () async {
     TestWidgetsFlutterBinding.ensureInitialized();
+    // Config artık MEVCUT (firebase_options.dart bağlı), ama test ortamında
+    // native Firebase kanalı yok → initializeApp fırlatır → yakalanır →
+    // unavailable → lokal fallback. Uygulama çökmez.
     final status = await const DefaultFirebaseInitializer().initialize();
     expect(status.isAvailable, isFalse);
     expect(status.reason, isNotNull);
