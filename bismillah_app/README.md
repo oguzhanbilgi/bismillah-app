@@ -2,10 +2,11 @@
 
 Premium İslami yaşam arkadaşı — Flutter uygulaması.
 
-**Mevcut aşama:** TASK 015 — Drift lokal veritabanı (TASK 014) Riverpod
-provider'ları ve bootstrap üzerinden uygulama grafına bağlandı. Gerçek DB
-mevcut ve açılışta başlatılıyor; ancak henüz hiçbir kullanıcıya görünen
-özellik onu KULLANMIYOR — ilk dikey dilim sonraki görevde.
+**Mevcut aşama:** TASK 016 — ilk kullanıcıya görünen dikey dilim: Namaz
+sekmesi artık gerçek bir günlük ekranı (bugünün beş vakti, işaretle/geri al,
+Drift'e kalıcı yazım + aynı transaction'da sync kuyruğuna op). Vakit
+HESABI yok (late/qada çıkarımı yapılmaz, işaretleme `onTime` kaydeder);
+sync engine hâlâ yok — kuyruk yalnız birikir.
 
 ## Çalıştırma
 
@@ -94,10 +95,9 @@ yalnız sunucu tarafında (Secret Manager) yaşar
 
 ## Sıradaki Görevler
 
-1. **TASK 016 — İlk kullanıcıya görünen dikey dilim** (namaz kaydı ekranının
-   `prayerLogRepositoryProvider` üzerinden gerçek DB'ye bağlanması)
-2. Firebase anonim auth + gerçek cihaz kimliği (placeholder provider'ların
-   gövdesini değiştirir)
+1. Firebase anonim auth + gerçek cihaz kimliği (placeholder provider'ların
+   gövdesini değiştirir; `placeholder-local-user` verisinin gerçek UID'ye
+   remap'i bu görevin kapsamındadır)
 3. Sync engine (push worker) — kuyruk hazır, engine yok
 4. RevenueCat / kalan entegrasyonlar
 

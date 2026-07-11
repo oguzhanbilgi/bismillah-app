@@ -3,7 +3,7 @@ import 'package:bismillah_app/app/shell/app_shell.dart';
 import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_placeholder_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_placeholder_screen.dart';
-import 'package:bismillah_app/features/prayer/presentation/prayer_placeholder_screen.dart';
+import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
@@ -48,7 +48,7 @@ GoRouter buildAppRouter() {
               GoRoute(
                 path: AppRoutes.prayer,
                 name: AppRoutes.prayerName,
-                builder: (context, state) => const PrayerPlaceholderScreen(),
+                builder: (context, state) => const PrayerScreen(),
               ),
             ],
           ),

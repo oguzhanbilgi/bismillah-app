@@ -47,6 +47,21 @@ final class AppLocalizations {
   String get commonRetry => _t('commonRetry');
   String get commonClose => _t('commonClose');
 
+  // Namaz takibi (TASK 016 — ton: sakin, suçlayıcı dil YASAK)
+  String get prayerTodaySubtitle => _t('prayerTodaySubtitle');
+  String get prayerGentleLine => _t('prayerGentleLine');
+  String get prayerMark => _t('prayerMark');
+  String get prayerCompleted => _t('prayerCompleted');
+  String get prayerUndo => _t('prayerUndo');
+  String get prayerLocalNote => _t('prayerLocalNote');
+  String get prayerSaveIssue => _t('prayerSaveIssue');
+  String get prayerLoadIssue => _t('prayerLoadIssue');
+  String get prayerNameFajr => _t('prayerNameFajr');
+  String get prayerNameDhuhr => _t('prayerNameDhuhr');
+  String get prayerNameAsr => _t('prayerNameAsr');
+  String get prayerNameMaghrib => _t('prayerNameMaghrib');
+  String get prayerNameIsha => _t('prayerNameIsha');
+
   // Premium (davet dili — 02_BRAND_GUIDELINES §26; kilit/unlock dili YASAK)
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
   String get premiumInviteLine => _t('premiumInviteLine');
@@ -68,6 +83,19 @@ final class AppLocalizations {
       'commonLoading': 'Yükleniyor…',
       'commonRetry': 'Tekrar dene',
       'commonClose': 'Kapat',
+      'prayerTodaySubtitle': 'Bugünün namaz takibi',
+      'prayerGentleLine': 'Bugün için küçük bir adım.',
+      'prayerMark': 'İşaretle',
+      'prayerCompleted': 'Tamamlandı',
+      'prayerUndo': 'Geri al',
+      'prayerLocalNote': 'Kayıtlar cihazında güvenle saklanır.',
+      'prayerSaveIssue': 'Kaydedilemedi — dilediğinde tekrar deneyebilirsin.',
+      'prayerLoadIssue': 'Kayıtlar şu an açılamadı.',
+      'prayerNameFajr': 'Sabah',
+      'prayerNameDhuhr': 'Öğle',
+      'prayerNameAsr': 'İkindi',
+      'prayerNameMaghrib': 'Akşam',
+      'prayerNameIsha': 'Yatsı',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -87,6 +115,19 @@ final class AppLocalizations {
       'commonLoading': 'Loading…',
       'commonRetry': 'Try again',
       'commonClose': 'Close',
+      'prayerTodaySubtitle': "Today's prayer tracking",
+      'prayerGentleLine': 'A small step for today.',
+      'prayerMark': 'Mark',
+      'prayerCompleted': 'Completed',
+      'prayerUndo': 'Undo',
+      'prayerLocalNote': 'Your records are stored safely on your device.',
+      'prayerSaveIssue': 'Could not save — you can try again anytime.',
+      'prayerLoadIssue': 'Your records could not be opened right now.',
+      'prayerNameFajr': 'Fajr',
+      'prayerNameDhuhr': 'Dhuhr',
+      'prayerNameAsr': 'Asr',
+      'prayerNameMaghrib': 'Maghrib',
+      'prayerNameIsha': 'Isha',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -106,6 +147,19 @@ final class AppLocalizations {
       'commonLoading': 'جارٍ التحميل…',
       'commonRetry': 'حاول مجدداً',
       'commonClose': 'إغلاق',
+      'prayerTodaySubtitle': 'متابعة صلوات اليوم',
+      'prayerGentleLine': 'خطوة صغيرة لهذا اليوم.',
+      'prayerMark': 'تسجيل',
+      'prayerCompleted': 'تمّت',
+      'prayerUndo': 'تراجع',
+      'prayerLocalNote': 'تُحفَظ سجلاتك بأمان على جهازك.',
+      'prayerSaveIssue': 'تعذّر الحفظ — يمكنك المحاولة مجدداً في أي وقت.',
+      'prayerLoadIssue': 'تعذّر فتح السجلات الآن.',
+      'prayerNameFajr': 'الفجر',
+      'prayerNameDhuhr': 'الظهر',
+      'prayerNameAsr': 'العصر',
+      'prayerNameMaghrib': 'المغرب',
+      'prayerNameIsha': 'العشاء',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

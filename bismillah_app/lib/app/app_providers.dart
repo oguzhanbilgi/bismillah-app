@@ -6,9 +6,11 @@ import 'package:bismillah_app/core/database/local_database.dart';
 import 'package:bismillah_app/core/logging/app_logger.dart';
 import 'package:bismillah_app/core/network/network_status.dart';
 import 'package:bismillah_app/core/storage/database_providers.dart';
-import 'package:bismillah_app/core/utils/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+export 'package:bismillah_app/core/utils/clock_provider.dart'
+    show clockProvider;
 
 /// Uygulama geneli DI provider'ları (06_FLUTTER_ARCHITECTURE §11):
 /// tek DI mekanizması Riverpod'dur; ayrı DI kütüphanesi kullanılmaz.
@@ -36,7 +38,5 @@ final localDatabaseProvider = Provider<LocalDatabase>(
 final networkStatusServiceProvider = Provider<NetworkStatusService>(
   (ref) => const AlwaysOnlineNetworkStatusService(),
 );
-
-final clockProvider = Provider<AppClock>((ref) => const SystemClock());
 
 final appRouterProvider = Provider<GoRouter>((ref) => buildAppRouter());
