@@ -1,0 +1,41 @@
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+
+/// Mimari sınır bekçisi (10_DATA_MODEL §7 hardening; TASK 014/015 kuralı):
+/// `package:drift` importu YALNIZ şu katmanlarda yaşayabilir:
+///
+/// - `lib/core/storage/` (DB + yaşam döngüsü provider'ı)
+/// - `lib/features/*/data/local/` (tablolar + Drift repository'leri)
+/// - `lib/features/*/data/mappers/` (satır ↔ domain eşlemesi)
+///
+/// UI, application, domain, app kabuğu ve shared bileşenler Drift'i
+/// GÖREMEZ — paket değişimi infrastructure'da izole kalır.
+void main() {
+  test('package:drift imports never leak outside storage/data layers', () {
+    final allowed = [
+      RegExp(r'lib[/\\]core[/\\]storage[/\\]'),
+      RegExp(r'lib[/\\]features[/\\][^/\\]+[/\\]data[/\\]local[/\\]'),
+      RegExp(r'lib[/\\]features[/\\][^/\\]+[/\\]data[/\\]mappers[/\\]'),
+    ];
+
+    final violations = <String>[
+      for (final file in Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>())
+        if (file.path.endsWith('.dart') &&
+            !allowed.any((layer) => layer.hasMatch(file.path)) &&
+            file
+                .readAsStringSync()
+                .contains(RegExp("import 'package:drift")))
+          file.path,
+    ];
+
+    expect(
+      violations,
+      isEmpty,
+      reason: 'Drift importu izinli katmanların dışına sızdı — repository '
+          'interface/domain/UI Drift tipi göremez (06 §7, doc 11 §karar).',
+    );
+  });
+}

@@ -2,8 +2,10 @@
 
 Premium İslami yaşam arkadaşı — Flutter uygulaması.
 
-**Mevcut aşama:** TASK 011 — Flutter scaffold foundation. Bu, uygulamanın
-temel iskeletidir; gerçek özellik implementasyonları sonraki görevlerde gelir.
+**Mevcut aşama:** TASK 015 — Drift lokal veritabanı (TASK 014) Riverpod
+provider'ları ve bootstrap üzerinden uygulama grafına bağlandı. Gerçek DB
+mevcut ve açılışta başlatılıyor; ancak henüz hiçbir kullanıcıya görünen
+özellik onu KULLANMIYOR — ilk dikey dilim sonraki görevde.
 
 ## Çalıştırma
 
@@ -62,8 +64,16 @@ test/                  # Smoke + birim testleri
   mimari yerleri hazır.
 - RevenueCat / satın alma akışı — `/premium` ve `/settings/subscription`
   placeholder.
-- Isar (veya alternatif) gerçek lokal DB — yalnız `LocalDatabase`
-  soyutlaması var; paket kararı infrastructure'da izole kalacak.
+- ~~Gerçek lokal DB~~ → **Drift bağlandı** (TASK 013 kararı + TASK 014/015):
+  `appDatabaseProvider` tek paylaşımlı `AppDatabase` açar, container
+  dispose'unda kapatır; `prayerLogRepositoryProvider` /
+  `syncQueueRepositoryProvider` arayüz tipleriyle çözülür. Drift importu
+  yalnız `core/storage` + `features/*/data/{local,mappers}` katmanlarında
+  (mimari testle korunur: `test/architecture/`). Sync ENGINE yok — yalnız
+  kalıcı kuyruk.
+- Kimlik: `currentUserIdProvider` / `currentDeviceIdProvider` GEÇİCİ
+  placeholder'dır (`core/session/`) — gerçek Firebase anonim auth ve cihaz
+  kimliği ayrı görevde; provider gövdesi değişecek, imzalar sabit.
 - AI asistan implementasyonu — AI SDK client'a eklenmeyecek; çağrılar Cloud
   Functions proxy'sinden geçecek.
 - Gerçek onboarding akışı, namaz vakti hesabı, içerik (ayet/hadis/dua) —
@@ -84,11 +94,12 @@ yalnız sunucu tarafında (Secret Manager) yaşar
 
 ## Sıradaki Görevler
 
-1. **TASK 012 — Implement Core Domain Models and Local Data Contracts**
-   (`docs/10_DATA_MODEL_AND_SYNC_SPECIFICATION.md` sözleşmesiyle)
-2. Onboarding akışı implementasyonu (TASK 013+)
-3. Lokal DB paket seçimi + repository implementasyonları
-4. Firebase/RevenueCat entegrasyonları
+1. **TASK 016 — İlk kullanıcıya görünen dikey dilim** (namaz kaydı ekranının
+   `prayerLogRepositoryProvider` üzerinden gerçek DB'ye bağlanması)
+2. Firebase anonim auth + gerçek cihaz kimliği (placeholder provider'ların
+   gövdesini değiştirir)
+3. Sync engine (push worker) — kuyruk hazır, engine yok
+4. RevenueCat / kalan entegrasyonlar
 
 Ürün/mimari kararların tamamı repo kökündeki `docs/` klasöründedir;
 çelişki hâlinde sıra: `CLAUDE.md` → `docs/01…10`.

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
-  await bootstrap();
-  runApp(const ProviderScope(child: BismillahApp()));
+  // Bootstrap DB yaşam döngüsünü sahiplenen container'ı kurar; uygulama
+  // ömrü boyunca yaşar (dispose gerekmez — süreç sonlanınca kapanır).
+  final container = await bootstrap();
+  runApp(
+    UncontrolledProviderScope(container: container, child: const BismillahApp()),
+  );
 }

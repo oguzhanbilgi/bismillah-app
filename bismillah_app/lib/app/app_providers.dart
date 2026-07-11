@@ -5,6 +5,7 @@ import 'package:bismillah_app/core/config/app_environment.dart';
 import 'package:bismillah_app/core/database/local_database.dart';
 import 'package:bismillah_app/core/logging/app_logger.dart';
 import 'package:bismillah_app/core/network/network_status.dart';
+import 'package:bismillah_app/core/storage/database_providers.dart';
 import 'package:bismillah_app/core/utils/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -26,9 +27,10 @@ final analyticsServiceProvider = Provider<AnalyticsService>(
 );
 
 final localDatabaseProvider = Provider<LocalDatabase>(
-  // Gerçek DB implementasyonu TASK 012+ — paket kararı infrastructure'da
-  // izole kalır (10_DATA_MODEL §7 hardening).
-  (ref) => InMemoryLocalDatabase(),
+  // Gerçek Drift DB'si (TASK 014) — paket kararı infrastructure'da izole
+  // kalır (10_DATA_MODEL §7 hardening): bu katman yalnız soyutlamayı
+  // görür, Drift tipi core/storage provider'ının arkasındadır.
+  (ref) => ref.watch(appDatabaseProvider),
 );
 
 final networkStatusServiceProvider = Provider<NetworkStatusService>(
