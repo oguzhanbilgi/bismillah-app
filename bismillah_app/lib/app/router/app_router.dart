@@ -8,7 +8,7 @@ import 'package:bismillah_app/features/premium/presentation/premium_placeholder_
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_placeholder_screen.dart';
-import 'package:bismillah_app/features/today/presentation/today_placeholder_screen.dart';
+import 'package:bismillah_app/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,7 +39,7 @@ GoRouter buildAppRouter() {
               GoRoute(
                 path: AppRoutes.today,
                 name: AppRoutes.todayName,
-                builder: (context, state) => const TodayPlaceholderScreen(),
+                builder: (context, state) => const TodayScreen(),
               ),
             ],
           ),

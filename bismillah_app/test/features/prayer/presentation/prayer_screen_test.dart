@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
+import '../../../helpers/widget_test_utils.dart';
 
 /// TASK 016 ekran testleri: gerçek in-memory Drift DB üzerinde widget akışı.
 ///
@@ -81,7 +82,7 @@ void main() {
       findsOneWidget,
     );
 
-    await _unmountAndFlush(tester);
+    await unmountAndFlushDriftTimers(tester);
   });
 
   testWidgets('tapping a row marks it completed and allows undo',
@@ -101,14 +102,6 @@ void main() {
     expect(find.text('Tamamlandı'), findsNothing);
     expect(find.text('İşaretle'), findsNWidgets(5));
 
-    await _unmountAndFlush(tester);
+    await unmountAndFlushDriftTimers(tester);
   });
-}
-
-/// Ağacı test gövdesi İÇİNDE söker ve Drift stream aboneliği iptalinin
-/// kurduğu kısa ömürlü timer'ı fake saati ilerleterek boşaltır — aksi
-/// hâlde testWidgets kapanışta "Timer is still pending" ile düşer.
-Future<void> _unmountAndFlush(WidgetTester tester) async {
-  await tester.pumpWidget(const SizedBox.shrink());
-  await tester.pump(const Duration(seconds: 1));
 }

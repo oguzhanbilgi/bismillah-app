@@ -47,6 +47,19 @@ final class AppLocalizations {
   String get commonRetry => _t('commonRetry');
   String get commonClose => _t('commonClose');
 
+  // Today özeti (TASK 017 — ton: sakin, suçlayıcı dil YASAK)
+  String get todayGreeting => _t('todayGreeting');
+  String get todayGentleLine => _t('todayGentleLine');
+  String get todayPrayerCardTitle => _t('todayPrayerCardTitle');
+  String get todayGoToPrayers => _t('todayGoToPrayers');
+  String get todayLocalNote => _t('todayLocalNote');
+  String get todayLoadIssue => _t('todayLoadIssue');
+
+  /// "2/5 tamamlandı" biçimli ilerleme metni.
+  String todayPrayerProgress(int completed, int total) => _t(
+    'todayPrayerProgress',
+  ).replaceAll('{completed}', '$completed').replaceAll('{total}', '$total');
+
   // Namaz takibi (TASK 016 — ton: sakin, suçlayıcı dil YASAK)
   String get prayerTodaySubtitle => _t('prayerTodaySubtitle');
   String get prayerGentleLine => _t('prayerGentleLine');
@@ -83,6 +96,13 @@ final class AppLocalizations {
       'commonLoading': 'Yükleniyor…',
       'commonRetry': 'Tekrar dene',
       'commonClose': 'Kapat',
+      'todayGreeting': 'Bugünün ritmi',
+      'todayGentleLine': 'Bugün için küçük adımlar.',
+      'todayPrayerCardTitle': 'Bugünün namaz takibi',
+      'todayPrayerProgress': '{completed}/{total} tamamlandı',
+      'todayGoToPrayers': 'Namazlara git',
+      'todayLocalNote': 'Kayıtların cihazında saklanır.',
+      'todayLoadIssue': 'Özet şu an açılamadı.',
       'prayerTodaySubtitle': 'Bugünün namaz takibi',
       'prayerGentleLine': 'Bugün için küçük bir adım.',
       'prayerMark': 'İşaretle',
@@ -115,6 +135,13 @@ final class AppLocalizations {
       'commonLoading': 'Loading…',
       'commonRetry': 'Try again',
       'commonClose': 'Close',
+      'todayGreeting': "Today's rhythm",
+      'todayGentleLine': 'Small steps for today.',
+      'todayPrayerCardTitle': "Today's prayer tracking",
+      'todayPrayerProgress': '{completed}/{total} completed',
+      'todayGoToPrayers': 'Go to prayers',
+      'todayLocalNote': 'Your records stay on your device.',
+      'todayLoadIssue': 'The summary could not be opened right now.',
       'prayerTodaySubtitle': "Today's prayer tracking",
       'prayerGentleLine': 'A small step for today.',
       'prayerMark': 'Mark',
@@ -147,6 +174,13 @@ final class AppLocalizations {
       'commonLoading': 'جارٍ التحميل…',
       'commonRetry': 'حاول مجدداً',
       'commonClose': 'إغلاق',
+      'todayGreeting': 'إيقاع اليوم',
+      'todayGentleLine': 'خطوات صغيرة لهذا اليوم.',
+      'todayPrayerCardTitle': 'متابعة صلوات اليوم',
+      'todayPrayerProgress': 'اكتملت {completed}/{total}',
+      'todayGoToPrayers': 'اذهب إلى الصلوات',
+      'todayLocalNote': 'تبقى سجلاتك على جهازك.',
+      'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',
       'prayerTodaySubtitle': 'متابعة صلوات اليوم',
       'prayerGentleLine': 'خطوة صغيرة لهذا اليوم.',
       'prayerMark': 'تسجيل',

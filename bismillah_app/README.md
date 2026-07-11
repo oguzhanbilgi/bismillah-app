@@ -2,11 +2,12 @@
 
 Premium İslami yaşam arkadaşı — Flutter uygulaması.
 
-**Mevcut aşama:** TASK 016 — ilk kullanıcıya görünen dikey dilim: Namaz
-sekmesi artık gerçek bir günlük ekranı (bugünün beş vakti, işaretle/geri al,
-Drift'e kalıcı yazım + aynı transaction'da sync kuyruğuna op). Vakit
-HESABI yok (late/qada çıkarımı yapılmaz, işaretleme `onTime` kaydeder);
-sync engine hâlâ yok — kuyruk yalnız birikir.
+**Mevcut aşama:** TASK 017 — Today sekmesi ilk gerçek içerik: bugünün namaz
+özeti kartı (X/5 tamamlandı + ilerleme çubuğu + "Namazlara git" CTA'sı).
+Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
+(`PrayerLogRepository.watchDay` → Drift). TASK 016: Namaz sekmesi gerçek
+günlük ekranı (işaretle/geri al, kalıcı yazım + aynı transaction'da sync
+op). Vakit HESABI yok; sync engine hâlâ yok — kuyruk yalnız birikir.
 
 ## Çalıştırma
 
