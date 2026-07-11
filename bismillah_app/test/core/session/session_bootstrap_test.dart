@@ -49,6 +49,42 @@ void main() {
     );
 
     expect(identity.userId.value, 'local-previous');
+    expect(identity.identitySource, IdentitySource.local);
+  });
+
+  test(
+      'anonymous sign-in TIMEOUT → persistent local fallback (cold start does '
+      'not wait indefinitely)', () async {
+    SharedPreferences.setMockInitialValues({});
+    final stopwatch = Stopwatch()..start();
+
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(const FirebaseInitStatus.available()),
+      // Auth ağın asıldığını simüle eder (timeout'tan çok daha uzun).
+      authService: _SlowAuthService(const Duration(seconds: 30)),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+      authTimeout: const Duration(milliseconds: 40),
+    );
+    stopwatch.stop();
+
+    expect(identity.userId.value, startsWith('local-'));
+    expect(identity.identitySource, IdentitySource.local);
+    // 30 sn'lik askıyı beklemeden, timeout bütçesi civarında döndü.
+    expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
+  });
+
+  test('successful anonymous sign-in classifies identity as firebase',
+      () async {
+    SharedPreferences.setMockInitialValues({});
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(const FirebaseInitStatus.available()),
+      authService: _FixedAuthService(UserId('firebase-uid-123')),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+      authTimeout: const Duration(seconds: 3),
+    );
+
+    expect(identity.userId.value, 'firebase-uid-123');
+    expect(identity.identitySource, IdentitySource.firebase);
   });
 
   test(
@@ -83,6 +119,19 @@ final class _ThrowingAuthService implements AnonymousAuthService {
   @override
   Future<UserId> ensureAnonymousUserId() async =>
       throw Exception('network unavailable');
+}
+
+/// Ağın asıldığını simüle eder: verilen süre boyunca döner (timeout testi).
+final class _SlowAuthService implements AnonymousAuthService {
+  _SlowAuthService(this._delay);
+
+  final Duration _delay;
+
+  @override
+  Future<UserId> ensureAnonymousUserId() async {
+    await Future<void>.delayed(_delay);
+    return UserId('should-not-be-used');
+  }
 }
 
 final class _FixedDeviceService implements DeviceIdentityService {

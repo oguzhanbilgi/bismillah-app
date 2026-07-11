@@ -118,6 +118,7 @@ void main() {
       userId: UserId('resolved-uid'),
       deviceId: DeviceId('resolved-device'),
       firebaseStatus: const FirebaseInitStatus.unavailable('test'),
+      identitySource: IdentitySource.local,
     );
 
     test(

@@ -44,6 +44,11 @@ void main() {
     final allowed = [
       RegExp(r'lib[/\\]core[/\\]firebase[/\\]'),
       RegExp(r'lib[/\\]core[/\\]session[/\\]'),
+      // FlutterFire CLI üretimi (TASK 019): `flutterfire configure` bu
+      // dosyayı üretir ve `firebase_core`'u import eder. Üretilen tek
+      // istisnadır; elle yazılmaz, kimlik/anahtar taşımaz (yalnız public
+      // Firebase app tanımlayıcıları).
+      RegExp(r'lib[/\\]firebase_options\.dart$'),
     ];
 
     final violations = <String>[

@@ -35,12 +35,16 @@ Future<ProviderContainer> bootstrap({
       ...overrides,
     ],
   );
-  if (!identity.firebaseStatus.isAvailable) {
-    container.read(appLoggerProvider).info(
-      'bootstrap: Firebase yok (${identity.firebaseStatus.reason}) — '
-      'lokal kimlikle devam (FlutterFire CLI yapılandırması ayrı görev)',
-    );
-  }
+  // Redakte kimlik teşhisi (07 §146): ham UID ASLA loglanmaz, yalnız
+  // kaynak sınıflandırması. Release'te bu satır warning altı olduğu için
+  // düşmez (AppLogger seviye kapısı).
+  container.read(appLoggerProvider).info(
+    'bootstrap: identitySource=${identity.identitySource.name} '
+    'firebase=${identity.firebaseStatus.isAvailable}'
+    '${identity.firebaseStatus.isAvailable ? '' : ' '
+        '(${identity.firebaseStatus.reason}; FlutterFire yapılandırması '
+        'ayrı görev)'}',
+  );
 
   await initializeLocalPersistence(container);
   return container;

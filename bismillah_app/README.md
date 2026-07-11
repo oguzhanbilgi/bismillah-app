@@ -73,17 +73,29 @@ test/                  # Smoke + birim testleri
   yalnız `core/storage` + `features/*/data/{local,mappers}` katmanlarında
   (mimari testle korunur: `test/architecture/`). Sync ENGINE yok — yalnız
   kalıcı kuyruk.
-- Kimlik (TASK 018): **anonim kimlik temeli var.** Bootstrap sırası:
-  Firebase Core → anonim/mevcut UID → cihaz kimliği → lokal DB → uid
-  remap → inFlight kurtarma. Cihaz kimliği UYGULAMA-LOKAL UUID v4'tür
-  (shared_preferences) — reklam/donanım kimliği DEĞİLDİR. Gerçek hesap
-  bağlama (Apple/Google/e-posta) ve Firestore sync HÂLÂ YOK. Eski
-  `placeholder-local-user` / `local-*` satırlarını güncel UID'ye taşıyan
-  idempotent remap bootstrap'ta çalışır.
-- **Firebase config durumu: EKSİK.** Repoda `firebase_options.dart` ve
-  platform config dosyaları yoktur (native platform klasörleri de henüz
-  oluşturulmadı). Gerçek cihazda Firebase auth için FlutterFire CLI
-  yapılandırması (`flutterfire configure`) ayrı görevde yapılacak; o
+- Kimlik (TASK 018–019): **anonim kimlik temeli var.** Bootstrap sırası:
+  Firebase Core → anonim/mevcut UID (**3 sn timeout**, süre aşımı/ağ/auth
+  hatası kalıcı `local-*` kimliğe düşer, döngüsel retry YOK) → cihaz
+  kimliği → lokal DB → uid remap → inFlight kurtarma. Cihaz kimliği
+  UYGULAMA-LOKAL UUID v4'tür (shared_preferences) — reklam/donanım kimliği
+  DEĞİLDİR. Debug log yalnız redakte `identitySource=firebase|local`
+  yazar, ham UID ASLA loglanmaz. Gerçek hesap bağlama (Apple/Google/
+  e-posta) ve Firestore sync HÂLÂ YOK. Eski `placeholder-local-user` /
+  `local-*` satırlarını güncel UID'ye taşıyan idempotent remap bootstrap'ta
+  çalışır.
+- **Native hedefler (TASK 019): android/ + ios/ oluşturuldu.** Onaylı ID
+  `com.bismillah.app` (docs 06 §34, 07 §4); app adı "Bismillah". Flavor
+  son ekleri (`.dev`/`.staging`) Gradle product flavor kurulumuyla ayrı
+  görevde eklenecek. iOS dosyaları üretildi ancak **iOS build macOS/Xcode
+  gerektirir — Windows'ta derlenmedi/test edilmedi.**
+- **Firebase config durumu: EKSİK (kullanıcı aksiyonu gerekli).** Repoda
+  `firebase_options.dart` ve platform config (`google-services.json` /
+  `GoogleService-Info.plist`) YOKTUR. Bunları üretmek için: onaylı bir
+  Firebase projesi seçilip `dart pub global activate flutterfire_cli` +
+  `flutterfire configure` (Android+iOS, `com.bismillah.app`) çalıştırılmalı
+  — bu adım interaktif Firebase login gerektirir ve otomatik yapılamaz.
+  Üretildikten sonra `DefaultFirebaseInitializer`,
+  `DefaultFirebaseOptions.currentPlatform` ile tek satırda bağlanır. O
   zamana dek uygulama kalıcı `local-*` fallback kimliğiyle çalışır ve ilk
   gerçek anonim auth'ta remap veriyi taşır (07 §146). Testler Firebase
   projesi GEREKTİRMEZ (fake'ler).
@@ -93,8 +105,8 @@ test/                  # Smoke + birim testleri
   ilgili görevlerde.
 - ARB tabanlı tam l10n sistemi — mevcut `AppLocalizations` API'si korunarak
   geçilecek.
-- Android/iOS platform yapılandırması — scaffold web hedefiyle oluşturuldu;
-  native hedefler ilgili görevde eklenecek.
+- Android/iOS native hedefleri TASK 019'da eklendi (yukarı bakınız); build
+  flavor'ları ve gerçek imzalama ayrı görevde.
 - Marka yazı tipleri (Plus Jakarta Sans, Amiri, Uthmanic Hafs vb.) — asset
   görevinde; tipografi token'ları hazır.
 
