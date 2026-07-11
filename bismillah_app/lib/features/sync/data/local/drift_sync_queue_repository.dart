@@ -243,6 +243,31 @@ final class DriftSyncQueueRepository implements SyncQueueRepository {
     }
   }
 
+  /// Lokal kuyruğu güncel oturum sahibine bağlar (interface DIŞI —
+  /// bootstrap altyapı işlemi, 07 §146 "rebind").
+  ///
+  /// TASK 016–017, gerçek auth'tan ÖNCE `placeholder-local-user` (ve
+  /// Firebase'siz açılışlarda `local-*` fallback kimliği) altında lokal
+  /// sync satırları üretmiş olabilir. Gerçek sync engine açılmadan önce
+  /// bu satırlar güncel UID'ye taşınmak ZORUNDADIR. Lokal DB tek
+  /// kullanıcılıdır (10 §15): güncel UID'den farklı uid taşıyan HER satır
+  /// oturum sahibine aittir ve remap edilir.
+  ///
+  /// Idempotent (eşleşen satıra dokunmaz), tek transaction, entity id ve
+  /// namaz verisi değişmez.
+  ResultFuture<int> remapUid({required UserId to}) async {
+    try {
+      final remapped = await _db.transaction(() {
+        return (_db.update(_db.syncOperations)
+              ..where((t) => t.uid.equals(to.value).not()))
+            .write(SyncOperationsCompanion(uid: Value(to.value)));
+      });
+      return Result.success(remapped);
+    } on Exception {
+      return const Result.failure(StorageFailure());
+    }
+  }
+
   @override
   ResultFuture<int> pendingCount({SyncEntityType? entityType}) async {
     try {

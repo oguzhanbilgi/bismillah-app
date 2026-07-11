@@ -2,7 +2,6 @@ import 'package:bismillah_app/app/app_providers.dart';
 import 'package:bismillah_app/core/session/session_providers.dart';
 import 'package:bismillah_app/core/storage/database_providers.dart';
 import 'package:bismillah_app/core/value_objects/day_key.dart';
-import 'package:bismillah_app/core/value_objects/unique_id.dart';
 import 'package:bismillah_app/core/value_objects/utc_date_time.dart';
 import 'package:bismillah_app/features/prayer/data/local/drift_prayer_log_repository.dart';
 import 'package:bismillah_app/features/prayer/data/prayer_data_providers.dart';
@@ -17,13 +16,21 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/test_database.dart';
+import '../helpers/test_session.dart';
 
 /// TASK 015 DI bağlama testleri: provider grafiği gerçek in-memory Drift
 /// DB ile uçtan uca çalışır; UI/domain hiçbir Drift tipi görmez.
 void main() {
-  ProviderContainer buildContainer({List<Override> extraOverrides = const []}) {
+  ProviderContainer buildContainer({
+    String userId = testUserIdValue,
+    List<Override> extraOverrides = const [],
+  }) {
     final container = ProviderContainer(
-      overrides: [inMemoryAppDatabaseOverride(), ...extraOverrides],
+      overrides: [
+        inMemoryAppDatabaseOverride(),
+        ...testSessionOverrides(userId: userId),
+        ...extraOverrides,
+      ],
     );
     addTearDown(container.dispose);
     return container;
@@ -79,7 +86,7 @@ void main() {
     expect(loaded!.entries, day.entries);
   });
 
-  test('sync queue from provider records the enqueued op with placeholder uid',
+  test('sync queue from provider records the enqueued op with session uid',
       () async {
     final container = buildContainer();
     await container.read(prayerLogRepositoryProvider).saveDay(
@@ -98,11 +105,7 @@ void main() {
   });
 
   test('currentUserIdProvider override flows into new writes', () async {
-    final container = buildContainer(
-      extraOverrides: [
-        currentUserIdProvider.overrideWithValue(UserId('override-user')),
-      ],
-    );
+    final container = buildContainer(userId: 'override-user');
     await container.read(prayerLogRepositoryProvider).saveDay(
           sampleDay(container),
         );

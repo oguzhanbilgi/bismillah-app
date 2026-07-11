@@ -2,12 +2,16 @@ import 'package:bismillah_app/app/app_bootstrap.dart';
 import 'package:bismillah_app/app/app_providers.dart';
 import 'package:bismillah_app/core/contracts/contracts.dart';
 import 'package:bismillah_app/core/errors/app_failure.dart';
+import 'package:bismillah_app/core/firebase/firebase_initializer.dart';
 import 'package:bismillah_app/core/privacy/sensitivity_class.dart';
 import 'package:bismillah_app/core/result/result.dart';
+import 'package:bismillah_app/core/session/session_bootstrap.dart';
+import 'package:bismillah_app/core/session/session_providers.dart';
 import 'package:bismillah_app/core/storage/app_database.dart';
 import 'package:bismillah_app/core/storage/database_providers.dart';
 import 'package:bismillah_app/core/value_objects/unique_id.dart';
 import 'package:bismillah_app/core/value_objects/utc_date_time.dart';
+import 'package:bismillah_app/features/prayer/data/prayer_data_providers.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:bismillah_app/features/sync/domain/entities/sync_operation.dart';
 import 'package:bismillah_app/features/sync/domain/repositories/sync_queue_repository.dart';
@@ -17,16 +21,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/test_database.dart';
+import '../helpers/test_session.dart';
 
 /// TASK 015 bootstrap testleri: lokal kalıcılık açılışta hazırlanır,
 /// hiçbir ağ/sync-engine işi başlatılmaz (06 §8 — bootstrap ağ beklemez).
 void main() {
   final now = UtcDateTime(DateTime.utc(2026, 7, 11, 12));
 
-  SyncOperation pendingOperation() {
+  SyncOperation pendingOperation({String uid = 'user-1'}) {
     return SyncOperation(
       operationId: OperationId('op-1'),
-      uid: UserId('user-1'),
+      uid: UserId(uid),
       deviceId: DeviceId('device-1'),
       entityType: SyncEntityType.prayerLogDay,
       entityId: EntityId('2026-07-11'),
@@ -48,7 +53,7 @@ void main() {
       'initializeLocalPersistence opens the DB and recovers interrupted '
       'inFlight ops — no network work involved', () async {
     final container = ProviderContainer(
-      overrides: [inMemoryAppDatabaseOverride()],
+      overrides: [inMemoryAppDatabaseOverride(), ...testSessionOverrides()],
     );
     addTearDown(container.dispose);
 
@@ -75,6 +80,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         inMemoryAppDatabaseOverride(),
+        ...testSessionOverrides(),
         syncQueueRepositoryProvider.overrideWithValue(
           _AlwaysFailingSyncQueueRepository(),
         ),
@@ -90,6 +96,7 @@ void main() {
   test('unopenable database IS fatal: bootstrap error propagates', () async {
     final container = ProviderContainer(
       overrides: [
+        ...testSessionOverrides(),
         appDatabaseProvider.overrideWith((ref) {
           final db = createTestDatabase();
           // Kapatılmış DB, açılamayan DB'yi simüle eder.
@@ -104,6 +111,64 @@ void main() {
       initializeLocalPersistence(container),
       throwsA(anything),
     );
+  });
+
+  group('bootstrap() full flow (TASK 018)', () {
+    final identity = SessionIdentity(
+      userId: UserId('resolved-uid'),
+      deviceId: DeviceId('resolved-device'),
+      firebaseStatus: const FirebaseInitStatus.unavailable('test'),
+    );
+
+    test(
+        'session resolves BEFORE persistence: providers expose resolved '
+        'ids and placeholder rows are remapped', () async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      final db = createTestDatabase();
+      addTearDown(db.close);
+
+      // TASK 016–017 senaryosu: placeholder uid altında kalmış sync satırı.
+      final seedContainer = ProviderContainer(
+        overrides: [appDatabaseProvider.overrideWithValue(db)],
+      );
+      await seedContainer
+          .read(syncQueueRepositoryProvider)
+          .enqueue(pendingOperation(uid: 'placeholder-local-user'));
+      seedContainer.dispose();
+
+      final container = await bootstrap(
+        sessionIdentity: identity,
+        overrides: [appDatabaseProvider.overrideWithValue(db)],
+      );
+      addTearDown(container.dispose);
+
+      expect(container.read(currentUserIdProvider), UserId('resolved-uid'));
+      expect(
+        container.read(currentDeviceIdProvider),
+        DeviceId('resolved-device'),
+      );
+      expect(
+        container.read(firebaseInitStatusProvider).isAvailable,
+        isFalse,
+      );
+
+      // Remap kanıtı: satır artık çözülen UID'de; içerik değişmedi.
+      final row = await db.select(db.syncOperations).getSingle();
+      expect(row.uid, 'resolved-uid');
+      expect(row.entityId, '2026-07-11');
+
+      // Repository'ler kimliği senkron okuyabilir (bootstrap sonrası).
+      expect(
+        identical(
+          container.read(prayerLogRepositoryProvider),
+          container.read(prayerLogRepositoryProvider),
+        ),
+        isTrue,
+      );
+
+      // Uzak sync BAŞLAMADI: op hâlâ pending, inFlight/acked yok.
+      expect(row.status, SyncOperationStatus.pending);
+    });
   });
 }
 

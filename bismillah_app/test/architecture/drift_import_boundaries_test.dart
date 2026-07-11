@@ -38,4 +38,52 @@ void main() {
           'interface/domain/UI Drift tipi göremez (06 §7, doc 11 §karar).',
     );
   });
+
+  test('firebase imports never leak outside core/firebase + core/session',
+      () {
+    final allowed = [
+      RegExp(r'lib[/\\]core[/\\]firebase[/\\]'),
+      RegExp(r'lib[/\\]core[/\\]session[/\\]'),
+    ];
+
+    final violations = <String>[
+      for (final file in Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>())
+        if (file.path.endsWith('.dart') &&
+            !allowed.any((layer) => layer.hasMatch(file.path)) &&
+            file
+                .readAsStringSync()
+                .contains(RegExp("import 'package:firebase_")))
+          file.path,
+    ];
+
+    expect(
+      violations,
+      isEmpty,
+      reason: 'Firebase importu yalnız core/firebase ve core/session '
+          'katmanlarında yaşayabilir (TASK 018 kuralı); UI/domain/'
+          'application Firebase tipi göremez.',
+    );
+  });
+
+  test('forbidden packages are not declared (scope guard)', () {
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    const forbidden = [
+      'cloud_firestore',
+      'firebase_storage',
+      'firebase_messaging',
+      'firebase_analytics',
+      'firebase_crashlytics',
+      'purchases_flutter',
+    ];
+    for (final package in forbidden) {
+      expect(
+        pubspec.contains(RegExp('^  $package:', multiLine: true)),
+        isFalse,
+        reason: '$package ilgili entegrasyon görevinden önce eklenemez '
+            '(TASK 018 kapsam kuralı).',
+      );
+    }
+  });
 }

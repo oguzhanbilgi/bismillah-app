@@ -1,0 +1,95 @@
+import 'package:bismillah_app/core/firebase/firebase_initializer.dart';
+import 'package:bismillah_app/core/session/anonymous_auth_service.dart';
+import 'package:bismillah_app/core/session/device_identity_service.dart';
+import 'package:bismillah_app/core/session/session_bootstrap.dart';
+import 'package:bismillah_app/core/value_objects/unique_id.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// TASK 018: kimlik çözümleme akışı — Firebase initializer fake'lenebilir,
+/// gerçek proje/config GEREKMEZ.
+void main() {
+  test('resolves identity through injected fakes (Firebase available)',
+      () async {
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(const FirebaseInitStatus.available()),
+      authService: _FixedAuthService(UserId('fake-uid')),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+    );
+
+    expect(identity.userId.value, 'fake-uid');
+    expect(identity.deviceId.value, 'fake-device');
+    expect(identity.firebaseStatus.isAvailable, isTrue);
+  });
+
+  test(
+      'Firebase unavailable → local fallback identity, clearly reported, '
+      'app does not crash', () async {
+    SharedPreferences.setMockInitialValues({});
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(
+        const FirebaseInitStatus.unavailable('config-missing'),
+      ),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+    );
+
+    expect(identity.userId.value, startsWith('local-'));
+    expect(identity.firebaseStatus.isAvailable, isFalse);
+    expect(identity.firebaseStatus.reason, 'config-missing');
+  });
+
+  test('auth failure falls back to persistent local identity', () async {
+    SharedPreferences.setMockInitialValues({
+      LocalFallbackAuthService.storageKey: 'local-previous',
+    });
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(const FirebaseInitStatus.available()),
+      authService: _ThrowingAuthService(),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+    );
+
+    expect(identity.userId.value, 'local-previous');
+  });
+
+  test(
+      'DefaultFirebaseInitializer reports unavailable in test env '
+      '(no platform config) instead of crashing', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    final status = await const DefaultFirebaseInitializer().initialize();
+    expect(status.isAvailable, isFalse);
+    expect(status.reason, isNotNull);
+  });
+}
+
+final class _FakeInitializer implements FirebaseInitializer {
+  _FakeInitializer(this._status);
+
+  final FirebaseInitStatus _status;
+
+  @override
+  Future<FirebaseInitStatus> initialize() async => _status;
+}
+
+final class _FixedAuthService implements AnonymousAuthService {
+  _FixedAuthService(this._userId);
+
+  final UserId _userId;
+
+  @override
+  Future<UserId> ensureAnonymousUserId() async => _userId;
+}
+
+final class _ThrowingAuthService implements AnonymousAuthService {
+  @override
+  Future<UserId> ensureAnonymousUserId() async =>
+      throw Exception('network unavailable');
+}
+
+final class _FixedDeviceService implements DeviceIdentityService {
+  _FixedDeviceService(this._deviceId);
+
+  final DeviceId _deviceId;
+
+  @override
+  Future<DeviceId> ensureDeviceId() async => _deviceId;
+}

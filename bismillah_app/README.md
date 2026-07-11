@@ -73,9 +73,20 @@ test/                  # Smoke + birim testleri
   yalnız `core/storage` + `features/*/data/{local,mappers}` katmanlarında
   (mimari testle korunur: `test/architecture/`). Sync ENGINE yok — yalnız
   kalıcı kuyruk.
-- Kimlik: `currentUserIdProvider` / `currentDeviceIdProvider` GEÇİCİ
-  placeholder'dır (`core/session/`) — gerçek Firebase anonim auth ve cihaz
-  kimliği ayrı görevde; provider gövdesi değişecek, imzalar sabit.
+- Kimlik (TASK 018): **anonim kimlik temeli var.** Bootstrap sırası:
+  Firebase Core → anonim/mevcut UID → cihaz kimliği → lokal DB → uid
+  remap → inFlight kurtarma. Cihaz kimliği UYGULAMA-LOKAL UUID v4'tür
+  (shared_preferences) — reklam/donanım kimliği DEĞİLDİR. Gerçek hesap
+  bağlama (Apple/Google/e-posta) ve Firestore sync HÂLÂ YOK. Eski
+  `placeholder-local-user` / `local-*` satırlarını güncel UID'ye taşıyan
+  idempotent remap bootstrap'ta çalışır.
+- **Firebase config durumu: EKSİK.** Repoda `firebase_options.dart` ve
+  platform config dosyaları yoktur (native platform klasörleri de henüz
+  oluşturulmadı). Gerçek cihazda Firebase auth için FlutterFire CLI
+  yapılandırması (`flutterfire configure`) ayrı görevde yapılacak; o
+  zamana dek uygulama kalıcı `local-*` fallback kimliğiyle çalışır ve ilk
+  gerçek anonim auth'ta remap veriyi taşır (07 §146). Testler Firebase
+  projesi GEREKTİRMEZ (fake'ler).
 - AI asistan implementasyonu — AI SDK client'a eklenmeyecek; çağrılar Cloud
   Functions proxy'sinden geçecek.
 - Gerçek onboarding akışı, namaz vakti hesabı, içerik (ayet/hadis/dua) —

@@ -18,6 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
+import '../../../helpers/test_session.dart';
 import '../../../helpers/widget_test_utils.dart';
 
 /// TASK 017 ekran testleri: Today özeti + Prayer sekmesine CTA navigasyonu.
@@ -47,6 +48,7 @@ void main() {
         overrides: [
           appDatabaseProvider.overrideWithValue(db),
           clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+          ...testSessionOverrides(),
         ],
         child: const BismillahApp(),
       ),

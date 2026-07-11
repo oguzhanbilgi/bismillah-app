@@ -1,24 +1,37 @@
+import 'package:bismillah_app/core/firebase/firebase_initializer.dart';
 import 'package:bismillah_app/core/value_objects/unique_id.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Oturum kimliği placeholder provider'ları — **GEÇİCİ**.
+/// Oturum kimliği provider'ları (TASK 018).
 ///
-/// Anonim-first mimaride (06_FLUTTER_ARCHITECTURE §17) gerçek kimlik
-/// Firebase anonim auth'tan gelir ve ilk andan stabildir; o entegrasyon
-/// ayrı görevdedir. Buradaki sabitler YALNIZ lokal geliştirme/test
-/// içindir ve üretim auth'u gibi DAVRANMAZ — Firebase Auth görevi bu
-/// provider'ların gövdesini gerçek kaynağa bağlayacak, imzalar sabit
-/// kalacaktır. Testler `ProviderScope(overrides: ...)` ile değiştirir.
+/// Değerler bootstrap'ta ÇÖZÜLÜR ve container'a override olarak sabitlenir
+/// (`bootstrap()` → [resolveSessionIdentity]); hardcoded placeholder
+/// YOKTUR. Varsayılan gövdenin fırlatması bilinçlidir: kimliği çözülmemiş
+/// bir container'dan kimlik okumak programlama hatasıdır — testler
+/// `ProviderScope(overrides: ...)` ile sabit kimlik verir
+/// (`test/helpers/test_session.dart`).
 
-/// GEÇİCİ kullanıcı kimliği (gerçek kaynak: Firebase anonim UID — sonraki
-/// görev). Değer bilinçli olarak "placeholder" damgalıdır.
+/// Oturum sahibi kullanıcı. Kaynak: Firebase anonim UID; Firebase yoksa
+/// kalıcı lokal fallback kimlik (`local-` önekli, 07 §146). Gerçek hesap
+/// bağlama (Apple/Google/e-posta) ilerideki görevdedir.
 final currentUserIdProvider = Provider<UserId>(
-  (ref) => UserId('placeholder-local-user'),
+  (ref) => throw StateError(
+    'currentUserIdProvider bootstrap/test override olmadan okunamaz '
+    '(bootstrap resolveSessionIdentity sonucunu override eder)',
+  ),
 );
 
-/// GEÇİCİ cihaz kimliği (gerçek kaynak: ilk açılışta üretilip saklanan
-/// UUID v4, 10_DATA_MODEL §6 — sonraki görev). Reklam/donanım kimliği
-/// DEĞİLDİR ve olmayacaktır.
+/// Uygulama-lokal cihaz kimliği (UUID v4, shared_preferences'ta kalıcı).
+/// Reklam/donanım kimliği DEĞİLDİR.
 final currentDeviceIdProvider = Provider<DeviceId>(
-  (ref) => DeviceId('placeholder-local-device'),
+  (ref) => throw StateError(
+    'currentDeviceIdProvider bootstrap/test override olmadan okunamaz '
+    '(bootstrap resolveSessionIdentity sonucunu override eder)',
+  ),
+);
+
+/// Firebase Core durumu — teşhis/koşullu davranış için (ör. sync engine
+/// görevi yalnız available iken push dener). Varsayılan güvenli taraftır.
+final firebaseInitStatusProvider = Provider<FirebaseInitStatus>(
+  (ref) => const FirebaseInitStatus.unavailable('bootstrap override yok'),
 );

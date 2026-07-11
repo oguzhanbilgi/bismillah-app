@@ -16,6 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
+import '../../../helpers/test_session.dart';
 
 /// TASK 017 controller testleri: Today özeti Prayer dilimiyle AYNI lokal
 /// kaynağı okur (gerçek in-memory Drift; ayrı kayıt sistemi YOK).
@@ -38,6 +39,7 @@ void main() {
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
         clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+        ...testSessionOverrides(),
       ],
     );
     addTearDown(container.dispose);

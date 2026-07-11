@@ -29,6 +29,7 @@ void main() {
 
   SyncOperation operation({
     String id = 'op-1',
+    String uid = 'user-1',
     SyncEntityType entityType = SyncEntityType.prayerLogDay,
     String entityId = '2026-07-10',
     String payloadHash = 'hash-1',
@@ -40,7 +41,7 @@ void main() {
     final created = createdAt ?? now;
     return SyncOperation(
       operationId: OperationId(id),
-      uid: UserId('user-1'),
+      uid: UserId(uid),
       deviceId: DeviceId('device-1'),
       entityType: entityType,
       entityId: EntityId(entityId),
@@ -230,6 +231,56 @@ void main() {
           .valueOrNull,
       1,
     );
+  });
+
+  group('remapUid (TASK 018 — placeholder → gerçek uid)', () {
+    test('moves old-uid rows to the target uid; matching rows untouched, '
+        'entity ids and prayer data preserved', () async {
+      // TASK 016–017 placeholder döneminden kalan satır + güncel satır.
+      await queue.enqueue(operation(
+        id: 'op-old',
+        uid: 'placeholder-local-user',
+        entityId: 'e-old',
+      ));
+      await queue.enqueue(operation(
+        id: 'op-current',
+        uid: 'real-uid',
+        entityId: 'e-current',
+      ));
+      // Namaz verisi remap'ten etkilenmemeli (uid kolonu bile yok).
+      await db.into(db.prayerLogDays).insert(
+            PrayerLogDaysCompanion.insert(
+              dayKey: '2026-07-10',
+              deviceId: 'device-1',
+              updatedAt: now,
+            ),
+          );
+
+      final result = await queue.remapUid(to: UserId('real-uid'));
+      expect(result.valueOrNull, 1); // yalnız eski satır taşındı
+
+      final rows = await db.select(db.syncOperations).get();
+      expect(rows.every((r) => r.uid == 'real-uid'), isTrue);
+      final old = rows.singleWhere((r) => r.operationId == 'op-old');
+      expect(old.entityId, 'e-old'); // entity kimliği DEĞİŞMEDİ
+      expect(await db.select(db.prayerLogDays).get(), hasLength(1));
+    });
+
+    test('is idempotent: second run touches zero rows', () async {
+      await queue.enqueue(operation(
+        id: 'op-old',
+        uid: 'placeholder-local-user',
+      ));
+
+      expect(
+        (await queue.remapUid(to: UserId('real-uid'))).valueOrNull,
+        1,
+      );
+      expect(
+        (await queue.remapUid(to: UserId('real-uid'))).valueOrNull,
+        0,
+      );
+    });
   });
 
   test('enums persist by stable NAME, never by index', () async {

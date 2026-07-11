@@ -21,6 +21,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
+import '../../../helpers/test_session.dart';
 
 /// TASK 016 controller testleri — gerçek in-memory Drift DB ile uçtan uca
 /// (mock DB yok); kimlik ve saat provider override'larıyla sabitlenir.
@@ -43,6 +44,7 @@ void main() {
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
         clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+        ...testSessionOverrides(),
         ...extraOverrides,
       ],
     );
@@ -145,6 +147,7 @@ void main() {
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
         clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+        ...testSessionOverrides(),
       ],
     );
     await first.read(prayerLogControllerProvider.future);
@@ -158,6 +161,7 @@ void main() {
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
         clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+        ...testSessionOverrides(),
       ],
     );
     addTearDown(second.dispose);
