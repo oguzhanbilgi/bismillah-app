@@ -3,6 +3,7 @@ import 'package:bismillah_app/core/session/anonymous_auth_service.dart';
 import 'package:bismillah_app/core/session/device_identity_service.dart';
 import 'package:bismillah_app/core/session/session_bootstrap.dart';
 import 'package:bismillah_app/core/value_objects/unique_id.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +51,23 @@ void main() {
 
     expect(identity.userId.value, 'local-previous');
     expect(identity.identitySource, IdentitySource.local);
+    expect(identity.authFailureReason, isNotNull); // redakte sebep taşınır
+  });
+
+  test(
+      'FirebaseAuthException is classified by code (redacted) — mirrors the '
+      'on-device CONFIGURATION_NOT_FOUND finding', () async {
+    SharedPreferences.setMockInitialValues({});
+    final identity = await resolveSessionIdentity(
+      initializer: _FakeInitializer(const FirebaseInitStatus.available()),
+      authService: _AuthExceptionService(
+        FirebaseAuthException(code: 'operation-not-allowed'),
+      ),
+      deviceIdentityService: _FixedDeviceService(DeviceId('fake-device')),
+    );
+
+    expect(identity.userId.value, startsWith('local-'));
+    expect(identity.authFailureReason, 'firebase-auth:operation-not-allowed');
   });
 
   test(
@@ -69,6 +87,7 @@ void main() {
 
     expect(identity.userId.value, startsWith('local-'));
     expect(identity.identitySource, IdentitySource.local);
+    expect(identity.authFailureReason, 'timeout');
     // 30 sn'lik askıyı beklemeden, timeout bütçesi civarında döndü.
     expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
   });
@@ -85,6 +104,7 @@ void main() {
 
     expect(identity.userId.value, 'firebase-uid-123');
     expect(identity.identitySource, IdentitySource.firebase);
+    expect(identity.authFailureReason, isNull); // başarıda sebep yok
   });
 
   test(
@@ -123,6 +143,16 @@ final class _ThrowingAuthService implements AnonymousAuthService {
   @override
   Future<UserId> ensureAnonymousUserId() async =>
       throw Exception('network unavailable');
+}
+
+/// Belirli bir hatayı fırlatır (FirebaseAuthException sınıflandırma testi).
+final class _AuthExceptionService implements AnonymousAuthService {
+  _AuthExceptionService(this._error);
+
+  final Object _error;
+
+  @override
+  Future<UserId> ensureAnonymousUserId() async => throw _error;
 }
 
 /// Ağın asıldığını simüle eder: verilen süre boyunca döner (timeout testi).

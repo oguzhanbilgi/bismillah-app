@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bismillah_app/core/firebase/firebase_initializer.dart';
 import 'package:bismillah_app/core/session/anonymous_auth_service.dart';
 import 'package:bismillah_app/core/session/device_identity_service.dart';
@@ -16,12 +18,18 @@ final class SessionIdentity {
     required this.deviceId,
     required this.firebaseStatus,
     required this.identitySource,
+    this.authFailureReason,
   });
 
   final UserId userId;
   final DeviceId deviceId;
   final FirebaseInitStatus firebaseStatus;
   final IdentitySource identitySource;
+
+  /// Firebase mevcutken anonim oturum kurulamadıysa REDAKTE sebep sınıfı
+  /// (ör. `timeout`, `firebase-auth:network-request-failed`). Ham UID/PII
+  /// ASLA taşımaz; yalnız teşhis içindir. Başarıda `null`.
+  final String? authFailureReason;
 }
 
 /// Anonim auth başlangıç bütçesi (TASK 019 sertleştirmesi). TASK 018,
@@ -57,15 +65,19 @@ Future<SessionIdentity> resolveSessionIdentity({
           : const LocalFallbackAuthService());
 
   UserId userId;
+  String? authFailureReason;
   try {
     // `.timeout` süre aşımında TimeoutException (implements Exception)
     // fırlatır; alttaki signInAnonymously arka planda sürse de beklenmez.
     userId = await effectiveAuthService.ensureAnonymousUserId().timeout(
       authTimeout,
     );
-  } on Exception {
+  } on Object catch (e) {
     // Süre aşımı / ağ yok / auth hatası: kalıcı lokal kimlikle devam;
     // ilk başarılı auth'ta remap veriyi taşır (07 §127). Retry YOK.
+    // Sebep REDAKTE olarak taşınır (UID/PII yok) — sessiz başarısızlık
+    // gözlemlenebilir olmalı (TASK 020 teşhisi).
+    authFailureReason = _classifyAuthFailure(e);
     userId = await const LocalFallbackAuthService().ensureAnonymousUserId();
   }
 
@@ -82,5 +94,25 @@ Future<SessionIdentity> resolveSessionIdentity({
     deviceId: deviceId,
     firebaseStatus: firebaseStatus,
     identitySource: identitySource,
+    authFailureReason: authFailureReason,
   );
+}
+
+/// Anonim auth başarısızlığını REDAKTE sebep sınıfına indirger — ham hata
+/// mesajı/PII loglanmaz (06 §31, 10 §11 hata-kova ilkesi).
+String _classifyAuthFailure(Object error) {
+  if (error is TimeoutException) {
+    return 'timeout';
+  }
+  if (error is FirebaseAuthException) {
+    // Yalnız hata KODU loglanır (redakte kova); ham mesaj/PII taşınmaz.
+    // Not: proje anonim sağlayıcısı kapalıysa kod `unknown`, alttaki
+    // Identity Toolkit sebebi `CONFIGURATION_NOT_FOUND` olur (TASK 020'de
+    // gözlemlendi) — çözüm Firebase Console'da anonim auth'u etkinleştirmek.
+    return 'firebase-auth:${error.code}';
+  }
+  if (error is FirebaseException) {
+    return 'firebase:${error.code}';
+  }
+  return error.runtimeType.toString();
 }

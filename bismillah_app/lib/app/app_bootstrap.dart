@@ -45,6 +45,14 @@ Future<ProviderContainer> bootstrap({
         '(${identity.firebaseStatus.reason}; FlutterFire yapılandırması '
         'ayrı görev)'}',
   );
+  // Firebase mevcutken anonim oturum kurulamadıysa REDAKTE sebep loglanır
+  // (sessiz fallback gözlemlenebilir olmalı). Sonraki açılışta kalıcılaşan
+  // oturum bulunursa remap veriyi taşır (07 §127).
+  if (identity.authFailureReason != null) {
+    container.read(appLoggerProvider).warning(
+      'bootstrap: anonim auth fallback — reason=${identity.authFailureReason}',
+    );
+  }
 
   await initializeLocalPersistence(container);
   return container;
