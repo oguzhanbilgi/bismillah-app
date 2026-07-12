@@ -1,4 +1,5 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
+import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
@@ -21,6 +22,7 @@ import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// Namaz sekmesi — namaz kaydı (TASK 016) + hesaplanmış vakitler (TASK 021).
 ///
@@ -156,6 +158,12 @@ final class _PrayerLogView extends ConsumerWidget {
           ),
         const SizedBox(height: AppSpacing.s3),
         const _PrayerReminderCard(),
+        const SizedBox(height: AppSpacing.s4),
+        AppButton(
+          label: l10n.prayerHistoryTitle,
+          variant: AppButtonVariant.secondary,
+          onPressed: () => context.go(AppRoutes.prayerHistory),
+        ),
         const SizedBox(height: AppSpacing.s5),
         Center(
           child: AppText(

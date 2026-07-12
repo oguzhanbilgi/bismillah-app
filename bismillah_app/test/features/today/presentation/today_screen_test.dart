@@ -99,7 +99,8 @@ void main() {
     expect(find.text('Bugünün ritmi'), findsOneWidget);
     expect(find.text('Bugünün namaz takibi'), findsOneWidget);
     expect(find.text('0/5 tamamlandı'), findsOneWidget);
-    expect(find.text('Namazlara git'), findsOneWidget);
+    // Özet kartı + sıradaki namaz kartı (TASK 023, izin yokken davet CTA'sı).
+    expect(find.text('Namazlara git'), findsNWidgets(2));
     expect(find.text('Kayıtların cihazında saklanır.'), findsOneWidget);
 
     await unmountAndFlushDriftTimers(tester);
@@ -121,7 +122,7 @@ void main() {
     expect(find.text('0/5 tamamlandı'), findsOneWidget);
 
     // CTA → Prayer sekmesi
-    await tester.tap(find.text('Namazlara git'));
+    await tester.tap(find.text('Namazlara git').first);
     await tester.pumpAndSettle();
     expect(find.byType(PrayerScreen), findsOneWidget);
 

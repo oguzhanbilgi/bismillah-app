@@ -11,6 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 import '../helpers/test_database.dart';
+import '../helpers/test_prayer_times.dart';
 import '../helpers/widget_test_utils.dart';
 
 void main() {
@@ -19,7 +20,9 @@ void main() {
   ) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [inMemoryAppDatabaseOverride()],
+        // TASK 023 sonrası Today konum durumunu da izler — testte gerçek
+        // geolocator kanalı yanıt vermez; fake ile deterministik kalır.
+        overrides: [inMemoryAppDatabaseOverride(), fakeLocationOverride()],
         child: const BismillahApp(),
       ),
     );
@@ -33,7 +36,7 @@ void main() {
 
   testWidgets('router resolves /premium as full-screen modal', (tester) async {
     final container = ProviderContainer(
-      overrides: [inMemoryAppDatabaseOverride()],
+      overrides: [inMemoryAppDatabaseOverride(), fakeLocationOverride()],
     );
     addTearDown(container.dispose);
     final GoRouter router = container.read(appRouterProvider);
@@ -58,7 +61,7 @@ void main() {
 
   testWidgets('unknown route falls back to /today', (tester) async {
     final container = ProviderContainer(
-      overrides: [inMemoryAppDatabaseOverride()],
+      overrides: [inMemoryAppDatabaseOverride(), fakeLocationOverride()],
     );
     addTearDown(container.dispose);
     final GoRouter router = container.read(appRouterProvider);

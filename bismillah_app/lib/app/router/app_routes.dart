@@ -4,6 +4,9 @@ abstract final class AppRoutes {
   // Shell sekmeleri
   static const String today = '/today';
   static const String prayer = '/prayer';
+
+  /// Son 7 gün namaz geçmişi — Prayer branch içinde push route (salt-okunur).
+  static const String prayerHistory = '/prayer/history';
   static const String quran = '/quran';
   static const String learn = '/learn';
   static const String profile = '/profile';
@@ -22,6 +25,7 @@ abstract final class AppRoutes {
   // Route adları (typed navigation için)
   static const String todayName = 'today';
   static const String prayerName = 'prayer';
+  static const String prayerHistoryName = 'prayerHistory';
   static const String quranName = 'quran';
   static const String learnName = 'learn';
   static const String profileName = 'profile';

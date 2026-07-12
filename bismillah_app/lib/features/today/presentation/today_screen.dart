@@ -3,7 +3,9 @@ import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_next_prayer_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_weekly_rhythm_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
 import 'package:bismillah_app/shared/widgets/app_section_header.dart';
@@ -38,6 +40,14 @@ class TodayScreen extends ConsumerWidget {
             TodayPrayerSummaryCard(
               state: value,
               onGoToPrayers: () => context.go(AppRoutes.prayer),
+            ),
+            const SizedBox(height: AppSpacing.s4),
+            TodayNextPrayerCard(
+              onGoToPrayers: () => context.go(AppRoutes.prayer),
+            ),
+            const SizedBox(height: AppSpacing.s4),
+            TodayWeeklyRhythmCard(
+              onSeeHistory: () => context.go(AppRoutes.prayerHistory),
             ),
             const SizedBox(height: AppSpacing.s5),
             Center(

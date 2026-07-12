@@ -45,6 +45,23 @@ final class DailyPrayerTimes {
     PrayerName.isha => isha,
   };
 
+  /// Verilen ANDAN sonra gelen ilk NAMAZ vakti (Güneş HARİÇ) — ad + UTC
+  /// instant. Beş vaktin tümü geçmişse `null` (sunum "bugünün vakitleri
+  /// tamamlandı" gösterir; yarının programı BU görevde hesaplanmaz).
+  ///
+  /// [now] UTC instant olmalıdır (vakitler UTC saklanır); karşılaştırma
+  /// timezone'dan bağımsızdır. `PrayerName.values` kronolojik olduğundan
+  /// ilk gelecekteki vakit doğru "sıradaki" vakittir.
+  ({PrayerName name, DateTime instant})? nextPrayerAfter(DateTime now) {
+    for (final name in PrayerName.values) {
+      final instant = instantFor(name);
+      if (instant.isAfter(now)) {
+        return (name: name, instant: instant);
+      }
+    }
+    return null;
+  }
+
   /// Namaz vakitleri kronolojik sırada (Güneş dahil, gün akışı için).
   List<DateTime> get orderedInstants => [
     fajr,

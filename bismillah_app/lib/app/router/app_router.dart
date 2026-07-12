@@ -3,6 +3,7 @@ import 'package:bismillah_app/app/shell/app_shell.dart';
 import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_placeholder_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_placeholder_screen.dart';
+import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
@@ -49,6 +50,16 @@ GoRouter buildAppRouter() {
                 path: AppRoutes.prayer,
                 name: AppRoutes.prayerName,
                 builder: (context, state) => const PrayerScreen(),
+                routes: [
+                  // Son 7 gün geçmişi: Prayer branch içinde push (relative
+                  // path → /prayer/history). Geri PrayerScreen'e döner, alt
+                  // navigasyon görünür kalır.
+                  GoRoute(
+                    path: 'history',
+                    name: AppRoutes.prayerHistoryName,
+                    builder: (context, state) => const PrayerHistoryScreen(),
+                  ),
+                ],
               ),
             ],
           ),

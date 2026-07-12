@@ -55,6 +55,16 @@ final class AppLocalizations {
   String get todayLocalNote => _t('todayLocalNote');
   String get todayLoadIssue => _t('todayLoadIssue');
 
+  // Today haftalık ritim kartı (TASK 025 — salt-okunur; streak/puan YOK)
+  String get todayWeeklyRhythmLine => _t('todayWeeklyRhythmLine');
+  String get todayWeeklyHistoryCta => _t('todayWeeklyHistoryCta');
+
+  // Today sıradaki namaz kartı (TASK 023 — salt-okunur; canlı sayaç YOK)
+  String get todayNextPrayerTitle => _t('todayNextPrayerTitle');
+  String get todayNextPrayerAllDone => _t('todayNextPrayerAllDone');
+  String get todayNextPrayerLocationCta => _t('todayNextPrayerLocationCta');
+  String get todayNextPrayerUnavailable => _t('todayNextPrayerUnavailable');
+
   /// "2/5 tamamlandı" biçimli ilerleme metni.
   String todayPrayerProgress(int completed, int total) => _t(
     'todayPrayerProgress',
@@ -74,6 +84,10 @@ final class AppLocalizations {
   String get prayerNameAsr => _t('prayerNameAsr');
   String get prayerNameMaghrib => _t('prayerNameMaghrib');
   String get prayerNameIsha => _t('prayerNameIsha');
+
+  // Son 7 gün namaz geçmişi (TASK 024 — salt-okunur; streak/puan/suçlama YOK)
+  String get prayerHistoryTitle => _t('prayerHistoryTitle');
+  String get prayerHistorySubtitle => _t('prayerHistorySubtitle');
 
   // Namaz vakitleri (TASK 021 — hesaplama offline; "resmi Diyanet" iddiası YOK)
   String get prayerTimesMethodLabel => _t('prayerTimesMethodLabel');
@@ -130,6 +144,12 @@ final class AppLocalizations {
       'todayGoToPrayers': 'Namazlara git',
       'todayLocalNote': 'Kayıtların cihazında saklanır.',
       'todayLoadIssue': 'Özet şu an açılamadı.',
+      'todayWeeklyRhythmLine': 'Haftalık ritmine sakin bir bakış.',
+      'todayWeeklyHistoryCta': 'Geçmişi gör',
+      'todayNextPrayerTitle': 'Sıradaki namaz',
+      'todayNextPrayerAllDone': 'Bugünün vakitleri tamamlandı.',
+      'todayNextPrayerLocationCta': 'Vakitleri görmek için konumu kullan.',
+      'todayNextPrayerUnavailable': 'Vakitler şu an gösterilemiyor.',
       'prayerTodaySubtitle': 'Bugünün namaz takibi',
       'prayerGentleLine': 'Bugün için küçük bir adım.',
       'prayerMark': 'İşaretle',
@@ -143,6 +163,8 @@ final class AppLocalizations {
       'prayerNameAsr': 'İkindi',
       'prayerNameMaghrib': 'Akşam',
       'prayerNameIsha': 'Yatsı',
+      'prayerHistoryTitle': 'Son 7 gün',
+      'prayerHistorySubtitle': 'Günlük ritmine sakin bir bakış.',
       'prayerTimesMethodLabel': 'Türkiye hesaplama yöntemi',
       'prayerTimesSunrise': 'Güneş',
       'prayerTimesUseLocation': 'Konumu kullan',
@@ -190,6 +212,12 @@ final class AppLocalizations {
       'todayGoToPrayers': 'Go to prayers',
       'todayLocalNote': 'Your records stay on your device.',
       'todayLoadIssue': 'The summary could not be opened right now.',
+      'todayWeeklyRhythmLine': 'A calm look at your weekly rhythm.',
+      'todayWeeklyHistoryCta': 'See history',
+      'todayNextPrayerTitle': 'Next prayer',
+      'todayNextPrayerAllDone': "Today's prayer times are complete.",
+      'todayNextPrayerLocationCta': 'Use your location to see the times.',
+      'todayNextPrayerUnavailable': 'Times are unavailable right now.',
       'prayerTodaySubtitle': "Today's prayer tracking",
       'prayerGentleLine': 'A small step for today.',
       'prayerMark': 'Mark',
@@ -203,6 +231,8 @@ final class AppLocalizations {
       'prayerNameAsr': 'Asr',
       'prayerNameMaghrib': 'Maghrib',
       'prayerNameIsha': 'Isha',
+      'prayerHistoryTitle': 'Last 7 days',
+      'prayerHistorySubtitle': 'A calm look at your daily rhythm.',
       'prayerTimesMethodLabel': 'Türkiye calculation method',
       'prayerTimesSunrise': 'Sunrise',
       'prayerTimesUseLocation': 'Use location',
@@ -251,6 +281,12 @@ final class AppLocalizations {
       'todayGoToPrayers': 'اذهب إلى الصلوات',
       'todayLocalNote': 'تبقى سجلاتك على جهازك.',
       'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',
+      'todayWeeklyRhythmLine': 'نظرة هادئة إلى إيقاعك الأسبوعي.',
+      'todayWeeklyHistoryCta': 'عرض السجل',
+      'todayNextPrayerTitle': 'الصلاة القادمة',
+      'todayNextPrayerAllDone': 'اكتملت أوقات صلوات اليوم.',
+      'todayNextPrayerLocationCta': 'استخدم موقعك لعرض الأوقات.',
+      'todayNextPrayerUnavailable': 'الأوقات غير متاحة الآن.',
       'prayerTodaySubtitle': 'متابعة صلوات اليوم',
       'prayerGentleLine': 'خطوة صغيرة لهذا اليوم.',
       'prayerMark': 'تسجيل',
@@ -264,6 +300,8 @@ final class AppLocalizations {
       'prayerNameAsr': 'العصر',
       'prayerNameMaghrib': 'المغرب',
       'prayerNameIsha': 'العشاء',
+      'prayerHistoryTitle': 'آخر 7 أيام',
+      'prayerHistorySubtitle': 'نظرة هادئة إلى إيقاعك اليومي.',
       'prayerTimesMethodLabel': 'طريقة الحساب التركية',
       'prayerTimesSunrise': 'الشروق',
       'prayerTimesUseLocation': 'استخدم الموقع',

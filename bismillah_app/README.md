@@ -2,12 +2,24 @@
 
 Premium İslami yaşam arkadaşı — Flutter uygulaması.
 
-**Mevcut aşama:** TASK 017 — Today sekmesi ilk gerçek içerik: bugünün namaz
-özeti kartı (X/5 tamamlandı + ilerleme çubuğu + "Namazlara git" CTA'sı).
+**Mevcut aşama:** TASK 025. Son durum:
+
+- **TASK 021 — Offline namaz vakti motoru:** adhan_dart ile TAM OFFLINE
+  hesap; konum yalnız foreground/izinliyse (day-0 izin duvarı YOK). Zamanlar
+  UTC saklanır, sunumda `.toLocal()` (sabit UTC+3 yasak).
+- **TASK 022 — Yerel namaz hatırlatıcıları:** flutter_local_notifications
+  temeli; sakin aç/kapat kartı Prayer'da. FCM/sunucu bildirimi yok.
+- **TASK 023 — Today "Sıradaki namaz" kartı:** beş vakitten sıradakini
+  gösterir (Güneş asla seçilmez); saat `clockProvider`'dan, canlı sayaç yok.
+- **TASK 024 — Son 7 gün geçmişi:** `/prayer/history` salt-okunur ekran;
+  mevcut `getRange` ile TEK aralık sorgusu; kayıtsız gün sakin 0/5.
+- **TASK 025 — Today haftalık ritim kartı:** TASK 024 controller'ını paylaşır;
+  toplam X/35 + 7 kompakt sütun; streak/puan/rozet YOK.
+
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
-(`PrayerLogRepository.watchDay` → Drift). TASK 016: Namaz sekmesi gerçek
+(`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek
 günlük ekranı (işaretle/geri al, kalıcı yazım + aynı transaction'da sync
-op). Vakit HESABI yok; sync engine hâlâ yok — kuyruk yalnız birikir.
+op). Sync engine hâlâ yok — kuyruk yalnız birikir.
 
 ## Çalıştırma
 
