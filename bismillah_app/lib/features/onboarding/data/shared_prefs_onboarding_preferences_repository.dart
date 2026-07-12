@@ -25,26 +25,56 @@ final class SharedPrefsOnboardingPreferencesRepository
 
   @override
   Future<bool> isCompleted() async {
+    // Tamamlanma = geçerli bir tercih setinin okunabilmesi (tek doğrulama
+    // yolu — load ile aynı kurallar). Okuma hatası da güvenli `false`dur.
+    final result = await load();
+    return result.fold(
+      onSuccess: (preferences) => preferences != null,
+      onFailure: (_) => false,
+    );
+  }
+
+  @override
+  ResultFuture<OnboardingPreferences?> load() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       if (!(prefs.getBool(_completedKey) ?? false)) {
-        return false;
+        return const Result.success(null);
       }
       // Bayrak true olsa bile saklanan seçimler doğrulanır: bozuk veya
-      // tanınmayan enum adı → tamamlanmış SAYILMAZ, onboarding'e güvenle
-      // dönülür (crash yok; `byName` hatası aşağıda yakalanır).
-      final goals = prefs.getStringList(_goalsKey) ?? const [];
-      if (goals.isEmpty) {
-        return false;
+      // tanınmayan enum adı → tamamlanmış SAYILMAZ (`success(null)`;
+      // crash yok, `byName` hatası aşağıda yakalanır).
+      try {
+        final goalNames = prefs.getStringList(_goalsKey) ?? const [];
+        if (goalNames.isEmpty) {
+          return const Result.success(null);
+        }
+        final completedAt = DateTime.tryParse(
+          prefs.getString(_completedAtKey) ?? '',
+        );
+        if (completedAt == null) {
+          return const Result.success(null);
+        }
+        return Result.success(
+          OnboardingPreferences(
+            goals: {
+              for (final name in goalNames)
+                OnboardingFocusGoal.values.byName(name),
+            },
+            journeyStage: OnboardingJourneyStage.values.byName(
+              prefs.getString(_journeyKey) ?? '',
+            ),
+            dailyPace: OnboardingDailyPace.values.byName(
+              prefs.getString(_paceKey) ?? '',
+            ),
+            completedAtUtc: completedAt.toUtc(),
+          ),
+        );
+      } on ArgumentError {
+        return const Result.success(null); // tanınmayan enum adı
       }
-      for (final name in goals) {
-        OnboardingFocusGoal.values.byName(name);
-      }
-      OnboardingJourneyStage.values.byName(prefs.getString(_journeyKey) ?? '');
-      OnboardingDailyPace.values.byName(prefs.getString(_paceKey) ?? '');
-      return true;
-    } on Object {
-      return false;
+    } on Exception {
+      return const Result.failure(StorageFailure());
     }
   }
 

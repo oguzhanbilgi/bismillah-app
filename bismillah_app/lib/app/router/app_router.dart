@@ -11,6 +11,7 @@ import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_placeholder_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
@@ -104,6 +105,17 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                 path: AppRoutes.profile,
                 name: AppRoutes.profileName,
                 builder: (context, state) => const ProfilePlaceholderScreen(),
+                routes: [
+                  // Kişiselleştirme düzenleme (TASK 030): Profile branch
+                  // içinde push (relative path → /profile/personalization);
+                  // geri Profil'e döner, alt navigasyon görünür kalır.
+                  GoRoute(
+                    path: 'personalization',
+                    name: AppRoutes.profilePersonalizationName,
+                    builder: (context, state) =>
+                        const PersonalizationEditScreen(),
+                  ),
+                ],
               ),
               // Abonelik yönetimi: Profile branch içinde push route
               // (05_IA §6 — bottom nav görünür kalır).

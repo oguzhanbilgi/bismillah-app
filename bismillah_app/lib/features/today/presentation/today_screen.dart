@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_next_prayer_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_small_step_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_weekly_rhythm_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
@@ -46,6 +47,9 @@ class TodayScreen extends ConsumerWidget {
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
             const SizedBox(height: AppSpacing.s4),
+            // Kart gizliyken (tercih yok/yükleme/hata) kendi alt boşluğunu
+            // da gizler — kartlar arası boşluk sabit kalır.
+            const TodaySmallStepCard(),
             TodayWeeklyRhythmCard(
               onSeeHistory: () => context.go(AppRoutes.prayerHistory),
             ),

@@ -15,4 +15,11 @@ abstract interface class OnboardingPreferencesRepository {
   /// Tercihleri TEK kontrollü işlem olarak kaydeder; tamamlanma bayrağı
   /// yalnız seçimler başarıyla yazıldıktan sonra `true` olur.
   ResultFuture<void> saveCompleted(OnboardingPreferences preferences);
+
+  /// Kayıtlı tercihleri okur (TASK 029 — salt-okunur görünüm için).
+  ///
+  /// `success(null)` = henüz tamamlanmamış VEYA bozuk/tanınmayan veri
+  /// (sakin boş durum; crash yok). `failure` = gerçek okuma hatası
+  /// (UI kısa hata + tekrar dene gösterebilir).
+  ResultFuture<OnboardingPreferences?> load();
 }

@@ -36,6 +36,10 @@ abstract final class AppRoutes {
   /// Abonelik yönetimi (push route, Profile branch içinde).
   static const String subscriptionSettings = '/settings/subscription';
 
+  /// Kişiselleştirme tercihlerini düzenleme (TASK 030; push route,
+  /// Profile branch içinde — onboarding AKIŞI DEĞİLDİR).
+  static const String profilePersonalization = '/profile/personalization';
+
   // Route adları (typed navigation için)
   static const String todayName = 'today';
   static const String prayerName = 'prayer';
@@ -51,4 +55,5 @@ abstract final class AppRoutes {
   static const String assistantName = 'assistant';
   static const String premiumName = 'premium';
   static const String subscriptionSettingsName = 'subscriptionSettings';
+  static const String profilePersonalizationName = 'profilePersonalization';
 }

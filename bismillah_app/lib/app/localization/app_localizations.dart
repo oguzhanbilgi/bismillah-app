@@ -97,6 +97,21 @@ final class AppLocalizations {
   String get todayWeeklyRhythmLine => _t('todayWeeklyRhythmLine');
   String get todayWeeklyHistoryCta => _t('todayWeeklyHistoryCta');
 
+  // Today kişiselleştirilmiş küçük adım (TASK 031 — AI değil; baskı dili YOK)
+  String get todaySmallStepTitle => _t('todaySmallStepTitle');
+  String get todaySmallStepBadge => _t('todaySmallStepBadge');
+  String get todaySuggestionTrackPrayers => _t('todaySuggestionTrackPrayers');
+  String get todaySuggestionPrayOnTime => _t('todaySuggestionPrayOnTime');
+  String get todaySuggestionQuran => _t('todaySuggestionQuran');
+  String get todaySuggestionDhikr => _t('todaySuggestionDhikr');
+  String get todaySuggestionKnowledge => _t('todaySuggestionKnowledge');
+  String get todayPaceLight => _t('todayPaceLight');
+  String get todayPaceBalanced => _t('todayPaceBalanced');
+  String get todayPaceFocused => _t('todayPaceFocused');
+  String get todayCtaSeeTimes => _t('todayCtaSeeTimes');
+  String get todayCtaGoQuran => _t('todayCtaGoQuran');
+  String get todayCtaGoLearn => _t('todayCtaGoLearn');
+
   // Today sıradaki namaz kartı (TASK 023 — salt-okunur; canlı sayaç YOK)
   String get todayNextPrayerTitle => _t('todayNextPrayerTitle');
   String get todayNextPrayerAllDone => _t('todayNextPrayerAllDone');
@@ -153,6 +168,26 @@ final class AppLocalizations {
   /// Bildirim gövdesi: "{prayer} vakti için sakin bir hatırlatma."
   String reminderNotificationBody(String prayer) =>
       _t('reminderNotificationBody').replaceAll('{prayer}', prayer);
+
+  // Profil kişiselleştirme özeti (TASK 029 — salt-okunur; düzenleme TASK 030)
+  String get profilePersonalizationTitle => _t('profilePersonalizationTitle');
+  String get profilePersonalizationSubtitle =>
+      _t('profilePersonalizationSubtitle');
+  String get profileFocusAreas => _t('profileFocusAreas');
+  String get profileJourneyStage => _t('profileJourneyStage');
+  String get profileDailyPace => _t('profileDailyPace');
+  String get profilePersonalizationEmpty => _t('profilePersonalizationEmpty');
+  String get profilePersonalizationLoadIssue =>
+      _t('profilePersonalizationLoadIssue');
+
+  // Kişiselleştirme düzenleme (TASK 030)
+  String get profilePersonalizationEdit => _t('profilePersonalizationEdit');
+  String get profilePersonalizationEditTitle =>
+      _t('profilePersonalizationEditTitle');
+  String get profilePersonalizationEditSupport =>
+      _t('profilePersonalizationEditSupport');
+  String get profileSaveChanges => _t('profileSaveChanges');
+  String get profileChangesSaved => _t('profileChangesSaved');
 
   // Premium (davet dili — 02_BRAND_GUIDELINES §26; kilit/unlock dili YASAK)
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
@@ -217,6 +252,23 @@ final class AppLocalizations {
       'todayGoToPrayers': 'Namazlara git',
       'todayLocalNote': 'Kayıtların cihazında saklanır.',
       'todayLoadIssue': 'Özet şu an açılamadı.',
+      'todaySmallStepTitle': 'Bugün için küçük bir adım',
+      'todaySmallStepBadge': 'Kişiselleştirilmiş öneri',
+      'todaySuggestionTrackPrayers':
+          'Bugünkü namazlarını işaretleyerek günlük ritmini görünür kıl.',
+      'todaySuggestionPrayOnTime':
+          'Sıradaki namaz vaktine göz atarak gününde sakin bir yer aç.',
+      'todaySuggestionQuran': "Bugün kısa bir Kur'an okuma anı ayır.",
+      'todaySuggestionDhikr':
+          'Bugün kısa bir dua veya zikir için sakin bir an seç.',
+      'todaySuggestionKnowledge': 'Bugün kısa bir konuyla bilgini tazele.',
+      'todayPaceLight': 'Birkaç dakikalık küçük bir adım yeterli.',
+      'todayPaceBalanced': 'Gününde kısa ve düzenli bir alan ayır.',
+      'todayPaceFocused':
+          'Bugün biraz daha uzun ve sakin bir alan ayırabilirsin.',
+      'todayCtaSeeTimes': 'Vakitleri gör',
+      'todayCtaGoQuran': "Kur'an'a git",
+      'todayCtaGoLearn': "Öğren'e git",
       'todayWeeklyRhythmLine': 'Haftalık ritmine sakin bir bakış.',
       'todayWeeklyHistoryCta': 'Geçmişi gör',
       'todayNextPrayerTitle': 'Sıradaki namaz',
@@ -259,6 +311,20 @@ final class AppLocalizations {
       'reminderLocationNeeded': 'Vakitleri hesaplamak için konum gerekli.',
       'reminderNotificationTitle': 'Namaz vakti',
       'reminderNotificationBody': '{prayer} vakti için sakin bir hatırlatma.',
+      'profilePersonalizationTitle': 'Kişiselleştirme',
+      'profilePersonalizationSubtitle': 'Başlangıç tercihlerin',
+      'profileFocusAreas': 'Odak alanların',
+      'profileJourneyStage': 'Yolculuk aşaman',
+      'profileDailyPace': 'Günlük tempon',
+      'profilePersonalizationEmpty':
+          'Kişiselleştirme tercihlerin henüz tamamlanmamış.',
+      'profilePersonalizationLoadIssue': 'Tercihlerin şu an açılamadı.',
+      'profilePersonalizationEdit': 'Düzenle',
+      'profilePersonalizationEditTitle': 'Kişiselleştirme tercihleri',
+      'profilePersonalizationEditSupport':
+          'Bu seçimleri dilediğin zaman değiştirebilirsin.',
+      'profileSaveChanges': 'Değişiklikleri kaydet',
+      'profileChangesSaved': 'Değişiklikler kaydedildi.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -318,6 +384,24 @@ final class AppLocalizations {
       'todayGoToPrayers': 'Go to prayers',
       'todayLocalNote': 'Your records stay on your device.',
       'todayLoadIssue': 'The summary could not be opened right now.',
+      'todaySmallStepTitle': 'A small step for today',
+      'todaySmallStepBadge': 'Personalized suggestion',
+      'todaySuggestionTrackPrayers':
+          "Make your daily rhythm visible by marking today's prayers.",
+      'todaySuggestionPrayOnTime':
+          'Open a calm space in your day by glancing at the next prayer time.',
+      'todaySuggestionQuran':
+          'Set aside a short moment for Quran reading today.',
+      'todaySuggestionDhikr':
+          'Choose a calm moment today for a short dua or dhikr.',
+      'todaySuggestionKnowledge':
+          'Refresh your knowledge with a short topic today.',
+      'todayPaceLight': 'A small step of a few minutes is enough.',
+      'todayPaceBalanced': 'Set aside a short, steady space in your day.',
+      'todayPaceFocused': 'You could give it a bit more calm time today.',
+      'todayCtaSeeTimes': 'See the times',
+      'todayCtaGoQuran': 'Go to Quran',
+      'todayCtaGoLearn': 'Go to Learn',
       'todayWeeklyRhythmLine': 'A calm look at your weekly rhythm.',
       'todayWeeklyHistoryCta': 'See history',
       'todayNextPrayerTitle': 'Next prayer',
@@ -361,6 +445,21 @@ final class AppLocalizations {
       'reminderLocationNeeded': 'Location is needed to calculate the times.',
       'reminderNotificationTitle': 'Prayer time',
       'reminderNotificationBody': 'A calm reminder for {prayer}.',
+      'profilePersonalizationTitle': 'Personalization',
+      'profilePersonalizationSubtitle': 'Your starting preferences',
+      'profileFocusAreas': 'Your focus areas',
+      'profileJourneyStage': 'Your journey stage',
+      'profileDailyPace': 'Your daily pace',
+      'profilePersonalizationEmpty':
+          'Your personalization preferences are not completed yet.',
+      'profilePersonalizationLoadIssue':
+          'Your preferences could not be opened right now.',
+      'profilePersonalizationEdit': 'Edit',
+      'profilePersonalizationEditTitle': 'Personalization preferences',
+      'profilePersonalizationEditSupport':
+          'You can change these choices anytime.',
+      'profileSaveChanges': 'Save changes',
+      'profileChangesSaved': 'Changes saved.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -418,6 +517,21 @@ final class AppLocalizations {
       'todayGoToPrayers': 'اذهب إلى الصلوات',
       'todayLocalNote': 'تبقى سجلاتك على جهازك.',
       'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',
+      'todaySmallStepTitle': 'خطوة صغيرة لهذا اليوم',
+      'todaySmallStepBadge': 'اقتراح مخصّص لك',
+      'todaySuggestionTrackPrayers':
+          'اجعل إيقاعك اليومي ظاهراً بتسجيل صلوات اليوم.',
+      'todaySuggestionPrayOnTime':
+          'افتح مساحة هادئة في يومك بالاطلاع على وقت الصلاة القادمة.',
+      'todaySuggestionQuran': 'خصّص اليوم لحظة قصيرة لقراءة القرآن.',
+      'todaySuggestionDhikr': 'اختر اليوم لحظة هادئة لدعاء أو ذكر قصير.',
+      'todaySuggestionKnowledge': 'جدّد معلوماتك اليوم بموضوع قصير.',
+      'todayPaceLight': 'خطوة صغيرة من بضع دقائق تكفي.',
+      'todayPaceBalanced': 'خصّص مساحة قصيرة ومنتظمة في يومك.',
+      'todayPaceFocused': 'يمكنك اليوم تخصيص وقت هادئ أطول قليلاً.',
+      'todayCtaSeeTimes': 'اطّلع على الأوقات',
+      'todayCtaGoQuran': 'اذهب إلى القرآن',
+      'todayCtaGoLearn': 'اذهب إلى التعلّم',
       'todayWeeklyRhythmLine': 'نظرة هادئة إلى إيقاعك الأسبوعي.',
       'todayWeeklyHistoryCta': 'عرض السجل',
       'todayNextPrayerTitle': 'الصلاة القادمة',
@@ -459,6 +573,19 @@ final class AppLocalizations {
       'reminderLocationNeeded': 'يلزم تحديد الموقع لحساب الأوقات.',
       'reminderNotificationTitle': 'وقت الصلاة',
       'reminderNotificationBody': 'تذكير هادئ لصلاة {prayer}.',
+      'profilePersonalizationTitle': 'التخصيص',
+      'profilePersonalizationSubtitle': 'تفضيلاتك الأولى',
+      'profileFocusAreas': 'مجالات تركيزك',
+      'profileJourneyStage': 'مرحلة رحلتك',
+      'profileDailyPace': 'إيقاعك اليومي',
+      'profilePersonalizationEmpty': 'لم تكتمل تفضيلات التخصيص بعد.',
+      'profilePersonalizationLoadIssue': 'تعذّر فتح تفضيلاتك الآن.',
+      'profilePersonalizationEdit': 'تعديل',
+      'profilePersonalizationEditTitle': 'تفضيلات التخصيص',
+      'profilePersonalizationEditSupport':
+          'يمكنك تغيير هذه الاختيارات في أي وقت.',
+      'profileSaveChanges': 'حفظ التغييرات',
+      'profileChangesSaved': 'تم حفظ التغييرات.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },
