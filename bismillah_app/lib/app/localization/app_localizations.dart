@@ -75,6 +75,17 @@ final class AppLocalizations {
   String get prayerNameMaghrib => _t('prayerNameMaghrib');
   String get prayerNameIsha => _t('prayerNameIsha');
 
+  // Namaz vakitleri (TASK 021 — hesaplama offline; "resmi Diyanet" iddiası YOK)
+  String get prayerTimesMethodLabel => _t('prayerTimesMethodLabel');
+  String get prayerTimesSunrise => _t('prayerTimesSunrise');
+  String get prayerTimesUseLocation => _t('prayerTimesUseLocation');
+  String get prayerTimesLocationInvite => _t('prayerTimesLocationInvite');
+  String get prayerTimesLocationDeniedForever =>
+      _t('prayerTimesLocationDeniedForever');
+  String get prayerTimesOpenSettings => _t('prayerTimesOpenSettings');
+  String get prayerTimesUnavailable => _t('prayerTimesUnavailable');
+  String get prayerTimesApproximate => _t('prayerTimesApproximate');
+
   // Premium (davet dili — 02_BRAND_GUIDELINES §26; kilit/unlock dili YASAK)
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
   String get premiumInviteLine => _t('premiumInviteLine');
@@ -116,6 +127,17 @@ final class AppLocalizations {
       'prayerNameAsr': 'İkindi',
       'prayerNameMaghrib': 'Akşam',
       'prayerNameIsha': 'Yatsı',
+      'prayerTimesMethodLabel': 'Türkiye hesaplama yöntemi',
+      'prayerTimesSunrise': 'Güneş',
+      'prayerTimesUseLocation': 'Konumu kullan',
+      'prayerTimesLocationInvite':
+          'Vakitleri bulunduğun yere göre görmek için konumunu kullanabilirsin.',
+      'prayerTimesLocationDeniedForever':
+          'Konum izni kapalı. Ayarlardan açarsan vakitleri gösterebiliriz.',
+      'prayerTimesOpenSettings': 'Ayarları aç',
+      'prayerTimesUnavailable':
+          'Konum şu an alınamadı — dilediğinde tekrar deneyebilirsin.',
+      'prayerTimesApproximate': 'Yaklaşık konuma göre',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -155,6 +177,17 @@ final class AppLocalizations {
       'prayerNameAsr': 'Asr',
       'prayerNameMaghrib': 'Maghrib',
       'prayerNameIsha': 'Isha',
+      'prayerTimesMethodLabel': 'Türkiye calculation method',
+      'prayerTimesSunrise': 'Sunrise',
+      'prayerTimesUseLocation': 'Use location',
+      'prayerTimesLocationInvite':
+          'Use your location to see times for where you are.',
+      'prayerTimesLocationDeniedForever':
+          'Location is off. Enable it in Settings to show your times.',
+      'prayerTimesOpenSettings': 'Open settings',
+      'prayerTimesUnavailable':
+          'Location is unavailable right now — you can try again anytime.',
+      'prayerTimesApproximate': 'Based on approximate location',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -194,6 +227,17 @@ final class AppLocalizations {
       'prayerNameAsr': 'العصر',
       'prayerNameMaghrib': 'المغرب',
       'prayerNameIsha': 'العشاء',
+      'prayerTimesMethodLabel': 'طريقة الحساب التركية',
+      'prayerTimesSunrise': 'الشروق',
+      'prayerTimesUseLocation': 'استخدم الموقع',
+      'prayerTimesLocationInvite':
+          'استخدم موقعك لعرض الأوقات وفق مكانك.',
+      'prayerTimesLocationDeniedForever':
+          'الموقع متوقّف. فعّله من الإعدادات لعرض الأوقات.',
+      'prayerTimesOpenSettings': 'افتح الإعدادات',
+      'prayerTimesUnavailable':
+          'تعذّر الحصول على الموقع الآن — يمكنك المحاولة لاحقاً.',
+      'prayerTimesApproximate': 'بحسب موقع تقريبي',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

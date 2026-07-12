@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Namaz vakti hesabı için ön-plan konumu (TASK 021). SADECE foreground:
+         ACCESS_BACKGROUND_LOCATION KASITLI OLARAK YOKTUR; arka plan/sürekli
+         takip yapılmaz, koordinat Firebase'e/analytics'e gitmez. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
         android:label="Bismillah"
         android:name="${applicationName}"

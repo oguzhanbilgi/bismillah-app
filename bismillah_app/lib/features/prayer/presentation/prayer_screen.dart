@@ -6,7 +6,12 @@ import 'package:bismillah_app/features/prayer/application/prayer_log_controller.
 import 'package:bismillah_app/features/prayer/application/prayer_log_state.dart';
 import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
 import 'package:bismillah_app/features/prayer/presentation/widgets/prayer_entry_tile.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_times_controller.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
+import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
 import 'package:bismillah_app/shared/widgets/app_badge.dart';
+import 'package:bismillah_app/shared/widgets/app_button.dart';
+import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
 import 'package:bismillah_app/shared/widgets/app_section_header.dart';
@@ -14,11 +19,10 @@ import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Namaz sekmesi — ilk gerçek dikey dilim (TASK 016).
+/// Namaz sekmesi — namaz kaydı (TASK 016) + hesaplanmış vakitler (TASK 021).
 ///
-/// Yalnız application provider'ını okur; Drift/sync kuyruğu görmez.
-/// Görsel dil sakindir: boş gün bir eksiklik olarak sunulmaz, hata
-/// durumları yumuşak metinlerle düşer (CLAUDE.md ton kuralları).
+/// Vakit hesabı KAYITTAN BAĞIMSIZDIR: konum reddedilse bile işaretleme/geri
+/// alma çalışır (tiles time olmadan render edilir). Görsel dil sakindir.
 class PrayerScreen extends ConsumerWidget {
   const PrayerScreen({super.key});
 
@@ -42,6 +46,15 @@ class PrayerScreen extends ConsumerWidget {
   }
 }
 
+/// UTC instant → yerel cihaz saatinde "HH:mm" (sabit UTC+3 EKLENMEZ;
+/// `.toLocal()` cihaz timezone'unu kullanır — dakika hassasiyeti korunur).
+String _formatLocal(DateTime utc) {
+  final local = utc.toLocal();
+  final h = local.hour.toString().padLeft(2, '0');
+  final m = local.minute.toString().padLeft(2, '0');
+  return '$h:$m';
+}
+
 final class _PrayerLogView extends ConsumerWidget {
   const _PrayerLogView({required this.state});
 
@@ -57,11 +70,29 @@ final class _PrayerLogView extends ConsumerWidget {
     };
   }
 
+  static DateTime? _timeFor(DailyPrayerTimes? t, PrayerName name) {
+    if (t == null) {
+      return null;
+    }
+    return switch (name) {
+      PrayerName.fajr => t.fajr,
+      PrayerName.dhuhr => t.dhuhr,
+      PrayerName.asr => t.asr,
+      PrayerName.maghrib => t.maghrib,
+      PrayerName.isha => t.isha,
+    };
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final scheme = Theme.of(context).colorScheme;
     final controller = ref.read(prayerLogControllerProvider.notifier);
+    final timesAsync = ref.watch(prayerTimesControllerProvider);
+    final timesState = timesAsync.value;
+    final DailyPrayerTimes? times = timesState is PrayerTimesReady
+        ? timesState.times
+        : null;
 
     return ListView(
       children: [
@@ -94,12 +125,18 @@ final class _PrayerLogView extends ConsumerWidget {
             ],
           ),
         ],
+        const SizedBox(height: AppSpacing.s4),
+        _PrayerTimesSection(timesAsync: timesAsync),
         const SizedBox(height: AppSpacing.s5),
         for (final name in PrayerName.values)
           Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.s3),
             child: PrayerEntryTile(
               label: _label(l10n, name),
+              time: switch (_timeFor(times, name)) {
+                final t? => _formatLocal(t),
+                _ => null,
+              },
               completed: state.isCompleted(name),
               completedLabel: l10n.prayerCompleted,
               actionLabel: state.isCompleted(name)
@@ -120,5 +157,110 @@ final class _PrayerLogView extends ConsumerWidget {
         const SizedBox(height: AppSpacing.s7),
       ],
     );
+  }
+}
+
+/// Vakit üst bilgisi: yöntem etiketi + Güneş; ya da konum daveti / sakin
+/// hata durumu. Ham koordinat ASLA gösterilmez (yalnız durum metni).
+final class _PrayerTimesSection extends ConsumerWidget {
+  const _PrayerTimesSection({required this.timesAsync});
+
+  final AsyncValue<PrayerTimesState> timesAsync;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final controller = ref.read(prayerTimesControllerProvider.notifier);
+
+    final state = timesAsync.value;
+    if (timesAsync.isLoading && state == null) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: AppSpacing.s3),
+        child: AppLoading(),
+      );
+    }
+
+    return switch (state) {
+      PrayerTimesReady(:final times, :final approximateLocation) => AppCard(
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    l10n.prayerTimesMethodLabel,
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
+                  ),
+                  const SizedBox(height: AppSpacing.s1),
+                  Row(
+                    children: [
+                      AppText(l10n.prayerTimesSunrise),
+                      const SizedBox(width: AppSpacing.s2),
+                      AppText(
+                        _formatLocal(times.sunrise),
+                        token: AppTextStyleToken.stat,
+                      ),
+                    ],
+                  ),
+                  if (approximateLocation) ...[
+                    const SizedBox(height: AppSpacing.s1),
+                    AppText(
+                      l10n.prayerTimesApproximate,
+                      token: AppTextStyleToken.caption,
+                      secondary: true,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      PrayerTimesNeedsPermission(:final permanentlyDenied) => AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              permanentlyDenied
+                  ? l10n.prayerTimesLocationDeniedForever
+                  : l10n.prayerTimesLocationInvite,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            const SizedBox(height: AppSpacing.s3),
+            AppButton(
+              label: permanentlyDenied
+                  ? l10n.prayerTimesOpenSettings
+                  : l10n.prayerTimesUseLocation,
+              variant: AppButtonVariant.secondary,
+              onPressed: permanentlyDenied
+                  ? controller.openSettings
+                  : controller.useLocation,
+            ),
+          ],
+        ),
+      ),
+      PrayerTimesUnavailable() => AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              l10n.prayerTimesUnavailable,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            const SizedBox(height: AppSpacing.s3),
+            AppButton(
+              label: l10n.commonRetry,
+              variant: AppButtonVariant.secondary,
+              onPressed: controller.useLocation,
+            ),
+          ],
+        ),
+      ),
+      null => const SizedBox.shrink(),
+    };
   }
 }

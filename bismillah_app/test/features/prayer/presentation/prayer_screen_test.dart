@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
+import '../../../helpers/test_prayer_times.dart';
 import '../../../helpers/test_session.dart';
 import '../../../helpers/widget_test_utils.dart';
 
@@ -35,11 +36,19 @@ void main() {
   });
 
   Future<void> pumpPrayerScreen(WidgetTester tester) async {
+    // Uzun viewport: TASK 021 vakit kartı eklendikten sonra 5 satırın
+    // tamamı aynı frame'de kurulsun (lazy ListView aksi hâlde kesiyor).
+    tester.view.physicalSize = const Size(1080, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           appDatabaseProvider.overrideWithValue(db),
           clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
+          fakeLocationOverride(), // geolocator platform çağrısını engelle
           ...testSessionOverrides(),
         ],
         child: MaterialApp(

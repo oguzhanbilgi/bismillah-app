@@ -4,6 +4,10 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<!-- Namaz vakti hesabı için ön-plan konumu (TASK 021). Arka plan konum
+	     anahtarı (NSLocationAlwaysUsageDescription) KASITLI OLARAK YOKTUR. -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Namaz vakitlerini bulunduğun yere göre hesaplamak için konumun kullanılır. Konum cihazında kalır; paylaşılmaz.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

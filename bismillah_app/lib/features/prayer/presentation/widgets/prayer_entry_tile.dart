@@ -19,9 +19,15 @@ class PrayerEntryTile extends StatelessWidget {
     required this.completedLabel,
     required this.actionLabel,
     required this.onToggle,
+    this.time,
   });
 
   final String label;
+
+  /// Hesaplanmış vakit (ör. "05:21") — konum yoksa `null`, satır yine
+  /// işaretlenebilir (vakit hesabı, kayıttan bağımsızdır).
+  final String? time;
+
   final bool completed;
 
   /// Tamamlanmış durum alt metni (ör. "Tamamlandı").
@@ -51,6 +57,10 @@ class PrayerEntryTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(label, token: AppTextStyleToken.h3),
+                if (time case final t?) ...[
+                  const SizedBox(height: AppSpacing.s1),
+                  AppText(t, token: AppTextStyleToken.stat),
+                ],
                 if (completed) ...[
                   const SizedBox(height: AppSpacing.s1),
                   AppText(

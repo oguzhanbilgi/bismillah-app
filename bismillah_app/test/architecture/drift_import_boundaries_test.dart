@@ -72,6 +72,29 @@ void main() {
     );
   });
 
+  test('adhan_dart / geolocator imports never leak outside data layers', () {
+    // TASK 021: hesaplama/konum paketleri YALNIZ feature data katmanında.
+    final allowed = RegExp(r'lib[/\\]features[/\\][^/\\]+[/\\]data[/\\]');
+    final pkg = RegExp("import 'package:(adhan_dart|geolocator)");
+
+    final violations = <String>[
+      for (final file in Directory('lib')
+          .listSync(recursive: true)
+          .whereType<File>())
+        if (file.path.endsWith('.dart') &&
+            !allowed.hasMatch(file.path) &&
+            file.readAsStringSync().contains(pkg))
+          file.path,
+    ];
+
+    expect(
+      violations,
+      isEmpty,
+      reason: 'adhan_dart/geolocator yalnız features/*/data katmanında '
+          'yaşayabilir (TASK 021); domain/application/presentation göremez.',
+    );
+  });
+
   test('forbidden packages are not declared (scope guard)', () {
     final pubspec = File('pubspec.yaml').readAsStringSync();
     const forbidden = [
