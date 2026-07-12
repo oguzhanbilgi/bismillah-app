@@ -6,6 +6,7 @@ import 'package:bismillah_app/core/database/local_database.dart';
 import 'package:bismillah_app/core/logging/app_logger.dart';
 import 'package:bismillah_app/core/network/network_status.dart';
 import 'package:bismillah_app/core/storage/database_providers.dart';
+import 'package:bismillah_app/features/onboarding/application/onboarding_status_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,4 +40,11 @@ final networkStatusServiceProvider = Provider<NetworkStatusService>(
   (ref) => const AlwaysOnlineNetworkStatusService(),
 );
 
-final appRouterProvider = Provider<GoRouter>((ref) => buildAppRouter());
+final appRouterProvider = Provider<GoRouter>(
+  // Onboarding kapısı closure ile okunur (ref.read): durum değişince
+  // router yeniden İNŞA EDİLMEZ — bootstrap'ın bildirim-dokunuş bağladığı
+  // instance yaşamaya devam eder (TASK 028).
+  (ref) => buildAppRouter(
+    isOnboardingCompleted: () => ref.read(onboardingCompletedProvider),
+  ),
+);

@@ -13,6 +13,20 @@ abstract final class AppRoutes {
 
   // Shell dışı katmanlar
   static const String onboarding = '/onboarding';
+
+  /// Onboarding karşılama adımı (TASK 026). Startup yönlendirmesi HENÜZ
+  /// buraya bağlanmaz — TASK 028'de bağlanır; şimdilik manuel açılır.
+  static const String onboardingWelcome = '/onboarding/welcome';
+
+  /// Onboarding hedef seçimi adımı (TASK 026; akış TASK 027'de sürer).
+  static const String onboardingGoals = '/onboarding/goals';
+
+  /// Onboarding yolculuk aşaması adımı (TASK 027).
+  static const String onboardingJourney = '/onboarding/journey';
+
+  /// Onboarding günlük tempo adımı (TASK 027; kalıcılık TASK 028).
+  static const String onboardingPace = '/onboarding/pace';
+
   static const String assistant = '/assistant';
 
   /// Full-screen modal paywall (05_IA §6; yalnız doğal dönüşüm
@@ -30,6 +44,10 @@ abstract final class AppRoutes {
   static const String learnName = 'learn';
   static const String profileName = 'profile';
   static const String onboardingName = 'onboarding';
+  static const String onboardingWelcomeName = 'onboardingWelcome';
+  static const String onboardingGoalsName = 'onboardingGoals';
+  static const String onboardingJourneyName = 'onboardingJourney';
+  static const String onboardingPaceName = 'onboardingPace';
   static const String assistantName = 'assistant';
   static const String premiumName = 'premium';
   static const String subscriptionSettingsName = 'subscriptionSettings';

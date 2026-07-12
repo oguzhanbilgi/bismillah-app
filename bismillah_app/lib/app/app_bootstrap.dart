@@ -6,6 +6,8 @@ import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/core/session/session_bootstrap.dart';
 import 'package:bismillah_app/core/session/session_providers.dart';
+import 'package:bismillah_app/features/onboarding/application/onboarding_status_controller.dart';
+import 'package:bismillah_app/features/onboarding/data/shared_prefs_onboarding_preferences_repository.dart';
 import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_scheduler.dart';
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_tap_router.dart';
@@ -39,11 +41,22 @@ Future<ProviderContainer> bootstrap({
 
   final identity = sessionIdentity ?? await resolveSessionIdentity();
 
+  // Onboarding kapısı (TASK 028): tamamlanma değeri runApp'ten ÖNCE okunur —
+  // ilk frame'de yanlış ekran bir an bile görünmez. Okuma Firebase'den
+  // TAMAMEN bağımsızdır (Firebase başarısız olsa da onboarding çalışır);
+  // anahtar yoksa/bozuksa depo güvenli `false` döner (kompozisyon kökü
+  // data sınıfını doğrudan kurabilir — DI kuralı presentation içindir).
+  final onboardingCompleted =
+      await const SharedPrefsOnboardingPreferencesRepository().isCompleted();
+
   final container = ProviderContainer(
     overrides: [
       currentUserIdProvider.overrideWithValue(identity.userId),
       currentDeviceIdProvider.overrideWithValue(identity.deviceId),
       firebaseInitStatusProvider.overrideWithValue(identity.firebaseStatus),
+      onboardingCompletedAtLaunchProvider.overrideWithValue(
+        onboardingCompleted,
+      ),
       ...overrides,
     ],
   );

@@ -15,6 +15,11 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
   mevcut `getRange` ile TEK aralık sorgusu; kayıtsız gün sakin 0/5.
 - **TASK 025 — Today haftalık ritim kartı:** TASK 024 controller'ını paylaşır;
   toplam X/35 + 7 kompakt sütun; streak/puan/rozet YOK.
+- **TASK 026–028 — Onboarding:** Welcome → Goals (çoklu) → Journey (tekli)
+  → Pace (tekli) → Today. Seçimler SharedPreferences'a stabil enum
+  adlarıyla yazılır; `completed` bayrağı EN SON. Startup kapısı bootstrap'ta
+  okunur + router `redirect` (tek kaynak, döngü yok); bozuk veri
+  tamamlanmamış sayılır. İzin/login/paywall İSTENMEZ; Firestore sync YOK.
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek

@@ -2,7 +2,11 @@ import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_shell.dart';
 import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_placeholder_screen.dart';
+import 'package:bismillah_app/features/onboarding/presentation/onboarding_goals_screen.dart';
+import 'package:bismillah_app/features/onboarding/presentation/onboarding_journey_screen.dart';
+import 'package:bismillah_app/features/onboarding/presentation/onboarding_pace_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_placeholder_screen.dart';
+import 'package:bismillah_app/features/onboarding/presentation/onboarding_welcome_screen.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
@@ -25,11 +29,24 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
 );
 
-GoRouter buildAppRouter() {
+GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: AppRoutes.today,
     onException: (context, state, router) => router.go(AppRoutes.today),
+    // Startup kapısı (TASK 028) — TEK kaynak: onboarding tamamlanmadıysa
+    // onboarding dışındaki her konum Welcome'a yönlenir. Onboarding
+    // route'ları muaf olduğundan döngü OLUŞAMAZ; tamamlanınca redirect
+    // null döner ve `go(today)` stack'i onboarding'siz kurar (geri tuşu
+    // onboarding'e dönemez). Router YENİDEN İNŞA EDİLMEZ — closure her
+    // navigasyonda güncel değeri okur.
+    redirect: (context, state) {
+      final completed = isOnboardingCompleted?.call() ?? true;
+      if (completed || state.matchedLocation.startsWith(AppRoutes.onboarding)) {
+        return null;
+      }
+      return AppRoutes.onboardingWelcome;
+    },
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
@@ -106,6 +123,32 @@ GoRouter buildAppRouter() {
         name: AppRoutes.onboardingName,
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const OnboardingPlaceholderScreen(),
+      ),
+      // Onboarding adımları (TASK 026): startup HENÜZ buraya yönlenmez
+      // (TASK 028'de bağlanır); checkpoint'te route manuel açılır.
+      GoRoute(
+        path: AppRoutes.onboardingWelcome,
+        name: AppRoutes.onboardingWelcomeName,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const OnboardingWelcomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onboardingGoals,
+        name: AppRoutes.onboardingGoalsName,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const OnboardingGoalsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onboardingJourney,
+        name: AppRoutes.onboardingJourneyName,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const OnboardingJourneyScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onboardingPace,
+        name: AppRoutes.onboardingPaceName,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) => const OnboardingPaceScreen(),
       ),
       GoRoute(
         path: AppRoutes.assistant,

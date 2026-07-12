@@ -39,6 +39,44 @@ final class AppLocalizations {
   // Placeholder ekran metinleri
   String get placeholderComingSoon => _t('placeholderComingSoon');
   String get onboardingTitle => _t('onboardingTitle');
+
+  // Onboarding karşılama + hedef seçimi (TASK 026 — ton: sakin, davetkâr;
+  // korku/suçluluk/paywall dili YASAK, 04_ONBOARDING §2)
+  String get onboardingWelcomeEyebrow => _t('onboardingWelcomeEyebrow');
+  String get onboardingWelcomeTitle => _t('onboardingWelcomeTitle');
+  String get onboardingWelcomeSupport => _t('onboardingWelcomeSupport');
+  String get onboardingWelcomeCta => _t('onboardingWelcomeCta');
+  String get onboardingWelcomeNote => _t('onboardingWelcomeNote');
+  String get onboardingGoalsTitle => _t('onboardingGoalsTitle');
+  String get onboardingGoalsSupport => _t('onboardingGoalsSupport');
+  String get onboardingGoalTrackPrayers => _t('onboardingGoalTrackPrayers');
+  String get onboardingGoalPrayOnTime => _t('onboardingGoalPrayOnTime');
+  String get onboardingGoalQuranHabit => _t('onboardingGoalQuranHabit');
+  String get onboardingGoalDhikrRoutine => _t('onboardingGoalDhikrRoutine');
+  String get onboardingGoalKnowledge => _t('onboardingGoalKnowledge');
+  String get onboardingGoalsCta => _t('onboardingGoalsCta');
+
+  // Onboarding yolculuk aşaması + günlük tempo (TASK 027 — yargı/seviye
+  // ölçümü YASAK; tempo bağlayıcı değildir)
+  String get onboardingJourneyTitle => _t('onboardingJourneyTitle');
+  String get onboardingJourneySupport => _t('onboardingJourneySupport');
+  String get onboardingJourneyNew => _t('onboardingJourneyNew');
+  String get onboardingJourneyRebuilding => _t('onboardingJourneyRebuilding');
+  String get onboardingJourneyStrengthening =>
+      _t('onboardingJourneyStrengthening');
+  String get onboardingPaceTitle => _t('onboardingPaceTitle');
+  String get onboardingPaceSupport => _t('onboardingPaceSupport');
+  String get onboardingPaceLight => _t('onboardingPaceLight');
+  String get onboardingPaceLightDesc => _t('onboardingPaceLightDesc');
+  String get onboardingPaceBalanced => _t('onboardingPaceBalanced');
+  String get onboardingPaceBalancedDesc => _t('onboardingPaceBalancedDesc');
+  String get onboardingPaceFocused => _t('onboardingPaceFocused');
+  String get onboardingPaceFocusedDesc => _t('onboardingPaceFocusedDesc');
+  String get onboardingPaceCta => _t('onboardingPaceCta');
+
+  // Onboarding tamamlama (TASK 028 — kayıt + startup kapısı)
+  String get onboardingPreparingStart => _t('onboardingPreparingStart');
+  String get onboardingSaveIssue => _t('onboardingSaveIssue');
   String get premiumTitle => _t('premiumTitle');
   String get subscriptionSettingsTitle => _t('subscriptionSettingsTitle');
 
@@ -132,6 +170,41 @@ final class AppLocalizations {
       'assistantTitle': 'Bismillah Asistanı',
       'placeholderComingSoon': 'Bu bölüm hazırlanıyor.',
       'onboardingTitle': 'Hoş geldin',
+      'onboardingWelcomeEyebrow': 'Her güne Bismillah',
+      'onboardingWelcomeTitle':
+          'İbadetlerini sakin ve düzenli bir şekilde geliştir.',
+      'onboardingWelcomeSupport':
+          'Namazlarını takip et, vakitlerini gör ve sana uygun küçük '
+              'adımlarla ilerle.',
+      'onboardingWelcomeCta': 'Başlayalım',
+      'onboardingWelcomeNote': 'Yargılamadan, baskı kurmadan.',
+      'onboardingGoalsTitle': 'Şu anda neye odaklanmak istersin?',
+      'onboardingGoalsSupport': 'Bir veya birkaç seçenek seçebilirsin.',
+      'onboardingGoalTrackPrayers': 'Namazlarımı daha düzenli takip etmek',
+      'onboardingGoalPrayOnTime': 'Namaz vakitlerini kaçırmamak',
+      'onboardingGoalQuranHabit':
+          "Kur'an okumayı alışkanlık haline getirmek",
+      'onboardingGoalDhikrRoutine': 'Dua ve zikir rutinimi geliştirmek',
+      'onboardingGoalKnowledge': 'İslami bilgilerimi artırmak',
+      'onboardingGoalsCta': 'Devam et',
+      'onboardingJourneyTitle': 'Bu yolculukta kendini nasıl görüyorsun?',
+      'onboardingJourneySupport':
+          'Sana uygun bir başlangıç hazırlamamıza yardımcı olur.',
+      'onboardingJourneyNew': 'Yeni başlıyorum',
+      'onboardingJourneyRebuilding': 'Yeniden düzen kuruyorum',
+      'onboardingJourneyStrengthening': 'Düzenimi güçlendirmek istiyorum',
+      'onboardingPaceTitle': 'Günlük tempon nasıl olsun?',
+      'onboardingPaceSupport': 'Bunu daha sonra değiştirebilirsin.',
+      'onboardingPaceLight': 'Hafif',
+      'onboardingPaceLightDesc': 'Küçük ve kolay adımlar',
+      'onboardingPaceBalanced': 'Dengeli',
+      'onboardingPaceBalancedDesc': 'Düzenli bir günlük ritim',
+      'onboardingPaceFocused': 'Odaklı',
+      'onboardingPaceFocusedDesc': 'Biraz daha fazla zaman ayırmak istiyorum',
+      'onboardingPaceCta': 'Planımı hazırla',
+      'onboardingPreparingStart': 'Başlangıcın hazırlanıyor…',
+      'onboardingSaveIssue':
+          'Seçimlerin şu an kaydedilemedi — tekrar deneyebilirsin.',
       'premiumTitle': 'Bismillah+',
       'subscriptionSettingsTitle': 'Abonelik',
       'commonLoading': 'Yükleniyor…',
@@ -200,6 +273,39 @@ final class AppLocalizations {
       'assistantTitle': 'Bismillah Assistant',
       'placeholderComingSoon': 'This section is being prepared.',
       'onboardingTitle': 'Welcome',
+      'onboardingWelcomeEyebrow': 'Bismillah for every day',
+      'onboardingWelcomeTitle': 'Grow your worship calmly and consistently.',
+      'onboardingWelcomeSupport':
+          'Track your prayers, see the times, and move forward with small '
+              'steps that fit you.',
+      'onboardingWelcomeCta': "Let's begin",
+      'onboardingWelcomeNote': 'No judgment, no pressure.',
+      'onboardingGoalsTitle': 'What would you like to focus on right now?',
+      'onboardingGoalsSupport': 'You can choose one or more options.',
+      'onboardingGoalTrackPrayers': 'Track my prayers more consistently',
+      'onboardingGoalPrayOnTime': 'Keep up with prayer times',
+      'onboardingGoalQuranHabit': 'Make Quran reading a habit',
+      'onboardingGoalDhikrRoutine': 'Grow my dua and dhikr routine',
+      'onboardingGoalKnowledge': 'Deepen my Islamic knowledge',
+      'onboardingGoalsCta': 'Continue',
+      'onboardingJourneyTitle': 'How do you see yourself on this journey?',
+      'onboardingJourneySupport':
+          'This helps us prepare a start that fits you.',
+      'onboardingJourneyNew': 'I am just beginning',
+      'onboardingJourneyRebuilding': 'I am rebuilding my routine',
+      'onboardingJourneyStrengthening': 'I want to strengthen my routine',
+      'onboardingPaceTitle': 'What should your daily pace be?',
+      'onboardingPaceSupport': 'You can change this later.',
+      'onboardingPaceLight': 'Light',
+      'onboardingPaceLightDesc': 'Small, easy steps',
+      'onboardingPaceBalanced': 'Balanced',
+      'onboardingPaceBalancedDesc': 'A steady daily rhythm',
+      'onboardingPaceFocused': 'Focused',
+      'onboardingPaceFocusedDesc': 'I want to give it a bit more time',
+      'onboardingPaceCta': 'Prepare my plan',
+      'onboardingPreparingStart': 'Preparing your start…',
+      'onboardingSaveIssue':
+          'Your choices could not be saved right now — you can try again.',
       'premiumTitle': 'Bismillah+',
       'subscriptionSettingsTitle': 'Subscription',
       'commonLoading': 'Loading…',
@@ -269,6 +375,37 @@ final class AppLocalizations {
       'assistantTitle': 'مساعد Bismillah',
       'placeholderComingSoon': 'هذا القسم قيد التجهيز.',
       'onboardingTitle': 'أهلاً بك',
+      'onboardingWelcomeEyebrow': 'بسم الله لكل يوم',
+      'onboardingWelcomeTitle': 'طوّر عباداتك بهدوء وانتظام.',
+      'onboardingWelcomeSupport':
+          'تابع صلواتك، واطّلع على الأوقات، وتقدّم بخطوات صغيرة تناسبك.',
+      'onboardingWelcomeCta': 'لنبدأ',
+      'onboardingWelcomeNote': 'بلا حكم، وبلا ضغط.',
+      'onboardingGoalsTitle': 'علامَ تودّ التركيز الآن؟',
+      'onboardingGoalsSupport': 'يمكنك اختيار خيار واحد أو أكثر.',
+      'onboardingGoalTrackPrayers': 'متابعة صلواتي بانتظام أكبر',
+      'onboardingGoalPrayOnTime': 'المواظبة على أوقات الصلاة',
+      'onboardingGoalQuranHabit': 'جعل قراءة القرآن عادة',
+      'onboardingGoalDhikrRoutine': 'تطوير وردي من الدعاء والذكر',
+      'onboardingGoalKnowledge': 'زيادة معرفتي الإسلامية',
+      'onboardingGoalsCta': 'متابعة',
+      'onboardingJourneyTitle': 'كيف ترى نفسك في هذه الرحلة؟',
+      'onboardingJourneySupport': 'يساعدنا هذا على تجهيز بداية تناسبك.',
+      'onboardingJourneyNew': 'أبدأ للتو',
+      'onboardingJourneyRebuilding': 'أُعيد بناء انتظامي',
+      'onboardingJourneyStrengthening': 'أريد تقوية انتظامي',
+      'onboardingPaceTitle': 'كيف تحب أن يكون إيقاعك اليومي؟',
+      'onboardingPaceSupport': 'يمكنك تغيير هذا لاحقاً.',
+      'onboardingPaceLight': 'خفيف',
+      'onboardingPaceLightDesc': 'خطوات صغيرة وسهلة',
+      'onboardingPaceBalanced': 'متوازن',
+      'onboardingPaceBalancedDesc': 'إيقاع يومي منتظم',
+      'onboardingPaceFocused': 'مركّز',
+      'onboardingPaceFocusedDesc': 'أودّ تخصيص وقت أكبر',
+      'onboardingPaceCta': 'جهّز خطتي',
+      'onboardingPreparingStart': 'يجري تجهيز بدايتك…',
+      'onboardingSaveIssue':
+          'تعذّر حفظ اختياراتك الآن — يمكنك المحاولة مجدداً.',
       'premiumTitle': 'Bismillah+',
       'subscriptionSettingsTitle': 'الاشتراك',
       'commonLoading': 'جارٍ التحميل…',
