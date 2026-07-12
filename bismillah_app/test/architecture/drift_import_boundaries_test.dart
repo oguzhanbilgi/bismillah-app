@@ -72,10 +72,16 @@ void main() {
     );
   });
 
-  test('adhan_dart / geolocator imports never leak outside data layers', () {
-    // TASK 021: hesaplama/konum paketleri YALNIZ feature data katmanında.
+  test(
+      'adhan_dart / geolocator / notification / timezone imports never leak '
+      'outside data layers', () {
+    // TASK 021/022: hesaplama/konum/bildirim/timezone paketleri YALNIZ
+    // feature data katmanında.
     final allowed = RegExp(r'lib[/\\]features[/\\][^/\\]+[/\\]data[/\\]');
-    final pkg = RegExp("import 'package:(adhan_dart|geolocator)");
+    final pkg = RegExp(
+      "import 'package:(adhan_dart|geolocator|flutter_local_notifications|"
+      'timezone|flutter_timezone)',
+    );
 
     final violations = <String>[
       for (final file in Directory('lib')

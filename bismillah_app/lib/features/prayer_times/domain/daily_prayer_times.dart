@@ -1,3 +1,4 @@
+import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculation_method.dart';
 
 /// Bir günün hesaplanmış namaz vakitleri — paket-bağımsız domain modeli.
@@ -33,6 +34,16 @@ final class DailyPrayerTimes {
   /// Sonuçta hangi yöntemin kullanıldığı AÇIKÇA saklanır (TASK 021 kuralı).
   final PrayerTimeCalculationMethod method;
   final AsrCalculationMethod asrMethod;
+
+  /// Beş vaktin UTC instant'ı (Güneş HARİÇ — hatırlatıcı yalnız namaz
+  /// vakitlerine kurulur; PrayerName'de sunrise yoktur).
+  DateTime instantFor(PrayerName name) => switch (name) {
+    PrayerName.fajr => fajr,
+    PrayerName.dhuhr => dhuhr,
+    PrayerName.asr => asr,
+    PrayerName.maghrib => maghrib,
+    PrayerName.isha => isha,
+  };
 
   /// Namaz vakitleri kronolojik sırada (Güneş dahil, gün akışı için).
   List<DateTime> get orderedInstants => [

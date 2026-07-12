@@ -86,6 +86,22 @@ final class AppLocalizations {
   String get prayerTimesUnavailable => _t('prayerTimesUnavailable');
   String get prayerTimesApproximate => _t('prayerTimesApproximate');
 
+  // Namaz hatırlatıcıları (TASK 022 — ton: sakin; suçlayıcı/streak/kaçırma YOK)
+  String get reminderCardTitle => _t('reminderCardTitle');
+  String get reminderEnable => _t('reminderEnable');
+  String get reminderDisable => _t('reminderDisable');
+  String get reminderEnabledState => _t('reminderEnabledState');
+  String get reminderInexactNote => _t('reminderInexactNote');
+  String get reminderPermissionNeeded => _t('reminderPermissionNeeded');
+  String get reminderLocationNeeded => _t('reminderLocationNeeded');
+
+  /// Bildirim başlığı (widget bağlamı dışında da kullanılır).
+  String get reminderNotificationTitle => _t('reminderNotificationTitle');
+
+  /// Bildirim gövdesi: "{prayer} vakti için sakin bir hatırlatma."
+  String reminderNotificationBody(String prayer) =>
+      _t('reminderNotificationBody').replaceAll('{prayer}', prayer);
+
   // Premium (davet dili — 02_BRAND_GUIDELINES §26; kilit/unlock dili YASAK)
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
   String get premiumInviteLine => _t('premiumInviteLine');
@@ -138,6 +154,16 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'Konum şu an alınamadı — dilediğinde tekrar deneyebilirsin.',
       'prayerTimesApproximate': 'Yaklaşık konuma göre',
+      'reminderCardTitle': 'Namaz hatırlatıcıları',
+      'reminderEnable': 'Hatırlatıcıları aç',
+      'reminderDisable': 'Hatırlatıcıları kapat',
+      'reminderEnabledState': 'Hatırlatıcılar açık',
+      'reminderInexactNote':
+          'Hatırlatma zamanı cihazına göre birkaç dakika kayabilir.',
+      'reminderPermissionNeeded': 'Hatırlatıcılar için bildirim izni gerekli.',
+      'reminderLocationNeeded': 'Vakitleri hesaplamak için konum gerekli.',
+      'reminderNotificationTitle': 'Namaz vakti',
+      'reminderNotificationBody': '{prayer} vakti için sakin bir hatırlatma.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -188,6 +214,17 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'Location is unavailable right now — you can try again anytime.',
       'prayerTimesApproximate': 'Based on approximate location',
+      'reminderCardTitle': 'Prayer reminders',
+      'reminderEnable': 'Turn on reminders',
+      'reminderDisable': 'Turn off reminders',
+      'reminderEnabledState': 'Reminders are on',
+      'reminderInexactNote':
+          'Reminder timing may vary by a few minutes on your device.',
+      'reminderPermissionNeeded':
+          'Notification permission is needed for reminders.',
+      'reminderLocationNeeded': 'Location is needed to calculate the times.',
+      'reminderNotificationTitle': 'Prayer time',
+      'reminderNotificationBody': 'A calm reminder for {prayer}.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -238,6 +275,15 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'تعذّر الحصول على الموقع الآن — يمكنك المحاولة لاحقاً.',
       'prayerTimesApproximate': 'بحسب موقع تقريبي',
+      'reminderCardTitle': 'تذكيرات الصلاة',
+      'reminderEnable': 'تفعيل التذكيرات',
+      'reminderDisable': 'إيقاف التذكيرات',
+      'reminderEnabledState': 'التذكيرات مفعّلة',
+      'reminderInexactNote': 'قد يتغيّر وقت التذكير بضع دقائق حسب جهازك.',
+      'reminderPermissionNeeded': 'يلزم إذن الإشعارات للتذكيرات.',
+      'reminderLocationNeeded': 'يلزم تحديد الموقع لحساب الأوقات.',
+      'reminderNotificationTitle': 'وقت الصلاة',
+      'reminderNotificationBody': 'تذكير هادئ لصلاة {prayer}.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

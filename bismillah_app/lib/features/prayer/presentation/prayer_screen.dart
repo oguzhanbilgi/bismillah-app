@@ -6,6 +6,9 @@ import 'package:bismillah_app/features/prayer/application/prayer_log_controller.
 import 'package:bismillah_app/features/prayer/application/prayer_log_state.dart';
 import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
 import 'package:bismillah_app/features/prayer/presentation/widgets/prayer_entry_tile.dart';
+import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_controller.dart';
+import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_scheduler.dart';
+import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_state.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
 import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
@@ -55,20 +58,26 @@ String _formatLocal(DateTime utc) {
   return '$h:$m';
 }
 
+/// Vakit adının yerelleştirilmiş etiketi (tile + bildirim metni ortak).
+String _prayerLabel(AppLocalizations l10n, PrayerName name) => switch (name) {
+  PrayerName.fajr => l10n.prayerNameFajr,
+  PrayerName.dhuhr => l10n.prayerNameDhuhr,
+  PrayerName.asr => l10n.prayerNameAsr,
+  PrayerName.maghrib => l10n.prayerNameMaghrib,
+  PrayerName.isha => l10n.prayerNameIsha,
+};
+
+/// Bildirim metinlerini localization'dan scheduler'a taşır (BuildContext'siz
+/// katmanlar için).
+PrayerReminderCopy _reminderCopy(AppLocalizations l10n) => PrayerReminderCopy(
+  title: l10n.reminderNotificationTitle,
+  bodyFor: (name) => l10n.reminderNotificationBody(_prayerLabel(l10n, name)),
+);
+
 final class _PrayerLogView extends ConsumerWidget {
   const _PrayerLogView({required this.state});
 
   final PrayerLogState state;
-
-  static String _label(AppLocalizations l10n, PrayerName name) {
-    return switch (name) {
-      PrayerName.fajr => l10n.prayerNameFajr,
-      PrayerName.dhuhr => l10n.prayerNameDhuhr,
-      PrayerName.asr => l10n.prayerNameAsr,
-      PrayerName.maghrib => l10n.prayerNameMaghrib,
-      PrayerName.isha => l10n.prayerNameIsha,
-    };
-  }
 
   static DateTime? _timeFor(DailyPrayerTimes? t, PrayerName name) {
     if (t == null) {
@@ -132,7 +141,7 @@ final class _PrayerLogView extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.s3),
             child: PrayerEntryTile(
-              label: _label(l10n, name),
+              label: _prayerLabel(l10n, name),
               time: switch (_timeFor(times, name)) {
                 final t? => _formatLocal(t),
                 _ => null,
@@ -145,6 +154,8 @@ final class _PrayerLogView extends ConsumerWidget {
               onToggle: () => controller.toggle(name),
             ),
           ),
+        const SizedBox(height: AppSpacing.s3),
+        const _PrayerReminderCard(),
         const SizedBox(height: AppSpacing.s5),
         Center(
           child: AppText(
@@ -157,6 +168,115 @@ final class _PrayerLogView extends ConsumerWidget {
         const SizedBox(height: AppSpacing.s7),
       ],
     );
+  }
+}
+
+/// Namaz hatırlatıcıları kartı — sakin aç/kapat. Namaz kaydından bağımsız;
+/// izin reddedilse bile işaretleme çalışır (kart yalnız hatırlatıcıyı yönetir).
+final class _PrayerReminderCard extends ConsumerWidget {
+  const _PrayerReminderCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final controller = ref.read(prayerReminderControllerProvider.notifier);
+    final async = ref.watch(prayerReminderControllerProvider);
+    final state = async.value;
+
+    Widget card(Widget child) => AppCard(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        AppText(l10n.reminderCardTitle, token: AppTextStyleToken.h3),
+        const SizedBox(height: AppSpacing.s3),
+        child,
+      ]),
+    );
+
+    Widget action(String label, VoidCallback onTap) => AppButton(
+      label: label,
+      variant: AppButtonVariant.secondary,
+      onPressed: onTap,
+    );
+
+    if (async.isLoading && state == null) {
+      // Sınırlı boyutlu gösterge — ListView içinde `Center` sınırsız yükseklik
+      // isteyeceği için AppLoading burada KULLANILMAZ.
+      return card(
+        const SizedBox(
+          height: AppSizes.iconMd,
+          width: AppSizes.iconMd,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      );
+    }
+
+    return switch (state) {
+      ReminderEnabled(:final exact) => card(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              l10n.reminderEnabledState,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            if (!exact) ...[
+              const SizedBox(height: AppSpacing.s1),
+              AppText(
+                l10n.reminderInexactNote,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+            ],
+            const SizedBox(height: AppSpacing.s3),
+            action(l10n.reminderDisable, controller.disable),
+          ],
+        ),
+      ),
+      ReminderPermissionBlocked(:final permanentlyDenied) => card(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              l10n.reminderPermissionNeeded,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            const SizedBox(height: AppSpacing.s3),
+            action(
+              permanentlyDenied
+                  ? l10n.prayerTimesOpenSettings
+                  : l10n.reminderEnable,
+              permanentlyDenied
+                  ? controller.openSettings
+                  : () => controller.enable(_reminderCopy(l10n)),
+            ),
+          ],
+        ),
+      ),
+      ReminderLocationNeeded() => card(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              l10n.reminderLocationNeeded,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            const SizedBox(height: AppSpacing.s3),
+            action(
+              l10n.reminderEnable,
+              () => controller.enable(_reminderCopy(l10n)),
+            ),
+          ],
+        ),
+      ),
+      _ => card(
+        action(
+          l10n.reminderEnable,
+          () => controller.enable(_reminderCopy(l10n)),
+        ),
+      ),
+    };
   }
 }
 

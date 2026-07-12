@@ -13,6 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
 import '../../../helpers/test_prayer_times.dart';
+import '../../../helpers/test_reminders.dart';
 import '../../../helpers/test_session.dart';
 import '../../../helpers/widget_test_utils.dart';
 
@@ -49,6 +50,7 @@ void main() {
           appDatabaseProvider.overrideWithValue(db),
           clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
           fakeLocationOverride(), // geolocator platform çağrısını engelle
+          ...fakeReminderOverrides(), // bildirim platform çağrısını engelle
           ...testSessionOverrides(),
         ],
         child: MaterialApp(

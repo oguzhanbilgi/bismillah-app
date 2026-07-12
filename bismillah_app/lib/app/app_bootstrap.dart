@@ -1,6 +1,18 @@
+import 'dart:async';
+
 import 'package:bismillah_app/app/app_providers.dart';
+import 'package:bismillah_app/app/localization/app_localizations.dart';
+import 'package:bismillah_app/app/localization/supported_locale.dart';
+import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/core/session/session_bootstrap.dart';
 import 'package:bismillah_app/core/session/session_providers.dart';
+import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
+import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_scheduler.dart';
+import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_tap_router.dart';
+import 'package:bismillah_app/features/prayer_reminders/data/prayer_reminders_providers.dart';
+import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
+import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
+import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,8 +67,71 @@ Future<ProviderContainer> bootstrap({
   }
 
   await initializeLocalPersistence(container);
+  // TASK 022: bildirim dokunuşu → Prayer yönlendirmesi + açıksa 7 günü
+  // tazele. Tamamen GUARDED ve non-blocking (platform yoksa/başarısızsa
+  // sessizce atlanır; açılışı bloklamaz, izin/network İSTEMEZ).
+  await wirePrayerReminders(container);
   return container;
 }
+
+/// Namaz hatırlatıcı açılış bağlaması (best-effort). Dokunuş dinleyicisini
+/// kurar; hatırlatıcılar açıksa + izin/konum hazırsa (İSTEMEDEN) 7 günü
+/// arka planda yeniden zamanlar.
+Future<void> wirePrayerReminders(ProviderContainer container) async {
+  try {
+    final notifications = container.read(localNotificationServiceProvider);
+    await notifications.initialize();
+    final router = container.read(appRouterProvider);
+    notifications.reminderTaps.listen(
+      (payload) =>
+          routeReminderTap(payload, () => router.go(AppRoutes.prayer)),
+    );
+    unawaited(_rescheduleRemindersIfReady(container));
+  } on Object {
+    // Bildirim altyapısı yoksa (platform/eklenti) sessizce atla.
+  }
+}
+
+Future<void> _rescheduleRemindersIfReady(ProviderContainer container) async {
+  try {
+    final enabled =
+        await container.read(reminderPreferenceStoreProvider).isEnabled();
+    if (!enabled) {
+      return;
+    }
+    final notifications = container.read(localNotificationServiceProvider);
+    if (await notifications.checkPermission() !=
+        NotificationPermissionStatus.granted) {
+      return;
+    }
+    final location = await container
+        .read(prayerLocationServiceProvider)
+        .currentLocationIfPermitted();
+    if (location is! PrayerLocationResolved) {
+      return; // konum hazır değil — mevcut zamanlama 7 gün korunur.
+    }
+    const l10n = AppLocalizations(SupportedLocale.tr);
+    await container.read(prayerReminderSchedulerProvider).reschedule(
+      coordinates: location.location.coordinates,
+      copy: PrayerReminderCopy(
+        title: l10n.reminderNotificationTitle,
+        bodyFor: (name) =>
+            l10n.reminderNotificationBody(_bootstrapPrayerLabel(l10n, name)),
+      ),
+    );
+  } on Object {
+    // Best-effort; açılışı bloklamaz.
+  }
+}
+
+String _bootstrapPrayerLabel(AppLocalizations l10n, PrayerName name) =>
+    switch (name) {
+      PrayerName.fajr => l10n.prayerNameFajr,
+      PrayerName.dhuhr => l10n.prayerNameDhuhr,
+      PrayerName.asr => l10n.prayerNameAsr,
+      PrayerName.maghrib => l10n.prayerNameMaghrib,
+      PrayerName.isha => l10n.prayerNameIsha,
+    };
 
 /// Lokal kalıcılığı açılışta hazırlar (adımlar 4–6). Testler container'ı
 /// in-memory DB + sabit kimlik override'larıyla kurar.

@@ -19,6 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_database.dart';
 import '../../../helpers/test_prayer_times.dart';
+import '../../../helpers/test_reminders.dart';
 import '../../../helpers/test_session.dart';
 import '../../../helpers/widget_test_utils.dart';
 
@@ -44,12 +45,20 @@ void main() {
     tester.platformDispatcher.localesTestValue = const [Locale('tr', 'TR')];
     addTearDown(tester.platformDispatcher.clearAllTestValues);
 
+    // Uzun viewport: Prayer sekmesinde vakit + hatırlatıcı kartları eklendikten
+    // sonra namaz satırları aynı frame'de kurulsun (lazy ListView).
+    tester.view.physicalSize = const Size(1080, 3200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           appDatabaseProvider.overrideWithValue(db),
           clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
           fakeLocationOverride(),
+          ...fakeReminderOverrides(),
           ...testSessionOverrides(),
         ],
         child: const BismillahApp(),
