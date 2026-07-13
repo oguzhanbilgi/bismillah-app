@@ -20,6 +20,9 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
   adlarıyla yazılır; `completed` bayrağı EN SON. Startup kapısı bootstrap'ta
   okunur + router `redirect` (tek kaynak, döngü yok); bozuk veri
   tamamlanmamış sayılır. İzin/login/paywall İSTENMEZ; Firestore sync YOK.
+- **TASK 029 — Profil kişiselleştirme özeti:** odak/journey/pace salt-okunur kart.
+- **TASK 030 — Tercih düzenleme:** `/profile/personalization`; `completed` true kalır.
+- **TASK 031 — Today kişiselleştirilmiş küçük adım:** deterministik günlük öneri kartı.
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek
