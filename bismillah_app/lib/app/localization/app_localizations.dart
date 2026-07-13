@@ -189,6 +189,83 @@ final class AppLocalizations {
   String get profileSaveChanges => _t('profileSaveChanges');
   String get profileChangesSaved => _t('profileChangesSaved');
 
+  // Kur'an okuma hedefi (TASK 032 — yalnız hedef; okuma kaydı TASK 033.
+  // Ton: sakin; streak/puan/suçlama YOK, ayet metni YOK)
+  String get quranSupportLine => _t('quranSupportLine');
+  String get quranGoalSetupTitle => _t('quranGoalSetupTitle');
+  String get quranGoalSetupSupport => _t('quranGoalSetupSupport');
+  String get quranGoalSaveCta => _t('quranGoalSaveCta');
+  String get quranTodayGoalTitle => _t('quranTodayGoalTitle');
+  String get quranGoalGentleLine => _t('quranGoalGentleLine');
+  String get quranGoalChange => _t('quranGoalChange');
+  String get quranGoalSaveIssue => _t('quranGoalSaveIssue');
+  String get quranGoalLoadIssue => _t('quranGoalLoadIssue');
+
+  /// "3 sayfa" biçimli sayfa etiketi (tekil/çoğul localization'da).
+  String quranPagesCount(int count) => count == 1
+      ? _t('quranPagesOne')
+      : _t('quranPagesOther').replaceAll('{count}', '$count');
+
+  /// "0 / 3 sayfa" biçimli günlük ilerleme metni.
+  String quranPagesProgress(int read, int goal) => _t(
+    'quranPagesProgress',
+  ).replaceAll('{read}', '$read').replaceAll('{goal}', '$goal');
+
+  // Kur'an ana ekranı + ilk kurulum (TASK 033 — sure/ayet/meal içeriği
+  // YOK; kurulum yalnız Kur'an sekmesi içinde yaşar)
+  String get quranTabRead => _t('quranTabRead');
+  String get quranTabLearn => _t('quranTabLearn');
+  String get quranTabProgress => _t('quranTabProgress');
+  String get quranSetupScriptTitle => _t('quranSetupScriptTitle');
+  String get quranScriptUthmani => _t('quranScriptUthmani');
+  String get quranScriptUthmaniDesc => _t('quranScriptUthmaniDesc');
+  String get quranScriptIndoPak => _t('quranScriptIndoPak');
+  String get quranScriptIndoPakDesc => _t('quranScriptIndoPakDesc');
+  String get quranSetupTranslationTitle => _t('quranSetupTranslationTitle');
+  String get quranTranslationTurkish => _t('quranTranslationTurkish');
+  String get quranTranslationTurkishDesc => _t('quranTranslationTurkishDesc');
+  String get quranSetupGoalTitle => _t('quranSetupGoalTitle');
+  String get quranGoalTypeMinutes => _t('quranGoalTypeMinutes');
+  String get quranGoalTypePages => _t('quranGoalTypePages');
+  String get quranSetupBack => _t('quranSetupBack');
+  String get quranSetupContinue => _t('quranSetupContinue');
+  String get quranSetupFinishCta => _t('quranSetupFinishCta');
+  String get quranResumeTitle => _t('quranResumeTitle');
+  String get quranResumeEmpty => _t('quranResumeEmpty');
+  String get quranSurahsSection => _t('quranSurahsSection');
+  String get quranLearnTitle => _t('quranLearnTitle');
+  String get quranLearnBody => _t('quranLearnBody');
+  String get quranGoalEdit => _t('quranGoalEdit');
+
+  // Sure kataloğu (TASK 034/034B — yalnız metadata; ayet metni TASK 035)
+  String get quranRevelationMeccan => _t('quranRevelationMeccan');
+  String get quranRevelationMedinan => _t('quranRevelationMedinan');
+  String get quranSearchHint => _t('quranSearchHint');
+  String get quranSearchNoResults => _t('quranSearchNoResults');
+  String get quranChaptersLoadIssue => _t('quranChaptersLoadIssue');
+
+  // Sure okuyucu (TASK 035 — doğrulanmış Uthmani metin; meal/ses YOK)
+  String get quranReaderLoadIssue => _t('quranReaderLoadIssue');
+  String get quranTextSourceLabel => _t('quranTextSourceLabel');
+
+  /// "7 ayet" biçimli ayet sayısı etiketi.
+  String quranAyahCount(int count) =>
+      _t('quranAyahCount').replaceAll('{count}', '$count');
+
+  /// "1 / 3" biçimli kurulum adım göstergesi.
+  String quranSetupStepLabel(int step, int total) => _t(
+    'quranSetupStepLabel',
+  ).replaceAll('{step}', '$step').replaceAll('{total}', '$total');
+
+  /// "10 dakika" biçimli süre etiketi.
+  String quranMinutesCount(int count) =>
+      _t('quranMinutesCount').replaceAll('{count}', '$count');
+
+  /// "0 / 10 dakika" biçimli günlük ilerleme metni.
+  String quranMinutesProgress(int read, int goal) => _t(
+    'quranMinutesProgress',
+  ).replaceAll('{read}', '$read').replaceAll('{goal}', '$goal');
+
   // Premium (davet dili — 02_BRAND_GUIDELINES §26; kilit/unlock dili YASAK)
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
   String get premiumInviteLine => _t('premiumInviteLine');
@@ -325,6 +402,55 @@ final class AppLocalizations {
           'Bu seçimleri dilediğin zaman değiştirebilirsin.',
       'profileSaveChanges': 'Değişiklikleri kaydet',
       'profileChangesSaved': 'Değişiklikler kaydedildi.',
+      'quranSupportLine':
+          'Okuma alışkanlığın için küçük ve sürdürülebilir bir alan.',
+      'quranGoalSetupTitle': 'Günlük okuma hedefin',
+      'quranGoalSetupSupport': 'Gününe uygun küçük bir hedef seç.',
+      'quranPagesOne': '1 sayfa',
+      'quranPagesOther': '{count} sayfa',
+      'quranGoalSaveCta': 'Hedefimi kaydet',
+      'quranTodayGoalTitle': 'Bugünkü hedefin',
+      'quranGoalGentleLine': 'Küçük ve düzenli adımlar yeterli.',
+      'quranGoalChange': 'Hedefi değiştir',
+      'quranPagesProgress': '{read} / {goal} sayfa',
+      'quranGoalSaveIssue': 'Kaydedilemedi. Tekrar deneyebilirsin.',
+      'quranGoalLoadIssue': 'Hedefin şu an açılamadı.',
+      'quranTabRead': 'Oku',
+      'quranTabLearn': 'Öğren',
+      'quranTabProgress': 'İlerlemem',
+      'quranSetupStepLabel': '{step} / {total}',
+      'quranSetupScriptTitle': 'Arapça yazı biçimini seç',
+      'quranScriptUthmani': 'Uthmani',
+      'quranScriptUthmaniDesc':
+          'Medine mushafı tarzında, yaygın ve sade yazım.',
+      'quranScriptIndoPak': 'IndoPak',
+      'quranScriptIndoPakDesc': "Güney Asya'da yaygın kullanılan yazım.",
+      'quranSetupTranslationTitle': 'Meal tercihini seç',
+      'quranTranslationTurkish': 'Türkçe',
+      'quranTranslationTurkishDesc':
+          'Doğrulanmış meal kaynağı içerik entegrasyonunda bağlanacak.',
+      'quranSetupGoalTitle': 'Günlük hedef',
+      'quranGoalTypeMinutes': 'Süre',
+      'quranGoalTypePages': 'Sayfa',
+      'quranMinutesCount': '{count} dakika',
+      'quranMinutesProgress': '{read} / {goal} dakika',
+      'quranSetupBack': 'Geri',
+      'quranSetupContinue': 'Devam et',
+      'quranSetupFinishCta': "Kur'an deneyimimi hazırla",
+      'quranResumeTitle': 'Kaldığın yerden devam et',
+      'quranResumeEmpty': 'İlk okumanda kaldığın yer burada görünecek.',
+      'quranSurahsSection': 'Sureler',
+      'quranLearnTitle': "Kur'an'ı anlayarak ilerle",
+      'quranLearnBody': 'Tecvid ve öğrenme içerikleri yakında burada olacak.',
+      'quranGoalEdit': 'Hedefi düzenle',
+      'quranRevelationMeccan': 'Mekkî',
+      'quranRevelationMedinan': 'Medenî',
+      'quranAyahCount': '{count} ayet',
+      'quranSearchHint': 'Sure ara',
+      'quranSearchNoResults': 'Aramanla eşleşen sure bulunamadı.',
+      'quranChaptersLoadIssue': 'Sure listesi şu an açılamadı.',
+      'quranReaderLoadIssue': "Kur'an metni yüklenemedi.",
+      'quranTextSourceLabel': "Kur'an metni kaynağı",
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -460,6 +586,58 @@ final class AppLocalizations {
           'You can change these choices anytime.',
       'profileSaveChanges': 'Save changes',
       'profileChangesSaved': 'Changes saved.',
+      'quranSupportLine':
+          'A small, sustainable space for your reading habit.',
+      'quranGoalSetupTitle': 'Your daily reading goal',
+      'quranGoalSetupSupport': 'Choose a small goal that fits your day.',
+      'quranPagesOne': '1 page',
+      'quranPagesOther': '{count} pages',
+      'quranGoalSaveCta': 'Save my goal',
+      'quranTodayGoalTitle': "Today's goal",
+      'quranGoalGentleLine': 'Small, steady steps are enough.',
+      'quranGoalChange': 'Change goal',
+      'quranPagesProgress': '{read} / {goal} pages',
+      'quranGoalSaveIssue': 'Could not save. You can try again.',
+      'quranGoalLoadIssue': 'Your goal could not be loaded right now.',
+      'quranTabRead': 'Read',
+      'quranTabLearn': 'Learn',
+      'quranTabProgress': 'My progress',
+      'quranSetupStepLabel': '{step} / {total}',
+      'quranSetupScriptTitle': 'Choose your Arabic script',
+      'quranScriptUthmani': 'Uthmani',
+      'quranScriptUthmaniDesc':
+          'The widespread, clean style of the Madinah mushaf.',
+      'quranScriptIndoPak': 'IndoPak',
+      'quranScriptIndoPakDesc': 'The script commonly used across South Asia.',
+      'quranSetupTranslationTitle': 'Choose your translation',
+      'quranTranslationTurkish': 'Turkish',
+      'quranTranslationTurkishDesc':
+          'A verified translation source will be connected during content '
+              'integration.',
+      'quranSetupGoalTitle': 'Daily goal',
+      'quranGoalTypeMinutes': 'Time',
+      'quranGoalTypePages': 'Pages',
+      'quranMinutesCount': '{count} minutes',
+      'quranMinutesProgress': '{read} / {goal} minutes',
+      'quranSetupBack': 'Back',
+      'quranSetupContinue': 'Continue',
+      'quranSetupFinishCta': 'Prepare my Quran experience',
+      'quranResumeTitle': 'Continue where you left off',
+      'quranResumeEmpty':
+          'Where you left off will appear here after your first reading.',
+      'quranSurahsSection': 'Surahs',
+      'quranLearnTitle': 'Grow in understanding the Quran',
+      'quranLearnBody': 'Tajweed and learning content will be here soon.',
+      'quranGoalEdit': 'Edit goal',
+      'quranRevelationMeccan': 'Meccan',
+      'quranRevelationMedinan': 'Medinan',
+      'quranAyahCount': '{count} verses',
+      'quranSearchHint': 'Search surahs',
+      'quranSearchNoResults': 'No surahs match your search.',
+      'quranChaptersLoadIssue':
+          'The surah list could not be loaded right now.',
+      'quranReaderLoadIssue': 'The Quran text could not be loaded.',
+      'quranTextSourceLabel': 'Quran text source',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -586,6 +764,52 @@ final class AppLocalizations {
           'يمكنك تغيير هذه الاختيارات في أي وقت.',
       'profileSaveChanges': 'حفظ التغييرات',
       'profileChangesSaved': 'تم حفظ التغييرات.',
+      'quranSupportLine': 'مساحة صغيرة ومستدامة لعادة قراءتك.',
+      'quranGoalSetupTitle': 'هدفك اليومي في القراءة',
+      'quranGoalSetupSupport': 'اختر هدفًا صغيرًا يناسب يومك.',
+      'quranPagesOne': 'صفحة واحدة',
+      'quranPagesOther': '{count} صفحات',
+      'quranGoalSaveCta': 'احفظ هدفي',
+      'quranTodayGoalTitle': 'هدفك لهذا اليوم',
+      'quranGoalGentleLine': 'خطوات صغيرة ومنتظمة تكفي.',
+      'quranGoalChange': 'تغيير الهدف',
+      'quranPagesProgress': '{read} / {goal} صفحات',
+      'quranGoalSaveIssue': 'تعذّر الحفظ. يمكنك المحاولة مرة أخرى.',
+      'quranGoalLoadIssue': 'تعذّر فتح هدفك الآن.',
+      'quranTabRead': 'اقرأ',
+      'quranTabLearn': 'تعلّم',
+      'quranTabProgress': 'تقدّمي',
+      'quranSetupStepLabel': '{step} / {total}',
+      'quranSetupScriptTitle': 'اختر نمط الخط العربي',
+      'quranScriptUthmani': 'العثماني',
+      'quranScriptUthmaniDesc': 'أسلوب مصحف المدينة، شائع وواضح.',
+      'quranScriptIndoPak': 'إندوباك',
+      'quranScriptIndoPakDesc': 'الخط الشائع في جنوب آسيا.',
+      'quranSetupTranslationTitle': 'اختر ترجمتك',
+      'quranTranslationTurkish': 'التركية',
+      'quranTranslationTurkishDesc': 'سيُربط مصدر ترجمة موثّق عند دمج المحتوى.',
+      'quranSetupGoalTitle': 'الهدف اليومي',
+      'quranGoalTypeMinutes': 'المدة',
+      'quranGoalTypePages': 'الصفحات',
+      'quranMinutesCount': '{count} دقائق',
+      'quranMinutesProgress': '{read} / {goal} دقائق',
+      'quranSetupBack': 'رجوع',
+      'quranSetupContinue': 'متابعة',
+      'quranSetupFinishCta': 'جهّز تجربتي مع القرآن',
+      'quranResumeTitle': 'تابع من حيث توقفت',
+      'quranResumeEmpty': 'سيظهر هنا موضع توقفك بعد قراءتك الأولى.',
+      'quranSurahsSection': 'السور',
+      'quranLearnTitle': 'تقدّم في فهم القرآن',
+      'quranLearnBody': 'ستتوفر هنا قريبًا محتويات التجويد والتعلّم.',
+      'quranGoalEdit': 'تعديل الهدف',
+      'quranRevelationMeccan': 'مكية',
+      'quranRevelationMedinan': 'مدنية',
+      'quranAyahCount': '{count} آيات',
+      'quranSearchHint': 'ابحث عن سورة',
+      'quranSearchNoResults': 'لا توجد سور مطابقة لبحثك.',
+      'quranChaptersLoadIssue': 'تعذّر فتح قائمة السور الآن.',
+      'quranReaderLoadIssue': 'تعذّر تحميل نص القرآن.',
+      'quranTextSourceLabel': 'مصدر نص القرآن',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

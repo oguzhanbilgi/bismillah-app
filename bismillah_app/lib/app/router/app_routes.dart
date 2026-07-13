@@ -40,6 +40,14 @@ abstract final class AppRoutes {
   /// Profile branch içinde — onboarding AKIŞI DEĞİLDİR).
   static const String profilePersonalization = '/profile/personalization';
 
+  /// Sure okuyucu tabanı (TASK 035; Quran branch içinde push route —
+  /// tam konum için [quranChapterPath] kullanılır).
+  static const String quranChapter = '/quran/chapter';
+
+  /// Belirli bir surenin okuyucu konumu: `/quran/chapter/:chapterId`.
+  static String quranChapterPath(int chapterId) =>
+      '$quranChapter/$chapterId';
+
   // Route adları (typed navigation için)
   static const String todayName = 'today';
   static const String prayerName = 'prayer';
@@ -56,4 +64,5 @@ abstract final class AppRoutes {
   static const String premiumName = 'premium';
   static const String subscriptionSettingsName = 'subscriptionSettings';
   static const String profilePersonalizationName = 'profilePersonalization';
+  static const String quranChapterName = 'quranChapter';
 }

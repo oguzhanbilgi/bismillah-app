@@ -36,3 +36,7 @@ dev_dependencies:
   build_runner: ^2.15.1
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/quran/chapters_v1.json
+    - assets/quran/verses_uthmani_v1.json

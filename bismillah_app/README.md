@@ -23,6 +23,10 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
 - **TASK 029 — Profil kişiselleştirme özeti:** odak/journey/pace salt-okunur kart.
 - **TASK 030 — Tercih düzenleme:** `/profile/personalization`; `completed` true kalır.
 - **TASK 031 — Today kişiselleştirilmiş küçük adım:** deterministik günlük öneri kartı.
+- **TASK 032 — Kur'an günlük hedef temeli:** SharedPreferences'ta sayfa hedefi.
+- **TASK 033 — Kur'an kurulumu ve iç sekmeler:** yazı biçimi/meal/hedef + Oku/Öğren/İlerlemem.
+- **TASK 034/034B — Doğrulanmış 114 sure kataloğu:** Tanzil metadata → `chapters_v1.json` + arama.
+- **TASK 035 — Tanzil Uthmani Arapça okuyucu:** `/quran/chapter/:id`, 6236 doğrulanmış ayet (kaynak: `assets/quran/NOTICE.md`).
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek

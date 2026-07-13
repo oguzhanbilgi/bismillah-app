@@ -13,7 +13,8 @@ import 'package:bismillah_app/features/premium/presentation/premium_placeholder_
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
-import 'package:bismillah_app/features/quran/presentation/quran_placeholder_screen.dart';
+import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
+import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -86,7 +87,23 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
               GoRoute(
                 path: AppRoutes.quran,
                 name: AppRoutes.quranName,
-                builder: (context, state) => const QuranPlaceholderScreen(),
+                builder: (context, state) => const QuranScreen(),
+                routes: [
+                  // Sure okuyucu (TASK 035): Quran branch içinde push
+                  // (relative path → /quran/chapter/:chapterId); geri
+                  // katalog listesine döner, alt navigasyon görünür kalır.
+                  // Geçersiz parametre ekranda sakin hata olarak ele
+                  // alınır — crash/redirect YOK.
+                  GoRoute(
+                    path: 'chapter/:chapterId',
+                    name: AppRoutes.quranChapterName,
+                    builder: (context, state) => QuranChapterReaderScreen(
+                      chapterId: int.tryParse(
+                        state.pathParameters['chapterId'] ?? '',
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
