@@ -11,6 +11,7 @@ class AppScaffold extends StatelessWidget {
     required this.body,
     this.title,
     this.padded = true,
+    this.actions,
   });
 
   final Widget body;
@@ -22,13 +23,20 @@ class AppScaffold extends StatelessWidget {
   /// (Tam genişlik içerikler — ör. Kur'an yüzeyi — false geçer.)
   final bool padded;
 
+  /// Opsiyonel AppBar aksiyonları (ör. okuma ayarları) — yalnız başlık
+  /// varken görünür; işlevsiz ikon eklenmez.
+  final List<Widget>? actions;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: title == null
           ? null
-          : AppBar(title: AppText(title!, token: AppTextStyleToken.h2)),
+          : AppBar(
+              title: AppText(title!, token: AppTextStyleToken.h2),
+              actions: actions,
+            ),
       body: SafeArea(
         child: padded
             ? Padding(

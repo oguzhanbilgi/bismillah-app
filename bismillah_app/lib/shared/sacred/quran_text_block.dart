@@ -12,12 +12,18 @@ import 'package:flutter/material.dart';
 ///   olarak kırpılamaz.
 /// - Kaynak satırı zorunludur (no source, no render).
 /// - Zemin daima temiz — arka planda dekor bu bileşenin altına giremez.
+/// Ayet metni boyut varyantı (TASK 037) — yalnız tipografi token'larına
+/// eşlenir; keyfi font boyutu bu bileşene giremez.
+enum QuranTextBlockSize { small, medium, large }
+
 class QuranTextBlock extends StatelessWidget {
   const QuranTextBlock({
     super.key,
     required this.arabicText,
     required this.sourceLabel,
     this.translation,
+    this.size = QuranTextBlockSize.medium,
+    this.footerAction,
   });
 
   /// Doğrulanmış ayet metni (Arapça, tam hareke).
@@ -29,9 +35,21 @@ class QuranTextBlock extends StatelessWidget {
   /// Opsiyonel meal metni — ayetten görsel olarak ayrı render edilir.
   final String? translation;
 
+  /// YALNIZ Arapça ayet metnini ölçekler (TASK 037) — kaynak rozeti ve
+  /// meal metni sabit kalır.
+  final QuranTextBlockSize size;
+
+  /// Alt bilgi satırındaki sakin opsiyonel aksiyon (ör. ayet kaydetme).
+  final Widget? footerAction;
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final arabicStyle = switch (size) {
+      QuranTextBlockSize.small => AppTypography.quranSmall,
+      QuranTextBlockSize.medium => AppTypography.quran,
+      QuranTextBlockSize.large => AppTypography.quranLarge,
+    };
     return ColoredBox(
       // Kur'an metni daima temiz zeminde (03_DESIGN_SYSTEM §34-4).
       color: scheme.surface,
@@ -42,7 +60,7 @@ class QuranTextBlock extends StatelessWidget {
           children: [
             Text(
               arabicText,
-              style: AppTypography.quran,
+              style: arabicStyle,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right,
               // maxLines yok — ayet kırpılamaz.
@@ -52,7 +70,17 @@ class QuranTextBlock extends StatelessWidget {
               Text(translation!, style: AppTypography.body),
             ],
             const SizedBox(height: AppSpacing.s4),
-            SacredContentSourceBadge(sourceLabel: sourceLabel),
+            Row(
+              children: [
+                Expanded(
+                  child: SacredContentSourceBadge(sourceLabel: sourceLabel),
+                ),
+                if (footerAction != null) ...[
+                  const SizedBox(width: AppSpacing.s3),
+                  footerAction!,
+                ],
+              ],
+            ),
           ],
         ),
       ),

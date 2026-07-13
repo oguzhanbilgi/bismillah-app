@@ -48,6 +48,9 @@ abstract final class AppRoutes {
   static String quranChapterPath(int chapterId) =>
       '$quranChapter/$chapterId';
 
+  /// Kaydedilen ayetler (TASK 038; Quran branch içinde push route).
+  static const String quranBookmarks = '/quran/bookmarks';
+
   // Route adları (typed navigation için)
   static const String todayName = 'today';
   static const String prayerName = 'prayer';
@@ -65,4 +68,5 @@ abstract final class AppRoutes {
   static const String subscriptionSettingsName = 'subscriptionSettings';
   static const String profilePersonalizationName = 'profilePersonalization';
   static const String quranChapterName = 'quranChapter';
+  static const String quranBookmarksName = 'quranBookmarks';
 }

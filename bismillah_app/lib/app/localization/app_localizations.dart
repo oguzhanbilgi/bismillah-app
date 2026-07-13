@@ -248,6 +248,38 @@ final class AppLocalizations {
   String get quranReaderLoadIssue => _t('quranReaderLoadIssue');
   String get quranTextSourceLabel => _t('quranTextSourceLabel');
 
+  // Son okuma konumu (TASK 036 — devam kartı; ayet numarası gösterilmez)
+  String get quranResumeCta => _t('quranResumeCta');
+  String get quranPositionLoadIssue => _t('quranPositionLoadIssue');
+
+  // Ayet kaydetme + okuma görünümü (TASK 037 — liste ekranı TASK 038)
+  String get quranBookmarkAdd => _t('quranBookmarkAdd');
+  String get quranBookmarkSaved => _t('quranBookmarkSaved');
+  String get quranBookmarkSaveIssue => _t('quranBookmarkSaveIssue');
+  String get quranBookmarkRemoveIssue => _t('quranBookmarkRemoveIssue');
+  String get quranReaderSettings => _t('quranReaderSettings');
+  String get quranReaderViewTitle => _t('quranReaderViewTitle');
+  String get quranArabicTextSizeLabel => _t('quranArabicTextSizeLabel');
+  String get quranTextSizeSmall => _t('quranTextSizeSmall');
+  String get quranTextSizeMedium => _t('quranTextSizeMedium');
+  String get quranTextSizeLarge => _t('quranTextSizeLarge');
+
+  // Kaydedilen ayetler + Today Kur'an devam kartı (TASK 038)
+  String get quranSavedVersesTitle => _t('quranSavedVersesTitle');
+  String get quranSavedVersesEmptyTitle => _t('quranSavedVersesEmptyTitle');
+  String get quranSavedVersesEmptyBody => _t('quranSavedVersesEmptyBody');
+  String get quranSavedVersesLoadIssue => _t('quranSavedVersesLoadIssue');
+  String get quranBookmarkRemove => _t('quranBookmarkRemove');
+  String get quranGoToReading => _t('quranGoToReading');
+  String get todayQuranContinueTitle => _t('todayQuranContinueTitle');
+  String get todayQuranEmptyLine => _t('todayQuranEmptyLine');
+  String get todayQuranStartCta => _t('todayQuranStartCta');
+  String get todayQuranSetupLine => _t('todayQuranSetupLine');
+
+  /// "Günlük hedefin: 3 sayfa" biçimli hedef satırı.
+  String todayQuranDailyGoal(String goal) =>
+      _t('todayQuranDailyGoal').replaceAll('{goal}', goal);
+
   /// "7 ayet" biçimli ayet sayısı etiketi.
   String quranAyahCount(int count) =>
       _t('quranAyahCount').replaceAll('{count}', '$count');
@@ -451,6 +483,31 @@ final class AppLocalizations {
       'quranChaptersLoadIssue': 'Sure listesi şu an açılamadı.',
       'quranReaderLoadIssue': "Kur'an metni yüklenemedi.",
       'quranTextSourceLabel': "Kur'an metni kaynağı",
+      'quranResumeCta': 'Devam et',
+      'quranPositionLoadIssue': 'Okuma konumu yüklenemedi.',
+      'quranBookmarkAdd': 'Ayeti kaydet',
+      'quranBookmarkSaved': 'Kaydedildi',
+      'quranBookmarkSaveIssue': 'Ayet kaydedilemedi.',
+      'quranBookmarkRemoveIssue': 'Ayet kaydı kaldırılamadı.',
+      'quranReaderSettings': 'Okuma ayarları',
+      'quranReaderViewTitle': 'Okuma görünümü',
+      'quranArabicTextSizeLabel': 'Arapça metin boyutu',
+      'quranTextSizeSmall': 'Küçük',
+      'quranTextSizeMedium': 'Orta',
+      'quranTextSizeLarge': 'Büyük',
+      'quranSavedVersesTitle': 'Kaydedilen ayetler',
+      'quranSavedVersesEmptyTitle': 'Henüz kaydedilmiş ayetin yok.',
+      'quranSavedVersesEmptyBody':
+          'Okurken tekrar dönmek istediğin ayetleri kaydedebilirsin.',
+      'quranSavedVersesLoadIssue': 'Kaydedilen ayetler yüklenemedi.',
+      'quranBookmarkRemove': 'Kaydı kaldır',
+      'quranGoToReading': "Kur'an okumaya git",
+      'todayQuranContinueTitle': "Kur'an'a devam et",
+      'todayQuranEmptyLine':
+          "İlk Kur'an okumanda kaldığın yer burada görünecek.",
+      'todayQuranStartCta': "Kur'an okumaya başla",
+      'todayQuranSetupLine': "Kur'an deneyimini hazırla.",
+      'todayQuranDailyGoal': 'Günlük hedefin: {goal}',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -638,6 +695,31 @@ final class AppLocalizations {
           'The surah list could not be loaded right now.',
       'quranReaderLoadIssue': 'The Quran text could not be loaded.',
       'quranTextSourceLabel': 'Quran text source',
+      'quranResumeCta': 'Continue',
+      'quranPositionLoadIssue': 'Your reading position could not be loaded.',
+      'quranBookmarkAdd': 'Save verse',
+      'quranBookmarkSaved': 'Saved',
+      'quranBookmarkSaveIssue': 'The verse could not be saved.',
+      'quranBookmarkRemoveIssue': 'The saved verse could not be removed.',
+      'quranReaderSettings': 'Reading settings',
+      'quranReaderViewTitle': 'Reading view',
+      'quranArabicTextSizeLabel': 'Arabic text size',
+      'quranTextSizeSmall': 'Small',
+      'quranTextSizeMedium': 'Medium',
+      'quranTextSizeLarge': 'Large',
+      'quranSavedVersesTitle': 'Saved verses',
+      'quranSavedVersesEmptyTitle': 'You have no saved verses yet.',
+      'quranSavedVersesEmptyBody':
+          'While reading, you can save verses you want to return to.',
+      'quranSavedVersesLoadIssue': 'Saved verses could not be loaded.',
+      'quranBookmarkRemove': 'Remove',
+      'quranGoToReading': 'Go to Quran reading',
+      'todayQuranContinueTitle': 'Continue your Quran',
+      'todayQuranEmptyLine':
+          'Where you leave off in your first Quran reading will appear here.',
+      'todayQuranStartCta': 'Start reading the Quran',
+      'todayQuranSetupLine': 'Prepare your Quran experience.',
+      'todayQuranDailyGoal': 'Your daily goal: {goal}',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -810,6 +892,31 @@ final class AppLocalizations {
       'quranChaptersLoadIssue': 'تعذّر فتح قائمة السور الآن.',
       'quranReaderLoadIssue': 'تعذّر تحميل نص القرآن.',
       'quranTextSourceLabel': 'مصدر نص القرآن',
+      'quranResumeCta': 'متابعة',
+      'quranPositionLoadIssue': 'تعذّر تحميل موضع القراءة.',
+      'quranBookmarkAdd': 'احفظ الآية',
+      'quranBookmarkSaved': 'محفوظة',
+      'quranBookmarkSaveIssue': 'تعذّر حفظ الآية.',
+      'quranBookmarkRemoveIssue': 'تعذّرت إزالة حفظ الآية.',
+      'quranReaderSettings': 'إعدادات القراءة',
+      'quranReaderViewTitle': 'عرض القراءة',
+      'quranArabicTextSizeLabel': 'حجم النص العربي',
+      'quranTextSizeSmall': 'صغير',
+      'quranTextSizeMedium': 'متوسط',
+      'quranTextSizeLarge': 'كبير',
+      'quranSavedVersesTitle': 'الآيات المحفوظة',
+      'quranSavedVersesEmptyTitle': 'لا توجد آيات محفوظة بعد.',
+      'quranSavedVersesEmptyBody':
+          'أثناء القراءة يمكنك حفظ الآيات التي تريد العودة إليها.',
+      'quranSavedVersesLoadIssue': 'تعذّر تحميل الآيات المحفوظة.',
+      'quranBookmarkRemove': 'إزالة الحفظ',
+      'quranGoToReading': 'اذهب إلى قراءة القرآن',
+      'todayQuranContinueTitle': 'تابع قراءة القرآن',
+      'todayQuranEmptyLine':
+          'سيظهر هنا موضع توقفك في قراءتك الأولى للقرآن.',
+      'todayQuranStartCta': 'ابدأ قراءة القرآن',
+      'todayQuranSetupLine': 'جهّز تجربتك مع القرآن.',
+      'todayQuranDailyGoal': 'هدفك اليومي: {goal}',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

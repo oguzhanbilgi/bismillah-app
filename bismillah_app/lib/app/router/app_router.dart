@@ -14,6 +14,7 @@ import 'package:bismillah_app/features/premium/presentation/subscription_setting
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
+import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,14 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                         state.pathParameters['chapterId'] ?? '',
                       ),
                     ),
+                  ),
+                  // Kaydedilen ayetler (TASK 038): Quran branch içinde push;
+                  // geri Kur'an ana ekranına döner, alt navigasyon kalır.
+                  GoRoute(
+                    path: 'bookmarks',
+                    name: AppRoutes.quranBookmarksName,
+                    builder: (context, state) =>
+                        const QuranSavedVersesScreen(),
                   ),
                 ],
               ),

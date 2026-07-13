@@ -3,9 +3,11 @@ import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
+import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/onboarding/presentation/widgets/onboarding_option_card.dart';
 import 'package:bismillah_app/features/quran/application/quran_chapters_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_preferences_controller.dart';
+import 'package:bismillah_app/features/quran/application/quran_reading_position_providers.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_chapter.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_arabic_script.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_reading_goal.dart';
@@ -37,6 +39,17 @@ class QuranScreen extends ConsumerWidget {
 
     return AppScaffold(
       title: l10n.tabQuran,
+      // Kaydedilen ayetler (TASK 038): yalnız kurulum tamamlanmışsa —
+      // ikon her zaman gerçek route açar, işlevsiz ikon yok.
+      actions: async.value?.savedPreferences == null
+          ? null
+          : [
+              IconButton(
+                tooltip: l10n.quranSavedVersesTitle,
+                icon: const Icon(Icons.bookmark_outline),
+                onPressed: () => context.push(AppRoutes.quranBookmarks),
+              ),
+            ],
       body: switch (async) {
         AsyncData(:final value) => value.savedPreferences == null
             ? _SetupFlow(state: value)
@@ -51,6 +64,19 @@ class QuranScreen extends ConsumerWidget {
         _ => AppLoading(label: l10n.commonLoading),
       },
     );
+  }
+}
+
+/// Sure okuyucusunu açar; dönüşte devam kartı güncel konumu göstersin
+/// diye kayıtlı konum provider'ı tazelenir (TASK 036).
+Future<void> _openChapter(
+  BuildContext context,
+  WidgetRef ref,
+  int chapterId,
+) async {
+  await context.push(AppRoutes.quranChapterPath(chapterId));
+  if (context.mounted) {
+    ref.invalidate(quranReadingPositionProvider);
   }
 }
 
@@ -161,13 +187,7 @@ final class _ReadTabState extends ConsumerState<_ReadTab> {
               const SizedBox(height: AppSpacing.s2),
               AppText(l10n.quranResumeTitle, token: AppTextStyleToken.h3),
               const SizedBox(height: AppSpacing.s3),
-              AppCard(
-                child: AppText(
-                  l10n.quranResumeEmpty,
-                  token: AppTextStyleToken.bodySmall,
-                  secondary: true,
-                ),
-              ),
+              const _ContinueReadingCard(),
               const SizedBox(height: AppSpacing.s5),
               AppText(l10n.quranSurahsSection, token: AppTextStyleToken.h3),
               const SizedBox(height: AppSpacing.s3),
@@ -190,21 +210,94 @@ final class _ReadTabState extends ConsumerState<_ReadTab> {
             ],
           );
         }
+        final chapter = chapters[index - 1];
         return Padding(
           padding: const EdgeInsets.only(bottom: AppSpacing.s3),
-          child: _ChapterRow(chapter: chapters[index - 1]),
+          child: _ChapterRow(
+            chapter: chapter,
+            onTap: () => _openChapter(context, ref, chapter.id),
+          ),
         );
       },
     );
   }
 }
 
+/// "Kaldığın yerden devam et" kartı (TASK 036): kayıtlı konum + surenin
+/// katalog bilgisi. Kayıt yoksa sakin boş durum; okuma hatasında sakin
+/// mesaj. Ayet numarası GÖSTERİLMEZ — yalnız scroll konumu saklanıyor.
+final class _ContinueReadingCard extends ConsumerWidget {
+  const _ContinueReadingCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final async = ref.watch(quranContinueReadingProvider);
+
+    return switch (async) {
+      AsyncData(:final value) => value == null
+          ? AppCard(
+              child: AppText(
+                l10n.quranResumeEmpty,
+                token: AppTextStyleToken.bodySmall,
+                secondary: true,
+              ),
+            )
+          : AppCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppText(
+                          value.chapter.transliteratedName,
+                          token: AppTextStyleToken.h3,
+                        ),
+                      ),
+                      const SizedBox(width: AppSpacing.s3),
+                      AppText(
+                        value.chapter.arabicName,
+                        token: AppTextStyleToken.h3,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppSpacing.s4),
+                  AppButton(
+                    label: l10n.quranResumeCta,
+                    variant: AppButtonVariant.secondary,
+                    onPressed: () =>
+                        _openChapter(context, ref, value.chapter.id),
+                  ),
+                ],
+              ),
+            ),
+      AsyncError() => AppCard(
+        child: AppText(
+          l10n.quranPositionLoadIssue,
+          token: AppTextStyleToken.bodySmall,
+          secondary: true,
+        ),
+      ),
+      // Kompakt yükleme — hızlı prefs okuması, kart zıplatılmaz.
+      _ => const AppCard(
+        child: SizedBox(
+          height: AppSizes.iconMd,
+          width: AppSizes.iconMd,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      ),
+    };
+  }
+}
+
 /// Tek sure satırı — mushaf numarası, ad, ayet sayısı + nüzul yeri ve
-/// Arapça ad. Dokunma sure okuyucusunu açar (TASK 035).
+/// Arapça ad. Dokunma sure okuyucusunu açar (TASK 035/036).
 final class _ChapterRow extends StatelessWidget {
-  const _ChapterRow({required this.chapter});
+  const _ChapterRow({required this.chapter, required this.onTap});
 
   final QuranChapter chapter;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +308,7 @@ final class _ChapterRow extends StatelessWidget {
     };
 
     return AppCard(
-      onTap: () => context.push(AppRoutes.quranChapterPath(chapter.id)),
+      onTap: onTap,
       child: Row(
         children: [
           AppBadge(label: '${chapter.id}'),

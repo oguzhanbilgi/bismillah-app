@@ -34,7 +34,7 @@ void main() {
     // Asset okuma gerçek I/O'dur — FakeAsync altında tamamlanamaz;
     // cache runAsync ile ısıtılır, depo sıcak cache'iyle override edilir.
     final repository = AssetQuranContentRepository();
-    await tester.runAsync(() => repository.getChapters());
+    await tester.runAsync(repository.getChapters);
 
     await tester.pumpWidget(
       ProviderScope(

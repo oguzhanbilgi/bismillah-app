@@ -94,6 +94,22 @@ abstract final class AppTypography {
     color: AppColors.textPrimary,
   );
 
+  /// Kur'an ayet metni — küçük boyut tercihi (TASK 037; §5 aralığın alt ucu).
+  static const TextStyle quranSmall = TextStyle(
+    fontSize: 22,
+    height: 1.9,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textPrimary,
+  );
+
+  /// Kur'an ayet metni — büyük boyut tercihi (TASK 037).
+  static const TextStyle quranLarge = TextStyle(
+    fontSize: 34,
+    height: 1.9,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textPrimary,
+  );
+
   /// Dua/zikir Arapça metni.
   static const TextStyle dua = TextStyle(
     fontSize: 23,

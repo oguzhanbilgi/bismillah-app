@@ -1,7 +1,13 @@
 import 'package:bismillah_app/features/quran/data/asset_quran_content_repository.dart';
+import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reader_preferences_repository.dart';
+import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_position_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_preferences_repository.dart';
+import 'package:bismillah_app/features/quran/data/shared_prefs_quran_verse_bookmark_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_content_repository.dart';
+import 'package:bismillah_app/features/quran/domain/repositories/quran_reader_preferences_repository.dart';
+import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_position_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_preferences_repository.dart';
+import 'package:bismillah_app/features/quran/domain/repositories/quran_verse_bookmark_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Kur'an tercih deposunun DI bağlaması: uygulama arayüzü okur, içeride
@@ -18,3 +24,21 @@ final quranReadingPreferencesRepositoryProvider =
 final quranContentRepositoryProvider = Provider<QuranContentRepository>(
   (ref) => AssetQuranContentRepository(),
 );
+
+/// Son okuma konumu deposu (TASK 036): cihaz-lokal, SharedPreferences.
+final quranReadingPositionRepositoryProvider =
+    Provider<QuranReadingPositionRepository>(
+      (ref) => const SharedPrefsQuranReadingPositionRepository(),
+    );
+
+/// Ayet kaydı deposu (TASK 037): cihaz-lokal, SharedPreferences.
+final quranVerseBookmarkRepositoryProvider =
+    Provider<QuranVerseBookmarkRepository>(
+      (ref) => const SharedPrefsQuranVerseBookmarkRepository(),
+    );
+
+/// Okuyucu görünüm tercihleri deposu (TASK 037): cihaz-lokal.
+final quranReaderPreferencesRepositoryProvider =
+    Provider<QuranReaderPreferencesRepository>(
+      (ref) => const SharedPrefsQuranReaderPreferencesRepository(),
+    );
