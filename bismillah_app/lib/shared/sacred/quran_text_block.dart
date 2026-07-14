@@ -67,7 +67,14 @@ class QuranTextBlock extends StatelessWidget {
             ),
             if (translation != null) ...[
               const SizedBox(height: AppSpacing.s4),
-              Text(translation!, style: AppTypography.body),
+              // Meal LTR ve doğal Türkçe hizasında — Arapça ayet
+              // tipografisinden ayrı (TASK 040).
+              Text(
+                translation!,
+                style: AppTypography.body,
+                textDirection: TextDirection.ltr,
+                textAlign: TextAlign.left,
+              ),
             ],
             const SizedBox(height: AppSpacing.s4),
             Row(

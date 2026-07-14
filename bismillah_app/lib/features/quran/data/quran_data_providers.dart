@@ -1,12 +1,16 @@
 import 'package:bismillah_app/features/quran/data/asset_quran_content_repository.dart';
+import 'package:bismillah_app/features/quran/data/firebase_diyanet_quran_translation_repository.dart';
+import 'package:bismillah_app/features/quran/data/mp3quran_audio_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reader_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_position_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_verse_bookmark_repository.dart';
+import 'package:bismillah_app/features/quran/domain/repositories/quran_audio_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_content_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reader_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_position_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_preferences_repository.dart';
+import 'package:bismillah_app/features/quran/domain/repositories/quran_translation_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_verse_bookmark_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,3 +46,15 @@ final quranReaderPreferencesRepositoryProvider =
     Provider<QuranReaderPreferencesRepository>(
       (ref) => const SharedPrefsQuranReaderPreferencesRepository(),
     );
+
+/// Türkçe meal deposu (TASK 040): güvenli Firebase callable proxy'si —
+/// autoDispose DEĞİL, oturum cache'i uygulama ömrünce yaşar.
+final quranTranslationRepositoryProvider = Provider<QuranTranslationRepository>(
+  (ref) => FirebaseDiyanetQuranTranslationRepository(),
+);
+
+/// Kıraat sesi deposu (TASK 041): MP3Quran read 5 — autoDispose DEĞİL,
+/// read + timing cache'i oturum boyunca yaşar.
+final quranAudioRepositoryProvider = Provider<QuranAudioRepository>(
+  (ref) => Mp3QuranAudioRepository(),
+);

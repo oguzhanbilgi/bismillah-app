@@ -30,6 +30,33 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
 - **TASK 036 — Kur'an kaldığın yerden devam:** scroll-end'de yerel konum kaydı + devam kartı.
 - **TASK 037 — Ayet kaydetme ve okuma görünümü:** bookmark + Arapça metin boyutu (Küçük/Orta/Büyük).
 - **TASK 038 — Kaydedilen ayetler ve Today Kur'an kartı:** `/quran/bookmarks` + Today devam kartı.
+- **TASK 039 — Diyanet meal backend'i:** `functions/` altında v2 callable
+  `getQuranChapterTranslation` (europe-west1, Node 20, auth zorunlu, anonim
+  kabul). Diyanet API tokenı YALNIZ Firebase Secret Manager'da
+  (`DIB_KURAN_API_TOKEN`); istemcide/logda/repo'da ASLA bulunmaz. Kurulum:
+  `firebase functions:secrets:set DIB_KURAN_API_TOKEN --project
+  bismillah-app-dev-oguzhan` (değer terminale elle girilir).
+- **TASK 040 — Reader'da Diyanet Türkçe meali:** her Tanzil ayetinin altında
+  callable'dan gelen meal; "Türkçe meali göster" ayarı (varsayılan açık,
+  kapalıyken çağrı yapılmaz); oturum içi bellek cache — kalıcı DİSK CACHE
+  HENÜZ YOK (offline meal beklenmez).
+  **BİLİNEN SINIRLAMA (external dependency, CHECKPOINT 06):** meal
+  entegrasyonunun callable, auth, secret ve istemci katmanları hazırdır;
+  ancak resmî belgede verilen `api.diyanet.gov.tr` hostu şu anda DNS
+  üzerinden çözümlenemediği için meal UÇTAN UCA KULLANILAMAMAKTADIR
+  (uygulama sakin hata + tekrar dene gösterir). Arapça Tanzil okuyucu ve
+  MP3Quran ses sistemi bundan ETKİLENMEZ. Doğru resmî API base URL'i
+  sağlandığında yalnız backend yapılandırması güncellenecektir. Bu madde
+  mağaza yayını ÖNCESİNDE çözülmesi gereken dış bağımlılıktır — meal
+  özelliği henüz tamamlanmış/production-ready DEĞİLDİR.
+- **TASK 041 — MP3Quran ayet sesi:** read 5 (Ahmed el-Acemi · Hafs an Asım),
+  ayet bazlı Dinle/Duraklat/Devam et (just_audio `setClip`), timing
+  doğrulamalı; kaynak atfı MP3Quran.net.
+- **TASK 042 — Kesintisiz sure dinleme:** "Sureyi dinle" paneli, otomatik
+  ayet geçişi, önceki/sonraki, Ayet X/Y. Arka plan / lock-screen / media
+  notification oynatma HENÜZ YOK (uygulama içi, ön planda).
+  Kaynak atıfları: Tanzil (Arapça metin), Diyanet İşleri Başkanlığı Meali
+  (Türkçe meal), MP3Quran.net (kıraat sesi).
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek

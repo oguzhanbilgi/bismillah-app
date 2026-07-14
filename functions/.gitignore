@@ -1,0 +1,14 @@
+# Derleme çıktısı ve bağımlılıklar
+node_modules/
+lib/
+
+# Loglar
+*.log
+npm-debug.log*
+firebase-debug.log*
+
+# Ortam dosyaları — GERÇEK token/secret ASLA commit edilmez
+# (DIB_KURAN_API_TOKEN yalnız Firebase Secret Manager'da yaşar).
+.env
+.env.*
+.secret.local

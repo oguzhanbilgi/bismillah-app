@@ -264,6 +264,36 @@ final class AppLocalizations {
   String get quranTextSizeMedium => _t('quranTextSizeMedium');
   String get quranTextSizeLarge => _t('quranTextSizeLarge');
 
+  // Diyanet Türkçe meali (TASK 040 — güvenli callable üzerinden; meal
+  // içeriği localization'a KOPYALANMAZ)
+  String get quranShowTranslationToggle => _t('quranShowTranslationToggle');
+  String get quranTranslationSourceLabel => _t('quranTranslationSourceLabel');
+  String get quranDiyanetSourceName => _t('quranDiyanetSourceName');
+  String get quranTranslationLoading => _t('quranTranslationLoading');
+  String get quranTranslationLoadIssue => _t('quranTranslationLoadIssue');
+
+  // Ayet sesi (TASK 041 — MP3Quran read 5; arka plan oynatma YOK)
+  String get quranAudioPlay => _t('quranAudioPlay');
+  String get quranAudioPause => _t('quranAudioPause');
+  String get quranAudioResume => _t('quranAudioResume');
+  String get quranAudioLoading => _t('quranAudioLoading');
+  String get quranAudioLoadIssue => _t('quranAudioLoadIssue');
+  String get quranAudioSourceLabel => _t('quranAudioSourceLabel');
+  String get quranReciterName => _t('quranReciterName');
+  String get quranRewayaName => _t('quranRewayaName');
+
+  // Kesintisiz sure dinleme (TASK 042 — arka plan oynatma YOK)
+  String get quranChapterAudioPlay => _t('quranChapterAudioPlay');
+  String get quranChapterAudioStop => _t('quranChapterAudioStop');
+  String get quranAudioPrevVerse => _t('quranAudioPrevVerse');
+  String get quranAudioNextVerse => _t('quranAudioNextVerse');
+  String get quranChapterAudioLoadIssue => _t('quranChapterAudioLoadIssue');
+
+  /// "Ayet 3 / 7" biçimli aktif ayet bilgisi.
+  String quranAudioVerseOf(int current, int total) => _t(
+    'quranAudioVerseOf',
+  ).replaceAll('{current}', '$current').replaceAll('{total}', '$total');
+
   // Kaydedilen ayetler + Today Kur'an devam kartı (TASK 038)
   String get quranSavedVersesTitle => _t('quranSavedVersesTitle');
   String get quranSavedVersesEmptyTitle => _t('quranSavedVersesEmptyTitle');
@@ -319,15 +349,14 @@ final class AppLocalizations {
           'İbadetlerini sakin ve düzenli bir şekilde geliştir.',
       'onboardingWelcomeSupport':
           'Namazlarını takip et, vakitlerini gör ve sana uygun küçük '
-              'adımlarla ilerle.',
+          'adımlarla ilerle.',
       'onboardingWelcomeCta': 'Başlayalım',
       'onboardingWelcomeNote': 'Yargılamadan, baskı kurmadan.',
       'onboardingGoalsTitle': 'Şu anda neye odaklanmak istersin?',
       'onboardingGoalsSupport': 'Bir veya birkaç seçenek seçebilirsin.',
       'onboardingGoalTrackPrayers': 'Namazlarımı daha düzenli takip etmek',
       'onboardingGoalPrayOnTime': 'Namaz vakitlerini kaçırmamak',
-      'onboardingGoalQuranHabit':
-          "Kur'an okumayı alışkanlık haline getirmek",
+      'onboardingGoalQuranHabit': "Kur'an okumayı alışkanlık haline getirmek",
       'onboardingGoalDhikrRoutine': 'Dua ve zikir rutinimi geliştirmek',
       'onboardingGoalKnowledge': 'İslami bilgilerimi artırmak',
       'onboardingGoalsCta': 'Devam et',
@@ -495,6 +524,25 @@ final class AppLocalizations {
       'quranTextSizeSmall': 'Küçük',
       'quranTextSizeMedium': 'Orta',
       'quranTextSizeLarge': 'Büyük',
+      'quranShowTranslationToggle': 'Türkçe meali göster',
+      'quranTranslationSourceLabel': 'Meal kaynağı',
+      'quranDiyanetSourceName': 'Diyanet İşleri Başkanlığı Meali',
+      'quranTranslationLoading': 'Türkçe meal yükleniyor…',
+      'quranTranslationLoadIssue': 'Türkçe meal şu anda yüklenemedi.',
+      'quranAudioPlay': 'Dinle',
+      'quranAudioPause': 'Duraklat',
+      'quranAudioResume': 'Devam et',
+      'quranAudioLoading': 'Ses yükleniyor…',
+      'quranAudioLoadIssue': 'Ses şu anda oynatılamadı.',
+      'quranAudioSourceLabel': 'Ses kaynağı',
+      'quranReciterName': 'Ahmed el-Acemi',
+      'quranRewayaName': 'Hafs an Asım',
+      'quranChapterAudioPlay': 'Sureyi dinle',
+      'quranChapterAudioStop': 'Oynatmayı durdur',
+      'quranAudioPrevVerse': 'Önceki ayet',
+      'quranAudioNextVerse': 'Sonraki ayet',
+      'quranAudioVerseOf': 'Ayet {current} / {total}',
+      'quranChapterAudioLoadIssue': 'Sure sesi yüklenemedi.',
       'quranSavedVersesTitle': 'Kaydedilen ayetler',
       'quranSavedVersesEmptyTitle': 'Henüz kaydedilmiş ayetin yok.',
       'quranSavedVersesEmptyBody':
@@ -526,7 +574,7 @@ final class AppLocalizations {
       'onboardingWelcomeTitle': 'Grow your worship calmly and consistently.',
       'onboardingWelcomeSupport':
           'Track your prayers, see the times, and move forward with small '
-              'steps that fit you.',
+          'steps that fit you.',
       'onboardingWelcomeCta': "Let's begin",
       'onboardingWelcomeNote': 'No judgment, no pressure.',
       'onboardingGoalsTitle': 'What would you like to focus on right now?',
@@ -643,8 +691,7 @@ final class AppLocalizations {
           'You can change these choices anytime.',
       'profileSaveChanges': 'Save changes',
       'profileChangesSaved': 'Changes saved.',
-      'quranSupportLine':
-          'A small, sustainable space for your reading habit.',
+      'quranSupportLine': 'A small, sustainable space for your reading habit.',
       'quranGoalSetupTitle': 'Your daily reading goal',
       'quranGoalSetupSupport': 'Choose a small goal that fits your day.',
       'quranPagesOne': '1 page',
@@ -670,7 +717,7 @@ final class AppLocalizations {
       'quranTranslationTurkish': 'Turkish',
       'quranTranslationTurkishDesc':
           'A verified translation source will be connected during content '
-              'integration.',
+          'integration.',
       'quranSetupGoalTitle': 'Daily goal',
       'quranGoalTypeMinutes': 'Time',
       'quranGoalTypePages': 'Pages',
@@ -691,8 +738,7 @@ final class AppLocalizations {
       'quranAyahCount': '{count} verses',
       'quranSearchHint': 'Search surahs',
       'quranSearchNoResults': 'No surahs match your search.',
-      'quranChaptersLoadIssue':
-          'The surah list could not be loaded right now.',
+      'quranChaptersLoadIssue': 'The surah list could not be loaded right now.',
       'quranReaderLoadIssue': 'The Quran text could not be loaded.',
       'quranTextSourceLabel': 'Quran text source',
       'quranResumeCta': 'Continue',
@@ -707,6 +753,26 @@ final class AppLocalizations {
       'quranTextSizeSmall': 'Small',
       'quranTextSizeMedium': 'Medium',
       'quranTextSizeLarge': 'Large',
+      'quranShowTranslationToggle': 'Show the Turkish translation',
+      'quranTranslationSourceLabel': 'Translation source',
+      'quranDiyanetSourceName': 'Diyanet İşleri Başkanlığı Meali',
+      'quranTranslationLoading': 'Loading the Turkish translation…',
+      'quranTranslationLoadIssue':
+          'The Turkish translation could not be loaded right now.',
+      'quranAudioPlay': 'Listen',
+      'quranAudioPause': 'Pause',
+      'quranAudioResume': 'Resume',
+      'quranAudioLoading': 'Loading audio…',
+      'quranAudioLoadIssue': 'The audio could not be played right now.',
+      'quranAudioSourceLabel': 'Audio source',
+      'quranReciterName': 'Ahmed al-Ajmi',
+      'quranRewayaName': 'Hafs an Asim',
+      'quranChapterAudioPlay': 'Listen to the surah',
+      'quranChapterAudioStop': 'Stop playback',
+      'quranAudioPrevVerse': 'Previous verse',
+      'quranAudioNextVerse': 'Next verse',
+      'quranAudioVerseOf': 'Verse {current} / {total}',
+      'quranChapterAudioLoadIssue': 'The surah audio could not be loaded.',
       'quranSavedVersesTitle': 'Saved verses',
       'quranSavedVersesEmptyTitle': 'You have no saved verses yet.',
       'quranSavedVersesEmptyBody':
@@ -816,8 +882,7 @@ final class AppLocalizations {
       'prayerTimesMethodLabel': 'طريقة الحساب التركية',
       'prayerTimesSunrise': 'الشروق',
       'prayerTimesUseLocation': 'استخدم الموقع',
-      'prayerTimesLocationInvite':
-          'استخدم موقعك لعرض الأوقات وفق مكانك.',
+      'prayerTimesLocationInvite': 'استخدم موقعك لعرض الأوقات وفق مكانك.',
       'prayerTimesLocationDeniedForever':
           'الموقع متوقّف. فعّله من الإعدادات لعرض الأوقات.',
       'prayerTimesOpenSettings': 'افتح الإعدادات',
@@ -904,6 +969,25 @@ final class AppLocalizations {
       'quranTextSizeSmall': 'صغير',
       'quranTextSizeMedium': 'متوسط',
       'quranTextSizeLarge': 'كبير',
+      'quranShowTranslationToggle': 'إظهار الترجمة التركية',
+      'quranTranslationSourceLabel': 'مصدر الترجمة',
+      'quranDiyanetSourceName': 'Diyanet İşleri Başkanlığı Meali',
+      'quranTranslationLoading': 'يتم تحميل الترجمة التركية…',
+      'quranTranslationLoadIssue': 'تعذّر تحميل الترجمة التركية الآن.',
+      'quranAudioPlay': 'استمع',
+      'quranAudioPause': 'إيقاف مؤقت',
+      'quranAudioResume': 'متابعة',
+      'quranAudioLoading': 'يتم تحميل الصوت…',
+      'quranAudioLoadIssue': 'تعذّر تشغيل الصوت الآن.',
+      'quranAudioSourceLabel': 'مصدر الصوت',
+      'quranReciterName': 'أحمد بن علي العجمي',
+      'quranRewayaName': 'حفص عن عاصم',
+      'quranChapterAudioPlay': 'استمع إلى السورة',
+      'quranChapterAudioStop': 'إيقاف التشغيل',
+      'quranAudioPrevVerse': 'الآية السابقة',
+      'quranAudioNextVerse': 'الآية التالية',
+      'quranAudioVerseOf': 'الآية {current} / {total}',
+      'quranChapterAudioLoadIssue': 'تعذّر تحميل صوت السورة.',
       'quranSavedVersesTitle': 'الآيات المحفوظة',
       'quranSavedVersesEmptyTitle': 'لا توجد آيات محفوظة بعد.',
       'quranSavedVersesEmptyBody':
@@ -912,8 +996,7 @@ final class AppLocalizations {
       'quranBookmarkRemove': 'إزالة الحفظ',
       'quranGoToReading': 'اذهب إلى قراءة القرآن',
       'todayQuranContinueTitle': 'تابع قراءة القرآن',
-      'todayQuranEmptyLine':
-          'سيظهر هنا موضع توقفك في قراءتك الأولى للقرآن.',
+      'todayQuranEmptyLine': 'سيظهر هنا موضع توقفك في قراءتك الأولى للقرآن.',
       'todayQuranStartCta': 'ابدأ قراءة القرآن',
       'todayQuranSetupLine': 'جهّز تجربتك مع القرآن.',
       'todayQuranDailyGoal': 'هدفك اليومي: {goal}',

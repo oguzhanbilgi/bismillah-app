@@ -19,13 +19,22 @@ dependencies:
   drift: ^2.34.1
   drift_flutter: ^0.3.0
   firebase_core: ^4.11.0
-  firebase_auth: ^6.5.4
+  # 6.5.5, firebase_core 4.12.0 ile derlenmiyor (FirebasePlugin yok);
+  # ekosistem düzelene kadar 6.5.4'e sabitlendi (CHECKPOINT 06).
+  firebase_auth: 6.5.4
   shared_preferences: ^2.5.5
   adhan_dart: ^2.0.1
   geolocator: ^14.0.3
   flutter_local_notifications: ^22.0.1
   timezone: ^0.11.1
   flutter_timezone: ^5.1.0
+# 6.3.4, firebase_core 4.11/4.12.0 ile derlenmiyor (FirebasePlugin yok);
+  # 4.12.1 de kendi platform-interface çakışması yüzünden çözülemiyor.
+  # Ekosistem düzelene kadar 6.3.3'e sabitlendi (CHECKPOINT 06).
+  cloud_functions: 6.3.3
+  just_audio: ^0.10.6
+  audio_session: ^0.2.4
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

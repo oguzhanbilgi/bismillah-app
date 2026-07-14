@@ -2,21 +2,27 @@ import 'dart:async';
 
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
+import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/core/utils/clock_provider.dart';
 import 'package:bismillah_app/features/onboarding/presentation/widgets/onboarding_option_card.dart';
 import 'package:bismillah_app/features/quran/application/quran_chapter_reader_providers.dart';
+import 'package:bismillah_app/features/quran/application/quran_chapter_translation_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_reader_text_size_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_reading_position_providers.dart';
+import 'package:bismillah_app/features/quran/application/quran_show_translation_controller.dart';
+import 'package:bismillah_app/features/quran/application/quran_verse_audio_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_controller.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_chapter.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_reading_position.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_verse.dart';
+import 'package:bismillah_app/features/quran/domain/entities/quran_verse_translation.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_arabic_text_size.dart';
 import 'package:bismillah_app/shared/sacred/quran_text_block.dart';
 import 'package:bismillah_app/shared/widgets/app_badge.dart';
+import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
@@ -156,13 +162,15 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
         .clamp(0.0, metrics.maxScrollExtent)
         .toDouble();
     unawaited(
-      ref.read(quranReadingPositionRepositoryProvider).save(
-        QuranReadingPosition(
-          chapterId: widget.chapter.id,
-          scrollOffset: offset,
-          updatedAtUtc: ref.read(clockProvider).nowUtc(),
-        ),
-      ),
+      ref
+          .read(quranReadingPositionRepositoryProvider)
+          .save(
+            QuranReadingPosition(
+              chapterId: widget.chapter.id,
+              scrollOffset: offset,
+              updatedAtUtc: ref.read(clockProvider).nowUtc(),
+            ),
+          ),
     );
   }
 
@@ -200,6 +208,21 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
       }
     });
 
+    // Diyanet meali (TASK 040): sure seviyesinde TEK durum — Arapça
+    // içerik meal yüklenirken/hatalıyken de okunabilir kalır.
+    final translationAsync = ref.watch(
+      quranChapterTranslationProvider(widget.chapter.id),
+    );
+    final translationByKey = <String, String>{
+      for (final verse
+          in translationAsync.value?.verses ?? const <QuranVerseTranslation>[])
+        verse.verseKey: verse.translationText,
+    };
+
+    // Ayet sesi (TASK 041): aktif ayet sakin vurgu alır.
+    final audioState = ref.watch(quranVerseAudioControllerProvider);
+    final scheme = Theme.of(context).colorScheme;
+
     // Header (0) + ayetler (1..n) + kaynak atfı (n+1); liste lazy kurulur.
     return NotificationListener<ScrollEndNotification>(
       onNotification: (notification) {
@@ -211,29 +234,344 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
         itemCount: verses.length + 2,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return _ChapterHeader(chapter: widget.chapter);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _ChapterHeader(chapter: widget.chapter),
+                _ChapterPlaybackPanel(
+                  chapterId: widget.chapter.id,
+                  verseCount: verses.length,
+                  audioState: audioState,
+                ),
+                _TranslationStatus(
+                  chapterId: widget.chapter.id,
+                  translationAsync: translationAsync,
+                ),
+                // Ses hazır olduktan sonra doğrulanmış read 5 künyesi —
+                // API'den gelen ham metin DEĞİL (TASK 041).
+                if (audioState.sourceReady)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+                    child: AppText(
+                      '${l10n.quranAudioSourceLabel}: '
+                      '${l10n.quranReciterName} · ${l10n.quranRewayaName}'
+                      ' · MP3Quran.net',
+                      token: AppTextStyleToken.caption,
+                      secondary: true,
+                    ),
+                  ),
+              ],
+            );
           }
           if (index == verses.length + 1) {
             return _SourceAttribution(l10n: l10n);
           }
           final verse = verses[index - 1];
+          final isActiveVerse = audioState.activeVerseKey == verse.verseKey;
           return Padding(
             padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-            // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz metin,
-            // zorunlu kaynak rozeti (no source, no render).
-            child: QuranTextBlock(
-              arabicText: verse.textUthmani,
-              sourceLabel: '${verse.verseKey} · Tanzil',
-              size: blockSize,
-              footerAction: _VerseBookmarkAction(
-                bookmarked: bookmarks.isBookmarked(verse.verseKey),
-                onTap: () => ref
-                    .read(quranVerseBookmarksControllerProvider.notifier)
-                    .toggle(verse.verseKey),
+            // Aktif ayet sakin, token tabanlı ince çerçeveyle vurgulanır —
+            // Arapça/meal metni DEĞİŞMEZ (TASK 041).
+            child: Container(
+              decoration: isActiveVerse
+                  ? BoxDecoration(
+                      borderRadius: AppRadius.mdAll,
+                      border: Border.all(color: scheme.primary),
+                    )
+                  : null,
+              clipBehavior: isActiveVerse ? Clip.antiAlias : Clip.none,
+              // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
+              // metin, zorunlu kaynak rozeti (no source, no render). Meal
+              // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
+              child: QuranTextBlock(
+                arabicText: verse.textUthmani,
+                sourceLabel: '${verse.verseKey} · Tanzil',
+                size: blockSize,
+                translation: translationByKey[verse.verseKey],
+                footerAction: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _VerseAudioAction(
+                      verse: verse,
+                      expectedVerseCount: verses.length,
+                      audioState: audioState,
+                    ),
+                    const SizedBox(width: AppSpacing.s2),
+                    _VerseBookmarkAction(
+                      bookmarked: bookmarks.isBookmarked(verse.verseKey),
+                      onTap: () => ref
+                          .read(quranVerseBookmarksControllerProvider.notifier)
+                          .toggle(verse.verseKey),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+/// Sure seviyesinde meal durumu (TASK 040): kompakt yükleme satırı,
+/// sakin hata kartı (yalnız translation provider'ını yeniler) veya
+/// doğrulanmış kaynak satırı. Meal kapalıyken hiçbir şey göstermez.
+final class _TranslationStatus extends ConsumerWidget {
+  const _TranslationStatus({
+    required this.chapterId,
+    required this.translationAsync,
+  });
+
+  final int chapterId;
+  final AsyncValue<QuranChapterTranslation?> translationAsync;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    return switch (translationAsync) {
+      AsyncData(:final value) =>
+        value == null
+            ? const SizedBox.shrink() // meal tercihi kapalı
+            : Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+                child: AppText(
+                  '${l10n.quranTranslationSourceLabel}: '
+                  '${l10n.quranDiyanetSourceName}',
+                  token: AppTextStyleToken.caption,
+                  secondary: true,
+                ),
+              ),
+      AsyncError() => Padding(
+        padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+        child: AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranTranslationLoadIssue,
+                token: AppTextStyleToken.bodySmall,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s3),
+              AppButton(
+                label: l10n.commonRetry,
+                variant: AppButtonVariant.secondary,
+                onPressed: () {
+                  // Yalnız İLGİLİ surenin cache'i ve provider'ı yenilenir;
+                  // Arapça içerik/scroll/bookmark etkilenmez.
+                  ref
+                      .read(quranTranslationRepositoryProvider)
+                      .invalidateChapter(chapterId);
+                  ref.invalidate(quranChapterTranslationProvider(chapterId));
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      _ => Padding(
+        padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+        child: AppText(
+          l10n.quranTranslationLoading,
+          token: AppTextStyleToken.caption,
+          secondary: true,
+        ),
+      ),
+    };
+  }
+}
+
+/// Kesintisiz sure dinleme paneli (TASK 042): Sureyi dinle / Duraklat /
+/// Devam et, önceki-sonraki ayet ve "Ayet X / Y" bilgisi. Yalnız gerçek
+/// işlevler görünür; hata panelde sakin kalır, reader etkilenmez.
+final class _ChapterPlaybackPanel extends ConsumerWidget {
+  const _ChapterPlaybackPanel({
+    required this.chapterId,
+    required this.verseCount,
+    required this.audioState,
+  });
+
+  final int chapterId;
+  final int verseCount;
+  final QuranVerseAudioState audioState;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final controller = ref.read(quranVerseAudioControllerProvider.notifier);
+
+    if (audioState.chapterAudioFailed &&
+        audioState.status == QuranVerseAudioStatus.error) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+        child: AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranChapterAudioLoadIssue,
+                token: AppTextStyleToken.bodySmall,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s3),
+              AppButton(
+                label: l10n.commonRetry,
+                variant: AppButtonVariant.secondary,
+                // Retry ilgili sure cache'ini düşürüp yeniden dener.
+                onPressed: () => controller.retryChapter(
+                  chapterId: chapterId,
+                  expectedVerseCount: verseCount,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final isLoading = audioState.status == QuranVerseAudioStatus.loading;
+    final isPlaying = audioState.status == QuranVerseAudioStatus.playing;
+    final isPaused = audioState.status == QuranVerseAudioStatus.paused;
+    final isActive = audioState.activeVerseNumber != null;
+    final mainLabel = isPlaying
+        ? l10n.quranAudioPause
+        : isPaused
+        ? l10n.quranAudioResume
+        : l10n.quranChapterAudioPlay;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+      child: AppCard(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  tooltip: l10n.quranAudioPrevVerse,
+                  icon: const Icon(Icons.skip_previous),
+                  onPressed: audioState.hasPrevious
+                      ? () => controller.skipToAdjacentVerse(forward: false)
+                      : null,
+                ),
+                Expanded(
+                  child: AppButton(
+                    label: mainLabel,
+                    variant: AppButtonVariant.secondary,
+                    isLoading: isLoading,
+                    onPressed: isLoading
+                        ? null
+                        : isPlaying || isPaused
+                        ? controller.togglePauseResume
+                        : () => controller.playChapter(
+                            chapterId: chapterId,
+                            expectedVerseCount: verseCount,
+                          ),
+                  ),
+                ),
+                IconButton(
+                  tooltip: l10n.quranAudioNextVerse,
+                  icon: const Icon(Icons.skip_next),
+                  onPressed: audioState.hasNext
+                      ? () => controller.skipToAdjacentVerse(forward: true)
+                      : null,
+                ),
+                if (isActive)
+                  IconButton(
+                    tooltip: l10n.quranChapterAudioStop,
+                    icon: const Icon(Icons.stop),
+                    onPressed: controller.stopPlayback,
+                  ),
+              ],
+            ),
+            if (isActive && audioState.totalVerseCount != null) ...[
+              const SizedBox(height: AppSpacing.s2),
+              AppText(
+                l10n.quranAudioVerseOf(
+                  audioState.activeVerseNumber!,
+                  audioState.totalVerseCount!,
+                ),
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Ayet alt bilgi satırındaki ses aksiyonu (TASK 041): Dinle / Duraklat /
+/// Devam et / (hatada) Tekrar dene. Yalnız ilgili ayette durum gösterir;
+/// hata reader'ı etkilemez.
+final class _VerseAudioAction extends ConsumerWidget {
+  const _VerseAudioAction({
+    required this.verse,
+    required this.expectedVerseCount,
+    required this.audioState,
+  });
+
+  final QuranVerse verse;
+  final int expectedVerseCount;
+  final QuranVerseAudioState audioState;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final key = verse.verseKey;
+    final isActive = audioState.activeVerseKey == key;
+
+    if (isActive && audioState.status == QuranVerseAudioStatus.loading) {
+      return Semantics(
+        label: l10n.quranAudioLoading,
+        child: Tooltip(
+          message: l10n.quranAudioLoading,
+          child: const Padding(
+            padding: EdgeInsets.all(AppSpacing.s2),
+            child: SizedBox(
+              height: AppSizes.iconSm,
+              width: AppSizes.iconSm,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
+        ),
+      );
+    }
+
+    final isError =
+        audioState.errorVerseKey == key &&
+        audioState.status == QuranVerseAudioStatus.error;
+    final (label, icon, tooltip) = switch ((isActive, audioState.status)) {
+      (true, QuranVerseAudioStatus.playing) => (
+        l10n.quranAudioPause,
+        Icons.pause,
+        l10n.quranAudioPause,
+      ),
+      (true, QuranVerseAudioStatus.paused) => (
+        l10n.quranAudioResume,
+        Icons.play_arrow,
+        l10n.quranAudioResume,
+      ),
+      _ =>
+        isError
+            ? (l10n.commonRetry, Icons.refresh, l10n.quranAudioLoadIssue)
+            : (l10n.quranAudioPlay, Icons.play_arrow, l10n.quranAudioPlay),
+    };
+
+    return Semantics(
+      button: true,
+      selected: isActive,
+      label: label,
+      child: Tooltip(
+        message: tooltip,
+        child: TextButton.icon(
+          onPressed: () => ref
+              .read(quranVerseAudioControllerProvider.notifier)
+              .toggleVerse(verse, expectedVerseCount: expectedVerseCount),
+          icon: Icon(icon, size: AppSizes.iconSm),
+          label: Text(label),
+        ),
       ),
     );
   }
@@ -290,6 +628,9 @@ void _showReaderSettings(BuildContext context) {
               final selected =
                   ref.watch(quranReaderTextSizeControllerProvider).value ??
                   QuranArabicTextSize.medium;
+              final showTranslation =
+                  ref.watch(quranShowTranslationControllerProvider).value ??
+                  true;
               String sizeLabel(QuranArabicTextSize size) => switch (size) {
                 QuranArabicTextSize.small => l10n.quranTextSizeSmall,
                 QuranArabicTextSize.medium => l10n.quranTextSizeMedium,
@@ -320,6 +661,16 @@ void _showReaderSettings(BuildContext context) {
                     ),
                     const SizedBox(height: AppSpacing.s3),
                   ],
+                  const SizedBox(height: AppSpacing.s2),
+                  // Türkçe meal aç/kapat (TASK 040) — kapalıyken callable
+                  // çağrısı yapılmaz, Arapça metin etkilenmez.
+                  OnboardingOptionCard(
+                    label: l10n.quranShowTranslationToggle,
+                    selected: showTranslation,
+                    onTap: () => ref
+                        .read(quranShowTranslationControllerProvider.notifier)
+                        .toggle(),
+                  ),
                 ],
               );
             },
@@ -389,10 +740,7 @@ final class _SourceAttribution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: AppSpacing.s2,
-        bottom: AppSpacing.s6,
-      ),
+      padding: const EdgeInsets.only(top: AppSpacing.s2, bottom: AppSpacing.s6),
       child: Column(
         children: [
           AppText(

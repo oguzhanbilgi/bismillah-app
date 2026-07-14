@@ -11,6 +11,9 @@
          (yalnız alarm-saati uygulamaları içindir). Arka plan konumu/FCM YOK. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <!-- Ağ erişimi (TASK 040/041): Firebase callable meali + MP3Quran ayet
+         sesi. Tüm adresler HTTPS — cleartext trafik AÇILMAZ. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="Bismillah"
         android:name="${applicationName}"
