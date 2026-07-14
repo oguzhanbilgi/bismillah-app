@@ -27,6 +27,9 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
 - **TASK 033 — Kur'an kurulumu ve iç sekmeler:** yazı biçimi/meal/hedef + Oku/Öğren/İlerlemem.
 - **TASK 034/034B — Doğrulanmış 114 sure kataloğu:** Tanzil metadata → `chapters_v1.json` + arama.
 - **TASK 035 — Tanzil Uthmani Arapça okuyucu:** `/quran/chapter/:id`, 6236 doğrulanmış ayet (kaynak: `assets/quran/NOTICE.md`).
+- **TASK 036 — Kur'an kaldığın yerden devam:** scroll-end'de yerel konum kaydı + devam kartı.
+- **TASK 037 — Ayet kaydetme ve okuma görünümü:** bookmark + Arapça metin boyutu (Küçük/Orta/Büyük).
+- **TASK 038 — Kaydedilen ayetler ve Today Kur'an kartı:** `/quran/bookmarks` + Today devam kartı.
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek

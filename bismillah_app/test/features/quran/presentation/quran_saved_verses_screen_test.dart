@@ -3,7 +3,7 @@ import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/theme/app_theme.dart';
 import 'package:bismillah_app/features/quran/data/asset_quran_content_repository.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
-import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
+import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
 import 'package:bismillah_app/shared/sacred/quran_text_block.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,13 +11,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// TASK 035 sure okuyucusu: gerçek Tanzil asset'iyle RTL ayet gösterimi,
-/// geçersiz id'de sakin hata, sahte meal üretilmediğinin doğrulanması.
+/// TASK 038 kaydedilen ayetler ekranı: gerçek asset'le liste, kayıt
+/// kaldırma → boş durum, bozuk anahtar güvenliği.
 void main() {
-  Future<void> pumpReader(WidgetTester tester, {required int? chapterId}) async {
-    // TASK 036/037: reader konum + bookmark + boyut tercihlerini okur;
-    // mock prefs olmadan platform kanalı FakeAsync altında tamamlanmaz.
-    SharedPreferences.setMockInitialValues({});
+  Future<void> pumpScreen(WidgetTester tester) async {
     tester.platformDispatcher.localeTestValue = const Locale('tr', 'TR');
     tester.platformDispatcher.localesTestValue = const [Locale('tr', 'TR')];
     addTearDown(tester.platformDispatcher.clearAllTestValues);
@@ -27,10 +24,10 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Asset okuma gerçek I/O'dur — FakeAsync altında tamamlanamaz;
-    // cache runAsync ile ısıtılır, depo sıcak cache'iyle override edilir.
+    // Asset okuma gerçek I/O'dur — cache runAsync ile ısıtılır.
     final repository = AssetQuranContentRepository();
     await tester.runAsync(() => repository.getVersesForChapter(1));
+    await tester.runAsync(() => repository.getVersesForChapter(2));
 
     await tester.pumpWidget(
       ProviderScope(
@@ -46,51 +43,55 @@ void main() {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: QuranChapterReaderScreen(chapterId: chapterId),
+          home: const QuranSavedVersesScreen(),
         ),
       ),
     );
     await tester.pumpAndSettle();
   }
 
-  testWidgets('Fatiha: başlık, 7 ayet bloğu, RTL metin ve Tanzil rozeti',
-      (tester) async {
-    await pumpReader(tester, chapterId: 1);
+  testWidgets('kayıt yokken sakin boş durum ve CTA görünür', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    await pumpScreen(tester);
 
-    expect(find.text('Al-Faatiha'), findsWidgets);
-    expect(find.text('7 ayet · Mekkî'), findsOneWidget);
+    expect(find.text('Henüz kaydedilmiş ayetin yok.'), findsOneWidget);
+    expect(find.text("Kur'an okumaya git"), findsOneWidget);
+  });
+
+  testWidgets(
+      'kayıtlar sure/ayet sırasıyla gerçek Uthmani metinle listelenir; '
+      'bozuk anahtar atlanır', (tester) async {
+    SharedPreferences.setMockInitialValues({
+      'bismillah.quran_bookmarked_verse_keys': ['2:255', '1:1', 'bozuk'],
+    });
+    await pumpScreen(tester);
 
     final blocks = tester
         .widgetList<QuranTextBlock>(find.byType(QuranTextBlock))
         .toList();
-    expect(blocks.length, 7);
+    expect(blocks.length, 2);
     for (final block in blocks) {
       expect(block.arabicText.trim(), isNotEmpty);
-      // Sahte meal ÜRETİLMEZ — meal alanı bu görevde daima boştur.
-      expect(block.translation, isNull);
+      expect(block.translation, isNull); // sahte meal YOK
     }
-
-    // Ayet metni RTL render edilir.
-    final rtlTexts = find.byWidgetPredicate(
-      (widget) => widget is Text && widget.textDirection == TextDirection.rtl,
-    );
-    expect(rtlTexts, findsWidgets);
-
-    // Ayet başına kaynak rozeti (no source, no render).
-    expect(find.textContaining('1:1 · Tanzil'), findsOneWidget);
+    // Sıra: 1:1 önce, 2:255 sonra.
+    expect(find.text('1:1'), findsOneWidget);
+    expect(find.text('2:255'), findsOneWidget);
+    expect(find.text('Al-Faatiha'), findsOneWidget);
+    expect(find.text('Al-Baqara'), findsOneWidget);
   });
 
-  testWidgets('geçersiz sure numarası sakin hata gösterir, crash olmaz',
-      (tester) async {
-    await pumpReader(tester, chapterId: 999);
-    expect(find.text("Kur'an metni yüklenemedi."), findsOneWidget);
-    expect(tester.takeException(), isNull);
-  });
+  testWidgets('son kaydın kaldırılması boş duruma geçirir', (tester) async {
+    SharedPreferences.setMockInitialValues({
+      'bismillah.quran_bookmarked_verse_keys': ['1:1'],
+    });
+    await pumpScreen(tester);
+    expect(find.byType(QuranTextBlock), findsOneWidget);
 
-  testWidgets('bozuk route parametresi (null) sakin hata gösterir',
-      (tester) async {
-    await pumpReader(tester, chapterId: null);
-    expect(find.text("Kur'an metni yüklenemedi."), findsOneWidget);
-    expect(tester.takeException(), isNull);
+    await tester.tap(find.text('Kaydı kaldır'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(QuranTextBlock), findsNothing);
+    expect(find.text('Henüz kaydedilmiş ayetin yok.'), findsOneWidget);
   });
 }
