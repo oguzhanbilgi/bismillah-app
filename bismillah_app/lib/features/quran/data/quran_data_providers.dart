@@ -1,5 +1,5 @@
 import 'package:bismillah_app/features/quran/data/asset_quran_content_repository.dart';
-import 'package:bismillah_app/features/quran/data/firebase_diyanet_quran_translation_repository.dart';
+import 'package:bismillah_app/features/quran/data/bundled_quranenc_translation_repository.dart';
 import 'package:bismillah_app/features/quran/data/mp3quran_audio_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reader_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_position_repository.dart';
@@ -49,8 +49,13 @@ final quranReaderPreferencesRepositoryProvider =
 
 /// Türkçe meal deposu (TASK 040): güvenli Firebase callable proxy'si —
 /// autoDispose DEĞİL, oturum cache'i uygulama ömrünce yaşar.
+///
+/// CHECKPOINT 06 Recovery: aktif kaynak paketlenmiş QuranEnc Rowad
+/// V1.0.4 asset'idir — tamamen offline. Diyanet callable deposu
+/// (`FirebaseDiyanetQuranTranslationRepository`) gelecekteki opsiyonel
+/// kaynak olarak INACTIVE durur; aktif akışta callable ÇAĞRILMAZ.
 final quranTranslationRepositoryProvider = Provider<QuranTranslationRepository>(
-  (ref) => FirebaseDiyanetQuranTranslationRepository(),
+  (ref) => BundledQuranEncTranslationRepository(),
 );
 
 /// Kıraat sesi deposu (TASK 041): MP3Quran read 5 — autoDispose DEĞİL,

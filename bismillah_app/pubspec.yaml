@@ -49,3 +49,4 @@ flutter:
   assets:
     - assets/quran/chapters_v1.json
     - assets/quran/verses_uthmani_v1.json
+    - assets/quran/translations/quranenc_turkish_rwwad_v1_0_4.json

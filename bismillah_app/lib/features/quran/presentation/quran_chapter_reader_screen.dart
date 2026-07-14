@@ -335,11 +335,21 @@ final class _TranslationStatus extends ConsumerWidget {
             ? const SizedBox.shrink() // meal tercihi kapalı
             : Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-                child: AppText(
-                  '${l10n.quranTranslationSourceLabel}: '
-                  '${l10n.quranDiyanetSourceName}',
-                  token: AppTextStyleToken.caption,
-                  secondary: true,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      l10n.quranTranslationRowadLine,
+                      token: AppTextStyleToken.caption,
+                      secondary: true,
+                    ),
+                    const SizedBox(height: AppSpacing.s1),
+                    AppText(
+                      l10n.quranTranslationQuranEncLine,
+                      token: AppTextStyleToken.caption,
+                      secondary: true,
+                    ),
+                  ],
                 ),
               ),
       AsyncError() => Padding(
@@ -370,14 +380,9 @@ final class _TranslationStatus extends ConsumerWidget {
           ),
         ),
       ),
-      _ => Padding(
-        padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-        child: AppText(
-          l10n.quranTranslationLoading,
-          token: AppTextStyleToken.caption,
-          secondary: true,
-        ),
-      ),
+      // Meal paketlenmiş offline asset'tir — internet/spinner bekleme
+      // durumu GÖSTERİLMEZ (CHECKPOINT 06 Recovery).
+      _ => const SizedBox.shrink(),
     };
   }
 }
@@ -608,15 +613,17 @@ final class _VerseBookmarkAction extends StatelessWidget {
   }
 }
 
-/// Okuma ayarları paneli (TASK 037): yalnız Arapça metin boyutu.
+/// Okuma ayarları paneli (TASK 037/040): Arapça metin boyutu + meal
+/// tercihi. İçerik kaydırılabilir — küçük ekranlarda taşma yapmaz.
 void _showReaderSettings(BuildContext context) {
   showModalBottomSheet<void>(
     context: context,
     showDragHandle: true,
+    isScrollControlled: true,
     builder: (sheetContext) {
       final l10n = AppLocalizations.of(sheetContext);
       return SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(
             AppSpacing.s5,
             AppSpacing.s2,

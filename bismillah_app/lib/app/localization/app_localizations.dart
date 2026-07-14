@@ -272,6 +272,11 @@ final class AppLocalizations {
   String get quranTranslationLoading => _t('quranTranslationLoading');
   String get quranTranslationLoadIssue => _t('quranTranslationLoadIssue');
 
+  // Aktif meal kaynağı: QuranEnc Rowad V1.0.4 (CHECKPOINT 06 Recovery —
+  // offline asset; Diyanet etiketleri inactive kaynak için saklı durur)
+  String get quranTranslationRowadLine => _t('quranTranslationRowadLine');
+  String get quranTranslationQuranEncLine => _t('quranTranslationQuranEncLine');
+
   // Ayet sesi (TASK 041 — MP3Quran read 5; arka plan oynatma YOK)
   String get quranAudioPlay => _t('quranAudioPlay');
   String get quranAudioPause => _t('quranAudioPause');
@@ -529,6 +534,8 @@ final class AppLocalizations {
       'quranDiyanetSourceName': 'Diyanet İşleri Başkanlığı Meali',
       'quranTranslationLoading': 'Türkçe meal yükleniyor…',
       'quranTranslationLoadIssue': 'Türkçe meal şu anda yüklenemedi.',
+      'quranTranslationRowadLine': 'Meal: Rowad Tercüme Merkezi',
+      'quranTranslationQuranEncLine': 'Kaynak: QuranEnc.com · V1.0.4',
       'quranAudioPlay': 'Dinle',
       'quranAudioPause': 'Duraklat',
       'quranAudioResume': 'Devam et',
@@ -759,6 +766,8 @@ final class AppLocalizations {
       'quranTranslationLoading': 'Loading the Turkish translation…',
       'quranTranslationLoadIssue':
           'The Turkish translation could not be loaded right now.',
+      'quranTranslationRowadLine': 'Translation: Rowad Translation Center',
+      'quranTranslationQuranEncLine': 'Source: QuranEnc.com · V1.0.4',
       'quranAudioPlay': 'Listen',
       'quranAudioPause': 'Pause',
       'quranAudioResume': 'Resume',
@@ -974,6 +983,8 @@ final class AppLocalizations {
       'quranDiyanetSourceName': 'Diyanet İşleri Başkanlığı Meali',
       'quranTranslationLoading': 'يتم تحميل الترجمة التركية…',
       'quranTranslationLoadIssue': 'تعذّر تحميل الترجمة التركية الآن.',
+      'quranTranslationRowadLine': 'الترجمة: مركز رواد الترجمة',
+      'quranTranslationQuranEncLine': 'المصدر: QuranEnc.com · V1.0.4',
       'quranAudioPlay': 'استمع',
       'quranAudioPause': 'إيقاف مؤقت',
       'quranAudioResume': 'متابعة',
