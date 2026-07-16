@@ -84,6 +84,7 @@ final class AppLocalizations {
   String get commonLoading => _t('commonLoading');
   String get commonRetry => _t('commonRetry');
   String get commonClose => _t('commonClose');
+  String get commonGotIt => _t('commonGotIt');
 
   // Today özeti (TASK 017 — ton: sakin, suçlayıcı dil YASAK)
   String get todayGreeting => _t('todayGreeting');
@@ -259,6 +260,9 @@ final class AppLocalizations {
   String get quranBookmarkRemoveIssue => _t('quranBookmarkRemoveIssue');
   String get quranReaderSettings => _t('quranReaderSettings');
   String get quranReaderViewTitle => _t('quranReaderViewTitle');
+
+  /// Tt okuma ayarları keşif göstergesi metni (TASK 044).
+  String get quranSettingsHint => _t('quranSettingsHint');
   String get quranArabicTextSizeLabel => _t('quranArabicTextSizeLabel');
   String get quranTextSizeSmall => _t('quranTextSizeSmall');
   String get quranTextSizeMedium => _t('quranTextSizeMedium');
@@ -293,6 +297,11 @@ final class AppLocalizations {
   String get quranAudioPrevVerse => _t('quranAudioPrevVerse');
   String get quranAudioNextVerse => _t('quranAudioNextVerse');
   String get quranChapterAudioLoadIssue => _t('quranChapterAudioLoadIssue');
+
+  // Global arka plan ses oturumu (TASK 045)
+  String get quranAudioChannelName => _t('quranAudioChannelName');
+  String get quranAudioServiceUnavailable =>
+      _t('quranAudioServiceUnavailable');
 
   /// "Ayet 3 / 7" biçimli aktif ayet bilgisi.
   String quranAudioVerseOf(int current, int total) => _t(
@@ -388,6 +397,7 @@ final class AppLocalizations {
       'commonLoading': 'Yükleniyor…',
       'commonRetry': 'Tekrar dene',
       'commonClose': 'Kapat',
+      'commonGotIt': 'Anladım',
       'todayGreeting': 'Bugünün ritmi',
       'todayGentleLine': 'Bugün için küçük adımlar.',
       'todayPrayerCardTitle': 'Bugünün namaz takibi',
@@ -524,6 +534,8 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'Ayet kaydedilemedi.',
       'quranBookmarkRemoveIssue': 'Ayet kaydı kaldırılamadı.',
       'quranReaderSettings': 'Okuma ayarları',
+      'quranSettingsHint':
+          'Türkçe meali buradan açabilir, yazı boyutunu değiştirebilirsiniz.',
       'quranReaderViewTitle': 'Okuma görünümü',
       'quranArabicTextSizeLabel': 'Arapça metin boyutu',
       'quranTextSizeSmall': 'Küçük',
@@ -550,6 +562,8 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'Sonraki ayet',
       'quranAudioVerseOf': 'Ayet {current} / {total}',
       'quranChapterAudioLoadIssue': 'Sure sesi yüklenemedi.',
+      'quranAudioChannelName': "Kur'an Sesli Okuma",
+      'quranAudioServiceUnavailable': 'Ses hizmeti başlatılamadı.',
       'quranSavedVersesTitle': 'Kaydedilen ayetler',
       'quranSavedVersesEmptyTitle': 'Henüz kaydedilmiş ayetin yok.',
       'quranSavedVersesEmptyBody':
@@ -615,6 +629,7 @@ final class AppLocalizations {
       'commonLoading': 'Loading…',
       'commonRetry': 'Try again',
       'commonClose': 'Close',
+      'commonGotIt': 'Got it',
       'todayGreeting': "Today's rhythm",
       'todayGentleLine': 'Small steps for today.',
       'todayPrayerCardTitle': "Today's prayer tracking",
@@ -755,6 +770,9 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'The verse could not be saved.',
       'quranBookmarkRemoveIssue': 'The saved verse could not be removed.',
       'quranReaderSettings': 'Reading settings',
+      'quranSettingsHint':
+          'You can turn on the Turkish translation and change the text '
+          'size here.',
       'quranReaderViewTitle': 'Reading view',
       'quranArabicTextSizeLabel': 'Arabic text size',
       'quranTextSizeSmall': 'Small',
@@ -782,6 +800,8 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'Next verse',
       'quranAudioVerseOf': 'Verse {current} / {total}',
       'quranChapterAudioLoadIssue': 'The surah audio could not be loaded.',
+      'quranAudioChannelName': 'Quran Audio Recitation',
+      'quranAudioServiceUnavailable': 'The audio service could not be started.',
       'quranSavedVersesTitle': 'Saved verses',
       'quranSavedVersesEmptyTitle': 'You have no saved verses yet.',
       'quranSavedVersesEmptyBody':
@@ -845,6 +865,7 @@ final class AppLocalizations {
       'commonLoading': 'جارٍ التحميل…',
       'commonRetry': 'حاول مجدداً',
       'commonClose': 'إغلاق',
+      'commonGotIt': 'حسنًا',
       'todayGreeting': 'إيقاع اليوم',
       'todayGentleLine': 'خطوات صغيرة لهذا اليوم.',
       'todayPrayerCardTitle': 'متابعة صلوات اليوم',
@@ -973,6 +994,8 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'تعذّر حفظ الآية.',
       'quranBookmarkRemoveIssue': 'تعذّرت إزالة حفظ الآية.',
       'quranReaderSettings': 'إعدادات القراءة',
+      'quranSettingsHint':
+          'يمكنك تفعيل الترجمة التركية وتغيير حجم النص من هنا.',
       'quranReaderViewTitle': 'عرض القراءة',
       'quranArabicTextSizeLabel': 'حجم النص العربي',
       'quranTextSizeSmall': 'صغير',
@@ -999,6 +1022,8 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'الآية التالية',
       'quranAudioVerseOf': 'الآية {current} / {total}',
       'quranChapterAudioLoadIssue': 'تعذّر تحميل صوت السورة.',
+      'quranAudioChannelName': 'تلاوة القرآن الصوتية',
+      'quranAudioServiceUnavailable': 'تعذّر بدء خدمة الصوت.',
       'quranSavedVersesTitle': 'الآيات المحفوظة',
       'quranSavedVersesEmptyTitle': 'لا توجد آيات محفوظة بعد.',
       'quranSavedVersesEmptyBody':

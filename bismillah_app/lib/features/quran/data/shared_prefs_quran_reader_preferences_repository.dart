@@ -16,6 +16,8 @@ final class SharedPrefsQuranReaderPreferencesRepository
   static const String _textSizeKey = 'bismillah.quran_reader_arabic_text_size';
   static const String _showTranslationKey =
       'bismillah.quran_reader_show_translation';
+  static const String _settingsHintSeenKey =
+      'bismillah.quran_reader_settings_hint_seen';
 
   @override
   ResultFuture<QuranArabicTextSize> loadArabicTextSize() async {
@@ -59,6 +61,29 @@ final class SharedPrefsQuranReaderPreferencesRepository
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_showTranslationKey, show);
+      return const Result.success(null);
+    } on Exception {
+      return const Result.failure(StorageFailure());
+    }
+  }
+
+  @override
+  ResultFuture<bool> loadSettingsHintSeen() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.get(_settingsHintSeenKey);
+      // Eksik/bozuk değer GÖRÜLMEMİŞ sayılır (TASK 044).
+      return Result.success(raw is bool && raw);
+    } on Exception {
+      return const Result.failure(StorageFailure());
+    }
+  }
+
+  @override
+  ResultFuture<void> saveSettingsHintSeen({required bool seen}) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_settingsHintSeenKey, seen);
       return const Result.success(null);
     } on Exception {
       return const Result.failure(StorageFailure());

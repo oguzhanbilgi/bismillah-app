@@ -14,4 +14,10 @@ abstract interface class QuranReaderPreferencesRepository {
   ResultFuture<bool> loadShowTranslation();
 
   ResultFuture<void> saveShowTranslation({required bool show});
+
+  /// Tt okuma ayarları keşif göstergesi görüldü mü (TASK 044).
+  /// Eksik/bozuk değer GÖRÜLMEMİŞ (`false`) kabul edilir.
+  ResultFuture<bool> loadSettingsHintSeen();
+
+  ResultFuture<void> saveSettingsHintSeen({required bool seen});
 }

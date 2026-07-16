@@ -5,6 +5,7 @@ import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reader_pref
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_position_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_reading_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/data/shared_prefs_quran_verse_bookmark_repository.dart';
+import 'package:bismillah_app/features/quran/data/unavailable_quran_audio_session_service.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_audio_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_content_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reader_preferences_repository.dart';
@@ -12,6 +13,7 @@ import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_p
 import 'package:bismillah_app/features/quran/domain/repositories/quran_reading_preferences_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_translation_repository.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_verse_bookmark_repository.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Kur'an tercih deposunun DI bağlaması: uygulama arayüzü okur, içeride
@@ -62,4 +64,13 @@ final quranTranslationRepositoryProvider = Provider<QuranTranslationRepository>(
 /// read + timing cache'i oturum boyunca yaşar.
 final quranAudioRepositoryProvider = Provider<QuranAudioRepository>(
   (ref) => Mp3QuranAudioRepository(),
+);
+
+/// Global Kur'an ses oturumu servisi (TASK 045). Gerçek handler bootstrap
+/// override'ı ile enjekte edilir (`AudioService.init` uygulama başına BİR
+/// KEZ); override yoksa (ör. widget testleri) platforma dokunmayan sakin
+/// unavailable implementasyon döner. autoDispose DEĞİL — oturum ve
+/// oynatma reader yaşam döngüsünden bağımsız, uygulama ömrünce yaşar.
+final quranAudioSessionServiceProvider = Provider<QuranAudioSessionService>(
+  (ref) => UnavailableQuranAudioSessionService(),
 );

@@ -31,6 +31,11 @@ class SacredContentSourceBadge extends StatelessWidget {
           child: Text(
             sourceLabel,
             style: AppTypography.caption.copyWith(color: ext.textSecondary),
+            // Kaynak etiketi HER genişlikte tek satır kalır — dar alanda
+            // harf harf dikeyleşme yerine sonda kısaltılır (TASK 044).
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

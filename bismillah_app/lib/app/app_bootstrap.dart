@@ -15,6 +15,8 @@ import 'package:bismillah_app/features/prayer_reminders/data/prayer_reminders_pr
 import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
 import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
+import 'package:bismillah_app/features/quran/data/audio_service_quran_handler.dart';
+import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,8 +51,22 @@ Future<ProviderContainer> bootstrap({
   final onboardingCompleted =
       await const SharedPrefsOnboardingPreferencesRepository().isCompleted();
 
+  // TASK 045: global Kur'an ses oturumu — AudioService.init uygulama
+  // başına yalnız BURADA, bir kez çağrılır ve Riverpod override'ı ile
+  // enjekte edilir (global mutable handler değişkeni YOK). Başarısızlık
+  // fatal DEĞİLDİR: sakin unavailable implementasyon döner, reader
+  // Arapça/meal ile çalışmaya devam eder. Kanal adı bildirim içindir;
+  // BuildContext gerektirmez (bootstrap'taki hatırlatıcı desenle aynı).
+  final quranAudioSessionService = await initializeQuranAudioSessionService(
+    notificationChannelName:
+        const AppLocalizations(SupportedLocale.tr).quranAudioChannelName,
+  );
+
   final container = ProviderContainer(
     overrides: [
+      quranAudioSessionServiceProvider.overrideWithValue(
+        quranAudioSessionService,
+      ),
       currentUserIdProvider.overrideWithValue(identity.userId),
       currentDeviceIdProvider.overrideWithValue(identity.deviceId),
       firebaseInitStatusProvider.overrideWithValue(identity.firebaseStatus),

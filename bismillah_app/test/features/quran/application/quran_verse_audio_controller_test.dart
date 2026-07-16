@@ -8,56 +8,140 @@ import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_chapter_recitation.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_verse.dart';
 import 'package:bismillah_app/features/quran/domain/repositories/quran_audio_repository.dart';
-import 'package:bismillah_app/features/quran/domain/services/quran_verse_audio_player.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// TASK 041/042 ses controller'ı: tek ayet + kesintisiz sure davranışı —
-/// GERÇEK ses/HTTP yok, fake player ve repository kullanılır.
-final class _FakePlayer implements QuranVerseAudioPlayer {
-  final _statusController =
-      StreamController<QuranAudioPlaybackStatus>.broadcast();
+/// TASK 041/042/045 ses controller'ı: controller player SAHİBİ DEĞİLDİR —
+/// global oturum servisini kullanır. Fake servis, gerçek handler'ın durum
+/// davranışını (oynat/duraklat/ilerlet/durdur) bellekte taklit eder;
+/// GERÇEK ses/HTTP/platform kanalı YOKTUR.
+final class _FakeSessionService implements QuranAudioSessionService {
+  final _stateController = StreamController<QuranVerseAudioState>.broadcast();
   final List<String> log = [];
-  int loadCount = 0;
-  bool disposed = false;
 
-  void emit(QuranAudioPlaybackStatus status) => _statusController.add(status);
+  QuranVerseAudioState _current = const QuranVerseAudioState();
+  QuranAudioSessionRequest? _request;
+  QuranAudioPlaybackMode? _mode;
+  int? _activeVerse;
+  bool _sourceReady = false;
 
-  @override
-  Future<void> loadChapter({
-    required String audioUrl,
-    required int chapterId,
-  }) async {
-    loadCount++;
-    log.add('load:$chapterId');
+  bool get sessionActive => _request != null;
+
+  void _emit(QuranVerseAudioState state) {
+    _current = state;
+    _stateController.add(state);
+  }
+
+  QuranVerseAudioState _sessionState(QuranVerseAudioStatus status) {
+    final request = _request!;
+    return QuranVerseAudioState(
+      activeChapterId: request.recitation.chapterId,
+      activeVerseKey: '${request.recitation.chapterId}:$_activeVerse',
+      activeVerseNumber: _activeVerse,
+      playbackMode: _mode,
+      status: status,
+      sourceReady: _sourceReady,
+      totalVerseCount: request.totalVerseCount,
+    );
+  }
+
+  void _start(
+    QuranAudioSessionRequest request,
+    QuranAudioPlaybackMode mode,
+    String label,
+  ) {
+    log.add('$label:${request.recitation.chapterId}'
+        ':${request.startVerseNumber}');
+    _request = request;
+    _mode = mode;
+    _activeVerse = request.startVerseNumber;
+    _sourceReady = true;
+    _emit(_sessionState(QuranVerseAudioStatus.playing));
+  }
+
+  /// Clip tamamlandı simülasyonu — gerçek handler'daki otomatik ilerleme:
+  /// kesintisiz modda sonraki ayet, aksi halde oturum sonu.
+  void completeClip() {
+    final verse = _activeVerse;
+    final request = _request;
+    if (verse == null || request == null) {
+      return;
+    }
+    final next = verse + 1;
+    if (_mode == QuranAudioPlaybackMode.continuousChapter &&
+        request.recitation.timingFor(next) != null) {
+      _activeVerse = next;
+      _emit(_sessionState(QuranVerseAudioStatus.playing));
+    } else {
+      _request = null;
+      _activeVerse = null;
+      _mode = null;
+      _emit(QuranVerseAudioState(sourceReady: _sourceReady));
+    }
   }
 
   @override
-  Future<void> playVerse(QuranVerseTiming timing) async {
-    log.add('play:${timing.verseNumber}');
+  QuranVerseAudioState get currentState => _current;
+
+  @override
+  Stream<QuranVerseAudioState> watchState() => _stateController.stream;
+
+  @override
+  Future<void> playSingleVerse(QuranAudioSessionRequest request) async {
+    _start(request, QuranAudioPlaybackMode.singleVerse, 'single');
   }
 
   @override
-  Future<void> pause() async => log.add('pause');
-
-  @override
-  Future<void> resume() async => log.add('resume');
-
-  @override
-  Future<void> stop() async => log.add('stop');
-
-  @override
-  Future<void> dispose() async {
-    disposed = true;
-    await _statusController.close();
+  Future<void> playContinuousChapter(QuranAudioSessionRequest request) async {
+    _start(request, QuranAudioPlaybackMode.continuousChapter, 'chapter');
   }
 
   @override
-  Stream<QuranAudioPlaybackStatus> get statusStream => _statusController.stream;
+  Future<void> pause() async {
+    log.add('pause');
+    if (_request != null) {
+      _emit(_sessionState(QuranVerseAudioStatus.paused));
+    }
+  }
+
+  @override
+  Future<void> resume() async {
+    log.add('resume');
+    if (_request != null) {
+      _emit(_sessionState(QuranVerseAudioStatus.playing));
+    }
+  }
+
+  @override
+  Future<void> stop() async {
+    log.add('stop');
+    _request = null;
+    _activeVerse = null;
+    _mode = null;
+    _emit(QuranVerseAudioState(sourceReady: _sourceReady));
+  }
+
+  Future<void> _skip(int delta) async {
+    final verse = _activeVerse;
+    final target = verse == null ? null : verse + delta;
+    if (target == null || _request?.recitation.timingFor(target) == null) {
+      return;
+    }
+    _activeVerse = target;
+    _emit(_sessionState(QuranVerseAudioStatus.playing));
+  }
+
+  @override
+  Future<void> skipToPrevious() => _skip(-1);
+
+  @override
+  Future<void> skipToNext() => _skip(1);
 }
 
 final class _FakeAudioRepository implements QuranAudioRepository {
   bool fail = false;
+  int loadCount = 0;
   final List<int> invalidated = [];
 
   @override
@@ -65,6 +149,7 @@ final class _FakeAudioRepository implements QuranAudioRepository {
     int chapterId,
     int expectedVerseCount,
   ) async {
+    loadCount++;
     if (fail) {
       return const Result.failure(NetworkFailure());
     }
@@ -106,8 +191,18 @@ QuranVerse verse(int number) => QuranVerse(
   textUthmani: 'نص',
 );
 
+const _display = QuranAudioDisplayInfo(
+  chapterDisplayName: 'Fâtiha Suresi',
+  reciterName: 'x',
+  rewayaName: 'y',
+  albumName: 'Bismillah',
+  verseOfLabel: _verseOf,
+);
+
+String _verseOf(int current, int total) => 'Ayet $current / $total';
+
 void main() {
-  late _FakePlayer player;
+  late _FakeSessionService service;
   late _FakeAudioRepository repository;
   late ProviderContainer container;
 
@@ -117,14 +212,11 @@ void main() {
       container.read(quranVerseAudioControllerProvider.notifier);
 
   setUp(() {
-    player = _FakePlayer();
+    service = _FakeSessionService();
     repository = _FakeAudioRepository();
     container = ProviderContainer(
       overrides: [
-        quranVerseAudioPlayerProvider.overrideWith((ref) {
-          ref.onDispose(() => unawaited(player.dispose()));
-          return player;
-        }),
+        quranAudioSessionServiceProvider.overrideWithValue(service),
         quranAudioRepositoryProvider.overrideWithValue(repository),
       ],
     );
@@ -136,121 +228,197 @@ void main() {
   });
 
   test('tek ayet: yükle+oynat → duraklat → devam et', () async {
-    await controller().toggleVerse(verse(3), expectedVerseCount: 7);
+    await controller().toggleVerse(
+      verse(3),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().status, QuranVerseAudioStatus.playing);
     expect(state().activeVerseKey, '1:3');
     expect(state().playbackMode, QuranAudioPlaybackMode.singleVerse);
-    expect(player.log, ['stop', 'load:1', 'play:3']);
+    // Yeni istek önce mevcut oturumu durdurur, sonra tek ayeti başlatır.
+    expect(service.log, ['stop', 'single:1:3']);
 
-    await controller().toggleVerse(verse(3), expectedVerseCount: 7);
+    await controller().toggleVerse(
+      verse(3),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().status, QuranVerseAudioStatus.paused);
 
-    await controller().toggleVerse(verse(3), expectedVerseCount: 7);
+    await controller().toggleVerse(
+      verse(3),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().status, QuranVerseAudioStatus.playing);
-    expect(player.log.last, 'resume');
+    expect(service.log.last, 'resume');
   });
 
-  test('başka ayet seçilince önceki durur; MP3 yeniden yüklenmez', () async {
-    await controller().toggleVerse(verse(1), expectedVerseCount: 7);
-    await controller().toggleVerse(verse(5), expectedVerseCount: 7);
+  test('başka ayet seçilince önceki durur ve yeni ayet başlar', () async {
+    await controller().toggleVerse(
+      verse(1),
+      expectedVerseCount: 7,
+      display: _display,
+    );
+    await controller().toggleVerse(
+      verse(5),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().activeVerseKey, '1:5');
-    expect(player.log, contains('stop'));
-    expect(player.log.last, 'play:5');
+    expect(service.log.last, 'single:1:5');
   });
 
   test('singleVerse bitince otomatik SONRAKİ ayete geçilmez', () async {
-    await controller().toggleVerse(verse(2), expectedVerseCount: 7);
-    player.emit(QuranAudioPlaybackStatus.completed);
+    await controller().toggleVerse(
+      verse(2),
+      expectedVerseCount: 7,
+      display: _display,
+    );
+    service.completeClip();
     await pumpEventQueue();
     expect(state().status, QuranVerseAudioStatus.idle);
     expect(state().activeVerseKey, isNull);
-    expect(player.log.where((e) => e.startsWith('play:')).length, 1);
   });
 
   test('continuousChapter: 1. ayetten başlar, completed ile ilerler, '
       'son ayette durur', () async {
-    await controller().playChapter(chapterId: 1, expectedVerseCount: 3);
+    await controller().playChapter(
+      chapterId: 1,
+      expectedVerseCount: 3,
+      display: _display,
+    );
     expect(state().activeVerseNumber, 1);
     expect(state().playbackMode, QuranAudioPlaybackMode.continuousChapter);
 
-    player.emit(QuranAudioPlaybackStatus.completed);
+    service.completeClip();
     await pumpEventQueue();
     expect(state().activeVerseNumber, 2);
     expect(state().status, QuranVerseAudioStatus.playing);
 
-    player.emit(QuranAudioPlaybackStatus.completed);
+    service.completeClip();
     await pumpEventQueue();
     expect(state().activeVerseNumber, 3);
 
-    player.emit(QuranAudioPlaybackStatus.completed);
+    service.completeClip();
     await pumpEventQueue();
     expect(state().status, QuranVerseAudioStatus.idle);
     expect(state().activeVerseKey, isNull);
   });
 
-  test('önceki/sonraki sınırları ve geçişte durdurma', () async {
-    await controller().playChapter(chapterId: 1, expectedVerseCount: 3);
+  test('önceki/sonraki sınırları', () async {
+    await controller().playChapter(
+      chapterId: 1,
+      expectedVerseCount: 3,
+      display: _display,
+    );
     expect(state().hasPrevious, isFalse); // ilk ayette önceki pasif
     expect(state().hasNext, isTrue);
 
     await controller().skipToAdjacentVerse(forward: true);
+    await pumpEventQueue();
     expect(state().activeVerseNumber, 2);
 
     await controller().skipToAdjacentVerse(forward: true);
+    await pumpEventQueue();
     expect(state().activeVerseNumber, 3);
     expect(state().hasNext, isFalse); // son ayette sonraki pasif
 
     await controller().skipToAdjacentVerse(forward: true); // yok sayılır
+    await pumpEventQueue();
     expect(state().activeVerseNumber, 3);
 
     await controller().skipToAdjacentVerse(forward: false);
+    await pumpEventQueue();
     expect(state().activeVerseNumber, 2);
   });
 
-  test('hızlı art arda dokunuşlar çift oynatma üretmez', () async {
-    final first = controller().toggleVerse(verse(1), expectedVerseCount: 7);
-    final second = controller().toggleVerse(verse(2), expectedVerseCount: 7);
+  test('hızlı art arda dokunuşlar çift yükleme/oynatma üretmez', () async {
+    final first = controller().toggleVerse(
+      verse(1),
+      expectedVerseCount: 7,
+      display: _display,
+    );
+    final second = controller().toggleVerse(
+      verse(2),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     await Future.wait([first, second]);
-    expect(player.loadCount, 1);
-    expect(player.log.where((e) => e.startsWith('play:')).length, 1);
+    expect(repository.loadCount, 1);
+    expect(
+      service.log.where((entry) => entry.startsWith('single:')).length,
+      1,
+    );
   });
-
-  test(
-    'sure çalarken başka ayetin Dinle aksiyonu single moda geçirir',
-    () async {
-      await controller().playChapter(chapterId: 1, expectedVerseCount: 7);
-      await controller().toggleVerse(verse(5), expectedVerseCount: 7);
-      expect(state().playbackMode, QuranAudioPlaybackMode.singleVerse);
-      expect(state().activeVerseNumber, 5);
-
-      // Tek ayet bitince otomatik ilerleme YOK.
-      player.emit(QuranAudioPlaybackStatus.completed);
-      await pumpEventQueue();
-      expect(state().status, QuranVerseAudioStatus.idle);
-    },
-  );
 
   test('hata: ayet hatası yalnız o ayette, sure hatası panelde', () async {
     repository.fail = true;
-    await controller().toggleVerse(verse(4), expectedVerseCount: 7);
+    await controller().toggleVerse(
+      verse(4),
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().status, QuranVerseAudioStatus.error);
     expect(state().errorVerseKey, '1:4');
+    expect(state().activeChapterId, 1);
     expect(state().chapterAudioFailed, isFalse);
 
-    await controller().playChapter(chapterId: 1, expectedVerseCount: 7);
+    await controller().playChapter(
+      chapterId: 1,
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(state().chapterAudioFailed, isTrue);
 
     // Retry cache'i düşürür ve başarılı olur.
     repository.fail = false;
-    await controller().retryChapter(chapterId: 1, expectedVerseCount: 7);
+    await controller().retryChapter(
+      chapterId: 1,
+      expectedVerseCount: 7,
+      display: _display,
+    );
     expect(repository.invalidated, [1]);
     expect(state().status, QuranVerseAudioStatus.playing);
   });
 
-  test('container dispose olunca player kapanır', () async {
-    await controller().toggleVerse(verse(1), expectedVerseCount: 7);
+  test('reader kapanınca global oturum DURMAZ; yeni controller devam eden '
+      'durumu yansıtır', () async {
+    await controller().toggleVerse(
+      verse(1),
+      expectedVerseCount: 7,
+      display: _display,
+    );
+    final stopsBefore = service.log.where((e) => e == 'stop').length;
+
+    // Reader'ın kapanması: controller aboneliği düşer (autoDispose).
     container.dispose();
     await pumpEventQueue();
-    expect(player.disposed, isTrue);
+    expect(service.sessionActive, isTrue); // ses sürer
+    expect(service.log.where((e) => e == 'stop').length, stopsBefore);
+
+    // Aynı sure tekrar açıldığında durum servisten geri gelir.
+    final reopened = ProviderContainer(
+      overrides: [
+        quranAudioSessionServiceProvider.overrideWithValue(service),
+        quranAudioRepositoryProvider.overrideWithValue(repository),
+      ],
+    );
+    addTearDown(reopened.dispose);
+    final resumedState = reopened.read(quranVerseAudioControllerProvider);
+    expect(resumedState.status, QuranVerseAudioStatus.playing);
+    expect(resumedState.activeVerseKey, '1:1');
+  });
+
+  test('stopPlayback oturumu tamamen sonlandırır', () async {
+    await controller().playChapter(
+      chapterId: 1,
+      expectedVerseCount: 3,
+      display: _display,
+    );
+    await controller().stopPlayback();
+    expect(state().status, QuranVerseAudioStatus.idle);
+    expect(service.sessionActive, isFalse);
   });
 }
