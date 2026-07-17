@@ -103,7 +103,13 @@ final class BundledQuranSearchRepository implements QuranSearchRepository {
       return Result.success(
         QuranSearchResponse(chapters: chapterResults, verses: verseResults),
       );
-    } on Exception {
+    } catch (_) {
+      // İndeks/içerik/meal yükleme hatası SADECE Exception değildir:
+      // eksik veya bozuk asset'te AssetBundle.loadString bir FlutterError
+      // (Error) fırlatır. `on Exception` bunu kaçırıp tüm arama yüzeyini
+      // kilitliyordu — geniş yakalama sakin failure'a düşürür; reader/
+      // meal/ses etkilenmez, indeks yalnız başarıda cache'lendiğinden
+      // sonraki aramalar kendiliğinden yeniden dener.
       return const Result.failure(StorageFailure());
     }
   }
@@ -117,7 +123,8 @@ final class BundledQuranSearchRepository implements QuranSearchRepository {
         _parseReference(normalized, index) ??
             index.referenceAliases[normalized],
       );
-    } on Exception {
+    } catch (_) {
+      // Bkz. [search]: asset yükleme hatası Error olabilir — geniş yakala.
       return const Result.failure(StorageFailure());
     }
   }
