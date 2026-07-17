@@ -1,6 +1,6 @@
-/// Kıraat kaynağı (TASK 041) — paket bağımsız. MP3Quran read kaydından
-/// doğrulanarak üretilir; UI'da gösterilen ad localization'daki
-/// doğrulanmış etikettir, API'den gelen ham metin DEĞİLDİR.
+/// Kıraat kaynağı (TASK 041/049) — paket bağımsız. MP3Quran timed-read
+/// kaydından doğrulanarak üretilir; katalogda gösterilen ad API'den gelen
+/// DOĞRULANMIŞ özel isimdir (localization'a kopyalanmaz).
 final class QuranRecitationSource {
   QuranRecitationSource({
     required this.readId,
@@ -8,7 +8,17 @@ final class QuranRecitationSource {
     required this.rewayaName,
     required this.folderUrl,
     required this.chapterCount,
+    this.isDefault = false,
   }) {
+    if (readId < 1) {
+      throw ArgumentError.value(readId, 'readId', 'pozitif olmalı');
+    }
+    if (reciterName.trim().isEmpty) {
+      throw ArgumentError.value(reciterName, 'reciterName', 'boş olamaz');
+    }
+    if (rewayaName.trim().isEmpty) {
+      throw ArgumentError.value(rewayaName, 'rewayaName', 'boş olamaz');
+    }
     if (!folderUrl.startsWith('https://')) {
       throw ArgumentError.value(folderUrl, 'folderUrl', 'HTTPS olmalı');
     }
@@ -26,6 +36,17 @@ final class QuranRecitationSource {
   final String rewayaName;
   final String folderUrl;
   final int chapterCount;
+
+  /// Uygulamanın her zaman mevcut fallback kaynağı mı (read 5).
+  final bool isDefault;
+
+  /// Eşitlik deterministik olarak readId üzerindendir (TASK 049).
+  @override
+  bool operator ==(Object other) =>
+      other is QuranRecitationSource && other.readId == readId;
+
+  @override
+  int get hashCode => readId.hashCode;
 }
 
 /// Tek ayetin ses zaman aralığı (TASK 041).

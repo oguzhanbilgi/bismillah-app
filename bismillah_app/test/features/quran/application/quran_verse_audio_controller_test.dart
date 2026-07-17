@@ -51,8 +51,10 @@ final class _FakeSessionService implements QuranAudioSessionService {
     QuranAudioPlaybackMode mode,
     String label,
   ) {
-    log.add('$label:${request.recitation.chapterId}'
-        ':${request.startVerseNumber}');
+    log.add(
+      '$label:${request.recitation.chapterId}'
+      ':${request.startVerseNumber}',
+    );
     _request = request;
     _mode = mode;
     _activeVerse = request.startVerseNumber;
@@ -148,18 +150,12 @@ final class _FakeAudioRepository implements QuranAudioRepository {
   ResultFuture<QuranChapterRecitation> getChapterRecitation(
     int chapterId,
     int expectedVerseCount,
+    QuranRecitationSource source,
   ) async {
     loadCount++;
     if (fail) {
       return const Result.failure(NetworkFailure());
     }
-    final source = QuranRecitationSource(
-      readId: 5,
-      reciterName: 'x',
-      rewayaName: 'y',
-      folderUrl: 'https://server10.mp3quran.net/ajm/',
-      chapterCount: 114,
-    );
     return Result.success(
       QuranChapterRecitation(
         chapterId: chapterId,
@@ -181,7 +177,8 @@ final class _FakeAudioRepository implements QuranAudioRepository {
   }
 
   @override
-  void invalidateChapter(int chapterId) => invalidated.add(chapterId);
+  void invalidateChapter(int chapterId, int readId) =>
+      invalidated.add(chapterId);
 }
 
 QuranVerse verse(int number) => QuranVerse(
@@ -347,10 +344,7 @@ void main() {
     );
     await Future.wait([first, second]);
     expect(repository.loadCount, 1);
-    expect(
-      service.log.where((entry) => entry.startsWith('single:')).length,
-      1,
-    );
+    expect(service.log.where((entry) => entry.startsWith('single:')).length, 1);
   });
 
   test('hata: ayet hatası yalnız o ayette, sure hatası panelde', () async {

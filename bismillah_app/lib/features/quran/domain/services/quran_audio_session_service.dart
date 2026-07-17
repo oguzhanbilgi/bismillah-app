@@ -11,6 +11,8 @@ enum QuranAudioPlaybackMode { singleVerse, continuousChapter }
 final class QuranVerseAudioState {
   const QuranVerseAudioState({
     this.activeChapterId,
+    this.activeChapterName,
+    this.activeReciterName,
     this.activeVerseKey,
     this.activeVerseNumber,
     this.playbackMode,
@@ -25,6 +27,15 @@ final class QuranVerseAudioState {
   /// Aktif oturumun suresi; hatada başarısız olan sure. Reader yalnız
   /// KENDİ suresine ait durumu paneline yansıtır (TASK 045).
   final int? activeChapterId;
+
+  /// Aktif surenin doğrulanmış görüntü adı (TASK 046 mini oynatıcı) —
+  /// istekteki [QuranAudioDisplayInfo.chapterDisplayName]'den gelir.
+  final String? activeChapterName;
+
+  /// Aktif oturumun kâri adı (TASK 049 mini oynatıcı alt metni) —
+  /// istekteki [QuranAudioDisplayInfo.reciterName]'den gelir; mini player
+  /// katalog ÇAĞIRMAZ, adı buradan okur.
+  final String? activeReciterName;
 
   /// Şu an yüklenen/çalan/duraklatılan ayet.
   final String? activeVerseKey;

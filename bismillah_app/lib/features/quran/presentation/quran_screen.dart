@@ -1,13 +1,17 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
+import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/onboarding/presentation/widgets/onboarding_option_card.dart';
 import 'package:bismillah_app/features/quran/application/quran_chapters_provider.dart';
+import 'package:bismillah_app/features/quran/application/quran_home_tab_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_preferences_controller.dart';
+import 'package:bismillah_app/features/quran/application/quran_progress_summary_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_reading_position_providers.dart';
+import 'package:bismillah_app/features/quran/application/quran_search_controller.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_chapter.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_arabic_script.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_reading_goal.dart';
@@ -51,11 +55,12 @@ class QuranScreen extends ConsumerWidget {
               ),
             ],
       body: switch (async) {
-        AsyncData(:final value) => value.savedPreferences == null
-            ? _SetupFlow(state: value)
-            : value.isEditingGoal
-            ? _GoalEditView(state: value)
-            : const _QuranHome(),
+        AsyncData(:final value) =>
+          value.savedPreferences == null
+              ? _SetupFlow(state: value)
+              : value.isEditingGoal
+              ? _GoalEditView(state: value)
+              : const _QuranHome(),
         AsyncError() => AppErrorState(
           message: l10n.quranGoalLoadIssue,
           retryLabel: l10n.commonRetry,
@@ -80,6 +85,20 @@ Future<void> _openChapter(
   }
 }
 
+/// Arama sonucundan okuyucuyu HEDEF AYETLE açar (TASK 048): aynı reader
+/// route'u `?verse=` sorgusuyla kullanılır — oynatma/mini player kesilmez.
+Future<void> _openVerse(
+  BuildContext context,
+  WidgetRef ref,
+  int chapterId,
+  int verseNumber,
+) async {
+  await context.push(AppRoutes.quranChapterVersePath(chapterId, verseNumber));
+  if (context.mounted) {
+    ref.invalidate(quranReadingPositionProvider);
+  }
+}
+
 /// Hedefin "3 sayfa" / "10 dakika" biçimli etiketi.
 String _goalAmountLabel(AppLocalizations l10n, QuranReadingGoal goal) =>
     switch (goal.type) {
@@ -91,8 +110,37 @@ String _goalAmountLabel(AppLocalizations l10n, QuranReadingGoal goal) =>
 // Kur'an ana ekranı: Oku / Öğren / İlerlemem
 // ---------------------------------------------------------------------------
 
-final class _QuranHome extends StatelessWidget {
+final class _QuranHome extends ConsumerStatefulWidget {
   const _QuranHome();
+
+  @override
+  ConsumerState<_QuranHome> createState() => _QuranHomeState();
+}
+
+final class _QuranHomeState extends ConsumerState<_QuranHome>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+  late int _appliedRequestSeq;
+
+  @override
+  void initState() {
+    super.initState();
+    // Today hızlı aksiyonu ekran kurulmadan önce sekme istemiş olabilir —
+    // ilk build o hedefle açılır (varsayılan Oku).
+    final request = ref.read(quranHomeTabProvider);
+    _appliedRequestSeq = request.seq;
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: request.index,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,39 +148,50 @@ final class _QuranHome extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final ext = AppThemeExtension.of(context);
 
-    // Kurulum sonrası varsayılan sekme Oku'dur (initialIndex 0).
-    return DefaultTabController(
-      length: 3,
-      child: Column(
-        children: [
-          const SizedBox(height: AppSpacing.s3),
-          TabBar(
-            tabs: [
-              Tab(text: l10n.quranTabRead),
-              Tab(text: l10n.quranTabLearn),
-              Tab(text: l10n.quranTabProgress),
-            ],
-            labelColor: scheme.primary,
-            unselectedLabelColor: ext.textSecondary,
-            indicatorColor: scheme.primary,
-            dividerColor: Colors.transparent,
+    // Today'den gelen sekme isteği (TASK 050): yalnız yeni istek (seq
+    // değişimi) sekmeyi değiştirir — elle yapılan sekme seçimi ezilmez,
+    // aynı hedefe tekrar dokunmak yeniden odaklar.
+    ref.listen<QuranHomeTabRequest>(quranHomeTabProvider, (previous, next) {
+      if (next.seq != _appliedRequestSeq) {
+        _appliedRequestSeq = next.seq;
+        if (_tabController.index != next.index) {
+          _tabController.animateTo(next.index);
+        }
+      }
+    });
+
+    return Column(
+      children: [
+        const SizedBox(height: AppSpacing.s3),
+        TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: l10n.quranTabRead),
+            Tab(text: l10n.quranTabLearn),
+            Tab(text: l10n.quranTabProgress),
+          ],
+          labelColor: scheme.primary,
+          unselectedLabelColor: ext.textSecondary,
+          indicatorColor: scheme.primary,
+          dividerColor: Colors.transparent,
+        ),
+        const SizedBox(height: AppSpacing.s4),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [_ReadTab(), _LearnTab(), _ProgressTab()],
           ),
-          const SizedBox(height: AppSpacing.s4),
-          const Expanded(
-            child: TabBarView(
-              children: [_ReadTab(), _LearnTab(), _ProgressTab()],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
-/// Oku sekmesi — kaldığın yer boş durumu + doğrulanmış 114 surelik
-/// katalog (TASK 034/034B; Tanzil metadata asset'inden, ayet metni YOK).
-/// Lokal arama: numara, Arapça/translit/İngilizce ad. Satırlar TASK
-/// 035'te okuyucuya bağlanana kadar dokunulabilir DEĞİLDİR.
+/// Oku sekmesi — üstte offline Kur'an araması (TASK 048; sure adı/no,
+/// ayet referansı, Arapça ve Türkçe meal içeriği), altında kaldığın yer
+/// + doğrulanmış 114 surelik katalog. Alan boşken ekran aynen eski
+/// davranışındadır; sorgu yazılınca sonuç görünümüne geçilir, temizle
+/// normal ekrana döndürür. Sorgular hiçbir yere GÖNDERİLMEZ.
 final class _ReadTab extends ConsumerStatefulWidget {
   const _ReadTab();
 
@@ -141,32 +200,63 @@ final class _ReadTab extends ConsumerStatefulWidget {
 }
 
 final class _ReadTabState extends ConsumerState<_ReadTab> {
-  String _query = '';
+  final TextEditingController _searchFieldController = TextEditingController();
 
-  List<QuranChapter> _filter(List<QuranChapter> chapters) {
-    final trimmed = _query.trim();
-    if (trimmed.isEmpty) {
-      return chapters;
-    }
-    final lower = trimmed.toLowerCase();
-    final number = int.tryParse(trimmed);
-    return [
-      for (final chapter in chapters)
-        if ((number != null && chapter.id == number) ||
-            chapter.arabicName.contains(trimmed) ||
-            chapter.transliteratedName.toLowerCase().contains(lower) ||
-            chapter.englishName.toLowerCase().contains(lower))
-          chapter,
-    ];
+  @override
+  void dispose() {
+    _searchFieldController.dispose();
+    super.dispose();
+  }
+
+  void _clearSearch() {
+    _searchFieldController.clear();
+    ref.read(quranSearchControllerProvider.notifier).clear();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final async = ref.watch(quranChaptersProvider);
+    final searchState = ref.watch(quranSearchControllerProvider);
+    final controller = ref.read(quranSearchControllerProvider.notifier);
 
+    return Column(
+      children: [
+        const SizedBox(height: AppSpacing.s2),
+        Semantics(
+          textField: true,
+          label: l10n.quranSearchTitle,
+          child: TextField(
+            controller: _searchFieldController,
+            onChanged: controller.setQuery,
+            textInputAction: TextInputAction.search,
+            onSubmitted: (_) => controller.submit(),
+            decoration: InputDecoration(
+              hintText: l10n.quranSearchFieldHint,
+              prefixIcon: const Icon(Icons.search),
+              suffixIcon: searchState.isActive
+                  ? IconButton(
+                      tooltip: l10n.quranSearchClear,
+                      icon: const Icon(Icons.close),
+                      onPressed: _clearSearch,
+                    )
+                  : null,
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.s3),
+        Expanded(
+          child: searchState.isActive
+              ? _SearchResultsView(state: searchState)
+              : _buildCatalog(l10n),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCatalog(AppLocalizations l10n) {
+    final async = ref.watch(quranChaptersProvider);
     return switch (async) {
-      AsyncData(:final value) => _buildList(l10n, _filter(value)),
+      AsyncData(:final value) => _buildList(l10n, value),
       AsyncError() => AppErrorState(
         message: l10n.quranChaptersLoadIssue,
         retryLabel: l10n.commonRetry,
@@ -184,29 +274,15 @@ final class _ReadTabState extends ConsumerState<_ReadTab> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: AppSpacing.s2),
+              // Küçük günlük hedef özeti (TASK 047): dokunuş İlerlemem
+              // sekmesine geçer; ana işlev sure listesi olarak kalır.
+              const _ReadGoalSummaryCard(),
               AppText(l10n.quranResumeTitle, token: AppTextStyleToken.h3),
               const SizedBox(height: AppSpacing.s3),
               const _ContinueReadingCard(),
               const SizedBox(height: AppSpacing.s5),
               AppText(l10n.quranSurahsSection, token: AppTextStyleToken.h3),
               const SizedBox(height: AppSpacing.s3),
-              TextField(
-                onChanged: (value) => setState(() => _query = value),
-                decoration: InputDecoration(
-                  hintText: l10n.quranSearchHint,
-                  prefixIcon: const Icon(Icons.search),
-                ),
-              ),
-              const SizedBox(height: AppSpacing.s3),
-              if (chapters.isEmpty)
-                AppCard(
-                  child: AppText(
-                    l10n.quranSearchNoResults,
-                    token: AppTextStyleToken.bodySmall,
-                    secondary: true,
-                  ),
-                ),
             ],
           );
         }
@@ -223,6 +299,174 @@ final class _ReadTabState extends ConsumerState<_ReadTab> {
   }
 }
 
+/// Arama sonuç görünümü (TASK 048): loading / hata / boş / bölümlenmiş
+/// sonuçlar. Hata yalnız arama katmanını etkiler — katalog, bookmark,
+/// progress ve ses sistemi AYNEN çalışır.
+final class _SearchResultsView extends ConsumerWidget {
+  const _SearchResultsView({required this.state});
+
+  final QuranSearchState state;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    if (state.failed) {
+      return AppErrorState(
+        message: l10n.quranSearchUnavailable,
+        retryLabel: l10n.commonRetry,
+        onRetry: () => ref.read(quranSearchControllerProvider.notifier).retry(),
+      );
+    }
+    final response = state.response;
+    if (response == null) {
+      return state.isLoading
+          ? AppLoading(label: l10n.quranSearchLoading)
+          : const SizedBox.shrink();
+    }
+    if (response.isEmpty && !state.isLoading) {
+      return ListView(
+        children: [
+          AppCard(
+            child: AppText(
+              l10n.quranSearchNoMatches,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return ListView(
+      children: [
+        AppText(
+          l10n.quranSearchResultCount(response.totalCount),
+          token: AppTextStyleToken.caption,
+          secondary: true,
+        ),
+        if (response.chapters.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.s4),
+          AppText(l10n.quranSurahsSection, token: AppTextStyleToken.h3),
+          const SizedBox(height: AppSpacing.s3),
+          for (final chapter in response.chapters)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.s3),
+              child: _SearchChapterCard(result: chapter),
+            ),
+        ],
+        if (response.verses.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.s2),
+          AppText(l10n.quranSearchVersesSection, token: AppTextStyleToken.h3),
+          const SizedBox(height: AppSpacing.s3),
+          for (final verse in response.verses)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.s3),
+              child: _SearchVerseCard(result: verse),
+            ),
+        ],
+        // Tek sakin kaynak satırı (kutsal içerik atfı) — her kartta
+        // tekrarlanmaz.
+        const SizedBox(height: AppSpacing.s2),
+        const AppText(
+          'Tanzil · QuranEnc Rowad',
+          token: AppTextStyleToken.caption,
+          secondary: true,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: AppSpacing.s6),
+      ],
+    );
+  }
+}
+
+final class _SearchChapterCard extends ConsumerWidget {
+  const _SearchChapterCard({required this.result});
+
+  final QuranChapterSearchResult result;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    return AppCard(
+      onTap: () => _openChapter(context, ref, result.chapterId),
+      child: Row(
+        children: [
+          AppBadge(label: '${result.chapterId}'),
+          const SizedBox(width: AppSpacing.s3),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(result.chapterName),
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  l10n.quranAyahCount(result.verseCount),
+                  token: AppTextStyleToken.caption,
+                  secondary: true,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppSpacing.s3),
+          AppText(result.arabicName, token: AppTextStyleToken.h3),
+        ],
+      ),
+    );
+  }
+}
+
+/// Ayet sonucu kartı: sure · verseKey, kısa ORİJİNAL Arapça (RTL) ve
+/// Türkçe meal snippet'i. Dokunuş mevcut reader route'unu hedef ayetle
+/// açar; oynatma/mini player etkilenmez.
+final class _SearchVerseCard extends ConsumerWidget {
+  const _SearchVerseCard({required this.result});
+
+  final QuranVerseSearchResult result;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    return Semantics(
+      button: true,
+      label: l10n.quranSearchGoToVerse,
+      child: Tooltip(
+        message: l10n.quranSearchGoToVerse,
+        child: AppCard(
+          onTap: () =>
+              _openVerse(context, ref, result.chapterId, result.verseNumber),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                '${result.chapterName} · ${result.verseKey}',
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s2),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: AppText(result.arabicSnippet, maxLines: 2),
+              ),
+              if (result.translationSnippet.isNotEmpty) ...[
+                const SizedBox(height: AppSpacing.s2),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: AppText(
+                    result.translationSnippet,
+                    token: AppTextStyleToken.bodySmall,
+                    secondary: true,
+                    maxLines: 3,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// "Kaldığın yerden devam et" kartı (TASK 036): kayıtlı konum + surenin
 /// katalog bilgisi. Kayıt yoksa sakin boş durum; okuma hatasında sakin
 /// mesaj. Ayet numarası GÖSTERİLMEZ — yalnız scroll konumu saklanıyor.
@@ -235,43 +479,44 @@ final class _ContinueReadingCard extends ConsumerWidget {
     final async = ref.watch(quranContinueReadingProvider);
 
     return switch (async) {
-      AsyncData(:final value) => value == null
-          ? AppCard(
-              child: AppText(
-                l10n.quranResumeEmpty,
-                token: AppTextStyleToken.bodySmall,
-                secondary: true,
-              ),
-            )
-          : AppCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppText(
-                          value.chapter.transliteratedName,
+      AsyncData(:final value) =>
+        value == null
+            ? AppCard(
+                child: AppText(
+                  l10n.quranResumeEmpty,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                ),
+              )
+            : AppCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppText(
+                            value.chapter.transliteratedName,
+                            token: AppTextStyleToken.h3,
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.s3),
+                        AppText(
+                          value.chapter.arabicName,
                           token: AppTextStyleToken.h3,
                         ),
-                      ),
-                      const SizedBox(width: AppSpacing.s3),
-                      AppText(
-                        value.chapter.arabicName,
-                        token: AppTextStyleToken.h3,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSpacing.s4),
-                  AppButton(
-                    label: l10n.quranResumeCta,
-                    variant: AppButtonVariant.secondary,
-                    onPressed: () =>
-                        _openChapter(context, ref, value.chapter.id),
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.s4),
+                    AppButton(
+                      label: l10n.quranResumeCta,
+                      variant: AppButtonVariant.secondary,
+                      onPressed: () =>
+                          _openChapter(context, ref, value.chapter.id),
+                    ),
+                  ],
+                ),
               ),
-            ),
       AsyncError() => AppCard(
         child: AppText(
           l10n.quranPositionLoadIssue,
@@ -365,37 +610,72 @@ final class _LearnTab extends StatelessWidget {
   }
 }
 
-/// İlerlemem sekmesi — günlük hedef özeti; ilerleme TASK 036'ya kadar 0.
+/// İlerlemem sekmesi (TASK 047) — gerçek cihaz-lokal veriye bağlı:
+/// bugünkü hedef, bugünkü aktivite, son 7 gün, seri ve devam kartı.
+/// Yükleme/okuma hatasında sakin unavailable durumu — teknik detay YOK.
 final class _ProgressTab extends ConsumerWidget {
   const _ProgressTab();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final goal = ref
-        .watch(quranPreferencesControllerProvider)
-        .value
-        ?.savedPreferences
-        ?.goal;
-    if (goal == null) {
-      return const SizedBox.shrink(); // savunmacı — bu görünüm kurulumsuz açılmaz
-    }
-
-    final typeLabel = switch (goal.type) {
-      QuranReadingGoalType.minutes => l10n.quranGoalTypeMinutes,
-      QuranReadingGoalType.pages => l10n.quranGoalTypePages,
+    final summaryAsync = ref.watch(quranProgressSummaryProvider);
+    return switch (summaryAsync) {
+      AsyncData(:final value) =>
+        value == null
+            // Savunmacı — bu görünüm kurulumsuz açılmaz.
+            ? const SizedBox.shrink()
+            : _ProgressView(summary: value),
+      AsyncError() => ListView(
+        children: [
+          const SizedBox(height: AppSpacing.s2),
+          AppCard(
+            child: AppText(
+              l10n.quranProgressUnavailable,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+          ),
+        ],
+      ),
+      _ => AppLoading(label: l10n.commonLoading),
     };
+  }
+}
+
+final class _ProgressView extends ConsumerWidget {
+  const _ProgressView({required this.summary});
+
+  final QuranProgressSummary summary;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final goal = summary.goal;
+    final pagesUnavailable = summary.pageMappingUnavailable;
     final progressLabel = switch (goal.type) {
       QuranReadingGoalType.minutes => l10n.quranMinutesProgress(
-        0,
+        summary.completedAmount,
         goal.amount,
       ),
-      QuranReadingGoalType.pages => l10n.quranPagesProgress(0, goal.amount),
+      QuranReadingGoalType.pages => l10n.quranPagesProgress(
+        summary.completedAmount,
+        goal.amount,
+      ),
+    };
+    final remainingLabel = switch (goal.type) {
+      QuranReadingGoalType.minutes => l10n.quranMinutesRemaining(
+        summary.remainingAmount,
+      ),
+      QuranReadingGoalType.pages => l10n.quranPagesRemaining(
+        summary.remainingAmount,
+      ),
     };
 
     return ListView(
       children: [
         const SizedBox(height: AppSpacing.s2),
+        // Bugünkü hedef kartı
         AppCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -410,26 +690,35 @@ final class _ProgressTab extends ConsumerWidget {
                 _goalAmountLabel(l10n, goal),
                 token: AppTextStyleToken.h3,
               ),
-              const SizedBox(height: AppSpacing.s1),
-              AppText(
-                typeLabel,
-                token: AppTextStyleToken.caption,
-                secondary: true,
-              ),
-              const SizedBox(height: AppSpacing.s2),
-              AppText(
-                l10n.quranGoalGentleLine,
-                token: AppTextStyleToken.bodySmall,
-                secondary: true,
-              ),
-              const SizedBox(height: AppSpacing.s4),
-              AppProgressBar(value: 0, semanticLabel: progressLabel),
-              const SizedBox(height: AppSpacing.s2),
-              AppText(
-                progressLabel,
-                token: AppTextStyleToken.caption,
-                secondary: true,
-              ),
+              const SizedBox(height: AppSpacing.s3),
+              if (pagesUnavailable)
+                // Sayfa eşlemesi doğrulanamadı: dakikaya SESSİZCE
+                // dönüştürülmez — kontrollü unavailable (TASK 047).
+                AppText(
+                  l10n.quranPageProgressUnavailable,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                )
+              else ...[
+                AppProgressBar(
+                  value: summary.goalProgressRatio,
+                  semanticLabel: progressLabel,
+                ),
+                const SizedBox(height: AppSpacing.s2),
+                AppText(
+                  progressLabel,
+                  token: AppTextStyleToken.caption,
+                  secondary: true,
+                ),
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  summary.isGoalCompleted
+                      ? l10n.quranGoalCompletedLine
+                      : remainingLabel,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                ),
+              ],
               const SizedBox(height: AppSpacing.s4),
               AppButton(
                 label: l10n.quranGoalEdit,
@@ -441,7 +730,300 @@ final class _ProgressTab extends ConsumerWidget {
             ],
           ),
         ),
+        const SizedBox(height: AppSpacing.s4),
+        // Bugünkü aktivite
+        AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranTodayActivityTitle,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s3),
+              _ActivityRow(
+                label: l10n.quranActiveReadingLabel,
+                value: l10n.quranMinutesCount(
+                  summary.today.activeReadingSeconds ~/ 60,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.s2),
+              // "Okunan" değil "görüntülenen" — yanlış kesinlik yok.
+              _ActivityRow(
+                label: l10n.quranViewedVersesLabel,
+                value: '${summary.today.viewedVerseKeys.length}',
+              ),
+              if (!pagesUnavailable) ...[
+                const SizedBox(height: AppSpacing.s2),
+                _ActivityRow(
+                  label: l10n.quranViewedPagesLabel,
+                  value: '${summary.today.viewedPageNumbers.length}',
+                ),
+              ],
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.s4),
+        // Son 7 gün — token tabanlı küçük barlar; chart paketi YOK.
+        AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranLast7DaysTitle,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s3),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for (final point in summary.last7Days)
+                    _DayProgressColumn(point: point),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.s4),
+        // Kur'an hedefi serisi — sakin, suçlayıcı olmayan dil.
+        AppCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranStreakTitle,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s1),
+              AppText(
+                l10n.quranDaysCount(summary.currentStreakDays),
+                token: AppTextStyleToken.h3,
+              ),
+            ],
+          ),
+        ),
+        const _ProgressContinueCard(),
+        const SizedBox(height: AppSpacing.s6),
       ],
+    );
+  }
+}
+
+final class _ActivityRow extends StatelessWidget {
+  const _ActivityRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: AppText(
+            label,
+            token: AppTextStyleToken.bodySmall,
+            secondary: true,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.s3),
+        AppText(value, token: AppTextStyleToken.bodySmall),
+      ],
+    );
+  }
+}
+
+/// 7 günlük görünümde tek günün bar + gün numarası kolonu. Bugün
+/// primarySoft rozetiyle ayırt edilir; tamamlanan gün dolu bar gösterir.
+final class _DayProgressColumn extends StatelessWidget {
+  const _DayProgressColumn({required this.point});
+
+  final QuranDayProgressPoint point;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final ext = AppThemeExtension.of(context);
+    final dayLabel = '${int.parse(point.localDateKey.substring(8))}';
+    return Semantics(
+      label:
+          '${point.localDateKey}: '
+          '${(point.goalProgressRatio * 100).round()}%',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: AppSpacing.s3,
+            height: AppSpacing.s8,
+            decoration: BoxDecoration(
+              color: ext.surfaceAlt,
+              borderRadius: AppRadius.pillAll,
+            ),
+            child: FractionallySizedBox(
+              alignment: Alignment.bottomCenter,
+              heightFactor: point.goalProgressRatio,
+              widthFactor: 1,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: scheme.primary,
+                  borderRadius: AppRadius.pillAll,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.s1),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s1),
+            decoration: point.isToday
+                ? BoxDecoration(
+                    color: ext.primarySoft,
+                    borderRadius: AppRadius.pillAll,
+                  )
+                : null,
+            child: AppText(
+              dayLabel,
+              token: AppTextStyleToken.caption,
+              secondary: !point.isToday,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// İlerlemem "Okumaya devam et" kartı (TASK 047): son okunan sure/ayet
+/// mevcutsa mevcut reader route'una götürür — yeni route YOK.
+final class _ProgressContinueCard extends ConsumerWidget {
+  const _ProgressContinueCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final today = ref.watch(quranTodayProgressProvider).value;
+    final chapterId = today?.lastChapterId;
+    if (chapterId == null) {
+      return const SizedBox.shrink();
+    }
+    final chapters = ref.watch(quranChaptersProvider).value;
+    QuranChapter? chapter;
+    for (final candidate in chapters ?? const <QuranChapter>[]) {
+      if (candidate.id == chapterId) {
+        chapter = candidate;
+        break;
+      }
+    }
+    if (chapter == null) {
+      return const SizedBox.shrink();
+    }
+    final verseKey = today?.lastVerseKey;
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.s4),
+      child: AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(chapter.transliteratedName, token: AppTextStyleToken.h3),
+            if (verseKey != null) ...[
+              const SizedBox(height: AppSpacing.s1),
+              AppText(
+                verseKey,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+            ],
+            const SizedBox(height: AppSpacing.s4),
+            AppButton(
+              label: l10n.quranResumeCta,
+              variant: AppButtonVariant.secondary,
+              onPressed: () => _openChapter(context, ref, chapter!.id),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Oku sekmesindeki kompakt günlük hedef özeti (TASK 047): ilerleme +
+/// kalan; dokunuş İlerlemem sekmesine geçer. Hedef/veri yoksa görünmez —
+/// ekran dashboard'a boğulmaz.
+final class _ReadGoalSummaryCard extends ConsumerWidget {
+  const _ReadGoalSummaryCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final summary = ref.watch(quranProgressSummaryProvider).value;
+    if (summary == null) {
+      return const SizedBox.shrink();
+    }
+    final goal = summary.goal;
+    final progressLabel = switch (goal.type) {
+      QuranReadingGoalType.minutes => l10n.quranMinutesProgress(
+        summary.completedAmount,
+        goal.amount,
+      ),
+      QuranReadingGoalType.pages => l10n.quranPagesProgress(
+        summary.completedAmount,
+        goal.amount,
+      ),
+    };
+    final supportLabel = summary.isGoalCompleted
+        ? l10n.quranGoalCompletedLine
+        : switch (goal.type) {
+            QuranReadingGoalType.minutes => l10n.quranMinutesRemaining(
+              summary.remainingAmount,
+            ),
+            QuranReadingGoalType.pages => l10n.quranPagesRemaining(
+              summary.remainingAmount,
+            ),
+          };
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.s5),
+      child: Semantics(
+        button: true,
+        label: l10n.quranTabProgress,
+        child: AppCard(
+          onTap: () => ref
+              .read(quranHomeTabProvider.notifier)
+              .request(QuranHomeTab.progress),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.quranTodayGoalTitle,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s2),
+              if (summary.pageMappingUnavailable)
+                AppText(
+                  l10n.quranPageProgressUnavailable,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                )
+              else ...[
+                AppProgressBar(
+                  value: summary.goalProgressRatio,
+                  semanticLabel: progressLabel,
+                ),
+                const SizedBox(height: AppSpacing.s2),
+                AppText(
+                  '$progressLabel · $supportLabel',
+                  token: AppTextStyleToken.caption,
+                  secondary: true,
+                  maxLines: 1,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -502,7 +1084,9 @@ final class _SetupFlow extends ConsumerWidget {
         ],
         const SizedBox(height: AppSpacing.s5),
         AppButton(
-          label: isLastStep ? l10n.quranSetupFinishCta : l10n.quranSetupContinue,
+          label: isLastStep
+              ? l10n.quranSetupFinishCta
+              : l10n.quranSetupContinue,
           isLoading: state.isSaving,
           onPressed: !state.canContinueCurrentStep || state.isSaving
               ? null
@@ -575,11 +1159,10 @@ final class _GoalSelectionFields extends ConsumerWidget {
     final controller = ref.read(quranPreferencesControllerProvider.notifier);
     final type = state.selectedGoalType;
 
-    String amountLabel(QuranReadingGoalType type, int amount) =>
-        switch (type) {
-          QuranReadingGoalType.minutes => l10n.quranMinutesCount(amount),
-          QuranReadingGoalType.pages => l10n.quranPagesCount(amount),
-        };
+    String amountLabel(QuranReadingGoalType type, int amount) => switch (type) {
+      QuranReadingGoalType.minutes => l10n.quranMinutesCount(amount),
+      QuranReadingGoalType.pages => l10n.quranPagesCount(amount),
+    };
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

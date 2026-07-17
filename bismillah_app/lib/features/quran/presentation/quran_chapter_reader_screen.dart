@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
+import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
@@ -11,6 +12,8 @@ import 'package:bismillah_app/features/quran/application/quran_chapter_reader_pr
 import 'package:bismillah_app/features/quran/application/quran_chapter_translation_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_reader_text_size_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_reading_position_providers.dart';
+import 'package:bismillah_app/features/quran/application/quran_reading_tracker.dart';
+import 'package:bismillah_app/features/quran/application/quran_reciter_selection_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_settings_hint_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_show_translation_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_verse_audio_controller.dart';
@@ -37,10 +40,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// chapterId sakin hata durumudur — ekran kontrolsüz exception ile
 /// KAPANMAZ, AppBar geri oku her durumda çalışır.
 class QuranChapterReaderScreen extends ConsumerStatefulWidget {
-  const QuranChapterReaderScreen({super.key, required this.chapterId});
+  const QuranChapterReaderScreen({
+    super.key,
+    required this.chapterId,
+    this.initialVerseNumber,
+  });
 
   /// Route parametresinden çözülen sure numarası; `null` = bozuk parametre.
   final int? chapterId;
+
+  /// Arama sonucundan hedef ayet (TASK 048, `?verse=`); geçersiz/aralık
+  /// dışı değer sakin biçimde yok sayılır — sure normal açılır.
+  final int? initialVerseNumber;
 
   @override
   ConsumerState<QuranChapterReaderScreen> createState() =>
@@ -150,8 +161,17 @@ final class _QuranChapterReaderScreenState
         _ReaderBody(
           chapter: chapter,
           verses: versesAsync.value!,
+          // Geçerli hedef ayet varsa (TASK 048) konum hedefe gider;
+          // yoksa kayıtlı devam konumu davranışı AYNEN korunur.
+          targetVerseNumber:
+              widget.initialVerseNumber != null &&
+                  widget.initialVerseNumber! >= 1 &&
+                  widget.initialVerseNumber! <= versesAsync.value!.length
+              ? widget.initialVerseNumber
+              : null,
           // Kayıt başka sureye aitse baştan açılır (TASK 036).
           initialScrollOffset: switch (positionAsync.value) {
+            _ when widget.initialVerseNumber != null => 0,
             final QuranReadingPosition saved when saved.chapterId == id =>
               saved.scrollOffset,
             _ => 0,
@@ -253,24 +273,58 @@ final class _ReaderBody extends ConsumerStatefulWidget {
     required this.chapter,
     required this.verses,
     required this.initialScrollOffset,
+    this.targetVerseNumber,
   });
 
   final QuranChapter chapter;
   final List<QuranVerse> verses;
   final double initialScrollOffset;
 
+  /// Arama sonucundan doğrulanmış hedef ayet; ilk render sonrası scroll
+  /// edilir ve sakin vurgulanır (TASK 048).
+  final int? targetVerseNumber;
+
   @override
   ConsumerState<_ReaderBody> createState() => _ReaderBodyState();
 }
 
-final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
+final class _ReaderBodyState extends ConsumerState<_ReaderBody>
+    with WidgetsBindingObserver {
   late final ScrollController _scrollController;
+
+  /// Gerçek okuma takibi (TASK 047): reader başına TEK tracker. Görünür
+  /// ayet tespiti için ayet öğelerine hafif GlobalKey verilir (yalnız
+  /// build edilmiş öğeler yaşar) — 6236 widget/timer KURULMAZ.
+  QuranReadingTracker? _tracker;
+  final Map<String, GlobalKey> _verseItemKeys = {};
+
+  /// Arama hedefi ayetin sakin vurgusu (TASK 048): hedefe ulaşınca
+  /// gösterilir, ilk kullanıcı dokunuşunda kalkar — timer yok, bookmark/
+  /// ses/progress durumuna DOKUNMAZ.
+  String? _targetHighlightKey;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController(
       initialScrollOffset: widget.initialScrollOffset,
+    );
+    // Doğrulanmış ayet→sayfa eşlemesi asenkron bağlanır; yüklenemezse
+    // yalnız sayfa işaretleme kapalı kalır (okuma süresi etkilenmez).
+    unawaited(
+      ref
+          .read(quranVersePageRepositoryProvider)
+          .pagesForChapter(widget.chapter.id)
+          .then((result) {
+            final pages = result.fold(
+              onSuccess: (pages) => pages,
+              onFailure: (_) => null,
+            );
+            if (mounted && pages != null) {
+              _tracker?.attachVersePages(pages);
+            }
+          }),
     );
     // Kayıtlı offset içerikten uzunsa (farklı ekran boyutu vb.) ilk
     // frame'den sonra güvenle maksimuma çekilir — crash yok.
@@ -282,13 +336,128 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
       if (_scrollController.offset > max) {
         _scrollController.jumpTo(max);
       }
+      final target = widget.targetVerseNumber;
+      if (target != null) {
+        unawaited(_scrollToTargetVerse(target));
+      }
+      // Açılıştaki birincil ayet — kullanıcı hiç kaydırmasa da dwell
+      // ölçümü başlar.
+      _reportPrimaryVerse();
     });
+  }
+
+  /// Hedef ayete kademeli scroll (TASK 048). Liste lazy olduğundan hedef
+  /// öğe build edilene dek build edilmiş ayet aralığına göre doğru yönde
+  /// viewport adımlarıyla ilerlenir; TASK 047'nin verse GlobalKey'leri
+  /// kullanılır (ikinci key sistemi YOK). Hedef bulunamazsa sessizce
+  /// vazgeçilir — sure normal açık kalır, crash yok.
+  Future<void> _scrollToTargetVerse(int targetVerseNumber) async {
+    final targetKey = '${widget.chapter.id}:$targetVerseNumber';
+    for (var attempt = 0; attempt < 200; attempt++) {
+      if (!mounted) {
+        return;
+      }
+      final targetContext = _verseItemKeys[targetKey]?.currentContext;
+      if (targetContext != null && targetContext.mounted) {
+        await Scrollable.ensureVisible(
+          targetContext,
+          alignment: 0.15,
+          duration: AppMotion.standard,
+          curve: AppMotion.standardCurve,
+        );
+        if (mounted) {
+          setState(() => _targetHighlightKey = targetKey);
+        }
+        return;
+      }
+      if (!_scrollController.hasClients) {
+        await WidgetsBinding.instance.endOfFrame;
+        continue;
+      }
+      // Build edilmiş ayet aralığı hedefin hangi yönde kaldığını söyler.
+      int? minBuilt;
+      int? maxBuilt;
+      for (final entry in _verseItemKeys.entries) {
+        if (entry.value.currentContext == null) {
+          continue;
+        }
+        final number = int.tryParse(entry.key.split(':').last);
+        if (number == null) {
+          continue;
+        }
+        minBuilt = minBuilt == null || number < minBuilt ? number : minBuilt;
+        maxBuilt = maxBuilt == null || number > maxBuilt ? number : maxBuilt;
+      }
+      final position = _scrollController.position;
+      final step = position.viewportDimension * 1.5;
+      final next = (maxBuilt == null || targetVerseNumber > maxBuilt)
+          ? position.pixels + step
+          : (minBuilt != null && targetVerseNumber < minBuilt)
+          ? position.pixels - step
+          : position.pixels + position.viewportDimension * 0.5;
+      final clamped = next.clamp(0.0, position.maxScrollExtent);
+      if ((clamped - position.pixels).abs() < 1) {
+        return; // ilerleme yok — sessizce vazgeç
+      }
+      _scrollController.jumpTo(clamped);
+      await WidgetsBinding.instance.endOfFrame;
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  /// Uygulama lifecycle'ı: resumed dışında okuma süresi HEMEN duraklar
+  /// (arka plan ses oynatımı süre SAYMAZ).
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _tracker?.setAppResumed(state == AppLifecycleState.resumed);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Shell sekme geçişinde reader mounted kalır ama offstage olur —
+    // TickerMode bu görünürlüğün güvenilir sinyalidir.
+    _tracker?.setScreenVisible(TickerMode.valuesOf(context).enabled);
+  }
+
+  /// Okuma bandındaki (viewport üst üçte birlik hizadaki) ayeti bulup
+  /// tracker'a bildirir. Yalnız scroll bitiminde ve açılışta çalışır —
+  /// kare başına maliyet YOK.
+  void _reportPrimaryVerse() {
+    final tracker = _tracker;
+    final listRender = context.findRenderObject();
+    if (tracker == null || listRender is! RenderBox || !listRender.hasSize) {
+      return;
+    }
+    final bandY = listRender.size.height * 0.35;
+    String? bestKey;
+    var bestDistance = double.infinity;
+    for (final entry in _verseItemKeys.entries) {
+      final render = entry.value.currentContext?.findRenderObject();
+      if (render is! RenderBox || !render.attached || !render.hasSize) {
+        continue;
+      }
+      final top = render.localToGlobal(Offset.zero, ancestor: listRender).dy;
+      final bottom = top + render.size.height;
+      if (top <= bandY && bottom >= bandY) {
+        bestKey = entry.key;
+        break;
+      }
+      final distance = top > bandY ? top - bandY : bandY - bottom;
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestKey = entry.key;
+      }
+    }
+    if (bestKey != null) {
+      tracker.reportPrimaryVerse(bestKey);
+    }
   }
 
   /// Kaydırma BİTİNCE konumu kaydeder (her frame'de DEĞİL). Kayıt hatası
@@ -314,6 +483,11 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final verses = widget.verses;
+
+    // Tracker provider'ı reader yaşadıkça canlı tutulur (autoDispose);
+    // ekran kapanınca provider dispose'u birikmiş parçayı flush eder.
+    // Tracker Notifier DEĞİLDİR — heartbeat UI'ı yeniden KURMAZ.
+    _tracker = ref.watch(quranReadingTrackerProvider(widget.chapter.id));
 
     // Metin boyutu tercihi tüm ayetlere ANINDA uygulanır (TASK 037);
     // yalnız Arapça metin ölçeklenir, rozet/etiketler sabit kalır.
@@ -371,97 +545,121 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody> {
     final scheme = Theme.of(context).colorScheme;
 
     // Header (0) + ayetler (1..n) + kaynak atfı (n+1); liste lazy kurulur.
-    return NotificationListener<ScrollEndNotification>(
-      onNotification: (notification) {
-        _savePosition(notification.metrics);
-        return false;
+    // Dış Listener (TASK 047): her dokunuş — scroll, ayet sesi, bookmark,
+    // ayarlar — aktif okuma idle sayacını yeniler; dokunuşları YUTMAZ.
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (_) {
+        _tracker?.noteInteraction();
+        // Hedef ayet vurgusu ilk kullanıcı dokunuşunda sakinçe kalkar.
+        if (_targetHighlightKey != null) {
+          setState(() => _targetHighlightKey = null);
+        }
       },
-      child: ListView.builder(
-        controller: _scrollController,
-        itemCount: verses.length + 2,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _ChapterHeader(chapter: widget.chapter),
-                _ChapterPlaybackPanel(
-                  chapterId: widget.chapter.id,
-                  verseCount: verses.length,
-                  audioState: audioState,
-                  display: audioDisplay,
-                ),
-                _TranslationStatus(
-                  chapterId: widget.chapter.id,
-                  translationAsync: translationAsync,
-                ),
-                // Ses hazır olduktan sonra doğrulanmış read 5 künyesi —
-                // API'den gelen ham metin DEĞİL (TASK 041).
-                if (audioState.sourceReady)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-                    child: AppText(
-                      '${l10n.quranAudioSourceLabel}: '
-                      '${l10n.quranReciterName} · ${l10n.quranRewayaName}'
-                      ' · MP3Quran.net',
-                      token: AppTextStyleToken.caption,
-                      secondary: true,
-                    ),
+      child: NotificationListener<ScrollEndNotification>(
+        onNotification: (notification) {
+          _savePosition(notification.metrics);
+          // Scroll bitti: etkileşim + yeni birincil ayet sinyali. Hızlı
+          // scroll'da aradaki ayet/sayfalar dwell eşiğini DOLDURMAZ.
+          _tracker?.noteInteraction();
+          _reportPrimaryVerse();
+          return false;
+        },
+        child: ListView.builder(
+          controller: _scrollController,
+          itemCount: verses.length + 2,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _ChapterHeader(chapter: widget.chapter),
+                  _ChapterPlaybackPanel(
+                    chapterId: widget.chapter.id,
+                    verseCount: verses.length,
+                    audioState: audioState,
+                    display: audioDisplay,
                   ),
-              ],
-            );
-          }
-          if (index == verses.length + 1) {
-            return _SourceAttribution(l10n: l10n);
-          }
-          final verse = verses[index - 1];
-          final isActiveVerse = audioState.activeVerseKey == verse.verseKey;
-          return Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-            // Aktif ayet sakin, token tabanlı ince çerçeveyle vurgulanır —
-            // Arapça/meal metni DEĞİŞMEZ (TASK 041).
-            child: Container(
-              decoration: isActiveVerse
-                  ? BoxDecoration(
-                      borderRadius: AppRadius.mdAll,
-                      border: Border.all(color: scheme.primary),
-                    )
-                  : null,
-              clipBehavior: isActiveVerse ? Clip.antiAlias : Clip.none,
-              // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
-              // metin, zorunlu kaynak rozeti (no source, no render). Meal
-              // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
-              child: QuranTextBlock(
-                arabicText: verse.textUthmani,
-                sourceLabel: '${verse.verseKey} · Tanzil',
-                size: blockSize,
-                translation: translationByKey[verse.verseKey],
-                // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
-                // alt satıra kırılır (TASK 044).
-                footerAction: Wrap(
-                  spacing: AppSpacing.s2,
-                  runSpacing: AppSpacing.s1,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  alignment: WrapAlignment.end,
-                  children: [
-                    _VerseAudioAction(
-                      verse: verse,
-                      expectedVerseCount: verses.length,
-                      audioState: audioState,
-                      display: audioDisplay,
+                  _TranslationStatus(
+                    chapterId: widget.chapter.id,
+                    translationAsync: translationAsync,
+                  ),
+                  // Ses hazır olduktan sonra doğrulanmış kaynak künyesi:
+                  // SEÇİLİ kârinin API'de doğrulanmış adı (TASK 049);
+                  // rivayet etiketi yerelleşmiş sabittir (tümü Hafs).
+                  if (audioState.sourceReady)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+                      child: AppText(
+                        '${l10n.quranAudioSourceLabel}: '
+                        '${ref.watch(quranSelectedReciterProvider).value?.reciterName ?? l10n.quranReciterName}'
+                        ' · ${l10n.quranRewayaName} · MP3Quran.net',
+                        token: AppTextStyleToken.caption,
+                        secondary: true,
+                      ),
                     ),
-                    _VerseBookmarkAction(
-                      bookmarked: bookmarks.isBookmarked(verse.verseKey),
-                      onTap: () => ref
-                          .read(quranVerseBookmarksControllerProvider.notifier)
-                          .toggle(verse.verseKey),
-                    ),
-                  ],
+                ],
+              );
+            }
+            if (index == verses.length + 1) {
+              return _SourceAttribution(l10n: l10n);
+            }
+            final verse = verses[index - 1];
+            final isActiveVerse =
+                audioState.activeVerseKey == verse.verseKey ||
+                _targetHighlightKey == verse.verseKey;
+            return Padding(
+              // Birincil görünür ayet tespiti için hafif anahtar (TASK 047);
+              // yalnız build edilmiş öğeler bellekte yaşar.
+              key: _verseItemKeys.putIfAbsent(verse.verseKey, GlobalKey.new),
+              padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+              // Aktif ayet sakin, token tabanlı ince çerçeveyle vurgulanır —
+              // Arapça/meal metni DEĞİŞMEZ (TASK 041).
+              child: Container(
+                decoration: isActiveVerse
+                    ? BoxDecoration(
+                        borderRadius: AppRadius.mdAll,
+                        border: Border.all(color: scheme.primary),
+                      )
+                    : null,
+                clipBehavior: isActiveVerse ? Clip.antiAlias : Clip.none,
+                // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
+                // metin, zorunlu kaynak rozeti (no source, no render). Meal
+                // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
+                child: QuranTextBlock(
+                  arabicText: verse.textUthmani,
+                  sourceLabel: '${verse.verseKey} · Tanzil',
+                  size: blockSize,
+                  translation: translationByKey[verse.verseKey],
+                  // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
+                  // alt satıra kırılır (TASK 044).
+                  footerAction: Wrap(
+                    spacing: AppSpacing.s2,
+                    runSpacing: AppSpacing.s1,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    alignment: WrapAlignment.end,
+                    children: [
+                      _VerseAudioAction(
+                        verse: verse,
+                        expectedVerseCount: verses.length,
+                        audioState: audioState,
+                        display: audioDisplay,
+                      ),
+                      _VerseBookmarkAction(
+                        bookmarked: bookmarks.isBookmarked(verse.verseKey),
+                        onTap: () => ref
+                            .read(
+                              quranVerseBookmarksControllerProvider.notifier,
+                            )
+                            .toggle(verse.verseKey),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -590,13 +788,17 @@ final class _ChapterPlaybackPanel extends ConsumerWidget {
                 AppButton(
                   label: l10n.commonRetry,
                   variant: AppButtonVariant.secondary,
-                  // Retry ilgili sure cache'ini düşürüp yeniden dener.
+                  // Retry ilgili (kâri, sure) cache'ini düşürüp yeniden
+                  // dener (TASK 049).
                   onPressed: () => controller.retryChapter(
                     chapterId: chapterId,
                     expectedVerseCount: verseCount,
                     display: display,
                   ),
                 ),
+                // Seçili kârinin sesi yüklenemiyorsa kullanıcı buradan
+                // başka kâri seçebilir — otomatik geçiş YAPILMAZ.
+                const _ReciterSelector(),
               ],
             ],
           ),
@@ -658,6 +860,12 @@ final class _ChapterPlaybackPanel extends ConsumerWidget {
                     onPressed: controller.stopPlayback,
                   ),
               ],
+            ),
+            // Kâri seçimi (TASK 049): kontrolleri sıkıştırmadan ayrı,
+            // responsive satırda.
+            const Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: _ReciterSelector(),
             ),
             if (isActive && panelState.totalVerseCount != null) ...[
               const SizedBox(height: AppSpacing.s2),
@@ -789,6 +997,191 @@ final class _VerseBookmarkAction extends StatelessWidget {
           label: Text(label),
         ),
       ),
+    );
+  }
+}
+
+/// Sure oynatma panelindeki kâri seçim satırı (TASK 049): seçili kârinin
+/// doğrulanmış adı + seçim sheet'i. Dar ekranda ellipsis; Tanzil/meal/
+/// ses kaynak satırlarını sıkıştırmaz. Tt paneline ses seçeneği EKLENMEZ.
+final class _ReciterSelector extends ConsumerWidget {
+  const _ReciterSelector();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final selectedName =
+        ref.watch(quranSelectedReciterProvider).value?.reciterName ??
+        l10n.quranReciterName;
+    return Semantics(
+      button: true,
+      label: l10n.quranReciterSelectTitle,
+      child: Tooltip(
+        message: l10n.quranReciterSelectTitle,
+        child: TextButton.icon(
+          onPressed: () => _showReciterSheet(context),
+          icon: const Icon(
+            Icons.record_voice_over_outlined,
+            size: AppSizes.iconSm,
+          ),
+          label: Text(
+            '${l10n.quranReciterLabel}: $selectedName',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Kâri seçim sheet'i (TASK 049): doğrulanmış timed katalog, seçili
+/// işaret, varsayılan her zaman görünür; 10'dan fazla kayıtta oturum içi
+/// hafif ad araması. Seçim kalıcılaşınca aktif ses durdurulur (yardım
+/// metniyle açıkça belirtilir) — büyük onay dialog'u YOK.
+void _showReciterSheet(BuildContext context) {
+  showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    builder: (sheetContext) => const SafeArea(child: _ReciterSheetContent()),
+  );
+}
+
+final class _ReciterSheetContent extends ConsumerStatefulWidget {
+  const _ReciterSheetContent();
+
+  @override
+  ConsumerState<_ReciterSheetContent> createState() =>
+      _ReciterSheetContentState();
+}
+
+final class _ReciterSheetContentState
+    extends ConsumerState<_ReciterSheetContent> {
+  /// Yalnız oturum içi, kâri adında filtre — genel arama altyapısı DEĞİL.
+  String _query = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final async = ref.watch(quranReciterSelectionControllerProvider);
+    final controller = ref.read(
+      quranReciterSelectionControllerProvider.notifier,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.s5,
+        AppSpacing.s2,
+        AppSpacing.s5,
+        AppSpacing.s6,
+      ),
+      child: switch (async) {
+        AsyncData(:final value) => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(l10n.quranReciterSelectTitle, token: AppTextStyleToken.h3),
+            const SizedBox(height: AppSpacing.s2),
+            AppText(
+              l10n.quranReciterChangeStopsPlayback,
+              token: AppTextStyleToken.caption,
+              secondary: true,
+            ),
+            if (value.catalogDegraded) ...[
+              const SizedBox(height: AppSpacing.s3),
+              AppText(
+                l10n.quranReciterListLoadIssue,
+                token: AppTextStyleToken.bodySmall,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s2),
+              AppButton(
+                label: l10n.commonRetry,
+                variant: AppButtonVariant.secondary,
+                onPressed: controller.retryCatalog,
+              ),
+            ],
+            if (value.saveFailed) ...[
+              const SizedBox(height: AppSpacing.s2),
+              AppText(
+                l10n.quranReciterChangeFailed,
+                token: AppTextStyleToken.bodySmall,
+                secondary: true,
+              ),
+            ],
+            if (value.reciters.length > 10) ...[
+              const SizedBox(height: AppSpacing.s3),
+              TextField(
+                onChanged: (query) => setState(() => _query = query),
+                decoration: InputDecoration(
+                  hintText: l10n.quranReciterSearchHint,
+                  prefixIcon: const Icon(Icons.search),
+                ),
+              ),
+            ],
+            const SizedBox(height: AppSpacing.s4),
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  for (final source in value.reciters)
+                    if (_query.trim().isEmpty ||
+                        source.reciterName.toLowerCase().contains(
+                          _query.trim().toLowerCase(),
+                        ))
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.s3),
+                        child: Semantics(
+                          selected: source.readId == value.selectedReadId,
+                          child: OnboardingOptionCard(
+                            label: source.reciterName,
+                            description: [
+                              l10n.quranRewayaName,
+                              if (source.isDefault)
+                                l10n.quranReciterDefaultLabel,
+                              if (source.readId == value.selectedReadId)
+                                l10n.quranReciterSelectedLabel,
+                            ].join(' · '),
+                            selected: source.readId == value.selectedReadId,
+                            onTap: value.isSaving
+                                ? () {}
+                                : () async {
+                                    final changed = await controller.select(
+                                      source.readId,
+                                    );
+                                    if (changed && context.mounted) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                          ),
+                        ),
+                      ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        AsyncError() => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              l10n.quranReciterListLoadIssue,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            ),
+            const SizedBox(height: AppSpacing.s3),
+            AppButton(
+              label: l10n.commonRetry,
+              variant: AppButtonVariant.secondary,
+              onPressed: () =>
+                  ref.invalidate(quranReciterSelectionControllerProvider),
+            ),
+          ],
+        ),
+        _ => AppLoading(label: l10n.commonLoading),
+      },
     );
   }
 }

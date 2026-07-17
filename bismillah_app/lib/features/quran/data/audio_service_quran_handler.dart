@@ -19,7 +19,7 @@ Future<QuranAudioSessionService> initializeQuranAudioSessionService({
   required String notificationChannelName,
 }) async {
   try {
-    return await AudioService.init(
+    return await AudioService.init<AudioServiceQuranHandler>(
       builder: AudioServiceQuranHandler.new,
       config: AudioServiceConfig(
         androidNotificationChannelId: 'com.bismillah.quran.audio',
@@ -278,6 +278,7 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     _emit(
       QuranVerseAudioState(
         activeChapterId: request.recitation.chapterId,
+        activeChapterName: request.display.chapterDisplayName,
         status: QuranVerseAudioStatus.error,
         errorVerseKey: chapterFailed ? null : failedKey,
         chapterAudioFailed: chapterFailed,
@@ -328,6 +329,8 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     final verse = _activeVerse!;
     return QuranVerseAudioState(
       activeChapterId: request.recitation.chapterId,
+      activeChapterName: request.display.chapterDisplayName,
+      activeReciterName: request.display.reciterName,
       activeVerseKey: '${request.recitation.chapterId}:$verse',
       activeVerseNumber: verse,
       playbackMode: _mode,

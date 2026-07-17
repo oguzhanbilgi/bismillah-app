@@ -1,4 +1,6 @@
+import 'package:bismillah_app/features/quran/application/quran_reciter_selection_controller.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
+import 'package:bismillah_app/features/quran/domain/entities/quran_chapter_recitation.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_verse.dart';
 import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -87,6 +89,7 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
     _setOverlay(
       QuranVerseAudioState(
         activeChapterId: verse.chapterId,
+        activeChapterName: display.chapterDisplayName,
         activeVerseKey: verse.verseKey,
         activeVerseNumber: verse.verseNumber,
         playbackMode: QuranAudioPlaybackMode.singleVerse,
@@ -121,6 +124,7 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
     _setOverlay(
       QuranVerseAudioState(
         activeChapterId: chapterId,
+        activeChapterName: display.chapterDisplayName,
         activeVerseKey: '$chapterId:1',
         activeVerseNumber: 1,
         playbackMode: QuranAudioPlaybackMode.continuousChapter,
@@ -142,18 +146,32 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
     }
   }
 
-  /// Panel tekrar dene: yalnız ilgili sure cache'i düşürülüp yeniden denenir.
+  /// Panel tekrar dene: yalnız ilgili (kâri, sure) cache'i düşürülüp
+  /// yeniden denenir — diğer kârilerin cache'i etkilenmez (TASK 049).
   Future<void> retryChapter({
     required int chapterId,
     required int expectedVerseCount,
     required QuranAudioDisplayInfo display,
   }) async {
-    ref.read(quranAudioRepositoryProvider).invalidateChapter(chapterId);
+    final source = await _resolveSelectedSource();
+    ref
+        .read(quranAudioRepositoryProvider)
+        .invalidateChapter(chapterId, source.readId);
     await playChapter(
       chapterId: chapterId,
       expectedVerseCount: expectedVerseCount,
       display: display,
     );
+  }
+
+  /// Seçili kâri kaynağı; tercih/katalog çözülemezse varsayılan read 5 —
+  /// mevcut davranış hiçbir koşulda bozulmaz (TASK 049).
+  Future<QuranRecitationSource> _resolveSelectedSource() async {
+    try {
+      return await ref.read(quranSelectedReciterProvider.future);
+    } on Object {
+      return ref.read(quranReciterCatalogRepositoryProvider).defaultSource;
+    }
   }
 
   /// Panel duraklat/devam (her iki modda çalışır).
@@ -222,9 +240,11 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
     final sourceReadyBefore = state.sourceReady;
     // Yeni istek mevcut oturumu (başka sure dahil) önce durdurur.
     await _service.stop();
+    // Seçili kâri (TASK 049): timing + MP3 bu kaynaktan yüklenir.
+    final source = await _resolveSelectedSource();
     final result = await ref
         .read(quranAudioRepositoryProvider)
-        .getChapterRecitation(chapterId, expectedVerseCount);
+        .getChapterRecitation(chapterId, expectedVerseCount, source);
     final recitation = result.fold(
       onSuccess: (recitation) => recitation,
       onFailure: (_) => null,
@@ -236,6 +256,7 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
       _setOverlay(
         QuranVerseAudioState(
           activeChapterId: chapterId,
+          activeChapterName: display.chapterDisplayName,
           status: QuranVerseAudioStatus.error,
           errorVerseKey: failAsChapter ? null : '$chapterId:$verseNumber',
           chapterAudioFailed: failAsChapter,
@@ -248,7 +269,15 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
       recitation: recitation,
       totalVerseCount: expectedVerseCount,
       startVerseNumber: verseNumber,
-      display: display,
+      // Bildirim/kilit ekranı/mini player SEÇİLEN kârinin doğrulanmış
+      // adını gösterir (TASK 049) — ekran etiketleri değil.
+      display: QuranAudioDisplayInfo(
+        chapterDisplayName: display.chapterDisplayName,
+        reciterName: source.reciterName,
+        rewayaName: source.rewayaName,
+        albumName: display.albumName,
+        verseOfLabel: display.verseOfLabel,
+      ),
     );
     // Servis devralıyor: ilk loading durumunu senkron yayınlar, sonrası
     // (playing/paused/error/tamamlanma) akıştan gelir.
