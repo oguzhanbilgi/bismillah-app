@@ -34,4 +34,44 @@ abstract final class AppColors {
   static const Color disabled = Color(0xFFC7CFC9);
 
   static const Color onPrimary = Color(0xFFFFFFFF);
+
+  // ---------------------------------------------------------------------------
+  // İslami görsel kimlik paleti (TASK 051) — `IslamicVisualTokens` üzerinden
+  // okunur; widget'lar bu sabitleri DOĞRUDAN kullanmaz. Amaç sıcak, sakin ve
+  // güvenilir bir atmosfer; kutsal metin okunabilirliği ASLA düşürülmez.
+  // ---------------------------------------------------------------------------
+
+  // Açık tema
+  static const Color sacredSurfaceLight = Color(0xFFFFFFFF);
+  static const Color sacredSurfaceMutedLight = Color(0xFFF6F2EA);
+  static const Color spiritualGreenLight = primary;
+  static const Color spiritualGreenStrongLight = primaryDark;
+
+  /// Cami/mimari siluet çizimlerinin dolgu rengi (dekoratif).
+  static const Color mosqueSilhouetteLight = Color(0xFF1E4A3C);
+
+  /// Kur'an bağlamına özel sakin vurgu — `accentGold` DEĞİLDİR
+  /// (altın yalnız kazanılmış an/premium içindir).
+  static const Color quranAccentLight = Color(0xFF12836A);
+  static const Color warmBackgroundLight = background;
+  static const Color verseCardSurfaceLight = Color(0xFFFBF9F5);
+  static const Color heroGradientStartLight = Color(0xFF0B6E4F);
+  static const Color heroGradientEndLight = Color(0xFF08503A);
+
+  // Koyu tema karşılıkları (AppTheme.dark() V2'de bağlanacak; token'lar hazır)
+  static const Color sacredSurfaceDark = Color(0xFF161D1A);
+  static const Color sacredSurfaceMutedDark = Color(0xFF1E2622);
+  static const Color spiritualGreenDark = Color(0xFF4FBF95);
+  static const Color spiritualGreenStrongDark = Color(0xFF2E9E6B);
+  static const Color mosqueSilhouetteDark = Color(0xFF9FC4B5);
+  static const Color quranAccentDark = Color(0xFF5FCFAA);
+  static const Color warmBackgroundDark = Color(0xFF101614);
+  static const Color verseCardSurfaceDark = Color(0xFF17201C);
+  static const Color heroGradientStartDark = Color(0xFF0A3D2C);
+  static const Color heroGradientEndDark = Color(0xFF06251B);
+
+  /// Görsel üzerine metin okunabilirliği için scrim'ler (her iki temada da
+  /// aynı amaçla kullanılır; alfa değeri kontrastı garanti eder).
+  static const Color imageOverlayLight = Color(0x40FFFFFF);
+  static const Color imageOverlayDark = Color(0x990E1A15);
 }
