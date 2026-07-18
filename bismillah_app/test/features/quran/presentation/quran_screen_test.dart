@@ -2,6 +2,9 @@ import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/theme/app_theme.dart';
 import 'package:bismillah_app/features/quran/data/asset_quran_content_repository.dart';
+import 'package:bismillah_app/features/quran/data/asset_quran_verse_page_repository.dart';
+import 'package:bismillah_app/features/quran/data/bundled_quran_search_repository.dart';
+import 'package:bismillah_app/features/quran/data/bundled_quranenc_translation_repository.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +35,29 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     // Asset okuma gerçek I/O'dur — FakeAsync altında tamamlanamaz;
-    // cache runAsync ile ısıtılır, depo sıcak cache'iyle override edilir.
+    // cache'ler runAsync ile ısıtılır, depolar sıcak cache'iyle override
+    // edilir. TASK 047 sayfa-eşleme probe'u ve TASK 048 arama indeksi de
+    // ısıtılır; aksi halde İlerlemem/arama gerçek I/O'da asılı kalır.
     final repository = AssetQuranContentRepository();
     await tester.runAsync(repository.getChapters);
+
+    final pageRepository = AssetQuranVersePageRepository();
+    await tester.runAsync(() => pageRepository.pagesForChapter(1));
+
+    final searchRepository = BundledQuranSearchRepository(
+      contentRepository: repository,
+      translationRepository: BundledQuranEncTranslationRepository(),
+    );
+    // İlk arama indeks asset'ini yükleyip cache'ler (sonraki aramalar
+    // FakeAsync altında sıcak cache'ten çözülür).
+    await tester.runAsync(() => searchRepository.search('1'));
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           quranContentRepositoryProvider.overrideWithValue(repository),
+          quranVersePageRepositoryProvider.overrideWithValue(pageRepository),
+          quranSearchRepositoryProvider.overrideWithValue(searchRepository),
         ],
         child: MaterialApp(
           theme: AppTheme.light(),
@@ -57,8 +75,9 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('kurulum tamamlanmamışsa üç adımlı kurulum görünür',
-      (tester) async {
+  testWidgets('kurulum tamamlanmamışsa üç adımlı kurulum görünür', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues({});
     await pumpQuranScreen(tester);
 
@@ -70,8 +89,9 @@ void main() {
     expect(find.text('İlerlemem'), findsNothing);
   });
 
-  testWidgets('kayıtlı kurulumla sekmeler ve 114 surelik katalog görünür',
-      (tester) async {
+  testWidgets('kayıtlı kurulumla sekmeler ve 114 surelik katalog görünür', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues(completedSetup);
     await pumpQuranScreen(tester);
 
@@ -85,36 +105,49 @@ void main() {
     expect(find.text('pages'), findsNothing);
   });
 
-  testWidgets('arama: numara, Latin ad ve Arapça ad ile çalışır',
-      (tester) async {
+  testWidgets('arama: numara, Latin ad ve Arapça ad ile çalışır', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues(completedSetup);
     await pumpQuranScreen(tester);
 
-    // Numara ile: 114 → An-Naas. (Odaklı TextField imleci sürekli frame
-    // ürettiği için pumpAndSettle yerine tek pump kullanılır.)
+    // TASK 048 arama debounce'ludur (~300 ms); odaklı TextField imleci
+    // sürekli frame ürettiği için pumpAndSettle yerine debounce süresi
+    // kadar + microtask flush pump'lanır.
+    Future<void> pumpSearch() async {
+      await tester.pump(const Duration(milliseconds: 350));
+      await tester.pump();
+      await tester.pump();
+    }
+
+    // Numara ile: 114 → An-Naas.
     await tester.enterText(find.byType(TextField), '114');
-    await tester.pump();
+    await pumpSearch();
     expect(find.text('An-Naas'), findsOneWidget);
     expect(find.text('Al-Faatiha'), findsNothing);
 
     // Latin ad ile (büyük/küçük harf duyarsız).
     await tester.enterText(find.byType(TextField), 'baqara');
-    await tester.pump();
+    await pumpSearch();
     expect(find.text('Al-Baqara'), findsOneWidget);
 
     // Arapça ad ile.
     await tester.enterText(find.byType(TextField), 'الفاتحة');
-    await tester.pump();
+    await pumpSearch();
     expect(find.text('Al-Faatiha'), findsOneWidget);
 
-    // Sonuç yok durumu sakin metinle gösterilir.
+    // Sonuç yok durumu sakin metinle gösterilir (TASK 048 metni).
     await tester.enterText(find.byType(TextField), 'zzzz');
-    await tester.pump();
-    expect(find.text('Aramanla eşleşen sure bulunamadı.'), findsOneWidget);
+    await pumpSearch();
+    expect(
+      find.text('Aramanızla eşleşen sure veya ayet bulunamadı.'),
+      findsOneWidget,
+    );
   });
 
-  testWidgets('İlerlemem doğru hedef türü ve miktarını gösterir',
-      (tester) async {
+  testWidgets('İlerlemem doğru hedef türü ve miktarını gösterir', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues(completedSetup);
     await pumpQuranScreen(tester);
 

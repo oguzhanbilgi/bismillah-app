@@ -1,7 +1,6 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
-import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/quran/application/quran_home_tab_controller.dart';
 import 'package:bismillah_app/features/quran/application/quran_progress_summary_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_controller.dart';
@@ -41,8 +40,9 @@ class TodayQuranCenterCard extends ConsumerWidget {
             : _centerState(context, ref, l10n, value),
       // Yerel ilerleme okuma hatası → sakin mesaj; aksiyonlar çalışır (§10).
       AsyncError() => _errorState(context, ref, l10n),
-      // Kompakt yükleme — tüm bölüm spinner'a çevrilmez (§9).
-      _ => _shell(l10n, child: const _CompactLoadingCard()),
+      // Yüklenirken bölüm sessizce gizlenir (§9): namaz içeriği görünür
+      // kalır, Today'e sonsuz animasyon eklenmez — kısa yerel okumadır.
+      _ => const SizedBox.shrink(),
     };
   }
 
@@ -325,21 +325,6 @@ class _TodayQuranQuickActions extends ConsumerWidget {
       ],
     );
   }
-}
-
-class _CompactLoadingCard extends StatelessWidget {
-  const _CompactLoadingCard();
-
-  @override
-  Widget build(BuildContext context) => const AppCard(
-    child: Center(
-      child: SizedBox(
-        height: AppSizes.iconMd,
-        width: AppSizes.iconMd,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    ),
-  );
 }
 
 // ---------------------------------------------------------------------------
