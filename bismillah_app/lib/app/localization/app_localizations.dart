@@ -172,6 +172,15 @@ final class AppLocalizations {
 
   // Profil kişiselleştirme özeti (TASK 029 — salt-okunur; düzenleme TASK 030)
   String get profilePersonalizationTitle => _t('profilePersonalizationTitle');
+
+  // Dil ayarları (TASK 053). Dillerin KENDİ adları burada DEĞİLDİR —
+  // `SupportedLocale.nativeName` çevrilmeden gösterilir.
+  String get settingsLanguageTitle => _t('settingsLanguageTitle');
+  String get settingsLanguageSubtitle => _t('settingsLanguageSubtitle');
+  String get settingsLanguageSelected => _t('settingsLanguageSelected');
+  String get settingsLanguageChanged => _t('settingsLanguageChanged');
+  String get settingsLanguageTranslationNote =>
+      _t('settingsLanguageTranslationNote');
   String get profilePersonalizationSubtitle =>
       _t('profilePersonalizationSubtitle');
   String get profileFocusAreas => _t('profileFocusAreas');
@@ -495,7 +504,7 @@ final class AppLocalizations {
       'prayerLocalNote': 'Kayıtlar cihazında güvenle saklanır.',
       'prayerSaveIssue': 'Kaydedilemedi — dilediğinde tekrar deneyebilirsin.',
       'prayerLoadIssue': 'Kayıtlar şu an açılamadı.',
-      'prayerNameFajr': 'Sabah',
+      'prayerNameFajr': 'İmsak',
       'prayerNameDhuhr': 'Öğle',
       'prayerNameAsr': 'İkindi',
       'prayerNameMaghrib': 'Akşam',
@@ -524,6 +533,13 @@ final class AppLocalizations {
       'reminderNotificationTitle': 'Namaz vakti',
       'reminderNotificationBody': '{prayer} vakti için sakin bir hatırlatma.',
       'profilePersonalizationTitle': 'Kişiselleştirme',
+      'settingsLanguageTitle': 'Uygulama dili',
+      'settingsLanguageSubtitle': 'Arayüzün görüneceği dili seç.',
+      'settingsLanguageSelected': 'Seçili',
+      'settingsLanguageChanged': 'Uygulama dili güncellendi.',
+      'settingsLanguageTranslationNote':
+          'Kur\'an meali kendi dil tercihini korur; okuyucu ayarlarından '
+          'ayrıca değiştirebilirsin.',
       'profilePersonalizationSubtitle': 'Başlangıç tercihlerin',
       'profileFocusAreas': 'Odak alanların',
       'profileJourneyStage': 'Yolculuk aşaman',
@@ -803,6 +819,13 @@ final class AppLocalizations {
       'reminderNotificationTitle': 'Prayer time',
       'reminderNotificationBody': 'A calm reminder for {prayer}.',
       'profilePersonalizationTitle': 'Personalization',
+      'settingsLanguageTitle': 'App language',
+      'settingsLanguageSubtitle': 'Choose the language for the interface.',
+      'settingsLanguageSelected': 'Selected',
+      'settingsLanguageChanged': 'App language updated.',
+      'settingsLanguageTranslationNote':
+          'Your Quran translation keeps its own language; you can change it '
+          'separately in the reader settings.',
       'profilePersonalizationSubtitle': 'Your starting preferences',
       'profileFocusAreas': 'Your focus areas',
       'profileJourneyStage': 'Your journey stage',
@@ -952,9 +975,10 @@ final class AppLocalizations {
       'todayQuranSetupLine': 'Prepare your Quran experience.',
       'todayQuranDailyGoal': 'Your daily goal: {goal}',
       'todayHeroTitle': 'You can begin again today',
-      'todayHeroBody': 'Every small step brings your heart a little closer.',
-      'todayHeroCta': "See today's plan",
-      'todayVerseSectionTitle': "Today's Verse",
+      'todayHeroBody':
+          'Every small step can bring your heart closer to worship.',
+      'todayHeroCta': "View today's plan",
+      'todayVerseSectionTitle': 'Verse of the Day',
       'todayVerseUnavailable': "Today's verse could not be loaded right now.",
       'todayVerseOpenReader': 'Open the verse in the reader',
       'todayQuranSectionTitle': "Today's Quran",
@@ -1078,6 +1102,13 @@ final class AppLocalizations {
       'reminderNotificationTitle': 'وقت الصلاة',
       'reminderNotificationBody': 'تذكير هادئ لصلاة {prayer}.',
       'profilePersonalizationTitle': 'التخصيص',
+      'settingsLanguageTitle': 'لغة التطبيق',
+      'settingsLanguageSubtitle': 'اختر اللغة التي تظهر بها الواجهة.',
+      'settingsLanguageSelected': 'محددة',
+      'settingsLanguageChanged': 'تم تحديث لغة التطبيق.',
+      'settingsLanguageTranslationNote':
+          'تحتفظ ترجمة القرآن بلغتها الخاصة، ويمكنك تغييرها بشكل منفصل من '
+          'إعدادات القارئ.',
       'profilePersonalizationSubtitle': 'تفضيلاتك الأولى',
       'profileFocusAreas': 'مجالات تركيزك',
       'profileJourneyStage': 'مرحلة رحلتك',
@@ -1217,8 +1248,8 @@ final class AppLocalizations {
       'todayQuranSetupLine': 'جهّز تجربتك مع القرآن.',
       'todayQuranDailyGoal': 'هدفك اليومي: {goal}',
       'todayHeroTitle': 'يمكنك أن تبدأ من جديد اليوم',
-      'todayHeroBody': 'كل خطوة صغيرة تقرّب قلبك أكثر.',
-      'todayHeroCta': 'اطّلع على خطة اليوم',
+      'todayHeroBody': 'كل خطوة صغيرة قد تقرّب قلبك أكثر من العبادة.',
+      'todayHeroCta': 'عرض خطة اليوم',
       'todayVerseSectionTitle': 'آية اليوم',
       'todayVerseUnavailable': 'تعذّر تحميل آية اليوم الآن.',
       'todayVerseOpenReader': 'افتح الآية في القارئ',

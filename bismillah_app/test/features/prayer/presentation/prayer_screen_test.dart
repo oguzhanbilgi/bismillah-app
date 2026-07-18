@@ -74,7 +74,8 @@ void main() {
     await pumpPrayerScreen(tester);
 
     expect(find.byType(PrayerEntryTile), findsNWidgets(5));
-    expect(find.text('Sabah'), findsOneWidget);
+    // TASK 053 §8: Türkçe vakit adı "İmsak" (önceki "Sabah" değil).
+    expect(find.text('İmsak'), findsOneWidget);
     expect(find.text('Öğle'), findsOneWidget);
     expect(find.text('İkindi'), findsOneWidget);
     expect(find.text('Akşam'), findsOneWidget);
@@ -90,16 +91,14 @@ void main() {
       120,
       scrollable: find.byType(Scrollable),
     );
-    expect(
-      find.text('Kayıtlar cihazında güvenle saklanır.'),
-      findsOneWidget,
-    );
+    expect(find.text('Kayıtlar cihazında güvenle saklanır.'), findsOneWidget);
 
     await unmountAndFlushDriftTimers(tester);
   });
 
-  testWidgets('tapping a row marks it completed and allows undo',
-      (tester) async {
+  testWidgets('tapping a row marks it completed and allows undo', (
+    tester,
+  ) async {
     await pumpPrayerScreen(tester);
 
     await tester.tap(find.text('İşaretle').first);

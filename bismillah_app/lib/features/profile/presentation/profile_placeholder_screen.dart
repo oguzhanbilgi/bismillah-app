@@ -6,6 +6,7 @@ import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/onboarding/application/onboarding_preferences_provider.dart';
 import 'package:bismillah_app/features/onboarding/domain/entities/onboarding_preferences.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_option_labels.dart';
+import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
 import 'package:bismillah_app/shared/widgets/app_badge.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
@@ -33,6 +34,8 @@ class ProfilePlaceholderScreen extends ConsumerWidget {
                 const SizedBox(height: AppSpacing.s5),
                 const _PersonalizationCard(),
                 const SizedBox(height: AppSpacing.s5),
+                const _LanguageCard(),
+                const SizedBox(height: AppSpacing.s5),
                 Center(
                   child: AppText(
                     l10n.placeholderComingSoon,
@@ -52,6 +55,52 @@ class ProfilePlaceholderScreen extends ConsumerWidget {
               onPressed: () => context.push(AppRoutes.subscriptionSettings),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Uygulama dili girişi (TASK 053).
+///
+/// Seçili dil KENDİ adıyla gösterilir; ayrıntılı seçim push route'ta yapılır.
+class _LanguageCard extends ConsumerWidget {
+  const _LanguageCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final selected = ref.watch(appLocaleProvider);
+
+    return AppCard(
+      onTap: () => context.push(AppRoutes.languageSettings),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  l10n.settingsLanguageTitle,
+                  token: AppTextStyleToken.h3,
+                ),
+                const SizedBox(height: AppSpacing.s1),
+                // Dil adı çevrilmez ve kendi yönünde yazılır.
+                Directionality(
+                  textDirection: selected.isRtl
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
+                  child: AppText(
+                    selected.nativeName,
+                    token: AppTextStyleToken.bodySmall,
+                    secondary: true,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Yön ikonu locale'e göre döner (RTL'de sola bakar).
+          const Icon(Icons.chevron_right_rounded),
         ],
       ),
     );

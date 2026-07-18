@@ -16,6 +16,7 @@ import 'package:bismillah_app/features/profile/presentation/profile_placeholder_
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
+import 'package:bismillah_app/features/settings/presentation/language_settings_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -154,6 +155,14 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                 name: AppRoutes.subscriptionSettingsName,
                 builder: (context, state) =>
                     const SubscriptionSettingsPlaceholderScreen(),
+              ),
+              // Uygulama dili seçimi (TASK 053): Profile branch içinde push
+              // route — dil değişimi navigasyon YAPMAZ, açık ekranlar
+              // yerinde yeniden çizilir.
+              GoRoute(
+                path: AppRoutes.languageSettings,
+                name: AppRoutes.languageSettingsName,
+                builder: (context, state) => const LanguageSettingsScreen(),
               ),
             ],
           ),

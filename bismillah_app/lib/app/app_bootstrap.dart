@@ -18,6 +18,7 @@ import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart'
 import 'package:bismillah_app/features/quran/data/audio_service_quran_handler.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
+import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,6 +54,14 @@ Future<ProviderContainer> bootstrap({
   final onboardingCompleted =
       await const SharedPrefsOnboardingPreferencesRepository().isCompleted();
 
+  // TASK 053: uygulama dili de runApp'ten ÖNCE çözülür — ilk frame doğru
+  // dilde (ve Arapça'da doğru yönde) çizilir; dil için açılış spinner'ı
+  // veya siyah ekran OLUŞMAZ. Öncelik: kayıtlı seçim > desteklenen sistem
+  // dili > Türkçe. Okuma Firebase'den TAMAMEN bağımsızdır.
+  final launchLocale = await resolveLaunchLocale(
+    systemLocales: WidgetsBinding.instance.platformDispatcher.locales,
+  );
+
   // TASK 045: global Kur'an ses oturumu — AudioService.init uygulama
   // başına yalnız BURADA, bir kez çağrılır ve Riverpod override'ı ile
   // enjekte edilir (global mutable handler değişkeni YOK). Başarısızlık
@@ -65,8 +74,10 @@ Future<ProviderContainer> bootstrap({
   final resolvedQuranAudioSessionService =
       quranAudioSessionService ??
       await initializeQuranAudioSessionService(
-        notificationChannelName: const AppLocalizations(
-          SupportedLocale.tr,
+        // Kanal adı BuildContext'siz üretilir; açılışta çözülen uygulama
+        // dilini kullanır (TASK 053 — bildirim metinleri de seçilen dilde).
+        notificationChannelName: AppLocalizations(
+          launchLocale,
         ).quranAudioChannelName,
       );
 
@@ -81,6 +92,7 @@ Future<ProviderContainer> bootstrap({
       onboardingCompletedAtLaunchProvider.overrideWithValue(
         onboardingCompleted,
       ),
+      appLocaleAtLaunchProvider.overrideWithValue(launchLocale),
       ...overrides,
     ],
   );
