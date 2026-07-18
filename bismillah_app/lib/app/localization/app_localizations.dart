@@ -367,6 +367,14 @@ final class AppLocalizations {
   String todayQuranDailyGoal(String goal) =>
       _t('todayQuranDailyGoal').replaceAll('{goal}', goal);
 
+  // Today manevi hero + günün ayeti (TASK 052)
+  String get todayHeroTitle => _t('todayHeroTitle');
+  String get todayHeroBody => _t('todayHeroBody');
+  String get todayHeroCta => _t('todayHeroCta');
+  String get todayVerseSectionTitle => _t('todayVerseSectionTitle');
+  String get todayVerseUnavailable => _t('todayVerseUnavailable');
+  String get todayVerseOpenReader => _t('todayVerseOpenReader');
+
   // Today Kur'an merkezi (TASK 050)
   String get todayQuranSectionTitle => _t('todayQuranSectionTitle');
   String get todayQuranStartBody => _t('todayQuranStartBody');
@@ -660,6 +668,13 @@ final class AppLocalizations {
       'todayQuranStartCta': "Kur'an okumaya başla",
       'todayQuranSetupLine': "Kur'an deneyimini hazırla.",
       'todayQuranDailyGoal': 'Günlük hedefin: {goal}',
+      'todayHeroTitle': 'Bugün yeniden başlayabilirsin',
+      'todayHeroBody':
+          'Her küçük adım, kalbini ibadete biraz daha yaklaştırır.',
+      'todayHeroCta': 'Bugünün planını gör',
+      'todayVerseSectionTitle': 'Bugünün Ayeti',
+      'todayVerseUnavailable': 'Bugünün ayeti şu anda yüklenemedi.',
+      'todayVerseOpenReader': 'Ayeti okuyucuda aç',
       'todayQuranSectionTitle': "Bugünkü Kur'an",
       'todayQuranStartBody':
           'Çevrimdışı Arapça metin ve Türkçe meal ile okumaya başlayabilirsiniz.',
@@ -936,6 +951,12 @@ final class AppLocalizations {
       'todayQuranStartCta': 'Start reading the Quran',
       'todayQuranSetupLine': 'Prepare your Quran experience.',
       'todayQuranDailyGoal': 'Your daily goal: {goal}',
+      'todayHeroTitle': 'You can begin again today',
+      'todayHeroBody': 'Every small step brings your heart a little closer.',
+      'todayHeroCta': "See today's plan",
+      'todayVerseSectionTitle': "Today's Verse",
+      'todayVerseUnavailable': "Today's verse could not be loaded right now.",
+      'todayVerseOpenReader': 'Open the verse in the reader',
       'todayQuranSectionTitle': "Today's Quran",
       'todayQuranStartBody':
           'Start reading with offline Arabic text and Turkish translation.',
@@ -1195,6 +1216,12 @@ final class AppLocalizations {
       'todayQuranStartCta': 'ابدأ قراءة القرآن',
       'todayQuranSetupLine': 'جهّز تجربتك مع القرآن.',
       'todayQuranDailyGoal': 'هدفك اليومي: {goal}',
+      'todayHeroTitle': 'يمكنك أن تبدأ من جديد اليوم',
+      'todayHeroBody': 'كل خطوة صغيرة تقرّب قلبك أكثر.',
+      'todayHeroCta': 'اطّلع على خطة اليوم',
+      'todayVerseSectionTitle': 'آية اليوم',
+      'todayVerseUnavailable': 'تعذّر تحميل آية اليوم الآن.',
+      'todayVerseOpenReader': 'افتح الآية في القارئ',
       'todayQuranSectionTitle': 'قرآن اليوم',
       'todayQuranStartBody':
           'ابدأ القراءة مع النص العربي بلا اتصال والترجمة التركية.',

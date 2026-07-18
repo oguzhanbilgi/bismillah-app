@@ -26,6 +26,7 @@ class SpiritualHeroCard extends StatelessWidget {
     this.imageAssetPath,
     this.semanticLabel,
     this.showPattern = true,
+    this.decorativeLayer,
     this.onTap,
   });
 
@@ -46,6 +47,11 @@ class SpiritualHeroCard extends StatelessWidget {
 
   /// Arka planda sakin geometrik desen gösterilsin mi.
   final bool showPattern;
+
+  /// Desen ile içerik ARASINA giren ek dekoratif katman (ör.
+  /// [MosqueSilhouette]). Dekoratif olduğu için semantics'ten hariç
+  /// tutulması çağıranın sorumluluğundadır.
+  final Widget? decorativeLayer;
 
   final VoidCallback? onTap;
 
@@ -88,7 +94,9 @@ class SpiritualHeroCard extends StatelessWidget {
           // 4) Sakin desen — dekoratif, dokunmayı engellemez.
           if (showPattern)
             const Positioned.fill(child: IslamicPatternBackground()),
-          // 5) İçerik
+          // 5) Opsiyonel dekoratif katman (ör. cami silueti).
+          if (decorativeLayer != null) Positioned.fill(child: decorativeLayer!),
+          // 6) İçerik
           Padding(
             padding: const EdgeInsets.all(AppSpacing.s6),
             child: Column(
