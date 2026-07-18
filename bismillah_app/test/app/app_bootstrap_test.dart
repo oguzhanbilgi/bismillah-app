@@ -12,6 +12,7 @@ import 'package:bismillah_app/core/storage/database_providers.dart';
 import 'package:bismillah_app/core/value_objects/unique_id.dart';
 import 'package:bismillah_app/core/value_objects/utc_date_time.dart';
 import 'package:bismillah_app/features/prayer/data/prayer_data_providers.dart';
+import 'package:bismillah_app/features/quran/data/unavailable_quran_audio_session_service.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:bismillah_app/features/sync/domain/entities/sync_operation.dart';
 import 'package:bismillah_app/features/sync/domain/repositories/sync_queue_repository.dart';
@@ -49,8 +50,7 @@ void main() {
     );
   }
 
-  test(
-      'initializeLocalPersistence opens the DB and recovers interrupted '
+  test('initializeLocalPersistence opens the DB and recovers interrupted '
       'inFlight ops — no network work involved', () async {
     final container = ProviderContainer(
       overrides: [inMemoryAppDatabaseOverride(), ...testSessionOverrides()],
@@ -61,7 +61,9 @@ void main() {
     final db = container.read(appDatabaseProvider);
     final queue = container.read(syncQueueRepositoryProvider);
     await queue.enqueue(pendingOperation());
-    await db.update(db.syncOperations).write(
+    await db
+        .update(db.syncOperations)
+        .write(
           const SyncOperationsCompanion(
             status: Value(SyncOperationStatus.inFlight),
           ),
@@ -75,23 +77,25 @@ void main() {
     expect(recovered.single.status, SyncOperationStatus.pending);
   });
 
-  test('inFlight recovery failure does NOT block startup (non-fatal)',
-      () async {
-    final container = ProviderContainer(
-      overrides: [
-        inMemoryAppDatabaseOverride(),
-        ...testSessionOverrides(),
-        syncQueueRepositoryProvider.overrideWithValue(
-          _AlwaysFailingSyncQueueRepository(),
-        ),
-      ],
-    );
-    addTearDown(container.dispose);
+  test(
+    'inFlight recovery failure does NOT block startup (non-fatal)',
+    () async {
+      final container = ProviderContainer(
+        overrides: [
+          inMemoryAppDatabaseOverride(),
+          ...testSessionOverrides(),
+          syncQueueRepositoryProvider.overrideWithValue(
+            _AlwaysFailingSyncQueueRepository(),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
 
-    // Fırlatmadan tamamlanmalı — kuyruk sonraki denemede toparlanır.
-    await initializeLocalPersistence(container);
-    expect(container.read(localDatabaseProvider).isInitialized, isTrue);
-  });
+      // Fırlatmadan tamamlanmalı — kuyruk sonraki denemede toparlanır.
+      await initializeLocalPersistence(container);
+      expect(container.read(localDatabaseProvider).isInitialized, isTrue);
+    },
+  );
 
   test('unopenable database IS fatal: bootstrap error propagates', () async {
     final container = ProviderContainer(
@@ -107,10 +111,7 @@ void main() {
     );
     addTearDown(container.dispose);
 
-    await expectLater(
-      initializeLocalPersistence(container),
-      throwsA(anything),
-    );
+    await expectLater(initializeLocalPersistence(container), throwsA(anything));
   });
 
   group('bootstrap() full flow (TASK 018)', () {
@@ -121,8 +122,7 @@ void main() {
       identitySource: IdentitySource.local,
     );
 
-    test(
-        'session resolves BEFORE persistence: providers expose resolved '
+    test('session resolves BEFORE persistence: providers expose resolved '
         'ids and placeholder rows are remapped', () async {
       TestWidgetsFlutterBinding.ensureInitialized();
       final db = createTestDatabase();
@@ -139,6 +139,9 @@ void main() {
 
       final container = await bootstrap(
         sessionIdentity: identity,
+        // Gerçek AudioService.init (platform ses/path_provider kanalları)
+        // unit testte çağrılmaz — sakin unavailable servis enjekte edilir.
+        quranAudioSessionService: UnavailableQuranAudioSessionService(),
         overrides: [appDatabaseProvider.overrideWithValue(db)],
       );
       addTearDown(container.dispose);
@@ -148,10 +151,7 @@ void main() {
         container.read(currentDeviceIdProvider),
         DeviceId('resolved-device'),
       );
-      expect(
-        container.read(firebaseInitStatusProvider).isAvailable,
-        isFalse,
-      );
+      expect(container.read(firebaseInitStatusProvider).isAvailable, isFalse);
 
       // Remap kanıtı: satır artık çözülen UID'de; içerik değişmedi.
       final row = await db.select(db.syncOperations).getSingle();
@@ -185,8 +185,7 @@ final class _AlwaysFailingSyncQueueRepository implements SyncQueueRepository {
   ResultFuture<List<SyncOperation>> nextEligible(
     UtcDateTime now, {
     required int limit,
-  }) async =>
-      _failure;
+  }) async => _failure;
 
   @override
   ResultFuture<void> markAcked(OperationId operationId) async => _failure;
@@ -196,15 +195,13 @@ final class _AlwaysFailingSyncQueueRepository implements SyncQueueRepository {
     OperationId operationId, {
     required UtcDateTime nextRetryAt,
     required String errorClass,
-  }) async =>
-      _failure;
+  }) async => _failure;
 
   @override
   ResultFuture<void> quarantine(
     OperationId operationId, {
     required String errorClass,
-  }) async =>
-      _failure;
+  }) async => _failure;
 
   @override
   ResultFuture<void> cancelAll() async => _failure;

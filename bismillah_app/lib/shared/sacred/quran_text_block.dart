@@ -77,17 +77,17 @@ class QuranTextBlock extends StatelessWidget {
               ),
             ],
             const SizedBox(height: AppSpacing.s4),
-            Row(
-              children: [
-                Expanded(
-                  child: SacredContentSourceBadge(sourceLabel: sourceLabel),
-                ),
-                if (footerAction != null) ...[
-                  const SizedBox(width: AppSpacing.s3),
-                  footerAction!,
-                ],
-              ],
-            ),
+            // Kaynak satırı ve aksiyonlar AYRI satırlarda (TASK 044):
+            // rozet hiçbir genişlikte aksiyonlarla yarışıp sıkışmaz;
+            // aksiyonlar dar ekranda kendi satırında güvenle kırılır.
+            SacredContentSourceBadge(sourceLabel: sourceLabel),
+            if (footerAction != null) ...[
+              const SizedBox(height: AppSpacing.s2),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: footerAction!,
+              ),
+            ],
           ],
         ),
       ),

@@ -15,6 +15,9 @@ import 'package:bismillah_app/features/prayer_reminders/data/prayer_reminders_pr
 import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
 import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
+import 'package:bismillah_app/features/quran/data/audio_service_quran_handler.dart';
+import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +38,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 /// Sözleşme: bootstrap AĞ BEKLEMEZ ve uzak sync/Firestore BAŞLATMAZ.
 Future<ProviderContainer> bootstrap({
   SessionIdentity? sessionIdentity,
+  QuranAudioSessionService? quranAudioSessionService,
   List<Override> overrides = const [],
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,8 +53,28 @@ Future<ProviderContainer> bootstrap({
   final onboardingCompleted =
       await const SharedPrefsOnboardingPreferencesRepository().isCompleted();
 
+  // TASK 045: global Kur'an ses oturumu — AudioService.init uygulama
+  // başına yalnız BURADA, bir kez çağrılır ve Riverpod override'ı ile
+  // enjekte edilir (global mutable handler değişkeni YOK). Başarısızlık
+  // fatal DEĞİLDİR: sakin unavailable implementasyon döner, reader
+  // Arapça/meal ile çalışmaya devam eder. Kanal adı bildirim içindir;
+  // BuildContext gerektirmez (bootstrap'taki hatırlatıcı desenle aynı).
+  // Test seam (sessionIdentity deseniyle aynı): önceden verilmiş servis
+  // varsa gerçek AudioService.init ÇAĞRILMAZ — unit testler platform ses
+  // kanallarına dokunmaz (gerçek ses testlerde kullanılmaz).
+  final resolvedQuranAudioSessionService =
+      quranAudioSessionService ??
+      await initializeQuranAudioSessionService(
+        notificationChannelName: const AppLocalizations(
+          SupportedLocale.tr,
+        ).quranAudioChannelName,
+      );
+
   final container = ProviderContainer(
     overrides: [
+      quranAudioSessionServiceProvider.overrideWithValue(
+        resolvedQuranAudioSessionService,
+      ),
       currentUserIdProvider.overrideWithValue(identity.userId),
       currentDeviceIdProvider.overrideWithValue(identity.deviceId),
       firebaseInitStatusProvider.overrideWithValue(identity.firebaseStatus),
@@ -63,20 +87,24 @@ Future<ProviderContainer> bootstrap({
   // Redakte kimlik teşhisi (07 §146): ham UID ASLA loglanmaz, yalnız
   // kaynak sınıflandırması. Release'te bu satır warning altı olduğu için
   // düşmez (AppLogger seviye kapısı).
-  container.read(appLoggerProvider).info(
-    'bootstrap: identitySource=${identity.identitySource.name} '
-    'firebase=${identity.firebaseStatus.isAvailable}'
-    '${identity.firebaseStatus.isAvailable ? '' : ' '
-        '(${identity.firebaseStatus.reason}; FlutterFire yapılandırması '
-        'ayrı görev)'}',
-  );
+  container
+      .read(appLoggerProvider)
+      .info(
+        'bootstrap: identitySource=${identity.identitySource.name} '
+        'firebase=${identity.firebaseStatus.isAvailable}'
+        '${identity.firebaseStatus.isAvailable ? '' : ' '
+                  '(${identity.firebaseStatus.reason}; FlutterFire yapılandırması '
+                  'ayrı görev)'}',
+      );
   // Firebase mevcutken anonim oturum kurulamadıysa REDAKTE sebep loglanır
   // (sessiz fallback gözlemlenebilir olmalı). Sonraki açılışta kalıcılaşan
   // oturum bulunursa remap veriyi taşır (07 §127).
   if (identity.authFailureReason != null) {
-    container.read(appLoggerProvider).warning(
-      'bootstrap: anonim auth fallback — reason=${identity.authFailureReason}',
-    );
+    container
+        .read(appLoggerProvider)
+        .warning(
+          'bootstrap: anonim auth fallback — reason=${identity.authFailureReason}',
+        );
   }
 
   await initializeLocalPersistence(container);
@@ -96,8 +124,7 @@ Future<void> wirePrayerReminders(ProviderContainer container) async {
     await notifications.initialize();
     final router = container.read(appRouterProvider);
     notifications.reminderTaps.listen(
-      (payload) =>
-          routeReminderTap(payload, () => router.go(AppRoutes.prayer)),
+      (payload) => routeReminderTap(payload, () => router.go(AppRoutes.prayer)),
     );
     unawaited(_rescheduleRemindersIfReady(container));
   } on Object {
@@ -107,8 +134,9 @@ Future<void> wirePrayerReminders(ProviderContainer container) async {
 
 Future<void> _rescheduleRemindersIfReady(ProviderContainer container) async {
   try {
-    final enabled =
-        await container.read(reminderPreferenceStoreProvider).isEnabled();
+    final enabled = await container
+        .read(reminderPreferenceStoreProvider)
+        .isEnabled();
     if (!enabled) {
       return;
     }
@@ -124,14 +152,17 @@ Future<void> _rescheduleRemindersIfReady(ProviderContainer container) async {
       return; // konum hazır değil — mevcut zamanlama 7 gün korunur.
     }
     const l10n = AppLocalizations(SupportedLocale.tr);
-    await container.read(prayerReminderSchedulerProvider).reschedule(
-      coordinates: location.location.coordinates,
-      copy: PrayerReminderCopy(
-        title: l10n.reminderNotificationTitle,
-        bodyFor: (name) =>
-            l10n.reminderNotificationBody(_bootstrapPrayerLabel(l10n, name)),
-      ),
-    );
+    await container
+        .read(prayerReminderSchedulerProvider)
+        .reschedule(
+          coordinates: location.location.coordinates,
+          copy: PrayerReminderCopy(
+            title: l10n.reminderNotificationTitle,
+            bodyFor: (name) => l10n.reminderNotificationBody(
+              _bootstrapPrayerLabel(l10n, name),
+            ),
+          ),
+        );
   } on Object {
     // Best-effort; açılışı bloklamaz.
   }
@@ -165,12 +196,15 @@ Future<void> initializeLocalPersistence(ProviderContainer container) async {
         .warning('bootstrap: uid remap başarısız — sonraki açılışta denenir');
   }
 
-  final recovery =
-      await container.read(syncQueueRepositoryProvider).recoverInFlight();
+  final recovery = await container
+      .read(syncQueueRepositoryProvider)
+      .recoverInFlight();
   if (recovery.isFailure) {
     container
         .read(appLoggerProvider)
-        .warning('bootstrap: inFlight sync op kurtarması başarısız — '
-            'kuyruk sonraki denemede toparlanır');
+        .warning(
+          'bootstrap: inFlight sync op kurtarması başarısız — '
+          'kuyruk sonraki denemede toparlanır',
+        );
   }
 }

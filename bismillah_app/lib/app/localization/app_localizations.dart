@@ -84,6 +84,7 @@ final class AppLocalizations {
   String get commonLoading => _t('commonLoading');
   String get commonRetry => _t('commonRetry');
   String get commonClose => _t('commonClose');
+  String get commonGotIt => _t('commonGotIt');
 
   // Today özeti (TASK 017 — ton: sakin, suçlayıcı dil YASAK)
   String get todayGreeting => _t('todayGreeting');
@@ -259,6 +260,9 @@ final class AppLocalizations {
   String get quranBookmarkRemoveIssue => _t('quranBookmarkRemoveIssue');
   String get quranReaderSettings => _t('quranReaderSettings');
   String get quranReaderViewTitle => _t('quranReaderViewTitle');
+
+  /// Tt okuma ayarları keşif göstergesi metni (TASK 044).
+  String get quranSettingsHint => _t('quranSettingsHint');
   String get quranArabicTextSizeLabel => _t('quranArabicTextSizeLabel');
   String get quranTextSizeSmall => _t('quranTextSizeSmall');
   String get quranTextSizeMedium => _t('quranTextSizeMedium');
@@ -294,6 +298,54 @@ final class AppLocalizations {
   String get quranAudioNextVerse => _t('quranAudioNextVerse');
   String get quranChapterAudioLoadIssue => _t('quranChapterAudioLoadIssue');
 
+  // Global arka plan ses oturumu (TASK 045)
+  String get quranAudioChannelName => _t('quranAudioChannelName');
+  String get quranAudioServiceUnavailable => _t('quranAudioServiceUnavailable');
+
+  /// Mini oynatıcı gövdesi: aktif surenin okuyucusuna dönüş (TASK 046).
+  String get quranMiniPlayerOpen => _t('quranMiniPlayerOpen');
+
+  // Gerçek günlük hedef ve okuma ilerlemesi (TASK 047 — yalnız cihazda)
+  String quranMinutesRemaining(int count) =>
+      _t('quranMinutesRemaining').replaceAll('{count}', '$count');
+  String quranPagesRemaining(int count) =>
+      _t('quranPagesRemaining').replaceAll('{count}', '$count');
+  String get quranGoalCompletedLine => _t('quranGoalCompletedLine');
+  String get quranTodayActivityTitle => _t('quranTodayActivityTitle');
+  String get quranActiveReadingLabel => _t('quranActiveReadingLabel');
+  String get quranViewedVersesLabel => _t('quranViewedVersesLabel');
+  String get quranViewedPagesLabel => _t('quranViewedPagesLabel');
+  String get quranLast7DaysTitle => _t('quranLast7DaysTitle');
+  String get quranStreakTitle => _t('quranStreakTitle');
+  String quranDaysCount(int count) =>
+      _t('quranDaysCount').replaceAll('{count}', '$count');
+  String get quranProgressUnavailable => _t('quranProgressUnavailable');
+  String get quranPageProgressUnavailable => _t('quranPageProgressUnavailable');
+
+  // Offline Kur'an araması (TASK 048 — sorgular cihaz dışına ÇIKMAZ)
+  String get quranSearchTitle => _t('quranSearchTitle');
+  String get quranSearchFieldHint => _t('quranSearchFieldHint');
+  String get quranSearchVersesSection => _t('quranSearchVersesSection');
+  String quranSearchResultCount(int count) =>
+      _t('quranSearchResultCount').replaceAll('{count}', '$count');
+  String get quranSearchNoMatches => _t('quranSearchNoMatches');
+  String get quranSearchUnavailable => _t('quranSearchUnavailable');
+  String get quranSearchClear => _t('quranSearchClear');
+  String get quranSearchGoToVerse => _t('quranSearchGoToVerse');
+  String get quranSearchLoading => _t('quranSearchLoading');
+
+  // Kâri seçimi (TASK 049 — kâri isimleri API'den doğrulanır, buraya
+  // KOPYALANMAZ; yalnız arayüz etiketleri)
+  String get quranReciterLabel => _t('quranReciterLabel');
+  String get quranReciterSelectTitle => _t('quranReciterSelectTitle');
+  String get quranReciterListLoadIssue => _t('quranReciterListLoadIssue');
+  String get quranReciterChangeStopsPlayback =>
+      _t('quranReciterChangeStopsPlayback');
+  String get quranReciterDefaultLabel => _t('quranReciterDefaultLabel');
+  String get quranReciterSelectedLabel => _t('quranReciterSelectedLabel');
+  String get quranReciterSearchHint => _t('quranReciterSearchHint');
+  String get quranReciterChangeFailed => _t('quranReciterChangeFailed');
+
   /// "Ayet 3 / 7" biçimli aktif ayet bilgisi.
   String quranAudioVerseOf(int current, int total) => _t(
     'quranAudioVerseOf',
@@ -314,6 +366,14 @@ final class AppLocalizations {
   /// "Günlük hedefin: 3 sayfa" biçimli hedef satırı.
   String todayQuranDailyGoal(String goal) =>
       _t('todayQuranDailyGoal').replaceAll('{goal}', goal);
+
+  // Today Kur'an merkezi (TASK 050)
+  String get todayQuranSectionTitle => _t('todayQuranSectionTitle');
+  String get todayQuranStartBody => _t('todayQuranStartBody');
+  String get todayQuranOpenCta => _t('todayQuranOpenCta');
+  String get todayQuranResumeCta => _t('todayQuranResumeCta');
+  String get todayQuranProgressUnavailable =>
+      _t('todayQuranProgressUnavailable');
 
   /// "7 ayet" biçimli ayet sayısı etiketi.
   String quranAyahCount(int count) =>
@@ -388,6 +448,7 @@ final class AppLocalizations {
       'commonLoading': 'Yükleniyor…',
       'commonRetry': 'Tekrar dene',
       'commonClose': 'Kapat',
+      'commonGotIt': 'Anladım',
       'todayGreeting': 'Bugünün ritmi',
       'todayGentleLine': 'Bugün için küçük adımlar.',
       'todayPrayerCardTitle': 'Bugünün namaz takibi',
@@ -524,6 +585,8 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'Ayet kaydedilemedi.',
       'quranBookmarkRemoveIssue': 'Ayet kaydı kaldırılamadı.',
       'quranReaderSettings': 'Okuma ayarları',
+      'quranSettingsHint':
+          'Türkçe meali buradan açabilir, yazı boyutunu değiştirebilirsiniz.',
       'quranReaderViewTitle': 'Okuma görünümü',
       'quranArabicTextSizeLabel': 'Arapça metin boyutu',
       'quranTextSizeSmall': 'Küçük',
@@ -550,6 +613,40 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'Sonraki ayet',
       'quranAudioVerseOf': 'Ayet {current} / {total}',
       'quranChapterAudioLoadIssue': 'Sure sesi yüklenemedi.',
+      'quranAudioChannelName': "Kur'an Sesli Okuma",
+      'quranAudioServiceUnavailable': 'Ses hizmeti başlatılamadı.',
+      'quranMiniPlayerOpen': "Kur'an oynatıcısını aç",
+      'quranMinutesRemaining': '{count} dakika kaldı',
+      'quranPagesRemaining': '{count} sayfa kaldı',
+      'quranGoalCompletedLine': 'Bugünkü hedefin tamamlandı.',
+      'quranTodayActivityTitle': 'Bugünkü aktivite',
+      'quranActiveReadingLabel': 'Aktif okuma süresi',
+      'quranViewedVersesLabel': 'Görüntülenen ayet',
+      'quranViewedPagesLabel': 'Görüntülenen sayfa',
+      'quranLast7DaysTitle': 'Son 7 gün',
+      'quranStreakTitle': "Kur'an hedefi serisi",
+      'quranDaysCount': '{count} gün',
+      'quranProgressUnavailable': 'İlerleme şu anda yüklenemedi.',
+      'quranPageProgressUnavailable':
+          'Sayfa ilerlemesi şu anda kullanılamıyor.',
+      'quranSearchTitle': "Kur'an'da ara",
+      'quranSearchFieldHint': 'Sure, ayet veya kelime ara',
+      'quranSearchVersesSection': 'Ayetler',
+      'quranSearchResultCount': '{count} sonuç',
+      'quranSearchNoMatches': 'Aramanızla eşleşen sure veya ayet bulunamadı.',
+      'quranSearchUnavailable': "Kur'an araması şu anda kullanılamıyor.",
+      'quranSearchClear': 'Aramayı temizle',
+      'quranSearchGoToVerse': 'Ayete git',
+      'quranSearchLoading': 'Arama yükleniyor…',
+      'quranReciterLabel': 'Kâri',
+      'quranReciterSelectTitle': 'Kâri seç',
+      'quranReciterListLoadIssue': 'Kâri listesi şu anda yüklenemedi.',
+      'quranReciterChangeStopsPlayback':
+          'Kâri değiştirildiğinde mevcut oynatma durur.',
+      'quranReciterDefaultLabel': 'Varsayılan',
+      'quranReciterSelectedLabel': 'Seçili',
+      'quranReciterSearchHint': 'Kâri ara',
+      'quranReciterChangeFailed': 'Kâri değiştirilemedi.',
       'quranSavedVersesTitle': 'Kaydedilen ayetler',
       'quranSavedVersesEmptyTitle': 'Henüz kaydedilmiş ayetin yok.',
       'quranSavedVersesEmptyBody':
@@ -563,6 +660,12 @@ final class AppLocalizations {
       'todayQuranStartCta': "Kur'an okumaya başla",
       'todayQuranSetupLine': "Kur'an deneyimini hazırla.",
       'todayQuranDailyGoal': 'Günlük hedefin: {goal}',
+      'todayQuranSectionTitle': "Bugünkü Kur'an",
+      'todayQuranStartBody':
+          'Çevrimdışı Arapça metin ve Türkçe meal ile okumaya başlayabilirsiniz.',
+      'todayQuranOpenCta': "Kur'an'ı aç",
+      'todayQuranResumeCta': 'Okumaya devam et',
+      'todayQuranProgressUnavailable': "Kur'an ilerlemesi şu anda yüklenemedi.",
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
     },
@@ -615,6 +718,7 @@ final class AppLocalizations {
       'commonLoading': 'Loading…',
       'commonRetry': 'Try again',
       'commonClose': 'Close',
+      'commonGotIt': 'Got it',
       'todayGreeting': "Today's rhythm",
       'todayGentleLine': 'Small steps for today.',
       'todayPrayerCardTitle': "Today's prayer tracking",
@@ -755,6 +859,9 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'The verse could not be saved.',
       'quranBookmarkRemoveIssue': 'The saved verse could not be removed.',
       'quranReaderSettings': 'Reading settings',
+      'quranSettingsHint':
+          'You can turn on the Turkish translation and change the text '
+          'size here.',
       'quranReaderViewTitle': 'Reading view',
       'quranArabicTextSizeLabel': 'Arabic text size',
       'quranTextSizeSmall': 'Small',
@@ -782,6 +889,40 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'Next verse',
       'quranAudioVerseOf': 'Verse {current} / {total}',
       'quranChapterAudioLoadIssue': 'The surah audio could not be loaded.',
+      'quranAudioChannelName': 'Quran Audio Recitation',
+      'quranAudioServiceUnavailable': 'The audio service could not be started.',
+      'quranMiniPlayerOpen': 'Open the Quran player',
+      'quranMinutesRemaining': '{count} minutes left',
+      'quranPagesRemaining': '{count} pages left',
+      'quranGoalCompletedLine': "Today's goal is complete.",
+      'quranTodayActivityTitle': "Today's activity",
+      'quranActiveReadingLabel': 'Active reading time',
+      'quranViewedVersesLabel': 'Verses viewed',
+      'quranViewedPagesLabel': 'Pages viewed',
+      'quranLast7DaysTitle': 'Last 7 days',
+      'quranStreakTitle': 'Quran goal streak',
+      'quranDaysCount': '{count} days',
+      'quranProgressUnavailable': 'Progress could not be loaded right now.',
+      'quranPageProgressUnavailable': 'Page progress is unavailable right now.',
+      'quranSearchTitle': 'Search the Quran',
+      'quranSearchFieldHint': 'Search surah, verse, or word',
+      'quranSearchVersesSection': 'Verses',
+      'quranSearchResultCount': '{count} results',
+      'quranSearchNoMatches': 'No surah or verse matches your search.',
+      'quranSearchUnavailable': 'Quran search is unavailable right now.',
+      'quranSearchClear': 'Clear search',
+      'quranSearchGoToVerse': 'Go to verse',
+      'quranSearchLoading': 'Searching…',
+      'quranReciterLabel': 'Reciter',
+      'quranReciterSelectTitle': 'Choose reciter',
+      'quranReciterListLoadIssue':
+          'The reciter list could not be loaded right now.',
+      'quranReciterChangeStopsPlayback':
+          'Changing the reciter stops the current playback.',
+      'quranReciterDefaultLabel': 'Default',
+      'quranReciterSelectedLabel': 'Selected',
+      'quranReciterSearchHint': 'Search reciters',
+      'quranReciterChangeFailed': 'The reciter could not be changed.',
       'quranSavedVersesTitle': 'Saved verses',
       'quranSavedVersesEmptyTitle': 'You have no saved verses yet.',
       'quranSavedVersesEmptyBody':
@@ -795,6 +936,13 @@ final class AppLocalizations {
       'todayQuranStartCta': 'Start reading the Quran',
       'todayQuranSetupLine': 'Prepare your Quran experience.',
       'todayQuranDailyGoal': 'Your daily goal: {goal}',
+      'todayQuranSectionTitle': "Today's Quran",
+      'todayQuranStartBody':
+          'Start reading with offline Arabic text and Turkish translation.',
+      'todayQuranOpenCta': 'Open the Quran',
+      'todayQuranResumeCta': 'Continue reading',
+      'todayQuranProgressUnavailable':
+          'Quran progress could not be loaded right now.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
     },
@@ -845,6 +993,7 @@ final class AppLocalizations {
       'commonLoading': 'جارٍ التحميل…',
       'commonRetry': 'حاول مجدداً',
       'commonClose': 'إغلاق',
+      'commonGotIt': 'حسنًا',
       'todayGreeting': 'إيقاع اليوم',
       'todayGentleLine': 'خطوات صغيرة لهذا اليوم.',
       'todayPrayerCardTitle': 'متابعة صلوات اليوم',
@@ -973,6 +1122,8 @@ final class AppLocalizations {
       'quranBookmarkSaveIssue': 'تعذّر حفظ الآية.',
       'quranBookmarkRemoveIssue': 'تعذّرت إزالة حفظ الآية.',
       'quranReaderSettings': 'إعدادات القراءة',
+      'quranSettingsHint':
+          'يمكنك تفعيل الترجمة التركية وتغيير حجم النص من هنا.',
       'quranReaderViewTitle': 'عرض القراءة',
       'quranArabicTextSizeLabel': 'حجم النص العربي',
       'quranTextSizeSmall': 'صغير',
@@ -999,6 +1150,39 @@ final class AppLocalizations {
       'quranAudioNextVerse': 'الآية التالية',
       'quranAudioVerseOf': 'الآية {current} / {total}',
       'quranChapterAudioLoadIssue': 'تعذّر تحميل صوت السورة.',
+      'quranAudioChannelName': 'تلاوة القرآن الصوتية',
+      'quranAudioServiceUnavailable': 'تعذّر بدء خدمة الصوت.',
+      'quranMiniPlayerOpen': 'افتح مشغّل القرآن',
+      'quranMinutesRemaining': 'بقيت {count} دقائق',
+      'quranPagesRemaining': 'بقيت {count} صفحات',
+      'quranGoalCompletedLine': 'اكتمل هدفك لهذا اليوم.',
+      'quranTodayActivityTitle': 'نشاط اليوم',
+      'quranActiveReadingLabel': 'مدة القراءة النشطة',
+      'quranViewedVersesLabel': 'الآيات المعروضة',
+      'quranViewedPagesLabel': 'الصفحات المعروضة',
+      'quranLast7DaysTitle': 'آخر 7 أيام',
+      'quranStreakTitle': 'سلسلة هدف القرآن',
+      'quranDaysCount': '{count} أيام',
+      'quranProgressUnavailable': 'تعذّر تحميل التقدم الآن.',
+      'quranPageProgressUnavailable': 'تقدم الصفحات غير متاح الآن.',
+      'quranSearchTitle': 'ابحث في القرآن',
+      'quranSearchFieldHint': 'ابحث عن سورة أو آية أو كلمة',
+      'quranSearchVersesSection': 'الآيات',
+      'quranSearchResultCount': '{count} نتائج',
+      'quranSearchNoMatches': 'لا توجد سورة أو آية مطابقة لبحثك.',
+      'quranSearchUnavailable': 'بحث القرآن غير متاح الآن.',
+      'quranSearchClear': 'امسح البحث',
+      'quranSearchGoToVerse': 'اذهب إلى الآية',
+      'quranSearchLoading': 'جارٍ البحث…',
+      'quranReciterLabel': 'القارئ',
+      'quranReciterSelectTitle': 'اختر القارئ',
+      'quranReciterListLoadIssue': 'تعذّر تحميل قائمة القراء الآن.',
+      'quranReciterChangeStopsPlayback':
+          'عند تغيير القارئ يتوقف التشغيل الحالي.',
+      'quranReciterDefaultLabel': 'افتراضي',
+      'quranReciterSelectedLabel': 'محدد',
+      'quranReciterSearchHint': 'ابحث عن قارئ',
+      'quranReciterChangeFailed': 'تعذّر تغيير القارئ.',
       'quranSavedVersesTitle': 'الآيات المحفوظة',
       'quranSavedVersesEmptyTitle': 'لا توجد آيات محفوظة بعد.',
       'quranSavedVersesEmptyBody':
@@ -1011,6 +1195,12 @@ final class AppLocalizations {
       'todayQuranStartCta': 'ابدأ قراءة القرآن',
       'todayQuranSetupLine': 'جهّز تجربتك مع القرآن.',
       'todayQuranDailyGoal': 'هدفك اليومي: {goal}',
+      'todayQuranSectionTitle': 'قرآن اليوم',
+      'todayQuranStartBody':
+          'ابدأ القراءة مع النص العربي بلا اتصال والترجمة التركية.',
+      'todayQuranOpenCta': 'افتح القرآن',
+      'todayQuranResumeCta': 'تابع القراءة',
+      'todayQuranProgressUnavailable': 'تعذّر تحميل تقدّم القرآن الآن.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
     },

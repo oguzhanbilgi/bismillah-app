@@ -2,7 +2,7 @@
 
 Premium İslami yaşam arkadaşı — Flutter uygulaması.
 
-**Mevcut aşama:** TASK 025. Son durum:
+**Mevcut aşama:** CHECKPOINT 07 (TASK 050) — otomatik doğrulama. Son durum:
 
 - **TASK 021 — Offline namaz vakti motoru:** adhan_dart ile TAM OFFLINE
   hesap; konum yalnız foreground/izinliyse (day-0 izin duvarı YOK). Zamanlar
@@ -57,6 +57,53 @@ Premium İslami yaşam arkadaşı — Flutter uygulaması.
   notification oynatma HENÜZ YOK (uygulama içi, ön planda).
   Kaynak atıfları: Tanzil (Arapça metin), Diyanet İşleri Başkanlığı Meali
   (Türkçe meal), MP3Quran.net (kıraat sesi).
+- **TASK 044–046 — Arka plan Kur'an sesi:** tek global `AudioPlayer` +
+  `audio_service` ile arka plan / bildirim / kilit ekranı oynatma; uygulama
+  genelinde tek **mini player** (shell seviyesinde, reader kapansa da sürer).
+  `AudioService.init` bootstrap'ta BİR KEZ; başarısızlık fatal değil (sakin
+  unavailable servise düşer). **iOS arka plan sesi henüz gerçek cihazda
+  DOĞRULANMADI** (Android emülatör/masaüstü doğrulandı).
+- **TASK 047 — Cihaz-lokal okuma ilerlemesi:** günlük hedef, gerçek aktif
+  okuma (idle 90 sn, arka plan ses sayılmaz; ayet 3 sn / sayfa 8 sn), seri
+  ve son 7 gün. YALNIZ cihazda saklanır; analytics/Firebase'e ilerleme veya
+  verseKey GÖNDERİLMEZ. Sayfa hedefi doğrulanmış ayet→sayfa eşlemesiyle
+  (`verse_pages_v1.json`, 6236 ayet / 604 sayfa).
+- **TASK 048 — Çevrimdışı Arapça/Türkçe arama:** paketlenmiş normalize indeks
+  (`assets/quran/search/quran_search_index_v1.json`, 114 sure / 6236 ayet) +
+  sure adı/numara, ayet referansı (`2:255`, `2/255`, `2 255`) ve doğrulanmış
+  **Ayetel Kürsi alias'ı** (`ayetel kürsi` → 2:255). Snippet metinleri her
+  zaman ORİJİNAL Tanzil/QuranEnc'tendir; sorgular hiçbir yere gönderilmez.
+- **TASK 049 — Kâri seçimi:** MP3Quran reads kataloğu + cihaz-lokal kâri
+  tercihi; oynatılan sesin kaynağı/kârisi metadata olarak gösterilir.
+- **TASK 050 — Today Kur'an merkezi:** Today'de tek "Bugünkü Kur'an" bölümü —
+  günlük hedef/ilerleme/seri, son okuma + Okumaya devam et, Kur'an'ı aç /
+  Kur'an'da ara / Kaydedilen ayetler hızlı aksiyonları ve İlerlemem geçişi.
+  Namaz ve kişiselleştirme kartları korunur; ikinci oynatıcı/AI önerisi YOK.
+
+### CHECKPOINT 07 — doğrulama sonucu
+
+Otomatik (bu repoda tekrarlanabilir): `flutter analyze` temiz, tüm birim/
+widget testleri geçiyor, debug APK üretiliyor; generator bütünlük kontrolleri
+(114 sure / 6236 ayet; 6236 ayet → 604 sayfa; arama indeksi 114/6236) ve
+deterministik üretim doğrulandı.
+
+Aşağıdakiler **fiziksel cihazda elle** doğrulandı (Samsung SM A366B,
+Android 16) — otomatik test değildir:
+
+- Çevrimdışı Tanzil Arapça Kur'an metni
+- Çevrimdışı QuranEnc Rowad Türkçe meal
+- Çevrimdışı Arapça/Türkçe Kur'an araması
+- Ayet referansı (`2:255`) ve Ayetel Kürsi alias'ı
+- Gerçek Kur'an sesi oynatma (loading → playback, pause/resume/prev/next/stop)
+- Uygulama genelinde Kur'an mini-player'ı
+- Android arka plan oynatma (Home tuşu sonrası)
+- Android medya bildirimi
+- Android kilit ekranı medya kontrolleri
+- Kâri değiştirme ve kaynak-farkında (source-aware) cache
+- Yalnız-cihazda Kur'an okuma ilerlemesi yaşam döngüsü (3 sn ayet / 8 sn
+  sayfa, arka plan süresi sayılmaz, 90 sn idle, yeniden açılışta persistence)
+
+**iOS arka plan sesi hâlâ fiziksel bir iOS cihazında DOĞRULANMADI.**
 
 Today SALT-OKUNURDUR ve Prayer dilimiyle AYNI lokal kaynağı izler
 (`PrayerLogRepository` → Drift). TASK 016: Namaz sekmesi gerçek

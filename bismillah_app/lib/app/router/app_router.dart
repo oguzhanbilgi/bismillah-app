@@ -102,6 +102,11 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                       chapterId: int.tryParse(
                         state.pathParameters['chapterId'] ?? '',
                       ),
+                      // Arama sonucundan hedef ayet (TASK 048); geçersiz
+                      // değer okuyucuda sakin biçimde yok sayılır.
+                      initialVerseNumber: int.tryParse(
+                        state.uri.queryParameters['verse'] ?? '',
+                      ),
                     ),
                   ),
                   // Kaydedilen ayetler (TASK 038): Quran branch içinde push;
@@ -109,8 +114,7 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                   GoRoute(
                     path: 'bookmarks',
                     name: AppRoutes.quranBookmarksName,
-                    builder: (context, state) =>
-                        const QuranSavedVersesScreen(),
+                    builder: (context, state) => const QuranSavedVersesScreen(),
                   ),
                 ],
               ),

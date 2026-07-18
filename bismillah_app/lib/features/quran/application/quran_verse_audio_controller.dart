@@ -1,75 +1,28 @@
-import 'dart:async';
-
-import 'package:bismillah_app/features/quran/data/just_audio_quran_verse_audio_player.dart';
+import 'package:bismillah_app/features/quran/application/quran_reciter_selection_controller.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_chapter_recitation.dart';
 import 'package:bismillah_app/features/quran/domain/entities/quran_verse.dart';
-import 'package:bismillah_app/features/quran/domain/services/quran_verse_audio_player.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Ayet sesi ekran durumu (TASK 041/042).
-enum QuranVerseAudioStatus { idle, loading, playing, paused, error }
+export 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart'
+    show
+        QuranAudioDisplayInfo,
+        QuranAudioPlaybackMode,
+        QuranVerseAudioState,
+        QuranVerseAudioStatus;
 
-/// Oynatma modu (TASK 042): tek ayet veya kesintisiz sure.
-enum QuranAudioPlaybackMode { singleVerse, continuousChapter }
-
-final class QuranVerseAudioState {
-  const QuranVerseAudioState({
-    this.activeVerseKey,
-    this.activeVerseNumber,
-    this.playbackMode,
-    this.status = QuranVerseAudioStatus.idle,
-    this.errorVerseKey,
-    this.chapterAudioFailed = false,
-    this.sourceReady = false,
-    this.totalVerseCount,
-  });
-
-  /// Şu an yüklenen/çalan/duraklatılan ayet.
-  final String? activeVerseKey;
-  final int? activeVerseNumber;
-
-  /// Aktif oynatmanın modu; boşta `null`.
-  final QuranAudioPlaybackMode? playbackMode;
-
-  final QuranVerseAudioStatus status;
-
-  /// Son hata alan ayet — sakin hata YALNIZ bu ayette gösterilir.
-  final String? errorVerseKey;
-
-  /// "Sureyi dinle" akışı hata aldı (panel sakin hata + tekrar dene).
-  final bool chapterAudioFailed;
-
-  /// En az bir ses başarıyla hazırlandı mı (kaynak etiketi görünürlüğü).
-  final bool sourceReady;
-
-  /// Yüklü surenin ayet sayısı (panel "Ayet X / Y" ve sınırlar için).
-  final int? totalVerseCount;
-
-  bool get hasPrevious => activeVerseNumber != null && activeVerseNumber! > 1;
-
-  bool get hasNext =>
-      activeVerseNumber != null &&
-      totalVerseCount != null &&
-      activeVerseNumber! < totalVerseCount!;
-}
-
-/// Reader başına TEK oynatıcı: reader kapanınca (dinleyici kalmayınca)
-/// otomatik dispose edilir — ses durur.
-final quranVerseAudioPlayerProvider =
-    Provider.autoDispose<QuranVerseAudioPlayer>((ref) {
-      final player = JustAudioQuranVerseAudioPlayer();
-      ref.onDispose(() => unawaited(player.dispose()));
-      return player;
-    });
-
-/// Ayet sesi controller'ı (TASK 041/042).
+/// Ayet sesi controller'ı (TASK 041/042/045).
 ///
-/// Tek ayet: boş→yükle+oynat, çalan→duraklat, duraklatılan→devam, başka
-/// ayet→öncekini durdur (continuous mod da SONLANIR). Kesintisiz sure:
-/// ilk ayetten başlar, clip bitince otomatik sıradakine geçer, son
-/// ayette durur. `_busy` kilidi hızlı dokunuşlarda yarış/iki ses
-/// üretmez. Ses hatası reader'ı ETKİLEMEZ.
+/// TASK 045: controller artık player SAHİBİ DEĞİLDİR — global
+/// [QuranAudioSessionService] oturumunu kullanır ve durumunu reader UI'a
+/// yansıtır. Reader kapanınca yalnız abonelik kapanır; oynatma, otomatik
+/// ayet ilerletme ve ses odağı yönetimi global serviste sürer. Aynı sure
+/// tekrar açıldığında aktif ayet/mod/durum servisten geri gelir.
+///
+/// Controller'da kalan sorumluluklar: recitation'ı depodan yükleme, yükleme
+/// aşaması için anlık loading/hata durumu (TASK 044 geri bildirimi) ve
+/// `_busy` kilidiyle hızlı dokunuşlarda çift istek engeli.
 final quranVerseAudioControllerProvider =
     NotifierProvider.autoDispose<
       QuranVerseAudioController,
@@ -78,181 +31,32 @@ final quranVerseAudioControllerProvider =
 
 final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
   bool _busy = false;
-  QuranChapterRecitation? _recitation;
+
+  /// Depo yükleme aşamasının geçici durumu ekranda: aktifken servis
+  /// yayınları durumu EZMEZ (tek gerçek kaynak yine servistir; overlay
+  /// yalnız servis devralana veya hata gösterilene kadar yaşar).
+  bool _overlayActive = false;
 
   @override
   QuranVerseAudioState build() {
-    final player = ref.watch(quranVerseAudioPlayerProvider);
-    final subscription = player.statusStream.listen((playbackStatus) {
-      final current = state;
-      switch (playbackStatus) {
-        case QuranAudioPlaybackStatus.completed:
-          if (current.status != QuranVerseAudioStatus.playing &&
-              current.status != QuranVerseAudioStatus.paused) {
-            break;
-          }
-          // Kesintisiz modda sıradaki ayete otomatik geçiş (TASK 042);
-          // son ayette veya tek ayet modunda boşa dönülür.
-          final next = (current.activeVerseNumber ?? 0) + 1;
-          if (current.playbackMode ==
-                  QuranAudioPlaybackMode.continuousChapter &&
-              _recitation?.timingFor(next) != null &&
-              !_busy) {
-            unawaited(
-              _playVerseNumber(
-                next,
-                mode: QuranAudioPlaybackMode.continuousChapter,
-              ),
-            );
-          } else {
-            state = QuranVerseAudioState(sourceReady: current.sourceReady);
-          }
-        case QuranAudioPlaybackStatus.paused:
-          // Telefon araması / ses odağı kaybı: sakin duraklatma.
-          if (!_busy && current.status == QuranVerseAudioStatus.playing) {
-            state = _copyWithStatus(current, QuranVerseAudioStatus.paused);
-          }
-        case QuranAudioPlaybackStatus.idle ||
-            QuranAudioPlaybackStatus.loading ||
-            QuranAudioPlaybackStatus.playing:
-          break; // geçişleri controller aksiyonları yönetir
+    final service = ref.watch(quranAudioSessionServiceProvider);
+    final subscription = service.watchState().listen((serviceState) {
+      if (!_overlayActive) {
+        state = serviceState;
       }
     });
+    // Reader kapanınca YALNIZ abonelik kapanır — servis/oynatma durmaz.
     ref.onDispose(subscription.cancel);
-    return const QuranVerseAudioState();
+    // Devam eden oturum (başka reader'dan/arka plandan) anında yansır.
+    return service.currentState;
   }
 
-  static QuranVerseAudioState _copyWithStatus(
-    QuranVerseAudioState current,
-    QuranVerseAudioStatus status,
-  ) => QuranVerseAudioState(
-    activeVerseKey: current.activeVerseKey,
-    activeVerseNumber: current.activeVerseNumber,
-    playbackMode: current.playbackMode,
-    status: status,
-    sourceReady: current.sourceReady,
-    totalVerseCount: current.totalVerseCount,
-  );
+  QuranAudioSessionService get _service =>
+      ref.read(quranAudioSessionServiceProvider);
 
-  /// Yüklü sureden bir ayeti verilen modda oynatır (recitation hazır
-  /// olmalı). `_busy` kilidini kendi alır.
-  Future<void> _playVerseNumber(
-    int verseNumber, {
-    required QuranAudioPlaybackMode mode,
-  }) async {
-    final recitation = _recitation;
-    final timing = recitation?.timingFor(verseNumber);
-    if (recitation == null || timing == null || _busy) {
-      return;
-    }
-    _busy = true;
-    try {
-      await ref.read(quranVerseAudioPlayerProvider).playVerse(timing);
-      state = QuranVerseAudioState(
-        activeVerseKey: '${recitation.chapterId}:$verseNumber',
-        activeVerseNumber: verseNumber,
-        playbackMode: mode,
-        status: QuranVerseAudioStatus.playing,
-        sourceReady: true,
-        totalVerseCount: state.totalVerseCount,
-      );
-    } on Exception {
-      state = QuranVerseAudioState(
-        status: QuranVerseAudioStatus.error,
-        errorVerseKey: '${recitation.chapterId}:$verseNumber',
-        sourceReady: state.sourceReady,
-        totalVerseCount: state.totalVerseCount,
-      );
-    } finally {
-      _busy = false;
-    }
-  }
-
-  /// Sureyi hazırlar (recitation + MP3) ve verilen ayetten oynatır.
-  /// `_busy` kilidini TÜM akış boyunca tutar — hızlı art arda dokunuşlar
-  /// iki ses/yarış üretmez.
-  Future<void> _loadAndPlay({
-    required int chapterId,
-    required int expectedVerseCount,
-    required int verseNumber,
-    required QuranAudioPlaybackMode mode,
-    required bool failAsChapter,
-  }) async {
-    if (_busy) {
-      return;
-    }
-    _busy = true;
-    try {
-      await _loadAndPlayLocked(
-        chapterId: chapterId,
-        expectedVerseCount: expectedVerseCount,
-        verseNumber: verseNumber,
-        mode: mode,
-        failAsChapter: failAsChapter,
-      );
-    } finally {
-      _busy = false;
-    }
-  }
-
-  Future<void> _loadAndPlayLocked({
-    required int chapterId,
-    required int expectedVerseCount,
-    required int verseNumber,
-    required QuranAudioPlaybackMode mode,
-    required bool failAsChapter,
-  }) async {
-    final current = state;
-    state = QuranVerseAudioState(
-      activeVerseKey: '$chapterId:$verseNumber',
-      activeVerseNumber: verseNumber,
-      playbackMode: mode,
-      status: QuranVerseAudioStatus.loading,
-      sourceReady: current.sourceReady,
-      totalVerseCount: expectedVerseCount,
-    );
-    final result = await ref
-        .read(quranAudioRepositoryProvider)
-        .getChapterRecitation(chapterId, expectedVerseCount);
-    final recitation = result.fold(
-      onSuccess: (recitation) => recitation,
-      onFailure: (_) => null,
-    );
-    final timing = recitation?.timingFor(verseNumber);
-    if (recitation == null || timing == null) {
-      state = QuranVerseAudioState(
-        status: QuranVerseAudioStatus.error,
-        errorVerseKey: failAsChapter ? null : '$chapterId:$verseNumber',
-        chapterAudioFailed: failAsChapter,
-        sourceReady: current.sourceReady,
-      );
-      return;
-    }
-    try {
-      final player = ref.read(quranVerseAudioPlayerProvider);
-      await player.stop();
-      await player.loadChapter(
-        audioUrl: recitation.audioUrl,
-        chapterId: chapterId,
-      );
-      _recitation = recitation;
-      await player.playVerse(timing);
-      state = QuranVerseAudioState(
-        activeVerseKey: '$chapterId:$verseNumber',
-        activeVerseNumber: verseNumber,
-        playbackMode: mode,
-        status: QuranVerseAudioStatus.playing,
-        sourceReady: true,
-        totalVerseCount: expectedVerseCount,
-      );
-    } on Exception {
-      state = QuranVerseAudioState(
-        status: QuranVerseAudioStatus.error,
-        errorVerseKey: failAsChapter ? null : '$chapterId:$verseNumber',
-        chapterAudioFailed: failAsChapter,
-        sourceReady: current.sourceReady,
-      );
-    }
+  void _setOverlay(QuranVerseAudioState overlay) {
+    _overlayActive = true;
+    state = overlay;
   }
 
   /// Ayet aksiyonunun giriş noktası (TASK 041 davranışı korunur):
@@ -261,68 +65,113 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
   Future<void> toggleVerse(
     QuranVerse verse, {
     required int expectedVerseCount,
+    required QuranAudioDisplayInfo display,
   }) async {
     if (_busy) {
       return; // hızlı çift dokunuş — önceki işlem bitmeden yenisi açılmaz
     }
+    final current = state;
+    if (current.activeVerseKey == verse.verseKey) {
+      switch (current.status) {
+        case QuranVerseAudioStatus.loading:
+          return; // aynı ayet zaten yükleniyor — çift dokunuş yok sayılır
+        case QuranVerseAudioStatus.playing:
+          return _guarded(_service.pause);
+        case QuranVerseAudioStatus.paused:
+          return _guarded(_service.resume);
+        case QuranVerseAudioStatus.idle || QuranVerseAudioStatus.error:
+          break; // yeniden başlat
+      }
+    }
     _busy = true;
+    // ANLIK GERİ BİLDİRİM (TASK 044): loading durumu HİÇBİR await
+    // tamamlanmadan — dokunmayla aynı event döngüsünde — yayınlanır.
+    _setOverlay(
+      QuranVerseAudioState(
+        activeChapterId: verse.chapterId,
+        activeChapterName: display.chapterDisplayName,
+        activeVerseKey: verse.verseKey,
+        activeVerseNumber: verse.verseNumber,
+        playbackMode: QuranAudioPlaybackMode.singleVerse,
+        status: QuranVerseAudioStatus.loading,
+        sourceReady: current.sourceReady,
+        totalVerseCount: expectedVerseCount,
+      ),
+    );
     try {
-      final key = verse.verseKey;
-      final player = ref.read(quranVerseAudioPlayerProvider);
-      final current = state;
-
-      if (current.activeVerseKey == key &&
-          current.status == QuranVerseAudioStatus.playing) {
-        await player.pause();
-        state = _copyWithStatus(current, QuranVerseAudioStatus.paused);
-        return;
-      }
-      if (current.activeVerseKey == key &&
-          current.status == QuranVerseAudioStatus.paused) {
-        await player.resume();
-        state = _copyWithStatus(current, QuranVerseAudioStatus.playing);
-        return;
-      }
+      await _loadAndPlayLocked(
+        chapterId: verse.chapterId,
+        expectedVerseCount: expectedVerseCount,
+        verseNumber: verse.verseNumber,
+        mode: QuranAudioPlaybackMode.singleVerse,
+        display: display,
+      );
     } finally {
       _busy = false;
     }
-    await _loadAndPlay(
-      chapterId: verse.chapterId,
-      expectedVerseCount: expectedVerseCount,
-      verseNumber: verse.verseNumber,
-      mode: QuranAudioPlaybackMode.singleVerse,
-      failAsChapter: false,
-    );
   }
 
   /// "Sureyi dinle": ilk ayetten kesintisiz oynatma (TASK 042).
   Future<void> playChapter({
     required int chapterId,
     required int expectedVerseCount,
+    required QuranAudioDisplayInfo display,
   }) async {
     if (_busy) {
       return;
     }
-    await _loadAndPlay(
-      chapterId: chapterId,
-      expectedVerseCount: expectedVerseCount,
-      verseNumber: 1,
-      mode: QuranAudioPlaybackMode.continuousChapter,
-      failAsChapter: true,
+    _busy = true;
+    _setOverlay(
+      QuranVerseAudioState(
+        activeChapterId: chapterId,
+        activeChapterName: display.chapterDisplayName,
+        activeVerseKey: '$chapterId:1',
+        activeVerseNumber: 1,
+        playbackMode: QuranAudioPlaybackMode.continuousChapter,
+        status: QuranVerseAudioStatus.loading,
+        sourceReady: state.sourceReady,
+        totalVerseCount: expectedVerseCount,
+      ),
     );
+    try {
+      await _loadAndPlayLocked(
+        chapterId: chapterId,
+        expectedVerseCount: expectedVerseCount,
+        verseNumber: 1,
+        mode: QuranAudioPlaybackMode.continuousChapter,
+        display: display,
+      );
+    } finally {
+      _busy = false;
+    }
   }
 
-  /// Panel tekrar dene: yalnız ilgili sure cache'i düşürülüp yeniden denenir.
+  /// Panel tekrar dene: yalnız ilgili (kâri, sure) cache'i düşürülüp
+  /// yeniden denenir — diğer kârilerin cache'i etkilenmez (TASK 049).
   Future<void> retryChapter({
     required int chapterId,
     required int expectedVerseCount,
+    required QuranAudioDisplayInfo display,
   }) async {
-    ref.read(quranAudioRepositoryProvider).invalidateChapter(chapterId);
-    _recitation = null;
+    final source = await _resolveSelectedSource();
+    ref
+        .read(quranAudioRepositoryProvider)
+        .invalidateChapter(chapterId, source.readId);
     await playChapter(
       chapterId: chapterId,
       expectedVerseCount: expectedVerseCount,
+      display: display,
     );
+  }
+
+  /// Seçili kâri kaynağı; tercih/katalog çözülemezse varsayılan read 5 —
+  /// mevcut davranış hiçbir koşulda bozulmaz (TASK 049).
+  Future<QuranRecitationSource> _resolveSelectedSource() async {
+    try {
+      return await ref.read(quranSelectedReciterProvider.future);
+    } on Object {
+      return ref.read(quranReciterCatalogRepositoryProvider).defaultSource;
+    }
   }
 
   /// Panel duraklat/devam (her iki modda çalışır).
@@ -330,49 +179,113 @@ final class QuranVerseAudioController extends Notifier<QuranVerseAudioState> {
     if (_busy) {
       return;
     }
-    _busy = true;
-    try {
-      final current = state;
-      final player = ref.read(quranVerseAudioPlayerProvider);
-      if (current.status == QuranVerseAudioStatus.playing) {
-        await player.pause();
-        state = _copyWithStatus(current, QuranVerseAudioStatus.paused);
-      } else if (current.status == QuranVerseAudioStatus.paused) {
-        await player.resume();
-        state = _copyWithStatus(current, QuranVerseAudioStatus.playing);
-      }
-    } finally {
-      _busy = false;
+    switch (state.status) {
+      case QuranVerseAudioStatus.playing:
+        return _guarded(_service.pause);
+      case QuranVerseAudioStatus.paused:
+        return _guarded(_service.resume);
+      case QuranVerseAudioStatus.idle ||
+          QuranVerseAudioStatus.loading ||
+          QuranVerseAudioStatus.error:
+        return;
     }
   }
 
-  /// Oynatmayı tamamen durdurur (panel).
+  /// Oynatmayı tamamen durdurur (panel) — sistem bildirimi de temizlenir.
   Future<void> stopPlayback() async {
     if (_busy) {
       return;
     }
     _busy = true;
     try {
-      await ref.read(quranVerseAudioPlayerProvider).stop();
-      state = QuranVerseAudioState(sourceReady: state.sourceReady);
+      _overlayActive = false;
+      await _service.stop();
+      state = _service.currentState;
     } finally {
       _busy = false;
     }
   }
 
-  /// Önceki/sonraki ayet (TASK 042): sınırlar dışında yok sayılır,
-  /// mevcut clip durdurulup yeni clip oynatılır, mod korunur.
+  /// Önceki/sonraki ayet (TASK 042): sınırlar dışında yok sayılır, mod
+  /// korunur; geçiş yarışlarını servisin komut jetonu yönetir.
   Future<void> skipToAdjacentVerse({required bool forward}) async {
     final current = state;
-    final verseNumber = current.activeVerseNumber;
-    if (verseNumber == null ||
+    if (current.activeVerseNumber == null ||
         (forward && !current.hasNext) ||
         (!forward && !current.hasPrevious)) {
       return;
     }
-    await _playVerseNumber(
-      forward ? verseNumber + 1 : verseNumber - 1,
-      mode: current.playbackMode ?? QuranAudioPlaybackMode.continuousChapter,
+    await (forward ? _service.skipToNext() : _service.skipToPrevious());
+  }
+
+  Future<void> _guarded(Future<void> Function() action) async {
+    _busy = true;
+    try {
+      await action();
+    } finally {
+      _busy = false;
+    }
+  }
+
+  /// Sureyi depodan hazırlar ve global serviste oynatmayı başlatır.
+  /// `_busy` kilidi çağıranda TÜM akış boyunca tutulur — hızlı art arda
+  /// dokunuşlar iki paralel yükleme/oynatma üretmez.
+  Future<void> _loadAndPlayLocked({
+    required int chapterId,
+    required int expectedVerseCount,
+    required int verseNumber,
+    required QuranAudioPlaybackMode mode,
+    required QuranAudioDisplayInfo display,
+  }) async {
+    final sourceReadyBefore = state.sourceReady;
+    // Yeni istek mevcut oturumu (başka sure dahil) önce durdurur.
+    await _service.stop();
+    // Seçili kâri (TASK 049): timing + MP3 bu kaynaktan yüklenir.
+    final source = await _resolveSelectedSource();
+    final result = await ref
+        .read(quranAudioRepositoryProvider)
+        .getChapterRecitation(chapterId, expectedVerseCount, source);
+    final recitation = result.fold(
+      onSuccess: (recitation) => recitation,
+      onFailure: (_) => null,
     );
+    final failAsChapter = mode == QuranAudioPlaybackMode.continuousChapter;
+    if (recitation == null || recitation.timingFor(verseNumber) == null) {
+      // Yükleme hatası ekranda kalır (servis boşta) — sonraki kullanıcı
+      // aksiyonu overlay'i değiştirir.
+      _setOverlay(
+        QuranVerseAudioState(
+          activeChapterId: chapterId,
+          activeChapterName: display.chapterDisplayName,
+          status: QuranVerseAudioStatus.error,
+          errorVerseKey: failAsChapter ? null : '$chapterId:$verseNumber',
+          chapterAudioFailed: failAsChapter,
+          sourceReady: sourceReadyBefore,
+        ),
+      );
+      return;
+    }
+    final request = QuranAudioSessionRequest(
+      recitation: recitation,
+      totalVerseCount: expectedVerseCount,
+      startVerseNumber: verseNumber,
+      // Bildirim/kilit ekranı/mini player SEÇİLEN kârinin doğrulanmış
+      // adını gösterir (TASK 049) — ekran etiketleri değil.
+      display: QuranAudioDisplayInfo(
+        chapterDisplayName: display.chapterDisplayName,
+        reciterName: source.reciterName,
+        rewayaName: source.rewayaName,
+        albumName: display.albumName,
+        verseOfLabel: display.verseOfLabel,
+      ),
+    );
+    // Servis devralıyor: ilk loading durumunu senkron yayınlar, sonrası
+    // (playing/paused/error/tamamlanma) akıştan gelir.
+    _overlayActive = false;
+    final playback = failAsChapter
+        ? _service.playContinuousChapter(request)
+        : _service.playSingleVerse(request);
+    state = _service.currentState;
+    await playback;
   }
 }

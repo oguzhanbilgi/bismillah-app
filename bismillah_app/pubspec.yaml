@@ -35,6 +35,7 @@ dependencies:
   just_audio: ^0.10.6
   audio_session: ^0.2.4
   http: ^1.6.0
+  audio_service: ^0.18.19
 
 dev_dependencies:
   flutter_test:
@@ -49,4 +50,6 @@ flutter:
   assets:
     - assets/quran/chapters_v1.json
     - assets/quran/verses_uthmani_v1.json
+    - assets/quran/verse_pages_v1.json
+    - assets/quran/search/quran_search_index_v1.json
     - assets/quran/translations/quranenc_turkish_rwwad_v1_0_4.json

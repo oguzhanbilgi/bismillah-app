@@ -23,6 +23,7 @@ class AppText extends StatelessWidget {
     this.token = AppTextStyleToken.body,
     this.secondary = false,
     this.textAlign,
+    this.maxLines,
   });
 
   final String text;
@@ -32,6 +33,10 @@ class AppText extends StatelessWidget {
   final bool secondary;
 
   final TextAlign? textAlign;
+
+  /// Satır sınırı; verildiğinde taşan metin ellipsis ile kırpılır
+  /// (dar alanlarda RenderFlex taşması yerine güvenli daralma).
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +53,12 @@ class AppText extends StatelessWidget {
       AppTextStyleToken.statLarge => AppTypography.statLarge,
     };
     final style = secondary ? base.copyWith(color: ext.textSecondary) : base;
-    return Text(text, style: style, textAlign: textAlign);
+    return Text(
+      text,
+      style: style,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
   }
 }

@@ -1,5 +1,9 @@
 package com.bismillah.app
 
-import io.flutter.embedding.android.FlutterActivity
+import com.ryanheise.audioservice.AudioServiceActivity
 
-class MainActivity : FlutterActivity()
+// TASK 045: audio_service, Flutter engine'ini media session'a bağlamak
+// için activity tabanının AudioServiceActivity olmasını ister. Önceki
+// FlutterActivity'nin özel davranışı yoktu; FragmentActivity gerektiren
+// eklenti de bulunmadığından AudioServiceFragmentActivity GEREKMEZ.
+class MainActivity : AudioServiceActivity()

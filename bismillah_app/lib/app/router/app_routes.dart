@@ -45,8 +45,13 @@ abstract final class AppRoutes {
   static const String quranChapter = '/quran/chapter';
 
   /// Belirli bir surenin okuyucu konumu: `/quran/chapter/:chapterId`.
-  static String quranChapterPath(int chapterId) =>
-      '$quranChapter/$chapterId';
+  static String quranChapterPath(int chapterId) => '$quranChapter/$chapterId';
+
+  /// Hedef ayete odaklı okuyucu konumu (TASK 048 arama sonucu):
+  /// `/quran/chapter/:chapterId?verse=:verseNumber` — aynı route, yeni
+  /// paralel reader route'u YOK.
+  static String quranChapterVersePath(int chapterId, int verseNumber) =>
+      '$quranChapter/$chapterId?verse=$verseNumber';
 
   /// Kaydedilen ayetler (TASK 038; Quran branch içinde push route).
   static const String quranBookmarks = '/quran/bookmarks';

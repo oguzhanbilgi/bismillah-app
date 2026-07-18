@@ -7,40 +7,39 @@ import 'package:bismillah_app/features/quran/domain/entities/quran_chapter_recit
 import 'package:bismillah_app/features/quran/domain/repositories/quran_audio_repository.dart';
 import 'package:http/http.dart' as http;
 
-/// MP3Quran tabanlı kıraat deposu (TASK 041).
+/// MP3Quran tabanlı kıraat deposu (TASK 041/049).
 ///
-/// Yalnız resmî HTTPS endpoint'leri kullanır (read 5 — Ahmed bin Ali
-/// el-Acemi, Hafs an Asım). JSON parse YALNIZ bu katmandadır; yanıtlar
-/// ve ayet zamanları LOGLANMAZ; Firebase/token/UID/analytics YOK.
-/// Read kaydı ve sure timing'leri oturum boyunca bellekte cache edilir.
+/// Yalnız resmî HTTPS endpoint'leri kullanır; TASK 049 ile KAYNAK
+/// BAĞIMSIZDIR — timing sorgusu seçilen kaynağın readId'siyle, MP3 URL'si
+/// kaynağın folder_url'siyle kurulur. JSON parse YALNIZ bu katmandadır;
+/// yanıtlar ve ayet zamanları LOGLANMAZ; Firebase/token/UID/analytics
+/// YOK. Sure timing'leri (readId, chapterId) anahtarıyla oturum boyunca
+/// bellekte cache edilir — kâri değişimi diğer kârilerin cache'ini bozmaz.
 final class Mp3QuranAudioRepository implements QuranAudioRepository {
   Mp3QuranAudioRepository({http.Client? client})
     : _client = client ?? http.Client();
 
-  static const int _readId = 5;
-  static const String _readsUrl =
-      'https://www.mp3quran.net/api/v3/ayat_timing/reads';
   static const Duration _timeout = Duration(seconds: 10);
 
   final http.Client _client;
 
-  QuranRecitationSource? _sourceCache;
-  final Map<int, QuranChapterRecitation> _chapterCache = {};
+  final Map<(int readId, int chapterId), QuranChapterRecitation> _chapterCache =
+      {};
 
   @override
   ResultFuture<QuranChapterRecitation> getChapterRecitation(
     int chapterId,
     int expectedVerseCount,
+    QuranRecitationSource source,
   ) async {
     if (chapterId < 1 || chapterId > 114 || expectedVerseCount < 1) {
       return const Result.failure(UnexpectedFailure());
     }
-    final cached = _chapterCache[chapterId];
+    final cached = _chapterCache[(source.readId, chapterId)];
     if (cached != null) {
       return Result.success(cached);
     }
     try {
-      final source = _sourceCache ??= await _fetchSource();
       final timings = await _fetchTimings(
         source,
         chapterId,
@@ -54,7 +53,7 @@ final class Mp3QuranAudioRepository implements QuranAudioRepository {
         source: source,
         verseTimings: timings,
       );
-      _chapterCache[chapterId] = recitation;
+      _chapterCache[(source.readId, chapterId)] = recitation;
       return Result.success(recitation);
     } on FormatException {
       return const Result.failure(UnexpectedFailure()); // sözleşme ihlali
@@ -66,8 +65,8 @@ final class Mp3QuranAudioRepository implements QuranAudioRepository {
   }
 
   @override
-  void invalidateChapter(int chapterId) {
-    _chapterCache.remove(chapterId);
+  void invalidateChapter(int chapterId, int readId) {
+    _chapterCache.remove((readId, chapterId));
   }
 
   Future<Object?> _getJson(Uri uri) async {
@@ -78,44 +77,9 @@ final class Mp3QuranAudioRepository implements QuranAudioRepository {
     return json.decode(utf8.decode(response.bodyBytes));
   }
 
-  /// Read 5 kaydını bulur ve doğrular: HTTPS folder_url + 114 sure.
-  Future<QuranRecitationSource> _fetchSource() async {
-    final decoded = await _getJson(Uri.parse(_readsUrl));
-    if (decoded is! List) {
-      throw const FormatException('reads yanıtı liste değil');
-    }
-    for (final raw in decoded) {
-      if (raw is! Map) {
-        continue;
-      }
-      if (raw['id'] != _readId) {
-        continue;
-      }
-      final name = raw['name'];
-      final rewaya = raw['rewaya'];
-      final folderUrl = raw['folder_url'];
-      final chapterCount = raw['soar_count'];
-      if (name is! String ||
-          rewaya is! String ||
-          folderUrl is! String ||
-          chapterCount is! int) {
-        throw const FormatException('read kaydı alanları eksik/bozuk');
-      }
-      // Entity kurucusu HTTPS ve 114 sure kapsamını doğrular.
-      return QuranRecitationSource(
-        readId: _readId,
-        reciterName: name,
-        rewayaName: rewaya,
-        folderUrl: folderUrl,
-        chapterCount: chapterCount,
-      );
-    }
-    throw const FormatException('read 5 kaydı bulunamadı');
-  }
-
-  /// Sure timing'lerini çeker ve doğrular: ayah=0 giriş kaydı eşlenmez;
-  /// 1..expectedVerseCount TÜM ayetler mevcut, duplicate'siz ve tutarlı
-  /// aralıklı olmalı.
+  /// Sure timing'lerini seçilen kaynaktan çeker ve doğrular: ayah=0 giriş
+  /// kaydı eşlenmez; 1..expectedVerseCount TÜM ayetler mevcut,
+  /// duplicate'siz ve tutarlı aralıklı olmalı.
   Future<List<QuranVerseTiming>> _fetchTimings(
     QuranRecitationSource source,
     int chapterId,
@@ -124,7 +88,7 @@ final class Mp3QuranAudioRepository implements QuranAudioRepository {
     final decoded = await _getJson(
       Uri.parse(
         'https://www.mp3quran.net/api/v3/ayat_timing'
-        '?surah=$chapterId&read=$_readId',
+        '?surah=$chapterId&read=${source.readId}',
       ),
     );
     if (decoded is! List) {
