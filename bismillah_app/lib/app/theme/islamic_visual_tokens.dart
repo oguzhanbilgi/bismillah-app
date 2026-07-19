@@ -28,6 +28,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
     required this.geometricPatternOpacity,
     required this.heroGradientStart,
     required this.heroGradientEnd,
+    required this.sandSurface,
+    required this.sageSurface,
+    required this.sectionSurface,
+    required this.surfaceBorder,
+    required this.nightCalm,
   });
 
   /// Ayet/meal gibi kutsal içeriğin oturduğu TEMİZ yüzey — arkasına yoğun
@@ -64,11 +69,41 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
   final Color heroGradientStart;
   final Color heroGradientEnd;
 
+  // ---------------------------------------------------------------------
+  // Sıcak yüzey ailesi (TASK 054)
+  //
+  // Amaç: art arda dizilen aynı beyaz kart hissini kırmak. Kartlar rolüne
+  // göre farklı tonal aileden yüzey alır; hepsine ağır gölge VERİLMEZ.
+  // ---------------------------------------------------------------------
+
+  /// Sıcak kum yüzeyi — karşılama/devam ettirme gibi davetkâr kartlar.
+  final Color sandSurface;
+
+  /// Sakin adaçayı yüzeyi — Kur'an ve manevi bölümler.
+  final Color sageSurface;
+
+  /// Ekran içi tonal bölüm zemini (kart değil, grup ayracı).
+  final Color sectionSurface;
+
+  /// Gölge yerine çizgiyle ayrılan kart varyantının kenar rengi.
+  final Color surfaceBorder;
+
+  /// Kontrollü gece laciverti — sakin derinlik vurgusu (neon değil).
+  final Color nightCalm;
+
   /// Hero alanlarında görsel yoksa kullanılan güvenli gradient fallback.
   LinearGradient get heroGradient => LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [heroGradientStart, heroGradientEnd],
+  );
+
+  /// Kur'an bölümleri için sıcak, düşük kontrastlı tonal gradient.
+  /// Hero gradient'inden DAHA AÇIKTIR: üzerine koyu metin gelir.
+  LinearGradient get warmSectionGradient => LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [sandSurface, sageSurface],
   );
 
   static const IslamicVisualTokens _light = IslamicVisualTokens(
@@ -85,6 +120,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
     geometricPatternOpacity: 0.05,
     heroGradientStart: AppColors.heroGradientStartLight,
     heroGradientEnd: AppColors.heroGradientEndLight,
+    sandSurface: AppColors.sandSurfaceLight,
+    sageSurface: AppColors.sageSurfaceLight,
+    sectionSurface: AppColors.sectionSurfaceLight,
+    surfaceBorder: AppColors.surfaceBorderLight,
+    nightCalm: AppColors.nightCalmLight,
   );
 
   static const IslamicVisualTokens _dark = IslamicVisualTokens(
@@ -102,6 +142,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
     geometricPatternOpacity: 0.07,
     heroGradientStart: AppColors.heroGradientStartDark,
     heroGradientEnd: AppColors.heroGradientEndDark,
+    sandSurface: AppColors.sandSurfaceDark,
+    sageSurface: AppColors.sageSurfaceDark,
+    sectionSurface: AppColors.sectionSurfaceDark,
+    surfaceBorder: AppColors.surfaceBorderDark,
+    nightCalm: AppColors.nightCalmDark,
   );
 
   static IslamicVisualTokens light() => _light;
@@ -129,6 +174,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
     double? geometricPatternOpacity,
     Color? heroGradientStart,
     Color? heroGradientEnd,
+    Color? sandSurface,
+    Color? sageSurface,
+    Color? sectionSurface,
+    Color? surfaceBorder,
+    Color? nightCalm,
   }) {
     return IslamicVisualTokens(
       sacredSurface: sacredSurface ?? this.sacredSurface,
@@ -145,6 +195,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
           geometricPatternOpacity ?? this.geometricPatternOpacity,
       heroGradientStart: heroGradientStart ?? this.heroGradientStart,
       heroGradientEnd: heroGradientEnd ?? this.heroGradientEnd,
+      sandSurface: sandSurface ?? this.sandSurface,
+      sageSurface: sageSurface ?? this.sageSurface,
+      sectionSurface: sectionSurface ?? this.sectionSurface,
+      surfaceBorder: surfaceBorder ?? this.surfaceBorder,
+      nightCalm: nightCalm ?? this.nightCalm,
     );
   }
 
@@ -200,6 +255,11 @@ class IslamicVisualTokens extends ThemeExtension<IslamicVisualTokens> {
         t,
       )!,
       heroGradientEnd: Color.lerp(heroGradientEnd, other.heroGradientEnd, t)!,
+      sandSurface: Color.lerp(sandSurface, other.sandSurface, t)!,
+      sageSurface: Color.lerp(sageSurface, other.sageSurface, t)!,
+      sectionSurface: Color.lerp(sectionSurface, other.sectionSurface, t)!,
+      surfaceBorder: Color.lerp(surfaceBorder, other.surfaceBorder, t)!,
+      nightCalm: Color.lerp(nightCalm, other.nightCalm, t)!,
     );
   }
 }

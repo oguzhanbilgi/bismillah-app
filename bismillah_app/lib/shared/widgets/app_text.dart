@@ -24,6 +24,7 @@ class AppText extends StatelessWidget {
     this.secondary = false,
     this.textAlign,
     this.maxLines,
+    this.color,
   });
 
   final String text;
@@ -37,6 +38,12 @@ class AppText extends StatelessWidget {
   /// Satır sınırı; verildiğinde taşan metin ellipsis ile kırpılır
   /// (dar alanlarda RenderFlex taşması yerine güvenli daralma).
   final int? maxLines;
+
+  /// Token renklerini geçersiz kılan açık renk (TASK 054). Yalnız
+  /// `IslamicVisualTokens` gibi TEMA kaynaklarından beslenmelidir —
+  /// widget içinde hex renk üretmek yasaktır. [secondary] ile birlikte
+  /// verilirse bu kazanır.
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,10 @@ class AppText extends StatelessWidget {
       AppTextStyleToken.stat => AppTypography.stat,
       AppTextStyleToken.statLarge => AppTypography.statLarge,
     };
-    final style = secondary ? base.copyWith(color: ext.textSecondary) : base;
+    final effectiveColor = color ?? (secondary ? ext.textSecondary : null);
+    final style = effectiveColor == null
+        ? base
+        : base.copyWith(color: effectiveColor);
     return Text(
       text,
       style: style,

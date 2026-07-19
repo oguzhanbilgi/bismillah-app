@@ -1,17 +1,23 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/app/theme/app_typography.dart';
 import 'package:bismillah_app/shared/islamic/mosque_silhouette.dart';
 import 'package:bismillah_app/shared/islamic/spiritual_hero_card.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 
-/// Today manevi hero alanı (TASK 052).
+/// Today manevi hero alanı (TASK 052; görsel dil TASK 054).
 ///
 /// Ton: umut verici, kapsayıcı, yargılamayan. Metinler ayet/hadis DEĞİLDİR;
 /// tırnak içine alınmaz, kaynak etiketi verilmez, dinî hüküm veya vaat
 /// içermez (bkz. `docs/12_ISLAMIC_VISUAL_IDENTITY.md`).
 ///
-/// Kompakt tutulur: namaz kartlarını ekranın çok aşağısına itmez.
+/// TASK 054: tek nokta silueti yerine ALT banda oturan cami ufku kullanılır
+/// — siluet metnin arkasında yüzen bir leke değil, kompozisyonun zeminidir.
+/// Başlık h1'e yükseltilir (hero ekranın en karakterli metnidir).
+///
+/// Kompakt tutulur: namaz kartlarını ekranın çok aşağısına itmez — sıradaki
+/// namaz ilk viewport'ta görünür kalmalıdır.
 class TodaySpiritualHero extends StatelessWidget {
   const TodaySpiritualHero({super.key, this.onSeeTodaysPlan});
 
@@ -28,8 +34,14 @@ class TodaySpiritualHero extends StatelessWidget {
         title: l10n.todayHeroTitle,
         description: l10n.todayHeroBody,
         semanticLabel: l10n.todayHeroTitle,
-        // Dekoratif siluet — semantics ve dokunma dışıdır.
-        decorativeLayer: const MosqueSilhouette(),
+        titleStyle: AppTypography.h1,
+        // Dekoratif ufuk — semantics ve dokunma dışıdır. Alt banda hizalanır
+        // ve yüksekliği sınırlıdır: büyük metin ölçeğinde metnin üstüne
+        // binmez, kompozisyonun zemininde kalır.
+        decorativeLayer: const Align(
+          alignment: Alignment.bottomCenter,
+          child: SizedBox(height: 64, child: MosqueHorizonIllustration()),
+        ),
         action: onSeeTodaysPlan == null
             ? null
             : AppButton(

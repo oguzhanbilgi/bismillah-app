@@ -46,10 +46,14 @@ class ReferencedVerseCard extends StatelessWidget {
     final tokens = IslamicVisualTokens.of(context);
     final ext = AppThemeExtension.of(context);
 
+    // TASK 054: kutsal içerik kabı diğer kartlardan GÖRSEL OLARAK ayrışır —
+    // sıcak yüzey + belirgin kenarlık, gölge ise hafifletilir. Zemin hâlâ
+    // DÜZ renktir: ayetin arkasına desen/görsel konmaz.
     return DecoratedBox(
       decoration: BoxDecoration(
         color: tokens.verseCardSurface,
         borderRadius: AppRadius.lgAll,
+        border: Border.all(color: tokens.surfaceBorder),
         boxShadow: ext.cardShadow,
       ),
       child: Padding(
@@ -63,14 +67,19 @@ class ReferencedVerseCard extends StatelessWidget {
               token: AppTextStyleToken.caption,
               secondary: true,
             ),
-            const SizedBox(height: AppSpacing.s3),
-            // Arapça metin — RTL, kırpma YOK.
+            const SizedBox(height: AppSpacing.s4),
+            // Arapça metin — RTL, kırpma YOK. Kendi yönünde hizalanır.
             Directionality(
               textDirection: TextDirection.rtl,
               child: AppText(arabicText, token: AppTextStyleToken.h3),
             ),
             if (translation != null) ...[
+              // Ayet ile meal arasında NET boşluk + ince ayraç: iki metin
+              // birbirine karışmaz, meal ayetin devamı gibi okunmaz.
+              const SizedBox(height: AppSpacing.s5),
+              Divider(color: tokens.surfaceBorder, height: 1),
               const SizedBox(height: AppSpacing.s4),
+              // Meal KENDİ dilinin yönünde kalır (Türkçe/İngilizce LTR).
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: AppText(

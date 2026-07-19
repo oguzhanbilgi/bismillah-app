@@ -60,20 +60,25 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
             AppSectionHeader(title: l10n.todayGreeting),
             // 1) Manevi hero — kompakt; namaz kartlarını gizlemez.
             TodaySpiritualHero(onSeeTodaysPlan: _scrollToPrayerSection),
-            // 2) Namaz durumu + sıradaki namaz (ana odak).
-            TodayPrayerSummaryCard(
+            // 2) Sıradaki namaz ÖNCE gelir (TASK 054): Today'in en somut
+            // sorusu "şimdi ne var?" — hero'nun hemen altında, ilk
+            // viewport'ta görünür. Günlük özet onu destekler.
+            TodayNextPrayerCard(
               key: _prayerSectionKey,
-              state: value,
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
             const SizedBox(height: AppSpacing.s4),
-            TodayNextPrayerCard(
+            TodayPrayerSummaryCard(
+              state: value,
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
             const SizedBox(height: AppSpacing.s4),
             // 3) Bugünün Ayeti — kaynaklı, deterministik.
             const TodayDailyVerseCard(),
-            // 4) Bugünkü Kur'an merkezi.
+            // 4) "Bugünkü yolculuğun": Kur'an merkezi, kişisel öneri ve
+            // haftalık ritim tek anlamlı grup altında toplanır — ekran
+            // bağlantısız kart yığını gibi okunmaz.
+            AppSectionHeader(title: l10n.todayJourneyTitle),
             const TodayQuranCenterCard(),
             // 5) Kişiselleştirilmiş öneri — kart gizliyken kendi alt
             // boşluğunu da gizler (kartlar arası boşluk sabit kalır).

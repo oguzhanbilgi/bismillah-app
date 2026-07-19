@@ -28,10 +28,16 @@ class SpiritualHeroCard extends StatelessWidget {
     this.showPattern = true,
     this.decorativeLayer,
     this.onTap,
+    this.titleStyle,
   });
 
   /// Kartın başlığı — daima localization'dan gelir.
   final String title;
+
+  /// Başlık stilini güçlendirmek için opsiyonel override (TASK 054).
+  /// Renk verilmezse beyaza zorlanır — gradient üzerinde okunabilirlik
+  /// çağırana bırakılmaz.
+  final TextStyle? titleStyle;
 
   final String? description;
 
@@ -105,7 +111,9 @@ class SpiritualHeroCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTypography.h2.copyWith(color: Colors.white),
+                  style: (titleStyle ?? AppTypography.h2).copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 if (description != null) ...[
                   const SizedBox(height: AppSpacing.s2),

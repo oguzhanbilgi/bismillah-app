@@ -240,6 +240,14 @@ final class AppLocalizations {
   String get quranSetupBack => _t('quranSetupBack');
   String get quranSetupContinue => _t('quranSetupContinue');
   String get quranSetupFinishCta => _t('quranSetupFinishCta');
+  // Kur'an ana ekranı sıcak hero'su (TASK 054). Bu ifadeler AYET VEYA
+  // HADİS DEĞİLDİR: tırnak içine alınmaz, kaynak etiketi verilmez.
+  String get quranHomeHeroTitle => _t('quranHomeHeroTitle');
+  String get quranHomeHeroBody => _t('quranHomeHeroBody');
+  String get quranHomeContinueCta => _t('quranHomeContinueCta');
+  String get todayJourneyTitle => _t('todayJourneyTitle');
+  String get todayKeepGoingHint => _t('todayKeepGoingHint');
+
   String get quranResumeTitle => _t('quranResumeTitle');
   String get quranResumeEmpty => _t('quranResumeEmpty');
   String get quranSurahsSection => _t('quranSurahsSection');
@@ -588,6 +596,11 @@ final class AppLocalizations {
       'quranSetupBack': 'Geri',
       'quranSetupContinue': 'Devam et',
       'quranSetupFinishCta': "Kur'an deneyimimi hazırla",
+      'quranHomeHeroTitle': 'Kur\'an ile yeniden buluş',
+      'quranHomeHeroBody': 'Kaldığın yerden sakince devam et.',
+      'quranHomeContinueCta': 'Okumaya devam et',
+      'todayJourneyTitle': 'Bugünkü yolculuğun',
+      'todayKeepGoingHint': 'Küçük bir adımla devam et',
       'quranResumeTitle': 'Kaldığın yerden devam et',
       'quranResumeEmpty': 'İlk okumanda kaldığın yer burada görünecek.',
       'quranSurahsSection': 'Sureler',
@@ -875,6 +888,11 @@ final class AppLocalizations {
       'quranSetupBack': 'Back',
       'quranSetupContinue': 'Continue',
       'quranSetupFinishCta': 'Prepare my Quran experience',
+      'quranHomeHeroTitle': 'Return to the Quran',
+      'quranHomeHeroBody': 'Continue gently from where you left off.',
+      'quranHomeContinueCta': 'Continue reading',
+      'todayJourneyTitle': 'Today’s journey',
+      'todayKeepGoingHint': 'Keep going with one small step',
       'quranResumeTitle': 'Continue where you left off',
       'quranResumeEmpty':
           'Where you left off will appear here after your first reading.',
@@ -1153,6 +1171,11 @@ final class AppLocalizations {
       'quranSetupBack': 'رجوع',
       'quranSetupContinue': 'متابعة',
       'quranSetupFinishCta': 'جهّز تجربتي مع القرآن',
+      'quranHomeHeroTitle': 'عُد إلى القرآن',
+      'quranHomeHeroBody': 'تابع بهدوء من حيث توقفت',
+      'quranHomeContinueCta': 'متابعة القراءة',
+      'todayJourneyTitle': 'رحلتك اليوم',
+      'todayKeepGoingHint': 'واصل بخطوة صغيرة',
       'quranResumeTitle': 'تابع من حيث توقفت',
       'quranResumeEmpty': 'سيظهر هنا موضع توقفك بعد قراءتك الأولى.',
       'quranSurahsSection': 'السور',

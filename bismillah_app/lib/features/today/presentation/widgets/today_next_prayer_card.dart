@@ -6,7 +6,6 @@ import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.d
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
 import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
-import 'package:bismillah_app/shared/widgets/app_badge.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
@@ -65,13 +64,38 @@ class TodayNextPrayerCard extends ConsumerWidget {
       // Beş vakit de geçti — sakin bitiş mesajı (yarın hesaplanmaz).
       return _message(l10n, l10n.todayNextPrayerAllDone);
     }
+    // TASK 054: saat ve vakit adı tek bir güçlü hiyerarşide birleşir —
+    // saat en büyük öğedir (statLarge), vakit adı hemen altında sakin bir
+    // destekleyici satırdır. Kart artık düz beyaz kutu değil, sıcak kum
+    // yüzeyidir; "sıradaki namaz" Today'in ana işlevlerinden biri olarak
+    // görsel ağırlığını korur.
     return _card(
       title: l10n.todayNextPrayerTitle,
-      trailing: AppBadge(label: _prayerLabel(l10n, next.name), emphasized: true),
+      variant: AppCardVariant.sand,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText(_formatLocal(next.instant), token: AppTextStyleToken.stat),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      _formatLocal(next.instant),
+                      token: AppTextStyleToken.statLarge,
+                    ),
+                    AppText(
+                      _prayerLabel(l10n, next.name),
+                      token: AppTextStyleToken.h3,
+                      secondary: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: AppSpacing.s5),
           AppButton(
             label: l10n.todayGoToPrayers,
@@ -100,8 +124,14 @@ class TodayNextPrayerCard extends ConsumerWidget {
     ),
   );
 
-  Widget _card({required String title, Widget? trailing, required Widget child}) {
+  Widget _card({
+    required String title,
+    Widget? trailing,
+    required Widget child,
+    AppCardVariant variant = AppCardVariant.elevated,
+  }) {
     return AppCard(
+      variant: variant,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

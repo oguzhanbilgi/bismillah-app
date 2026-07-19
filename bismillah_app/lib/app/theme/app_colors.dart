@@ -42,7 +42,9 @@ abstract final class AppColors {
   // ---------------------------------------------------------------------------
 
   // Açık tema
-  static const Color sacredSurfaceLight = Color(0xFFFFFFFF);
+  // Saf beyaz DEĞİL (TASK 054): kâğıt hissi veren çok hafif sıcak kırık
+  // beyaz — kontrastı düşürmez, "jenerik beyaz kart" hissini kırar.
+  static const Color sacredSurfaceLight = Color(0xFFFDFBF7);
   static const Color sacredSurfaceMutedLight = Color(0xFFF6F2EA);
   static const Color spiritualGreenLight = primary;
   static const Color spiritualGreenStrongLight = primaryDark;
@@ -58,6 +60,26 @@ abstract final class AppColors {
   static const Color heroGradientStartLight = Color(0xFF0B6E4F);
   static const Color heroGradientEndLight = Color(0xFF08503A);
 
+  // Sıcak yüzey katmanı (TASK 054) — beyaz kart monotonluğunu kırar.
+  // Kartlar artık tek bir "surface" yerine üç tonal aileden birini kullanır:
+  // kum (sıcak/karşılama), adaçayı (sakin/manevi) ve düz surface.
+
+  /// Sıcak kum yüzeyi — karşılama ve devam ettirme kartları.
+  static const Color sandSurfaceLight = Color(0xFFF6EFE3);
+
+  /// Sakin adaçayı yüzeyi — Kur'an ve manevi bölümler.
+  static const Color sageSurfaceLight = Color(0xFFE8F0EA);
+
+  /// Tonal bölüm zemini — ekran içi grupları ayırır (kart DEĞİL).
+  static const Color sectionSurfaceLight = Color(0xFFF4F0E8);
+
+  /// Border'lı kart varyantının kenar rengi — gölge yerine çizgi.
+  static const Color surfaceBorderLight = Color(0xFFE4DDD0);
+
+  /// Kontrollü gece laciverti — akşam/yatsı hissi ve derinlik vurgusu.
+  /// Neon veya parlak DEĞİLDİR; yalnız sakin kontrast içindir.
+  static const Color nightCalmLight = Color(0xFF23384A);
+
   // Koyu tema karşılıkları (AppTheme.dark() V2'de bağlanacak; token'lar hazır)
   static const Color sacredSurfaceDark = Color(0xFF161D1A);
   static const Color sacredSurfaceMutedDark = Color(0xFF1E2622);
@@ -69,6 +91,14 @@ abstract final class AppColors {
   static const Color verseCardSurfaceDark = Color(0xFF17201C);
   static const Color heroGradientStartDark = Color(0xFF0A3D2C);
   static const Color heroGradientEndDark = Color(0xFF06251B);
+
+  // Sıcak yüzey katmanının koyu karşılıkları (TASK 054): koyu temada
+  // "sıcaklık" parlaklıkla değil, hafif kırmızı/sarı kayması ile verilir.
+  static const Color sandSurfaceDark = Color(0xFF221E19);
+  static const Color sageSurfaceDark = Color(0xFF17231D);
+  static const Color sectionSurfaceDark = Color(0xFF141A17);
+  static const Color surfaceBorderDark = Color(0xFF2C3531);
+  static const Color nightCalmDark = Color(0xFF9DB4C6);
 
   /// Görsel üzerine metin okunabilirliği için scrim'ler (her iki temada da
   /// aynı amaçla kullanılır; alfa değeri kontrastı garanti eder).

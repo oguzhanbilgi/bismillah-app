@@ -27,7 +27,11 @@ class TodayPrayerSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    // TASK 054: sıradaki namaz kartı (kum, dolu yüzey) ana odaktır; bu özet
+    // onu DESTEKLER — gölgesiz border'lı varyantla bir adım geri çekilir ve
+    // iki kart art arda aynı beyaz kutu gibi görünmez. Ton baskı kurmaz.
     return AppCard(
+      variant: AppCardVariant.outlined,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

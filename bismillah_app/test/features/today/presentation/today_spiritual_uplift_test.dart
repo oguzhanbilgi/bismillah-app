@@ -114,25 +114,25 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('cami silueti semantics ağacına girmez', (tester) async {
+    testWidgets('cami ufku semantics ağacına girmez', (tester) async {
       final semantics = tester.ensureSemantics();
       await tester.pumpWidget(host(const TodaySpiritualHero()));
       await tester.pumpAndSettle();
 
-      expect(find.byType(MosqueSilhouette), findsOneWidget);
+      expect(find.byType(MosqueHorizonIllustration), findsOneWidget);
       // Siluet dekoratiftir: kendi düğümü yoktur, hero etiketi tek anlamdır.
       final node = tester.getSemantics(find.byType(SpiritualHeroCard));
       expect(node.label, contains('Bugün yeniden başlayabilirsin'));
       expect(
         find.descendant(
-          of: find.byType(MosqueSilhouette),
+          of: find.byType(MosqueHorizonIllustration),
           matching: find.byType(ExcludeSemantics),
         ),
         findsOneWidget,
       );
       expect(
         find.descendant(
-          of: find.byType(MosqueSilhouette),
+          of: find.byType(MosqueHorizonIllustration),
           matching: find.byType(IgnorePointer),
         ),
         findsOneWidget,
