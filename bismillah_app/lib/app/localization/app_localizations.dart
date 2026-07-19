@@ -38,6 +38,15 @@ final class AppLocalizations {
 
   // Placeholder ekran metinleri
   String get placeholderComingSoon => _t('placeholderComingSoon');
+
+  // Learn sıcak giriş (TASK 055). Bu ifadeler AYET/HADİS DEĞİLDİR:
+  // tırnak içine alınmaz, kaynak etiketi verilmez, dini vaat içermez.
+  String get learnHeroTitle => _t('learnHeroTitle');
+  String get learnHeroBody => _t('learnHeroBody');
+  String get learnExploreSection => _t('learnExploreSection');
+
+  // Profile ayar grubu başlığı (TASK 055).
+  String get profileSettingsSection => _t('profileSettingsSection');
   String get onboardingTitle => _t('onboardingTitle');
 
   // Onboarding karşılama + hedef seçimi (TASK 026 — ton: sakin, davetkâr;
@@ -433,6 +442,10 @@ final class AppLocalizations {
       'assistantFabLabel': 'Bismillah Asistanı',
       'assistantTitle': 'Bismillah Asistanı',
       'placeholderComingSoon': 'Bu bölüm hazırlanıyor.',
+      'learnHeroTitle': 'Bilgini sakince derinleştir',
+      'learnHeroBody': 'Bugün küçük bir konuyla başlayabilirsin',
+      'learnExploreSection': 'Keşfetmeye devam et',
+      'profileSettingsSection': 'Ayarlar',
       'onboardingTitle': 'Hoş geldin',
       'onboardingWelcomeEyebrow': 'Her güne Bismillah',
       'onboardingWelcomeTitle':
@@ -723,6 +736,10 @@ final class AppLocalizations {
       'assistantFabLabel': 'Bismillah Assistant',
       'assistantTitle': 'Bismillah Assistant',
       'placeholderComingSoon': 'This section is being prepared.',
+      'learnHeroTitle': 'Deepen your knowledge gently',
+      'learnHeroBody': 'You can begin with one small topic today',
+      'learnExploreSection': 'Continue exploring',
+      'profileSettingsSection': 'Settings',
       'onboardingTitle': 'Welcome',
       'onboardingWelcomeEyebrow': 'Bismillah for every day',
       'onboardingWelcomeTitle': 'Grow your worship calmly and consistently.',
@@ -1019,6 +1036,10 @@ final class AppLocalizations {
       'assistantFabLabel': 'مساعد Bismillah',
       'assistantTitle': 'مساعد Bismillah',
       'placeholderComingSoon': 'هذا القسم قيد التجهيز.',
+      'learnHeroTitle': 'عمّق معرفتك بهدوء',
+      'learnHeroBody': 'يمكنك أن تبدأ اليوم بموضوع صغير',
+      'learnExploreSection': 'واصل الاستكشاف',
+      'profileSettingsSection': 'الإعدادات',
       'onboardingTitle': 'أهلاً بك',
       'onboardingWelcomeEyebrow': 'بسم الله لكل يوم',
       'onboardingWelcomeTitle': 'طوّر عباداتك بهدوء وانتظام.',
