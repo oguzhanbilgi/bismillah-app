@@ -71,6 +71,40 @@ enum LearningSectionType {
   practicalAction,
 }
 
+/// Doğrulamayı KİM yaptı (TASK 056A §2).
+enum VerifiedBy {
+  /// Editoryal inceleme: kaynak gövdesi okunup iddialarla karşılaştırıldı.
+  editorialReview,
+
+  /// Yalnız otomatik kaynak kontrolü (ör. URL/alan adı) — ZAYIFTIR.
+  automatedSourceCheck,
+
+  /// Yetkin ilmî inceleme.
+  scholarlyReview,
+}
+
+/// Doğrulama YÖNTEMİ (TASK 056A §2).
+///
+/// [urlExistenceCheck] bilinçli olarak EN ZAYIF yöntemdir: bir adresin var
+/// olması, o adresteki metnin makaledeki dinî iddiayı desteklediği anlamına
+/// GELMEZ. Yayın kapısı bu yöntemi tek başına KABUL ETMEZ.
+enum VerificationMethod {
+  /// Yalnız URL/alan adı kontrolü — yayın için YETERSİZ.
+  urlExistenceCheck,
+
+  /// Kaynak gövdesi okundu ve iddialarla karşılaştırıldı.
+  sourceBodyReview,
+
+  /// Resmî belgeden birebir konum/alıntı ile doğrulandı.
+  officialDocumentQuote,
+
+  /// Yetkin ilmî inceleme ile doğrulandı.
+  scholarlyReview;
+
+  /// Yayın kapısı: URL varlığı kontrolünden GÜÇLÜ mü?
+  bool get isStrongerThanUrlCheck => this != VerificationMethod.urlExistenceCheck;
+}
+
 /// İçeriğin dil durumu (TASK 056 §6).
 ///
 /// Türkçe resmî kaynak ASIL referanstır; İngilizce/Arapça metinler bu

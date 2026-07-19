@@ -1,3 +1,4 @@
+import 'package:bismillah_app/features/learn/domain/entities/source_verification.dart';
 import 'package:bismillah_app/features/learn/domain/value_objects/knowledge_enums.dart';
 
 /// Tip güvenli içerik bloğu (TASK 056 §3).
@@ -70,6 +71,7 @@ final class LearningArticle {
     this.requiresQualifiedGuidance = false,
     this.guidanceMessage,
     this.officialQuestionUrl,
+    this.verification,
   }) : sections = List.unmodifiable(sections),
        keywords = List.unmodifiable(keywords),
        sourceIds = List.unmodifiable(sourceIds),
@@ -95,7 +97,14 @@ final class LearningArticle {
     if (this.sections.isEmpty) {
       throw ArgumentError.value(id, 'id', 'Bölümsüz içerik oluşturulamaz');
     }
-    // "No source, no render": yayınlanan içerik kaynaksız olamaz.
+    // ---------------------------------------------------------------
+    // YAYIN KAPISI (TASK 056A §3)
+    //
+    // Bir içerik ancak kaynak GÖVDESİ doğrulanmışsa yayınlanabilir.
+    // Yalnız URL/alan adı kontrolü YETMEZ — TASK 056'da tam olarak bu
+    // hata yapılmıştı. Kural burada, domain kurucusunda zorlanır: geçersiz
+    // bir "published" nesne HİÇ oluşturulamaz.
+    // ---------------------------------------------------------------
     if (reviewStatus == ReviewStatus.published) {
       if (this.sourceIds.isEmpty) {
         throw ArgumentError.value(
@@ -109,6 +118,32 @@ final class LearningArticle {
           id,
           'id',
           'Yayınlanan içerik reviewedAt taşımalıdır',
+        );
+      }
+      final verification = this.verification;
+      if (verification == null) {
+        throw ArgumentError.value(
+          id,
+          'id',
+          'Yayınlanan içerik kaynak doğrulama kaydı taşımalıdır',
+        );
+      }
+      if (!verification.satisfiesPublicationGate) {
+        throw ArgumentError.value(
+          id,
+          'id',
+          'Yayın kapısı reddetti: kaynak gövdesi doğrulanmamış veya '
+              'locator/evidenceSummary/verifiedAt eksik ya da doğrulama '
+              'yöntemi URL kontrolünden güçlü değil',
+        );
+      }
+      // Doğrulama, içeriğin GERÇEKTEN atıf yaptığı bir kaynağa dayanmalı.
+      if (!this.sourceIds.contains(verification.sourceId)) {
+        throw ArgumentError.value(
+          id,
+          'id',
+          'Doğrulama kaydı içeriğin kaynakları arasında olmayan bir '
+              'kaynağa dayanıyor: ${verification.sourceId}',
         );
       }
     }
@@ -158,6 +193,12 @@ final class LearningArticle {
 
   /// Resmî soru sorma sayfası — alan adı doğrulamasından geçer.
   final String? officialQuestionUrl;
+
+  /// Kaynak gövdesi doğrulama kaydı (TASK 056A). Yayın için ZORUNLUDUR.
+  final SourceVerification? verification;
+
+  /// Kaynak metni gerçekten okunup iddialarla karşılaştırıldı mı?
+  bool get isSourceBodyVerified => verification?.sourceBodyVerified ?? false;
 
   bool get isPublished => reviewStatus == ReviewStatus.published;
 }

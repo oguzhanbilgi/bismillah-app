@@ -96,14 +96,16 @@ void main() {
     });
 
     test('slug ile içerik çözülür ve bölümleri taşır', () async {
+      // Kaynak gövdesi DOĞRULANMIŞ bir makale seçilir (TASK 056A).
       final result = await repository.getArticleBySlug(
         'tr',
-        'abdest-nasil-alinir',
+        'abdesti-bozan-durumlar',
       );
       final article = result.valueOrNull;
 
       expect(article, isNotNull);
-      expect(article!.title, 'Abdest nasıl alınır?');
+      expect(article!.title, 'Abdesti bozan durumlar');
+      expect(article.isSourceBodyVerified, isTrue);
       expect(article.sections, isNotEmpty);
       expect(article.sourceIds, isNotEmpty);
       expect(article.isPublished, isTrue);
@@ -118,26 +120,25 @@ void main() {
     });
 
     test('başlık ve alias üzerinden arama çalışır', () async {
-      // Başlık.
+      // Başlık (yalnız yayınlanmış = doğrulanmış içerik aranır).
       final byTitle = (await repository.search('tr', 'abdest')).valueOrNull;
       expect(byTitle, isNotEmpty);
-      expect(byTitle!.any((a) => a.slug == 'abdest-nasil-alinir'), isTrue);
+      expect(byTitle!.any((a) => a.slug == 'abdesti-bozan-durumlar'), isTrue);
 
-      // Alias/keyword: "aptes" yazımı da bulmalı.
-      final byAlias = (await repository.search('tr', 'aptes')).valueOrNull;
-      expect(byAlias!.any((a) => a.slug == 'abdest-nasil-alinir'), isTrue);
+      // Alias/keyword üzerinden eşleşme.
+      final byAlias = (await repository.search(
+        'tr',
+        'toprakla abdest',
+      )).valueOrNull;
+      expect(byAlias!.any((a) => a.slug == 'teyemmum-nedir'), isTrue);
 
-      // Türkçe normalizasyon: "gusul" → "Gusül".
-      final byFolded = (await repository.search('tr', 'gusul')).valueOrNull;
-      expect(byFolded!.any((a) => a.slug == 'gusul-nasil-alinir'), isTrue);
+      // Türkçe normalizasyon: "sehadet" → "Kelime-i şehadet".
+      final byFolded = (await repository.search('tr', 'sehadet')).valueOrNull;
+      expect(byFolded!.any((a) => a.slug == 'kelime-i-sehadet'), isTrue);
 
       // Kesme işareti: "kuran" → "Kur'an nedir?".
       final byQuran = (await repository.search('tr', 'kuran')).valueOrNull;
       expect(byQuran!.any((a) => a.slug == 'kuran-nedir'), isTrue);
-
-      // "tövbe" yazımı "tevbe" içeriğini bulur.
-      final byTawba = (await repository.search('tr', 'tövbe')).valueOrNull;
-      expect(byTawba!.any((a) => a.slug == 'tevbe-ve-umit'), isTrue);
     });
 
     test('kategori adı üzerinden de aranabilir', () async {
@@ -158,13 +159,13 @@ void main() {
     test('Arapça locale Arapça içerik döner', () async {
       final article = (await repository.getArticleBySlug(
         'ar',
-        'kayfa-yutawadda',
+        'ma-hu-al-tayammum',
       )).valueOrNull;
 
       expect(article, isNotNull);
-      expect(article!.title, 'كيف يُتوضّأ؟');
+      expect(article!.title, 'ما هو التيمم؟');
       // Arapça arama da çalışır.
-      final results = (await repository.search('ar', 'الوضوء')).valueOrNull;
+      final results = (await repository.search('ar', 'التيمم')).valueOrNull;
       expect(results, isNotEmpty);
     });
 
@@ -182,7 +183,7 @@ void main() {
     test('kaynak künyeleri içerikten çözülür', () async {
       final article = (await repository.getArticleBySlug(
         'tr',
-        'abdest-nasil-alinir',
+        'abdesti-bozan-durumlar',
       )).valueOrNull;
       final sources = (await repository.getSourcesForArticle(
         article!,
@@ -196,7 +197,7 @@ void main() {
     test('desteklenmeyen locale Türkçeye düşer', () async {
       final article = (await repository.getArticleBySlug(
         'de',
-        'abdest-nasil-alinir',
+        'abdesti-bozan-durumlar',
       )).valueOrNull;
       expect(article, isNotNull);
     });
@@ -212,11 +213,101 @@ void main() {
       expect(afterFirst, greaterThan(0));
 
       await counting.getArticlesByCategory('tr', 'cat-prayer');
-      await counting.getArticleBySlug('tr', 'abdest-nasil-alinir');
+      await counting.getArticleBySlug('tr', 'abdesti-bozan-durumlar');
       await counting.search('tr', 'abdest');
 
       // Sonraki erişimler cache'ten karşılanır.
       expect(loadCount, afterFirst);
+    });
+
+    // -----------------------------------------------------------------
+    // TASK 056A: yayın kapısının RUNTIME etkisi
+    // -----------------------------------------------------------------
+
+    test("kaynak gövdesi doğrulanmamış içerik RUNTIME'DA GÖRÜNMEZ", () async {
+      // "Abdest nasıl alınır?" kaynaksız mezhep iddiası taşıdığı için
+      // pending bırakıldı; hiçbir okuma yolundan sızmamalıdır.
+      expect(
+        (await repository.getArticleBySlug(
+          'tr',
+          'abdest-nasil-alinir',
+        )).valueOrNull,
+        isNull,
+      );
+
+      final purity = (await repository.getArticlesByCategory(
+        'tr',
+        'cat-purity',
+      )).valueOrNull!;
+      expect(purity.any((a) => a.slug == 'abdest-nasil-alinir'), isFalse);
+      expect(purity.any((a) => a.slug == 'gusul-nasil-alinir'), isFalse);
+
+      final search = (await repository.search('tr', 'gusul')).valueOrNull!;
+      expect(search.any((a) => a.slug == 'gusul-nasil-alinir'), isFalse);
+    });
+
+    test('görünen HER içerik kaynak gövdesi doğrulanmış olmalıdır', () async {
+      for (final locale in ['tr', 'en', 'ar']) {
+        final categories = (await repository.getCategories(
+          locale,
+        )).valueOrNull!;
+        for (final summary in categories) {
+          final articles = (await repository.getArticlesByCategory(
+            locale,
+            summary.category.id,
+          )).valueOrNull!;
+          for (final article in articles) {
+            expect(
+              article.isSourceBodyVerified,
+              isTrue,
+              reason: '$locale/${article.id} doğrulanmadan görünüyor',
+            );
+            expect(article.isPublished, isTrue);
+            expect(article.verification!.sourceLocator, isNotEmpty);
+            expect(article.verification!.evidenceSummary, isNotEmpty);
+          }
+        }
+      }
+    });
+
+    test('Türkçe kanonik PENDING ise en/ar sürümü de GÖRÜNMEZ', () async {
+      // art-abdest-nasil-alinir Türkçede pending → çevirileri de kapalı.
+      expect(
+        (await repository.getArticleBySlug(
+          'en',
+          'how-to-perform-wudu',
+        )).valueOrNull,
+        isNull,
+      );
+      expect(
+        (await repository.getArticleBySlug(
+          'ar',
+          'kayfa-yutawadda',
+        )).valueOrNull,
+        isNull,
+      );
+    });
+
+    test('üç locale AYNI yayın kümesini gösterir', () async {
+      Future<Set<String>> publishedIds(String locale) async {
+        final categories = (await repository.getCategories(
+          locale,
+        )).valueOrNull!;
+        final ids = <String>{};
+        for (final summary in categories) {
+          final articles = (await repository.getArticlesByCategory(
+            locale,
+            summary.category.id,
+          )).valueOrNull!;
+          ids.addAll(articles.map((a) => a.id));
+        }
+        return ids;
+      }
+
+      final tr = await publishedIds('tr');
+      expect(tr, isNotEmpty);
+      expect(await publishedIds('en'), tr);
+      expect(await publishedIds('ar'), tr);
     });
 
     test('asset okunamazsa sakin failure döner (crash yok)', () async {

@@ -36,7 +36,7 @@ void main() {
       await repository.getBeginnerPath(locale);
       await repository.getFeatured(locale);
       await repository.getArticlesByCategory(locale, 'cat-purity');
-      await repository.getArticleBySlug(locale, 'abdest-nasil-alinir');
+      await repository.getArticleBySlug(locale, 'abdesti-bozan-durumlar');
       await repository.search(locale, 'abdest');
     });
     return repository;
@@ -120,7 +120,7 @@ void main() {
       expect(find.text('Bu bölüm hazırlanıyor.'), findsNothing);
       // Gerçek, açılabilir içerik başlıkları görünür.
       expect(find.text('Yeni başlayanlar yolu'), findsOneWidget);
-      expect(find.text('İslam nedir?'), findsWidgets);
+      expect(find.text('İmanın şartları'), findsWidgets);
     });
 
     testWidgets('hero, arama ve tüm kategoriler render eder', (tester) async {
@@ -164,7 +164,7 @@ void main() {
 
       // Arama aktifken bölümler yerini sonuçlara bırakır.
       expect(find.text('Yeni başlayanlar yolu'), findsNothing);
-      expect(find.text('Abdest nasıl alınır?'), findsWidgets);
+      expect(find.text('Abdesti bozan durumlar'), findsWidgets);
 
       await tester.enterText(find.byType(TextField), '');
       await tester.pumpAndSettle();
@@ -192,14 +192,14 @@ void main() {
       await tester.pumpAndSettle();
 
       // Kategori ekranı: açıklama + konu sayısı + zorluk grupları.
-      expect(find.text('Başlangıç'), findsWidgets);
-      expect(find.text('Abdest nasıl alınır?'), findsWidgets);
+      expect(find.text('Temel'), findsWidgets);
+      expect(find.text('Abdesti bozan durumlar'), findsWidgets);
 
-      await tester.tap(find.text('Abdest nasıl alınır?').first);
+      await tester.tap(find.text('Abdesti bozan durumlar').first);
       await tester.pumpAndSettle();
 
-      // İçerik detayı: adım listesi gerçekten render edilir.
-      expect(find.textContaining('Abdest almaya niyet et'), findsOneWidget);
+      // İçerik detayı: gerçek gövde render edilir.
+      expect(find.textContaining('Ağız dolusu kusmak'), findsOneWidget);
     });
 
     testWidgets('boş kategori sakin boş durum gösterir', (tester) async {
@@ -227,7 +227,8 @@ void main() {
   group('İçerik detayı', () {
     Future<void> openArticle(
       WidgetTester tester, {
-      String slug = 'abdest-nasil-alinir',
+      // Kaynak gövdesi DOĞRULANMIŞ makale (TASK 056A yayın kapısı).
+      String slug = 'abdesti-bozan-durumlar',
       SupportedLocale locale = SupportedLocale.tr,
       ExternalLinkService? linkService,
     }) => pumpLearn(
@@ -244,8 +245,7 @@ void main() {
 
       // İçerik türü genel özet ile fetvayı ayırt ettirir.
       expect(find.text('İlmihal bilgisi'), findsOneWidget);
-      expect(find.text('4 dk okuma'), findsNothing);
-      expect(find.text('5 dk okuma'), findsOneWidget);
+      expect(find.text('4 dk okuma'), findsOneWidget);
       expect(find.textContaining('Son kaynak kontrolü'), findsWidgets);
     });
 
@@ -259,7 +259,7 @@ void main() {
     });
 
     testWidgets('görüş farkı GİZLENMEZ', (tester) async {
-      await openArticle(tester, slug: 'abdestin-farzlari');
+      await openArticle(tester, slug: 'abdesti-bozan-durumlar');
 
       expect(find.text('Görüş farkı'), findsOneWidget);
       expect(find.textContaining('Şâfiî'), findsWidgets);
@@ -320,8 +320,8 @@ void main() {
       await pumpLearn(tester, locale: SupportedLocale.en);
 
       expect(find.text('Path for beginners'), findsOneWidget);
-      expect(find.text('What is Islam?'), findsWidgets);
-      expect(find.text('İslam nedir?'), findsNothing);
+      expect(find.text('The articles of faith'), findsWidgets);
+      expect(find.text('İmanın şartları'), findsNothing);
     });
 
     testWidgets('Arapça locale Arapça içerik ve RTL verir', (tester) async {
@@ -338,7 +338,7 @@ void main() {
       await pumpLearn(
         tester,
         locale: SupportedLocale.ar,
-        initialLocation: '${AppRoutes.learnArticle}/kayfa-yutawadda',
+        initialLocation: '${AppRoutes.learnArticle}/ma-hu-al-tayammum',
       );
 
       // Resmî olmayan açıklayıcı çeviri uyarısı GÖRÜNÜR olmalıdır.

@@ -1,6 +1,7 @@
 import 'package:bismillah_app/features/learn/domain/entities/knowledge_source.dart';
 import 'package:bismillah_app/features/learn/domain/entities/learning_article.dart';
 import 'package:bismillah_app/features/learn/domain/entities/learning_category.dart';
+import 'package:bismillah_app/features/learn/domain/entities/source_verification.dart';
 import 'package:bismillah_app/features/learn/domain/value_objects/knowledge_enums.dart';
 
 /// İçerik asset'lerinin deterministic parser + validator'ı (TASK 056 §7).
@@ -227,6 +228,7 @@ abstract final class LearningContentParser {
           requiresQualifiedGuidance: map['requiresQualifiedGuidance'] == true,
           guidanceMessage: map['guidanceMessage'] as String?,
           officialQuestionUrl: officialQuestionUrl,
+          verification: _parseVerification(map['verification'], id),
         ),
       );
     }
@@ -254,6 +256,77 @@ abstract final class LearningContentParser {
     }
 
     return articles;
+  }
+
+  /// Kaynak gövdesi doğrulama kaydını okur (TASK 056A §2).
+  ///
+  /// Locator kalite kontrolü BURADA yapılır: genel bir ana sayfa adresi
+  /// (ör. `https://kurul.diyanet.gov.tr/tr/fetvalar`) özel bir dinî hükme
+  /// KANIT sayılmaz — kesin sayfa/bölüm gösterilmelidir.
+  static SourceVerification? _parseVerification(Object? raw, String articleId) {
+    if (raw == null) {
+      return null;
+    }
+    final map = _asMap(raw, 'article[$articleId].verification');
+    final locator = (map['sourceLocator'] as String? ?? '').trim();
+    final bodyVerified = map['sourceBodyVerified'] == true;
+
+    if (bodyVerified && _isGenericHomepageLocator(locator)) {
+      throw ContentSchemaError(
+        'İçerik $articleId genel bir ana sayfayı kesin kaynak konumu gibi '
+        'kullanıyor: "$locator"',
+      );
+    }
+
+    return SourceVerification(
+      sourceBodyVerified: bodyVerified,
+      sourceId: _requireString(
+        map,
+        'sourceId',
+        'article[$articleId].verification',
+      ),
+      sourceLocator: locator,
+      evidenceSummary: (map['evidenceSummary'] as String? ?? '').trim(),
+      verifiedAt: (map['verifiedAt'] as String? ?? '').trim(),
+      verifiedBy: _parseEnum(
+        VerifiedBy.values,
+        _requireString(map, 'verifiedBy', 'article[$articleId].verification'),
+        'verifiedBy',
+      ),
+      verificationMethod: _parseEnum(
+        VerificationMethod.values,
+        _requireString(
+          map,
+          'verificationMethod',
+          'article[$articleId].verification',
+        ),
+        'verificationMethod',
+      ),
+      blocker: map['blocker'] as String?,
+    );
+  }
+
+  /// Kesin konum içermeyen locator'lar (TASK 056A §4).
+  ///
+  /// Kabul edilebilir bir locator, kaynağın İÇİNDEKİ yeri gösterir:
+  /// sayfa numarası, bölüm başlığı veya belirli bir fetva/cevap başlığı.
+  ///
+  /// ÇIPLAK bir adres — `https://kurul.diyanet.gov.tr/tr/fetvalar` gibi —
+  /// kaç yol parçası taşırsa taşısın kesin konum DEĞİLDİR: bir liste
+  /// sayfası, özel bir dinî hükme kanıt olamaz. Bu yüzden kural yol
+  /// derinliğine değil, "locator yalnızca bir URL mi?" sorusuna bakar.
+  static bool _isGenericHomepageLocator(String locator) {
+    if (locator.isEmpty) {
+      return true;
+    }
+    // Açıklayıcı metin içermeyen (boşluksuz) mutlak adres → çıplak URL.
+    if (!locator.contains(RegExp(r'\s'))) {
+      final uri = Uri.tryParse(locator);
+      if (uri != null && uri.hasScheme && uri.hasAuthority) {
+        return true;
+      }
+    }
+    return false;
   }
 
   static List<LearningSection> _parseSections(Object? raw, String articleId) {

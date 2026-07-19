@@ -68,6 +68,23 @@ final class AssetLearningKnowledgeRepository
     return categories;
   }
 
+  /// Türkçe (kanonik) katalogda GERÇEKTEN yayınlanan içerik id'leri.
+  ///
+  /// Ayrı tutulur ki çeviri yüklemesi kanonik yüklemeyle özyinelemeye
+  /// girmesin; sonuç cache'lenir.
+  Set<String>? _canonicalPublishedIds;
+
+  Future<Set<String>> _publishedCanonicalIds() async {
+    final cached = _canonicalPublishedIds;
+    if (cached != null) {
+      return cached;
+    }
+    final index = await _loadArticles(_fallbackLocale);
+    final ids = index.all.map((a) => a.id).toSet();
+    _canonicalPublishedIds = ids;
+    return ids;
+  }
+
   Future<_ArticleIndex> _loadArticles(String locale) async {
     final cached = _articlesByLocale[locale];
     if (cached != null) {
@@ -87,8 +104,23 @@ final class AssetLearningKnowledgeRepository
       validCategoryIds: {for (final category in categories) category.id},
     );
 
-    // Yalnız yayınlanmış içerik uygulamaya girer.
-    final published = parsed.where((a) => a.isPublished).toList(growable: false);
+    // Yalnız yayınlanmış içerik uygulamaya girer. Kaynak GÖVDESİ
+    // doğrulanmamış içerik `published` olamadığı için (domain kapısı)
+    // burada ayrıca bir kontrol gerekmez; yine de niyet açık kalsın diye
+    // her iki koşul birlikte aranır (TASK 056A §3).
+    var published = parsed
+        .where((a) => a.isPublished && a.isSourceBodyVerified)
+        .toList(growable: false);
+
+    // TASK 056A §5: çeviriler Türkçe kanonik makaleye BAĞLIDIR. Türkçe
+    // kaynak doğrulaması yoksa İngilizce/Arapça sürüm de yayınlanamaz —
+    // çeviri, doğrulanmamış bir iddiayı dolaylı yoldan yayına sokamaz.
+    if (locale != _fallbackLocale) {
+      final canonicalIds = await _publishedCanonicalIds();
+      published = published
+          .where((a) => canonicalIds.contains(a.id))
+          .toList(growable: false);
+    }
     final index = _ArticleIndex(
       all: published,
       byId: {for (final article in published) article.id: article},

@@ -12,7 +12,13 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["الإسلام", "الدين", "مسلم", "الاستسلام", "التوحيد"],
+      "keywords": [
+        "الإسلام",
+        "الدين",
+        "مسلم",
+        "الاستسلام",
+        "التوحيد"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -35,13 +41,29 @@
           "text": "إن أردت أن تتعلم شيئًا واحدًا اليوم، فيمكنك البدء بقراءة معنى كلمة الشهادة."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-imanin-sartlari", "art-islamin-sartlari", "art-kelime-i-sehadet"],
+      "relatedArticleIds": [
+        "art-imanin-sartlari",
+        "art-islamin-sartlari",
+        "art-kelime-i-sehadet"
+      ],
       "beginnerPathOrder": 1,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Makaledeki bileşik itikadî ifadeler için tek bir kesin bölüm/sayfa eşleştirilemedi; kaynak gövdesinde doğrudan karşılık aranmaya devam ediyor."
+      }
     },
     {
       "id": "art-imanin-sartlari",
@@ -52,7 +74,13 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["الإيمان", "أركان الإيمان", "العقيدة", "آمنت", "الاعتقاد"],
+      "keywords": [
+        "الإيمان",
+        "أركان الإيمان",
+        "العقيدة",
+        "آمنت",
+        "الاعتقاد"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -82,13 +110,27 @@
           "text": "اختر ركنًا واحدًا من الستة وتأمل في معناه بهدوء اليوم."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-islam-nedir", "art-islamin-sartlari"],
+      "relatedArticleIds": [
+        "art-islam-nedir",
+        "art-islamin-sartlari"
+      ],
       "beginnerPathOrder": 2,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Birinci Bölüm IV. İMAN, F) İman Esasları, s. 41",
+        "evidenceSummary": "Eserde iman esaslarının altı olduğu ve Âmentü cümlesinde toplandığı açıkça belirtilir; makaledeki altı madde bu bölümle birebir örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-islamin-sartlari",
@@ -99,7 +141,15 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["أركان الإسلام", "الأركان الخمسة", "العبادة", "الصلاة", "الزكاة", "الصوم", "الحج"],
+      "keywords": [
+        "أركان الإسلام",
+        "الأركان الخمسة",
+        "العبادة",
+        "الصلاة",
+        "الزكاة",
+        "الصوم",
+        "الحج"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -128,13 +178,27 @@
           "text": "إن لم تكن تصلي بانتظام بعد، فيمكنك اختيار وقت واحد والعمل على الثبات فيه أولًا."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-imanin-sartlari", "art-bes-vakit-namaz"],
+      "relatedArticleIds": [
+        "art-imanin-sartlari",
+        "art-bes-vakit-namaz"
+      ],
       "beginnerPathOrder": 3,
-      "isFeatured": false
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İkinci Bölüm II. İSLAM, A) İslam'ın Şartları, s. 84",
+        "evidenceSummary": "Eserde 'İslam beş temel üzerine kurulmuştur' rivayeti ve beş şart sayılır; makaledeki beş madde bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-kelime-i-sehadet",
@@ -145,7 +209,12 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 3,
-      "keywords": ["الشهادة", "كلمة الشهادة", "الدخول في الإسلام", "التوحيد"],
+      "keywords": [
+        "الشهادة",
+        "كلمة الشهادة",
+        "الدخول في الإسلام",
+        "التوحيد"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -168,13 +237,27 @@
           "text": "اقرأ الجملة على مهل، وحاول أن تعبّر عن معنى كل جزء منها بكلماتك."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-islam-nedir", "art-imanin-sartlari"],
+      "relatedArticleIds": [
+        "art-islam-nedir",
+        "art-imanin-sartlari"
+      ],
       "beginnerPathOrder": 4,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IV. İMAN, A) Kelime-i Tevhid ve Kelime-i Şahadet, s. 39",
+        "evidenceSummary": "Şehadet cümlesinin metni ve 'kalpteki imanın dil ile ifadesi' tanımı eserde yer alır; makaledeki okunuş ve anlam bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-abdest-nasil-alinir",
@@ -185,7 +268,12 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 5,
-      "keywords": ["الوضوء", "كيفية الوضوء", "الطهارة", "التهيؤ للصلاة"],
+      "keywords": [
+        "الوضوء",
+        "كيفية الوضوء",
+        "الطهارة",
+        "التهيؤ للصلاة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -222,13 +310,29 @@
           "text": "هذا الملخص مستند إلى باب الوضوء في كتاب «الإسلام إلمهالي» الصادر عن رئاسة الشؤون الدينية، وليس اقتباسًا حرفيًا منه."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-abdestin-farzlari", "art-abdesti-bozan-durumlar", "art-gusul-nasil-alinir"],
+      "relatedArticleIds": [
+        "art-abdestin-farzlari",
+        "art-abdesti-bozan-durumlar",
+        "art-gusul-nasil-alinir"
+      ],
       "beginnerPathOrder": 5,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Adımlar s.105 ile örtüşüyor ancak 'tertip Hanefî'de sünnet, Şâfiî'de farz' ifadesi bu eserde YER ALMIYOR; mezhep farkı iddiası kaynaksız."
+      }
     },
     {
       "id": "art-abdestin-farzlari",
@@ -239,7 +343,12 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "basic",
       "estimatedMinutes": 4,
-      "keywords": ["فروض الوضوء", "فرض", "الوضوء", "شروط الوضوء"],
+      "keywords": [
+        "فروض الوضوء",
+        "فرض",
+        "الوضوء",
+        "شروط الوضوء"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -267,14 +376,29 @@
           "text": "المرفقان والكعبان أكثر المواضع التي يُغفل عنها؛ فانتبه لهما."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
       "differenceNote": "عدد الفروض أربعة عند الحنفية وستة عند الشافعية.",
-      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdesti-bozan-durumlar"],
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdesti-bozan-durumlar"
+      ],
       "beginnerPathOrder": 6,
-      "isFeatured": false
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Dört farz s.98-99 ile doğrulandı; ancak 'Şâfiî'de niyet ve tertiple birlikte altı' iddiası bu eserde YER ALMIYOR."
+      }
     },
     {
       "id": "art-abdesti-bozan-durumlar",
@@ -285,7 +409,11 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "basic",
       "estimatedMinutes": 4,
-      "keywords": ["نواقض الوضوء", "ما ينقض الوضوء", "الطهارة"],
+      "keywords": [
+        "نواقض الوضوء",
+        "ما ينقض الوضوء",
+        "الطهارة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -315,13 +443,27 @@
           "text": "إن أردت العمل بمذهبك، فاقرأ الباب المتعلق بذلك في كتاب فقهي يعتمد ذلك المذهب."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "differenceNote": "نواقض الوضوء تختلف بين المذاهب الفقهية.",
-      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdestin-farzlari"],
-      "isFeatured": false
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, I) Abdesti Bozan Şeyler, s. 110 (Şâfiî farkı: 25 numaralı dipnot)",
+        "evidenceSummary": "Eserde abdesti bozan sekiz hâl sayılır ve 25 numaralı dipnotta Şâfiîlere göre ön/arka dışındaki kanın abdesti bozmadığı belirtilir; makaledeki liste ve mezhep farkı notu bu bölümle desteklenir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-gusul-nasil-alinir",
@@ -332,7 +474,12 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "basic",
       "estimatedMinutes": 4,
-      "keywords": ["الغسل", "الاغتسال", "الطهارة الكبرى", "الجنابة"],
+      "keywords": [
+        "الغسل",
+        "الاغتسال",
+        "الطهارة الكبرى",
+        "الجنابة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -363,13 +510,28 @@
           "text": "أصول الشعر وما خلف الأذنين أكثر المواضع التي لا يصلها الماء."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
       "differenceNote": "فروض الغسل تُعدّ بصور مختلفة عند الحنفية والشافعية.",
-      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-teyemmum-nedir"],
-      "isFeatured": false
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Üç farz s.121 ile doğrulandı; ancak Şâfiî mezhebine atfedilen farz sayımı bu eserde YER ALMIYOR."
+      }
     },
     {
       "id": "art-teyemmum-nedir",
@@ -380,7 +542,11 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "basic",
       "estimatedMinutes": 3,
-      "keywords": ["التيمم", "فقد الماء", "الطهارة بالتراب"],
+      "keywords": [
+        "التيمم",
+        "فقد الماء",
+        "الطهارة بالتراب"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -405,15 +571,29 @@
           "text": "تعذّر استعمال الماء لعذر صحي أمر يخص كل شخص بحاله. ومن المناسب عند البتّ في حالتك أن تستشير طبيبك وأحد المختصين المؤهلين في الشأن الديني."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "requiresQualifiedGuidance": true,
       "guidanceMessage": "للحالات الخاصة المتعلقة بالصحة يمكنك استشارة مختص مؤهل أو الرجوع إلى المجلس الأعلى للشؤون الدينية.",
       "officialQuestionUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
-      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-gusul-nasil-alinir"],
-      "isFeatured": false
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-gusul-nasil-alinir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VI. TEYEMMÜM, C) Teyemmümün Farzları ve E) Teyemmüm Nasıl Yapılır?, s. 118",
+        "evidenceSummary": "Eserde teyemmümün farzlarının iki olduğu (niyet ve iki vuruşla yüz/kolların meshi) ve uygulanışı açıklanır; makaledeki adımlar bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-namaza-hazirlik",
@@ -424,7 +604,12 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["شروط الصلاة", "الاستعداد للصلاة", "القبلة", "الصلاة"],
+      "keywords": [
+        "شروط الصلاة",
+        "الاستعداد للصلاة",
+        "القبلة",
+        "الصلاة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -454,13 +639,28 @@
           "text": "تهيئة مكان الصلاة مسبقًا تسهّل البدء تسهيلًا ملحوظًا."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-bes-vakit-namaz", "art-namazin-bolumleri", "art-abdest-nasil-alinir"],
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namazin-bolumleri",
+        "art-abdest-nasil-alinir"
+      ],
       "beginnerPathOrder": 7,
-      "isFeatured": false
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F) Namazın Farzları / a) Namazın Şartları, s. 144",
+        "evidenceSummary": "Eserde namazın dışındaki altı şart (hadesten ve necasetten taharet, setr-i avret, istikbal-i kıble, vakit, niyet) sayılır; makaledeki kontrol listesi bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-bes-vakit-namaz",
@@ -471,7 +671,13 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["الصلوات الخمس", "أوقات الصلاة", "الفرض", "الركعات", "الصلاة"],
+      "keywords": [
+        "الصلوات الخمس",
+        "أوقات الصلاة",
+        "الفرض",
+        "الركعات",
+        "الصلاة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -500,13 +706,28 @@
           "text": "إن كان الانتظام صعبًا عليك، فيمكنك أن تجعل هدفك أولًا الانتظام في وقت واحد فقط."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-namaza-hazirlik", "art-namazin-bolumleri"],
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-namazin-bolumleri"
+      ],
       "beginnerPathOrder": 8,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Vakit başına FARZ rekât sayılarını açıkça veren bölüm kaynak gövdesinde tespit edilemedi."
+      }
     },
     {
       "id": "art-namazin-bolumleri",
@@ -517,7 +738,14 @@
       "contentType": "ilmihalKnowledge",
       "difficulty": "basic",
       "estimatedMinutes": 5,
-      "keywords": ["أركان الصلاة", "الركعة", "القيام", "الركوع", "السجود", "كيفية الصلاة"],
+      "keywords": [
+        "أركان الصلاة",
+        "الركعة",
+        "القيام",
+        "الركوع",
+        "السجود",
+        "كيفية الصلاة"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -547,14 +775,29 @@
           "text": "تسمية كل جزء أثناء التعلّم تسهّل استحضار ترتيب الصلاة."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
       "differenceNote": "عدّ الأركان قد يُعبَّر عنه بصور مختلفة بين المذاهب.",
-      "relatedArticleIds": ["art-namaza-hazirlik", "art-bes-vakit-namaz"],
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-bes-vakit-namaz"
+      ],
       "beginnerPathOrder": 9,
-      "isFeatured": false
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Altı rükün s.145 ile örtüşüyor; ancak 'rükün sayımı mezheplere göre değişir' genel ifadesi bu eserde doğrudan desteklenmiyor."
+      }
     },
     {
       "id": "art-kuran-nedir",
@@ -565,7 +808,14 @@
       "contentType": "quranExplanation",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["القرآن", "ما هو القرآن", "المصحف", "السورة", "الآية", "الوحي"],
+      "keywords": [
+        "القرآن",
+        "ما هو القرآن",
+        "المصحف",
+        "السورة",
+        "الآية",
+        "الوحي"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -588,13 +838,28 @@
           "text": "يمكنك البدء بقراءة النص العربي الأصلي مع ترجمة معانيه من تبويب القرآن في التطبيق."
         }
       ],
-      "sourceIds": ["diyanet-kuran-portali", "diyanet-kuran-yolu-tefsiri"],
+      "sourceIds": [
+        "diyanet-kuran-portali",
+        "diyanet-kuran-yolu-tefsiri"
+      ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-kuran-okumaya-baslangic", "art-islam-nedir"],
+      "relatedArticleIds": [
+        "art-kuran-okumaya-baslangic",
+        "art-islam-nedir"
+      ],
       "beginnerPathOrder": 10,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-kuran-portali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kitaplara İman — Kur'an-ı Kerim'in Nazil Oluşu ve Özellikleri, s. 54-58",
+        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatürle nakledildiği ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     },
     {
       "id": "art-kuran-okumaya-baslangic",
@@ -605,7 +870,13 @@
       "contentType": "generalTeaching",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["قراءة القرآن", "الحروف العربية", "تعلم القرآن", "التجويد", "البداية"],
+      "keywords": [
+        "قراءة القرآن",
+        "الحروف العربية",
+        "تعلم القرآن",
+        "التجويد",
+        "البداية"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -634,13 +905,27 @@
           "text": "يمكنك أن تبدأ اليوم بالاستماع إلى سورة قصيرة واحدة؛ فالبدء أهم من سرعة التقدم."
         }
       ],
-      "sourceIds": ["diyanet-kuran-portali"],
+      "sourceIds": [
+        "diyanet-kuran-portali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-kuran-nedir"],
+      "relatedArticleIds": [
+        "art-kuran-nedir"
+      ],
       "beginnerPathOrder": 11,
-      "isFeatured": false
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-kuran-portali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Kaynak yalnız Kur'an Portalı ana sayfasıdır; kesin sayfa/bölüm konumu yok — genel ana sayfa kanıt sayılmaz."
+      }
     },
     {
       "id": "art-dua-adabi",
@@ -651,7 +936,12 @@
       "contentType": "hadithBased",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["الدعاء", "آداب الدعاء", "المناجاة", "الذكر"],
+      "keywords": [
+        "الدعاء",
+        "آداب الدعاء",
+        "المناجاة",
+        "الذكر"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -680,13 +970,28 @@
           "text": "ادعُ اليوم دعاءً قصيرًا بكلماتك أنت؛ فلا يلزم حفظ صيغة معينة."
         }
       ],
-      "sourceIds": ["diyanet-hadislerle-islam", "diyanet-islam-ilmihali"],
+      "sourceIds": [
+        "diyanet-hadislerle-islam",
+        "diyanet-islam-ilmihali"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-tevbe-ve-umit"],
+      "relatedArticleIds": [
+        "art-tevbe-ve-umit"
+      ],
       "beginnerPathOrder": 12,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Hadislerle İslam gövdesi bu ortamdan okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
+      }
     },
     {
       "id": "art-tevbe-ve-umit",
@@ -697,7 +1002,13 @@
       "contentType": "generalTeaching",
       "difficulty": "beginner",
       "estimatedMinutes": 4,
-      "keywords": ["التوبة", "الندم", "الرجاء", "المغفرة", "البداية من جديد"],
+      "keywords": [
+        "التوبة",
+        "الندم",
+        "الرجاء",
+        "المغفرة",
+        "البداية من جديد"
+      ],
       "sections": [
         {
           "type": "paragraph",
@@ -725,13 +1036,29 @@
           "text": "بدل الإطالة في محاسبة الماضي، يمكنك تحديد خطوة صغيرة واحدة لليوم."
         }
       ],
-      "sourceIds": ["diyanet-islam-ilmihali", "diyanet-hadislerle-islam"],
+      "sourceIds": [
+        "diyanet-islam-ilmihali",
+        "diyanet-hadislerle-islam"
+      ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "published",
+      "reviewStatus": "scholarlyReviewPending",
       "translationStatus": "explanatoryTranslation",
-      "relatedArticleIds": ["art-dua-adabi", "art-islam-nedir"],
+      "relatedArticleIds": [
+        "art-dua-adabi",
+        "art-islam-nedir"
+      ],
       "beginnerPathOrder": 13,
-      "isFeatured": true
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Tevbe konusu için kesin bölüm/sayfa eşleştirilemedi; mevcut eşleşmeler sure adı referanslarıdır."
+      }
     }
   ]
 }

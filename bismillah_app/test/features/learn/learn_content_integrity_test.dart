@@ -322,6 +322,145 @@ void main() {
       );
     });
 
+    // -----------------------------------------------------------------
+    // TASK 056A: YAYIN KAPISI
+    // -----------------------------------------------------------------
+
+    test('yalnız URL doğrulaması yayın için YETERLİ DEĞİLDİR', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle(
+              'a',
+              verification: _validVerification(
+                bodyVerified: false,
+                locator: '',
+                evidence: '',
+                method: 'urlExistenceCheck',
+              ),
+            ),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('sourceLocator BOŞ ise published REDDEDİLİR', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle('a', verification: _validVerification(locator: '')),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ContentSchemaError>()),
+      );
+    });
+
+    test('evidenceSummary BOŞ ise published REDDEDİLİR', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle(
+              'a',
+              verification: _validVerification(evidence: ''),
+            ),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('verifiedAt BOŞ ise published REDDEDİLİR', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle(
+              'a',
+              verification: _validVerification(verifiedAt: ''),
+            ),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('doğrulama kaydı OLMAYAN published içerik REDDEDİLİR', () {
+      final article = _minimalArticle('a')..remove('verification');
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[article],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('doğrulama, içeriğin kaynakları DIŞINDAKİ bir kaynağa dayanamaz', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle(
+              'a',
+              verification: _validVerification(sourceId: 'baska-kaynak'),
+            ),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test('genel fetva ANA SAYFASI kesin konum sayılmaz', () {
+      expect(
+        () => LearningContentParser.parseArticles({
+          'schemaVersion': 1,
+          'locale': 'tr',
+          'articles': <Map<String, Object?>>[
+            _minimalArticle(
+              'a',
+              verification: _validVerification(
+                locator: 'https://kurul.diyanet.gov.tr/tr/fetvalar',
+              ),
+            ),
+          ],
+        }, expectedLocale: 'tr'),
+        throwsA(isA<ContentSchemaError>()),
+      );
+    });
+
+    test('doğrulanmamış içerik PENDING olarak parse EDİLEBİLİR', () {
+      // Kapı yalnız `published` için serttir; pending içerik veri
+      // katmanında yaşar ama runtime'da GÖSTERİLMEZ.
+      final articles = LearningContentParser.parseArticles({
+        'schemaVersion': 1,
+        'locale': 'tr',
+        'articles': <Map<String, Object?>>[
+          _minimalArticle(
+            'a',
+            reviewStatus: 'scholarlyReviewPending',
+            verification: _validVerification(
+              bodyVerified: false,
+              locator: '',
+              evidence: '',
+              method: 'urlExistenceCheck',
+            ),
+          ),
+        ],
+      }, expectedLocale: 'tr');
+      expect(articles.single.isPublished, isFalse);
+      expect(articles.single.isSourceBodyVerified, isFalse);
+    });
+
     test('locale uyuşmazlığı REDDEDİLİR', () {
       expect(
         () => LearningContentParser.parseArticles({
@@ -335,10 +474,30 @@ void main() {
   });
 }
 
+/// Yayın kapısını GEÇEN geçerli bir doğrulama kaydı.
+Map<String, Object?> _validVerification({
+  String sourceId = 'diyanet-islam-ilmihali',
+  bool bodyVerified = true,
+  String locator = 'İslam İlmihali (34. Baskı, 2019), V. ABDEST, s. 110',
+  String evidence = 'İlgili bölüm makaledeki iddiayı desteklemektedir.',
+  String verifiedAt = '2026-07-19',
+  String method = 'sourceBodyReview',
+}) => {
+  'sourceBodyVerified': bodyVerified,
+  'sourceId': sourceId,
+  'sourceLocator': locator,
+  'evidenceSummary': evidence,
+  'verifiedAt': verifiedAt,
+  'verifiedBy': 'editorialReview',
+  'verificationMethod': method,
+};
+
 Map<String, Object?> _minimalArticle(
   String id, {
   List<String> sourceIds = const ['diyanet-islam-ilmihali'],
   List<String> related = const [],
+  Map<String, Object?>? verification,
+  String reviewStatus = 'published',
 }) => {
   'id': id,
   'slug': 'slug-$id',
@@ -354,7 +513,8 @@ Map<String, Object?> _minimalArticle(
   ],
   'sourceIds': sourceIds,
   'reviewedAt': '2026-07-19',
-  'reviewStatus': 'published',
+  'reviewStatus': reviewStatus,
   'translationStatus': 'original',
   'relatedArticleIds': related,
+  'verification': verification ?? _validVerification(),
 };

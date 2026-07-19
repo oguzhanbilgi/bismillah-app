@@ -9,6 +9,7 @@ import 'package:bismillah_app/features/learn/domain/entities/learning_article.da
 import 'package:bismillah_app/features/learn/domain/entities/learning_category.dart';
 import 'package:bismillah_app/features/learn/domain/entities/learning_progress.dart';
 import 'package:bismillah_app/features/learn/presentation/widgets/learn_article_row.dart';
+import 'package:bismillah_app/shared/islamic/gentle_empty_state.dart';
 import 'package:bismillah_app/shared/islamic/mosque_silhouette.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
@@ -77,6 +78,16 @@ class _LearnScreenState extends ConsumerState<LearnScreen> {
         if (query.trim().isNotEmpty)
           _SearchResults(progress: progress)
         else ...[
+          // TASK 056A §8: kaynak doğrulaması nedeniyle görünür içerik
+          // kalmadıysa DÜRÜST bir bilgi verilir — içerik uydurulmaz,
+          // kategori yapısı da gösterilmeye devam eder.
+          if (categories.every((c) => c.isEmpty)) ...[
+            GentleEmptyState(
+              title: l10n.learnVerifyingTitle,
+              message: l10n.learnVerifyingMessage,
+            ),
+            const SizedBox(height: AppSpacing.s6),
+          ],
           _ContinueSection(progress: progress),
           _ArticleSection(
             title: l10n.learnBeginnerPathSection,

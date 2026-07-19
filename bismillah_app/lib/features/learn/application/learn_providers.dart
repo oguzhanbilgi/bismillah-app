@@ -1,5 +1,6 @@
 import 'package:bismillah_app/features/learn/data/asset_learning_knowledge_repository.dart';
 import 'package:bismillah_app/features/learn/data/shared_prefs_learning_progress_repository.dart';
+import 'package:bismillah_app/features/learn/data/url_launcher_external_link_service.dart';
 import 'package:bismillah_app/features/learn/domain/entities/knowledge_source.dart';
 import 'package:bismillah_app/features/learn/domain/entities/learning_article.dart';
 import 'package:bismillah_app/features/learn/domain/entities/learning_category.dart';
@@ -27,7 +28,7 @@ final learningProgressRepositoryProvider = Provider<LearningProgressRepository>(
 /// Resmî kaynak bağlantısı açma servisi — alan adı doğrulaması içeride.
 /// Testler bunu override ederek GERÇEK tarayıcı açmadan davranışı doğrular.
 final externalLinkServiceProvider = Provider<ExternalLinkService>(
-  (ref) => const DomainValidatedExternalLinkService(),
+  (ref) => const UrlLauncherExternalLinkService(),
 );
 
 /// Aktif içerik dili — global uygulama diline bağlıdır (TASK 053).

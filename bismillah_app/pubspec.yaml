@@ -36,6 +36,10 @@ dependencies:
   audio_session: ^0.2.4
   http: ^1.6.0
   audio_service: ^0.18.19
+  # Resmî kaynak bağlantılarını SİSTEM TARAYICISINDA açmak için (TASK 056A).
+  # Sürüm bilinçli olarak SABİTLENMİŞTİR: `pub add` ile kontrolsüz "latest"
+  # alınmaz; yükseltme ayrı bir kararla yapılır.
+  url_launcher: 6.3.2
 
 dev_dependencies:
   flutter_test:

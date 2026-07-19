@@ -55,6 +55,8 @@ final class AppLocalizations {
   String get learnCompletedSection => _t('learnCompletedSection');
   String get learnAllCategoriesSection => _t('learnAllCategoriesSection');
   String get learnCategoryPreparing => _t('learnCategoryPreparing');
+  String get learnVerifyingTitle => _t('learnVerifyingTitle');
+  String get learnVerifyingMessage => _t('learnVerifyingMessage');
   String get learnCategoryEmptyTitle => _t('learnCategoryEmptyTitle');
   String get learnLoadIssue => _t('learnLoadIssue');
   String get learnSave => _t('learnSave');
@@ -501,6 +503,10 @@ final class AppLocalizations {
       'learnCompletedSection': 'Tamamladıkların',
       'learnAllCategoriesSection': 'Tüm başlıklar',
       'learnCategoryPreparing': 'Hazırlanıyor',
+      'learnVerifyingTitle': 'Doğrulama sürüyor',
+      'learnVerifyingMessage':
+          'Bu içerikler resmî kaynaklarla doğrulanıyor. Yalnız kaynağı '
+          'doğrulanmış konular burada gösterilir.',
       'learnCategoryEmptyTitle': 'Bu bölüm hazırlanıyor',
       'learnLoadIssue': 'Öğrenme içerikleri şu anda açılamadı.',
       'learnSave': 'Kaydet',
@@ -832,6 +838,10 @@ final class AppLocalizations {
       'learnCompletedSection': 'Topics you completed',
       'learnAllCategoriesSection': 'All topics',
       'learnCategoryPreparing': 'In preparation',
+      'learnVerifyingTitle': 'Verification in progress',
+      'learnVerifyingMessage':
+          'These topics are being verified against official sources. Only '
+          'source-verified topics are shown here.',
       'learnCategoryEmptyTitle': 'This section is in preparation',
       'learnLoadIssue': 'Learning content could not be opened right now.',
       'learnSave': 'Save',
@@ -1169,6 +1179,10 @@ final class AppLocalizations {
       'learnCompletedSection': 'ما أتممته',
       'learnAllCategoriesSection': 'جميع الأبواب',
       'learnCategoryPreparing': 'قيد التجهيز',
+      'learnVerifyingTitle': 'التحقق جارٍ',
+      'learnVerifyingMessage':
+          'يجري التحقق من هذه الموضوعات بالرجوع إلى المصادر الرسمية. ولا '
+          'تُعرض هنا إلا الموضوعات المتحقق من مصدرها.',
       'learnCategoryEmptyTitle': 'هذا القسم قيد التجهيز',
       'learnLoadIssue': 'تعذّر فتح محتوى التعلّم في الوقت الحالي.',
       'learnSave': 'حفظ',
