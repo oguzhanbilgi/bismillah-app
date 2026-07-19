@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "locale": "tr",
+  "note": "Metinler resmî Diyanet kaynaklarına dayanan ÖZGÜN ÖZETLERDİR; eserlerden aynen alıntı değildir. Görüş farkı bulunan konularda fark açıkça belirtilmiştir.",
+  "articles": [
+    {
+      "id": "art-islam-nedir",
+      "slug": "islam-nedir",
+      "categoryId": "cat-basics",
+      "title": "İslam nedir?",
+      "summary": "İslam; Allah'ın birliğine inanmayı ve O'na gönülden teslim olmayı esas alan dinin adıdır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["islam", "din", "musluman", "teslimiyet", "tevhid"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam kelimesi sözlükte \"teslim olmak, esenlikte olmak\" anlamına gelir. Terim olarak ise Allah'ın birliğine inanmayı, O'nun bildirdiği ölçülere gönül rızasıyla uymayı ve bu teslimiyetle huzur bulmayı ifade eder."
+        },
+        {
+          "type": "paragraph",
+          "text": "İslam inancına göre Allah, tarih boyunca insanlara peygamberler ve kitaplar göndermiştir. Bu davetin son halkası Hz. Muhammed (s.a.v.) ve ona indirilen Kur'an-ı Kerim'dir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "İslam yalnız bir inanç sistemi değil, aynı zamanda ibadet ve ahlakı da içeren bütünlüklü bir yaşam anlayışıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bir kimse kelime-i şehadeti kalpten benimseyip dile getirdiğinde Müslüman olur. Bilgi ve uygulama ise zamanla, sabırla öğrenilir; herkesin başlangıç noktası farklıdır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün tek bir şey öğrenmek istersen, kelime-i şehadetin anlamını okuyarak başlayabilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-imanin-sartlari",
+        "art-islamin-sartlari",
+        "art-kelime-i-sehadet"
+      ],
+      "beginnerPathOrder": 1,
+      "isFeatured": true
+    },
+    {
+      "id": "art-imanin-sartlari",
+      "slug": "imanin-sartlari",
+      "categoryId": "cat-faith",
+      "title": "İmanın şartları",
+      "summary": "İman esasları altı başlıkta toplanır ve \"Âmentü\" olarak bilinir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["iman", "amentu", "akaid", "inanc", "iman esaslari"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İman, kalben tasdik etmek ve dil ile ikrar etmektir. İslam'ın inanç esasları geleneksel olarak altı başlık altında özetlenir ve bu özet \"Âmentü\" adıyla bilinir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Allah'a inanmak: O'nun var, bir ve eşsiz olduğuna inanmak.",
+            "Meleklerine inanmak: Allah'ın nurdan yarattığı, emrine uyan varlıklar.",
+            "Kitaplarına inanmak: Allah'ın peygamberlerine indirdiği ilahi kitaplar.",
+            "Peygamberlerine inanmak: Allah'ın insanlara gönderdiği elçiler.",
+            "Ahiret gününe inanmak: Ölümden sonraki hayat ve hesap.",
+            "Kadere, hayır ve şerrin Allah'tan olduğuna inanmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Bu altı esas birbirinden ayrılmaz bir bütündür; biri kabul edilip diğeri reddedilmez."
+        },
+        {
+          "type": "paragraph",
+          "text": "İman esaslarını öğrenmek, ezberden ibaret bir bilgi değildir. Her bir maddenin anlamı üzerinde düşünmek, inancı daha bilinçli hale getirir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Altı maddeden birini seç ve bugün yalnız onun anlamını sakince düşün."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-islam-nedir", "art-islamin-sartlari"],
+      "beginnerPathOrder": 2,
+      "isFeatured": true
+    },
+    {
+      "id": "art-islamin-sartlari",
+      "slug": "islamin-sartlari",
+      "categoryId": "cat-basics",
+      "title": "İslam'ın şartları",
+      "summary": "İslam'ın beş temel esası: şehadet, namaz, zekât, oruç ve gücü yetene hac.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["islamin sartlari", "bes sart", "ibadet", "namaz", "zekat", "oruc", "hac"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam'ın temel ibadetleri beş başlıkta özetlenir. Bunlar dinin \"şartları\" olarak anılır ve Müslümanın hayatının ana çerçevesini oluşturur."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Kelime-i şehadet getirmek.",
+            "Namaz kılmak.",
+            "Zekât vermek (nisap miktarı mala sahip olana).",
+            "Ramazan ayında oruç tutmak.",
+            "Gücü yetenin ömürde bir kez hac yapması."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Zekât ve hac herkese değil, belirli imkân ve şartlara sahip olanlara farzdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu ibadetler yalnız birer görev listesi değildir; her biri kişiyi Allah'a yaklaştıran, sabır ve paylaşmayı öğreten bir eğitimdir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Henüz düzenli kılmıyorsan, günün bir vaktini seçip yalnız o vakitte istikrar kurmayı deneyebilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-imanin-sartlari", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 3,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kelime-i-sehadet",
+      "slug": "kelime-i-sehadet",
+      "categoryId": "cat-basics",
+      "title": "Kelime-i şehadet",
+      "summary": "Müslüman olmanın sözle ifadesi olan şehadet cümlesi ve anlamı.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": ["kelime-i sehadet", "sehadet", "sahadet", "musluman olmak", "tevhid"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kelime-i şehadet, kişinin imanını sözle ilan ettiği cümledir. Türkçe okunuşu şöyledir: \"Eşhedü en lâ ilâhe illallah ve eşhedü enne Muhammeden abdühû ve resûlüh.\""
+        },
+        {
+          "type": "keyPoint",
+          "text": "Anlamı: \"Allah'tan başka ilah olmadığına şahitlik ederim; Muhammed'in O'nun kulu ve elçisi olduğuna da şahitlik ederim.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu cümle iki şeyi birlikte ifade eder: Allah'ın birliği ve Hz. Muhammed'in peygamberliği. Şehadetin kabulü için sözün kalpten benimsenmesi esastır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bir kimse bu cümleyi inanarak söylediğinde Müslüman olur. Sonrasında ibadetleri ve dinî bilgileri öğrenmek zamanla, kendi temposunda ilerleyen bir süreçtir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Cümleyi yavaşça oku ve her bölümünün ne anlama geldiğini kendi cümlelerinle ifade etmeyi dene."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-islam-nedir", "art-imanin-sartlari"],
+      "beginnerPathOrder": 4,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdest-nasil-alinir",
+      "slug": "abdest-nasil-alinir",
+      "categoryId": "cat-purity",
+      "title": "Abdest nasıl alınır?",
+      "summary": "Abdestin adım adım uygulanışı ve sıralaması.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": ["abdest", "abdest almak", "aptes", "temizlik", "namaza hazirlik"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Abdest, namaz başta olmak üzere bazı ibadetler için gereken temizlik hâlidir. Aşağıdaki sıralama yaygın uygulamayı özetler; farz olan kısımlar ayrı bir konuda ele alınmıştır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Abdest almaya niyet et ve besmele çek.",
+            "Ellerini bileklere kadar üçer kez yıka; parmak aralarını ihmal etme.",
+            "Sağ elinle ağzına üç kez su alıp çalkala.",
+            "Sağ elinle burnuna üç kez su çekip sol elinle temizle.",
+            "Yüzünü, alın saç sınırından çene altına kadar üç kez yıka.",
+            "Önce sağ, sonra sol kolunu dirseklerle birlikte üçer kez yıka.",
+            "Ellerini ıslatıp başını meshet.",
+            "Kulaklarını ve ardından boynunu meshet.",
+            "Önce sağ, sonra sol ayağını topuklarla birlikte üçer kez yıka."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Yıkamak, organın her yerinin ıslanması demektir. Suyun ulaşmadığı kuru bir yer kalmamalıdır."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Abdestin sıralı yapılması (tertip) ve ara vermeden tamamlanması Hanefî mezhebinde sünnet, Şâfiî mezhebinde ise farz kabul edilir. Uygulamalarda mezhepler arası bu tür farklar bulunabilir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Adımları bir kez yavaşça okuduktan sonra uygulamayı dene; ezberlemek zamanla kendiliğinden gelir."
+        },
+        {
+          "type": "sourceNote",
+          "text": "Bu özet, Diyanet İşleri Başkanlığı İslam İlmihali'ndeki abdest bölümüne dayanır; eserden aynen alıntı değildir."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-abdestin-farzlari",
+        "art-abdesti-bozan-durumlar",
+        "art-gusul-nasil-alinir"
+      ],
+      "beginnerPathOrder": 5,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdestin-farzlari",
+      "slug": "abdestin-farzlari",
+      "categoryId": "cat-purity",
+      "title": "Abdestin farzları",
+      "summary": "Abdestin geçerli olması için yapılması zorunlu olan bölümler.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["abdestin farzlari", "abdest farz", "farz", "abdest"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Abdestin farzları, abdestin geçerli sayılabilmesi için mutlaka yapılması gereken bölümlerdir. Diğer uygulamalar sünnet ve âdâb kapsamındadır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Yüzü bir kez yıkamak.",
+            "Kolları dirseklerle birlikte bir kez yıkamak.",
+            "Başın dörtte birini meshetmek.",
+            "Ayakları topuklarla birlikte bir kez yıkamak."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Yukarıdaki dört madde Hanefî mezhebine göredir. Şâfiî mezhebinde niyet ve sıralama (tertip) da farzlar arasında sayıldığı için farz sayısı altı olarak ifade edilir. Bu, mezhepler arasında bilinen bir görüş farkıdır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Farzlardan biri eksik kalırsa abdest tamamlanmamış olur; eksik organ yıkanarak tamamlanır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Abdest alırken kolların dirsekleri ve ayakların topukları en çok unutulan yerlerdir; bu iki noktaya dikkat et."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "differenceNote": "Farz sayısı Hanefî mezhebinde dört, Şâfiî mezhebinde altı olarak ifade edilir.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdesti-bozan-durumlar"],
+      "beginnerPathOrder": 6,
+      "isFeatured": false
+    },
+    {
+      "id": "art-abdesti-bozan-durumlar",
+      "slug": "abdesti-bozan-durumlar",
+      "categoryId": "cat-purity",
+      "title": "Abdesti bozan durumlar",
+      "summary": "Abdestin yenilenmesini gerektiren başlıca hâller.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["abdesti bozan", "abdest bozulur mu", "abdest bozan seyler", "temizlik"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Bazı durumlar abdesti sona erdirir ve ibadet öncesinde abdestin yenilenmesini gerektirir. Başlıcaları şunlardır:"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Küçük veya büyük abdest bozmak, yellenmek.",
+            "Vücuttan kan, irin gibi akıntıların çıkıp yayılması.",
+            "Ağız dolusu kusmak.",
+            "Bayılmak, sarhoş olmak veya aklın geçici olarak kaybı.",
+            "Yatarak ya da bir yere dayanarak derin uykuya dalmak.",
+            "Namazda sesli şekilde gülmek."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Bu maddeler ağırlıklı olarak Hanefî mezhebine göredir. Örneğin vücuttan çıkan kanın abdesti bozması Hanefî görüşüdür; Şâfiî mezhebinde kan çıkması abdesti bozmaz, buna karşılık bazı durumlarda ten temasına farklı hüküm verilir. Görüş farkları gizlenmemeli, bilinmelidir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Şüphe hâlinde esas olan, önceki kesin duruma güvenmektir: abdestin bozulduğundan emin değilsen abdestli sayılırsın."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Kendi mezhebine göre uygulamayı öğrenmek istersen, bağlı olduğun görüşü esas alan bir ilmihalden ilgili bölümü okuyabilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "differenceNote": "Abdesti bozan durumlar mezhepler arasında farklılık gösterir.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdestin-farzlari"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-gusul-nasil-alinir",
+      "slug": "gusul-nasil-alinir",
+      "categoryId": "cat-purity",
+      "title": "Gusül nasıl alınır?",
+      "summary": "Boy abdesti olarak da bilinen guslün farzları ve uygulanışı.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["gusul", "gusul abdesti", "boy abdesti", "gusl", "temizlik"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Gusül, bütün bedenin yıkanmasıyla gerçekleşen temizlik hâlidir. Halk arasında \"boy abdesti\" olarak da bilinir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Niyet edip besmele çek.",
+            "Ellerini ve varsa bedendeki kirliliği temizle.",
+            "Abdest al.",
+            "Ağzına su alıp iyice çalkala.",
+            "Burnuna su çekip temizle.",
+            "Suyu önce başından, sonra sağ ve sol omuzundan dökerek bütün bedeni yıka.",
+            "Vücutta kuru yer kalmadığından emin ol."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hanefî mezhebine göre guslün farzları üçtür: ağza su almak, burna su almak ve bütün bedeni yıkamak."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Şâfiî mezhebinde guslün farzları niyet ve bütün bedeni yıkamak olarak ifade edilir; ağza ve burna su almak sünnet sayılır. Mezhepler arasındaki bu fark bilinerek uygulanmalıdır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Saç diplerine ve kulak arkasına suyun ulaşması en sık gözden kaçan noktadır."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "differenceNote": "Guslün farzları Hanefî ve Şâfiî mezheplerinde farklı sayılır.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-teyemmum-nedir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-teyemmum-nedir",
+      "slug": "teyemmum-nedir",
+      "categoryId": "cat-purity",
+      "title": "Teyemmüm nedir?",
+      "summary": "Su bulunmadığında veya kullanılamadığında yapılan temizlik.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": ["teyemmum", "su yoksa abdest", "toprakla abdest", "temizlik"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Teyemmüm, suyun bulunmadığı veya sağlık gibi bir sebeple kullanılamadığı durumlarda, temiz toprak ya da toprak cinsinden bir yüzeyle yapılan temizliktir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Teyemmüme niyet et.",
+            "İki elini temiz toprak veya toprak cinsi bir yüzeye vur.",
+            "Ellerini yüzüne sürerek meshet.",
+            "Ellerini ikinci kez yüzeye vur.",
+            "Kollarını dirseklerle birlikte meshet."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Teyemmüm hem abdest hem gusül yerine geçebilir. Su bulunduğunda veya kullanılabilir hâle geldiğinde teyemmümün hükmü sona erer."
+        },
+        {
+          "type": "warning",
+          "text": "Sağlık sebebiyle su kullanamama durumu kişiye özeldir. Kendi durumun için karar verirken hem hekimine hem de yetkili bir din görevlisine danışman uygun olur."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "requiresQualifiedGuidance": true,
+      "guidanceMessage": "Sağlık durumuna bağlı özel hâller için yetkili bir din görevlisine veya Din İşleri Yüksek Kurulu'na danışabilirsin.",
+      "officialQuestionUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-gusul-nasil-alinir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-namaza-hazirlik",
+      "slug": "namaza-hazirlik",
+      "categoryId": "cat-prayer",
+      "title": "Namaza hazırlık",
+      "summary": "Namaz kılmadan önce yerine gelmesi gereken şartlar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["namaza hazirlik", "namazin sartlari", "kible", "namaz", "hazirlik"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Namazın geçerli olabilmesi için namaza başlamadan önce yerine getirilmesi gereken bazı şartlar vardır. Bunlar namazın \"dışındaki\" şartlar olarak anılır."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Abdestli olmak (gerekiyorsa gusletmek).",
+            "Bedenin, elbisenin ve namaz kılınacak yerin temiz olması.",
+            "Örtülmesi gereken yerlerin örtülü olması.",
+            "Kıbleye yönelmek.",
+            "Namaz vaktinin girmiş olması.",
+            "Kılınacak namaza niyet etmek."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Niyet kalbin yönelişidir; yüksek sesle uzun cümleler söylemek gerekmez."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hazırlık şartları karmaşık görünse de günlük hayatta çoğu kendiliğinden yerine gelir. Zamanla bu adımlar düşünmeden yapılan bir alışkanlığa dönüşür."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Namaz kılacağın yeri önceden hazırlamak, başlamayı belirgin biçimde kolaylaştırır."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-bes-vakit-namaz", "art-namazin-bolumleri", "art-abdest-nasil-alinir"],
+      "beginnerPathOrder": 7,
+      "isFeatured": false
+    },
+    {
+      "id": "art-bes-vakit-namaz",
+      "slug": "bes-vakit-namaz",
+      "categoryId": "cat-prayer",
+      "title": "Beş vakit namaz",
+      "summary": "Günün beş vakti ve her vaktin farz rekât sayısı.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["bes vakit", "namaz vakitleri", "farz namaz", "rekat", "namaz"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Günde beş vakit namaz, ergenlik çağına gelmiş ve aklı yerinde olan her Müslümana farzdır. Her vaktin kendine ait bir zaman aralığı vardır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Sabah: 2 rekât farz.",
+            "Öğle: 4 rekât farz.",
+            "İkindi: 4 rekât farz.",
+            "Akşam: 3 rekât farz.",
+            "Yatsı: 4 rekât farz."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Yukarıdaki sayılar yalnız farz rekâtlardır. Vakitlere göre sünnet namazlar ayrıca kılınır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Namaz vakitleri güneşin konumuna göre belirlendiği için bulunulan yere ve mevsime göre değişir. Uygulamanın Namaz sekmesinde bulunduğun yere göre hesaplanan vakitleri görebilirsin."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Düzenli kılmakta zorlanıyorsan, önce yalnız bir vakti düzenli hâle getirmeyi hedefleyebilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-namazin-bolumleri"],
+      "beginnerPathOrder": 8,
+      "isFeatured": true
+    },
+    {
+      "id": "art-namazin-bolumleri",
+      "slug": "namazin-bolumleri",
+      "categoryId": "cat-prayer",
+      "title": "Namazın temel bölümleri",
+      "summary": "Bir rekâtın yapı taşları: kıyam, kıraat, rükû, secde ve oturuş.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": ["namazin rukunleri", "rekat", "kiyam", "ruku", "secde", "namaz nasil kilinir"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Namaz, tekrar eden birimlerden (rekât) oluşur. Her rekâtta belirli bölümler sırayla yerine getirilir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "İftitah tekbiri: \"Allahu ekber\" diyerek namaza başlamak.",
+            "Kıyam: ayakta durmak.",
+            "Kıraat: Kur'an'dan okumak.",
+            "Rükû: eller dizlerde olacak şekilde eğilmek.",
+            "Secde: alın, burun, eller, dizler ve ayak parmakları yere gelecek şekilde yere kapanmak (her rekâtta iki kez).",
+            "Son oturuş: namazın sonunda bir süre oturmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Her bölümde bedenin bir an sükûnete ermesi, namazın huzurla kılınmasının temelidir; acele edilmez."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Namazın rükünlerinin sayımı ve bazı ayrıntıların farz mı vacip mi olduğu mezhepler arasında farklı ifade edilebilir. Temel akış ise ortaktır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Öğrenirken bölümleri tek tek adlandırmak, namazın akışını akılda tutmayı kolaylaştırır."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "differenceNote": "Rükünlerin sayımı mezheplere göre farklı ifade edilebilir.",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 9,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kuran-nedir",
+      "slug": "kuran-nedir",
+      "categoryId": "cat-quran-learning",
+      "title": "Kur'an nedir?",
+      "summary": "Kur'an-ı Kerim'in tanımı, yapısı ve korunmuşluğu.",
+      "contentType": "quranExplanation",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["kuran", "kur'an", "kuran nedir", "mushaf", "sure", "ayet", "vahiy"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kur'an-ı Kerim, Allah tarafından Hz. Muhammed'e (s.a.v.) vahiy yoluyla indirilen ve nesilden nesile kesintisiz aktarılarak günümüze ulaşan ilahi kitaptır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kur'an 114 sureden oluşur. Sureler ayetlerden meydana gelir ve iki kapak arasında toplanmış hâline mushaf denir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kur'an yaklaşık 23 yıllık bir süre içinde, olaylar ve ihtiyaçlar doğrultusunda bölüm bölüm indirilmiştir. Vahiy hem yazıyla kaydedilmiş hem de ezberlenerek korunmuştur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kur'an'ın aslı Arapçadır. Başka dillerdeki metinler \"meal\" olarak adlandırılır ve ayetin anlamını aktarma çabasıdır; Kur'an'ın yerini tutmaz."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Uygulamanın Kur'an sekmesinden özgün Arapça metni ve mealini birlikte okumaya başlayabilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali", "diyanet-kuran-yolu-tefsiri"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-kuran-okumaya-baslangic", "art-islam-nedir"],
+      "beginnerPathOrder": 10,
+      "isFeatured": true
+    },
+    {
+      "id": "art-kuran-okumaya-baslangic",
+      "slug": "kuran-okumaya-baslangic",
+      "categoryId": "cat-quran-learning",
+      "title": "Kur'an okumaya başlangıç",
+      "summary": "Sıfırdan başlayanlar için sakin ve gerçekçi bir yol.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["kuran okuma", "elif ba", "kuran ogrenme", "tecvid", "okumaya baslamak"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kur'an okumayı öğrenmek zaman isteyen bir süreçtir. Acele etmeden, küçük ve düzenli adımlarla ilerlemek en sağlıklı yoldur."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Arap harflerini (elif-bâ) tanımakla başla.",
+            "Harflerin hareke ile nasıl okunduğunu öğren.",
+            "Kısa sureleri dinleyerek telaffuza kulak aşinalığı kazan.",
+            "Yavaş yavaş kelime ve ayet okumaya geç.",
+            "Mümkünse bir öğreticiden veya kurstan destek al."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Doğru telaffuzu öğrenmek için dinlemek en etkili yöntemlerden biridir; okuma ve dinleme birlikte ilerler."
+        },
+        {
+          "type": "paragraph",
+          "text": "Henüz Arapça okuyamıyorsan meal okumak da değerlidir. Anlamı takip etmek, ilerideki okuma yolculuğunu kolaylaştırır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün tek bir kısa sureyi dinlemekle başlayabilirsin; başlamak, hızlı ilerlemekten daha önemlidir."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-kuran-nedir"],
+      "beginnerPathOrder": 11,
+      "isFeatured": false
+    },
+    {
+      "id": "art-dua-adabi",
+      "slug": "dua-adabi",
+      "categoryId": "cat-dua",
+      "title": "Dua adabı",
+      "summary": "Duanın anlamı ve duayı güzelleştiren tutumlar.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["dua", "dua adabi", "dua etmek", "yakaris", "zikir"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Dua, kulun Allah'a yönelip hâlini arz etmesidir. Belirli bir zamana, mekâna veya dile bağlı değildir; herkes kendi diliyle dua edebilir."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Allah'a hamd ederek başlamak.",
+            "Peygamberimize salât ü selam getirmek.",
+            "İçtenlikle ve umutla istemek.",
+            "Israrla ve sabırla dua etmeye devam etmek.",
+            "Duanın kabulünü Allah'ın hikmetine bırakmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Duanın karşılıksız kaldığı düşüncesi yerine, karşılığının en uygun zamanda ve biçimde verileceği bilinci esastır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Dua yalnız zor zamanlara ait değildir. Huzurlu anlarda da dua etmek, kul ile Allah arasındaki bağı sürekli kılar."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün kendi cümlelerinle kısa bir dua et; ezber cümle gerekmez."
+        }
+      ],
+      "sourceIds": ["diyanet-hadislerle-islam", "diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-tevbe-ve-umit"],
+      "beginnerPathOrder": 12,
+      "isFeatured": true
+    },
+    {
+      "id": "art-tevbe-ve-umit",
+      "slug": "tevbe-ve-umit",
+      "categoryId": "cat-akhlaq",
+      "title": "Tevbe ve ümit",
+      "summary": "Hatadan dönüş ve Allah'ın rahmetinden ümit kesmemek.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["tevbe", "tovbe", "pismanlik", "umit", "af", "magfiret", "yeniden baslamak"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Tevbe, yapılan bir hatadan pişmanlık duyup Allah'a yönelmektir. İslam inancında hiçbir kul, ne kadar hata yapmış olursa olsun rahmetin dışında değildir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Yapılan hatayı fark etmek ve pişmanlık duymak.",
+            "O davranışı terk etmek.",
+            "Bir daha yapmamaya samimiyetle niyet etmek.",
+            "Bir kul hakkı varsa onu telafi etmeye çalışmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Tevbe bir kereye mahsus değildir. Tekrar hata yapıldığında yeniden tevbe etmek her zaman mümkündür."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ümitsizlik, kişiyi yeniden başlamaktan alıkoyduğu için en ağır yüklerden biridir. Oysa dönüş kapısı her zaman açıktır ve geç kalınmış sayılmaz."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Geçmişi uzun uzun muhasebe etmek yerine, bugün için tek bir küçük iyi adım belirleyebilirsin."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali", "diyanet-hadislerle-islam"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": ["art-dua-adabi", "art-islam-nedir"],
+      "beginnerPathOrder": 13,
+      "isFeatured": true
+    }
+  ]
+}

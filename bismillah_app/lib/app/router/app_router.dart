@@ -1,7 +1,9 @@
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_shell.dart';
 import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
-import 'package:bismillah_app/features/learn/presentation/learn_placeholder_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_article_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_category_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_goals_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_journey_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_pace_screen.dart';
@@ -126,7 +128,23 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
               GoRoute(
                 path: AppRoutes.learn,
                 name: AppRoutes.learnName,
-                builder: (context, state) => const LearnPlaceholderScreen(),
+                builder: (context, state) => const LearnScreen(),
+              ),
+              // Öğrenme kategorisi ve içerik detayı (TASK 056): Learn
+              // branch içinde push route — alt navigasyon görünür kalır.
+              GoRoute(
+                path: '${AppRoutes.learnCategory}/:slug',
+                name: AppRoutes.learnCategoryName,
+                builder: (context, state) => LearnCategoryScreen(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: '${AppRoutes.learnArticle}/:slug',
+                name: AppRoutes.learnArticleName,
+                builder: (context, state) => LearnArticleScreen(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
               ),
             ],
           ),

@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "locale": "ar",
+  "note": "هذه النصوص ترجمات تفسيرية غير رسمية للملخصات التركية المستندة إلى مصادر رئاسة الشؤون الدينية التركية. وهي ليست فتاوى أو منشورات عربية رسمية صادرة عن الرئاسة.",
+  "articles": [
+    {
+      "id": "art-islam-nedir",
+      "slug": "ma-hu-al-islam",
+      "categoryId": "cat-basics",
+      "title": "ما هو الإسلام؟",
+      "summary": "الإسلام دين يقوم على الإيمان بوحدانية الله والانقياد له بقلب راضٍ.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["الإسلام", "الدين", "مسلم", "الاستسلام", "التوحيد"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "كلمة الإسلام تعني في اللغة الاستسلام والسلامة. وفي الاصطلاح تعني الإيمان بوحدانية الله، واتباع ما بيّنه من هدي عن رضا واختيار، وبلوغ الطمأنينة بهذا الانقياد."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفق العقيدة الإسلامية أرسل الله إلى الناس عبر التاريخ أنبياء وكتبًا. وآخر حلقات هذه الدعوة هو النبي محمد ﷺ والقرآن الكريم المنزل عليه."
+        },
+        {
+          "type": "keyPoint",
+          "text": "الإسلام ليس منظومة اعتقاد فحسب، بل منهج حياة متكامل يشمل العبادة والأخلاق أيضًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "يصير المرء مسلمًا إذا اعتقد كلمة الشهادة بقلبه ونطق بها. أما المعرفة والتطبيق فيُتعلَّمان تدريجيًا وبصبر؛ ولكل إنسان نقطة بداية مختلفة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن أردت أن تتعلم شيئًا واحدًا اليوم، فيمكنك البدء بقراءة معنى كلمة الشهادة."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-imanin-sartlari", "art-islamin-sartlari", "art-kelime-i-sehadet"],
+      "beginnerPathOrder": 1,
+      "isFeatured": true
+    },
+    {
+      "id": "art-imanin-sartlari",
+      "slug": "arkan-al-iman",
+      "categoryId": "cat-faith",
+      "title": "أركان الإيمان",
+      "summary": "أصول الاعتقاد مجموعة في ستة عناوين تُعرف مجتمعةً بـ«آمنتُ».",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["الإيمان", "أركان الإيمان", "العقيدة", "آمنت", "الاعتقاد"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الإيمان هو التصديق بالقلب والإقرار باللسان. وقد جرت العادة على تلخيص أصول الاعتقاد في الإسلام تحت ستة عناوين."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "الإيمان بالله: بأنه موجود واحد لا نظير له.",
+            "الإيمان بملائكته: خلق من نور ينفذون أمره.",
+            "الإيمان بكتبه: ما أنزله على أنبيائه من كتب.",
+            "الإيمان برسله: الذين أرسلهم الله إلى الناس.",
+            "الإيمان باليوم الآخر: الحياة بعد الموت والحساب.",
+            "الإيمان بالقدر، وأن الخير والشر يجريان بعلم الله ومشيئته."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "هذه الأصول الستة كلٌّ لا يتجزأ؛ فلا يُقبل أحدها ويُردّ الآخر."
+        },
+        {
+          "type": "paragraph",
+          "text": "تعلّم أركان الإيمان ليس حفظًا مجردًا. فالتأمل في معنى كل ركن يجعل الاعتقاد أكثر وعيًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "اختر ركنًا واحدًا من الستة وتأمل في معناه بهدوء اليوم."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-islam-nedir", "art-islamin-sartlari"],
+      "beginnerPathOrder": 2,
+      "isFeatured": true
+    },
+    {
+      "id": "art-islamin-sartlari",
+      "slug": "arkan-al-islam",
+      "categoryId": "cat-basics",
+      "title": "أركان الإسلام",
+      "summary": "الأسس الخمسة: الشهادة، والصلاة، والزكاة، والصوم، والحج لمن استطاع.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["أركان الإسلام", "الأركان الخمسة", "العبادة", "الصلاة", "الزكاة", "الصوم", "الحج"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تتلخص العبادات الأساسية في الإسلام في خمسة عناوين تُعرف بأركان الدين، وهي تشكّل الإطار الرئيس لحياة المسلم."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "النطق بكلمة الشهادة.",
+            "إقامة الصلاة.",
+            "إيتاء الزكاة لمن ملك النصاب.",
+            "صوم شهر رمضان.",
+            "حج البيت مرة في العمر لمن استطاع إليه سبيلًا."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الزكاة والحج ليسا واجبين على كل أحد، بل على من توفرت فيه الاستطاعة والشروط المعتبرة."
+        },
+        {
+          "type": "paragraph",
+          "text": "هذه العبادات ليست مجرد قائمة واجبات؛ فكل واحدة منها تقرّب العبد إلى الله وتربّيه على الصبر والبذل."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن لم تكن تصلي بانتظام بعد، فيمكنك اختيار وقت واحد والعمل على الثبات فيه أولًا."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-imanin-sartlari", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 3,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kelime-i-sehadet",
+      "slug": "kalimat-al-shahada",
+      "categoryId": "cat-basics",
+      "title": "كلمة الشهادة",
+      "summary": "الجملة التي يعلن بها المرء إيمانه، ومعناها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": ["الشهادة", "كلمة الشهادة", "الدخول في الإسلام", "التوحيد"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "كلمة الشهادة هي الجملة التي يعلن بها المرء إيمانه، ونصها: «أشهد أن لا إله إلا الله وأشهد أن محمدًا عبده ورسوله»."
+        },
+        {
+          "type": "keyPoint",
+          "text": "معناها: أشهد أنه لا معبود بحق إلا الله، وأشهد أن محمدًا عبده ورسوله."
+        },
+        {
+          "type": "paragraph",
+          "text": "تجمع هذه الكلمة أمرين معًا: وحدانية الله ورسالة محمد ﷺ. ويُشترط لصحتها أن تكون مقبولة في القلب لا مجرد لفظ باللسان."
+        },
+        {
+          "type": "paragraph",
+          "text": "من نطق بها معتقدًا صار مسلمًا. وبعد ذلك يكون تعلّم العبادات والمعارف الدينية مسيرة تدريجية تسير بحسب وسع كل إنسان."
+        },
+        {
+          "type": "practicalAction",
+          "text": "اقرأ الجملة على مهل، وحاول أن تعبّر عن معنى كل جزء منها بكلماتك."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-islam-nedir", "art-imanin-sartlari"],
+      "beginnerPathOrder": 4,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdest-nasil-alinir",
+      "slug": "kayfa-yutawadda",
+      "categoryId": "cat-purity",
+      "title": "كيف يُتوضّأ؟",
+      "summary": "خطوات الوضوء وترتيبه.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": ["الوضوء", "كيفية الوضوء", "الطهارة", "التهيؤ للصلاة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الوضوء طهارة لازمة للصلاة ولبعض العبادات الأخرى. والترتيب التالي يلخّص الصفة المتعارف عليها؛ أما الفروض فقد أُفردت في موضوع مستقل."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "انوِ الوضوء وسمِّ الله.",
+            "اغسل يديك إلى الرسغين ثلاثًا، ولا تهمل ما بين الأصابع.",
+            "تمضمض ثلاثًا بيدك اليمنى.",
+            "استنشق الماء ثلاثًا وانثره بيدك اليسرى.",
+            "اغسل وجهك ثلاثًا من منابت الشعر إلى أسفل الذقن.",
+            "اغسل ذراعك اليمنى ثم اليسرى مع المرفقين ثلاثًا لكل منهما.",
+            "بلّ يديك وامسح رأسك.",
+            "امسح أذنيك ثم عنقك.",
+            "اغسل قدمك اليمنى ثم اليسرى مع الكعبين ثلاثًا لكل منهما."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الغسل يعني وصول الماء إلى كامل العضو، فلا يبقى موضع جاف لم يصله الماء."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "الترتيب في الوضوء والموالاة سنة عند الحنفية وفرض عند الشافعية. ومثل هذه الفروق موجودة بين المذاهب الفقهية."
+        },
+        {
+          "type": "practicalAction",
+          "text": "اقرأ الخطوات مرة واحدة على مهل ثم طبّقها؛ فالحفظ يأتي مع الوقت من تلقاء نفسه."
+        },
+        {
+          "type": "sourceNote",
+          "text": "هذا الملخص مستند إلى باب الوضوء في كتاب «الإسلام إلمهالي» الصادر عن رئاسة الشؤون الدينية، وليس اقتباسًا حرفيًا منه."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-abdestin-farzlari", "art-abdesti-bozan-durumlar", "art-gusul-nasil-alinir"],
+      "beginnerPathOrder": 5,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdestin-farzlari",
+      "slug": "furud-al-wudu",
+      "categoryId": "cat-purity",
+      "title": "فروض الوضوء",
+      "summary": "الأجزاء التي لا يصح الوضوء إلا بها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["فروض الوضوء", "فرض", "الوضوء", "شروط الوضوء"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "فروض الوضوء هي الأجزاء التي لا بد من أدائها ليصح الوضوء، وما عداها يدخل في السنن والآداب."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "غسل الوجه مرة.",
+            "غسل الذراعين مع المرفقين مرة.",
+            "مسح ربع الرأس.",
+            "غسل القدمين مع الكعبين مرة."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "البنود الأربعة أعلاه على مذهب الحنفية. أما عند الشافعية فتُعدّ النية والترتيب من الفروض أيضًا، فيصير عددها ستة. وهذا اختلاف معروف بين المذاهب."
+        },
+        {
+          "type": "keyPoint",
+          "text": "إذا تُرك أحد الفروض لم يتم الوضوء، ويُكمَل بغسل العضو المتروك."
+        },
+        {
+          "type": "practicalAction",
+          "text": "المرفقان والكعبان أكثر المواضع التي يُغفل عنها؛ فانتبه لهما."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "عدد الفروض أربعة عند الحنفية وستة عند الشافعية.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdesti-bozan-durumlar"],
+      "beginnerPathOrder": 6,
+      "isFeatured": false
+    },
+    {
+      "id": "art-abdesti-bozan-durumlar",
+      "slug": "nawaqid-al-wudu",
+      "categoryId": "cat-purity",
+      "title": "نواقض الوضوء",
+      "summary": "أبرز الحالات التي توجب تجديد الوضوء.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["نواقض الوضوء", "ما ينقض الوضوء", "الطهارة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بعض الحالات تُنهي الطهارة وتوجب تجديد الوضوء قبل العبادة، وأبرزها:"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "قضاء الحاجة أو خروج الريح.",
+            "خروج الدم أو القيح ونحوهما من البدن وانتشاره.",
+            "القيء ملء الفم.",
+            "الإغماء أو السُّكر أو زوال العقل مؤقتًا.",
+            "النوم العميق مضطجعًا أو متكئًا.",
+            "القهقهة في الصلاة."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "هذه البنود على مذهب الحنفية غالبًا. فخروج الدم ناقض عند الحنفية، وغير ناقض عند الشافعية، بينما يُعطى لمس البشرة حكمًا مختلفًا في بعض الحالات. وهذه الفروق ينبغي أن تُعرف لا أن تُخفى."
+        },
+        {
+          "type": "keyPoint",
+          "text": "عند الشك يُبنى على اليقين السابق: فإن لم تتيقن انتقاض وضوئك فأنت على طهارة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن أردت العمل بمذهبك، فاقرأ الباب المتعلق بذلك في كتاب فقهي يعتمد ذلك المذهب."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "نواقض الوضوء تختلف بين المذاهب الفقهية.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdestin-farzlari"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-gusul-nasil-alinir",
+      "slug": "kayfa-yughtasal",
+      "categoryId": "cat-purity",
+      "title": "كيف يكون الغسل؟",
+      "summary": "فروض الغسل وصفته.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["الغسل", "الاغتسال", "الطهارة الكبرى", "الجنابة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الغسل طهارة تتحقق بغسل البدن كله بالماء."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "انوِ وسمِّ الله.",
+            "اغسل يديك ونظّف ما على البدن من أذى.",
+            "توضأ.",
+            "تمضمض جيدًا.",
+            "استنشق الماء ونظّف أنفك.",
+            "أفض الماء على رأسك ثم على منكبك الأيمن فالأيسر حتى تغسل البدن كله.",
+            "تأكد من عدم بقاء موضع جاف في البدن."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "فروض الغسل عند الحنفية ثلاثة: المضمضة، والاستنشاق، وغسل البدن كله."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "أما عند الشافعية فالفرض هو النية وغسل البدن كله، وتُعدّ المضمضة والاستنشاق من السنن. وينبغي معرفة هذا الفرق عند التطبيق."
+        },
+        {
+          "type": "practicalAction",
+          "text": "أصول الشعر وما خلف الأذنين أكثر المواضع التي لا يصلها الماء."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "فروض الغسل تُعدّ بصور مختلفة عند الحنفية والشافعية.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-teyemmum-nedir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-teyemmum-nedir",
+      "slug": "ma-hu-al-tayammum",
+      "categoryId": "cat-purity",
+      "title": "ما هو التيمم؟",
+      "summary": "الطهارة عند فقد الماء أو تعذّر استعماله.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": ["التيمم", "فقد الماء", "الطهارة بالتراب"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "التيمم طهارة تُؤدّى بالتراب الطاهر أو ما كان من جنس الأرض، عند عدم وجود الماء أو تعذّر استعماله لعذر كالمرض."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "انوِ التيمم.",
+            "اضرب بيديك على تراب طاهر أو ما كان من جنس الأرض.",
+            "امسح بهما وجهك.",
+            "اضرب بيديك مرة ثانية.",
+            "امسح ذراعيك مع المرفقين."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "يقوم التيمم مقام الوضوء والغسل معًا. وينتهي حكمه عند وجود الماء أو القدرة على استعماله."
+        },
+        {
+          "type": "warning",
+          "text": "تعذّر استعمال الماء لعذر صحي أمر يخص كل شخص بحاله. ومن المناسب عند البتّ في حالتك أن تستشير طبيبك وأحد المختصين المؤهلين في الشأن الديني."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "requiresQualifiedGuidance": true,
+      "guidanceMessage": "للحالات الخاصة المتعلقة بالصحة يمكنك استشارة مختص مؤهل أو الرجوع إلى المجلس الأعلى للشؤون الدينية.",
+      "officialQuestionUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-gusul-nasil-alinir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-namaza-hazirlik",
+      "slug": "al-isti-dad-lil-salah",
+      "categoryId": "cat-prayer",
+      "title": "الاستعداد للصلاة",
+      "summary": "الشروط التي ينبغي تحققها قبل الشروع في الصلاة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["شروط الصلاة", "الاستعداد للصلاة", "القبلة", "الصلاة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "لصحة الصلاة شروط ينبغي تحققها قبل الشروع فيها، وتُعرف بشروط الصلاة الخارجة عنها."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "أن تكون على وضوء، وأن تغتسل إن لزم.",
+            "طهارة البدن والثوب وموضع الصلاة.",
+            "ستر ما يجب ستره من البدن.",
+            "استقبال القبلة.",
+            "دخول وقت الصلاة.",
+            "النية للصلاة المؤداة."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "النية توجّه القلب، ولا يُشترط فيها التلفظ بعبارات طويلة بصوت مرتفع."
+        },
+        {
+          "type": "paragraph",
+          "text": "قد تبدو هذه الشروط كثيرة، لكن أكثرها يتحقق تلقائيًا في الحياة اليومية. ومع الوقت تصير هذه الخطوات عادة تُؤدّى دون تفكير."
+        },
+        {
+          "type": "practicalAction",
+          "text": "تهيئة مكان الصلاة مسبقًا تسهّل البدء تسهيلًا ملحوظًا."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-bes-vakit-namaz", "art-namazin-bolumleri", "art-abdest-nasil-alinir"],
+      "beginnerPathOrder": 7,
+      "isFeatured": false
+    },
+    {
+      "id": "art-bes-vakit-namaz",
+      "slug": "al-salawat-al-khams",
+      "categoryId": "cat-prayer",
+      "title": "الصلوات الخمس",
+      "summary": "أوقات الصلاة الخمسة وعدد ركعات الفرض في كل منها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["الصلوات الخمس", "أوقات الصلاة", "الفرض", "الركعات", "الصلاة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الصلوات الخمس فرض على كل مسلم بالغ عاقل. ولكل صلاة وقتها الخاص بها."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "الفجر: ركعتان فرضًا.",
+            "الظهر: أربع ركعات فرضًا.",
+            "العصر: أربع ركعات فرضًا.",
+            "المغرب: ثلاث ركعات فرضًا.",
+            "العشاء: أربع ركعات فرضًا."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الأعداد المذكورة أعلاه هي ركعات الفرض فقط، أما السنن الراتبة فتُصلّى على حدة."
+        },
+        {
+          "type": "paragraph",
+          "text": "تُحدَّد أوقات الصلاة بحسب موضع الشمس، ولذلك تختلف باختلاف المكان والفصل. ويمكنك الاطلاع على الأوقات المحسوبة حسب موقعك في تبويب الصلاة داخل التطبيق."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كان الانتظام صعبًا عليك، فيمكنك أن تجعل هدفك أولًا الانتظام في وقت واحد فقط."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-namazin-bolumleri"],
+      "beginnerPathOrder": 8,
+      "isFeatured": true
+    },
+    {
+      "id": "art-namazin-bolumleri",
+      "slug": "arkan-al-salah",
+      "categoryId": "cat-prayer",
+      "title": "أجزاء الصلاة الأساسية",
+      "summary": "مكوّنات الركعة: القيام والقراءة والركوع والسجود والقعود.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": ["أركان الصلاة", "الركعة", "القيام", "الركوع", "السجود", "كيفية الصلاة"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تتكوّن الصلاة من وحدات متكررة تُسمى ركعات، ويُؤدّى في كل ركعة أجزاء محددة بالترتيب."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "تكبيرة الإحرام: افتتاح الصلاة بقول «الله أكبر».",
+            "القيام.",
+            "القراءة من القرآن.",
+            "الركوع مع وضع اليدين على الركبتين.",
+            "السجود بحيث تلامس الأرض الجبهة والأنف واليدان والركبتان وأطراف القدمين (مرتين في كل ركعة).",
+            "القعود الأخير في نهاية الصلاة."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الطمأنينة في كل جزء أساس أداء الصلاة بخشوع، فلا يُستعجل فيها."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "قد يختلف عدّ أركان الصلاة، وكون بعض التفاصيل فرضًا أو واجبًا، بين المذاهب الفقهية. أما التسلسل الأساسي فمشترك بينها."
+        },
+        {
+          "type": "practicalAction",
+          "text": "تسمية كل جزء أثناء التعلّم تسهّل استحضار ترتيب الصلاة."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "عدّ الأركان قد يُعبَّر عنه بصور مختلفة بين المذاهب.",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 9,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kuran-nedir",
+      "slug": "ma-hu-al-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "ما هو القرآن؟",
+      "summary": "تعريف القرآن الكريم وبنيته وحفظه.",
+      "contentType": "quranExplanation",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["القرآن", "ما هو القرآن", "المصحف", "السورة", "الآية", "الوحي"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "القرآن الكريم هو الكتاب الإلهي الذي أنزله الله على النبي محمد ﷺ بطريق الوحي، ونُقل إلينا نقلًا متصلًا جيلًا بعد جيل."
+        },
+        {
+          "type": "keyPoint",
+          "text": "يتألف القرآن من 114 سورة. وتتكوّن السور من آيات، ويُسمى النص المجموع بين دفتين مصحفًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "نزل القرآن مفرّقًا في نحو ثلاث وعشرين سنة بحسب الوقائع والحاجات. وقد حُفظ الوحي بالكتابة وبالحفظ في الصدور معًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "أصل القرآن باللغة العربية. أما النصوص بلغات أخرى فتُسمى ترجمة معاني، وهي محاولة لنقل المعنى ولا تقوم مقام القرآن نفسه."
+        },
+        {
+          "type": "practicalAction",
+          "text": "يمكنك البدء بقراءة النص العربي الأصلي مع ترجمة معانيه من تبويب القرآن في التطبيق."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali", "diyanet-kuran-yolu-tefsiri"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-kuran-okumaya-baslangic", "art-islam-nedir"],
+      "beginnerPathOrder": 10,
+      "isFeatured": true
+    },
+    {
+      "id": "art-kuran-okumaya-baslangic",
+      "slug": "al-bad-bi-qiraat-al-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "البدء بقراءة القرآن",
+      "summary": "طريق هادئ وواقعي لمن يبدأ من الصفر.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["قراءة القرآن", "الحروف العربية", "تعلم القرآن", "التجويد", "البداية"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تعلّم قراءة القرآن مسيرة تحتاج وقتًا. والتقدّم بخطوات صغيرة منتظمة دون استعجال هو أسلم الطرق."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "ابدأ بمعرفة الحروف العربية.",
+            "تعلّم كيف تُقرأ الحروف بالحركات.",
+            "استمع إلى السور القصيرة لتألف النطق.",
+            "انتقل تدريجيًا إلى قراءة الكلمات والآيات.",
+            "استعن بمعلم أو بدورة تعليمية إن أمكن."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الاستماع من أنجع وسائل تعلّم النطق الصحيح؛ فالقراءة والسماع يتقدمان معًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "إن كنت لا تقرأ العربية بعد، فقراءة ترجمة المعاني نافعة أيضًا. ومتابعة المعنى تيسّر رحلة القراءة لاحقًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "يمكنك أن تبدأ اليوم بالاستماع إلى سورة قصيرة واحدة؛ فالبدء أهم من سرعة التقدم."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-kuran-nedir"],
+      "beginnerPathOrder": 11,
+      "isFeatured": false
+    },
+    {
+      "id": "art-dua-adabi",
+      "slug": "adab-al-dua",
+      "categoryId": "cat-dua",
+      "title": "آداب الدعاء",
+      "summary": "معنى الدعاء والآداب التي تزيّنه.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["الدعاء", "آداب الدعاء", "المناجاة", "الذكر"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الدعاء توجّه العبد إلى الله وعرضُ حاله بين يديه. وهو غير مقيّد بزمان أو مكان أو لغة؛ فلكل إنسان أن يدعو بلسانه."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "أن يبدأ بحمد الله.",
+            "أن يصلي على النبي ﷺ.",
+            "أن يسأل بصدق ورجاء.",
+            "أن يلحّ في الدعاء ويصبر عليه.",
+            "أن يترك أمر الإجابة لحكمة الله."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "بدل الظن بأن الدعاء لم يُستجب، الأصل هو اليقين بأن الإجابة تأتي في أنسب وقت وأنسب صورة."
+        },
+        {
+          "type": "paragraph",
+          "text": "الدعاء ليس خاصًا بأوقات الشدة. فالدعاء في أوقات العافية أيضًا يجعل صلة العبد بربه متصلة دائمًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "ادعُ اليوم دعاءً قصيرًا بكلماتك أنت؛ فلا يلزم حفظ صيغة معينة."
+        }
+      ],
+      "sourceIds": ["diyanet-hadislerle-islam", "diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-tevbe-ve-umit"],
+      "beginnerPathOrder": 12,
+      "isFeatured": true
+    },
+    {
+      "id": "art-tevbe-ve-umit",
+      "slug": "al-tawba-wal-raja",
+      "categoryId": "cat-akhlaq",
+      "title": "التوبة والرجاء",
+      "summary": "الرجوع عن الخطأ، وألا يُقنَط من رحمة الله.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["التوبة", "الندم", "الرجاء", "المغفرة", "البداية من جديد"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "التوبة أن يندم المرء على خطأ ارتكبه ويرجع إلى الله. وفي الاعتقاد الإسلامي ليس أحد خارج دائرة الرحمة مهما كثرت أخطاؤه."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "إدراك الخطأ والندم عليه.",
+            "الإقلاع عن ذلك السلوك.",
+            "العزم الصادق على عدم العودة إليه.",
+            "السعي في ردّ المظالم إن تعلّق بالخطأ حق لأحد."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "التوبة ليست مرة واحدة؛ فإذا تكرر الخطأ أمكن تجديد التوبة دائمًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "القنوط من أثقل الأحمال لأنه يمنع صاحبه من البدء من جديد. غير أن باب الرجوع مفتوح دائمًا، ولا يُعدّ الأوان قد فات."
+        },
+        {
+          "type": "practicalAction",
+          "text": "بدل الإطالة في محاسبة الماضي، يمكنك تحديد خطوة صغيرة واحدة لليوم."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali", "diyanet-hadislerle-islam"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-dua-adabi", "art-islam-nedir"],
+      "beginnerPathOrder": 13,
+      "isFeatured": true
+    }
+  ]
+}

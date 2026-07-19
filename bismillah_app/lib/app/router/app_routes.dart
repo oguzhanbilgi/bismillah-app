@@ -9,6 +9,17 @@ abstract final class AppRoutes {
   static const String prayerHistory = '/prayer/history';
   static const String quran = '/quran';
   static const String learn = '/learn';
+
+  /// Öğrenme kategorisi (TASK 056; Learn branch içinde push route).
+  /// Tam konum için [learnCategoryPath] kullanılır.
+  static const String learnCategory = '/learn/category';
+
+  static String learnCategoryPath(String slug) => '$learnCategory/$slug';
+
+  /// Öğrenme içeriği detayı: `/learn/article/:slug`.
+  static const String learnArticle = '/learn/article';
+
+  static String learnArticlePath(String slug) => '$learnArticle/$slug';
   static const String profile = '/profile';
 
   // Shell dışı katmanlar
@@ -65,6 +76,8 @@ abstract final class AppRoutes {
   static const String prayerHistoryName = 'prayerHistory';
   static const String quranName = 'quran';
   static const String learnName = 'learn';
+  static const String learnCategoryName = 'learnCategory';
+  static const String learnArticleName = 'learnArticle';
   static const String profileName = 'profile';
   static const String onboardingName = 'onboarding';
   static const String onboardingWelcomeName = 'onboardingWelcome';

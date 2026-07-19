@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "note": "Yalnız doğrulanmış resmî diyanet.gov.tr kaynakları. Uygulamadaki metinler bu kaynaklara dayanan ÖZGÜN ÖZETLERDİR; eserlerin aynen kopyası değildir.",
+  "sources": [
+    {
+      "id": "diyanet-islam-ilmihali",
+      "institution": "T.C. Diyanet İşleri Başkanlığı",
+      "title": "İslam İlmihali",
+      "sourceType": "ilmihal",
+      "canonicalUrl": "https://diniyayinlar.diyanet.gov.tr/Documents/islam%20ilmihali%2017%20X%2024%20.pdf",
+      "originalLanguage": "tr",
+      "publicationInfo": "Diyanet İşleri Başkanlığı Dinî Yayınlar Genel Müdürlüğü",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, İslam İlmihali",
+      "usageNotes": "Uygulamadaki metin bu eserin konu başlıklarına dayanan özgün özettir; eserden aynen alıntı değildir.",
+      "isOfficial": true
+    },
+    {
+      "id": "diyanet-kuran-portali",
+      "institution": "T.C. Diyanet İşleri Başkanlığı",
+      "title": "Kur'an-ı Kerim Portalı",
+      "sourceType": "officialPublication",
+      "canonicalUrl": "https://kuran.diyanet.gov.tr/",
+      "originalLanguage": "tr",
+      "publicationInfo": "Diyanet İşleri Başkanlığı resmî Kur'an portalı",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, Kur'an-ı Kerim Portalı",
+      "usageNotes": "Kur'an metni ve meal için resmî başvuru adresi olarak gösterilir; portal metni uygulamaya kopyalanmaz.",
+      "isOfficial": true
+    },
+    {
+      "id": "diyanet-kuran-yolu-tefsiri",
+      "institution": "T.C. Diyanet İşleri Başkanlığı",
+      "title": "Kur'an Yolu Türkçe Meâl ve Tefsir",
+      "sourceType": "quranTafsir",
+      "canonicalUrl": "https://kuran.diyanet.gov.tr/Tefsir/",
+      "originalLanguage": "tr",
+      "publicationInfo": "Kur'an Yolu Türkçe Meâl ve Tefsir (heyet)",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, Kur'an Yolu Türkçe Meâl ve Tefsir",
+      "usageNotes": "Tefsir bağlamı için başvuru kaynağıdır; tefsir metni uygulamaya aynen aktarılmaz.",
+      "isOfficial": true
+    },
+    {
+      "id": "diyanet-hadislerle-islam",
+      "institution": "T.C. Diyanet İşleri Başkanlığı",
+      "title": "Hadislerle İslam",
+      "sourceType": "hadithCollection",
+      "canonicalUrl": "https://hadislerleislam.diyanet.gov.tr/",
+      "originalLanguage": "tr",
+      "publicationInfo": "Hadislerle İslam (Diyanet İşleri Başkanlığı)",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, Hadislerle İslam",
+      "usageNotes": "Hadis temelli konularda resmî başvuru kaynağı olarak gösterilir; hadis metinleri uygulamada yeniden yazılmaz.",
+      "isOfficial": true
+    },
+    {
+      "id": "diyanet-din-isleri-yuksek-kurulu",
+      "institution": "T.C. Diyanet İşleri Başkanlığı Din İşleri Yüksek Kurulu",
+      "title": "Din İşleri Yüksek Kurulu Fetvaları",
+      "sourceType": "fatwa",
+      "canonicalUrl": "https://kurul.diyanet.gov.tr/tr/fetvalar",
+      "originalLanguage": "tr",
+      "publicationInfo": "Din İşleri Yüksek Kurulu resmî fetva sayfası",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı Din İşleri Yüksek Kurulu",
+      "usageNotes": "Kişisel duruma özel hüküm gerektiren konularda kullanıcı bu resmî mercie yönlendirilir; uygulama fetva üretmez.",
+      "isOfficial": true
+    },
+    {
+      "id": "diyanet-dini-soru-hizmetleri",
+      "institution": "T.C. Diyanet İşleri Başkanlığı Din İşleri Yüksek Kurulu",
+      "title": "Dinî Soru Hizmetleri",
+      "sourceType": "officialAnswer",
+      "canonicalUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
+      "originalLanguage": "tr",
+      "publicationInfo": "Din İşleri Yüksek Kurulu dinî soru arama hizmeti",
+      "accessedAt": "2026-07-19",
+      "lastVerifiedAt": "2026-07-19",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, Dinî Soru Hizmetleri",
+      "usageNotes": "Kullanıcının kendi sorusunu resmî mercie iletebilmesi için başvuru adresi olarak gösterilir.",
+      "isOfficial": true
+    }
+  ]
+}

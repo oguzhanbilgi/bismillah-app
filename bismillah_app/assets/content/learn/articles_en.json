@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "locale": "en",
+  "note": "These texts are UNOFFICIAL explanatory translations of the Turkish summaries, which are themselves based on official Diyanet sources. They are not official English fatwas or publications of the Diyanet.",
+  "articles": [
+    {
+      "id": "art-islam-nedir",
+      "slug": "what-is-islam",
+      "categoryId": "cat-basics",
+      "title": "What is Islam?",
+      "summary": "Islam is the faith built on believing in the oneness of God and submitting to Him wholeheartedly.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["islam", "religion", "muslim", "submission", "tawhid"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The word Islam literally means \"to submit, to be at peace\". As a term it refers to believing in the oneness of God, willingly following the guidance He revealed, and finding peace through that trust."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to Islamic belief, God sent prophets and scriptures to humanity throughout history. The final link in this chain is the Prophet Muhammad (peace be upon him) and the Qur'an revealed to him."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Islam is not only a set of beliefs; it is an integrated way of life that also includes worship and character."
+        },
+        {
+          "type": "paragraph",
+          "text": "A person becomes Muslim by accepting the declaration of faith sincerely and saying it. Knowledge and practice are then learned gradually and patiently; everyone starts from a different point."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you want to learn one thing today, you could begin by reading the meaning of the declaration of faith."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-imanin-sartlari", "art-islamin-sartlari", "art-kelime-i-sehadet"],
+      "beginnerPathOrder": 1,
+      "isFeatured": true
+    },
+    {
+      "id": "art-imanin-sartlari",
+      "slug": "articles-of-faith",
+      "categoryId": "cat-faith",
+      "title": "The articles of faith",
+      "summary": "The essentials of belief are gathered under six headings, known together as the \"Amantu\".",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["faith", "iman", "belief", "amantu", "creed"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Faith means affirming with the heart and expressing with the tongue. The essentials of Islamic belief are traditionally summarised under six headings."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Belief in God: that He exists, is one and without equal.",
+            "Belief in His angels: beings created from light who follow His command.",
+            "Belief in His scriptures: the revelations sent to His prophets.",
+            "Belief in His prophets: the messengers sent to humanity.",
+            "Belief in the Hereafter: life after death and the reckoning.",
+            "Belief in destiny, that both good and hardship occur within God's knowledge and will."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "These six essentials form one inseparable whole; one is not accepted while another is rejected."
+        },
+        {
+          "type": "paragraph",
+          "text": "Learning the articles of faith is not merely memorisation. Reflecting on the meaning of each one makes belief more conscious."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Choose one of the six and simply reflect on its meaning today."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-islam-nedir", "art-islamin-sartlari"],
+      "beginnerPathOrder": 2,
+      "isFeatured": true
+    },
+    {
+      "id": "art-islamin-sartlari",
+      "slug": "pillars-of-islam",
+      "categoryId": "cat-basics",
+      "title": "The pillars of Islam",
+      "summary": "The five foundations: the declaration of faith, prayer, zakat, fasting, and pilgrimage for those able.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["pillars", "five pillars", "worship", "prayer", "zakat", "fasting", "hajj"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The core acts of worship in Islam are summarised under five headings. They are known as the pillars and form the main framework of a Muslim's life."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Declaring the testimony of faith.",
+            "Performing the prayer.",
+            "Giving zakat (for those who own wealth above the threshold).",
+            "Fasting in the month of Ramadan.",
+            "Performing hajj once in a lifetime for those who are able."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Zakat and hajj are not obligatory on everyone; they apply to those who meet specific means and conditions."
+        },
+        {
+          "type": "paragraph",
+          "text": "These acts are not simply a checklist of duties. Each one draws a person closer to God and trains patience and generosity."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you do not yet pray regularly, you could pick one prayer time and build consistency there first."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-imanin-sartlari", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 3,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kelime-i-sehadet",
+      "slug": "declaration-of-faith",
+      "categoryId": "cat-basics",
+      "title": "The declaration of faith",
+      "summary": "The sentence by which a person expresses faith, and what it means.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": ["shahada", "declaration of faith", "testimony", "becoming muslim", "tawhid"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The declaration of faith is the sentence by which a person states their belief. It is transliterated as: \"Ashhadu an la ilaha illallah wa ashhadu anna Muhammadan abduhu wa rasuluh.\""
+        },
+        {
+          "type": "keyPoint",
+          "text": "It means: \"I bear witness that there is no deity but God, and I bear witness that Muhammad is His servant and messenger.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "The sentence expresses two things together: the oneness of God and the prophethood of Muhammad. For it to be meaningful, it must be accepted sincerely in the heart."
+        },
+        {
+          "type": "paragraph",
+          "text": "A person who says this with belief becomes Muslim. Learning worship and religious knowledge afterwards is a gradual process that moves at each person's own pace."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Read the sentence slowly and try to express what each part means in your own words."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-islam-nedir", "art-imanin-sartlari"],
+      "beginnerPathOrder": 4,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdest-nasil-alinir",
+      "slug": "how-to-perform-wudu",
+      "categoryId": "cat-purity",
+      "title": "How is wudu performed?",
+      "summary": "The step-by-step practice and order of ablution.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": ["wudu", "ablution", "washing", "purity", "preparing for prayer"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Wudu is the state of purity required for prayer and certain other acts of worship. The order below summarises the common practice; the strictly obligatory parts are covered in a separate topic."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention for wudu and say the basmala.",
+            "Wash your hands up to the wrists three times, including between the fingers.",
+            "Rinse your mouth three times using your right hand.",
+            "Draw water into your nose three times and clean it with your left hand.",
+            "Wash your face three times, from the hairline to below the chin.",
+            "Wash your right then left arm, including the elbows, three times each.",
+            "Wet your hands and wipe over your head.",
+            "Wipe your ears and then your neck.",
+            "Wash your right then left foot, including the ankles, three times each."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Washing means the whole limb becomes wet. No dry spot should remain where water has not reached."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Performing wudu in order (tartib) and without interruption is considered recommended in the Hanafi school and obligatory in the Shafi'i school. Differences of this kind exist between the schools of law."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Read the steps through slowly once, then try it; memorising comes naturally with time."
+        },
+        {
+          "type": "sourceNote",
+          "text": "This summary is based on the section on wudu in the Diyanet İslam İlmihali; it is not a direct quotation from that work."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-abdestin-farzlari", "art-abdesti-bozan-durumlar", "art-gusul-nasil-alinir"],
+      "beginnerPathOrder": 5,
+      "isFeatured": true
+    },
+    {
+      "id": "art-abdestin-farzlari",
+      "slug": "obligatory-parts-of-wudu",
+      "categoryId": "cat-purity",
+      "title": "The obligatory parts of wudu",
+      "summary": "The parts that must be performed for ablution to be valid.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["obligatory wudu", "fard", "wudu requirements", "ablution"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The obligatory parts of wudu are those that must be performed for the ablution to be valid. The remaining practices fall under recommended acts and etiquette."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Washing the face once.",
+            "Washing the arms including the elbows once.",
+            "Wiping one quarter of the head.",
+            "Washing the feet including the ankles once."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "The four items above follow the Hanafi school. In the Shafi'i school, intention and order are also counted among the obligatory parts, so the number is stated as six. This is a well-known difference between the schools."
+        },
+        {
+          "type": "keyPoint",
+          "text": "If one obligatory part is left out, the wudu is incomplete; it is completed by washing the missed limb."
+        },
+        {
+          "type": "practicalAction",
+          "text": "The elbows and the ankles are the most commonly missed areas — pay attention to those two."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "The number of obligatory parts is stated as four in the Hanafi school and six in the Shafi'i school.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdesti-bozan-durumlar"],
+      "beginnerPathOrder": 6,
+      "isFeatured": false
+    },
+    {
+      "id": "art-abdesti-bozan-durumlar",
+      "slug": "what-invalidates-wudu",
+      "categoryId": "cat-purity",
+      "title": "What invalidates wudu",
+      "summary": "The main situations that require renewing ablution.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["invalidates wudu", "breaking wudu", "nullifiers", "purity"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Certain situations end the state of wudu and require it to be renewed before worship. The main ones are:"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Relieving oneself or passing wind.",
+            "Blood, pus or similar discharge leaving the body and spreading.",
+            "Vomiting a mouthful.",
+            "Fainting, intoxication, or temporary loss of awareness.",
+            "Falling into deep sleep while lying down or leaning against something.",
+            "Laughing audibly during the prayer."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "These items largely follow the Hanafi school. For example, blood leaving the body invalidating wudu is the Hanafi position; in the Shafi'i school it does not, while certain forms of skin contact are treated differently. Such differences should be known rather than hidden."
+        },
+        {
+          "type": "keyPoint",
+          "text": "When in doubt, the previously certain state prevails: if you are not sure your wudu broke, you are considered to still have it."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you want to follow the practice of your own school, read the relevant section of a handbook that follows that position."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "What invalidates wudu differs between the schools of law.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-abdestin-farzlari"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-gusul-nasil-alinir",
+      "slug": "how-to-perform-ghusl",
+      "categoryId": "cat-purity",
+      "title": "How is ghusl performed?",
+      "summary": "The obligatory parts and practice of the full ritual washing.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": ["ghusl", "full washing", "ritual bath", "purity"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Ghusl is the state of purity achieved by washing the entire body."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention and say the basmala.",
+            "Wash your hands and clean any impurity on the body.",
+            "Perform wudu.",
+            "Rinse your mouth thoroughly.",
+            "Draw water into your nose and clean it.",
+            "Pour water over your head, then your right and left shoulder, washing the whole body.",
+            "Make sure no part of the body remains dry."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "According to the Hanafi school the obligatory parts of ghusl are three: rinsing the mouth, drawing water into the nose, and washing the entire body."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "In the Shafi'i school the obligatory parts are stated as intention and washing the entire body, while rinsing the mouth and nose are considered recommended. This difference should be known when practising."
+        },
+        {
+          "type": "practicalAction",
+          "text": "The roots of the hair and behind the ears are the spots water most often fails to reach."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "The obligatory parts of ghusl are counted differently in the Hanafi and Shafi'i schools.",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-teyemmum-nedir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-teyemmum-nedir",
+      "slug": "what-is-tayammum",
+      "categoryId": "cat-purity",
+      "title": "What is tayammum?",
+      "summary": "The form of purification used when water is unavailable or cannot be used.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": ["tayammum", "dry ablution", "no water", "purity"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Tayammum is the purification performed with clean earth or an earthen surface when water is unavailable or cannot be used, for example due to health reasons."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention for tayammum.",
+            "Strike both hands on clean earth or an earthen surface.",
+            "Wipe your face with your hands.",
+            "Strike the surface a second time.",
+            "Wipe your arms including the elbows."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Tayammum can take the place of both wudu and ghusl. Its ruling ends once water becomes available or usable again."
+        },
+        {
+          "type": "warning",
+          "text": "Being unable to use water for health reasons is a personal situation. When deciding for your own case it is appropriate to consult both your doctor and a qualified religious official."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "requiresQualifiedGuidance": true,
+      "guidanceMessage": "For special circumstances related to health, you can consult a qualified religious official or the High Board of Religious Affairs.",
+      "officialQuestionUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
+      "relatedArticleIds": ["art-abdest-nasil-alinir", "art-gusul-nasil-alinir"],
+      "isFeatured": false
+    },
+    {
+      "id": "art-namaza-hazirlik",
+      "slug": "preparing-for-prayer",
+      "categoryId": "cat-prayer",
+      "title": "Preparing for prayer",
+      "summary": "The conditions to be met before beginning the prayer.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["preparing for prayer", "conditions of prayer", "qibla", "prayer"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "For the prayer to be valid, certain conditions must be met before it begins. These are known as the conditions outside the prayer itself."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Having wudu (or ghusl where required).",
+            "Cleanliness of the body, clothing and the place of prayer.",
+            "Covering the parts of the body that must be covered.",
+            "Facing the qibla.",
+            "The time of the prayer having begun.",
+            "Forming the intention for the prayer to be performed."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Intention is the turning of the heart; it does not require long sentences spoken aloud."
+        },
+        {
+          "type": "paragraph",
+          "text": "Although the conditions may look complex, most are already met in daily life. Over time these steps become an effortless habit."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Preparing your prayer space in advance makes starting noticeably easier."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-bes-vakit-namaz", "art-namazin-bolumleri", "art-abdest-nasil-alinir"],
+      "beginnerPathOrder": 7,
+      "isFeatured": false
+    },
+    {
+      "id": "art-bes-vakit-namaz",
+      "slug": "five-daily-prayers",
+      "categoryId": "cat-prayer",
+      "title": "The five daily prayers",
+      "summary": "The five prayer times and the number of obligatory units in each.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["five daily prayers", "prayer times", "obligatory prayer", "rakah", "salah"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The five daily prayers are obligatory upon every Muslim who has reached maturity and is of sound mind. Each prayer has its own time window."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Fajr: 2 obligatory units.",
+            "Dhuhr: 4 obligatory units.",
+            "Asr: 4 obligatory units.",
+            "Maghrib: 3 obligatory units.",
+            "Isha: 4 obligatory units."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The numbers above are only the obligatory units. Recommended prayers attached to each time are performed separately."
+        },
+        {
+          "type": "paragraph",
+          "text": "Prayer times are determined by the position of the sun, so they vary by location and season. You can see the times calculated for your location in the Prayer tab of this app."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If praying regularly feels difficult, you can aim to make just one prayer time consistent first."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-namazin-bolumleri"],
+      "beginnerPathOrder": 8,
+      "isFeatured": true
+    },
+    {
+      "id": "art-namazin-bolumleri",
+      "slug": "parts-of-the-prayer",
+      "categoryId": "cat-prayer",
+      "title": "The main parts of the prayer",
+      "summary": "The building blocks of a unit: standing, recitation, bowing, prostration and sitting.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": ["parts of prayer", "rakah", "standing", "bowing", "prostration", "how to pray"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The prayer is made up of repeating units. Within each unit, specific parts are carried out in order."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Opening takbir: beginning the prayer by saying \"Allahu akbar\".",
+            "Standing.",
+            "Recitation from the Qur'an.",
+            "Bowing, with the hands on the knees.",
+            "Prostration, with the forehead, nose, hands, knees and toes touching the ground (twice in each unit).",
+            "The final sitting at the end of the prayer."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Coming to stillness for a moment in each part is the basis of praying calmly; it is not rushed."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "How the essential elements are counted, and whether certain details are obligatory or necessary, can be expressed differently between the schools of law. The basic sequence, however, is shared."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Naming each part as you learn makes the flow of the prayer easier to remember."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "The counting of the essential elements can be expressed differently across the schools.",
+      "relatedArticleIds": ["art-namaza-hazirlik", "art-bes-vakit-namaz"],
+      "beginnerPathOrder": 9,
+      "isFeatured": false
+    },
+    {
+      "id": "art-kuran-nedir",
+      "slug": "what-is-the-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "What is the Qur'an?",
+      "summary": "The definition, structure and preservation of the Qur'an.",
+      "contentType": "quranExplanation",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["quran", "koran", "what is the quran", "mushaf", "surah", "verse", "revelation"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The Qur'an is the divine scripture revealed by God to the Prophet Muhammad (peace be upon him) and transmitted without interruption from generation to generation."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The Qur'an consists of 114 chapters. Chapters are made up of verses, and the complete text gathered between two covers is called a mushaf."
+        },
+        {
+          "type": "paragraph",
+          "text": "It was revealed in parts over roughly twenty-three years, in response to events and needs. The revelation was preserved both in writing and through memorisation."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Qur'an is originally in Arabic. Texts in other languages are called translations of meaning; they are an effort to convey the meaning and do not take the place of the Qur'an itself."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You can begin reading the original Arabic text together with its translation in the Quran tab of this app."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali", "diyanet-kuran-yolu-tefsiri"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-kuran-okumaya-baslangic", "art-islam-nedir"],
+      "beginnerPathOrder": 10,
+      "isFeatured": true
+    },
+    {
+      "id": "art-kuran-okumaya-baslangic",
+      "slug": "beginning-to-read-the-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "Beginning to read the Qur'an",
+      "summary": "A calm and realistic path for complete beginners.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["reading the quran", "arabic alphabet", "learning quran", "tajwid", "getting started"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Learning to read the Qur'an takes time. Moving in small, regular steps without rushing is the healthiest path."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Begin by recognising the Arabic letters.",
+            "Learn how letters are read with vowel marks.",
+            "Listen to short chapters to become familiar with pronunciation.",
+            "Gradually move on to reading words and verses.",
+            "If possible, get support from a teacher or a course."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Listening is one of the most effective ways to learn correct pronunciation; reading and listening progress together."
+        },
+        {
+          "type": "paragraph",
+          "text": "If you cannot yet read Arabic, reading a translation is also valuable. Following the meaning makes the later reading journey easier."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You could start today by listening to a single short chapter; starting matters more than progressing quickly."
+        }
+      ],
+      "sourceIds": ["diyanet-kuran-portali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-kuran-nedir"],
+      "beginnerPathOrder": 11,
+      "isFeatured": false
+    },
+    {
+      "id": "art-dua-adabi",
+      "slug": "etiquette-of-supplication",
+      "categoryId": "cat-dua",
+      "title": "The etiquette of supplication",
+      "summary": "What supplication means and the attitudes that beautify it.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["dua", "supplication", "prayer", "asking", "remembrance"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Supplication is a servant turning to God and presenting their state. It is not bound to a particular time, place or language; everyone may supplicate in their own tongue."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Beginning by praising God.",
+            "Sending blessings upon the Prophet.",
+            "Asking sincerely and with hope.",
+            "Continuing to supplicate with persistence and patience.",
+            "Leaving the answer to God's wisdom."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Rather than thinking a supplication went unanswered, the understanding is that its answer comes at the most fitting time and in the most fitting form."
+        },
+        {
+          "type": "paragraph",
+          "text": "Supplication is not only for hard times. Praying in peaceful moments too keeps the bond between servant and God continuous."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Make a short supplication in your own words today; no memorised phrase is required."
+        }
+      ],
+      "sourceIds": ["diyanet-hadislerle-islam", "diyanet-islam-ilmihali"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-tevbe-ve-umit"],
+      "beginnerPathOrder": 12,
+      "isFeatured": true
+    },
+    {
+      "id": "art-tevbe-ve-umit",
+      "slug": "repentance-and-hope",
+      "categoryId": "cat-akhlaq",
+      "title": "Repentance and hope",
+      "summary": "Turning back from a mistake, and never despairing of God's mercy.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": ["repentance", "tawba", "regret", "hope", "forgiveness", "starting again"],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Repentance is feeling regret for a mistake and turning back to God. In Islamic belief, no person is outside the reach of mercy, however many mistakes they have made."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Recognising the mistake and feeling regret.",
+            "Leaving that behaviour.",
+            "Sincerely intending not to return to it.",
+            "Making amends where the rights of another person are involved."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Repentance is not a one-time act. When a mistake happens again, it is always possible to repent again."
+        },
+        {
+          "type": "paragraph",
+          "text": "Despair is one of the heaviest burdens because it prevents a person from beginning again. Yet the door of return is always open, and it is never considered too late."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Rather than dwelling at length on the past, you could choose one small good step for today."
+        }
+      ],
+      "sourceIds": ["diyanet-islam-ilmihali", "diyanet-hadislerle-islam"],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": ["art-dua-adabi", "art-islam-nedir"],
+      "beginnerPathOrder": 13,
+      "isFeatured": true
+    }
+  ]
+}

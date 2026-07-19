@@ -45,6 +45,53 @@ final class AppLocalizations {
   String get learnHeroBody => _t('learnHeroBody');
   String get learnExploreSection => _t('learnExploreSection');
 
+  // Learn bilgi kütüphanesi (TASK 056)
+  String get learnSearchHint => _t('learnSearchHint');
+  String get learnSearchEmpty => _t('learnSearchEmpty');
+  String get learnContinueSection => _t('learnContinueSection');
+  String get learnBeginnerPathSection => _t('learnBeginnerPathSection');
+  String get learnFeaturedSection => _t('learnFeaturedSection');
+  String get learnSavedSection => _t('learnSavedSection');
+  String get learnCompletedSection => _t('learnCompletedSection');
+  String get learnAllCategoriesSection => _t('learnAllCategoriesSection');
+  String get learnCategoryPreparing => _t('learnCategoryPreparing');
+  String get learnCategoryEmptyTitle => _t('learnCategoryEmptyTitle');
+  String get learnLoadIssue => _t('learnLoadIssue');
+  String get learnSave => _t('learnSave');
+  String get learnSaved => _t('learnSaved');
+  String get learnMarkCompleted => _t('learnMarkCompleted');
+  String get learnCompleted => _t('learnCompleted');
+  String get learnRelatedSection => _t('learnRelatedSection');
+  String get learnSourcesSection => _t('learnSourcesSection');
+  String get learnOpenOfficialPage => _t('learnOpenOfficialPage');
+  String get learnLinkUnavailable => _t('learnLinkUnavailable');
+  String get learnLastVerified => _t('learnLastVerified');
+  String get learnOriginalLanguageTr => _t('learnOriginalLanguageTr');
+  String get learnTranslationDisclaimer => _t('learnTranslationDisclaimer');
+  String get learnGuidanceTitle => _t('learnGuidanceTitle');
+  String get learnAskAssistantSoon => _t('learnAskAssistantSoon');
+  String get learnDifferenceNoteTitle => _t('learnDifferenceNoteTitle');
+
+  /// İçerik türü etiketleri — genel özet ile resmî fetva GÖRSEL olarak
+  /// ayrılabilsin diye her içerikte gösterilir (TASK 056 §13).
+  String get learnTypeGeneralTeaching => _t('learnTypeGeneralTeaching');
+  String get learnTypeQuranExplanation => _t('learnTypeQuranExplanation');
+  String get learnTypeHadithBased => _t('learnTypeHadithBased');
+  String get learnTypeIlmihalKnowledge => _t('learnTypeIlmihalKnowledge');
+  String get learnTypeOfficialFatwa => _t('learnTypeOfficialFatwa');
+
+  String get learnDifficultyBeginner => _t('learnDifficultyBeginner');
+  String get learnDifficultyBasic => _t('learnDifficultyBasic');
+  String get learnDifficultyDeep => _t('learnDifficultyDeep');
+
+  /// "5 dk okuma" biçimli süre etiketi.
+  String learnReadingMinutes(int minutes) =>
+      _t('learnReadingMinutes').replaceFirst('{minutes}', '$minutes');
+
+  /// "12 konu" biçimli sayaç.
+  String learnTopicCount(int count) =>
+      _t('learnTopicCount').replaceFirst('{count}', '$count');
+
   // Profile ayar grubu başlığı (TASK 055).
   String get profileSettingsSection => _t('profileSettingsSection');
   String get onboardingTitle => _t('onboardingTitle');
@@ -445,6 +492,43 @@ final class AppLocalizations {
       'learnHeroTitle': 'Bilgini sakince derinleştir',
       'learnHeroBody': 'Bugün küçük bir konuyla başlayabilirsin',
       'learnExploreSection': 'Keşfetmeye devam et',
+      'learnSearchHint': 'Konu ara (abdest, namaz, oruç…)',
+      'learnSearchEmpty': 'Aramanla eşleşen bir konu bulunamadı.',
+      'learnContinueSection': 'Kaldığın yerden devam',
+      'learnBeginnerPathSection': 'Yeni başlayanlar yolu',
+      'learnFeaturedSection': 'Öne çıkan konular',
+      'learnSavedSection': 'Kaydettiklerin',
+      'learnCompletedSection': 'Tamamladıkların',
+      'learnAllCategoriesSection': 'Tüm başlıklar',
+      'learnCategoryPreparing': 'Hazırlanıyor',
+      'learnCategoryEmptyTitle': 'Bu bölüm hazırlanıyor',
+      'learnLoadIssue': 'Öğrenme içerikleri şu anda açılamadı.',
+      'learnSave': 'Kaydet',
+      'learnSaved': 'Kaydedildi',
+      'learnMarkCompleted': 'Tamamlandı olarak işaretle',
+      'learnCompleted': 'Tamamlandı',
+      'learnRelatedSection': 'İlgili konular',
+      'learnSourcesSection': 'Kaynaklar',
+      'learnOpenOfficialPage': 'Resmî sayfayı aç',
+      'learnLinkUnavailable': 'Bağlantı şu anda açılamadı.',
+      'learnLastVerified': 'Son kaynak kontrolü',
+      'learnOriginalLanguageTr': 'Kaynağın özgün dili: Türkçe',
+      'learnTranslationDisclaimer':
+          'Bu metin, Türkçe resmî kaynağa dayanan resmî olmayan açıklayıcı '
+          'bir çeviridir.',
+      'learnGuidanceTitle': 'Kişisel durumun için danış',
+      'learnAskAssistantSoon': 'Asistana sor — yakında',
+      'learnDifferenceNoteTitle': 'Görüş farkı',
+      'learnTypeGeneralTeaching': 'Genel öğretici özet',
+      'learnTypeQuranExplanation': 'Kur\'an açıklaması',
+      'learnTypeHadithBased': 'Hadis temelli açıklama',
+      'learnTypeIlmihalKnowledge': 'İlmihal bilgisi',
+      'learnTypeOfficialFatwa': 'Din İşleri Yüksek Kurulu cevabı',
+      'learnDifficultyBeginner': 'Başlangıç',
+      'learnDifficultyBasic': 'Temel',
+      'learnDifficultyDeep': 'Derinleşme',
+      'learnReadingMinutes': '{minutes} dk okuma',
+      'learnTopicCount': '{count} konu',
       'profileSettingsSection': 'Ayarlar',
       'onboardingTitle': 'Hoş geldin',
       'onboardingWelcomeEyebrow': 'Her güne Bismillah',
@@ -739,6 +823,43 @@ final class AppLocalizations {
       'learnHeroTitle': 'Deepen your knowledge gently',
       'learnHeroBody': 'You can begin with one small topic today',
       'learnExploreSection': 'Continue exploring',
+      'learnSearchHint': 'Search topics (wudu, prayer, fasting…)',
+      'learnSearchEmpty': 'No topic matched your search.',
+      'learnContinueSection': 'Continue where you left off',
+      'learnBeginnerPathSection': 'Path for beginners',
+      'learnFeaturedSection': 'Featured topics',
+      'learnSavedSection': 'Your saved topics',
+      'learnCompletedSection': 'Topics you completed',
+      'learnAllCategoriesSection': 'All topics',
+      'learnCategoryPreparing': 'In preparation',
+      'learnCategoryEmptyTitle': 'This section is in preparation',
+      'learnLoadIssue': 'Learning content could not be opened right now.',
+      'learnSave': 'Save',
+      'learnSaved': 'Saved',
+      'learnMarkCompleted': 'Mark as completed',
+      'learnCompleted': 'Completed',
+      'learnRelatedSection': 'Related topics',
+      'learnSourcesSection': 'Sources',
+      'learnOpenOfficialPage': 'Open the official page',
+      'learnLinkUnavailable': 'The link could not be opened right now.',
+      'learnLastVerified': 'Source last checked',
+      'learnOriginalLanguageTr': 'Original source language: Turkish',
+      'learnTranslationDisclaimer':
+          'This text is an unofficial explanatory translation based on the '
+          'Turkish official source.',
+      'learnGuidanceTitle': 'Seek guidance for your own situation',
+      'learnAskAssistantSoon': 'Ask the assistant — coming soon',
+      'learnDifferenceNoteTitle': 'Difference of opinion',
+      'learnTypeGeneralTeaching': 'General teaching summary',
+      'learnTypeQuranExplanation': 'Quran explanation',
+      'learnTypeHadithBased': 'Hadith-based explanation',
+      'learnTypeIlmihalKnowledge': 'Handbook knowledge',
+      'learnTypeOfficialFatwa': 'High Board of Religious Affairs answer',
+      'learnDifficultyBeginner': 'Beginner',
+      'learnDifficultyBasic': 'Basic',
+      'learnDifficultyDeep': 'In depth',
+      'learnReadingMinutes': '{minutes} min read',
+      'learnTopicCount': '{count} topics',
       'profileSettingsSection': 'Settings',
       'onboardingTitle': 'Welcome',
       'onboardingWelcomeEyebrow': 'Bismillah for every day',
@@ -1039,6 +1160,42 @@ final class AppLocalizations {
       'learnHeroTitle': 'عمّق معرفتك بهدوء',
       'learnHeroBody': 'يمكنك أن تبدأ اليوم بموضوع صغير',
       'learnExploreSection': 'واصل الاستكشاف',
+      'learnSearchHint': 'ابحث عن موضوع (الوضوء، الصلاة، الصوم…)',
+      'learnSearchEmpty': 'لم يُعثر على موضوع يطابق بحثك.',
+      'learnContinueSection': 'تابع من حيث توقفت',
+      'learnBeginnerPathSection': 'مسار المبتدئين',
+      'learnFeaturedSection': 'موضوعات مختارة',
+      'learnSavedSection': 'ما حفظته',
+      'learnCompletedSection': 'ما أتممته',
+      'learnAllCategoriesSection': 'جميع الأبواب',
+      'learnCategoryPreparing': 'قيد التجهيز',
+      'learnCategoryEmptyTitle': 'هذا القسم قيد التجهيز',
+      'learnLoadIssue': 'تعذّر فتح محتوى التعلّم في الوقت الحالي.',
+      'learnSave': 'حفظ',
+      'learnSaved': 'محفوظ',
+      'learnMarkCompleted': 'وضع علامة الإتمام',
+      'learnCompleted': 'تم الإتمام',
+      'learnRelatedSection': 'موضوعات ذات صلة',
+      'learnSourcesSection': 'المصادر',
+      'learnOpenOfficialPage': 'افتح الصفحة الرسمية',
+      'learnLinkUnavailable': 'تعذّر فتح الرابط في الوقت الحالي.',
+      'learnLastVerified': 'آخر تحقق من المصدر',
+      'learnOriginalLanguageTr': 'لغة المصدر الأصلية: التركية',
+      'learnTranslationDisclaimer':
+          'هذا النص ترجمة تفسيرية غير رسمية مستندة إلى المصدر التركي الرسمي.',
+      'learnGuidanceTitle': 'استشر بشأن حالتك الخاصة',
+      'learnAskAssistantSoon': 'اسأل المساعد — قريبًا',
+      'learnDifferenceNoteTitle': 'اختلاف في الرأي',
+      'learnTypeGeneralTeaching': 'ملخص تعليمي عام',
+      'learnTypeQuranExplanation': 'شرح قرآني',
+      'learnTypeHadithBased': 'شرح مستند إلى الحديث',
+      'learnTypeIlmihalKnowledge': 'معلومة فقهية تعليمية',
+      'learnTypeOfficialFatwa': 'جواب المجلس الأعلى للشؤون الدينية',
+      'learnDifficultyBeginner': 'مبتدئ',
+      'learnDifficultyBasic': 'أساسي',
+      'learnDifficultyDeep': 'تعمّق',
+      'learnReadingMinutes': 'قراءة {minutes} د',
+      'learnTopicCount': '{count} موضوعًا',
       'profileSettingsSection': 'الإعدادات',
       'onboardingTitle': 'أهلاً بك',
       'onboardingWelcomeEyebrow': 'بسم الله لكل يوم',

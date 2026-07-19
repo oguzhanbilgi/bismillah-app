@@ -53,3 +53,9 @@ flutter:
     - assets/quran/verse_pages_v1.json
     - assets/quran/search/quran_search_index_v1.json
     - assets/quran/translations/quranenc_turkish_rwwad_v1_0_4.json
+    # Doğrulanmış İslami bilgi tabanı (TASK 056) — offline-first.
+    - assets/content/learn/sources.json
+    - assets/content/learn/categories.json
+    - assets/content/learn/articles_tr.json
+    - assets/content/learn/articles_en.json
+    - assets/content/learn/articles_ar.json
