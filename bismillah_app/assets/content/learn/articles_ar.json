@@ -45,7 +45,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-imanin-sartlari",
@@ -55,14 +55,13 @@
       "beginnerPathOrder": 1,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İkinci Bölüm II. İSLAM, s. 83",
+        "evidenceSummary": "Eserde İslam, 'Hz. Muhammed'in Allah tarafından getirdiği kesin olarak bilinen şeyleri kalp ile tasdik edip, bunlardan iş ve davranışla ilgili olanları yapmak' şeklinde tanımlanır; makaledeki tanım bu bölüme dayanır.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Makaledeki bileşik itikadî ifadeler için tek bir kesin bölüm/sayfa eşleştirilemedi; kaynak gövdesinde doğrudan karşılık aranmaya devam ediyor."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -298,10 +297,6 @@
           "text": "الغسل يعني وصول الماء إلى كامل العضو، فلا يبقى موضع جاف لم يصله الماء."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "الترتيب في الوضوء والموالاة سنة عند الحنفية وفرض عند الشافعية. ومثل هذه الفروق موجودة بين المذاهب الفقهية."
-        },
-        {
           "type": "practicalAction",
           "text": "اقرأ الخطوات مرة واحدة على مهل ثم طبّقها؛ فالحفظ يأتي مع الوقت من تلقاء نفسه."
         },
@@ -314,7 +309,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-abdestin-farzlari",
@@ -324,14 +319,13 @@
       "beginnerPathOrder": 5,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, F) Abdest Nasıl Alınır?, s. 105-107",
+        "evidenceSummary": "Eserde abdestin uygulanış sırası (kolların sıvanması, kıbleye dönülmesi, elleri/ağzı/burnu/yüzü/kolları yıkama, başın meshi, ayakların yıkanması) adım adım anlatılır; makaledeki adımlar bu bölümle örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Adımlar s.105 ile örtüşüyor ancak 'tertip Hanefî'de sünnet, Şâfiî'de farz' ifadesi bu eserde YER ALMIYOR; mezhep farkı iddiası kaynaksız."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -364,10 +358,6 @@
           ]
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "البنود الأربعة أعلاه على مذهب الحنفية. أما عند الشافعية فتُعدّ النية والترتيب من الفروض أيضًا، فيصير عددها ستة. وهذا اختلاف معروف بين المذاهب."
-        },
-        {
           "type": "keyPoint",
           "text": "إذا تُرك أحد الفروض لم يتم الوضوء، ويُكمَل بغسل العضو المتروك."
         },
@@ -380,9 +370,8 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "differenceNote": "عدد الفروض أربعة عند الحنفية وستة عند الشافعية.",
       "relatedArticleIds": [
         "art-abdest-nasil-alinir",
         "art-abdesti-bozan-durumlar"
@@ -390,14 +379,13 @@
       "beginnerPathOrder": 6,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, B) Abdestin Farzları, s. 98-99",
+        "evidenceSummary": "Eserde 'abdestin farzları dörttür' denilerek yüzü yıkamak, kolları dirseklerle yıkamak, başın dörtte birini meshetmek ve ayakları topuklarla yıkamak sayılır; makaledeki dört madde bununla birebir örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Dört farz s.98-99 ile doğrulandı; ancak 'Şâfiî'de niyet ve tertiple birlikte altı' iddiası bu eserde YER ALMIYOR."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -502,10 +490,6 @@
           "text": "فروض الغسل عند الحنفية ثلاثة: المضمضة، والاستنشاق، وغسل البدن كله."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "أما عند الشافعية فالفرض هو النية وغسل البدن كله، وتُعدّ المضمضة والاستنشاق من السنن. وينبغي معرفة هذا الفرق عند التطبيق."
-        },
-        {
           "type": "practicalAction",
           "text": "أصول الشعر وما خلف الأذنين أكثر المواضع التي لا يصلها الماء."
         }
@@ -514,23 +498,21 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "differenceNote": "فروض الغسل تُعدّ بصور مختلفة عند الحنفية والشافعية.",
       "relatedArticleIds": [
         "art-abdest-nasil-alinir",
         "art-teyemmum-nedir"
       ],
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, C) Guslün Farzları ve G) Gusül Nasıl Yapılır?, s. 121-122",
+        "evidenceSummary": "Eserde guslün farzlarının üç olduğu (mazmaza, istinşak, bütün bedeni yıkamak) ve uygulanış sırası açıklanır; makaledeki farzlar ve adımlar bu bölümlerle örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Üç farz s.121 ile doğrulandı; ancak Şâfiî mezhebine atfedilen farz sayımı bu eserde YER ALMIYOR."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -710,7 +692,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-namaza-hazirlik",
@@ -719,14 +701,13 @@
       "beginnerPathOrder": 8,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, İ) Beş Vakit Namazın Kılınışı, s. 152-160",
+        "evidenceSummary": "Eserde her vaktin rekât dağılımı açıkça verilir: öğle ve yatsı onar rekâttan dördü farz, ikindi sekiz rekâttan dördü farz, akşam beş rekâttan üçü farz, sabahın farzı iki rekâttır; makaledeki farz sayıları bunlarla örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Vakit başına FARZ rekât sayılarını açıkça veren bölüm kaynak gövdesinde tespit edilemedi."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -767,10 +748,6 @@
           "text": "الطمأنينة في كل جزء أساس أداء الصلاة بخشوع، فلا يُستعجل فيها."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "قد يختلف عدّ أركان الصلاة، وكون بعض التفاصيل فرضًا أو واجبًا، بين المذاهب الفقهية. أما التسلسل الأساسي فمشترك بينها."
-        },
-        {
           "type": "practicalAction",
           "text": "تسمية كل جزء أثناء التعلّم تسهّل استحضار ترتيب الصلاة."
         }
@@ -779,9 +756,8 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
-      "differenceNote": "عدّ الأركان قد يُعبَّر عنه بصور مختلفة بين المذاهب.",
       "relatedArticleIds": [
         "art-namaza-hazirlik",
         "art-bes-vakit-namaz"
@@ -789,14 +765,13 @@
       "beginnerPathOrder": 9,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F/b) Namazın Rükünleri, s. 145-147",
+        "evidenceSummary": "Eserde namazın rükünleri iftitah tekbiri, kıyam, kıraat, rükû, secde ve ka'de-i ahire olarak sayılır; makaledeki bölümler bu sıralamayla örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Altı rükün s.145 ile örtüşüyor; ancak 'rükün sayımı mezheplere göre değişir' genel ifadesi bu eserde doğrudan desteklenmiyor."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -839,8 +814,7 @@
         }
       ],
       "sourceIds": [
-        "diyanet-kuran-portali",
-        "diyanet-kuran-yolu-tefsiri"
+        "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
@@ -853,9 +827,9 @@
       "isFeatured": true,
       "verification": {
         "sourceBodyVerified": true,
-        "sourceId": "diyanet-kuran-portali",
+        "sourceId": "diyanet-islam-ilmihali",
         "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kitaplara İman — Kur'an-ı Kerim'in Nazil Oluşu ve Özellikleri, s. 54-58",
-        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatürle nakledildiği ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bununla örtüşür.",
+        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatür yoluyla nakledildiği, mushaf hâlinde yazıldığı ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bu bölümlere dayanır.",
         "verifiedAt": "2026-07-19",
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
@@ -924,7 +898,7 @@
         "verifiedAt": "2026-07-19",
         "verifiedBy": "automatedSourceCheck",
         "verificationMethod": "urlExistenceCheck",
-        "blocker": "Kaynak yalnız Kur'an Portalı ana sayfasıdır; kesin sayfa/bölüm konumu yok — genel ana sayfa kanıt sayılmaz."
+        "blocker": "İlmihalde Kur'an okumayı öğrenme sürecine dair kesin bir bölüm/sayfa eşleştirilemedi; Kur'an Portalı gövdesi de okunamadı."
       }
     },
     {
@@ -990,7 +964,7 @@
         "verifiedAt": "2026-07-19",
         "verifiedBy": "automatedSourceCheck",
         "verificationMethod": "urlExistenceCheck",
-        "blocker": "Hadislerle İslam gövdesi bu ortamdan okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
+        "blocker": "Hadislerle İslam gövdesi okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
       }
     },
     {
@@ -1041,7 +1015,7 @@
         "diyanet-hadislerle-islam"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-dua-adabi",
@@ -1050,14 +1024,1008 @@
       "beginnerPathOrder": 13,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Nafile Namazlar, 7. Tevbe Namazı, s. 224",
+        "evidenceSummary": "Eserde günah işleyen kimsenin hemen pişman olup tevbe etmesi, günahtan derhal vazgeçmesi ve samimi biçimde bağışlanma dilemesi gerektiği belirtilir; makaledeki tevbe adımları bu bölüme dayanır.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Tevbe konusu için kesin bölüm/sayfa eşleştirilemedi; mevcut eşleşmeler sure adı referanslarıdır."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-temizligin-cesitleri",
+      "slug": "nawaa-al-tahara",
+      "categoryId": "cat-purity",
+      "title": "نوعا الطهارة",
+      "summary": "الطهارة في الإسلام نوعان: الطهارة من الحدث والطهارة من النجاسة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الطهارة",
+        "الحدث",
+        "النجاسة",
+        "الطهارة من الحدث",
+        "الوضوء"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تُبحث الطهارة في الإسلام تحت عنوانين: الأول رفع الحالة الحكمية المانعة من العبادة، والثاني إزالة النجاسة الحسية عن البدن والثوب وموضع الصلاة."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "الطهارة من الحدث: التطهر من الحالة المانعة من العبادة.",
+            "الطهارة من النجاسة: تنظيف البدن والثوب وموضع الصلاة."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "الحدث نوعان: الأصغر وهو عدم الوضوء ويُرفع بالوضوء، والأكبر ويستوجب الغسل."
+        },
+        {
+          "type": "paragraph",
+          "text": "وعند فقد الماء أو تعذّر استعماله يقوم التيمم مقام الوضوء والغسل."
+        },
+        {
+          "type": "practicalAction",
+          "text": "قبل الاستعداد للصلاة، تأمّل أي طهارة تلزمك: الوضوء أم الغسل؟"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-necaset-nedir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B) Temizliğin Çeşitleri, s. 90-91",
+        "evidenceSummary": "Eserde temizliğin hadesten taharet ve necasetten taharet olmak üzere iki türlü olduğu, hadesin küçük ve büyük diye ikiye ayrıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-necaset-nedir",
+      "slug": "ma-hiya-al-najasa",
+      "categoryId": "cat-purity",
+      "title": "ما هي النجاسة؟",
+      "summary": "لصحة الصلاة يجب أن يكون البدن والثوب وموضع الصلاة خاليًا من النجاسة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "النجاسة",
+        "النجاسة المغلظة",
+        "النجاسة المخففة",
+        "طهارة الصلاة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "ما يُعدّ نجسًا شرعًا يسمى نجاسة، وإزالته تسمى الطهارة من النجاسة. ولصحة الصلاة يُشترط طهارة البدن والثوب وموضع الصلاة."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "النجاسة المغلظة: ما عُدّ من النوع الأغلظ.",
+            "النجاسة المخففة: ما عُدّ من النوع الأخف."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "يعدّ الكتاب ما زاد على قدر الدرهم (نحو 2.08 غ) من النجاسة المغلظة الجامدة، أو ما زاد على قدر الكف من المائعة، مانعًا من صحة الصلاة."
+        },
+        {
+          "type": "paragraph",
+          "text": "وما كان دون هذه المقادير لا يمنع الصلاة، وإن كان تنظيفه أولى."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كان في ثوبك أثر ظاهر قبل الصلاة فنظّفه قبل الشروع."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-temizligin-cesitleri",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B/2) Necasetten Taharet, s. 91",
+        "evidenceSummary": "Eserde necasetin galize ve hafife olmak üzere ikiye ayrıldığı, namazın sahih olması için beden/elbise/mekânın temizliğinin şart olduğu ve katı necasette bir dirhem ölçüsü belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdestin-sunnetleri",
+      "slug": "sunan-al-wudu",
+      "categoryId": "cat-purity",
+      "title": "سنن الوضوء",
+      "summary": "ما زاد على الفرائض من الأعمال التي تُكمل الوضوء وتُحسّنه.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "سنن الوضوء",
+        "السنة",
+        "الوضوء",
+        "البسملة",
+        "التخليل"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "ما كان خارج فرائض الوضوء يدخل في السنن والآداب، وهي تجعل الوضوء تامًا حسنًا."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "غسل اليدين إلى الرسغين في البداية.",
+            "الابتداء بالبسملة.",
+            "المضمضة والاستنشاق.",
+            "غسل كل عضو ثلاثًا.",
+            "البدء بالميامن ومراعاة الترتيب.",
+            "تخليل الأصابع."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "يذكر الكتاب أنه لا واجب في الوضوء؛ وما عدا الفرائض فسنن وآداب."
+        },
+        {
+          "type": "paragraph",
+          "text": "وترك السنة لا يبطل الوضوء، لكنه ينقص كماله."
+        },
+        {
+          "type": "practicalAction",
+          "text": "جرّب أن تراعي سنة واحدة بوعي في وضوئك القادم."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, C) Abdestin Sünnetleri, s. 101-104",
+        "evidenceSummary": "Eserde abdestin başlıca sünnetleri sıralanır ve abdestte vacip bulunmadığı belirtilir; makaledeki maddeler bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-mest-uzerine-mesh",
+      "slug": "al-mash-ala-al-khuffayn",
+      "categoryId": "cat-purity",
+      "title": "المسح على الخفين",
+      "summary": "يجوز المسح على ما توفرت فيه الشروط من الخفاف بدل غسل القدمين.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الخف",
+        "المسح",
+        "المسح على الخفين",
+        "رخصة الوضوء"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الخف هو ما يستر القدمين مع الكعبين. ويجوز في الوضوء المسح عليه بدل غسل القدمين، وقد ذُكر ذلك من تيسيرات الدين."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "أن يكون قد لُبس بعد وضوء غُسلت فيه القدمان.",
+            "أن يستر القدمين مع الكعبين.",
+            "أن يكون صالحًا للمشي فرسخًا (نحو اثني عشر ألف خطوة)."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "يذكر الكتاب سبعة شروط لصحة المسح، وما تقدّم أبرزها."
+        },
+        {
+          "type": "paragraph",
+          "text": "وللمسح مدة محدودة، فإذا انقضت نُزع الخف وغُسلت القدمان."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن أردت استعمال الخف فتعلّم أولًا شروطه ومدته من الباب المختص."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, K) Mestler Üzerine Meshetmek, s. 112-114",
+        "evidenceSummary": "Eserde mestin tanımı, mesh edilebilmesi için gereken yedi şart ve meshin müddeti açıklanır; makaledeki şartlar bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-guslu-gerektiren-haller",
+      "slug": "mujibat-al-ghusl",
+      "categoryId": "cat-purity",
+      "title": "موجبات الغسل",
+      "summary": "في بعض الأحوال لا يكفي الوضوء ويجب غسل البدن كله.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "موجبات الغسل",
+        "الجنابة",
+        "الحيض",
+        "النفاس",
+        "الاغتسال"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "في بعض الأحوال لا يكفي الوضوء، بل يجب غسل البدن كله وهو الغسل."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "حصول الجنابة.",
+            "انقطاع الحيض عند النساء.",
+            "انقطاع النفاس."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "ومن كان على حال توجب الغسل لا يصلي حتى يغتسل."
+        },
+        {
+          "type": "paragraph",
+          "text": "وقد تتضمن هذه المسائل تفاصيل تخص حال كل شخص؛ وعند التردد يُستحسن سؤال مختص مؤهل."
+        },
+        {
+          "type": "practicalAction",
+          "text": "يمكنك معرفة فرائض الغسل وكيفيته من الموضوع ذي الصلة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-gusul-nasil-alinir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, B) Gusül Yapmayı Gerektiren Hâller, s. 120-121",
+        "evidenceSummary": "Eserde guslü gerektiren hâller (cünüplük ile hayız ve nifasın sona ermesi) sayılır; makaledeki liste bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namaz-vakitleri",
+      "slug": "awqat-al-salah",
+      "categoryId": "cat-prayer",
+      "title": "أوقات الصلاة",
+      "summary": "لكل صلاة من الصلوات الخمس وقت محدد بدايةً ونهاية.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "أوقات الصلاة",
+        "الوقت",
+        "الفجر",
+        "الفجر الصادق",
+        "الإمساك"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الصلوات المفروضة خمس في اليوم، ولكل منها وقت محدد. وأداء الصلاة في وقتها شرط لصحتها."
+        },
+        {
+          "type": "keyPoint",
+          "text": "لا تجوز الصلاة قبل دخول وقتها، وتأخيرها عن وقتها بلا عذر معتبر أمر جسيم."
+        },
+        {
+          "type": "paragraph",
+          "text": "يبدأ وقت الفجر بانتشار الفجر الصادق في الأفق ويمتد إلى طلوع الشمس. وهذا الوقت هو أيضًا وقت الإمساك للصيام."
+        },
+        {
+          "type": "paragraph",
+          "text": "أما الضوء المستطيل الذي يظهر ثم يزول قبله فيسمى الفجر الكاذب ولا يُعتد به. ويبدأ وقت الظهر بزوال الشمس عن كبد السماء."
+        },
+        {
+          "type": "practicalAction",
+          "text": "يمكنك الاطلاع على الأوقات المحسوبة حسب موقعك من تبويب الصلاة في التطبيق."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, C) Namaz Vakitleri, s. 134-137",
+        "evidenceSummary": "Eserde günde beş farz namaz bulunduğu, her birinin belirli vakti olduğu ve sabah vaktinin fecr-i sadıkla başlayıp güneşin doğuşuna kadar sürdüğü açıklanır; makaledeki vakit tanımları bu bölüme dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-farzlari",
+      "slug": "furud-al-salah",
+      "categoryId": "cat-prayer",
+      "title": "فرائض الصلاة",
+      "summary": "فرائض الصلاة اثنتا عشرة: ست شروط قبلها وست أركان فيها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "فرائض الصلاة",
+        "الفرض",
+        "الأركان",
+        "شروط الصلاة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تنقسم الفرائض اللازمة لصحة الصلاة إلى مجموعتين."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "شروط الصلاة: ست فرائض تُؤدى قبل الشروع في الصلاة.",
+            "أركان الصلاة: ست فرائض تُؤدى داخل الصلاة."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "يذكر الكتاب أن فرائض الصلاة اثنتا عشرة جملةً: ست خارجها وست داخلها."
+        },
+        {
+          "type": "paragraph",
+          "text": "وإذا تخلّف شرط أو ركن لم تصح الصلاة؛ ولذلك يلزم معرفة المجموعتين."
+        },
+        {
+          "type": "practicalAction",
+          "text": "اقرأ الموضوعين المفردين للشروط والأركان لتكتمل لديك هذه الفرائض الاثنتا عشرة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-namazin-bolumleri",
+        "art-namazin-vacipleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F) Namazın Farzları, s. 144",
+        "evidenceSummary": "Eserde namazın farzlarının on iki olduğu; altısının namazın dışında (şartlar), altısının namazın içinde (rükünler) bulunduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-vacipleri",
+      "slug": "wajibat-al-salah",
+      "categoryId": "cat-prayer",
+      "title": "واجبات الصلاة",
+      "summary": "ما يلي الفرائض من الأعمال، ويوجب تركُها سجود السهو.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "واجبات الصلاة",
+        "الواجب",
+        "سجود السهو",
+        "الفاتحة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الواجبات مكمّلة للفرائض. ويذكر الكتاب هذا الضابط: من أتى بالواجب أُثيب، ومن تركه سهوًا لزمه سجود السهو."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "الابتداء بقول «الله أكبر».",
+            "قراءة سورة الفاتحة في الصلاة.",
+            "قراءة الفاتحة في الركعتين الأوليين من الفرض، وفي كل ركعة من الوتر والنافلة."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "ومن ترك الواجب عمدًا لزمته إعادة الصلاة."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذه أبرز الواجبات؛ والقائمة الكاملة مبسوطة في الباب المختص."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن لاحظت سهوًا في صلاتك فمعرفة موضع سجود السهو بداية طيبة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namazin-farzlari",
+        "art-namazin-sunnetleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, G) Namazın Vacipleri, s. 147-148",
+        "evidenceSummary": "Eserde vacibin hükmü (kasten terkte iade, sehven terkte sehiv secdesi) ve başlıca vacipler (tekbirle başlama, Fâtiha okuma, farzların ilk iki rekâtında okuma) sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-sunnetleri",
+      "slug": "sunan-al-salah",
+      "categoryId": "cat-prayer",
+      "title": "سنن الصلاة",
+      "summary": "ما يُحسّن الصلاة من الأعمال ولا يبطلها تركُه.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "سنن الصلاة",
+        "السنة",
+        "آداب الصلاة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "السنن مكمّلة للفرائض والواجبات ومُحسّنة للصلاة."
+        },
+        {
+          "type": "keyPoint",
+          "text": "يذكر الكتاب هذا الحكم: ترك السنة في الصلاة لا يبطلها ولا يوجب سجود السهو، لكنه مكروه."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا الضابط يوضح الفرق: فبدون الفرض لا تصح الصلاة، وترك الواجب يستوجب جبرًا، أما السنن فمن باب الكمال."
+        },
+        {
+          "type": "paragraph",
+          "text": "وتعلّم السنن يحوّل الصلاة من واجب يُؤدى على عجل إلى عبادة تُؤدى بطمأنينة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "ابدأ بأن تميّز بين الفرض والواجب والسنة في الصلاة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namazin-vacipleri",
+        "art-namazin-bolumleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, H) Namazın Sünnetleri, s. 148-151",
+        "evidenceSummary": "Eserde namazda sünneti terk etmenin namazı bozmadığı ve sehiv secdesi gerektirmediği, ancak mekruh olduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-cemaatle-namaz",
+      "slug": "salat-al-jamaa",
+      "categoryId": "cat-prayer",
+      "title": "صلاة الجماعة",
+      "summary": "ثواب صلاة الجماعة وفوائدها الاجتماعية.",
+      "contentType": "hadithBased",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الجماعة",
+        "صلاة الجماعة",
+        "المسجد",
+        "الإمام",
+        "سبع وعشرون"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "أُوليت صلاة الجماعة عناية كبيرة. فمن يواظب عليها يتعارف مع إخوانه، ويستفيد الجاهل من العالم، وتقوى أواصر الأخوة والتعاون."
+        },
+        {
+          "type": "hadithReference",
+          "text": "وبحسب الحديث المنقول في الكتاب، فإن صلاة الجماعة تفضل صلاة الفذ بسبع وعشرين درجة."
+        },
+        {
+          "type": "keyPoint",
+          "text": "والجماعة لا تبني الثواب فحسب، بل رابطة اجتماعية أيضًا: إذ تنشأ حول المسجد مودة وتعاون."
+        },
+        {
+          "type": "paragraph",
+          "text": "ومن تعذّر عليه الحضور صلى منفردًا، ولا يعني ذلك بطلان صلاته."
+        },
+        {
+          "type": "practicalAction",
+          "text": "قد تكون محاولة أداء صلاة واحدة أسبوعيًا في جماعة بداية هادئة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, R/1) Cemaatle Namaz Kılmanın Fazileti, s. 176-177",
+        "evidenceSummary": "Eserde cemaatle kılınan namazın tek başına kılınandan yirmi yedi derece üstün olduğunu bildiren hadis kaynağıyla birlikte aktarılır ve cemaatin toplumsal faydaları sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-oruc-kimlere-farzdir",
+      "slug": "ala-man-yajib-al-sawm",
+      "categoryId": "cat-fasting",
+      "title": "على من يجب الصوم؟",
+      "summary": "يجب الصوم بثلاثة شروط، وفي المرض والسفر تيسير.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الصوم",
+        "على من يجب الصوم",
+        "رمضان",
+        "القضاء",
+        "المسافر"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "لكي يجب الصوم على المرء لا بد من توفر شروط معينة فيه."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "أن يكون مسلمًا.",
+            "أن يكون عاقلًا.",
+            "أن يكون بالغًا."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "ومع توفرها فإن من عجز عن الصوم لمرض والمسافر لهما أن يفطرا، ثم يقضي المريض بعد شفائه والمسافر بعد عودته."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولا يجب الصوم على الصغير قبل البلوغ، وإن كان تعويده تدريجيًا بما لا يضر بدنه أمرًا مستحسنًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن ترددت بسبب حالتك الصحية فاستشر طبيبك ومختصًا مؤهلًا في الشأن الديني."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-orucu-bozan-durumlar",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, D) Oruç Kimlere Farzdır?, s. 261-262",
+        "evidenceSummary": "Eserde orucun farz olması için üç şart (Müslüman olmak, akıllı olmak, ergenlik çağına gelmek) sayılır; hasta ve yolcuların tutmayabileceği ve sonra kaza edecekleri belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-orucu-bozan-durumlar",
+      "slug": "mufsidat-al-sawm",
+      "categoryId": "cat-fasting",
+      "title": "مفسدات الصوم",
+      "summary": "من مفسدات الصوم ما يوجب القضاء والكفارة، ومنها ما يوجب القضاء وحده.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "مفسدات الصوم",
+        "القضاء",
+        "الكفارة",
+        "إفساد الصوم",
+        "رمضان"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تنقسم مفسدات صوم رمضان باعتبار أثرها إلى قسمين: ما يوجب القضاء والكفارة معًا، وما يوجب القضاء وحده."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "الأكل أو الشرب عمدًا بلا عذر مع العلم بالصوم.",
+            "الجماع عمدًا مع العلم بالصوم.",
+            "التدخين أو استنشاق دخان البخور عمدًا."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "وقد عدّ الكتاب ما سبق ضمن ما يوجب القضاء والكفارة معًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "كما يبيّن الكتاب ما تسقط به الكفارة: فمن أفسد صومه ثم مرض في اليوم نفسه مرضًا يمنعه من الصوم سقطت عنه الكفارة، بشرط ألا يكون المرض بفعله."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كان لديك تردد يخص حالتك فاسأل مختصًا مؤهلًا بدل أن تستنبط الحكم بنفسك."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-oruc-kimlere-farzdir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, K) Orucu Bozan Şeyler, s. 277-279",
+        "evidenceSummary": "Eserde orucu bozan şeylerin bir kısmının hem kaza hem keffaret, bir kısmının yalnız kaza gerektirdiği belirtilir ve kaza ile keffareti gerektiren hâller sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekatin-sartlari",
+      "slug": "shurut-wujub-al-zakat",
+      "categoryId": "cat-zakat",
+      "title": "على من تجب الزكاة؟",
+      "summary": "تجب الزكاة بتوفر شروط في المالك وفي المال معًا.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "الزكاة",
+        "على من تجب الزكاة",
+        "النصاب",
+        "شروط الزكاة",
+        "العبادة المالية"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "لكي يكون المرء مكلفًا بالزكاة لا بد من توفر شروط فيه وفي المال الذي يملكه."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "أن يكون مسلمًا.",
+            "أن يكون بالغًا.",
+            "أن يكون عاقلًا.",
+            "أن يكون حرًا.",
+            "ألا يقل الباقي بعد الدين عن مقدار النصاب."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "أما شروط المال فهي: بلوغه النصاب، وكونه ناميًا، ومرور حول قمري عليه."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "يذكر الكتاب بين قوسين أن الزكاة عند الشافعية تجب أيضًا في أموال الصغار وفاقدي الأهلية، ويتولى إخراجها أولياؤهم."
+        },
+        {
+          "type": "paragraph",
+          "text": "والنصاب مقدار وضعه الشرع للغنى؛ فمن ملك هذا القدر زائدًا على دينه وحوائجه الأصلية عُدّ غنيًا شرعًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "حساب الزكاة مرتبط بالوضع المالي الشخصي، والأسلم استشارة جهة مختصة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-zekat-kimlere-verilir",
+        "art-islamin-sartlari"
+      ],
+      "differenceNote": "Eserde, Şâfiîlere göre çocukların ve akıl hastalarının mallarından da zekât verilmesi gerektiği, bu görevi velilerinin yerine getireceği belirtilir.",
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, B) Zekâtın Farz Olmasının Şartları, s. 294-295",
+        "evidenceSummary": "Eserde zekâtın farz olması için mal sahibinde ve malda bulunması gereken şartlar ayrı ayrı sayılır; nisap tanımı verilir ve Şâfiîlere göre çocuk ve akıl hastalarının mallarından da zekât verileceği parantez içinde belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekat-kimlere-verilir",
+      "slug": "masarif-al-zakat",
+      "categoryId": "cat-zakat",
+      "title": "لمن تُعطى الزكاة؟",
+      "summary": "مصارف الزكاة محددة في القرآن الكريم.",
+      "contentType": "quranExplanation",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "مصارف الزكاة",
+        "الفقير",
+        "المسكين",
+        "الغارم",
+        "لمن تعطى الزكاة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "حدد القرآن الكريم من تُصرف إليهم الزكاة، ويستند الكتاب في بيان ذلك إلى الآية الستين من سورة التوبة."
+        },
+        {
+          "type": "quranReference",
+          "text": "مصارف الزكاة مذكورة في سورة التوبة، الآية 60 (انظر تبويب القرآن)."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "الفقراء: من كان ماله دون النصاب ولا يُعدّ غنيًا شرعًا.",
+            "المساكين: من لا يملك شيئًا، وهم أشد حاجة من الفقراء.",
+            "الغارمون: من لا يملك فوق دينه نصابًا ولا يقدر على سداده."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "وقد بيّن الكتاب كل صنف من هذه الأصناف؛ فالزكاة لا تُعطى اعتباطًا بل لمصارفها المحددة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "يكفيك عند إخراج الزكاة أن تعرف في أي صنف يقع من تعطيه، دون تفصيل زائد."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-zekatin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, E) Zekât Kimlere Verilir?, s. 302-303",
+        "evidenceSummary": "Eserde zekâtın verileceği yerler Tevbe suresi 60. ayete dayandırılarak sıralanır ve fakir, miskin ve borçlu tanımları açıklanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hac-kimlere-farzdir",
+      "slug": "ala-man-yajib-al-hajj",
+      "categoryId": "cat-hajj",
+      "title": "على من يجب الحج؟",
+      "summary": "الحج عبادة بالمال والبدن، ويجب على من توفرت فيه شروط معينة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الحج",
+        "على من يجب الحج",
+        "الاستطاعة",
+        "شروط الحج",
+        "الكعبة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الحج عبادة تُؤدى بالمال والبدن معًا، ويجب على من توفرت فيه شروط معينة."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "أن يكون مسلمًا.",
+            "أن يكون عاقلًا.",
+            "أن يكون بالغًا.",
+            "أن يكون حرًا.",
+            "أن يملك زائدًا على حوائجه الأصلية ما يكفي نفقته ونفقة من يعولهم حتى يعود.",
+            "أن يملك نفقات الطريق."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "ويذكر الكتاب زيادةً على ذلك شروطًا لأداء الحج بالنفس: سلامة البدن، وعدم وجود مانع كالحبس، وأمن الطريق."
+        },
+        {
+          "type": "paragraph",
+          "text": "ومن لم تتوفر فيه الشروط لم يجب عليه الحج؛ وليس ذلك نقصًا بل تيسيرًا يراعيه الدين."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كنت تنوي الحج فابدأ بتقييم الشرطين المالي والصحي بهدوء."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-islamin-sartlari",
+        "art-kurban-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XI. HAC, B) Hac Kimlere Farzdır?, s. 308-309",
+        "evidenceSummary": "Eserde haccın farz olması için sekiz şart sayılır; ayrıca haccın bizzat edası için sağlık, engel bulunmaması ve yol güvenliği gibi ek şartlar (edanın şartları) ayrı olarak verilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kurban-nedir",
+      "slug": "ma-hiya-al-udhiya",
+      "categoryId": "cat-hajj",
+      "title": "الأضحية",
+      "summary": "الأضحية ذبح حيوان بصفات معينة في وقت معين بنية العبادة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الأضحية",
+        "الضحية",
+        "عيد الأضحى",
+        "العبادة المالية"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الأضحية هي ذبح حيوان تتوفر فيه صفات معينة، في وقت معين، بنية العبادة، وتسمى الأُضحية."
+        },
+        {
+          "type": "keyPoint",
+          "text": "والأضحية من العبادات المالية، وقد ذُكرت بوصفها تعبيرًا عن شكر النعم."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويذكر الكتاب أن تاريخ هذه العبادة قديم جدًا، وأنها بصورتها الحالية ترجع إلى إبراهيم عليه السلام."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولوقت الأضحية وصفات الحيوان ومن تجب عليه أحكام مفصلة في الباب المختص."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كنت تنوي الأضحية فابدأ بمعرفة وقتها والصفات المطلوبة في الحيوان."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hac-kimlere-farzdir",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XII. KURBAN, A) Kurban Nedir?, s. 349-350",
+        "evidenceSummary": "Eserde kurbanın 'ibadet niyetiyle belirli vakitte belirli nitelikleri taşıyan hayvanı kesmek' olduğu ve udhiyye diye adlandırıldığı, mali ibadetlerden sayıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     }
   ]

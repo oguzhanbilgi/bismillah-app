@@ -225,25 +225,28 @@ void main() {
     // -----------------------------------------------------------------
 
     test("kaynak gövdesi doğrulanmamış içerik RUNTIME'DA GÖRÜNMEZ", () async {
-      // "Abdest nasıl alınır?" kaynaksız mezhep iddiası taşıdığı için
-      // pending bırakıldı; hiçbir okuma yolundan sızmamalıdır.
+      // TASK 057: "Dua adabı" ve "Kur'an okumaya başlangıç" kaynak gövdesi
+      // okunamadığı için pending; hiçbir okuma yolundan sızmamalıdır.
+      expect(
+        (await repository.getArticleBySlug('tr', 'dua-adabi')).valueOrNull,
+        isNull,
+      );
       expect(
         (await repository.getArticleBySlug(
           'tr',
-          'abdest-nasil-alinir',
+          'kuran-okumaya-baslangic',
         )).valueOrNull,
         isNull,
       );
 
-      final purity = (await repository.getArticlesByCategory(
+      final dua = (await repository.getArticlesByCategory(
         'tr',
-        'cat-purity',
+        'cat-dua',
       )).valueOrNull!;
-      expect(purity.any((a) => a.slug == 'abdest-nasil-alinir'), isFalse);
-      expect(purity.any((a) => a.slug == 'gusul-nasil-alinir'), isFalse);
+      expect(dua.any((a) => a.slug == 'dua-adabi'), isFalse);
 
-      final search = (await repository.search('tr', 'gusul')).valueOrNull!;
-      expect(search.any((a) => a.slug == 'gusul-nasil-alinir'), isFalse);
+      final search = (await repository.search('tr', 'dua adabi')).valueOrNull!;
+      expect(search.any((a) => a.slug == 'dua-adabi'), isFalse);
     });
 
     test('görünen HER içerik kaynak gövdesi doğrulanmış olmalıdır', () async {
@@ -271,19 +274,16 @@ void main() {
     });
 
     test('Türkçe kanonik PENDING ise en/ar sürümü de GÖRÜNMEZ', () async {
-      // art-abdest-nasil-alinir Türkçede pending → çevirileri de kapalı.
+      // art-dua-adabi Türkçede pending → çevirileri de kapalı.
       expect(
         (await repository.getArticleBySlug(
           'en',
-          'how-to-perform-wudu',
+          'etiquette-of-supplication',
         )).valueOrNull,
         isNull,
       );
       expect(
-        (await repository.getArticleBySlug(
-          'ar',
-          'kayfa-yutawadda',
-        )).valueOrNull,
+        (await repository.getArticleBySlug('ar', 'adab-al-dua')).valueOrNull,
         isNull,
       );
     });
@@ -308,6 +308,72 @@ void main() {
       expect(tr, isNotEmpty);
       expect(await publishedIds('en'), tr);
       expect(await publishedIds('ar'), tr);
+    });
+
+    // -----------------------------------------------------------------
+    // TASK 057: genişletilmiş kütüphane araması ve kategori dağılımı
+    // -----------------------------------------------------------------
+
+    test('yeni ibadet kategorileri içerik döndürür', () async {
+      for (final entry in {
+        'cat-fasting': 'oruc-kimlere-farzdir',
+        'cat-zakat': 'zekatin-sartlari',
+        'cat-hajj': 'hac-kimlere-farzdir',
+      }.entries) {
+        final articles = (await repository.getArticlesByCategory(
+          'tr',
+          entry.key,
+        )).valueOrNull!;
+        expect(articles, isNotEmpty, reason: entry.key);
+        expect(
+          articles.any((a) => a.slug == entry.value),
+          isTrue,
+          reason: entry.key,
+        );
+      }
+    });
+
+    test('namaz / abdest / oruç / zekât aramaları sonuç verir', () async {
+      for (final query in ['namaz', 'abdest', 'oruc', 'zekat']) {
+        final results = (await repository.search('tr', query)).valueOrNull!;
+        expect(results, isNotEmpty, reason: 'sorgu: $query');
+      }
+    });
+
+    test('Türkçe aksan katlama yeni içerikte de çalışır', () async {
+      // "zekat" yazımı "Zekât" başlığını bulmalı.
+      final zakat = (await repository.search('tr', 'zekat')).valueOrNull!;
+      expect(zakat.any((a) => a.slug == 'zekatin-sartlari'), isTrue);
+      // "gusul" yazımı "Guslün..." içeriğini bulmalı.
+      final ghusl = (await repository.search('tr', 'gusul')).valueOrNull!;
+      expect(ghusl, isNotEmpty);
+    });
+
+    test(
+      'İngilizce alias ve Arapça normalizasyon yeni içerikte çalışır',
+      () async {
+        final en = (await repository.search('en', 'zakat')).valueOrNull!;
+        expect(en.any((a) => a.slug == 'conditions-of-zakat'), isTrue);
+
+        final ar = (await repository.search('ar', 'الزكاة')).valueOrNull!;
+        expect(ar, isNotEmpty);
+      },
+    );
+
+    test('ilgili makale referansları çözülebilir', () async {
+      final article = (await repository.getArticleBySlug(
+        'tr',
+        'zekatin-sartlari',
+      )).valueOrNull!;
+      expect(article.relatedArticleIds, isNotEmpty);
+
+      final related = (await repository.getArticlesByIds(
+        'tr',
+        article.relatedArticleIds,
+      )).valueOrNull!;
+      // Yayında olmayan ilgili içerik sessizce atlanır; kalanlar çözülür.
+      expect(related, isNotEmpty);
+      expect(related.every((a) => a.isPublished), isTrue);
     });
 
     test('asset okunamazsa sakin failure döner (crash yok)', () async {

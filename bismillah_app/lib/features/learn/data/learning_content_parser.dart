@@ -206,7 +206,11 @@ abstract final class LearningContentParser {
             _requireString(map, 'difficulty', 'article[$id]'),
             'difficulty',
           ),
-          estimatedMinutes: _requireInt(map, 'estimatedMinutes', 'article[$id]'),
+          estimatedMinutes: _requireInt(
+            map,
+            'estimatedMinutes',
+            'article[$id]',
+          ),
           keywords: _stringList(map['keywords']),
           sourceIds: sourceIds,
           reviewStatus: _parseEnum(
@@ -256,6 +260,41 @@ abstract final class LearningContentParser {
     }
 
     return articles;
+  }
+
+  /// Locale katalogları arasındaki çapraz tutarlılık (TASK 057 §10).
+  ///
+  /// Kurallar:
+  /// - Üç locale AYNI içerik id kümesini taşımalıdır.
+  /// - Bir çeviri, Türkçe kanonik kayıttan DAHA GÜÇLÜ bir yayın durumunda
+  ///   olamaz: TR yayında değilse çeviri de yayında olamaz.
+  static void validateLocaleConsistency({
+    required List<LearningArticle> canonical,
+    required Map<String, List<LearningArticle>> translations,
+  }) {
+    final canonicalIds = {for (final a in canonical) a.id};
+    final publishedCanonical = {
+      for (final a in canonical)
+        if (a.isPublished) a.id,
+    };
+
+    translations.forEach((locale, articles) {
+      final ids = {for (final a in articles) a.id};
+      if (ids.length != canonicalIds.length || !ids.containsAll(canonicalIds)) {
+        throw ContentSchemaError(
+          '$locale kataloğu Türkçe katalogla aynı içerik id kümesini '
+          'taşımıyor',
+        );
+      }
+      for (final article in articles) {
+        if (article.isPublished && !publishedCanonical.contains(article.id)) {
+          throw ContentSchemaError(
+            '$locale/${article.id} yayında ama Türkçe kanonik kayıt '
+            'yayında değil — çeviri kanonikten güçlü olamaz',
+          );
+        }
+      }
+    });
   }
 
   /// Kaynak gövdesi doğrulama kaydını okur (TASK 056A §2).
@@ -394,11 +433,7 @@ abstract final class LearningContentParser {
     throw ContentSchemaError('$context.$key zorunlu bir metin alanıdır');
   }
 
-  static int _requireInt(
-    Map<String, Object?> map,
-    String key,
-    String context,
-  ) {
+  static int _requireInt(Map<String, Object?> map, String key, String context) {
     final value = map[key];
     if (value is int) {
       return value;

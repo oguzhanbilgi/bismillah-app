@@ -199,23 +199,65 @@ void main() {
       },
     );
 
-    test('görüş farkı olan konularda fark AÇIKÇA belirtilir', () {
+    test('mezhep notu YALNIZ doğrulanmış evidence ile yayınlanır', () {
+      // TASK 057: kaynakta karşılığı olmayan mezhep iddiaları makalelerden
+      // ÇIKARILDI. Yayındaki bir makale görüş farkı anlatıyorsa, bunun
+      // kaynak gövdesinden doğrulanmış olması gerekir.
+      for (final locale in ['tr', 'en', 'ar']) {
+        final articles = LearningContentParser.parseArticles(
+          readJson('articles_$locale.json'),
+          expectedLocale: locale,
+        );
+        for (final article in articles.where((a) => a.isPublished)) {
+          final hasDifference =
+              article.differenceNote != null ||
+              article.sections.any(
+                (s) => s.type == LearningSectionType.differenceOfOpinion,
+              );
+          if (!hasDifference) {
+            continue;
+          }
+          expect(
+            article.isSourceBodyVerified,
+            isTrue,
+            reason: '$locale/${article.id} doğrulanmamış mezhep notu taşıyor',
+          );
+          expect(
+            article.verification!.evidenceSummary,
+            isNotEmpty,
+            reason: '$locale/${article.id}',
+          );
+        }
+      }
+    });
+
+    test('kaynakta karşılığı OLMAYAN mezhep iddiaları kaldırıldı', () {
       final tr = LearningContentParser.parseArticles(
         readJson('articles_tr.json'),
         expectedLocale: 'tr',
       );
-      // Mezhep farkı bilinen konular gizlenmemelidir.
+      // Bu iki makaledeki Şâfiî iddiaları İslam İlmihali'nde YER ALMIYORDU.
       for (final slug in ['abdestin-farzlari', 'gusul-nasil-alinir']) {
         final article = tr.firstWhere((a) => a.slug == slug);
-        final hasDifferenceSection = article.sections.any(
-          (s) => s.type == LearningSectionType.differenceOfOpinion,
-        );
+        expect(article.differenceNote, isNull, reason: slug);
         expect(
-          hasDifferenceSection || article.differenceNote != null,
-          isTrue,
-          reason: '$slug için görüş farkı notu yok',
+          article.sections.any(
+            (s) => s.type == LearningSectionType.differenceOfOpinion,
+          ),
+          isFalse,
+          reason: slug,
         );
       }
+      // Buna karşılık kaynakta dipnotla desteklenen fark KORUNUR.
+      final nullifiers = tr.firstWhere(
+        (a) => a.slug == 'abdesti-bozan-durumlar',
+      );
+      expect(
+        nullifiers.sections.any(
+          (s) => s.type == LearningSectionType.differenceOfOpinion,
+        ),
+        isTrue,
+      );
     });
 
     test('hassas içerik yetkili mercie yönlendirir', () {
@@ -233,6 +275,121 @@ void main() {
           isTrue,
         );
       }
+    });
+
+    // -----------------------------------------------------------------
+    // TASK 057: genişletilmiş kütüphane güvenceleri
+    // -----------------------------------------------------------------
+
+    test('en az 30 yayınlanmış içerik vardır', () {
+      final tr = LearningContentParser.parseArticles(
+        readJson('articles_tr.json'),
+        expectedLocale: 'tr',
+      );
+      final published = tr.where((a) => a.isPublished).toList();
+      expect(published.length, greaterThanOrEqualTo(30));
+    });
+
+    test('üç locale AYNI yayınlanmış id kümesini taşır', () {
+      final byLocale = <String, Set<String>>{};
+      for (final locale in ['tr', 'en', 'ar']) {
+        byLocale[locale] = {
+          for (final a in LearningContentParser.parseArticles(
+            readJson('articles_$locale.json'),
+            expectedLocale: locale,
+          ))
+            if (a.isPublished) a.id,
+        };
+      }
+      expect(byLocale['en'], byLocale['tr']);
+      expect(byLocale['ar'], byLocale['tr']);
+    });
+
+    test('çeviri, Türkçe kanonikten GÜÇLÜ olamaz', () {
+      final canonical = LearningContentParser.parseArticles(
+        readJson('articles_tr.json'),
+        expectedLocale: 'tr',
+      );
+      final translations = {
+        for (final locale in ['en', 'ar'])
+          locale: LearningContentParser.parseArticles(
+            readJson('articles_$locale.json'),
+            expectedLocale: locale,
+          ),
+      };
+      // Validator ihlal hâlinde fırlatır; burada geçerli veri doğrulanır.
+      LearningContentParser.validateLocaleConsistency(
+        canonical: canonical,
+        translations: translations,
+      );
+    });
+
+    test(
+      'yayındaki HER içerik kaynak gövdesi doğrulanmış ve locator taşır',
+      () {
+        for (final locale in ['tr', 'en', 'ar']) {
+          final articles = LearningContentParser.parseArticles(
+            readJson('articles_$locale.json'),
+            expectedLocale: locale,
+          );
+          for (final article in articles.where((a) => a.isPublished)) {
+            final v = article.verification!;
+            expect(
+              v.sourceBodyVerified,
+              isTrue,
+              reason: '$locale/${article.id}',
+            );
+            expect(v.sourceLocator.trim(), isNotEmpty);
+            expect(v.evidenceSummary.trim(), isNotEmpty);
+            expect(v.verifiedAt.trim(), isNotEmpty);
+            // Doğrulama, makalenin gerçekten atıf yaptığı kaynağa dayanmalı.
+            expect(article.sourceIds, contains(v.sourceId));
+          }
+        }
+      },
+    );
+
+    test("İslam İlmihali locator'ları basılı SAYFA bilgisi taşır", () {
+      final tr = LearningContentParser.parseArticles(
+        readJson('articles_tr.json'),
+        expectedLocale: 'tr',
+      );
+      final pageRef = RegExp(r's\.\s?\d{1,3}');
+      for (final article in tr.where((a) => a.isPublished)) {
+        final v = article.verification!;
+        if (v.sourceId != 'diyanet-islam-ilmihali') {
+          continue;
+        }
+        expect(
+          pageRef.hasMatch(v.sourceLocator),
+          isTrue,
+          reason: '${article.id} locator sayfa taşımıyor: ${v.sourceLocator}',
+        );
+        // Bölüm/başlık bilgisi de bulunmalı (yalnız sayfa yetmez).
+        expect(v.sourceLocator, contains('İslam İlmihali'));
+      }
+    });
+
+    test('yayındaki içerikler kategoriye yayılmıştır', () {
+      final tr = LearningContentParser.parseArticles(
+        readJson('articles_tr.json'),
+        expectedLocale: 'tr',
+      );
+      final cats = {
+        for (final a in tr.where((x) => x.isPublished)) a.categoryId,
+      };
+      // Genişleme yalnız tek kategoriye yığılmamalıdır.
+      expect(cats.length, greaterThanOrEqualTo(6));
+      expect(
+        cats,
+        containsAll(<String>{
+          'cat-purity',
+          'cat-prayer',
+          'cat-fasting',
+          'cat-zakat',
+          'cat-hajj',
+        }),
+      );
     });
 
     test('yeni başlayanlar yolu kesintisiz sıralıdır', () {

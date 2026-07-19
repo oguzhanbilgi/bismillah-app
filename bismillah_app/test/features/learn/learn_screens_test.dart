@@ -188,18 +188,29 @@ void main() {
     testWidgets('kategoriye ve oradan içeriğe gidilebilir', (tester) async {
       await pumpLearn(tester);
 
-      await tester.tap(find.text('Temizlik, Abdest ve Gusül'));
+      // Kütüphane büyüdükçe kategori satırı listenin altına iner;
+      // dokunmadan önce görünür hâle getirilir.
+      final category = find.text('Temizlik, Abdest ve Gusül');
+      await tester.scrollUntilVisible(
+        category,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(category);
       await tester.pumpAndSettle();
 
-      // Kategori ekranı: açıklama + konu sayısı + zorluk grupları.
-      expect(find.text('Temel'), findsWidgets);
-      expect(find.text('Abdesti bozan durumlar'), findsWidgets);
-
-      await tester.tap(find.text('Abdesti bozan durumlar').first);
+      // Kategori ekranı açılır ve içerikleri listeler.
+      final article = find.text('Abdest nasıl alınır?');
+      await tester.scrollUntilVisible(
+        article,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(article.first);
       await tester.pumpAndSettle();
 
       // İçerik detayı: gerçek gövde render edilir.
-      expect(find.textContaining('Ağız dolusu kusmak'), findsOneWidget);
+      expect(find.textContaining('Abdest almaya niyet et'), findsOneWidget);
     });
 
     testWidgets('boş kategori sakin boş durum gösterir', (tester) async {

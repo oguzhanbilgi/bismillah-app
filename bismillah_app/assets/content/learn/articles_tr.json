@@ -45,7 +45,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
       "relatedArticleIds": [
         "art-imanin-sartlari",
@@ -55,14 +55,13 @@
       "beginnerPathOrder": 1,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İkinci Bölüm II. İSLAM, s. 83",
+        "evidenceSummary": "Eserde İslam, 'Hz. Muhammed'in Allah tarafından getirdiği kesin olarak bilinen şeyleri kalp ile tasdik edip, bunlardan iş ve davranışla ilgili olanları yapmak' şeklinde tanımlanır; makaledeki tanım bu bölüme dayanır.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Makaledeki bileşik itikadî ifadeler için tek bir kesin bölüm/sayfa eşleştirilemedi; kaynak gövdesinde doğrudan karşılık aranmaya devam ediyor."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -300,10 +299,6 @@
           "text": "Yıkamak, organın her yerinin ıslanması demektir. Suyun ulaşmadığı kuru bir yer kalmamalıdır."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "Abdestin sıralı yapılması (tertip) ve ara vermeden tamamlanması Hanefî mezhebinde sünnet, Şâfiî mezhebinde ise farz kabul edilir. Uygulamalarda mezhepler arası bu tür farklar bulunabilir."
-        },
-        {
           "type": "practicalAction",
           "text": "Adımları bir kez yavaşça okuduktan sonra uygulamayı dene; ezberlemek zamanla kendiliğinden gelir."
         },
@@ -316,7 +311,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
       "relatedArticleIds": [
         "art-abdestin-farzlari",
@@ -326,14 +321,13 @@
       "beginnerPathOrder": 5,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, F) Abdest Nasıl Alınır?, s. 105-107",
+        "evidenceSummary": "Eserde abdestin uygulanış sırası (kolların sıvanması, kıbleye dönülmesi, elleri/ağzı/burnu/yüzü/kolları yıkama, başın meshi, ayakların yıkanması) adım adım anlatılır; makaledeki adımlar bu bölümle örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Adımlar s.105 ile örtüşüyor ancak 'tertip Hanefî'de sünnet, Şâfiî'de farz' ifadesi bu eserde YER ALMIYOR; mezhep farkı iddiası kaynaksız."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -366,10 +360,6 @@
           ]
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "Yukarıdaki dört madde Hanefî mezhebine göredir. Şâfiî mezhebinde niyet ve sıralama (tertip) da farzlar arasında sayıldığı için farz sayısı altı olarak ifade edilir. Bu, mezhepler arasında bilinen bir görüş farkıdır."
-        },
-        {
           "type": "keyPoint",
           "text": "Farzlardan biri eksik kalırsa abdest tamamlanmamış olur; eksik organ yıkanarak tamamlanır."
         },
@@ -382,9 +372,8 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
-      "differenceNote": "Farz sayısı Hanefî mezhebinde dört, Şâfiî mezhebinde altı olarak ifade edilir.",
       "relatedArticleIds": [
         "art-abdest-nasil-alinir",
         "art-abdesti-bozan-durumlar"
@@ -392,14 +381,13 @@
       "beginnerPathOrder": 6,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, B) Abdestin Farzları, s. 98-99",
+        "evidenceSummary": "Eserde 'abdestin farzları dörttür' denilerek yüzü yıkamak, kolları dirseklerle yıkamak, başın dörtte birini meshetmek ve ayakları topuklarla yıkamak sayılır; makaledeki dört madde bununla birebir örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Dört farz s.98-99 ile doğrulandı; ancak 'Şâfiî'de niyet ve tertiple birlikte altı' iddiası bu eserde YER ALMIYOR."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -506,10 +494,6 @@
           "text": "Hanefî mezhebine göre guslün farzları üçtür: ağza su almak, burna su almak ve bütün bedeni yıkamak."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "Şâfiî mezhebinde guslün farzları niyet ve bütün bedeni yıkamak olarak ifade edilir; ağza ve burna su almak sünnet sayılır. Mezhepler arasındaki bu fark bilinerek uygulanmalıdır."
-        },
-        {
           "type": "practicalAction",
           "text": "Saç diplerine ve kulak arkasına suyun ulaşması en sık gözden kaçan noktadır."
         }
@@ -518,23 +502,21 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
-      "differenceNote": "Guslün farzları Hanefî ve Şâfiî mezheplerinde farklı sayılır.",
       "relatedArticleIds": [
         "art-abdest-nasil-alinir",
         "art-teyemmum-nedir"
       ],
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, C) Guslün Farzları ve G) Gusül Nasıl Yapılır?, s. 121-122",
+        "evidenceSummary": "Eserde guslün farzlarının üç olduğu (mazmaza, istinşak, bütün bedeni yıkamak) ve uygulanış sırası açıklanır; makaledeki farzlar ve adımlar bu bölümlerle örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Üç farz s.121 ile doğrulandı; ancak Şâfiî mezhebine atfedilen farz sayımı bu eserde YER ALMIYOR."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -716,7 +698,7 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
       "relatedArticleIds": [
         "art-namaza-hazirlik",
@@ -725,14 +707,13 @@
       "beginnerPathOrder": 8,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, İ) Beş Vakit Namazın Kılınışı, s. 152-160",
+        "evidenceSummary": "Eserde her vaktin rekât dağılımı açıkça verilir: öğle ve yatsı onar rekâttan dördü farz, ikindi sekiz rekâttan dördü farz, akşam beş rekâttan üçü farz, sabahın farzı iki rekâttır; makaledeki farz sayıları bunlarla örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Vakit başına FARZ rekât sayılarını açıkça veren bölüm kaynak gövdesinde tespit edilemedi."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -773,10 +754,6 @@
           "text": "Her bölümde bedenin bir an sükûnete ermesi, namazın huzurla kılınmasının temelidir; acele edilmez."
         },
         {
-          "type": "differenceOfOpinion",
-          "text": "Namazın rükünlerinin sayımı ve bazı ayrıntıların farz mı vacip mi olduğu mezhepler arasında farklı ifade edilebilir. Temel akış ise ortaktır."
-        },
-        {
           "type": "practicalAction",
           "text": "Öğrenirken bölümleri tek tek adlandırmak, namazın akışını akılda tutmayı kolaylaştırır."
         }
@@ -785,9 +762,8 @@
         "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
-      "differenceNote": "Rükünlerin sayımı mezheplere göre farklı ifade edilebilir.",
       "relatedArticleIds": [
         "art-namaza-hazirlik",
         "art-bes-vakit-namaz"
@@ -795,14 +771,13 @@
       "beginnerPathOrder": 9,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F/b) Namazın Rükünleri, s. 145-147",
+        "evidenceSummary": "Eserde namazın rükünleri iftitah tekbiri, kıyam, kıraat, rükû, secde ve ka'de-i ahire olarak sayılır; makaledeki bölümler bu sıralamayla örtüşür.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Altı rükün s.145 ile örtüşüyor; ancak 'rükün sayımı mezheplere göre değişir' genel ifadesi bu eserde doğrudan desteklenmiyor."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -846,8 +821,7 @@
         }
       ],
       "sourceIds": [
-        "diyanet-kuran-portali",
-        "diyanet-kuran-yolu-tefsiri"
+        "diyanet-islam-ilmihali"
       ],
       "reviewedAt": "2026-07-19",
       "reviewStatus": "published",
@@ -860,9 +834,9 @@
       "isFeatured": true,
       "verification": {
         "sourceBodyVerified": true,
-        "sourceId": "diyanet-kuran-portali",
+        "sourceId": "diyanet-islam-ilmihali",
         "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kitaplara İman — Kur'an-ı Kerim'in Nazil Oluşu ve Özellikleri, s. 54-58",
-        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatürle nakledildiği ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bununla örtüşür.",
+        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatür yoluyla nakledildiği, mushaf hâlinde yazıldığı ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bu bölümlere dayanır.",
         "verifiedAt": "2026-07-19",
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
@@ -931,7 +905,7 @@
         "verifiedAt": "2026-07-19",
         "verifiedBy": "automatedSourceCheck",
         "verificationMethod": "urlExistenceCheck",
-        "blocker": "Kaynak yalnız Kur'an Portalı ana sayfasıdır; kesin sayfa/bölüm konumu yok — genel ana sayfa kanıt sayılmaz."
+        "blocker": "İlmihalde Kur'an okumayı öğrenme sürecine dair kesin bir bölüm/sayfa eşleştirilemedi; Kur'an Portalı gövdesi de okunamadı."
       }
     },
     {
@@ -998,7 +972,7 @@
         "verifiedAt": "2026-07-19",
         "verifiedBy": "automatedSourceCheck",
         "verificationMethod": "urlExistenceCheck",
-        "blocker": "Hadislerle İslam gövdesi bu ortamdan okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
+        "blocker": "Hadislerle İslam gövdesi okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
       }
     },
     {
@@ -1051,7 +1025,7 @@
         "diyanet-hadislerle-islam"
       ],
       "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewStatus": "published",
       "translationStatus": "original",
       "relatedArticleIds": [
         "art-dua-adabi",
@@ -1060,14 +1034,1011 @@
       "beginnerPathOrder": 13,
       "isFeatured": true,
       "verification": {
-        "sourceBodyVerified": false,
+        "sourceBodyVerified": true,
         "sourceId": "diyanet-islam-ilmihali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Nafile Namazlar, 7. Tevbe Namazı, s. 224",
+        "evidenceSummary": "Eserde günah işleyen kimsenin hemen pişman olup tevbe etmesi, günahtan derhal vazgeçmesi ve samimi biçimde bağışlanma dilemesi gerektiği belirtilir; makaledeki tevbe adımları bu bölüme dayanır.",
         "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "Tevbe konusu için kesin bölüm/sayfa eşleştirilemedi; mevcut eşleşmeler sure adı referanslarıdır."
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-temizligin-cesitleri",
+      "slug": "temizligin-cesitleri",
+      "categoryId": "cat-purity",
+      "title": "Temizliğin iki türü",
+      "summary": "İslam'da temizlik ikiye ayrılır: hükmî kirlilikten (hades) ve maddi pislikten (necaset) temizlenmek.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "temizlik",
+        "taharet",
+        "hades",
+        "necaset",
+        "hadesten taharet",
+        "abdest"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam'da temizlik iki başlıkta ele alınır. Birincisi ibadete engel olan hükmî kirlilikten, ikincisi bedende, elbisede veya namaz kılınacak yerde bulunan maddi pislikten temizlenmektir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Hadesten taharet: ibadete engel olan hükmî kirlilikten temizlenmek.",
+            "Necasetten taharet: beden, elbise ve namaz kılınacak yerdeki maddi pisliği gidermek."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hades ikiye ayrılır: küçük hades abdestsizliktir ve abdestle giderilir; büyük hades ise gusül gerektirir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Su bulunamadığında veya kullanılamadığında abdest ve gusül yerine teyemmüm yapılır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Namaza hazırlanırken önce hangi tür temizliğin gerektiğini düşün: abdest mi, gusül mü?"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-necaset-nedir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B) Temizliğin Çeşitleri, s. 90-91",
+        "evidenceSummary": "Eserde temizliğin hadesten taharet ve necasetten taharet olmak üzere iki türlü olduğu, hadesin küçük ve büyük diye ikiye ayrıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-necaset-nedir",
+      "slug": "necaset-nedir",
+      "categoryId": "cat-purity",
+      "title": "Necaset nedir?",
+      "summary": "Namazın geçerli olması için bedenin, elbisenin ve namaz kılınan yerin maddi pislikten temiz olması şarttır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "necaset",
+        "pislik",
+        "necaset-i galize",
+        "necaset-i hafife",
+        "namaz temizligi"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Dinî terim olarak pis sayılan şeye necaset, ondan temizlenmeye necasetten taharet denir. Namazın sahih olabilmesi için beden, elbise ve namaz kılınacak yerin temiz olması şarttır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Necaset-i galize: ağır necaset sayılan şeyler.",
+            "Necaset-i hafife: hafif necaset sayılan şeyler."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde ağır necasetin katı olanından bir dirhem (yaklaşık 2,08 gr) miktarından fazlası, akıcı olanından ise avuç içi genişliğinden fazlası namaza engel kabul edilir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu miktarlardan az olan pislik namaza engel değildir; bununla birlikte temizlenmesi uygun olur."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Namaz öncesi elbisende gözle görülür bir leke varsa, namaza durmadan önce onu temizle."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-temizligin-cesitleri",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B/2) Necasetten Taharet, s. 91",
+        "evidenceSummary": "Eserde necasetin galize ve hafife olmak üzere ikiye ayrıldığı, namazın sahih olması için beden/elbise/mekânın temizliğinin şart olduğu ve katı necasette bir dirhem ölçüsü belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdestin-sunnetleri",
+      "slug": "abdestin-sunnetleri",
+      "categoryId": "cat-purity",
+      "title": "Abdestin sünnetleri",
+      "summary": "Farzların dışında kalan ve abdesti tamamlayan sünnet uygulamalar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "abdestin sunnetleri",
+        "sunnet",
+        "abdest",
+        "besmele",
+        "hilalleme"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Abdestin farzları dışında kalan uygulamalar sünnet ve âdâb kapsamındadır. Bunlar abdesti eksiksiz ve güzel hâle getirir."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Abdeste başlarken elleri bileklere kadar yıkamak.",
+            "Besmele ile başlamak.",
+            "Ağza ve burna su vermek.",
+            "Uzuvları üçer kez yıkamak.",
+            "Sağdan başlamak ve sırayı gözetmek.",
+            "Parmak aralarını hilallemek."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde abdestte vacip bulunmadığı; farzların dışındakilerin sünnet ve âdâb olduğu belirtilir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sünnetlerin terk edilmesi abdesti geçersiz kılmaz; ancak abdestin kemalini eksiltir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün abdest alırken yalnız bir sünneti bilinçli biçimde uygulamayı dene."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, C) Abdestin Sünnetleri, s. 101-104",
+        "evidenceSummary": "Eserde abdestin başlıca sünnetleri sıralanır ve abdestte vacip bulunmadığı belirtilir; makaledeki maddeler bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-mest-uzerine-mesh",
+      "slug": "mest-uzerine-mesh",
+      "categoryId": "cat-purity",
+      "title": "Mest üzerine mesh",
+      "summary": "Belirli şartları taşıyan ayakkabı (mest) üzerine, ayakları yıkamak yerine meshetmek caizdir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "mest",
+        "mesh",
+        "mest uzerine mesh",
+        "abdestte kolaylik"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Mest, ayakları topuklarıyla birlikte örten ayakkabıdır. Abdest alırken ayakları yıkamak yerine mest üzerine meshetmek caizdir ve bu, dinin kolaylıklarından biri olarak anılır."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Mestler, ayaklar yıkanarak abdest alındıktan sonra giyilmiş olmalı.",
+            "Mestler ayakları topuklarıyla birlikte örtmeli.",
+            "Mestler, bir fersah (yaklaşık on iki bin adım) yürümeye dayanıklı olmalı."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde mesh edilebilmesi için toplam yedi şart sayılır; yukarıdakiler bunların başlıcalarıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Meshin belirli bir süresi vardır; süre dolduğunda mest çıkarılıp ayaklar yıkanır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Mest kullanmayı düşünüyorsan, önce şartlarını ve süresini ilgili bölümden öğren."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, K) Mestler Üzerine Meshetmek, s. 112-114",
+        "evidenceSummary": "Eserde mestin tanımı, mesh edilebilmesi için gereken yedi şart ve meshin müddeti açıklanır; makaledeki şartlar bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-guslu-gerektiren-haller",
+      "slug": "guslu-gerektiren-haller",
+      "categoryId": "cat-purity",
+      "title": "Guslün gerekli olduğu durumlar",
+      "summary": "Bazı hâllerde abdest yetmez; bütün bedenin yıkanması (gusül) gerekir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "gusul gerektiren",
+        "cunupluk",
+        "hayiz",
+        "nifas",
+        "boy abdesti"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Bazı durumlarda abdest yeterli olmaz ve bütün bedenin yıkanması, yani gusül gerekir."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Cünüplük hâlinin meydana gelmesi.",
+            "Kadınlarda âdet (hayız) hâlinin sona ermesi.",
+            "Lohusalık (nifas) hâlinin sona ermesi."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Gusül gerektiren bir hâlde olan kimse, gusledene kadar namaz kılmaz."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu konular kişinin kendi durumuyla ilgili ayrıntılar içerebilir; tereddüt hâlinde yetkili bir din görevlisine danışmak uygun olur."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Guslün farzlarını ve uygulanışını ilgili konudan okuyarak öğrenebilirsin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-gusul-nasil-alinir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, B) Gusül Yapmayı Gerektiren Hâller, s. 120-121",
+        "evidenceSummary": "Eserde guslü gerektiren hâller (cünüplük ile hayız ve nifasın sona ermesi) sayılır; makaledeki liste bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namaz-vakitleri",
+      "slug": "namaz-vakitleri",
+      "categoryId": "cat-prayer",
+      "title": "Namaz vakitleri",
+      "summary": "Beş farz namazın her birinin başlangıç ve bitişi belirli vakitlere bağlıdır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "namaz vakitleri",
+        "vakit",
+        "fecr",
+        "imsak",
+        "sabah namazi vakti"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Günde beş farz namaz vardır ve her birinin belirli bir vakti bulunur. Namazın kendi vaktinde kılınması şarttır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Vakti girmeden bir namazı kılmak caiz değildir; meşru bir özür olmadan namazı vaktinden sonraya bırakmak da ağır bir sorumluluktur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sabah namazının vakti, tan yerinin ağarmasıyla (fecr-i sadık) başlar ve güneşin doğuşuna kadar sürer. Oruç için imsak vakti de bu andır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ufukta dikey olarak görülüp sonra kaybolan yalancı aydınlığa fecr-i kâzib denir ve vaktin girdiğine işaret sayılmaz. Öğle vakti ise güneşin tepe noktasından batıya meyletmesiyle başlar."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Uygulamanın Namaz sekmesinden bulunduğun yere göre hesaplanan vakitleri görebilirsin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, C) Namaz Vakitleri, s. 134-137",
+        "evidenceSummary": "Eserde günde beş farz namaz bulunduğu, her birinin belirli vakti olduğu ve sabah vaktinin fecr-i sadıkla başlayıp güneşin doğuşuna kadar sürdüğü açıklanır; makaledeki vakit tanımları bu bölüme dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-farzlari",
+      "slug": "namazin-farzlari",
+      "categoryId": "cat-prayer",
+      "title": "Namazın farzları",
+      "summary": "Namazın farzları on ikidir: altısı namazın dışındaki şartlar, altısı namazın içindeki rükünlerdir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "namazin farzlari",
+        "farz",
+        "rukun",
+        "namazin sartlari",
+        "on iki farz"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Namazın sahih olması için yerine getirilmesi gereken farzlar iki gruba ayrılır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Namazın şartları: namaza başlamadan önce yerine getirilen altı farz.",
+            "Namazın rükünleri: namazın içinde yapılan altı farz."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde namazın farzlarının toplam on iki olduğu belirtilir; bunların altısı dışta, altısı içtedir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Şartlardan veya rükünlerden biri eksik kalırsa namaz sahih olmaz. Bu yüzden her iki grubu da bilmek gerekir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Şartları ve rükünleri ayrı ayrı ele alan konulardan okuyarak bu on iki farzı tamamlayabilirsin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-namazin-bolumleri",
+        "art-namazin-vacipleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F) Namazın Farzları, s. 144",
+        "evidenceSummary": "Eserde namazın farzlarının on iki olduğu; altısının namazın dışında (şartlar), altısının namazın içinde (rükünler) bulunduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-vacipleri",
+      "slug": "namazin-vacipleri",
+      "categoryId": "cat-prayer",
+      "title": "Namazın vacipleri",
+      "summary": "Farzlardan sonra gelen ve terkinde sehiv secdesi gereken uygulamalar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "namazin vacipleri",
+        "vacip",
+        "sehiv secdesi",
+        "fatiha"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Vacipler farzları tamamlar. Eserde vacipler için şu ölçü verilir: vacibi yerine getiren sevap kazanır; unutarak terk edenin sehiv secdesi yapması gerekir."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Namaza \"Allâhu Ekber\" sözüyle başlamak.",
+            "Namazda Fâtiha suresini okumak.",
+            "Fâtiha'yı farz namazların ilk iki rekâtında, vitir ve nafilelerin her rekâtında okumak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Vacibi kasten terk eden kimsenin namazı yeniden kılması gerekir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu sıralama eserdeki başlıca vacipleri özetler; tam liste ilgili bölümde daha ayrıntılı verilmiştir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Namazda yanıldığını fark edersen sehiv secdesinin ne zaman gerektiğini öğrenmek iyi bir başlangıç olur."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-namazin-farzlari",
+        "art-namazin-sunnetleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, G) Namazın Vacipleri, s. 147-148",
+        "evidenceSummary": "Eserde vacibin hükmü (kasten terkte iade, sehven terkte sehiv secdesi) ve başlıca vacipler (tekbirle başlama, Fâtiha okuma, farzların ilk iki rekâtında okuma) sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-sunnetleri",
+      "slug": "namazin-sunnetleri",
+      "categoryId": "cat-prayer",
+      "title": "Namazın sünnetleri",
+      "summary": "Namazı güzelleştiren, terkinde namazın bozulmadığı uygulamalar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "namazin sunnetleri",
+        "sunnet",
+        "namaz adabi"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Sünnetler, farz ve vacipleri tamamlayarak namazı güzelleştiren uygulamalardır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde sünnetin hükmü şöyle verilir: namazda sünneti terk etmek namazı bozmaz ve sehiv secdesi gerektirmez; ancak mekruh olur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu ölçü, farz, vacip ve sünnet arasındaki farkı anlamayı kolaylaştırır: farz olmadan namaz sahih olmaz, vacip terk edilirse telafi gerekir, sünnet ise kemale aittir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sünnetleri öğrenmek, namazı acele edilen bir görev olmaktan çıkarıp huzurla kılınan bir ibadete dönüştürür."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Namazın farz, vacip ve sünnetlerini birbirinden ayırt etmeyi hedefleyerek başla."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-namazin-vacipleri",
+        "art-namazin-bolumleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, H) Namazın Sünnetleri, s. 148-151",
+        "evidenceSummary": "Eserde namazda sünneti terk etmenin namazı bozmadığı ve sehiv secdesi gerektirmediği, ancak mekruh olduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-cemaatle-namaz",
+      "slug": "cemaatle-namaz",
+      "categoryId": "cat-prayer",
+      "title": "Cemaatle namaz",
+      "summary": "Cemaatle kılınan namazın sevabı ve toplumsal faydaları.",
+      "contentType": "hadithBased",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "cemaat",
+        "cemaatle namaz",
+        "cami",
+        "imam",
+        "yirmi yedi kat"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Cemaatle namaz kılmaya büyük önem verilmiştir. Cemaate devam eden Müslümanlar birbirini tanır, bilmeyenler bilenlerden yararlanır, kardeşlik ve dayanışma duyguları güçlenir."
+        },
+        {
+          "type": "hadithReference",
+          "text": "Eserde nakledilen hadise göre cemaatle kılınan namazın sevabı, tek başına kılınandan yirmi yedi derece daha fazladır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Cemaat yalnız sevap değil, toplumsal bir bağ da kurar: caminin etrafında karşılıklı sevgi ve yardımlaşma oluşur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cemaate katılamayan kimse namazını tek başına kılar; bu, namazın geçersiz olduğu anlamına gelmez."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Haftada bir vakti cemaatle kılmayı denemek, başlamak için sakin bir adım olabilir."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, R/1) Cemaatle Namaz Kılmanın Fazileti, s. 176-177",
+        "evidenceSummary": "Eserde cemaatle kılınan namazın tek başına kılınandan yirmi yedi derece üstün olduğunu bildiren hadis kaynağıyla birlikte aktarılır ve cemaatin toplumsal faydaları sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-oruc-kimlere-farzdir",
+      "slug": "oruc-kimlere-farzdir",
+      "categoryId": "cat-fasting",
+      "title": "Oruç kimlere farzdır?",
+      "summary": "Orucun farz olması için üç şart aranır; hasta ve yolcular için kolaylık vardır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "oruc",
+        "oruc kimlere farz",
+        "ramazan",
+        "kaza",
+        "yolcu orucu"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Bir kimseye orucun farz olabilmesi için kendisinde belirli şartların bulunması gerekir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Müslüman olmak.",
+            "Akıllı olmak.",
+            "Ergenlik çağına gelmiş bulunmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Bu şartlar bulunsa da oruç tutamayacak derecede hasta olanlar ile yolcular oruç tutmayabilir; hastalar iyileşince, yolcular dönünce tutamadıkları günleri kaza ederler."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ergenlik çağına gelmemiş çocuklara oruç farz değildir. Ancak bünyelerine zarar vermeyecek şekilde yavaş yavaş alıştırmak uygun görülür."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Sağlık durumun sebebiyle tereddüdün varsa, hem hekimine hem de yetkili bir din görevlisine danışabilirsin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-orucu-bozan-durumlar",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, D) Oruç Kimlere Farzdır?, s. 261-262",
+        "evidenceSummary": "Eserde orucun farz olması için üç şart (Müslüman olmak, akıllı olmak, ergenlik çağına gelmek) sayılır; hasta ve yolcuların tutmayabileceği ve sonra kaza edecekleri belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-orucu-bozan-durumlar",
+      "slug": "orucu-bozan-durumlar",
+      "categoryId": "cat-fasting",
+      "title": "Orucu bozan durumlar",
+      "summary": "Orucu bozan hâllerin bir kısmı hem kaza hem keffaret, bir kısmı yalnız kaza gerektirir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "orucu bozan",
+        "kaza",
+        "keffaret",
+        "oruc bozulur mu",
+        "ramazan"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Ramazan orucunu bozan hâller sonuçları bakımından ikiye ayrılır: bir kısmı hem kazayı hem keffareti gerektirir, bir kısmı ise yalnız kazayı gerektirir."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Mazeretsiz olarak, oruçlu olduğunu bilerek yemek veya içmek.",
+            "Oruçlu olduğunu bilerek cinsel ilişkide bulunmak.",
+            "Sigara içmek veya tütsü dumanını içine çekmek."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Yukarıdakiler eserde kaza ve keffareti birlikte gerektiren hâller arasında sayılmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Eserde keffaretin düştüğü durumlar da açıklanır: orucunu bozan kimse aynı gün oruç tutamayacak derecede hastalanırsa keffaret düşer; ancak hastalığın kendi isteği dışında olması şarttır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Kendi durumuna özel bir tereddüdün varsa, hüküm çıkarmak yerine yetkili bir din görevlisine danış."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-oruc-kimlere-farzdir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, K) Orucu Bozan Şeyler, s. 277-279",
+        "evidenceSummary": "Eserde orucu bozan şeylerin bir kısmının hem kaza hem keffaret, bir kısmının yalnız kaza gerektirdiği belirtilir ve kaza ile keffareti gerektiren hâller sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekatin-sartlari",
+      "slug": "zekatin-sartlari",
+      "categoryId": "cat-zakat",
+      "title": "Zekât kimlere farzdır?",
+      "summary": "Zekâtın farz olması için hem mal sahibinde hem malda belirli şartlar aranır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "zekat",
+        "zekat kimlere farz",
+        "nisap",
+        "zekat sartlari",
+        "mali ibadet"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Bir kimsenin zekât vermekle yükümlü olması için hem kendisinde hem de sahip olduğu malda bazı şartların bulunması gerekir."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Müslüman olmak.",
+            "Ergenlik çağına gelmiş olmak.",
+            "Akıllı olmak.",
+            "Hür olmak.",
+            "Borcu düşüldükten sonra kalan malın nisap miktarından az olmaması."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Malda aranan şartlar ise şunlardır: malın nisap miktarına ulaşması, artıcı nitelikte olması ve üzerinden bir kameri yıl geçmiş bulunması."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Eserde, Şâfiîlere göre çocukların ve akıl hastalarının mallarından da zekât verilmesi gerektiği, bu görevi velilerinin yerine getireceği parantez içinde belirtilmiştir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nisap, dinin koyduğu bir zenginlik ölçüsüdür. Borcundan ve asli ihtiyaçlarından fazla bu kadar malı olan kimse dinen zengin sayılır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Zekât hesabı kişisel mali duruma bağlıdır; hesaplarken yetkili bir mercie danışmak en sağlıklısıdır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-zekat-kimlere-verilir",
+        "art-islamin-sartlari"
+      ],
+      "differenceNote": "Eserde, Şâfiîlere göre çocukların ve akıl hastalarının mallarından da zekât verilmesi gerektiği, bu görevi velilerinin yerine getireceği belirtilir.",
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, B) Zekâtın Farz Olmasının Şartları, s. 294-295",
+        "evidenceSummary": "Eserde zekâtın farz olması için mal sahibinde ve malda bulunması gereken şartlar ayrı ayrı sayılır; nisap tanımı verilir ve Şâfiîlere göre çocuk ve akıl hastalarının mallarından da zekât verileceği parantez içinde belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekat-kimlere-verilir",
+      "slug": "zekat-kimlere-verilir",
+      "categoryId": "cat-zakat",
+      "title": "Zekât kimlere verilir?",
+      "summary": "Zekâtın verileceği yerler Kur'an'da belirlenmiştir.",
+      "contentType": "quranExplanation",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "zekat kimlere verilir",
+        "fakir",
+        "miskin",
+        "borclu",
+        "zekat yerleri"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Zekâtın kimlere verileceği Kur'an-ı Kerim'de belirlenmiştir; eser bu konuyu Tevbe suresinin 60. ayetine dayandırarak açıklar."
+        },
+        {
+          "type": "quranReference",
+          "text": "Zekâtın verileceği yerler Tevbe suresi 60. ayette sayılmıştır (bkz. Kur'an sekmesi)."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Fakirler: nisap miktarından az malı olan, dinen zengin sayılmayan kimseler.",
+            "Miskinler: hiçbir şeyi olmayan, fakirlerden daha düşkün durumdakiler.",
+            "Borçlular: borcundan fazla nisap miktarı malı bulunmayan ve borcunu ödeyemeyecek durumda olanlar."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde bu tanımlar ayrı ayrı açıklanmıştır; zekât rastgele değil, belirlenen yerlere verilir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Zekâtını verirken, verdiğin kişinin bu tanımlardan hangisine girdiğini bilmek yeterlidir; ayrıntı sormak gerekmez."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-zekatin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, E) Zekât Kimlere Verilir?, s. 302-303",
+        "evidenceSummary": "Eserde zekâtın verileceği yerler Tevbe suresi 60. ayete dayandırılarak sıralanır ve fakir, miskin ve borçlu tanımları açıklanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hac-kimlere-farzdir",
+      "slug": "hac-kimlere-farzdir",
+      "categoryId": "cat-hajj",
+      "title": "Hac kimlere farzdır?",
+      "summary": "Hem mal hem beden ile yapılan hac, belirli şartları taşıyanlara farzdır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hac",
+        "hac kimlere farz",
+        "istitaat",
+        "hac sartlari",
+        "kabe"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hem mal hem de beden ile yapılan bir ibadet olan hac, belirli şartları taşıyan kimselere farzdır."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Müslüman olmak.",
+            "Akıllı olmak.",
+            "Ergenlik çağına gelmiş bulunmak.",
+            "Hür olmak.",
+            "Asli ihtiyaçlardan başka, gidip dönünceye kadar kendisinin ve bakmakla yükümlü olduğu kimselerin geçimini sağlayacak imkâna sahip olmak.",
+            "Yol masraflarını karşılayacak parası olmak."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Eserde bunlara ek olarak haccın bizzat edası için ayrı şartlar sayılır: vücutça sağlıklı olmak, hacca gitmeye engel bir durumun bulunmaması ve yol güvenliğinin olması."
+        },
+        {
+          "type": "paragraph",
+          "text": "Şartları taşımayan kimseye hac farz olmaz; bu bir eksiklik değil, dinin gözettiği bir kolaylıktır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Hac niyetin varsa, önce mali ve sağlık şartlarını sakince değerlendirmekle başlayabilirsin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-islamin-sartlari",
+        "art-kurban-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XI. HAC, B) Hac Kimlere Farzdır?, s. 308-309",
+        "evidenceSummary": "Eserde haccın farz olması için sekiz şart sayılır; ayrıca haccın bizzat edası için sağlık, engel bulunmaması ve yol güvenliği gibi ek şartlar (edanın şartları) ayrı olarak verilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kurban-nedir",
+      "slug": "kurban-nedir",
+      "categoryId": "cat-hajj",
+      "title": "Kurban ibadeti",
+      "summary": "Kurban, ibadet niyetiyle belirli vakitte belirli nitelikteki hayvanın kesilmesidir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "kurban",
+        "udhiyye",
+        "kurban bayrami",
+        "mali ibadet"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kurban, ibadet niyetiyle belirli bir vakitte, belirli nitelikleri taşıyan hayvanı kesmektir. Buna udhiyye denir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kurban mali ibadetlerden biridir ve verilen nimetlere karşı bir şükran ifadesi olarak anılır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Eserde kurban ibadetinin tarihinin oldukça eski olduğu ve bugünkü şekliyle Hz. İbrahim'e dayandığı belirtilir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kurbanın vakti, niteliği ve kimlere gerekli olduğu ayrı ayrı hükümler taşır; bunlar ilgili bölümde ayrıntılı olarak ele alınmıştır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Kurban kesmeyi düşünüyorsan, önce vaktini ve hayvanda aranan nitelikleri öğrenmekle başla."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hac-kimlere-farzdir",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XII. KURBAN, A) Kurban Nedir?, s. 349-350",
+        "evidenceSummary": "Eserde kurbanın 'ibadet niyetiyle belirli vakitte belirli nitelikleri taşıyan hayvanı kesmek' olduğu ve udhiyye diye adlandırıldığı, mali ibadetlerden sayıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     }
   ]
