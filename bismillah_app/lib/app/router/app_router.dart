@@ -1,6 +1,6 @@
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_shell.dart';
-import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
+import 'package:bismillah_app/features/assistant/presentation/assistant_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_article_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_category_screen.dart';
 import 'package:bismillah_app/features/learn/presentation/learn_screen.dart';
@@ -244,7 +244,7 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
         path: AppRoutes.assistant,
         name: AppRoutes.assistantName,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const AssistantPlaceholderScreen(),
+        builder: (context, state) => const AssistantScreen(),
       ),
       GoRoute(
         path: AppRoutes.premium,

@@ -282,12 +282,12 @@ void main() {
       expect(find.text('Kişisel durumun için danış'), findsOneWidget);
     });
 
-    testWidgets('asistan butonu DEVRE DIŞI ve "yakında" olarak gösterilir', (
-      tester,
-    ) async {
+    testWidgets('asistan girişi çalışır ("Bismillah\'a Sor")', (tester) async {
       await openArticle(tester);
 
-      expect(find.text('Asistana sor — yakında'), findsOneWidget);
+      // TASK 059: "yakında" placeholder'ı yerine çalışan giriş.
+      expect(find.text('Asistana sor — yakında'), findsNothing);
+      expect(find.text("Bismillah'a Sor"), findsOneWidget);
     });
 
     testWidgets('link açılamazsa CRASH olmaz, sakin mesaj gösterilir', (

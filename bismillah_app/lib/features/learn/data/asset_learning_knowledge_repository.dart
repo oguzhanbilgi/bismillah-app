@@ -230,6 +230,17 @@ final class AssetLearningKnowledgeRepository
   }
 
   @override
+  ResultFuture<List<LearningArticle>> getAllPublished(String locale) {
+    final resolved = _resolveLocale(locale);
+    return _guard(() async {
+      final index = await _loadArticles(resolved);
+      // `index.all` yalnız yayınlanmış içeriği tutar (pending/draft parse
+      // aşamasında dışlanır); kopya döndürülür.
+      return List<LearningArticle>.unmodifiable(index.all);
+    });
+  }
+
+  @override
   ResultFuture<List<LearningArticle>> getBeginnerPath(String locale) {
     final resolved = _resolveLocale(locale);
     return _guard(() async {
@@ -262,14 +273,16 @@ final class AssetLearningKnowledgeRepository
         return const <LearningArticle>[];
       }
       final index = await _loadArticles(resolved);
-      return index.all.where((article) {
-        return LearningSearchNormalizer.matches(query, [
-          article.title,
-          article.summary,
-          ...article.keywords,
-          index.categoryTitleById[article.categoryId] ?? '',
-        ]);
-      }).toList(growable: false);
+      return index.all
+          .where((article) {
+            return LearningSearchNormalizer.matches(query, [
+              article.title,
+              article.summary,
+              ...article.keywords,
+              index.categoryTitleById[article.categoryId] ?? '',
+            ]);
+          })
+          .toList(growable: false);
     });
   }
 
@@ -284,6 +297,14 @@ final class AssetLearningKnowledgeRepository
         for (final id in article.sourceIds)
           if (byId[id] case final KnowledgeSource source) source,
       ];
+    });
+  }
+
+  @override
+  ResultFuture<KnowledgeSource?> getSourceById(String id) {
+    return _guard(() async {
+      await _loadSources();
+      return (_sourcesById ?? const <String, KnowledgeSource>{})[id];
     });
   }
 }

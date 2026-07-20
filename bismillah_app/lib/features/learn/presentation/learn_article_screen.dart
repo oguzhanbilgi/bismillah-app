@@ -1,4 +1,5 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
+import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
@@ -21,6 +22,7 @@ import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// İçerik detay ekranı (TASK 056 §10).
 ///
@@ -209,9 +211,9 @@ class _ArticleContent extends ConsumerWidget {
             const SizedBox(height: AppSpacing.s4),
           ],
 
-          // Asistan HENÜZ yok: çalışmayan gerçek buton bırakılmaz, açıkça
-          // "yakında" olarak ve devre dışı gösterilir.
-          _AssistantSoonNotice(label: l10n.learnAskAssistantSoon),
+          // Bismillah Asistanı (TASK 059): bağlamsal "Bismillah'a Sor"
+          // girişi — asistan artık çalışıyor, "yakında" placeholder'ı yok.
+          _AskAssistantEntry(label: l10n.assistantOpenAssistant),
 
           if (related.isNotEmpty) ...[
             const SizedBox(height: AppSpacing.s6),
@@ -379,8 +381,8 @@ class _ProgressActions extends ConsumerWidget {
 }
 
 /// Asistan yakında — bilinçli olarak DEVRE DIŞI, yanıltıcı değil.
-class _AssistantSoonNotice extends StatelessWidget {
-  const _AssistantSoonNotice({required this.label});
+class _AskAssistantEntry extends StatelessWidget {
+  const _AskAssistantEntry({required this.label});
 
   final String label;
 
@@ -391,9 +393,7 @@ class _AssistantSoonNotice extends StatelessWidget {
       child: AppButton(
         label: label,
         variant: AppButtonVariant.text,
-        // onPressed null → buton görünür ama tıklanamaz; "yakında" olduğu
-        // etiketten de anlaşılır.
-        onPressed: null,
+        onPressed: () => context.push(AppRoutes.assistant),
       ),
     );
   }

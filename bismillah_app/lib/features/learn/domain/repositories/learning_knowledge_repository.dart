@@ -17,10 +17,7 @@ abstract interface class LearningKnowledgeRepository {
   ResultFuture<List<LearningCategorySummary>> getCategories(String locale);
 
   /// Tek kategori (bulunamazsa `null`).
-  ResultFuture<LearningCategory?> getCategoryBySlug(
-    String locale,
-    String slug,
-  );
+  ResultFuture<LearningCategory?> getCategoryBySlug(String locale, String slug);
 
   /// Bir kategorideki yayınlanmış içerikler (zorluk, sonra başlık sırası).
   ResultFuture<List<LearningArticle>> getArticlesByCategory(
@@ -38,6 +35,12 @@ abstract interface class LearningKnowledgeRepository {
     List<String> ids,
   );
 
+  /// Aktif locale'deki TÜM yayınlanmış içerikler (sırasız).
+  ///
+  /// Bismillah Assistant retrieval'ı bunu aday havuzu olarak kullanır —
+  /// asset'i ikinci kez ayrıştırmaz, yalnız `published` içeriği görür.
+  ResultFuture<List<LearningArticle>> getAllPublished(String locale);
+
   /// `beginnerPathOrder` tanımlı içerikler, sıraya göre.
   ResultFuture<List<LearningArticle>> getBeginnerPath(String locale);
 
@@ -52,4 +55,9 @@ abstract interface class LearningKnowledgeRepository {
   ResultFuture<List<KnowledgeSource>> getSourcesForArticle(
     LearningArticle article,
   );
+
+  /// Id ile tek kaynak künyesi (bulunamazsa `null`). Asistan yönlendirme
+  /// kaynağını (Din İşleri Yüksek Kurulu vb.) bununla çözer — URL tahmin
+  /// edilmez, kaynak modelinden okunur (TASK 059 §10).
+  ResultFuture<KnowledgeSource?> getSourceById(String id);
 }

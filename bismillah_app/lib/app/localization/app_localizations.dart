@@ -589,6 +589,49 @@ final class AppLocalizations {
   String get aboutLicensesButton => _t('aboutLicensesButton');
   String get aboutVersionUnavailable => _t('aboutVersionUnavailable');
 
+  // Bismillah Asistanı (TASK 059)
+  String get assistantIntroBody => _t('assistantIntroBody');
+  String get assistantNotMuftiNotice => _t('assistantNotMuftiNotice');
+  String get assistantSuggestedTitle => _t('assistantSuggestedTitle');
+  String get assistantSuggested1 => _t('assistantSuggested1');
+  String get assistantSuggested2 => _t('assistantSuggested2');
+  String get assistantSuggested3 => _t('assistantSuggested3');
+  String get assistantSuggested4 => _t('assistantSuggested4');
+  String get assistantSuggested5 => _t('assistantSuggested5');
+  String get assistantInputHint => _t('assistantInputHint');
+  String get assistantSendLabel => _t('assistantSendLabel');
+  String get assistantThinking => _t('assistantThinking');
+  String get assistantClearTitle => _t('assistantClearTitle');
+  String get assistantClearConfirmTitle => _t('assistantClearConfirmTitle');
+  String get assistantClearConfirmBody => _t('assistantClearConfirmBody');
+  String get assistantClearConfirm => _t('assistantClearConfirm');
+  String get assistantCleared => _t('assistantCleared');
+  String get assistantYouLabel => _t('assistantYouLabel');
+  String get assistantSummaryTitle => _t('assistantSummaryTitle');
+  String get assistantStepsTitle => _t('assistantStepsTitle');
+  String get assistantKeyPointsTitle => _t('assistantKeyPointsTitle');
+  String get assistantPracticalTitle => _t('assistantPracticalTitle');
+  String get assistantSourcesTitle => _t('assistantSourcesTitle');
+  String get assistantRelatedTitle => _t('assistantRelatedTitle');
+  String get assistantReadInLearn => _t('assistantReadInLearn');
+  String get assistantOfficialGuidanceCta => _t('assistantOfficialGuidanceCta');
+  String get assistantOpenAssistant => _t('assistantOpenAssistant');
+  String get assistantBadgeVerified => _t('assistantBadgeVerified');
+  String get assistantBadgeGeneral => _t('assistantBadgeGeneral');
+  String get assistantBadgeNoSource => _t('assistantBadgeNoSource');
+  String get assistantBadgeGuidance => _t('assistantBadgeGuidance');
+  // Composer sabit metinleri
+  String get assistantNoVerifiedSource => _t('assistantNoVerifiedSource');
+  String get assistantOfficialFatwaRequired =>
+      _t('assistantOfficialFatwaRequired');
+  String get assistantQualifiedGuidance => _t('assistantQualifiedGuidance');
+  String get assistantGeneralInfoNotRuling =>
+      _t('assistantGeneralInfoNotRuling');
+  String get assistantPersonalCaseGeneralInfo =>
+      _t('assistantPersonalCaseGeneralInfo');
+  String get assistantSourceNotDirectlyAddressing =>
+      _t('assistantSourceNotDirectlyAddressing');
+
   static const Map<SupportedLocale, Map<String, String>> _strings = {
     SupportedLocale.tr: {
       'appTitle': 'Bismillah',
@@ -1039,6 +1082,57 @@ final class AppLocalizations {
       'aboutBuiltWithFlutter': 'Flutter ile geliştirildi',
       'aboutLicensesButton': 'Açık kaynak lisansları',
       'aboutVersionUnavailable': 'Sürüm bilgisi alınamadı.',
+      // Bismillah Asistanı (TASK 059)
+      'assistantIntroBody': 'Doğrulanmış kaynaklı açıklamalarla yardımcı olur.',
+      'assistantNotMuftiNotice':
+          'Bismillah Asistanı bir fetva makamı değildir.',
+      'assistantSuggestedTitle': 'Örnek sorular',
+      'assistantSuggested1': 'Abdest nasıl alınır?',
+      'assistantSuggested2': 'İmanın şartları nelerdir?',
+      'assistantSuggested3': 'Teyemmüm nedir?',
+      'assistantSuggested4': 'Namaza nasıl hazırlanırım?',
+      'assistantSuggested5': "Kur'an nedir?",
+      'assistantInputHint': 'Bir soru yaz…',
+      'assistantSendLabel': 'Gönder',
+      'assistantThinking': 'Kaynaklar aranıyor…',
+      'assistantClearTitle': 'Konuşmayı temizle',
+      'assistantClearConfirmTitle': 'Konuşma temizlensin mi?',
+      'assistantClearConfirmBody':
+          'Bu cihazdaki sohbet geçmişi silinir. Bu işlem geri alınamaz.',
+      'assistantClearConfirm': 'Temizle',
+      'assistantCleared': 'Konuşma temizlendi.',
+      'assistantYouLabel': 'Sen',
+      'assistantSummaryTitle': 'Kaynaklı açıklama',
+      'assistantStepsTitle': 'Adımlar',
+      'assistantKeyPointsTitle': 'Önemli noktalar',
+      'assistantPracticalTitle': 'Uygulama',
+      'assistantSourcesTitle': 'Resmî kaynaklar',
+      'assistantRelatedTitle': 'İlgili Learn içeriği',
+      'assistantReadInLearn': "Learn'de oku",
+      'assistantOfficialGuidanceCta': 'Resmî soru sayfasını aç',
+      'assistantOpenAssistant': "Bismillah'a Sor",
+      'assistantBadgeVerified': 'Doğrulanmış kaynak',
+      'assistantBadgeGeneral': 'Genel kaynaklı bilgi',
+      'assistantBadgeNoSource': 'Doğrulanmış kaynak yok',
+      'assistantBadgeGuidance': 'Yetkiliye danışın',
+      'assistantNoVerifiedSource':
+          'Bu konuda doğrulanmış bir kaynak bulamadım; bu yüzden kesin bir '
+          'cevap vermem doğru olmaz. İlgili öğrenme başlıklarına '
+          'bakabilirsin.',
+      'assistantOfficialFatwaRequired':
+          'Bu soru için doğrulanmış doğrudan bir Din İşleri Yüksek Kurulu '
+          'cevabı bilgi tabanımızda bulunmuyor. Kesin hüküm vermem doğru '
+          'olmaz.',
+      'assistantQualifiedGuidance':
+          'Bu konu kişisel duruma özel değerlendirme gerektiriyor. Kesin bir '
+          'hüküm için yetkili bir mercie danışman en doğrusudur.',
+      'assistantGeneralInfoNotRuling':
+          'Bu genel bir bilgidir; özel durumuna kesin bir hüküm uygulamaz.',
+      'assistantPersonalCaseGeneralInfo':
+          'Aşağıdaki genel bilgi konuya ışık tutar; ancak senin özel durumun '
+          'için hüküm içermez.',
+      'assistantSourceNotDirectlyAddressing':
+          'Bu kaynak özel durumunuzu doğrudan ele almıyor.',
     },
     SupportedLocale.en: {
       'appTitle': 'Bismillah',
@@ -1497,6 +1591,60 @@ final class AppLocalizations {
       'aboutBuiltWithFlutter': 'Built with Flutter',
       'aboutLicensesButton': 'Open source licenses',
       'aboutVersionUnavailable': 'Version information unavailable.',
+      // Bismillah Assistant (TASK 059)
+      'assistantIntroBody':
+          'Helps with explanations grounded in verified sources.',
+      'assistantNotMuftiNotice':
+          'The Bismillah Assistant is not a source of fatwa.',
+      'assistantSuggestedTitle': 'Example questions',
+      'assistantSuggested1': 'How is wudu performed?',
+      'assistantSuggested2': 'What are the pillars of faith?',
+      'assistantSuggested3': 'What is tayammum?',
+      'assistantSuggested4': 'How do I prepare for prayer?',
+      'assistantSuggested5': 'What is the Quran?',
+      'assistantInputHint': 'Type a question…',
+      'assistantSendLabel': 'Send',
+      'assistantThinking': 'Searching sources…',
+      'assistantClearTitle': 'Clear conversation',
+      'assistantClearConfirmTitle': 'Clear the conversation?',
+      'assistantClearConfirmBody':
+          'The chat history on this device will be deleted. This cannot be '
+          'undone.',
+      'assistantClearConfirm': 'Clear',
+      'assistantCleared': 'Conversation cleared.',
+      'assistantYouLabel': 'You',
+      'assistantSummaryTitle': 'Sourced explanation',
+      'assistantStepsTitle': 'Steps',
+      'assistantKeyPointsTitle': 'Key points',
+      'assistantPracticalTitle': 'In practice',
+      'assistantSourcesTitle': 'Official sources',
+      'assistantRelatedTitle': 'Related Learn content',
+      'assistantReadInLearn': 'Read in Learn',
+      'assistantOfficialGuidanceCta': 'Open the official question page',
+      'assistantOpenAssistant': 'Ask Bismillah',
+      'assistantBadgeVerified': 'Verified source',
+      'assistantBadgeGeneral': 'General sourced info',
+      'assistantBadgeNoSource': 'No verified source',
+      'assistantBadgeGuidance': 'Consult an authority',
+      'assistantNoVerifiedSource':
+          'I could not find a verified source on this, so it would not be '
+          'right for me to give a definite answer. You can look at the '
+          'related learning topics.',
+      'assistantOfficialFatwaRequired':
+          'Our knowledge base does not have a verified direct answer from the '
+          'High Board of Religious Affairs for this question. It would not be '
+          'right for me to issue a definite ruling.',
+      'assistantQualifiedGuidance':
+          'This depends on your personal circumstances. For a definite '
+          'ruling it is best to consult a qualified authority.',
+      'assistantGeneralInfoNotRuling':
+          'This is general information; it does not apply a definite ruling '
+          'to your specific case.',
+      'assistantPersonalCaseGeneralInfo':
+          'The general information below sheds light on the topic, but does '
+          'not contain a ruling for your specific situation.',
+      'assistantSourceNotDirectlyAddressing':
+          'This source does not directly address your specific situation.',
     },
     SupportedLocale.ar: {
       'appTitle': 'Bismillah',
@@ -1927,6 +2075,54 @@ final class AppLocalizations {
       'aboutBuiltWithFlutter': 'بُني باستخدام Flutter',
       'aboutLicensesButton': 'تراخيص المصدر المفتوح',
       'aboutVersionUnavailable': 'معلومات الإصدار غير متوفّرة.',
+      // مساعد بِسم الله (TASK 059)
+      'assistantIntroBody': 'يساعد بشروحات مستندة إلى مصادر مُتحقَّق منها.',
+      'assistantNotMuftiNotice': 'مساعد بِسم الله ليس جهة إفتاء.',
+      'assistantSuggestedTitle': 'أسئلة مقترحة',
+      'assistantSuggested1': 'كيف يُؤخذ الوضوء؟',
+      'assistantSuggested2': 'ما هي أركان الإيمان؟',
+      'assistantSuggested3': 'ما هو التيمم؟',
+      'assistantSuggested4': 'كيف أستعدّ للصلاة؟',
+      'assistantSuggested5': 'ما هو القرآن؟',
+      'assistantInputHint': 'اكتب سؤالاً…',
+      'assistantSendLabel': 'إرسال',
+      'assistantThinking': 'جارٍ البحث في المصادر…',
+      'assistantClearTitle': 'مسح المحادثة',
+      'assistantClearConfirmTitle': 'مسح المحادثة؟',
+      'assistantClearConfirmBody':
+          'سيُحذف سجل المحادثة على هذا الجهاز. لا يمكن التراجع عن ذلك.',
+      'assistantClearConfirm': 'مسح',
+      'assistantCleared': 'تم مسح المحادثة.',
+      'assistantYouLabel': 'أنت',
+      'assistantSummaryTitle': 'شرح مستند إلى مصدر',
+      'assistantStepsTitle': 'الخطوات',
+      'assistantKeyPointsTitle': 'نقاط أساسية',
+      'assistantPracticalTitle': 'التطبيق',
+      'assistantSourcesTitle': 'المصادر الرسمية',
+      'assistantRelatedTitle': 'محتوى التعلّم ذو الصلة',
+      'assistantReadInLearn': 'اقرأ في التعلّم',
+      'assistantOfficialGuidanceCta': 'افتح صفحة السؤال الرسمية',
+      'assistantOpenAssistant': 'اسأل بِسم الله',
+      'assistantBadgeVerified': 'مصدر مُتحقَّق',
+      'assistantBadgeGeneral': 'معلومة عامة مستندة',
+      'assistantBadgeNoSource': 'لا يوجد مصدر مُتحقَّق',
+      'assistantBadgeGuidance': 'راجِع جهة مختصّة',
+      'assistantNoVerifiedSource':
+          'لم أجد مصدراً مُتحقَّقاً منه في هذا الموضوع، لذا لا يصحّ أن أقدّم '
+          'جواباً قاطعاً. يمكنك الاطّلاع على مواضيع التعلّم ذات الصلة.',
+      'assistantOfficialFatwaRequired':
+          'لا تتضمّن قاعدة معرفتنا جواباً مباشراً مُتحقَّقاً من المجلس الأعلى '
+          'للشؤون الدينية لهذا السؤال. لا يصحّ أن أُصدر حكماً قاطعاً.',
+      'assistantQualifiedGuidance':
+          'هذا يعتمد على ظروفك الشخصية. للحصول على حكم قاطع يُفضَّل مراجعة '
+          'جهة مختصّة معتمدة.',
+      'assistantGeneralInfoNotRuling':
+          'هذه معلومة عامة؛ ولا تُطبّق حكماً قاطعاً على حالتك الخاصة.',
+      'assistantPersonalCaseGeneralInfo':
+          'المعلومة العامة أدناه تُلقي الضوء على الموضوع، لكنها لا تتضمّن '
+          'حكماً لحالتك الخاصة.',
+      'assistantSourceNotDirectlyAddressing':
+          'هذا المصدر لا يتناول حالتك الخاصة مباشرةً.',
     },
   };
 }
