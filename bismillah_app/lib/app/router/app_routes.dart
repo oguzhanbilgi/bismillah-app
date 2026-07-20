@@ -54,6 +54,17 @@ abstract final class AppRoutes {
   /// Profile branch içinde — onboarding AKIŞI DEĞİLDİR).
   static const String profilePersonalization = '/profile/personalization';
 
+  /// İçerik kaynakları ve doğrulama politikası (TASK 058; Profile branch
+  /// içinde push route).
+  static const String profileSources = '/profile/sources';
+
+  /// Gizlilik ve yerel veriler + veri sıfırlama (TASK 058; Profile branch
+  /// içinde push route).
+  static const String profilePrivacy = '/profile/privacy';
+
+  /// Hakkında + lisanslar (TASK 058; Profile branch içinde push route).
+  static const String profileAbout = '/profile/about';
+
   /// Sure okuyucu tabanı (TASK 035; Quran branch içinde push route —
   /// tam konum için [quranChapterPath] kullanılır).
   static const String quranChapter = '/quran/chapter';
@@ -89,6 +100,9 @@ abstract final class AppRoutes {
   static const String subscriptionSettingsName = 'subscriptionSettings';
   static const String languageSettingsName = 'languageSettings';
   static const String profilePersonalizationName = 'profilePersonalization';
+  static const String profileSourcesName = 'profileSources';
+  static const String profilePrivacyName = 'profilePrivacy';
+  static const String profileAboutName = 'profileAbout';
   static const String quranChapterName = 'quranChapter';
   static const String quranBookmarksName = 'quranBookmarks';
 }

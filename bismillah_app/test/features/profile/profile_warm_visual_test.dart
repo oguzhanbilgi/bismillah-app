@@ -12,10 +12,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Profile sıcak dönüşümü (TASK 055): tonal ayar grubu, dil satırı ve
-/// mevcut route'ların korunması.
+/// Profile ayar/veri merkezi (TASK 058): bölümler render eder, Namaz/Kur'an/
+/// Öğren kısayolları doğru route'a gider, premium/abonelik satırı
+/// GÖSTERİLMEZ, tüm satırlar gerçek bir hedefe gider.
 void main() {
-  Future<GoRouter> pumpProfile(
+  Widget marker(String label) => Scaffold(body: Text(label));
+
+  Future<void> pumpProfile(
     WidgetTester tester, {
     SupportedLocale locale = SupportedLocale.tr,
     Size size = const Size(1080, 2400),
@@ -26,8 +29,6 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
-    // Gerçek push davranışını doğrulamak için minimal router: profil kökü
-    // + iki ayar route'u (ekran GoRouter.push kullanır).
     final router = GoRouter(
       initialLocation: AppRoutes.profile,
       routes: [
@@ -37,13 +38,39 @@ void main() {
         ),
         GoRoute(
           path: AppRoutes.languageSettings,
-          builder: (context, state) =>
-              const Scaffold(body: Text('language-route')),
+          builder: (context, state) => marker('language-route'),
         ),
         GoRoute(
-          path: AppRoutes.subscriptionSettings,
-          builder: (context, state) =>
-              const Scaffold(body: Text('subscription-route')),
+          path: AppRoutes.prayer,
+          builder: (context, state) => marker('prayer-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.prayerHistory,
+          builder: (context, state) => marker('prayer-history-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.quran,
+          builder: (context, state) => marker('quran-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.quranBookmarks,
+          builder: (context, state) => marker('quran-bookmarks-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.learn,
+          builder: (context, state) => marker('learn-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.profilePrivacy,
+          builder: (context, state) => marker('privacy-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.profileSources,
+          builder: (context, state) => marker('sources-route'),
+        ),
+        GoRoute(
+          path: AppRoutes.profileAbout,
+          builder: (context, state) => marker('about-route'),
         ),
       ],
     );
@@ -72,42 +99,118 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    return router;
   }
 
-  group('Ayar grubu', () {
-    testWidgets('SettingsSection dil ve abonelik satırlarıyla render eder', (
+  group('Bölüm yapısı', () {
+    testWidgets('Uygulama/Namaz/Kur\'an/Öğren/Destek bölümleri render eder', (
       tester,
     ) async {
       await pumpProfile(tester);
-
-      expect(find.byType(SettingsSection), findsOneWidget);
-      expect(find.text('Ayarlar'), findsOneWidget);
-      expect(find.text('Uygulama dili'), findsOneWidget);
-      // Seçili dil KENDİ adıyla görünür.
-      expect(find.text('Türkçe'), findsOneWidget);
-    });
-
-    testWidgets('dil satırı language settings route\'unu açar', (tester) async {
-      await pumpProfile(tester);
-
-      await tester.tap(find.text('Uygulama dili'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('language-route'), findsOneWidget);
-    });
-
-    testWidgets('abonelik satırı mevcut route\'u açar', (tester) async {
-      await pumpProfile(tester);
-
       const l10n = AppLocalizations(SupportedLocale.tr);
-      await tester.tap(find.text(l10n.subscriptionSettingsTitle));
-      await tester.pumpAndSettle();
 
-      expect(find.text('subscription-route'), findsOneWidget);
+      expect(find.byType(SettingsSection), findsNWidgets(5));
+      expect(find.text(l10n.profileAppSection), findsOneWidget);
+      expect(find.text(l10n.profilePrayerSection), findsOneWidget);
+      expect(find.text(l10n.profileQuranSection), findsOneWidget);
+      expect(find.text(l10n.profileLearnSection), findsOneWidget);
+      expect(find.text(l10n.profileSupportSection), findsOneWidget);
+      // Kişisel yolculuk alanı da görünür.
+      expect(find.text(l10n.profileJourneySection), findsOneWidget);
     });
 
-    testWidgets('satırlar ekran okuyucuya buton + etiket bildirir', (
+    testWidgets('premium/abonelik satırı GÖSTERİLMEZ', (tester) async {
+      await pumpProfile(tester);
+      const l10n = AppLocalizations(SupportedLocale.tr);
+
+      expect(find.text(l10n.subscriptionSettingsTitle), findsNothing);
+      expect(find.text(l10n.premiumTitle), findsNothing);
+    });
+
+    testWidgets('Öğren sayaçları hard-code değil, boş durumda 0', (
+      tester,
+    ) async {
+      await pumpProfile(tester);
+      const l10n = AppLocalizations(SupportedLocale.tr);
+
+      expect(find.text(l10n.profileLearnLastReadEmpty), findsOneWidget);
+      // Kaydedilen/tamamlanan sayacı boş ilerlemede 0.
+      expect(find.text('0'), findsNWidgets(2));
+    });
+  });
+
+  group('Kısayol yönlendirmeleri', () {
+    Future<void> tapAndExpect(
+      WidgetTester tester,
+      String rowText,
+      String route,
+    ) async {
+      await pumpProfile(tester);
+      await tester.tap(find.text(rowText));
+      await tester.pumpAndSettle();
+      expect(find.text(route), findsOneWidget);
+    }
+
+    testWidgets('dil satırı language route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(tester, l10n.settingsLanguageTitle, 'language-route');
+    });
+
+    testWidgets('namaz vakitleri Prayer route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(tester, l10n.profilePrayerTimesRow, 'prayer-route');
+    });
+
+    testWidgets('namaz takibi Prayer history route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(
+        tester,
+        l10n.profilePrayerTrackingRow,
+        'prayer-history-route',
+      );
+    });
+
+    testWidgets('Kur\'an tercihleri Quran route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(
+        tester,
+        l10n.profileQuranPreferencesRow,
+        'quran-route',
+      );
+    });
+
+    testWidgets('kaydedilen ayetler Quran bookmarks route açar', (
+      tester,
+    ) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(
+        tester,
+        l10n.profileQuranSavedRow,
+        'quran-bookmarks-route',
+      );
+    });
+
+    testWidgets('kaydedilen makaleler Learn route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(tester, l10n.profileLearnSavedRow, 'learn-route');
+    });
+
+    testWidgets('gizlilik satırı privacy route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(
+        tester,
+        l10n.settingsPrivacyDataTitle,
+        'privacy-route',
+      );
+    });
+
+    testWidgets('hakkında satırı about route açar', (tester) async {
+      const l10n = AppLocalizations(SupportedLocale.tr);
+      await tapAndExpect(tester, l10n.profileAboutRow, 'about-route');
+    });
+  });
+
+  group('Erişilebilirlik ve yerelleştirme', () {
+    testWidgets('dil satırı ekran okuyucuya buton + etiket bildirir', (
       tester,
     ) async {
       final handle = tester.ensureSemantics();
@@ -125,27 +228,20 @@ void main() {
       );
       handle.dispose();
     });
-  });
 
-  group('Yerelleştirme ve RTL', () {
-    testWidgets('İngilizce locale ayar başlıklarını çevirir', (tester) async {
+    testWidgets('İngilizce bölüm başlıklarını çevirir', (tester) async {
       await pumpProfile(tester, locale: SupportedLocale.en);
-
-      expect(find.text('Settings'), findsOneWidget);
-      expect(find.text('App language'), findsOneWidget);
-      expect(find.text('English'), findsOneWidget);
+      expect(find.text('App'), findsOneWidget);
+      expect(find.text('Prayer'), findsOneWidget);
+      expect(find.text('Support & app'), findsOneWidget);
     });
 
-    testWidgets('Arapça locale RTL olur; dil adı kendi yönünde', (
-      tester,
-    ) async {
+    testWidgets('Arapça RTL olur', (tester) async {
       await pumpProfile(tester, locale: SupportedLocale.ar);
-
-      expect(find.text('الإعدادات'), findsOneWidget);
-      expect(find.text('لغة التطبيق'), findsOneWidget);
-      expect(find.text('العربية'), findsOneWidget);
+      const l10n = AppLocalizations(SupportedLocale.ar);
+      expect(find.text(l10n.profileAppSection), findsOneWidget);
       expect(
-        Directionality.of(tester.element(find.text('الإعدادات'))),
+        Directionality.of(tester.element(find.text(l10n.profileAppSection))),
         TextDirection.rtl,
       );
     });
@@ -162,7 +258,6 @@ void main() {
           size: const Size(320 * 3, 720 * 3),
           textScale: 1.5,
         );
-
         expect(tester.takeException(), isNull);
       });
     }

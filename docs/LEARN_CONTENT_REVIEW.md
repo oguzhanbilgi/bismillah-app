@@ -112,7 +112,7 @@ Locator'lardaki eser künyesi tam hâliyle
    Şâfiî notu **korundu**.
 
 3. **16 yeni makale** İslam İlmihali gövdesinden doğrulanarak eklendi
-   (temizlik 5, namaz 6, oruç 2, zekât 2, hac/kurban 2 — sıralama
+   (temizlik 5, namaz 5, oruç 2, zekât 2, hac/kurban 2 — sıralama
    yukarıdaki tabloda).
 
 Doğrulanmadan hiçbir içerik `published` yapılmamalıdır; yayın kapısı

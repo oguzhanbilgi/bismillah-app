@@ -480,6 +480,115 @@ final class AppLocalizations {
   String get premiumBadgeLabel => _t('premiumBadgeLabel');
   String get premiumInviteLine => _t('premiumInviteLine');
 
+  // Profile ayar/veri merkezi (TASK 058)
+  String get profileJourneySection => _t('profileJourneySection');
+  String get profileLocalUsageTitle => _t('profileLocalUsageTitle');
+  String get profileLocalUsageBody => _t('profileLocalUsageBody');
+  String get profileAppSection => _t('profileAppSection');
+  String get profilePrayerSection => _t('profilePrayerSection');
+  String get profileQuranSection => _t('profileQuranSection');
+  String get profileLearnSection => _t('profileLearnSection');
+  String get profileSupportSection => _t('profileSupportSection');
+
+  String get settingsNotificationsTitle => _t('settingsNotificationsTitle');
+  String get settingsNotificationsSubtitle =>
+      _t('settingsNotificationsSubtitle');
+  String get settingsPrivacyDataTitle => _t('settingsPrivacyDataTitle');
+
+  String get profilePrayerTimesRow => _t('profilePrayerTimesRow');
+  String get profilePrayerTimesSubtitle => _t('profilePrayerTimesSubtitle');
+  String get profilePrayerTrackingRow => _t('profilePrayerTrackingRow');
+  String get profilePrayerTrackingSubtitle =>
+      _t('profilePrayerTrackingSubtitle');
+
+  String get profileQuranPreferencesRow => _t('profileQuranPreferencesRow');
+  String get profileQuranPreferencesSubtitle =>
+      _t('profileQuranPreferencesSubtitle');
+  String get profileQuranSavedRow => _t('profileQuranSavedRow');
+  String get profileQuranSavedSubtitle => _t('profileQuranSavedSubtitle');
+
+  String get profileLearnSavedRow => _t('profileLearnSavedRow');
+  String get profileLearnCompletedRow => _t('profileLearnCompletedRow');
+  String get profileLearnLastReadRow => _t('profileLearnLastReadRow');
+  String get profileLearnLastReadEmpty => _t('profileLearnLastReadEmpty');
+  String get profileLearnSourcesRow => _t('profileLearnSourcesRow');
+  String get profileLearnSourcesSubtitle => _t('profileLearnSourcesSubtitle');
+
+  String get profileAboutRow => _t('profileAboutRow');
+  String get profilePrivacyApproachRow => _t('profilePrivacyApproachRow');
+  String get profileLicensesRow => _t('profileLicensesRow');
+
+  String get commonCancel => _t('commonCancel');
+
+  // İçerik kaynakları ekranı (TASK 058 §5)
+  String get sourcesTitle => _t('sourcesTitle');
+  String get sourcesIntro => _t('sourcesIntro');
+  String get sourcesOriginalLanguageLabel => _t('sourcesOriginalLanguageLabel');
+  String get sourcesOpenFailed => _t('sourcesOpenFailed');
+  String get sourcesCopied => _t('sourcesCopied');
+  String get sourcesLangArabic => _t('sourcesLangArabic');
+  String get sourcesLangTurkish => _t('sourcesLangTurkish');
+  String get sourcePurposeTanzil => _t('sourcePurposeTanzil');
+  String get sourcePurposeQuranenc => _t('sourcePurposeQuranenc');
+  String get sourcePurposeMp3quran => _t('sourcePurposeMp3quran');
+  String get sourcePurposeIlmihal => _t('sourcePurposeIlmihal');
+  String get sourcePurposePortal => _t('sourcePurposePortal');
+  String get sourcePurposeHadis => _t('sourcePurposeHadis');
+  String get sourcePurposeKurul => _t('sourcePurposeKurul');
+  String get sourcesPolicyTitle => _t('sourcesPolicyTitle');
+  String get sourcesPolicyLocator => _t('sourcesPolicyLocator');
+  String get sourcesPolicyTurkishSummary => _t('sourcesPolicyTurkishSummary');
+  String get sourcesPolicyTranslation => _t('sourcesPolicyTranslation');
+  String get sourcesPolicyNoEndorsement => _t('sourcesPolicyNoEndorsement');
+  String get sourcesPolicyPending => _t('sourcesPolicyPending');
+  String get sourcesPolicyFatwa => _t('sourcesPolicyFatwa');
+
+  // Gizlilik ve veriler ekranı (TASK 058 §6)
+  String get privacyTitle => _t('privacyTitle');
+  String get privacyIntro => _t('privacyIntro');
+  String get privacyLocalTitle => _t('privacyLocalTitle');
+  String get privacyLocalOnboarding => _t('privacyLocalOnboarding');
+  String get privacyLocalPrayerHistory => _t('privacyLocalPrayerHistory');
+  String get privacyLocalQuran => _t('privacyLocalQuran');
+  String get privacyLocalQuranPrefs => _t('privacyLocalQuranPrefs');
+  String get privacyLocalLearn => _t('privacyLocalLearn');
+  String get privacyLocalAppPrefs => _t('privacyLocalAppPrefs');
+  String get privacyComputedTitle => _t('privacyComputedTitle');
+  String get privacyComputedPrayerTimes => _t('privacyComputedPrayerTimes');
+  String get privacyComputedProgress => _t('privacyComputedProgress');
+  String get privacyNetworkTitle => _t('privacyNetworkTitle');
+  String get privacyNetworkAudio => _t('privacyNetworkAudio');
+  String get privacyNetworkLinks => _t('privacyNetworkLinks');
+  String get privacyNote => _t('privacyNote');
+
+  // Veri sıfırlama (TASK 058 §7)
+  String get resetSectionTitle => _t('resetSectionTitle');
+  String get resetLearningTitle => _t('resetLearningTitle');
+  String get resetLearningSubtitle => _t('resetLearningSubtitle');
+  String get resetLearningConfirmTitle => _t('resetLearningConfirmTitle');
+  String get resetLearningConfirmBody => _t('resetLearningConfirmBody');
+  String get resetLearningDone => _t('resetLearningDone');
+  String get resetAllTitle => _t('resetAllTitle');
+  String get resetAllSubtitle => _t('resetAllSubtitle');
+  String get resetAllStep1Title => _t('resetAllStep1Title');
+  String get resetAllStep1Body => _t('resetAllStep1Body');
+  String get resetAllStep1Continue => _t('resetAllStep1Continue');
+  String get resetAllStep2Title => _t('resetAllStep2Title');
+  String get resetAllStep2Body => _t('resetAllStep2Body');
+  String get resetAllConfirm => _t('resetAllConfirm');
+  String get resetAllDone => _t('resetAllDone');
+  String get resetKeepsLanguage => _t('resetKeepsLanguage');
+
+  // Hakkında ekranı (TASK 058 §8)
+  String get aboutTitle => _t('aboutTitle');
+  String get aboutTagline => _t('aboutTagline');
+  String get aboutVersionLabel => _t('aboutVersionLabel');
+  String get aboutBuildLabel => _t('aboutBuildLabel');
+  String get aboutStageAlpha => _t('aboutStageAlpha');
+  String get aboutBuiltWithFlutter => _t('aboutBuiltWithFlutter');
+  String get aboutLicensesButton => _t('aboutLicensesButton');
+  String get aboutVersionUnavailable => _t('aboutVersionUnavailable');
+
   static const Map<SupportedLocale, Map<String, String>> _strings = {
     SupportedLocale.tr: {
       'appTitle': 'Bismillah',
@@ -815,6 +924,121 @@ final class AppLocalizations {
       'todayQuranProgressUnavailable': "Kur'an ilerlemesi şu anda yüklenemedi.",
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'Yolculuğunu derinleştirmek istersen…',
+      // Profile ayar/veri merkezi (TASK 058)
+      'profileJourneySection': 'Kişisel yolculuk',
+      'profileLocalUsageTitle': 'Yerel kullanım',
+      'profileLocalUsageBody':
+          'Uygulamayı hesap oluşturmadan kullanıyorsun. Kayıtların bu '
+          'cihazda tutulur.',
+      'profileAppSection': 'Uygulama',
+      'profilePrayerSection': 'Namaz',
+      'profileQuranSection': "Kur'an",
+      'profileLearnSection': 'Öğren',
+      'profileSupportSection': 'Destek ve uygulama',
+      'settingsNotificationsTitle': 'Bildirimler',
+      'settingsNotificationsSubtitle': 'Namaz hatırlatmaları',
+      'settingsPrivacyDataTitle': 'Gizlilik ve veriler',
+      'profilePrayerTimesRow': 'Namaz vakitleri ve konum',
+      'profilePrayerTimesSubtitle': 'Konum ve hesaplama yöntemi',
+      'profilePrayerTrackingRow': 'Namaz takibi',
+      'profilePrayerTrackingSubtitle': 'Son 7 gün',
+      'profileQuranPreferencesRow': "Kur'an tercihleri ve ilerleme",
+      'profileQuranPreferencesSubtitle':
+          'Okuyucu, meal, kâri, günlük hedef ve ilerlemen',
+      'profileQuranSavedRow': 'Kaydedilen ayetler',
+      'profileQuranSavedSubtitle': 'İşaretlediğin ayetler',
+      'profileLearnSavedRow': 'Kaydedilen makaleler',
+      'profileLearnCompletedRow': 'Tamamlanan makaleler',
+      'profileLearnLastReadRow': 'Son okunan',
+      'profileLearnLastReadEmpty': 'Henüz yok',
+      'profileLearnSourcesRow': 'İçerik kaynakları ve doğrulama',
+      'profileLearnSourcesSubtitle': 'Kaynaklar ve içerik politikası',
+      'profileAboutRow': 'Hakkında',
+      'profilePrivacyApproachRow': 'Gizlilik yaklaşımı',
+      'profileLicensesRow': 'Açık kaynak lisansları',
+      'commonCancel': 'İptal',
+      // İçerik kaynakları (TASK 058 §5)
+      'sourcesTitle': 'İçerik kaynakları',
+      'sourcesIntro':
+          'Bismillah, içeriğini aşağıdaki resmî ve köklü kaynaklara '
+          'dayandırır. Bağlantılar sistem tarayıcısında açılır.',
+      'sourcesOriginalLanguageLabel': 'Özgün dil',
+      'sourcesOpenFailed': 'Bağlantı açılamadı; adres panoya kopyalandı.',
+      'sourcesCopied': 'Adres panoya kopyalandı.',
+      'sourcesLangArabic': 'Arapça',
+      'sourcesLangTurkish': 'Türkçe',
+      'sourcePurposeTanzil': "Arapça Kur'an metni (Uthmani hat).",
+      'sourcePurposeQuranenc': 'Türkçe meal (Rowad Tercüme Merkezi).',
+      'sourcePurposeMp3quran': 'Kâri ses kayıtları ve listesi.',
+      'sourcePurposeIlmihal':
+          'Öğren bölümündeki Türkçe içeriklerin dayandığı temel eser.',
+      'sourcePurposePortal': "Kur'an metni ve meal referansı.",
+      'sourcePurposeHadis': 'Hadis metinleri referansı.',
+      'sourcePurposeKurul': 'Resmî dinî görüş ve fetva kaynağı.',
+      'sourcesPolicyTitle': 'İçerik politikası',
+      'sourcesPolicyLocator':
+          'Yayınlanan her içerik, dayandığı kaynağın tam konumunu taşır.',
+      'sourcesPolicyTurkishSummary':
+          'Türkçe içerikler Diyanet kaynaklarına dayalı özgün özetlerdir.',
+      'sourcesPolicyTranslation':
+          'İngilizce ve Arapça içerikler açıklayıcı çeviridir.',
+      'sourcesPolicyNoEndorsement':
+          "Diyanet'in Bismillah'a özel bir onayı olduğu ileri sürülmez.",
+      'sourcesPolicyPending':
+          'Doğrulaması tamamlanmayan içerikler kullanıcıya gösterilmez.',
+      'sourcesPolicyFatwa': 'Kişisel fetva için yetkili bir kuruma başvurun.',
+      // Gizlilik ve veriler (TASK 058 §6)
+      'privacyTitle': 'Gizlilik ve veriler',
+      'privacyIntro': 'Verilerinin nerede tutulduğunu açıkça görebilirsin.',
+      'privacyLocalTitle': 'Cihazında saklananlar',
+      'privacyLocalOnboarding': 'Onboarding tercihleri',
+      'privacyLocalPrayerHistory': 'Namaz takip geçmişi',
+      'privacyLocalQuran': "Kur'an bookmark ve ilerlemesi",
+      'privacyLocalQuranPrefs': "Kur'an tercihleri",
+      'privacyLocalLearn':
+          'Öğrenme kayıtları (kaydedilen, tamamlanan, son okunan)',
+      'privacyLocalAppPrefs': 'Dil ve uygulama tercihleri',
+      'privacyComputedTitle': 'Cihazında hesaplananlar',
+      'privacyComputedPrayerTimes': 'Namaz vakitleri',
+      'privacyComputedProgress': 'Günlük ilerleme özetleri',
+      'privacyNetworkTitle': 'Ağ kullanılan alanlar',
+      'privacyNetworkAudio': "Kur'an ses dosyaları",
+      'privacyNetworkLinks': 'Açtığında resmî kaynak bağlantıları',
+      'privacyNote':
+          'Bu kayıtlar cihazında tutulur; yukarıda belirtilen ağ alanları '
+          'dışında bir sunucuya gönderilmez.',
+      // Veri sıfırlama (TASK 058 §7)
+      'resetSectionTitle': 'Verileri sıfırla',
+      'resetLearningTitle': 'Öğrenme verilerini sıfırla',
+      'resetLearningSubtitle': 'Kaydedilen, tamamlanan ve son okunan',
+      'resetLearningConfirmTitle': 'Öğrenme verilerini sıfırla?',
+      'resetLearningConfirmBody':
+          'Yalnız öğrenme kayıtların (kaydedilen, tamamlanan ve son okunan '
+          'makaleler) silinir. Diğer verilerine dokunulmaz.',
+      'resetLearningDone': 'Öğrenme verilerin sıfırlandı.',
+      'resetAllTitle': 'Tüm yerel verileri sıfırla',
+      'resetAllSubtitle': "Uygulamayı onboarding'e döndürür",
+      'resetAllStep1Title': 'Tüm yerel veriler silinsin mi?',
+      'resetAllStep1Body':
+          'Silinecekler: onboarding tercihleri, namaz takip geçmişi, '
+          "Kur'an bookmark ve ilerlemesi, Kur'an tercihleri ve öğrenme "
+          'kayıtların.',
+      'resetAllStep1Continue': 'Devam et',
+      'resetAllStep2Title': 'Emin misin?',
+      'resetAllStep2Body':
+          'Bu işlem geri alınamaz. Uygulama yeniden onboarding ile açılır.',
+      'resetAllConfirm': 'Kalıcı olarak sil',
+      'resetAllDone': 'Tüm yerel verilerin sıfırlandı.',
+      'resetKeepsLanguage': 'Dil tercihin korunur.',
+      // Hakkında (TASK 058 §8)
+      'aboutTitle': 'Hakkında',
+      'aboutTagline': 'Premium İslami yaşam arkadaşı',
+      'aboutVersionLabel': 'Sürüm',
+      'aboutBuildLabel': 'Yapı',
+      'aboutStageAlpha': 'Alpha — aktif geliştirme',
+      'aboutBuiltWithFlutter': 'Flutter ile geliştirildi',
+      'aboutLicensesButton': 'Açık kaynak lisansları',
+      'aboutVersionUnavailable': 'Sürüm bilgisi alınamadı.',
     },
     SupportedLocale.en: {
       'appTitle': 'Bismillah',
@@ -1156,6 +1380,123 @@ final class AppLocalizations {
           'Quran progress could not be loaded right now.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'If you would like to go deeper…',
+      // Profile settings/data hub (TASK 058)
+      'profileJourneySection': 'Your journey',
+      'profileLocalUsageTitle': 'Local use',
+      'profileLocalUsageBody':
+          'You are using the app without an account. Your records are kept '
+          'on this device.',
+      'profileAppSection': 'App',
+      'profilePrayerSection': 'Prayer',
+      'profileQuranSection': 'Quran',
+      'profileLearnSection': 'Learn',
+      'profileSupportSection': 'Support & app',
+      'settingsNotificationsTitle': 'Notifications',
+      'settingsNotificationsSubtitle': 'Prayer reminders',
+      'settingsPrivacyDataTitle': 'Privacy & data',
+      'profilePrayerTimesRow': 'Prayer times & location',
+      'profilePrayerTimesSubtitle': 'Location and calculation method',
+      'profilePrayerTrackingRow': 'Prayer tracking',
+      'profilePrayerTrackingSubtitle': 'Last 7 days',
+      'profileQuranPreferencesRow': 'Quran preferences & progress',
+      'profileQuranPreferencesSubtitle':
+          'Reader, translation, reciter, daily goal and your progress',
+      'profileQuranSavedRow': 'Saved verses',
+      'profileQuranSavedSubtitle': 'Verses you bookmarked',
+      'profileLearnSavedRow': 'Saved articles',
+      'profileLearnCompletedRow': 'Completed articles',
+      'profileLearnLastReadRow': 'Last read',
+      'profileLearnLastReadEmpty': 'None yet',
+      'profileLearnSourcesRow': 'Content sources & verification',
+      'profileLearnSourcesSubtitle': 'Sources and content policy',
+      'profileAboutRow': 'About',
+      'profilePrivacyApproachRow': 'Privacy approach',
+      'profileLicensesRow': 'Open source licenses',
+      'commonCancel': 'Cancel',
+      // Content sources (TASK 058 §5)
+      'sourcesTitle': 'Content sources',
+      'sourcesIntro':
+          'Bismillah bases its content on the official and established '
+          'sources below. Links open in your system browser.',
+      'sourcesOriginalLanguageLabel': 'Original language',
+      'sourcesOpenFailed': 'Could not open the link; address copied.',
+      'sourcesCopied': 'Address copied to clipboard.',
+      'sourcesLangArabic': 'Arabic',
+      'sourcesLangTurkish': 'Turkish',
+      'sourcePurposeTanzil': 'Arabic Quran text (Uthmani script).',
+      'sourcePurposeQuranenc':
+          'Turkish translation (Rowad Translation Center).',
+      'sourcePurposeMp3quran': 'Reciter audio recordings and catalog.',
+      'sourcePurposeIlmihal':
+          'The core work the Turkish Learn content is based on.',
+      'sourcePurposePortal': 'Quran text and translation reference.',
+      'sourcePurposeHadis': 'Hadith text reference.',
+      'sourcePurposeKurul': 'Official religious opinion and fatwa source.',
+      'sourcesPolicyTitle': 'Content policy',
+      'sourcesPolicyLocator':
+          'Every published item carries the exact locator of its source.',
+      'sourcesPolicyTurkishSummary':
+          'Turkish content consists of original summaries based on Diyanet '
+          'sources.',
+      'sourcesPolicyTranslation':
+          'English and Arabic content is explanatory translation.',
+      'sourcesPolicyNoEndorsement':
+          'No special endorsement of Bismillah by Diyanet is claimed.',
+      'sourcesPolicyPending':
+          'Content that is not fully verified is not shown to users.',
+      'sourcesPolicyFatwa':
+          'For a personal ruling, consult a qualified institution.',
+      // Privacy & data (TASK 058 §6)
+      'privacyTitle': 'Privacy & data',
+      'privacyIntro': 'You can clearly see where your data is kept.',
+      'privacyLocalTitle': 'Stored on your device',
+      'privacyLocalOnboarding': 'Onboarding preferences',
+      'privacyLocalPrayerHistory': 'Prayer tracking history',
+      'privacyLocalQuran': 'Quran bookmarks and progress',
+      'privacyLocalQuranPrefs': 'Quran preferences',
+      'privacyLocalLearn': 'Learning records (saved, completed, last read)',
+      'privacyLocalAppPrefs': 'Language and app preferences',
+      'privacyComputedTitle': 'Computed on your device',
+      'privacyComputedPrayerTimes': 'Prayer times',
+      'privacyComputedProgress': 'Daily progress summaries',
+      'privacyNetworkTitle': 'Where the network is used',
+      'privacyNetworkAudio': 'Quran audio files',
+      'privacyNetworkLinks': 'Official source links when you open them',
+      'privacyNote':
+          'These records are kept on your device and are not sent to a '
+          'server beyond the network areas listed above.',
+      // Data reset (TASK 058 §7)
+      'resetSectionTitle': 'Reset data',
+      'resetLearningTitle': 'Reset learning data',
+      'resetLearningSubtitle': 'Saved, completed and last read',
+      'resetLearningConfirmTitle': 'Reset learning data?',
+      'resetLearningConfirmBody':
+          'Only your learning records (saved, completed and last read '
+          'articles) are deleted. Your other data is untouched.',
+      'resetLearningDone': 'Your learning data has been reset.',
+      'resetAllTitle': 'Reset all local data',
+      'resetAllSubtitle': 'Returns the app to onboarding',
+      'resetAllStep1Title': 'Delete all local data?',
+      'resetAllStep1Body':
+          'Will be deleted: onboarding preferences, prayer tracking history, '
+          'Quran bookmarks and progress, Quran preferences and your learning '
+          'records.',
+      'resetAllStep1Continue': 'Continue',
+      'resetAllStep2Title': 'Are you sure?',
+      'resetAllStep2Body':
+          'This cannot be undone. The app reopens with onboarding.',
+      'resetAllConfirm': 'Delete permanently',
+      'resetAllDone': 'All your local data has been reset.',
+      'resetKeepsLanguage': 'Your language preference is kept.',
+      // About (TASK 058 §8)
+      'aboutTitle': 'About',
+      'aboutTagline': 'Premium Islamic lifestyle companion',
+      'aboutVersionLabel': 'Version',
+      'aboutBuildLabel': 'Build',
+      'aboutStageAlpha': 'Alpha — active development',
+      'aboutBuiltWithFlutter': 'Built with Flutter',
+      'aboutLicensesButton': 'Open source licenses',
+      'aboutVersionUnavailable': 'Version information unavailable.',
     },
     SupportedLocale.ar: {
       'appTitle': 'Bismillah',
@@ -1476,6 +1817,116 @@ final class AppLocalizations {
       'todayQuranProgressUnavailable': 'تعذّر تحميل تقدّم القرآن الآن.',
       'premiumBadgeLabel': 'Bismillah+',
       'premiumInviteLine': 'إن أحببت أن تتعمق في رحلتك…',
+      // مركز الإعدادات والبيانات (TASK 058)
+      'profileJourneySection': 'رحلتك الشخصية',
+      'profileLocalUsageTitle': 'الاستخدام المحلي',
+      'profileLocalUsageBody':
+          'أنت تستخدم التطبيق دون حساب. تُحفظ سجلاتك على هذا الجهاز.',
+      'profileAppSection': 'التطبيق',
+      'profilePrayerSection': 'الصلاة',
+      'profileQuranSection': 'القرآن',
+      'profileLearnSection': 'التعلّم',
+      'profileSupportSection': 'الدعم والتطبيق',
+      'settingsNotificationsTitle': 'الإشعارات',
+      'settingsNotificationsSubtitle': 'تذكيرات الصلاة',
+      'settingsPrivacyDataTitle': 'الخصوصية والبيانات',
+      'profilePrayerTimesRow': 'أوقات الصلاة والموقع',
+      'profilePrayerTimesSubtitle': 'الموقع وطريقة الحساب',
+      'profilePrayerTrackingRow': 'متابعة الصلاة',
+      'profilePrayerTrackingSubtitle': 'آخر ٧ أيام',
+      'profileQuranPreferencesRow': 'تفضيلات القرآن والتقدّم',
+      'profileQuranPreferencesSubtitle':
+          'القارئ، الترجمة، المقرئ، الهدف اليومي وتقدّمك',
+      'profileQuranSavedRow': 'الآيات المحفوظة',
+      'profileQuranSavedSubtitle': 'الآيات التي حفظتها',
+      'profileLearnSavedRow': 'المقالات المحفوظة',
+      'profileLearnCompletedRow': 'المقالات المكتملة',
+      'profileLearnLastReadRow': 'آخر ما قرأت',
+      'profileLearnLastReadEmpty': 'لا شيء بعد',
+      'profileLearnSourcesRow': 'مصادر المحتوى والتحقّق',
+      'profileLearnSourcesSubtitle': 'المصادر وسياسة المحتوى',
+      'profileAboutRow': 'حول التطبيق',
+      'profilePrivacyApproachRow': 'نهج الخصوصية',
+      'profileLicensesRow': 'تراخيص المصدر المفتوح',
+      'commonCancel': 'إلغاء',
+      // مصادر المحتوى (TASK 058 §5)
+      'sourcesTitle': 'مصادر المحتوى',
+      'sourcesIntro':
+          'يستند بِسم الله في محتواه إلى المصادر الرسمية والمعتمدة أدناه. '
+          'تُفتح الروابط في متصفح النظام.',
+      'sourcesOriginalLanguageLabel': 'اللغة الأصلية',
+      'sourcesOpenFailed': 'تعذّر فتح الرابط؛ تم نسخ العنوان.',
+      'sourcesCopied': 'تم نسخ العنوان إلى الحافظة.',
+      'sourcesLangArabic': 'العربية',
+      'sourcesLangTurkish': 'التركية',
+      'sourcePurposeTanzil': 'نص القرآن العربي (الرسم العثماني).',
+      'sourcePurposeQuranenc': 'الترجمة التركية (مركز رواد الترجمة).',
+      'sourcePurposeMp3quran': 'تسجيلات القرّاء وقائمتها.',
+      'sourcePurposeIlmihal':
+          'العمل الأساسي الذي يستند إليه محتوى التعلّم التركي.',
+      'sourcePurposePortal': 'مرجع نص القرآن والترجمة.',
+      'sourcePurposeHadis': 'مرجع نصوص الحديث.',
+      'sourcePurposeKurul': 'مصدر رسمي للرأي الديني والفتوى.',
+      'sourcesPolicyTitle': 'سياسة المحتوى',
+      'sourcesPolicyLocator': 'كل محتوى منشور يحمل الموضع الدقيق لمصدره.',
+      'sourcesPolicyTurkishSummary':
+          'المحتوى التركي عبارة عن ملخّصات أصلية تستند إلى مصادر ديانت.',
+      'sourcesPolicyTranslation': 'المحتوى الإنجليزي والعربي ترجمة تفسيرية.',
+      'sourcesPolicyNoEndorsement':
+          'لا يُدّعى وجود اعتماد خاص من ديانت لتطبيق بِسم الله.',
+      'sourcesPolicyPending':
+          'المحتوى غير المُتحقَّق منه بالكامل لا يُعرض للمستخدم.',
+      'sourcesPolicyFatwa': 'للفتوى الشخصية راجِع جهة مختصّة معتمدة.',
+      // الخصوصية والبيانات (TASK 058 §6)
+      'privacyTitle': 'الخصوصية والبيانات',
+      'privacyIntro': 'يمكنك أن ترى بوضوح أين تُحفظ بياناتك.',
+      'privacyLocalTitle': 'ما يُحفظ على جهازك',
+      'privacyLocalOnboarding': 'تفضيلات التهيئة',
+      'privacyLocalPrayerHistory': 'سجل متابعة الصلاة',
+      'privacyLocalQuran': 'إشارات القرآن المرجعية والتقدّم',
+      'privacyLocalQuranPrefs': 'تفضيلات القرآن',
+      'privacyLocalLearn': 'سجلات التعلّم (المحفوظ، المكتمل، آخر ما قُرئ)',
+      'privacyLocalAppPrefs': 'تفضيلات اللغة والتطبيق',
+      'privacyComputedTitle': 'ما يُحسَب على جهازك',
+      'privacyComputedPrayerTimes': 'أوقات الصلاة',
+      'privacyComputedProgress': 'ملخّصات التقدّم اليومي',
+      'privacyNetworkTitle': 'المواضع التي تُستخدم فيها الشبكة',
+      'privacyNetworkAudio': 'ملفات صوت القرآن',
+      'privacyNetworkLinks': 'روابط المصادر الرسمية عند فتحها',
+      'privacyNote':
+          'تُحفظ هذه السجلات على جهازك ولا تُرسل إلى خادم خارج المواضع '
+          'الشبكية المذكورة أعلاه.',
+      // إعادة تعيين البيانات (TASK 058 §7)
+      'resetSectionTitle': 'إعادة تعيين البيانات',
+      'resetLearningTitle': 'إعادة تعيين بيانات التعلّم',
+      'resetLearningSubtitle': 'المحفوظ والمكتمل وآخر ما قُرئ',
+      'resetLearningConfirmTitle': 'إعادة تعيين بيانات التعلّم؟',
+      'resetLearningConfirmBody':
+          'تُحذف سجلات التعلّم فقط (المقالات المحفوظة والمكتملة وآخر ما قُرئ). '
+          'ولا تُمَسّ بياناتك الأخرى.',
+      'resetLearningDone': 'تمت إعادة تعيين بيانات التعلّم.',
+      'resetAllTitle': 'إعادة تعيين جميع البيانات المحلية',
+      'resetAllSubtitle': 'يعيد التطبيق إلى التهيئة',
+      'resetAllStep1Title': 'حذف جميع البيانات المحلية؟',
+      'resetAllStep1Body':
+          'سيُحذف: تفضيلات التهيئة، سجل متابعة الصلاة، إشارات القرآن المرجعية '
+          'والتقدّم، تفضيلات القرآن، وسجلات التعلّم.',
+      'resetAllStep1Continue': 'متابعة',
+      'resetAllStep2Title': 'هل أنت متأكد؟',
+      'resetAllStep2Body':
+          'لا يمكن التراجع عن هذا الإجراء. يُعاد فتح التطبيق بالتهيئة.',
+      'resetAllConfirm': 'حذف نهائي',
+      'resetAllDone': 'تمت إعادة تعيين جميع بياناتك المحلية.',
+      'resetKeepsLanguage': 'يُحتفَظ بتفضيل لغتك.',
+      // حول التطبيق (TASK 058 §8)
+      'aboutTitle': 'حول التطبيق',
+      'aboutTagline': 'رفيق نمط الحياة الإسلامي المميّز',
+      'aboutVersionLabel': 'الإصدار',
+      'aboutBuildLabel': 'البناء',
+      'aboutStageAlpha': 'ألفا — تطوير نشط',
+      'aboutBuiltWithFlutter': 'بُني باستخدام Flutter',
+      'aboutLicensesButton': 'تراخيص المصدر المفتوح',
+      'aboutVersionUnavailable': 'معلومات الإصدار غير متوفّرة.',
     },
   };
 }

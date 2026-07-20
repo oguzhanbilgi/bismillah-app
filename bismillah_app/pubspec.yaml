@@ -40,6 +40,10 @@ dependencies:
   # Sürüm bilinçli olarak SABİTLENMİŞTİR: `pub add` ile kontrolsüz "latest"
   # alınmaz; yükseltme ayrı bir kararla yapılır.
   url_launcher: 6.3.2
+  # Uygulama sürüm/build bilgisini göstermek için (TASK 058 §8). Sürüm
+  # `pubspec.lock`'ta zaten çözümlenmiş transitive değere sabitlenmiştir;
+  # kontrolsüz "latest" alınmaz.
+  package_info_plus: ^10.2.0
 
 dev_dependencies:
   flutter_test:

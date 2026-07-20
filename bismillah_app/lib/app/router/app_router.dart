@@ -13,7 +13,10 @@ import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/about_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/content_sources_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
@@ -163,6 +166,24 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                     name: AppRoutes.profilePersonalizationName,
                     builder: (context, state) =>
                         const PersonalizationEditScreen(),
+                  ),
+                  // İçerik kaynakları / gizlilik-veri / hakkında (TASK 058):
+                  // Profile branch içinde push route'lar — alt navigasyon
+                  // görünür kalır, geri Profil'e döner.
+                  GoRoute(
+                    path: 'sources',
+                    name: AppRoutes.profileSourcesName,
+                    builder: (context, state) => const ContentSourcesScreen(),
+                  ),
+                  GoRoute(
+                    path: 'privacy',
+                    name: AppRoutes.profilePrivacyName,
+                    builder: (context, state) => const PrivacyDataScreen(),
+                  ),
+                  GoRoute(
+                    path: 'about',
+                    name: AppRoutes.profileAboutName,
+                    builder: (context, state) => const AboutScreen(),
                   ),
                 ],
               ),

@@ -26,4 +26,9 @@ final class OnboardingStatusController extends Notifier<bool> {
   /// Yalnız kayıt BAŞARILI olduktan sonra çağrılır
   /// (OnboardingCompletionController sözleşmesi).
   void markCompleted() => state = true;
+
+  /// Tüm yerel verileri sıfırlama akışının parçası (TASK 058): kapı
+  /// yeniden kapanır, böylece router redirect'i kullanıcıyı onboarding'e
+  /// döndürür. Yalnız veri sıfırlama controller'ından çağrılır.
+  void resetToIncomplete() => state = false;
 }
