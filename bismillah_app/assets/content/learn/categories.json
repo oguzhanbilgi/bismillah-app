@@ -1,0 +1,321 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "cat-basics",
+      "slug": "islama-baslangic",
+      "iconKey": "start",
+      "sortOrder": 1,
+      "title": {
+        "tr": "İslam'a Başlangıç",
+        "en": "Getting Started with Islam",
+        "ar": "مدخل إلى الإسلام"
+      },
+      "shortDescription": {
+        "tr": "Temel kavramlar ve ilk adımlar.",
+        "en": "Core concepts and first steps.",
+        "ar": "المفاهيم الأساسية والخطوات الأولى."
+      }
+    },
+    {
+      "id": "cat-faith",
+      "slug": "iman-ve-akaid",
+      "iconKey": "faith",
+      "sortOrder": 2,
+      "title": {
+        "tr": "İman ve Akaid",
+        "en": "Faith and Belief",
+        "ar": "الإيمان والعقيدة"
+      },
+      "shortDescription": {
+        "tr": "İnanç esasları ve anlamları.",
+        "en": "The articles of faith and their meaning.",
+        "ar": "أركان الإيمان ومعانيها."
+      }
+    },
+    {
+      "id": "cat-purity",
+      "slug": "temizlik-abdest-gusul",
+      "iconKey": "purity",
+      "sortOrder": 3,
+      "title": {
+        "tr": "Temizlik, Abdest ve Gusül",
+        "en": "Purity, Wudu and Ghusl",
+        "ar": "الطهارة والوضوء والغسل"
+      },
+      "shortDescription": {
+        "tr": "İbadete hazırlık ve temizlik bilgileri.",
+        "en": "Preparing for worship through purity.",
+        "ar": "التهيؤ للعبادة عبر الطهارة."
+      }
+    },
+    {
+      "id": "cat-prayer",
+      "slug": "namaz",
+      "iconKey": "prayer",
+      "sortOrder": 4,
+      "title": { "tr": "Namaz", "en": "Prayer", "ar": "الصلاة" },
+      "shortDescription": {
+        "tr": "Namazın esasları ve uygulanışı.",
+        "en": "The essentials and practice of prayer.",
+        "ar": "أساسيات الصلاة وكيفية أدائها."
+      }
+    },
+    {
+      "id": "cat-fasting",
+      "slug": "oruc-ve-ramazan",
+      "iconKey": "fasting",
+      "sortOrder": 5,
+      "title": {
+        "tr": "Oruç ve Ramazan",
+        "en": "Fasting and Ramadan",
+        "ar": "الصيام ورمضان"
+      },
+      "shortDescription": {
+        "tr": "Oruç ibadeti ve Ramazan ayı.",
+        "en": "The fast and the month of Ramadan.",
+        "ar": "عبادة الصيام وشهر رمضان."
+      }
+    },
+    {
+      "id": "cat-zakat",
+      "slug": "zekat-ve-mali-ibadetler",
+      "iconKey": "zakat",
+      "sortOrder": 6,
+      "title": {
+        "tr": "Zekât ve Mali İbadetler",
+        "en": "Zakat and Financial Worship",
+        "ar": "الزكاة والعبادات المالية"
+      },
+      "shortDescription": {
+        "tr": "Paylaşma ve mali sorumluluklar.",
+        "en": "Sharing and financial responsibilities.",
+        "ar": "المشاركة والمسؤوليات المالية."
+      }
+    },
+    {
+      "id": "cat-hajj",
+      "slug": "hac-umre-kurban",
+      "iconKey": "hajj",
+      "sortOrder": 7,
+      "title": {
+        "tr": "Hac, Umre ve Kurban",
+        "en": "Hajj, Umrah and Qurban",
+        "ar": "الحج والعمرة والأضحية"
+      },
+      "shortDescription": {
+        "tr": "Yolculuk ve adanmışlık ibadetleri.",
+        "en": "Worship of journey and devotion.",
+        "ar": "عبادات الرحلة والتقرب."
+      }
+    },
+    {
+      "id": "cat-quran-learning",
+      "slug": "kurani-ogrenme",
+      "iconKey": "quran",
+      "sortOrder": 8,
+      "title": {
+        "tr": "Kur'an'ı Öğrenme",
+        "en": "Learning the Quran",
+        "ar": "تعلّم القرآن"
+      },
+      "shortDescription": {
+        "tr": "Kur'an'ı tanıma ve okumaya başlama.",
+        "en": "Knowing the Quran and beginning to read.",
+        "ar": "التعرّف على القرآن والبدء بقراءته."
+      }
+    },
+    {
+      "id": "cat-hadith",
+      "slug": "hadis-ve-sunnet",
+      "iconKey": "hadith",
+      "sortOrder": 9,
+      "title": {
+        "tr": "Hadis ve Sünnet",
+        "en": "Hadith and Sunnah",
+        "ar": "الحديث والسنة"
+      },
+      "shortDescription": {
+        "tr": "Peygamberimizin sözleri ve uygulaması.",
+        "en": "The Prophet's words and practice.",
+        "ar": "أقوال النبي ﷺ وتطبيقه."
+      }
+    },
+    {
+      "id": "cat-seerah",
+      "slug": "peygamberimizin-hayati",
+      "iconKey": "seerah",
+      "sortOrder": 10,
+      "title": {
+        "tr": "Peygamberimizin Hayatı",
+        "en": "The Life of the Prophet",
+        "ar": "سيرة النبي ﷺ"
+      },
+      "shortDescription": {
+        "tr": "Siyer ve örnek hayat.",
+        "en": "The Prophetic biography and example.",
+        "ar": "السيرة والقدوة."
+      }
+    },
+    {
+      "id": "cat-prophets",
+      "slug": "peygamberler-ve-sahabe",
+      "iconKey": "prophets",
+      "sortOrder": 11,
+      "title": {
+        "tr": "Peygamberler ve Sahabe",
+        "en": "Prophets and Companions",
+        "ar": "الأنبياء والصحابة"
+      },
+      "shortDescription": {
+        "tr": "Peygamberler ve ilk nesil.",
+        "en": "The prophets and the first generation.",
+        "ar": "الأنبياء والجيل الأول."
+      }
+    },
+    {
+      "id": "cat-akhlaq",
+      "slug": "ahlak-ve-maneviyat",
+      "iconKey": "akhlaq",
+      "sortOrder": 12,
+      "title": {
+        "tr": "Ahlak ve Maneviyat",
+        "en": "Character and Spirituality",
+        "ar": "الأخلاق والروحانية"
+      },
+      "shortDescription": {
+        "tr": "Kalbin ve davranışın güzelleşmesi.",
+        "en": "Refining the heart and conduct.",
+        "ar": "تهذيب القلب والسلوك."
+      }
+    },
+    {
+      "id": "cat-dua",
+      "slug": "dua-ve-zikir",
+      "iconKey": "dua",
+      "sortOrder": 13,
+      "title": {
+        "tr": "Dua ve Zikir",
+        "en": "Supplication and Remembrance",
+        "ar": "الدعاء والذكر"
+      },
+      "shortDescription": {
+        "tr": "Allah'a yönelmenin yolları.",
+        "en": "Ways of turning to Allah.",
+        "ar": "سبل التوجه إلى الله."
+      }
+    },
+    {
+      "id": "cat-family",
+      "slug": "aile-ve-sosyal-hayat",
+      "iconKey": "family",
+      "sortOrder": 14,
+      "title": {
+        "tr": "Aile ve Sosyal Hayat",
+        "en": "Family and Social Life",
+        "ar": "الأسرة والحياة الاجتماعية"
+      },
+      "shortDescription": {
+        "tr": "İlişkiler ve toplumsal sorumluluk.",
+        "en": "Relationships and social responsibility.",
+        "ar": "العلاقات والمسؤولية الاجتماعية."
+      }
+    },
+    {
+      "id": "cat-halal",
+      "slug": "helal-haram-gunluk-hayat",
+      "iconKey": "halal",
+      "sortOrder": 15,
+      "title": {
+        "tr": "Helal, Haram ve Günlük Hayat",
+        "en": "Halal, Haram and Daily Life",
+        "ar": "الحلال والحرام والحياة اليومية"
+      },
+      "shortDescription": {
+        "tr": "Günlük hayatta ölçüler.",
+        "en": "Guidance for everyday choices.",
+        "ar": "ضوابط الحياة اليومية."
+      }
+    },
+    {
+      "id": "cat-women",
+      "slug": "kadinlara-ozel-konular",
+      "iconKey": "women",
+      "sortOrder": 16,
+      "title": {
+        "tr": "Kadınlara Özel Konular",
+        "en": "Topics for Women",
+        "ar": "موضوعات تخص النساء"
+      },
+      "shortDescription": {
+        "tr": "Kadınları ilgilendiren fıkhî konular.",
+        "en": "Fiqh topics concerning women.",
+        "ar": "مسائل فقهية تخص النساء."
+      }
+    },
+    {
+      "id": "cat-afterlife",
+      "slug": "olum-ve-ahiret",
+      "iconKey": "afterlife",
+      "sortOrder": 17,
+      "title": {
+        "tr": "Ölüm ve Ahiret",
+        "en": "Death and the Hereafter",
+        "ar": "الموت والآخرة"
+      },
+      "shortDescription": {
+        "tr": "Son yolculuk ve ötesi.",
+        "en": "The final journey and beyond.",
+        "ar": "الرحلة الأخيرة وما بعدها."
+      }
+    },
+    {
+      "id": "cat-history",
+      "slug": "islam-tarihi-ve-medeniyeti",
+      "iconKey": "history",
+      "sortOrder": 18,
+      "title": {
+        "tr": "İslam Tarihi ve Medeniyeti",
+        "en": "Islamic History and Civilization",
+        "ar": "التاريخ والحضارة الإسلامية"
+      },
+      "shortDescription": {
+        "tr": "Tarih boyunca İslam toplumu.",
+        "en": "Muslim society through history.",
+        "ar": "المجتمع المسلم عبر التاريخ."
+      }
+    },
+    {
+      "id": "cat-madhhabs",
+      "slug": "mezhepler-ve-gorus-farkliliklari",
+      "iconKey": "madhhab",
+      "sortOrder": 19,
+      "title": {
+        "tr": "Mezhepler ve Görüş Farklılıkları",
+        "en": "Schools of Law and Differences",
+        "ar": "المذاهب واختلاف الآراء"
+      },
+      "shortDescription": {
+        "tr": "Farklı görüşleri anlamak.",
+        "en": "Understanding differing opinions.",
+        "ar": "فهم اختلاف الآراء."
+      }
+    },
+    {
+      "id": "cat-calendar",
+      "slug": "dini-gunler-ve-islam-takvimi",
+      "iconKey": "calendar",
+      "sortOrder": 20,
+      "title": {
+        "tr": "Dinî Günler ve İslam Takvimi",
+        "en": "Sacred Days and the Islamic Calendar",
+        "ar": "الأيام الدينية والتقويم الإسلامي"
+      },
+      "shortDescription": {
+        "tr": "Mübarek gün ve geceler.",
+        "en": "Blessed days and nights.",
+        "ar": "الأيام والليالي المباركة."
+      }
+    }
+  ]
+}

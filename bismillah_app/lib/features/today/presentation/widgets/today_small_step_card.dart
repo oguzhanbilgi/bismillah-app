@@ -44,7 +44,11 @@ class TodaySmallStepCard extends ConsumerWidget {
     // Alt boşluk kartla birlikte yaşar: kart gizliyken Today'deki kartlar
     // arası boşluk sabit kalır (ekranda ekstra spacer yoktur).
     return _withBottomSpacing(
+      // TASK 054: kişiselleştirilmiş öneri sıcak kum yüzeyinde yaşar —
+      // Kur'an bölümünün adaçayı tonundan ayrışır, art arda aynı beyaz
+      // kart dizilimi kırılır.
       AppCard(
+        variant: AppCardVariant.sand,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

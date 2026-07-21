@@ -43,6 +43,7 @@ abstract final class RouteMetadataRegistry {
       isFullScreenModal: true,
     ),
     AppRoutes.subscriptionSettings: RouteMetadata(showsAssistantFab: false),
+    AppRoutes.languageSettings: RouteMetadata(showsAssistantFab: false),
   };
 
   static RouteMetadata of(String location) {

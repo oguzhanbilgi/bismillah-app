@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/core/utils/clock_provider.dart';
 import 'package:bismillah_app/features/onboarding/presentation/widgets/onboarding_option_card.dart';
@@ -613,47 +614,55 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
               // yalnız build edilmiş öğeler bellekte yaşar.
               key: _verseItemKeys.putIfAbsent(verse.verseKey, GlobalKey.new),
               padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-              // Aktif ayet sakin, token tabanlı ince çerçeveyle vurgulanır —
-              // Arapça/meal metni DEĞİŞMEZ (TASK 041).
-              child: Container(
-                decoration: isActiveVerse
-                    ? BoxDecoration(
-                        borderRadius: AppRadius.mdAll,
-                        border: Border.all(color: scheme.primary),
-                      )
-                    : null,
-                clipBehavior: isActiveVerse ? Clip.antiAlias : Clip.none,
-                // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
-                // metin, zorunlu kaynak rozeti (no source, no render). Meal
-                // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
-                child: QuranTextBlock(
-                  arabicText: verse.textUthmani,
-                  sourceLabel: '${verse.verseKey} · Tanzil',
-                  size: blockSize,
-                  translation: translationByKey[verse.verseKey],
-                  // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
-                  // alt satıra kırılır (TASK 044).
-                  footerAction: Wrap(
-                    spacing: AppSpacing.s2,
-                    runSpacing: AppSpacing.s1,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.end,
-                    children: [
-                      _VerseAudioAction(
-                        verse: verse,
-                        expectedVerseCount: verses.length,
-                        audioState: audioState,
-                        display: audioDisplay,
-                      ),
-                      _VerseBookmarkAction(
-                        bookmarked: bookmarks.isBookmarked(verse.verseKey),
-                        onTap: () => ref
-                            .read(
-                              quranVerseBookmarksControllerProvider.notifier,
-                            )
-                            .toggle(verse.verseKey),
-                      ),
-                    ],
+              // TASK 055: her ayet AĞIR beyaz kart değil — sıcak yüzey +
+              // ince token kenarlıkla sakin ayrım. Aktif ayet tonal
+              // spiritualGreen yüzey + primary çerçeve alır ve YALNIZ
+              // renkle değil, semantik durumla da işaretlenir (a11y).
+              child: Semantics(
+                selected: isActiveVerse,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: AppRadius.mdAll,
+                    border: Border.all(
+                      color: isActiveVerse
+                          ? scheme.primary
+                          : IslamicVisualTokens.of(context).surfaceBorder,
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
+                  // metin, zorunlu kaynak rozeti (no source, no render). Meal
+                  // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
+                  child: QuranTextBlock(
+                    arabicText: verse.textUthmani,
+                    sourceLabel: '${verse.verseKey} · Tanzil',
+                    size: blockSize,
+                    highlighted: isActiveVerse,
+                    translation: translationByKey[verse.verseKey],
+                    // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
+                    // alt satıra kırılır (TASK 044).
+                    footerAction: Wrap(
+                      spacing: AppSpacing.s2,
+                      runSpacing: AppSpacing.s1,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.end,
+                      children: [
+                        _VerseAudioAction(
+                          verse: verse,
+                          expectedVerseCount: verses.length,
+                          audioState: audioState,
+                          display: audioDisplay,
+                        ),
+                        _VerseBookmarkAction(
+                          bookmarked: bookmarks.isBookmarked(verse.verseKey),
+                          onTap: () => ref
+                              .read(
+                                quranVerseBookmarksControllerProvider.notifier,
+                              )
+                              .toggle(verse.verseKey),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -770,7 +779,10 @@ final class _ChapterPlaybackPanel extends ConsumerWidget {
         panelState.status == QuranVerseAudioStatus.error) {
       return Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+        // TASK 055: hata bile sakin, gölgesiz yüzeyde — kırmızı/uyarıcı
+        // görünüm YOK (mevcut metin tonu korunur).
         child: AppCard(
+          variant: AppCardVariant.outlined,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -818,7 +830,10 @@ final class _ChapterPlaybackPanel extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+      // TASK 055: ses kontrolleri gölgesiz, ince kenarlıklı yüzeyde —
+      // ayet metniyle görsel olarak YARIŞMAZ. Davranış değişmedi.
       child: AppCard(
+        variant: AppCardVariant.outlined,
         child: Column(
           children: [
             Row(
@@ -1274,10 +1289,15 @@ final class _ChapterHeader extends StatelessWidget {
       QuranRevelationPlace.medinan => l10n.quranRevelationMedinan,
     };
 
+    // TASK 055: üst alan kompakt kalır (büyük hero YOK — ilk ayet aşağı
+    // itilmez); sakin adaçayı yüzeyi ve Kur'an vurgu rengindeki Arapça ad
+    // ile reader'a manevi bir giriş verir.
+    final tokens = IslamicVisualTokens.of(context);
     return Column(
       children: [
         const SizedBox(height: AppSpacing.s3),
         AppCard(
+          variant: AppCardVariant.sage,
           child: Row(
             children: [
               AppBadge(label: '${chapter.id}'),
@@ -1301,7 +1321,15 @@ final class _ChapterHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AppSpacing.s3),
-              AppText(chapter.arabicName, token: AppTextStyleToken.h2),
+              // Arapça sure adı KENDİ yönünde ve Kur'an vurgu renginde.
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: AppText(
+                  chapter.arabicName,
+                  token: AppTextStyleToken.h2,
+                  color: tokens.quranAccent,
+                ),
+              ),
             ],
           ),
         ),

@@ -1,0 +1,2041 @@
+{
+  "schemaVersion": 1,
+  "locale": "en",
+  "note": "These texts are UNOFFICIAL explanatory translations of the Turkish summaries, which are themselves based on official Diyanet sources. They are not official English fatwas or publications of the Diyanet.",
+  "articles": [
+    {
+      "id": "art-islam-nedir",
+      "slug": "what-is-islam",
+      "categoryId": "cat-basics",
+      "title": "What is Islam?",
+      "summary": "Islam is the faith built on believing in the oneness of God and submitting to Him wholeheartedly.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "islam",
+        "religion",
+        "muslim",
+        "submission",
+        "tawhid"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The word Islam literally means \"to submit, to be at peace\". As a term it refers to believing in the oneness of God, willingly following the guidance He revealed, and finding peace through that trust."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to Islamic belief, God sent prophets and scriptures to humanity throughout history. The final link in this chain is the Prophet Muhammad (peace be upon him) and the Qur'an revealed to him."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Islam is not only a set of beliefs; it is an integrated way of life that also includes worship and character."
+        },
+        {
+          "type": "paragraph",
+          "text": "A person becomes Muslim by accepting the declaration of faith sincerely and saying it. Knowledge and practice are then learned gradually and patiently; everyone starts from a different point."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you want to learn one thing today, you could begin by reading the meaning of the declaration of faith."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-imanin-sartlari",
+        "art-islamin-sartlari",
+        "art-kelime-i-sehadet"
+      ],
+      "beginnerPathOrder": 1,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İkinci Bölüm II. İSLAM, s. 83",
+        "evidenceSummary": "Eserde İslam, 'Hz. Muhammed'in Allah tarafından getirdiği kesin olarak bilinen şeyleri kalp ile tasdik edip, bunlardan iş ve davranışla ilgili olanları yapmak' şeklinde tanımlanır; makaledeki tanım bu bölüme dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-imanin-sartlari",
+      "slug": "articles-of-faith",
+      "categoryId": "cat-faith",
+      "title": "The articles of faith",
+      "summary": "The essentials of belief are gathered under six headings, known together as the \"Amantu\".",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "faith",
+        "iman",
+        "belief",
+        "amantu",
+        "creed"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Faith means affirming with the heart and expressing with the tongue. The essentials of Islamic belief are traditionally summarised under six headings."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Belief in God: that He exists, is one and without equal.",
+            "Belief in His angels: beings created from light who follow His command.",
+            "Belief in His scriptures: the revelations sent to His prophets.",
+            "Belief in His prophets: the messengers sent to humanity.",
+            "Belief in the Hereafter: life after death and the reckoning.",
+            "Belief in destiny, that both good and hardship occur within God's knowledge and will."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "These six essentials form one inseparable whole; one is not accepted while another is rejected."
+        },
+        {
+          "type": "paragraph",
+          "text": "Learning the articles of faith is not merely memorisation. Reflecting on the meaning of each one makes belief more conscious."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Choose one of the six and simply reflect on its meaning today."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-islam-nedir",
+        "art-islamin-sartlari"
+      ],
+      "beginnerPathOrder": 2,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Birinci Bölüm IV. İMAN, F) İman Esasları, s. 41",
+        "evidenceSummary": "Eserde iman esaslarının altı olduğu ve Âmentü cümlesinde toplandığı açıkça belirtilir; makaledeki altı madde bu bölümle birebir örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-islamin-sartlari",
+      "slug": "pillars-of-islam",
+      "categoryId": "cat-basics",
+      "title": "The pillars of Islam",
+      "summary": "The five foundations: the declaration of faith, prayer, zakat, fasting, and pilgrimage for those able.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "pillars",
+        "five pillars",
+        "worship",
+        "prayer",
+        "zakat",
+        "fasting",
+        "hajj"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The core acts of worship in Islam are summarised under five headings. They are known as the pillars and form the main framework of a Muslim's life."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Declaring the testimony of faith.",
+            "Performing the prayer.",
+            "Giving zakat (for those who own wealth above the threshold).",
+            "Fasting in the month of Ramadan.",
+            "Performing hajj once in a lifetime for those who are able."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Zakat and hajj are not obligatory on everyone; they apply to those who meet specific means and conditions."
+        },
+        {
+          "type": "paragraph",
+          "text": "These acts are not simply a checklist of duties. Each one draws a person closer to God and trains patience and generosity."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you do not yet pray regularly, you could pick one prayer time and build consistency there first."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-imanin-sartlari",
+        "art-bes-vakit-namaz"
+      ],
+      "beginnerPathOrder": 3,
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İkinci Bölüm II. İSLAM, A) İslam'ın Şartları, s. 84",
+        "evidenceSummary": "Eserde 'İslam beş temel üzerine kurulmuştur' rivayeti ve beş şart sayılır; makaledeki beş madde bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kelime-i-sehadet",
+      "slug": "declaration-of-faith",
+      "categoryId": "cat-basics",
+      "title": "The declaration of faith",
+      "summary": "The sentence by which a person expresses faith, and what it means.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "shahada",
+        "declaration of faith",
+        "testimony",
+        "becoming muslim",
+        "tawhid"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The declaration of faith is the sentence by which a person states their belief. It is transliterated as: \"Ashhadu an la ilaha illallah wa ashhadu anna Muhammadan abduhu wa rasuluh.\""
+        },
+        {
+          "type": "keyPoint",
+          "text": "It means: \"I bear witness that there is no deity but God, and I bear witness that Muhammad is His servant and messenger.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "The sentence expresses two things together: the oneness of God and the prophethood of Muhammad. For it to be meaningful, it must be accepted sincerely in the heart."
+        },
+        {
+          "type": "paragraph",
+          "text": "A person who says this with belief becomes Muslim. Learning worship and religious knowledge afterwards is a gradual process that moves at each person's own pace."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Read the sentence slowly and try to express what each part means in your own words."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-islam-nedir",
+        "art-imanin-sartlari"
+      ],
+      "beginnerPathOrder": 4,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IV. İMAN, A) Kelime-i Tevhid ve Kelime-i Şahadet, s. 39",
+        "evidenceSummary": "Şehadet cümlesinin metni ve 'kalpteki imanın dil ile ifadesi' tanımı eserde yer alır; makaledeki okunuş ve anlam bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdest-nasil-alinir",
+      "slug": "how-to-perform-wudu",
+      "categoryId": "cat-purity",
+      "title": "How is wudu performed?",
+      "summary": "The step-by-step practice and order of ablution.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "wudu",
+        "ablution",
+        "washing",
+        "purity",
+        "preparing for prayer"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Wudu is the state of purity required for prayer and certain other acts of worship. The order below summarises the common practice; the strictly obligatory parts are covered in a separate topic."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention for wudu and say the basmala.",
+            "Wash your hands up to the wrists three times, including between the fingers.",
+            "Rinse your mouth three times using your right hand.",
+            "Draw water into your nose three times and clean it with your left hand.",
+            "Wash your face three times, from the hairline to below the chin.",
+            "Wash your right then left arm, including the elbows, three times each.",
+            "Wet your hands and wipe over your head.",
+            "Wipe your ears and then your neck.",
+            "Wash your right then left foot, including the ankles, three times each."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Washing means the whole limb becomes wet. No dry spot should remain where water has not reached."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Read the steps through slowly once, then try it; memorising comes naturally with time."
+        },
+        {
+          "type": "sourceNote",
+          "text": "This summary is based on the section on wudu in the Diyanet İslam İlmihali; it is not a direct quotation from that work."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdestin-farzlari",
+        "art-abdesti-bozan-durumlar",
+        "art-gusul-nasil-alinir"
+      ],
+      "beginnerPathOrder": 5,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, F) Abdest Nasıl Alınır?, s. 105-107",
+        "evidenceSummary": "Eserde abdestin uygulanış sırası (kolların sıvanması, kıbleye dönülmesi, elleri/ağzı/burnu/yüzü/kolları yıkama, başın meshi, ayakların yıkanması) adım adım anlatılır; makaledeki adımlar bu bölümle örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdestin-farzlari",
+      "slug": "obligatory-parts-of-wudu",
+      "categoryId": "cat-purity",
+      "title": "The obligatory parts of wudu",
+      "summary": "The parts that must be performed for ablution to be valid.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "obligatory wudu",
+        "fard",
+        "wudu requirements",
+        "ablution"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The obligatory parts of wudu are those that must be performed for the ablution to be valid. The remaining practices fall under recommended acts and etiquette."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Washing the face once.",
+            "Washing the arms including the elbows once.",
+            "Wiping one quarter of the head.",
+            "Washing the feet including the ankles once."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "If one obligatory part is left out, the wudu is incomplete; it is completed by washing the missed limb."
+        },
+        {
+          "type": "practicalAction",
+          "text": "The elbows and the ankles are the most commonly missed areas — pay attention to those two."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdesti-bozan-durumlar"
+      ],
+      "beginnerPathOrder": 6,
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, B) Abdestin Farzları, s. 98-99",
+        "evidenceSummary": "Eserde 'abdestin farzları dörttür' denilerek yüzü yıkamak, kolları dirseklerle yıkamak, başın dörtte birini meshetmek ve ayakları topuklarla yıkamak sayılır; makaledeki dört madde bununla birebir örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdesti-bozan-durumlar",
+      "slug": "what-invalidates-wudu",
+      "categoryId": "cat-purity",
+      "title": "What invalidates wudu",
+      "summary": "The main situations that require renewing ablution.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "invalidates wudu",
+        "breaking wudu",
+        "nullifiers",
+        "purity"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Certain situations end the state of wudu and require it to be renewed before worship. The main ones are:"
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Relieving oneself or passing wind.",
+            "Blood, pus or similar discharge leaving the body and spreading.",
+            "Vomiting a mouthful.",
+            "Fainting, intoxication, or temporary loss of awareness.",
+            "Falling into deep sleep while lying down or leaning against something.",
+            "Laughing audibly during the prayer."
+          ]
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "These items largely follow the Hanafi school. For example, blood leaving the body invalidating wudu is the Hanafi position; in the Shafi'i school it does not, while certain forms of skin contact are treated differently. Such differences should be known rather than hidden."
+        },
+        {
+          "type": "keyPoint",
+          "text": "When in doubt, the previously certain state prevails: if you are not sure your wudu broke, you are considered to still have it."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you want to follow the practice of your own school, read the relevant section of a handbook that follows that position."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "differenceNote": "What invalidates wudu differs between the schools of law.",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, I) Abdesti Bozan Şeyler, s. 110 (Şâfiî farkı: 25 numaralı dipnot)",
+        "evidenceSummary": "Eserde abdesti bozan sekiz hâl sayılır ve 25 numaralı dipnotta Şâfiîlere göre ön/arka dışındaki kanın abdesti bozmadığı belirtilir; makaledeki liste ve mezhep farkı notu bu bölümle desteklenir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-gusul-nasil-alinir",
+      "slug": "how-to-perform-ghusl",
+      "categoryId": "cat-purity",
+      "title": "How is ghusl performed?",
+      "summary": "The obligatory parts and practice of the full ritual washing.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "ghusl",
+        "full washing",
+        "ritual bath",
+        "purity"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Ghusl is the state of purity achieved by washing the entire body."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention and say the basmala.",
+            "Wash your hands and clean any impurity on the body.",
+            "Perform wudu.",
+            "Rinse your mouth thoroughly.",
+            "Draw water into your nose and clean it.",
+            "Pour water over your head, then your right and left shoulder, washing the whole body.",
+            "Make sure no part of the body remains dry."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "According to the Hanafi school the obligatory parts of ghusl are three: rinsing the mouth, drawing water into the nose, and washing the entire body."
+        },
+        {
+          "type": "practicalAction",
+          "text": "The roots of the hair and behind the ears are the spots water most often fails to reach."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, C) Guslün Farzları ve G) Gusül Nasıl Yapılır?, s. 121-122",
+        "evidenceSummary": "Eserde guslün farzlarının üç olduğu (mazmaza, istinşak, bütün bedeni yıkamak) ve uygulanış sırası açıklanır; makaledeki farzlar ve adımlar bu bölümlerle örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-teyemmum-nedir",
+      "slug": "what-is-tayammum",
+      "categoryId": "cat-purity",
+      "title": "What is tayammum?",
+      "summary": "The form of purification used when water is unavailable or cannot be used.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "tayammum",
+        "dry ablution",
+        "no water",
+        "purity"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Tayammum is the purification performed with clean earth or an earthen surface when water is unavailable or cannot be used, for example due to health reasons."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Form the intention for tayammum.",
+            "Strike both hands on clean earth or an earthen surface.",
+            "Wipe your face with your hands.",
+            "Strike the surface a second time.",
+            "Wipe your arms including the elbows."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Tayammum can take the place of both wudu and ghusl. Its ruling ends once water becomes available or usable again."
+        },
+        {
+          "type": "warning",
+          "text": "Being unable to use water for health reasons is a personal situation. When deciding for your own case it is appropriate to consult both your doctor and a qualified religious official."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "requiresQualifiedGuidance": true,
+      "guidanceMessage": "For special circumstances related to health, you can consult a qualified religious official or the High Board of Religious Affairs.",
+      "officialQuestionUrl": "https://kurul.diyanet.gov.tr/Diyanet-Dini-Soru-Arama-Listesi",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-gusul-nasil-alinir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VI. TEYEMMÜM, C) Teyemmümün Farzları ve E) Teyemmüm Nasıl Yapılır?, s. 118",
+        "evidenceSummary": "Eserde teyemmümün farzlarının iki olduğu (niyet ve iki vuruşla yüz/kolların meshi) ve uygulanışı açıklanır; makaledeki adımlar bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namaza-hazirlik",
+      "slug": "preparing-for-prayer",
+      "categoryId": "cat-prayer",
+      "title": "Preparing for prayer",
+      "summary": "The conditions to be met before beginning the prayer.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "preparing for prayer",
+        "conditions of prayer",
+        "qibla",
+        "prayer"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "For the prayer to be valid, certain conditions must be met before it begins. These are known as the conditions outside the prayer itself."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Having wudu (or ghusl where required).",
+            "Cleanliness of the body, clothing and the place of prayer.",
+            "Covering the parts of the body that must be covered.",
+            "Facing the qibla.",
+            "The time of the prayer having begun.",
+            "Forming the intention for the prayer to be performed."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Intention is the turning of the heart; it does not require long sentences spoken aloud."
+        },
+        {
+          "type": "paragraph",
+          "text": "Although the conditions may look complex, most are already met in daily life. Over time these steps become an effortless habit."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Preparing your prayer space in advance makes starting noticeably easier."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namazin-bolumleri",
+        "art-abdest-nasil-alinir"
+      ],
+      "beginnerPathOrder": 7,
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F) Namazın Farzları / a) Namazın Şartları, s. 144",
+        "evidenceSummary": "Eserde namazın dışındaki altı şart (hadesten ve necasetten taharet, setr-i avret, istikbal-i kıble, vakit, niyet) sayılır; makaledeki kontrol listesi bununla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-bes-vakit-namaz",
+      "slug": "five-daily-prayers",
+      "categoryId": "cat-prayer",
+      "title": "The five daily prayers",
+      "summary": "The five prayer times and the number of obligatory units in each.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "five daily prayers",
+        "prayer times",
+        "obligatory prayer",
+        "rakah",
+        "salah"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The five daily prayers are obligatory upon every Muslim who has reached maturity and is of sound mind. Each prayer has its own time window."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Fajr: 2 obligatory units.",
+            "Dhuhr: 4 obligatory units.",
+            "Asr: 4 obligatory units.",
+            "Maghrib: 3 obligatory units.",
+            "Isha: 4 obligatory units."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The numbers above are only the obligatory units. Recommended prayers attached to each time are performed separately."
+        },
+        {
+          "type": "paragraph",
+          "text": "Prayer times are determined by the position of the sun, so they vary by location and season. You can see the times calculated for your location in the Prayer tab of this app."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If praying regularly feels difficult, you can aim to make just one prayer time consistent first."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-namazin-bolumleri"
+      ],
+      "beginnerPathOrder": 8,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, İ) Beş Vakit Namazın Kılınışı, s. 152-160",
+        "evidenceSummary": "Eserde her vaktin rekât dağılımı açıkça verilir: öğle ve yatsı onar rekâttan dördü farz, ikindi sekiz rekâttan dördü farz, akşam beş rekâttan üçü farz, sabahın farzı iki rekâttır; makaledeki farz sayıları bunlarla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-bolumleri",
+      "slug": "parts-of-the-prayer",
+      "categoryId": "cat-prayer",
+      "title": "The main parts of the prayer",
+      "summary": "The building blocks of a unit: standing, recitation, bowing, prostration and sitting.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "parts of prayer",
+        "rakah",
+        "standing",
+        "bowing",
+        "prostration",
+        "how to pray"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The prayer is made up of repeating units. Within each unit, specific parts are carried out in order."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Opening takbir: beginning the prayer by saying \"Allahu akbar\".",
+            "Standing.",
+            "Recitation from the Qur'an.",
+            "Bowing, with the hands on the knees.",
+            "Prostration, with the forehead, nose, hands, knees and toes touching the ground (twice in each unit).",
+            "The final sitting at the end of the prayer."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Coming to stillness for a moment in each part is the basis of praying calmly; it is not rushed."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Naming each part as you learn makes the flow of the prayer easier to remember."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-bes-vakit-namaz"
+      ],
+      "beginnerPathOrder": 9,
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F/b) Namazın Rükünleri, s. 145-147",
+        "evidenceSummary": "Eserde namazın rükünleri iftitah tekbiri, kıyam, kıraat, rükû, secde ve ka'de-i ahire olarak sayılır; makaledeki bölümler bu sıralamayla örtüşür.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuran-nedir",
+      "slug": "what-is-the-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "What is the Qur'an?",
+      "summary": "The definition, structure and preservation of the Qur'an.",
+      "contentType": "quranExplanation",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "quran",
+        "koran",
+        "what is the quran",
+        "mushaf",
+        "surah",
+        "verse",
+        "revelation"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The Qur'an is the divine scripture revealed by God to the Prophet Muhammad (peace be upon him) and transmitted without interruption from generation to generation."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The Qur'an consists of 114 chapters. Chapters are made up of verses, and the complete text gathered between two covers is called a mushaf."
+        },
+        {
+          "type": "paragraph",
+          "text": "It was revealed in parts over roughly twenty-three years, in response to events and needs. The revelation was preserved both in writing and through memorisation."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Qur'an is originally in Arabic. Texts in other languages are called translations of meaning; they are an effort to convey the meaning and do not take the place of the Qur'an itself."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You can begin reading the original Arabic text together with its translation in the Quran tab of this app."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kuran-okumaya-baslangic",
+        "art-islam-nedir"
+      ],
+      "beginnerPathOrder": 10,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kitaplara İman — Kur'an-ı Kerim'in Nazil Oluşu ve Özellikleri, s. 54-58",
+        "evidenceSummary": "Eserde Kur'an'ın vahiy yoluyla indirildiği, tevatür yoluyla nakledildiği, mushaf hâlinde yazıldığı ve 114 sureden oluştuğu belirtilir; makaledeki tanım ve yapı bilgisi bu bölümlere dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuran-okumaya-baslangic",
+      "slug": "beginning-to-read-the-quran",
+      "categoryId": "cat-quran-learning",
+      "title": "Beginning to read the Qur'an",
+      "summary": "A calm and realistic path for complete beginners.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "reading the quran",
+        "arabic alphabet",
+        "learning quran",
+        "tajwid",
+        "getting started"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Learning to read the Qur'an takes time. Moving in small, regular steps without rushing is the healthiest path."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Begin by recognising the Arabic letters.",
+            "Learn how letters are read with vowel marks.",
+            "Listen to short chapters to become familiar with pronunciation.",
+            "Gradually move on to reading words and verses.",
+            "If possible, get support from a teacher or a course."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Listening is one of the most effective ways to learn correct pronunciation; reading and listening progress together."
+        },
+        {
+          "type": "paragraph",
+          "text": "If you cannot yet read Arabic, reading a translation is also valuable. Following the meaning makes the later reading journey easier."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You could start today by listening to a single short chapter; starting matters more than progressing quickly."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-kuran-portali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "scholarlyReviewPending",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kuran-nedir"
+      ],
+      "beginnerPathOrder": 11,
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-kuran-portali",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "İlmihalde Kur'an okumayı öğrenme sürecine dair kesin bir bölüm/sayfa eşleştirilemedi; Kur'an Portalı gövdesi de okunamadı."
+      }
+    },
+    {
+      "id": "art-dua-adabi",
+      "slug": "etiquette-of-supplication",
+      "categoryId": "cat-dua",
+      "title": "The etiquette of supplication",
+      "summary": "What supplication means and the attitudes that beautify it.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "dua",
+        "supplication",
+        "prayer",
+        "asking",
+        "remembrance"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Supplication is a servant turning to God and presenting their state. It is not bound to a particular time, place or language; everyone may supplicate in their own tongue."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Beginning by praising God.",
+            "Sending blessings upon the Prophet.",
+            "Asking sincerely and with hope.",
+            "Continuing to supplicate with persistence and patience.",
+            "Leaving the answer to God's wisdom."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Rather than thinking a supplication went unanswered, the understanding is that its answer comes at the most fitting time and in the most fitting form."
+        },
+        {
+          "type": "paragraph",
+          "text": "Supplication is not only for hard times. Praying in peaceful moments too keeps the bond between servant and God continuous."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Make a short supplication in your own words today; no memorised phrase is required."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam",
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "scholarlyReviewPending",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-tevbe-ve-umit"
+      ],
+      "beginnerPathOrder": 12,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": false,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "",
+        "evidenceSummary": "",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "automatedSourceCheck",
+        "verificationMethod": "urlExistenceCheck",
+        "blocker": "Hadislerle İslam gövdesi okunamadı; ilmihalde dua adabı için kesin bölüm/sayfa eşleştirilemedi."
+      }
+    },
+    {
+      "id": "art-tevbe-ve-umit",
+      "slug": "repentance-and-hope",
+      "categoryId": "cat-akhlaq",
+      "title": "Repentance and hope",
+      "summary": "Turning back from a mistake, and never despairing of God's mercy.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "repentance",
+        "tawba",
+        "regret",
+        "hope",
+        "forgiveness",
+        "starting again"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Repentance is feeling regret for a mistake and turning back to God. In Islamic belief, no person is outside the reach of mercy, however many mistakes they have made."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Recognising the mistake and feeling regret.",
+            "Leaving that behaviour.",
+            "Sincerely intending not to return to it.",
+            "Making amends where the rights of another person are involved."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Repentance is not a one-time act. When a mistake happens again, it is always possible to repent again."
+        },
+        {
+          "type": "paragraph",
+          "text": "Despair is one of the heaviest burdens because it prevents a person from beginning again. Yet the door of return is always open, and it is never considered too late."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Rather than dwelling at length on the past, you could choose one small good step for today."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali",
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-dua-adabi",
+        "art-islam-nedir"
+      ],
+      "beginnerPathOrder": 13,
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Nafile Namazlar, 7. Tevbe Namazı, s. 224",
+        "evidenceSummary": "Eserde günah işleyen kimsenin hemen pişman olup tevbe etmesi, günahtan derhal vazgeçmesi ve samimi biçimde bağışlanma dilemesi gerektiği belirtilir; makaledeki tevbe adımları bu bölüme dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-temizligin-cesitleri",
+      "slug": "two-kinds-of-purity",
+      "categoryId": "cat-purity",
+      "title": "The two kinds of purity",
+      "summary": "Purity in Islam has two aspects: removing ritual impurity and removing physical impurity.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "purity",
+        "taharah",
+        "hadath",
+        "najasah",
+        "ritual purity",
+        "wudu"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Purity in Islam is treated under two headings. The first is removing the ritual state that prevents worship; the second is removing physical impurity from the body, clothing or place of prayer."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Removing ritual impurity: purifying from the state that prevents worship.",
+            "Removing physical impurity: cleaning the body, clothing and place of prayer."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Ritual impurity is of two degrees: the lesser is the state of being without wudu and is removed by wudu; the greater requires ghusl."
+        },
+        {
+          "type": "paragraph",
+          "text": "When water is unavailable or cannot be used, tayammum takes the place of wudu and ghusl."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Before preparing for prayer, consider which kind of purification is needed: wudu or ghusl?"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-necaset-nedir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B) Temizliğin Çeşitleri, s. 90-91",
+        "evidenceSummary": "Eserde temizliğin hadesten taharet ve necasetten taharet olmak üzere iki türlü olduğu, hadesin küçük ve büyük diye ikiye ayrıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-necaset-nedir",
+      "slug": "what-is-najasah",
+      "categoryId": "cat-purity",
+      "title": "What is najasah?",
+      "summary": "For the prayer to be valid, the body, clothing and place of prayer must be free of physical impurity.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "najasah",
+        "impurity",
+        "heavy impurity",
+        "light impurity",
+        "prayer cleanliness"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "What is religiously considered impure is called najasah, and removing it is called purification from najasah. For the prayer to be valid, the body, clothing and place of prayer must be clean."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Heavy impurity: substances classed as the graver kind.",
+            "Light impurity: substances classed as the lighter kind."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work treats more than roughly one dirham (about 2.08 g) of solid heavy impurity, or more than a palm's width of the liquid kind, as preventing the prayer."
+        },
+        {
+          "type": "paragraph",
+          "text": "Amounts below these do not invalidate the prayer, though cleaning them is still appropriate."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If there is a visible stain on your clothing before prayer, clean it before you begin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-temizligin-cesitleri",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), III. TEMİZLİK, B/2) Necasetten Taharet, s. 91",
+        "evidenceSummary": "Eserde necasetin galize ve hafife olmak üzere ikiye ayrıldığı, namazın sahih olması için beden/elbise/mekânın temizliğinin şart olduğu ve katı necasette bir dirhem ölçüsü belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-abdestin-sunnetleri",
+      "slug": "recommended-acts-of-wudu",
+      "categoryId": "cat-purity",
+      "title": "The recommended acts of wudu",
+      "summary": "Practices beyond the obligatory parts that complete and beautify the ablution.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "sunnah of wudu",
+        "recommended acts",
+        "ablution",
+        "basmala"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Practices outside the obligatory parts of wudu fall under recommended acts and etiquette. They make the ablution complete and excellent."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Washing the hands to the wrists at the start.",
+            "Beginning with the basmala.",
+            "Rinsing the mouth and nose.",
+            "Washing each limb three times.",
+            "Starting from the right and keeping the order.",
+            "Passing the fingers between one another."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work states there are no wajib acts in wudu; what lies beyond the obligatory parts is recommended or etiquette."
+        },
+        {
+          "type": "paragraph",
+          "text": "Leaving a recommended act does not invalidate the wudu, but it lessens its completeness."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Try consciously observing just one recommended act the next time you make wudu."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, C) Abdestin Sünnetleri, s. 101-104",
+        "evidenceSummary": "Eserde abdestin başlıca sünnetleri sıralanır ve abdestte vacip bulunmadığı belirtilir; makaledeki maddeler bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-mest-uzerine-mesh",
+      "slug": "wiping-over-khuff",
+      "categoryId": "cat-purity",
+      "title": "Wiping over leather socks",
+      "summary": "Wiping over footwear that meets certain conditions is permitted in place of washing the feet.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "khuff",
+        "wiping",
+        "leather socks",
+        "wudu concession"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Khuff is footwear covering the feet including the ankles. During wudu it is permitted to wipe over them instead of washing the feet, and this is noted as one of the eases of the religion."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "They must be put on after a wudu in which the feet were washed.",
+            "They must cover the feet including the ankles.",
+            "They must be durable enough for a farsakh (about twelve thousand paces) of walking."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work lists seven conditions in total for wiping to be valid; those above are the principal ones."
+        },
+        {
+          "type": "paragraph",
+          "text": "Wiping is valid for a limited period; once it ends, the footwear is removed and the feet washed."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you are considering using khuff, first learn its conditions and time limit from the relevant section."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-abdest-nasil-alinir",
+        "art-abdestin-farzlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), V. ABDEST, K) Mestler Üzerine Meshetmek, s. 112-114",
+        "evidenceSummary": "Eserde mestin tanımı, mesh edilebilmesi için gereken yedi şart ve meshin müddeti açıklanır; makaledeki şartlar bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-guslu-gerektiren-haller",
+      "slug": "when-ghusl-is-required",
+      "categoryId": "cat-purity",
+      "title": "When ghusl becomes necessary",
+      "summary": "In certain states wudu is not sufficient and washing the whole body is required.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "ghusl required",
+        "janabah",
+        "menstruation",
+        "postnatal",
+        "full washing"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "In some states wudu is not sufficient, and washing the entire body — ghusl — becomes necessary."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Entering the state of janabah.",
+            "The ending of menstruation for women.",
+            "The ending of postnatal bleeding."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "A person in a state requiring ghusl does not pray until they have performed it."
+        },
+        {
+          "type": "paragraph",
+          "text": "These matters can involve details specific to a person's own situation; when in doubt it is appropriate to consult a qualified religious official."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You can learn the obligatory parts and method of ghusl from the related topic."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-gusul-nasil-alinir",
+        "art-teyemmum-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VII. GUSÜL, B) Gusül Yapmayı Gerektiren Hâller, s. 120-121",
+        "evidenceSummary": "Eserde guslü gerektiren hâller (cünüplük ile hayız ve nifasın sona ermesi) sayılır; makaledeki liste bu bölümden özetlenmiştir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namaz-vakitleri",
+      "slug": "prayer-times",
+      "categoryId": "cat-prayer",
+      "title": "The prayer times",
+      "summary": "Each of the five obligatory prayers has a defined beginning and end.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "prayer times",
+        "salah times",
+        "fajr",
+        "dawn",
+        "imsak"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "There are five obligatory prayers each day, and each has its own defined time. Performing a prayer within its own time is a condition of its validity."
+        },
+        {
+          "type": "keyPoint",
+          "text": "It is not permitted to pray before a time has begun, and delaying a prayer past its time without a valid excuse is a serious matter."
+        },
+        {
+          "type": "paragraph",
+          "text": "The time of the dawn prayer begins with the true dawn spreading along the horizon and lasts until sunrise. This moment is also the start of the fast."
+        },
+        {
+          "type": "paragraph",
+          "text": "The vertical light that appears and then fades before it is called the false dawn and is not taken as the start of the time. The noon prayer begins when the sun passes its zenith."
+        },
+        {
+          "type": "practicalAction",
+          "text": "You can see the times calculated for your location in the Prayer tab of this app."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, C) Namaz Vakitleri, s. 134-137",
+        "evidenceSummary": "Eserde günde beş farz namaz bulunduğu, her birinin belirli vakti olduğu ve sabah vaktinin fecr-i sadıkla başlayıp güneşin doğuşuna kadar sürdüğü açıklanır; makaledeki vakit tanımları bu bölüme dayanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-farzlari",
+      "slug": "obligatory-parts-of-prayer",
+      "categoryId": "cat-prayer",
+      "title": "The obligatory parts of the prayer",
+      "summary": "The prayer has twelve obligatory parts: six conditions before it and six pillars within it.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "obligatory prayer parts",
+        "fard",
+        "pillars",
+        "conditions of prayer"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The obligatory parts required for the prayer to be valid fall into two groups."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "The conditions: six obligations fulfilled before starting the prayer.",
+            "The pillars: six obligations performed within the prayer."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work states that the prayer has twelve obligatory parts in total: six outside it and six within it."
+        },
+        {
+          "type": "paragraph",
+          "text": "If one of the conditions or pillars is missing, the prayer is not valid. This is why both groups need to be known."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Read the separate topics on the conditions and the pillars to complete your picture of these twelve."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namaza-hazirlik",
+        "art-namazin-bolumleri",
+        "art-namazin-vacipleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, F) Namazın Farzları, s. 144",
+        "evidenceSummary": "Eserde namazın farzlarının on iki olduğu; altısının namazın dışında (şartlar), altısının namazın içinde (rükünler) bulunduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-vacipleri",
+      "slug": "necessary-acts-of-prayer",
+      "categoryId": "cat-prayer",
+      "title": "The necessary acts of the prayer",
+      "summary": "Acts ranking after the obligatory parts, whose omission calls for the prostration of forgetfulness.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "wajib prayer",
+        "necessary acts",
+        "prostration of forgetfulness",
+        "fatiha"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The necessary acts complete the obligatory ones. The work gives this measure: whoever performs a necessary act earns reward, and whoever omits one forgetfully must make the prostration of forgetfulness."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Beginning the prayer with the words 'Allahu akbar'.",
+            "Reciting Surah al-Fatiha in the prayer.",
+            "Reciting al-Fatiha in the first two units of obligatory prayers, and in every unit of witr and voluntary prayers."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Whoever omits a necessary act deliberately must repeat the prayer."
+        },
+        {
+          "type": "paragraph",
+          "text": "This list summarises the principal necessary acts; the full list is given in more detail in the relevant section."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you notice a slip during prayer, learning when the prostration of forgetfulness applies is a good starting point."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namazin-farzlari",
+        "art-namazin-sunnetleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, G) Namazın Vacipleri, s. 147-148",
+        "evidenceSummary": "Eserde vacibin hükmü (kasten terkte iade, sehven terkte sehiv secdesi) ve başlıca vacipler (tekbirle başlama, Fâtiha okuma, farzların ilk iki rekâtında okuma) sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-namazin-sunnetleri",
+      "slug": "recommended-acts-of-prayer",
+      "categoryId": "cat-prayer",
+      "title": "The recommended acts of the prayer",
+      "summary": "Practices that beautify the prayer, whose omission does not invalidate it.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "deep",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "sunnah of prayer",
+        "recommended acts",
+        "prayer etiquette"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The recommended acts complete the obligatory and necessary ones and beautify the prayer."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work gives this ruling: omitting a recommended act in the prayer does not invalidate it and does not require the prostration of forgetfulness, though it is disliked."
+        },
+        {
+          "type": "paragraph",
+          "text": "This measure makes the difference clear: without an obligatory part the prayer is invalid, omitting a necessary act calls for redress, while recommended acts belong to completeness."
+        },
+        {
+          "type": "paragraph",
+          "text": "Learning the recommended acts turns the prayer from a hurried duty into an act performed with calm."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Begin by aiming to tell the obligatory, necessary and recommended acts apart."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-namazin-vacipleri",
+        "art-namazin-bolumleri"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, H) Namazın Sünnetleri, s. 148-151",
+        "evidenceSummary": "Eserde namazda sünneti terk etmenin namazı bozmadığı ve sehiv secdesi gerektirmediği, ancak mekruh olduğu açıkça belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-cemaatle-namaz",
+      "slug": "praying-in-congregation",
+      "categoryId": "cat-prayer",
+      "title": "Praying in congregation",
+      "summary": "The reward of congregational prayer and its social benefits.",
+      "contentType": "hadithBased",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "congregation",
+        "jamaah",
+        "mosque",
+        "imam",
+        "twenty-seven"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Great importance is given to praying in congregation. Those who attend come to know one another, the less informed benefit from the more knowledgeable, and bonds of brotherhood and solidarity grow stronger."
+        },
+        {
+          "type": "hadithReference",
+          "text": "According to the hadith cited in the work, the reward of the congregational prayer exceeds that of praying alone by twenty-seven degrees."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Congregation builds not only reward but a social bond: mutual affection and cooperation grow around the mosque."
+        },
+        {
+          "type": "paragraph",
+          "text": "Someone who cannot attend prays alone; this does not mean the prayer is invalid."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Trying one prayer a week in congregation can be a calm way to begin."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-bes-vakit-namaz",
+        "art-namaza-hazirlik"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), VIII. NAMAZ, R/1) Cemaatle Namaz Kılmanın Fazileti, s. 176-177",
+        "evidenceSummary": "Eserde cemaatle kılınan namazın tek başına kılınandan yirmi yedi derece üstün olduğunu bildiren hadis kaynağıyla birlikte aktarılır ve cemaatin toplumsal faydaları sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-oruc-kimlere-farzdir",
+      "slug": "who-must-fast",
+      "categoryId": "cat-fasting",
+      "title": "Upon whom is fasting obligatory?",
+      "summary": "Three conditions make fasting obligatory; there is ease for the ill and the traveller.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "fasting",
+        "who must fast",
+        "ramadan",
+        "make up fast",
+        "traveller"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "For fasting to become obligatory upon a person, certain conditions must be present."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Being Muslim.",
+            "Being of sound mind.",
+            "Having reached maturity."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "Even when these are present, those too ill to fast and those travelling may refrain; the ill make up the days once recovered, and travellers once they return."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fasting is not obligatory on children who have not reached maturity, though accustoming them gradually, without harming them, is considered appropriate."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you are unsure because of your health, you can consult both your doctor and a qualified religious official."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-orucu-bozan-durumlar",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, D) Oruç Kimlere Farzdır?, s. 261-262",
+        "evidenceSummary": "Eserde orucun farz olması için üç şart (Müslüman olmak, akıllı olmak, ergenlik çağına gelmek) sayılır; hasta ve yolcuların tutmayabileceği ve sonra kaza edecekleri belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-orucu-bozan-durumlar",
+      "slug": "what-breaks-the-fast",
+      "categoryId": "cat-fasting",
+      "title": "What breaks the fast",
+      "summary": "Some things that break the fast require both a make-up day and expiation; others only a make-up day.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "breaks the fast",
+        "make up",
+        "expiation",
+        "kaffarah",
+        "ramadan"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Things that break the Ramadan fast fall into two groups by their consequence: some require both making up the day and expiation, others only making up the day."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "Eating or drinking deliberately, without excuse, while knowing one is fasting.",
+            "Deliberate marital relations while knowing one is fasting.",
+            "Smoking, or drawing in the smoke of incense."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work counts the above among the cases requiring both a make-up day and expiation."
+        },
+        {
+          "type": "paragraph",
+          "text": "The work also explains when expiation is lifted: if the person becomes too ill to fast that same day, the expiation falls away, provided the illness was not self-induced."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you have a doubt specific to your own case, consult a qualified religious official rather than deriving a ruling yourself."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-oruc-kimlere-farzdir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), IX. ORUÇ, K) Orucu Bozan Şeyler, s. 277-279",
+        "evidenceSummary": "Eserde orucu bozan şeylerin bir kısmının hem kaza hem keffaret, bir kısmının yalnız kaza gerektirdiği belirtilir ve kaza ile keffareti gerektiren hâller sayılır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekatin-sartlari",
+      "slug": "conditions-of-zakat",
+      "categoryId": "cat-zakat",
+      "title": "Upon whom is zakat obligatory?",
+      "summary": "Zakat becomes obligatory when conditions are met both in the owner and in the wealth.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "zakat",
+        "who pays zakat",
+        "nisab",
+        "conditions of zakat",
+        "financial worship"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "For a person to be liable for zakat, certain conditions must be present both in themselves and in the wealth they own."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Being Muslim.",
+            "Having reached maturity.",
+            "Being of sound mind.",
+            "Being free.",
+            "That the wealth remaining after debts is not below the threshold."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The conditions in the wealth are: that it reaches the threshold, that it is of a growing nature, and that a lunar year has passed over it."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "The work notes in parentheses that according to the Shafi'i school, zakat is also due on the wealth of children and those who lack legal capacity, this duty being carried out by their guardians."
+        },
+        {
+          "type": "paragraph",
+          "text": "The threshold is a measure of wealth set by the religion. Someone who owns this much beyond their debts and essential needs is considered religiously well-off."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Zakat calculation depends on personal finances; consulting a qualified authority is the soundest approach."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-zekat-kimlere-verilir",
+        "art-islamin-sartlari"
+      ],
+      "differenceNote": "Eserde, Şâfiîlere göre çocukların ve akıl hastalarının mallarından da zekât verilmesi gerektiği, bu görevi velilerinin yerine getireceği belirtilir.",
+      "isFeatured": true,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, B) Zekâtın Farz Olmasının Şartları, s. 294-295",
+        "evidenceSummary": "Eserde zekâtın farz olması için mal sahibinde ve malda bulunması gereken şartlar ayrı ayrı sayılır; nisap tanımı verilir ve Şâfiîlere göre çocuk ve akıl hastalarının mallarından da zekât verileceği parantez içinde belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-zekat-kimlere-verilir",
+      "slug": "who-receives-zakat",
+      "categoryId": "cat-zakat",
+      "title": "Who may receive zakat?",
+      "summary": "The recipients of zakat are specified in the Qur'an.",
+      "contentType": "quranExplanation",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "zakat recipients",
+        "poor",
+        "needy",
+        "debtors",
+        "who receives zakat"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Those to whom zakat may be given are specified in the Qur'an; the work bases its treatment on verse 60 of Surah at-Tawbah."
+        },
+        {
+          "type": "quranReference",
+          "text": "The categories of zakat recipients are listed in Surah at-Tawbah, verse 60 (see the Quran tab)."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            "The poor: those whose wealth is below the threshold and who are not religiously counted as well-off.",
+            "The needy: those who possess nothing, in greater difficulty than the poor.",
+            "Debtors: those without wealth above the threshold beyond their debt, unable to repay it."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work explains each of these categories; zakat is not given at random but to the specified recipients."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When giving zakat it is enough to know which category the recipient falls into; further questioning is not required."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-zekatin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), X. ZEKÂT, E) Zekât Kimlere Verilir?, s. 302-303",
+        "evidenceSummary": "Eserde zekâtın verileceği yerler Tevbe suresi 60. ayete dayandırılarak sıralanır ve fakir, miskin ve borçlu tanımları açıklanır.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hac-kimlere-farzdir",
+      "slug": "who-must-perform-hajj",
+      "categoryId": "cat-hajj",
+      "title": "Upon whom is hajj obligatory?",
+      "summary": "Hajj, performed with both wealth and body, is obligatory on those meeting certain conditions.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "basic",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hajj",
+        "who must perform hajj",
+        "ability",
+        "conditions of hajj",
+        "kaaba"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hajj, an act of worship performed with both wealth and body, is obligatory upon those who meet certain conditions."
+        },
+        {
+          "type": "steps",
+          "items": [
+            "Being Muslim.",
+            "Being of sound mind.",
+            "Having reached maturity.",
+            "Being free.",
+            "Having, beyond essential needs, the means to support oneself and one's dependants until returning.",
+            "Having the funds for the journey's costs."
+          ]
+        },
+        {
+          "type": "keyPoint",
+          "text": "The work additionally lists separate conditions for performing hajj in person: being physically well, having no impediment such as imprisonment, and the route being safe."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hajj is not obligatory upon someone who does not meet the conditions; this is not a shortcoming but an ease the religion observes."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you intend to perform hajj, you might begin by calmly assessing the financial and health conditions."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-islamin-sartlari",
+        "art-kurban-nedir"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XI. HAC, B) Hac Kimlere Farzdır?, s. 308-309",
+        "evidenceSummary": "Eserde haccın farz olması için sekiz şart sayılır; ayrıca haccın bizzat edası için sağlık, engel bulunmaması ve yol güvenliği gibi ek şartlar (edanın şartları) ayrı olarak verilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kurban-nedir",
+      "slug": "what-is-qurban",
+      "categoryId": "cat-hajj",
+      "title": "The qurban offering",
+      "summary": "Qurban is the sacrifice, with the intention of worship, of an animal meeting set conditions at a set time.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "qurban",
+        "udhiyah",
+        "sacrifice",
+        "eid al-adha",
+        "financial worship"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Qurban is the sacrifice, with the intention of worship, of an animal bearing certain qualities at a specified time. It is called udhiyah."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Qurban is one of the financial acts of worship and is described as an expression of gratitude for the blessings granted."
+        },
+        {
+          "type": "paragraph",
+          "text": "The work notes that the practice is very old and that in its present form it goes back to the Prophet Ibrahim."
+        },
+        {
+          "type": "paragraph",
+          "text": "The timing, the qualities required in the animal, and upon whom it is incumbent each carry their own rulings, treated in detail in the relevant section."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If you are considering offering a qurban, begin by learning its time and the qualities required in the animal."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-19",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hac-kimlere-farzdir",
+        "art-islamin-sartlari"
+      ],
+      "isFeatured": false,
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), XII. KURBAN, A) Kurban Nedir?, s. 349-350",
+        "evidenceSummary": "Eserde kurbanın 'ibadet niyetiyle belirli vakitte belirli nitelikleri taşıyan hayvanı kesmek' olduğu ve udhiyye diye adlandırıldığı, mali ibadetlerden sayıldığı belirtilir.",
+        "verifiedAt": "2026-07-19",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    }
+  ]
+}

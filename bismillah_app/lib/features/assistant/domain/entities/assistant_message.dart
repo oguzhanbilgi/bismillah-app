@@ -1,64 +1,74 @@
-import 'package:bismillah_app/core/domain/classified.dart';
-import 'package:bismillah_app/core/privacy/sensitivity_class.dart';
-import 'package:bismillah_app/core/value_objects/unique_id.dart';
-import 'package:bismillah_app/core/value_objects/utc_date_time.dart';
+import 'package:bismillah_app/features/assistant/domain/entities/assistant_response.dart';
+import 'package:bismillah_app/features/assistant/domain/entities/assistant_source_reference.dart';
 import 'package:bismillah_app/features/assistant/domain/value_objects/assistant_enums.dart';
 
-/// Sohbet mesajı (10_DATA_MODEL §4) — append-only; düzenleme YOKTUR,
-/// silme yalnız tombstone'dur (§14).
+/// Sohbet geçmişindeki tek mesaj (TASK 059 §5/§13).
 ///
-/// `text` Yüksek hassasiyettir: ASLA loglanmaz, analytics'e gitmez.
-/// Telemetriye çıkabilen tek alan `topicClass` kovasıdır
-/// (`assistant_message_sent{topic_class}` — içerik ASLA; §22).
-final class AssistantMessage implements Classified {
-  AssistantMessage({
-    required this.messageId,
+/// Kullanıcı mesajlarında [answerType]/[confidence]/[response] boştur.
+/// Asistan mesajları canlı oturumda [response]'u taşır (zengin kart:
+/// adımlar/maddeler); yeniden açılışta yüklenen geçmiş için [response]
+/// boştur ve kart sade biçimde ([text] + [sources] + [relatedArticleIds])
+/// çizilir.
+final class AssistantMessage {
+  const AssistantMessage({
+    required this.id,
     required this.role,
     required this.text,
-    required this.topicClass,
     required this.createdAt,
-    this.deleted = false,
-  }) {
-    if (text.trim().isEmpty) {
-      throw ArgumentError.value(text, 'text', 'Boş mesaj olamaz');
-    }
-    if (!_topicClassPattern.hasMatch(topicClass)) {
-      throw ArgumentError.value(
-        topicClass,
-        'topicClass',
-        'topicClass kısa snake_case kova kodu olmalı (PrivacyGuard biçimi)',
-      );
-    }
-  }
+    this.answerType,
+    this.confidence,
+    this.sources = const [],
+    this.relatedArticleIds = const [],
+    this.safetyNotice,
+    this.response,
+  });
 
-  /// Kova biçimi PrivacyGuard bucket kuralıyla aynıdır — topicClass
-  /// serbest metin taşıyamaz.
-  static final RegExp _topicClassPattern = RegExp(r'^[a-z0-9_.\-]{1,40}$');
+  /// Kullanıcı mesajı fabrikası.
+  factory AssistantMessage.user({
+    required String id,
+    required String text,
+    required DateTime createdAt,
+  }) => AssistantMessage(
+    id: id,
+    role: AssistantRole.user,
+    text: text,
+    createdAt: createdAt,
+  );
 
-  final EntityId messageId;
+  /// Asistan mesajını canlı [AssistantResponse]'tan üretir.
+  factory AssistantMessage.fromResponse({
+    required String id,
+    required DateTime createdAt,
+    required AssistantResponse response,
+  }) => AssistantMessage(
+    id: id,
+    role: AssistantRole.assistant,
+    text: response.answer,
+    createdAt: createdAt,
+    answerType: response.answerType,
+    confidence: response.confidence,
+    sources: response.sourceReferences,
+    relatedArticleIds: [for (final a in response.relatedArticles) a.id],
+    safetyNotice: response.safetyNotice,
+    response: response,
+  );
+
+  final String id;
   final AssistantRole role;
   final String text;
+  final DateTime createdAt;
 
-  /// Analytics'e çıkabilen TEK alan (kova kodu, ör. `prayer_habit`).
-  final String topicClass;
+  final AssistantAnswerType? answerType;
+  final AssistantConfidence? confidence;
 
-  final UtcDateTime createdAt;
+  final List<AssistantSourceReference> sources;
+  final List<String> relatedArticleIds;
+  final String? safetyNotice;
 
-  /// Tombstone — geçmiş düzenlenmez, yalnız silinebilir.
-  final bool deleted;
+  /// Canlı zengin görünüm (adımlar/maddeler). Kalıcı geçmişte SAKLANMAZ;
+  /// yeniden açılışta `null`'dır.
+  final AssistantResponse? response;
 
-  /// Append-only tek istisna: silme tombstone'u üretir.
-  AssistantMessage asDeleted() {
-    return AssistantMessage(
-      messageId: messageId,
-      role: role,
-      text: text,
-      topicClass: topicClass,
-      createdAt: createdAt,
-      deleted: true,
-    );
-  }
-
-  @override
-  SensitivityClass get sensitivityClass => SensitivityClass.high;
+  bool get isUser => role == AssistantRole.user;
+  bool get isAssistant => role == AssistantRole.assistant;
 }

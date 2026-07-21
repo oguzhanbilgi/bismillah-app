@@ -83,5 +83,12 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+        <!-- TASK 056A: resmî Diyanet kaynak sayfalarını SİSTEM TARAYICISINDA
+             açabilmek için gereken minimum paket görünürlüğü (Android 11+).
+             Yalnız https şeması bildirilir; WebView eklenmez. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
     </queries>
 </manifest>

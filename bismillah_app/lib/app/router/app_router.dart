@@ -1,7 +1,9 @@
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_shell.dart';
-import 'package:bismillah_app/features/assistant/presentation/assistant_placeholder_screen.dart';
-import 'package:bismillah_app/features/learn/presentation/learn_placeholder_screen.dart';
+import 'package:bismillah_app/features/assistant/presentation/assistant_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_article_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_category_screen.dart';
+import 'package:bismillah_app/features/learn/presentation/learn_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_goals_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_journey_screen.dart';
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_pace_screen.dart';
@@ -11,11 +13,15 @@ import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/about_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/content_sources_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
+import 'package:bismillah_app/features/settings/presentation/language_settings_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -125,7 +131,23 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
               GoRoute(
                 path: AppRoutes.learn,
                 name: AppRoutes.learnName,
-                builder: (context, state) => const LearnPlaceholderScreen(),
+                builder: (context, state) => const LearnScreen(),
+              ),
+              // Öğrenme kategorisi ve içerik detayı (TASK 056): Learn
+              // branch içinde push route — alt navigasyon görünür kalır.
+              GoRoute(
+                path: '${AppRoutes.learnCategory}/:slug',
+                name: AppRoutes.learnCategoryName,
+                builder: (context, state) => LearnCategoryScreen(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: '${AppRoutes.learnArticle}/:slug',
+                name: AppRoutes.learnArticleName,
+                builder: (context, state) => LearnArticleScreen(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
               ),
             ],
           ),
@@ -145,6 +167,24 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                     builder: (context, state) =>
                         const PersonalizationEditScreen(),
                   ),
+                  // İçerik kaynakları / gizlilik-veri / hakkında (TASK 058):
+                  // Profile branch içinde push route'lar — alt navigasyon
+                  // görünür kalır, geri Profil'e döner.
+                  GoRoute(
+                    path: 'sources',
+                    name: AppRoutes.profileSourcesName,
+                    builder: (context, state) => const ContentSourcesScreen(),
+                  ),
+                  GoRoute(
+                    path: 'privacy',
+                    name: AppRoutes.profilePrivacyName,
+                    builder: (context, state) => const PrivacyDataScreen(),
+                  ),
+                  GoRoute(
+                    path: 'about',
+                    name: AppRoutes.profileAboutName,
+                    builder: (context, state) => const AboutScreen(),
+                  ),
                 ],
               ),
               // Abonelik yönetimi: Profile branch içinde push route
@@ -154,6 +194,14 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                 name: AppRoutes.subscriptionSettingsName,
                 builder: (context, state) =>
                     const SubscriptionSettingsPlaceholderScreen(),
+              ),
+              // Uygulama dili seçimi (TASK 053): Profile branch içinde push
+              // route — dil değişimi navigasyon YAPMAZ, açık ekranlar
+              // yerinde yeniden çizilir.
+              GoRoute(
+                path: AppRoutes.languageSettings,
+                name: AppRoutes.languageSettingsName,
+                builder: (context, state) => const LanguageSettingsScreen(),
               ),
             ],
           ),
@@ -196,7 +244,7 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
         path: AppRoutes.assistant,
         name: AppRoutes.assistantName,
         parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const AssistantPlaceholderScreen(),
+        builder: (context, state) => const AssistantScreen(),
       ),
       GoRoute(
         path: AppRoutes.premium,

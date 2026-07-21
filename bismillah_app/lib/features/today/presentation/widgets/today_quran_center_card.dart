@@ -6,6 +6,7 @@ import 'package:bismillah_app/features/quran/application/quran_progress_summary_
 import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_controller.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_reading_goal.dart';
 import 'package:bismillah_app/features/today/application/today_quran_center_providers.dart';
+import 'package:bismillah_app/shared/islamic/quran_on_rehal_illustration.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
@@ -72,7 +73,9 @@ class TodayQuranCenterCard extends ConsumerWidget {
     l10n,
     child: Column(
       children: [
-        AppCard(
+        // Başlangıç daveti — rahle illüstrasyonu yalnız BURADA kullanılır:
+        // kullanıcıyı Kur'an'a nazikçe çağıran tek anlık kompozisyon.
+        _QuranIllustratedCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -135,7 +138,10 @@ class TodayQuranCenterCard extends ConsumerWidget {
     child: Column(
       children: [
         // Tek ana kart: hedef/ilerleme/seri + (varsa) devam satırı (§2).
+        // Kur'an bölümü sakin adaçayı yüzeyinde yaşar — Today'deki namaz
+        // kartlarından (kum) tonal olarak ayrışır, kart kalabalıklaşmaz.
         AppCard(
+          variant: AppCardVariant.sage,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -149,6 +155,38 @@ class TodayQuranCenterCard extends ConsumerWidget {
       ],
     ),
   );
+}
+
+/// Rahle illüstrasyonlu Kur'an kartı (TASK 054).
+///
+/// İllüstrasyon DEKORATİFTİR ve sağ kenara sabitlenir; içerik her zaman
+/// üstünde çizilir. Liste satırlarında DEĞİL, yalnız bu tek örneklik
+/// davet kartında kullanılır (painter maliyeti tekrarlanmaz).
+class _QuranIllustratedCard extends StatelessWidget {
+  const _QuranIllustratedCard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      variant: AppCardVariant.sage,
+      child: Stack(
+        children: [
+          // Dekoratif katman: dar ekranda metnin okunmasını engellememesi
+          // için sağ üstte sınırlı bir kutuya hapsedilir.
+          const Positioned(
+            top: 0,
+            right: 0,
+            width: 96,
+            height: 96,
+            child: QuranOnRehalIllustration(),
+          ),
+          child,
+        ],
+      ),
+    );
+  }
 }
 
 /// Günlük hedef/ilerleme/seri özeti (TASK 050) — tüm değerler

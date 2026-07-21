@@ -36,6 +36,14 @@ dependencies:
   audio_session: ^0.2.4
   http: ^1.6.0
   audio_service: ^0.18.19
+  # Resmî kaynak bağlantılarını SİSTEM TARAYICISINDA açmak için (TASK 056A).
+  # Sürüm bilinçli olarak SABİTLENMİŞTİR: `pub add` ile kontrolsüz "latest"
+  # alınmaz; yükseltme ayrı bir kararla yapılır.
+  url_launcher: 6.3.2
+  # Uygulama sürüm/build bilgisini göstermek için (TASK 058 §8). Sürüm
+  # `pubspec.lock`'ta zaten çözümlenmiş transitive değere sabitlenmiştir;
+  # kontrolsüz "latest" alınmaz.
+  package_info_plus: ^10.2.0
 
 dev_dependencies:
   flutter_test:
@@ -53,3 +61,9 @@ flutter:
     - assets/quran/verse_pages_v1.json
     - assets/quran/search/quran_search_index_v1.json
     - assets/quran/translations/quranenc_turkish_rwwad_v1_0_4.json
+    # Doğrulanmış İslami bilgi tabanı (TASK 056) — offline-first.
+    - assets/content/learn/sources.json
+    - assets/content/learn/categories.json
+    - assets/content/learn/articles_tr.json
+    - assets/content/learn/articles_en.json
+    - assets/content/learn/articles_ar.json

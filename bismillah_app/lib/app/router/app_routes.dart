@@ -9,6 +9,17 @@ abstract final class AppRoutes {
   static const String prayerHistory = '/prayer/history';
   static const String quran = '/quran';
   static const String learn = '/learn';
+
+  /// Öğrenme kategorisi (TASK 056; Learn branch içinde push route).
+  /// Tam konum için [learnCategoryPath] kullanılır.
+  static const String learnCategory = '/learn/category';
+
+  static String learnCategoryPath(String slug) => '$learnCategory/$slug';
+
+  /// Öğrenme içeriği detayı: `/learn/article/:slug`.
+  static const String learnArticle = '/learn/article';
+
+  static String learnArticlePath(String slug) => '$learnArticle/$slug';
   static const String profile = '/profile';
 
   // Shell dışı katmanlar
@@ -36,9 +47,23 @@ abstract final class AppRoutes {
   /// Abonelik yönetimi (push route, Profile branch içinde).
   static const String subscriptionSettings = '/settings/subscription';
 
+  /// Uygulama dili seçimi (TASK 053; push route, Profile branch içinde).
+  static const String languageSettings = '/settings/language';
+
   /// Kişiselleştirme tercihlerini düzenleme (TASK 030; push route,
   /// Profile branch içinde — onboarding AKIŞI DEĞİLDİR).
   static const String profilePersonalization = '/profile/personalization';
+
+  /// İçerik kaynakları ve doğrulama politikası (TASK 058; Profile branch
+  /// içinde push route).
+  static const String profileSources = '/profile/sources';
+
+  /// Gizlilik ve yerel veriler + veri sıfırlama (TASK 058; Profile branch
+  /// içinde push route).
+  static const String profilePrivacy = '/profile/privacy';
+
+  /// Hakkında + lisanslar (TASK 058; Profile branch içinde push route).
+  static const String profileAbout = '/profile/about';
 
   /// Sure okuyucu tabanı (TASK 035; Quran branch içinde push route —
   /// tam konum için [quranChapterPath] kullanılır).
@@ -62,6 +87,8 @@ abstract final class AppRoutes {
   static const String prayerHistoryName = 'prayerHistory';
   static const String quranName = 'quran';
   static const String learnName = 'learn';
+  static const String learnCategoryName = 'learnCategory';
+  static const String learnArticleName = 'learnArticle';
   static const String profileName = 'profile';
   static const String onboardingName = 'onboarding';
   static const String onboardingWelcomeName = 'onboardingWelcome';
@@ -71,7 +98,11 @@ abstract final class AppRoutes {
   static const String assistantName = 'assistant';
   static const String premiumName = 'premium';
   static const String subscriptionSettingsName = 'subscriptionSettings';
+  static const String languageSettingsName = 'languageSettings';
   static const String profilePersonalizationName = 'profilePersonalization';
+  static const String profileSourcesName = 'profileSources';
+  static const String profilePrivacyName = 'profilePrivacy';
+  static const String profileAboutName = 'profileAbout';
   static const String quranChapterName = 'quranChapter';
   static const String quranBookmarksName = 'quranBookmarks';
 }

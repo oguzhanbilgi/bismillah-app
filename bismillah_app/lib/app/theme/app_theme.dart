@@ -2,6 +2,7 @@ import 'package:bismillah_app/app/theme/app_colors.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/app_typography.dart';
+import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,12 @@ abstract final class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: AppRadius.lgAll),
         margin: EdgeInsets.zero,
       ),
-      extensions: <ThemeExtension<dynamic>>[AppThemeExtension.light()],
+      extensions: <ThemeExtension<dynamic>>[
+        AppThemeExtension.light(),
+        // İslami görsel kimlik token'ları (TASK 051) — ayrı uzantı;
+        // marka temeli değişmez. Koyu karşılığı `IslamicVisualTokens.dark()`.
+        IslamicVisualTokens.light(),
+      ],
     );
   }
 }
