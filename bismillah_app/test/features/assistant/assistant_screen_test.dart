@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
@@ -61,12 +63,25 @@ class _FakeAssistantRepository implements BismillahAssistantRepository {
         relatedArticles: [_related],
       );
     }
+    if (t.contains('durumum') || t.contains('ben ')) {
+      return const AssistantResponse(
+        answerType: AssistantAnswerType.qualifiedGuidanceRequired,
+        confidence: AssistantConfidence.insufficient,
+        answer: 'Kişisel durum için yetkiliye danışın.',
+        shortSummary: 'Kişisel durum için yetkiliye danışın.',
+        safetyNotice: 'Bu genel bilgidir; kişisel duruma hüküm uygulamaz.',
+        shouldOfferOfficialGuidance: true,
+        officialGuidanceUrl: 'https://kurul.diyanet.gov.tr/tr/fetvalar',
+        relatedArticles: [_related],
+      );
+    }
     if (t.contains('blockchain')) {
       return const AssistantResponse(
         answerType: AssistantAnswerType.noVerifiedSource,
         confidence: AssistantConfidence.insufficient,
         answer: 'Doğrulanmış kaynak yok.',
         shortSummary: 'Doğrulanmış kaynak yok.',
+        relatedArticles: [_related],
       );
     }
     if (t.contains('abdest')) {
@@ -100,6 +115,7 @@ void main() {
     WidgetTester tester, {
     SupportedLocale locale = SupportedLocale.tr,
     ExternalLinkService? linkService,
+    BismillahAssistantRepository? repository,
     Size size = const Size(1080, 2400),
     double textScale = 1.0,
   }) async {
@@ -129,7 +145,7 @@ void main() {
         overrides: [
           appLocaleAtLaunchProvider.overrideWithValue(locale),
           bismillahAssistantRepositoryProvider.overrideWithValue(
-            _FakeAssistantRepository(),
+            repository ?? _FakeAssistantRepository(),
           ),
           if (linkService != null)
             externalLinkServiceProvider.overrideWithValue(linkService),
@@ -348,6 +364,167 @@ void main() {
       );
     });
   });
+
+  // -- TASK 060 cilası -------------------------------------------------------
+
+  group('Empty state hiyerarşisi', () {
+    testWidgets('başlık, uyarı ve en az 3 önerilen soru görünür', (
+      tester,
+    ) async {
+      await pump(tester);
+      expect(find.text(l10n.assistantSuggestedTitle), findsOneWidget);
+      // 5 öneri kayıtlı; ilk viewport'ta en az 3'ü görünür olmalı.
+      var visible = 0;
+      for (final q in [
+        l10n.assistantSuggested1,
+        l10n.assistantSuggested2,
+        l10n.assistantSuggested3,
+        l10n.assistantSuggested4,
+        l10n.assistantSuggested5,
+      ]) {
+        if (find.text(q).evaluate().isNotEmpty) {
+          visible++;
+        }
+      }
+      expect(visible, greaterThanOrEqualTo(3));
+    });
+  });
+
+  group('Composer', () {
+    testWidgets('input en fazla 5 satıra genişler', (tester) async {
+      await pump(tester);
+      expect(tester.widget<TextField>(find.byType(TextField)).maxLines, 5);
+    });
+  });
+
+  group('Loading', () {
+    testWidgets('gönderimde input kilitli + loading semantics', (tester) async {
+      final holding = _HoldingAssistantRepository();
+      await pump(tester, repository: holding);
+
+      await tester.enterText(find.byType(TextField), 'Teyemmüm nedir?');
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.send_rounded));
+      await tester.pump();
+
+      // Loading durumu görünür + input devre dışı.
+      expect(find.text(l10n.assistantThinking), findsOneWidget);
+      expect(tester.widget<TextField>(find.byType(TextField)).enabled, isFalse);
+      // Loading satırı ekran okuyucuya canlı bölge (liveRegion) + etiketle
+      // bildirilir.
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w is Semantics &&
+              (w.properties.liveRegion ?? false) &&
+              w.properties.label == l10n.assistantThinking,
+        ),
+        findsOneWidget,
+      );
+
+      // Cevap gelince loading yerini cevaba bırakır.
+      holding.completer.complete(
+        const AssistantResponse(
+          answerType: AssistantAnswerType.definition,
+          confidence: AssistantConfidence.exact,
+          answer: 'Teyemmüm açıklaması.',
+          shortSummary: 'Teyemmüm.',
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text(l10n.assistantThinking), findsNothing);
+    });
+  });
+
+  group('Cevap hiyerarşisi', () {
+    testWidgets('bölümler ayrı görünür + adımlar numaralı', (tester) async {
+      await pump(tester);
+      await tester.tap(find.text(l10n.assistantSuggested1)); // abdest
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.assistantSummaryTitle), findsOneWidget);
+      expect(find.text(l10n.assistantStepsTitle), findsOneWidget);
+      expect(find.text(l10n.assistantKeyPointsTitle), findsOneWidget);
+      expect(find.text(l10n.assistantPracticalTitle), findsOneWidget);
+      expect(find.text(l10n.assistantSourcesTitle), findsOneWidget);
+      expect(find.text(l10n.assistantRelatedTitle), findsOneWidget);
+      // Numaralı adımlar.
+      expect(find.text('1'), findsOneWidget);
+      expect(find.text('2'), findsOneWidget);
+    });
+
+    testWidgets('kaynak kartı: resmî etiket, locator ve son doğrulama', (
+      tester,
+    ) async {
+      await pump(tester);
+      await tester.tap(find.text(l10n.assistantSuggested1));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.textContaining(l10n.assistantOfficialSourceTag),
+        findsWidgets,
+      );
+      expect(find.textContaining('V. ABDEST, s. 105-107'), findsOneWidget);
+      expect(find.textContaining('2026-07-19'), findsOneWidget);
+    });
+  });
+
+  group('Kişisel durum görünümü', () {
+    testWidgets('qualifiedGuidance rozeti + güvenlik notu + yönlendirme', (
+      tester,
+    ) async {
+      await pump(tester);
+      await tester.enterText(find.byType(TextField), 'Benim durumum ne olur?');
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.send_rounded));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.assistantBadgeGuidance), findsOneWidget);
+      expect(find.text(l10n.assistantOfficialGuidanceCta), findsOneWidget);
+      expect(
+        find.textContaining('kişisel duruma hüküm uygulamaz'),
+        findsOneWidget,
+      );
+    });
+  });
+
+  group('Scroll davranışı', () {
+    testWidgets('yeni cevap gelince otomatik aşağı kaydırır', (tester) async {
+      // Kısa viewport: içerik taşsın.
+      await pump(tester, size: const Size(360, 560));
+      await tester.tap(find.text(l10n.assistantSuggested1));
+      await tester.pumpAndSettle();
+
+      final position = tester
+          .state<ScrollableState>(find.byType(Scrollable).first)
+          .position;
+      expect(position.pixels, greaterThan(0));
+    });
+
+    testWidgets('kullanıcı yukarı kaydırınca zorla aşağı çekilmez', (
+      tester,
+    ) async {
+      await pump(tester, size: const Size(360, 560));
+      await tester.tap(find.text(l10n.assistantSuggested1));
+      await tester.pumpAndSettle();
+
+      final state = tester.state<ScrollableState>(
+        find.byType(Scrollable).first,
+      );
+      state.position.jumpTo(0);
+      await tester.pump();
+      // Yeni mesaj yokken konum korunur.
+      expect(state.position.pixels, 0);
+    });
+  });
+}
+
+/// Cevabı elde tutan sahte depo — loading durumunu deterministik test eder.
+class _HoldingAssistantRepository implements BismillahAssistantRepository {
+  final Completer<AssistantResponse> completer = Completer();
+
+  @override
+  Future<AssistantResponse> answer(AssistantQuery query) => completer.future;
 }
 
 class _FakeLinkService implements ExternalLinkService {

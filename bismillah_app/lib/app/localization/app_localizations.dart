@@ -612,6 +612,7 @@ final class AppLocalizations {
   String get assistantKeyPointsTitle => _t('assistantKeyPointsTitle');
   String get assistantPracticalTitle => _t('assistantPracticalTitle');
   String get assistantSourcesTitle => _t('assistantSourcesTitle');
+  String get assistantOfficialSourceTag => _t('assistantOfficialSourceTag');
   String get assistantRelatedTitle => _t('assistantRelatedTitle');
   String get assistantReadInLearn => _t('assistantReadInLearn');
   String get assistantOfficialGuidanceCta => _t('assistantOfficialGuidanceCta');
@@ -1094,7 +1095,7 @@ final class AppLocalizations {
       'assistantSuggested5': "Kur'an nedir?",
       'assistantInputHint': 'Bir soru yaz…',
       'assistantSendLabel': 'Gönder',
-      'assistantThinking': 'Kaynaklar aranıyor…',
+      'assistantThinking': 'Doğrulanmış kaynaklarda aranıyor…',
       'assistantClearTitle': 'Konuşmayı temizle',
       'assistantClearConfirmTitle': 'Konuşma temizlensin mi?',
       'assistantClearConfirmBody':
@@ -1107,6 +1108,7 @@ final class AppLocalizations {
       'assistantKeyPointsTitle': 'Önemli noktalar',
       'assistantPracticalTitle': 'Uygulama',
       'assistantSourcesTitle': 'Resmî kaynaklar',
+      'assistantOfficialSourceTag': 'Resmî kaynak',
       'assistantRelatedTitle': 'İlgili Learn içeriği',
       'assistantReadInLearn': "Learn'de oku",
       'assistantOfficialGuidanceCta': 'Resmî soru sayfasını aç',
@@ -1604,7 +1606,7 @@ final class AppLocalizations {
       'assistantSuggested5': 'What is the Quran?',
       'assistantInputHint': 'Type a question…',
       'assistantSendLabel': 'Send',
-      'assistantThinking': 'Searching sources…',
+      'assistantThinking': 'Searching verified sources…',
       'assistantClearTitle': 'Clear conversation',
       'assistantClearConfirmTitle': 'Clear the conversation?',
       'assistantClearConfirmBody':
@@ -1618,6 +1620,7 @@ final class AppLocalizations {
       'assistantKeyPointsTitle': 'Key points',
       'assistantPracticalTitle': 'In practice',
       'assistantSourcesTitle': 'Official sources',
+      'assistantOfficialSourceTag': 'Official source',
       'assistantRelatedTitle': 'Related Learn content',
       'assistantReadInLearn': 'Read in Learn',
       'assistantOfficialGuidanceCta': 'Open the official question page',
@@ -2086,7 +2089,7 @@ final class AppLocalizations {
       'assistantSuggested5': 'ما هو القرآن؟',
       'assistantInputHint': 'اكتب سؤالاً…',
       'assistantSendLabel': 'إرسال',
-      'assistantThinking': 'جارٍ البحث في المصادر…',
+      'assistantThinking': 'جارٍ البحث في المصادر المُتحقَّقة…',
       'assistantClearTitle': 'مسح المحادثة',
       'assistantClearConfirmTitle': 'مسح المحادثة؟',
       'assistantClearConfirmBody':
@@ -2099,6 +2102,7 @@ final class AppLocalizations {
       'assistantKeyPointsTitle': 'نقاط أساسية',
       'assistantPracticalTitle': 'التطبيق',
       'assistantSourcesTitle': 'المصادر الرسمية',
+      'assistantOfficialSourceTag': 'مصدر رسمي',
       'assistantRelatedTitle': 'محتوى التعلّم ذو الصلة',
       'assistantReadInLearn': 'اقرأ في التعلّم',
       'assistantOfficialGuidanceCta': 'افتح صفحة السؤال الرسمية',
