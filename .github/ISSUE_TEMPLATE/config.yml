@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (do not open a public issue)
+    url: https://github.com/oguzhanbilgi/bismillah-app/blob/main/SECURITY.md
+    about: Report security issues privately. See SECURITY.md for the process.
+  - name: Personal religious ruling (fatwa)
+    url: https://github.com/oguzhanbilgi/bismillah-app/blob/main/CONTENT_POLICY.md
+    about: >
+      Please do not open issues asking for a personal religious ruling. Bismillah is not
+      a source of rulings; consult qualified local scholars for personal questions.

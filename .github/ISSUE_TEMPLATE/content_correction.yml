@@ -1,0 +1,49 @@
+name: Content correction
+description: Report an error in existing sourced religious content
+labels: ["content-correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this to report a mistake in **existing** content (Learn article, translation,
+        source reference). This is **not** a place to request a personal religious ruling
+        (fatwa) — please consult qualified local scholars for personal questions.
+  - type: input
+    id: article
+    attributes:
+      label: Article / source
+      description: Which article, screen, or source reference is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: sentence
+    attributes:
+      label: Exact sentence / section
+      description: Quote the specific sentence or section that appears to be incorrect (keep it short).
+    validations:
+      required: true
+  - type: textarea
+    id: authoritative-source
+    attributes:
+      label: Authoritative source
+      description: Which authoritative source supports the correction?
+    validations:
+      required: true
+  - type: input
+    id: locator
+    attributes:
+      label: Exact work / page / locator
+      description: Exact locator in that source (work, section, page) — not a generic homepage.
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is a correction to existing content, not a request for a personal fatwa.
+          required: true
+        - label: I have not pasted long-form copyrighted text; I referenced the source instead.
+          required: true
+        - label: This report contains no private personal information.
+          required: true
