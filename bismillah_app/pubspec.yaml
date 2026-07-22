@@ -31,7 +31,7 @@ dependencies:
 # 6.3.4, firebase_core 4.11/4.12.0 ile derlenmiyor (FirebasePlugin yok);
   # 4.12.1 de kendi platform-interface çakışması yüzünden çözülemiyor.
   # Ekosistem düzelene kadar 6.3.3'e sabitlendi (CHECKPOINT 06).
-  cloud_functions: 6.3.3
+  cloud_functions: 6.3.4
   just_audio: ^0.10.6
   audio_session: ^0.2.4
   http: ^1.6.0
