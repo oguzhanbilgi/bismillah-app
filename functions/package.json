@@ -3,7 +3,7 @@
   "description": "Bismillah Cloud Functions (TASK 039: Diyanet Kuran meal proxy)",
   "private": true,
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "main": "lib/index.js",
   "scripts": {
