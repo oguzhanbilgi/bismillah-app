@@ -43,7 +43,7 @@ dependencies:
   # Uygulama sürüm/build bilgisini göstermek için (TASK 058 §8). Sürüm
   # `pubspec.lock`'ta zaten çözümlenmiş transitive değere sabitlenmiştir;
   # kontrolsüz "latest" alınmaz.
-  package_info_plus: ^10.2.0
+  package_info_plus: ^10.2.1
 
 dev_dependencies:
   flutter_test:
