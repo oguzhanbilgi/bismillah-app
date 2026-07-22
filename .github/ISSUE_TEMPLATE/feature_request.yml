@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest an improvement or new capability
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Bismillah adds features that solve a real problem and
+        fit its calm, source-grounded, privacy-first vision — not because competitors have
+        them. This is **not** the place to request a personal religious ruling (fatwa).
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What problem does this solve for the user?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: impact
+    attributes:
+      label: Privacy / religious-content impact
+      description: >
+        Does this involve religious content (needs sourcing?) or user data
+        (privacy impact?)? Describe any considerations.
+    validations:
+      required: false
