@@ -1,0 +1,107 @@
+{
+  "schema_note": "Sanitized canonical project state. No secrets or machine paths. Current main must always be read from Git; stored commit fields represent the last verified baseline at the time of documentation.",
+  "project": {
+    "name": "Bismillah",
+    "repository": "https://github.com/oguzhanbilgi/bismillah-app",
+    "status": "public-alpha",
+    "platform_priority": ["android", "ios"],
+    "primary_language": "turkish"
+  },
+  "baseline": {
+    "last_verified_main_before_task": "c847c4b",
+    "public_tag": "v0.1.0-alpha.1",
+    "flutter_version": "3.44.6",
+    "dart_version": "3.12.2",
+    "flutter_tests": 586,
+    "storage_tests": 11,
+    "functions_tests": 23,
+    "flutter_analyze": "clean",
+    "functions_runtime": "nodejs22"
+  },
+  "current_task": {
+    "id": "TASK-068A",
+    "name": "Permanent Claude project memory",
+    "status": "in-progress",
+    "next_functional_task": "TASK-069"
+  },
+  "feature_status": {
+    "navigation": "five fixed tabs (Today, Prayer, Quran, Learn, Profile); Assistant is FAB/root route, not a sixth tab",
+    "today": "partial (summary hub + one deterministic suggestion; no plan engine)",
+    "prayer": "implemented (offline times, mark/undo, 7-day history, local exact-alarm reminders)",
+    "quran": "implemented (reader, translation, offline search, bookmarks, progress, reciter, MP3Quran audio, Android background/lock-screen)",
+    "learn": "engine implemented; coverage partial (30 published / 2 pending; 9 of 20 categories populated)",
+    "profile": "implemented (personalization, language, sources, privacy/reset, About)",
+    "assistant": "implemented (deterministic local published-only retrieval, citations, fatwa refusal, history<=20, sensitive not persisted)",
+    "monetization": "dormant scaffolding only (no payment SDK)",
+    "cloud_sync": "not active (queue accumulates, no engine)",
+    "ios": "unvalidated on hardware"
+  },
+  "persistence": {
+    "drift_tables": ["PrayerLogDays", "PrayerEntries", "SyncOperations"],
+    "drift_schema_version": 1,
+    "shared_preferences": ["onboarding", "quran-progress", "quran-bookmarks", "quran-preferences", "learn-progress", "assistant-history", "locale", "reminders", "session"],
+    "encryption": "none"
+  },
+  "completed_tasks": [
+    "TASK-001-060 (grouped: foundation, nav, l10n, onboarding, prayer, quran, learn gate, profile, assistant)",
+    "TASK-061A-2", "TASK-061A-3", "TASK-061B", "TASK-062A", "TASK-062B",
+    "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068"
+  ],
+  "blocked_tasks": [
+    {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
+  ],
+  "roadmap": {
+    "checkpoint": "CP09 technical stabilization",
+    "ranges": {
+      "001-060": "foundation",
+      "061-067": "public alpha and stabilization",
+      "068-075": "CP09 technical stabilization",
+      "076-085": "CP10 Today and 30-day plan",
+      "086-094": "CP11 Learn and Assistant depth",
+      "095-101": "CP12 prayer quality and beta",
+      "102-115": "CP13 premium and Google Play",
+      "116-122": "CP14 revenue validation",
+      "123-130": "CP15 iOS",
+      "131-140": "CP16 sync, Ramadan, family, V1.1"
+    }
+  },
+  "monetization": {
+    "monthly_ad_budget_try": "3000-4000",
+    "target_net_monthly_try": "5000-10000",
+    "target_is_guarantee": false,
+    "tiers": ["free", "Bismillah+", "Destekçi"],
+    "payment_sdk": "planned (RevenueCat, TASK-103)",
+    "milestones": {
+      "first_possible_revenue": "TASK-115",
+      "first_30_day_review": "TASK-121",
+      "commercial_validation": "TASK-122",
+      "ios_launch": "TASK-130",
+      "v1_1_checkpoint": "TASK-140"
+    }
+  },
+  "guardrails": [
+    "five fixed tabs; Assistant never a sixth tab",
+    "no unsourced verse/hadith/ruling/fatwa",
+    "Learn published requires sourceBodyVerified + locator + evidence; published-only client",
+    "Assistant published-only retrieval; no personal fatwa; sensitive queries not persisted",
+    "no external generative AI without a separate approved safety task",
+    "Quran bundled unmodified Tanzil + QuranEnc; local bookmarks/progress; Android background audio; no verse-level analytics",
+    "prayer times device-computed; no guilt messaging",
+    "local/offline-first; no secrets in repo; no silent cloud sync; no destructive migration without tests+rollback",
+    "core worship free; no ads in sacred content; no guilt/fear/superiority paywalls; paying users get no more authoritative religious answers",
+    "TR/EN/AR + RTL; Turkish canonical not weaker than translations",
+    "do not touch AGENTS.md; one narrow branch per task; no build output committed"
+  ],
+  "known_blockers": [
+    "TASK-066 drift toolchain (analyzer 13 vs Flutter 3.44.6)",
+    "PR #4 Drift 2.34.2 deferred",
+    "PR #6 fast-xml-parser open (TASK-069)",
+    "actions/checkout v7 major deferred",
+    "flutter_local_notifications 22.1.0 needs Samsung A36 device validation",
+    "empty onUpgrade migration placeholder; no migration tests; no encryption",
+    "Firebase Console hardening unverified",
+    "iOS physical-device validation pending",
+    "Today plan engine not built",
+    "Learn coverage 9 of 20 categories"
+  ]
+}

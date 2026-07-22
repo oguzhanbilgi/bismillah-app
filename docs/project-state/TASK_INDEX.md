@@ -1,0 +1,50 @@
+# Task Index
+
+Status values: COMPLETED · IN PROGRESS · PLANNED · BLOCKED · DEFERRED · SUPERSEDED.
+The live Git history is authoritative; this index is a human-readable summary.
+
+## Historical (TASK 001–060)
+
+| Task | Status | Checkpoint | Summary | Evidence | Next action |
+|---|---|---|---|---|---|
+| TASK 001–060 | COMPLETED (grouped) | Foundation | Flutter foundation, 5-tab nav, TR/EN/AR+RTL, onboarding, Prayer, Quran, Learn gate, Profile, local Assistant | Git history (grouped; exact per-task titles not reconstructable) | — |
+
+## Public alpha and stabilization (061–068A)
+
+| Task | Status | Checkpoint | Summary | Evidence | Next action |
+|---|---|---|---|---|---|
+| TASK 061A-2 | COMPLETED | Public alpha | License, attribution, content policy | main history | — |
+| TASK 061A-3 | COMPLETED | Public alpha | Public docs and CI | main history | — |
+| TASK 061B | COMPLETED | Public alpha | Public alpha merge + `v0.1.0-alpha.1` | tag `v0.1.0-alpha.1` | — |
+| TASK 062A | COMPLETED | Stabilization | Dependency triage (PRs #1–#6) | audit report | — |
+| TASK 062B | COMPLETED | Stabilization | Master project audit | MASTER_PROJECT_REPORT | — |
+| TASK 063 | COMPLETED | CP09 | package_info_plus 10.2.1 | PR #5 | — |
+| TASK 064 | COMPLETED | CP09 | Drift schema + persistence baseline (11 tests) | PR #7 | — |
+| TASK 065 | COMPLETED | CP09 | Merge Drift baseline | PR #7 merge | — |
+| TASK 066 | BLOCKED | CP09 | Drift official CLI toolchain incompatibility | analyzer 13 vs Flutter 3.44.6 | revisit after SDK upgrade |
+| TASK 067 | COMPLETED | CP09 | flutter-action v2.23.0 (+ closed PR #2) | PR #8 | — |
+| TASK 068 | COMPLETED | CP09 | Node.js 22 Functions runtime and Functions CI | PR #9, merge `c847c4b` | — |
+| TASK 068A | IN PROGRESS | CP09 | Permanent Claude project memory | this branch | merge, then TASK 069 |
+| TASK 069 | PLANNED | CP09 | fast-xml-parser PR #6 validation on Node 22 | PR #6 (OPEN) | run TASK 069 |
+
+## Selected forward milestones
+
+| Task | Status | Checkpoint | Summary |
+|---|---|---|---|
+| TASK 075 | PLANNED | CP09 | CP09 full regression checkpoint |
+| TASK 085 | PLANNED | CP10 | 30-day plan and CP10 checkpoint |
+| TASK 094 | PLANNED | CP11 | Learn/Assistant depth checkpoint |
+| TASK 101 | PLANNED | CP12 | Closed alpha/beta package |
+| TASK 115 | PLANNED | CP13 | Google Play soft launch — **first possible revenue** |
+| TASK 121 | PLANNED | CP14 | First 30-day revenue review |
+| TASK 122 | PLANNED | CP14 | **Commercial validation** and 5,000–10,000 TL target evaluation |
+| TASK 130 | PLANNED | CP15 | App Store public launch (Android + iOS complete) |
+| TASK 140 | PLANNED | CP16 | Khatm planner and V1.1 checkpoint |
+
+## Open dependency PRs
+
+| PR | Item | Status | Note |
+|---|---|---|---|
+| PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker |
+| PR #6 | fast-xml-parser 5.10.1 | OPEN | TASK 069 target |
+| PR #2 | flutter-action 2.23.0 | SUPERSEDED | closed; replaced by PR #8 (TASK 067) |
