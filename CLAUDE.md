@@ -1,248 +1,63 @@
-# Bismillah Engineering Constitution
-
-Version: 1.0
-
-## Project Identity
-
-- **Project Name:** Bismillah
-- **Product Type:** Premium Islamic Lifestyle Companion
-
-**Mission:** Help Muslims build consistent Islamic habits through beautiful design, intelligent personalization, authentic Islamic knowledge, and modern technology.
-
-**Vision:** Build the highest quality Islamic mobile application in the world. The application should feel premium, peaceful, personal, and trustworthy.
-
-We are NOT building another prayer time application. We are building an Islamic companion people want to open every single day.
-
-## Core Principles
-
-Every decision should improve one of these:
-
-- Increase consistency in worship
-- Help users grow spiritually
-- Reduce friction
-- Create peace
-- Build trust
-- Respect Islamic values
-- Delight the user
-
-Never add features just because competitors have them. Every feature must solve a real problem.
-
-## Product Philosophy
-
-Bismillah should feel like:
-
-- Apple Health
-- Headspace
-- Duolingo
-- Notion
-- Calm
-
-...for Islamic life.
-
-The experience should be calm. Minimal. Elegant. Warm. Personal. Never overwhelming.
-
-## User Experience Principles
-
-Every screen should answer: **What should I do now?**
-
-- The user should never feel lost.
-- The interface should guide naturally.
-- Navigation must require as few taps as possible.
-- Large touch targets.
-- Beautiful typography.
-- Readable spacing.
-- Modern cards.
-- Soft animations.
-- Premium transitions.
-
-## Design Language
-
-Visual Style: Modern, Elegant, Peaceful, Premium, Minimal
-
-| Role | Color |
-|------|-------|
-| Primary | Deep Emerald Green |
-| Secondary | Forest Green |
-| Background | Warm White |
-| Accent | Soft Gold (very limited use) |
-| Success | Green |
-| Error | Soft Red |
-
-- **Cards:** Rounded corners, soft shadows, large spacing
-- **Icons:** Simple outline icons
-
-No clutter. No visual noise.
-
-## Animation Principles
-
-- Animations should be subtle. Never distracting.
-- Use smooth transitions.
-- Prioritize delight over decoration.
-- The application should feel alive.
-
-## Tone of Voice
-
-**Always:** Warm, Respectful, Encouraging, Hopeful
-
-**Never:** Judgmental, Aggressive, Fear-based, Guilt-driven
-
-The app should motivate users gently.
-
-## Islamic Principles
-
-- Authenticity is more important than speed.
-- Never invent Islamic rulings.
-- Never generate fatwas.
-- When scholarly opinions differ: explain that multiple opinions exist, and encourage users to consult trusted local scholars for personal rulings.
-- Always distinguish between: Quran, Hadith, Scholarly opinion, and AI explanation.
-- The application must never present AI-generated text as revelation.
-
-## AI Principles
-
-The AI is an assistant. Not a Mufti. Not an Imam. Not a replacement for scholars.
-
-Its goals: Teach, Encourage, Explain, Simplify, Motivate, Organize, Personalize.
-
-The AI should:
-
-- Suggest habits.
-- Recommend Quran reading.
-- Recommend duas.
-- Track progress.
-- Answer beginner questions responsibly.
-- Create personalized plans.
-- Never shame users. Always encourage.
-
-## Personalization
-
-Every user is different. The application should learn:
-
-- Prayer habits
-- Reading habits
-- Dhikr habits
-- Learning interests
-- Goals
-- Available time
-- Preferred language
-- Experience level
-
-The application should become smarter over time.
-
-## Gamification
-
-Motivation. Not addiction. Reward effort. Reward consistency. Never manipulate users.
-
-Use: XP, Levels, Achievements, Streaks, Monthly goals, Seasonal events, Ramadan challenges.
-
-## Accessibility
-
-- Large fonts.
-- High contrast.
-- Screen reader support.
-- Simple navigation.
-- One-handed usage whenever possible.
-
-## Performance
-
-- Cold launch under 2 seconds.
-- Smooth scrolling.
-- Fast animations.
-- Offline-first whenever possible.
-- Battery efficient.
-
-## Technical Stack
-
-| Concern | Choice |
-|---------|--------|
-| Frontend | Flutter |
-| State Management | Riverpod |
-| Routing | GoRouter |
-| Backend | Firebase |
-| Authentication | Firebase Auth |
-| Database | Cloud Firestore |
-| Storage | Firebase Storage |
-| Analytics | Firebase Analytics |
-| Crash Reporting | Crashlytics |
-| Notifications | Firebase Cloud Messaging |
-| Local Database | Isar |
-| Payments | RevenueCat |
-| AI | Provider abstraction (initial implementation may use OpenAI or Anthropic, but the architecture must allow switching providers without major code changes) |
-
-Architecture:
-
-- Clean Architecture
-- Feature-first folder structure
-- Repository Pattern
-- Dependency Injection
-- Strong typing
-- Reusable components
-
-## Code Standards
-
-- Readable code over clever code.
-- Small widgets. Small classes.
-- Document public APIs.
-- Avoid duplication.
-- Prefer composition.
-- Follow SOLID principles.
-- Write scalable code.
-- Never sacrifice maintainability for speed.
-
-## Security
-
-- Never expose API keys.
-- Validate all user input.
-- Respect user privacy.
-- Store sensitive data securely.
-- Follow least privilege principles.
-
-## Privacy
-
-- Collect only necessary data.
-- Explain why permissions are requested.
-- Users own their data.
-- Provide account deletion support.
-- Be transparent.
-
-## Quality Standards
-
-Every feature should feel production-ready.
-
-- No placeholder UI in production.
-- No inconsistent spacing.
-- No broken animations.
-- No unnecessary dialogs.
-- No visual clutter.
-
-Premium quality is mandatory.
-
-## Definition of Done
-
-A task is complete only if:
-
-- UX is polished
-- UI is beautiful
-- Code is clean
-- Accessibility is considered
-- Performance is acceptable
-- Edge cases are handled
-- Documentation is updated
-- The feature matches the project vision
-
-## Long-Term Vision
-
-Bismillah should become the daily companion for Muslims worldwide. Not simply an application. A trusted companion that helps users grow closer to Allah through consistency, knowledge, and sincere encouragement.
-
-Every design decision, every line of code, and every feature should contribute to that mission.
-
-# Language Rule
-
-The primary working language for this project is Turkish.
-
-All assistant responses, task summaries, explanations, planning notes, and non-code documentation should be written in Turkish unless explicitly requested otherwise.
-
-Code, file names, class names, variables, technical identifiers, package names, and standard developer terminology may remain in English.
-
-Product documentation may use English section titles only when it improves technical clarity, but the main explanation should be Turkish.
-
-When communicating with the project owner, always write in Turkish.
+# Bismillah — Claude Project Instructions
+
+You are working on **Bismillah**, a privacy-first, offline-first Islamic daily
+companion built with Flutter (Android-primary, iOS planned). This file is the
+entry point to the project's permanent memory. Read the imported files before
+planning, editing, testing, committing, or reviewing any task.
+
+## Read before every task
+
+@docs/project-state/CURRENT_BASELINE.md
+@docs/project-state/MASTER_EXECUTION_ROADMAP.md
+@docs/project-state/TASK_INDEX.md
+@docs/project-state/DO_NOT_BREAK.md
+@docs/process/TASK_EXECUTION_PROTOCOL.md
+@docs/process/PROJECT_MEMORY_UPDATE_PROTOCOL.md
+@docs/business/MONETIZATION_DECISIONS.md
+
+Deeper references (read when relevant):
+`docs/project-state/MASTER_PROJECT_REPORT.md`,
+`docs/process/CHECKPOINT_PROTOCOL.md`,
+`docs/setup/NEW_COMPUTER_SETUP.md`,
+`docs/task-reports/CHECKPOINT_HISTORY.md`,
+and the product vision in `Bismillah Engineering Constitution.md`.
+
+## What you must always know
+
+- The **live Git HEAD / `origin/main` are authoritative** for the current commit;
+  stored commit fields record the last verified baseline at documentation time.
+- Latest completed functional task: **TASK 068** (Node.js 22 Functions runtime + Functions CI).
+- Current documentation task: **TASK 068A** (this project-memory work).
+- Next functional task: **TASK 069** (validate + merge fast-xml-parser PR #6 on Node 22).
+- Functions runtime baseline: **Node.js 22**.
+- First possible real revenue: **TASK 115**. Commercial validation: **TASK 122**.
+- Five fixed tabs: **Today, Prayer, Quran, Learn, Profile**. The **Assistant is a
+  FAB / root route, never a sixth tab**.
+
+## Mandatory operating rules
+
+- Repository code and current Git history override stale documentation.
+- Never invent completed tasks, test results, sources, religious claims, or device validation.
+- Follow the numbered execution roadmap; do not skip ahead without explicit user approval.
+- Use one narrow branch per task; verify the exact starting branch and commit before editing.
+- Do not read, modify, delete, stage, commit, or gitignore the untracked `AGENTS.md`.
+- Do not commit secrets, credentials, build outputs, `node_modules`, local absolute
+  paths, or raw chat transcripts.
+- Do not merge when required tests, CI, device validation, or security checks fail.
+- After each merged task, update `CURRENT_BASELINE.md`, `TASK_INDEX.md`, and the
+  relevant checkpoint report (see the memory-update protocol).
+- Keep reports short, except for auth, sync, migrations, payments, store billing,
+  Firestore Security Rules, App Check, secrets, or data-loss risks.
+- Preserve every rule in `DO_NOT_BREAK.md` and every guardrail in `MONETIZATION_DECISIONS.md`.
+
+## Language rule
+
+The primary working language for this project is **Turkish**. Write assistant
+responses, task summaries, explanations, planning notes, and non-code documentation
+in Turkish unless explicitly asked otherwise. Code, identifiers, package names, and
+standard developer terminology stay in English. Permanent public/technical documents
+in `docs/project-state`, `docs/process`, `docs/business`, and `docs/setup` are written
+in English for portability; owner-facing communication remains Turkish.
+
+The full product vision, design language, and engineering principles live in
+`Bismillah Engineering Constitution.md` and `Bismillah Product Requirements Document.md`.

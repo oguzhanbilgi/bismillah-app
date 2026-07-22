@@ -1,0 +1,92 @@
+# New Computer Setup
+
+How to continue Bismillah development on a fresh machine. Use a generic
+`<repo-path>` placeholder for any local path; never commit machine-specific paths.
+
+## Clone
+
+```powershell
+git clone https://github.com/oguzhanbilgi/bismillah-app.git
+cd bismillah-app
+git checkout main
+git pull --ff-only origin main
+```
+
+## Verify
+
+```powershell
+git status
+git rev-parse HEAD
+git log -5 --oneline
+```
+
+The live Git HEAD is authoritative for the current commit.
+
+## Flutter setup
+
+- Required Flutter version: **3.44.6** (Dart **3.12.2**), stable channel.
+
+```powershell
+flutter doctor
+cd bismillah_app
+flutter pub get
+flutter analyze          # expect: No issues found
+flutter test test/core/storage   # focused storage suite
+flutter test             # full suite (expect 586/586 at this baseline)
+```
+
+## Functions setup
+
+- Required Node.js version: **22.x** (current merged baseline since TASK 068).
+
+```powershell
+cd functions
+node --version           # expect v22.x
+npm ci
+npm run lint
+npm run build
+npm test                 # Vitest (expect 23/23 at this baseline)
+```
+
+If no Node version manager is installed, use `fnm`, `nvm-windows`, `volta`, or an
+official `node:22` Docker image. Do not validate Functions on Node 20 or Node 25 and
+claim Node 22 was verified.
+
+## Claude Code
+
+From the repository root:
+
+```powershell
+claude
+```
+
+Then load and inspect the project memory:
+
+```text
+/memory
+```
+
+Suggested first prompt (read-only):
+
+```text
+Read the loaded project memory, report the current main commit,
+current task, next task, test baselines, major guardrails and blockers.
+Do not edit files.
+```
+
+## Secrets (never in Git — transfer securely)
+
+These do not come from GitHub and must be restored from a password manager or an
+encrypted secure backup:
+
+- Android release keystore
+- Keystore passwords
+- Apple certificates
+- App Store Connect keys
+- RevenueCat secret keys
+- Firebase admin / service-account credentials
+- DIB token (Diyanet API token — lives only in Firebase Secret Manager)
+- Google Play service-account file
+
+Firebase **client** config (`google-services.json`, `firebase_options.dart`) is a
+public client identifier and is already in the repo — it is not a secret.
