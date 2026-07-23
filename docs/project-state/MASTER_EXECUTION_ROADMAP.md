@@ -48,15 +48,16 @@ TASK 065    — Merge Drift baseline — COMPLETED
 TASK 066    — Drift official tooling alignment — BLOCKED
 TASK 067    — flutter-action v2.23.0 — COMPLETED
 TASK 068    — Node.js 22 Functions runtime and Functions CI — COMPLETED
-TASK 068A   — Permanent Claude project memory — IN PROGRESS
+TASK 068A   — Permanent Claude project memory — COMPLETED
+TASK 069    — fast-xml-parser 5.10.1 validation under Node.js 22 — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
 
 ```text
 TASK 068  — COMPLETED   — Node.js 22 runtime and Functions CI
-TASK 068A — IN PROGRESS — Permanent Claude project memory
-TASK 069  — PLANNED     — Validate and merge fast-xml-parser PR #6 under Node.js 22
+TASK 068A — COMPLETED   — Permanent Claude project memory
+TASK 069  — COMPLETED   — Validate and merge fast-xml-parser 5.10.1 under Node.js 22
 TASK 070  — PLANNED     — Validate flutter_local_notifications 22.1.0 automatically
 TASK 071  — PLANNED     — Samsung A36 Android 16 notification validation
 TASK 072  — PLANNED     — Audit and control sync queue growth / data risk

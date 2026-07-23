@@ -6,18 +6,19 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> documentation task (TASK 068A). After TASK 068A merges, read the real current
-> commit from Git — do not treat the stored value as the live HEAD.
+> task (TASK 069). After TASK 069 merges, read the real current commit from
+> Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified product-code main before TASK 068A: `c847c4b`
+- Last verified main before TASK 069: `c167454`
 - Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
-- Latest completed functional task: **TASK 068**
-- Current documentation task: **TASK 068A**
-- Next functional task: **TASK 069** — Validate and merge fast-xml-parser PR #6
-  under Node.js 22 and Functions CI
+- Latest completed documentation task: **TASK 068A** (permanent Claude project memory)
+- Latest completed functional task: **TASK 069** — fast-xml-parser 5.10.1
+  validated under Node.js 22 (merged; supersedes Dependabot PR #6)
+- Next planned functional task: **TASK 070** — automated validation of
+  flutter_local_notifications 22.1.0
 
 ## Tests (verified)
 
@@ -52,11 +53,14 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - TASK 066 — Drift official CLI toolchain alignment — **BLOCKED**
 - TASK 067 — flutter-action v2.23.0
 - TASK 068 — Node.js 22 Functions runtime and Functions CI (PR #9, merge `c847c4b`)
+- TASK 068A — Permanent Claude project memory (PR #10, merge `c167454`)
+- TASK 069 — fast-xml-parser 5.10.1 validated on Node.js 22 (Functions 23/23)
 
 ## Open / known dependency status
 
 - PR #4 — Drift 2.34.2 — **DEFERRED** (blocked by TASK 066 toolchain incompatibility)
-- PR #6 — fast-xml-parser 5.10.1 — **OPEN** (next task, TASK 069)
+- PR #6 — fast-xml-parser 5.10.1 — **SUPERSEDED** by TASK 069 (applied on the
+  current Node.js 22 baseline; `fast-xml-parser 5.10.1`, `@nodable/entities 3.0.0`)
 - actions/checkout v7 major — **DEFERRED**
 - notification dependency update (flutter_local_notifications 22.1.0) —
   requires **Samsung A36 device validation** before merge
