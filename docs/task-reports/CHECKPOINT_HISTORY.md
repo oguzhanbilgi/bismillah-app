@@ -48,11 +48,16 @@ individually reconstructable from Git history and are not invented here.
 ## Current — CP09 (technical stabilization)
 
 - **Scope:** Node.js 22 Functions runtime + Functions CI (TASK 068); permanent
-  Claude project memory (TASK 068A).
+  Claude project memory (TASK 068A); fast-xml-parser 5.10.1 validation (TASK 069).
 - **Verified result:** Functions on Node 22; Functions CI (npm ci / lint / build /
   vitest) green; **23/23** Functions tests; **586/586** Flutter tests.
+- **TASK 069:** transitive `fast-xml-parser 5.10.0 → 5.10.1` (with
+  `@nodable/entities 2.2.0 → 3.0.0`) applied on the current Node.js 22 baseline;
+  optional dependency via `@google-cloud/storage` (not imported by Functions
+  source); npm ci and engine-strict npm ci passed; lint/build/tests **23/23**;
+  Dependabot PR #6 superseded.
 - **Device validation:** Android (Quran) done; iOS PENDING; notification update
   device validation PENDING.
-- **Remaining gaps (CP09):** fast-xml-parser PR #6 (TASK 069), notifications
-  validation (TASK 070/071), sync-queue audit (TASK 072), security-console checklist
-  (TASK 074), CP09 regression checkpoint (TASK 075).
+- **Remaining gaps (CP09):** notifications validation (TASK 070/071), sync-queue
+  audit (TASK 072), security-console checklist (TASK 074), CP09 regression
+  checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.

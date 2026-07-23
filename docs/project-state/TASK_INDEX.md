@@ -24,8 +24,9 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 066 | BLOCKED | CP09 | Drift official CLI toolchain incompatibility | analyzer 13 vs Flutter 3.44.6 | revisit after SDK upgrade |
 | TASK 067 | COMPLETED | CP09 | flutter-action v2.23.0 (+ closed PR #2) | PR #8 | — |
 | TASK 068 | COMPLETED | CP09 | Node.js 22 Functions runtime and Functions CI | PR #9, merge `c847c4b` | — |
-| TASK 068A | IN PROGRESS | CP09 | Permanent Claude project memory | this branch | merge, then TASK 069 |
-| TASK 069 | PLANNED | CP09 | fast-xml-parser PR #6 validation on Node 22 | PR #6 (OPEN) | run TASK 069 |
+| TASK 068A | COMPLETED | CP09 | Permanent Claude project memory | PR #10, merge `c167454` | — |
+| TASK 069 | COMPLETED | CP09 | fast-xml-parser 5.10.1 validation on Node 22 (23/23) | supersedes PR #6 | — |
+| TASK 070 | PLANNED | CP09 | flutter_local_notifications 22.1.0 automated validation | PR pending | run TASK 070 |
 
 ## Selected forward milestones
 
@@ -46,5 +47,5 @@ The live Git history is authoritative; this index is a human-readable summary.
 | PR | Item | Status | Note |
 |---|---|---|---|
 | PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker |
-| PR #6 | fast-xml-parser 5.10.1 | OPEN | TASK 069 target |
+| PR #6 | fast-xml-parser 5.10.1 | SUPERSEDED | applied by TASK 069 on Node 22 baseline |
 | PR #2 | flutter-action 2.23.0 | SUPERSEDED | closed; replaced by PR #8 (TASK 067) |
