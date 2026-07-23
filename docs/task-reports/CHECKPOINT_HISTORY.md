@@ -56,8 +56,21 @@ individually reconstructable from Git history and are not invented here.
   optional dependency via `@google-cloud/storage` (not imported by Functions
   source); npm ci and engine-strict npm ci passed; lint/build/tests **23/23**;
   Dependabot PR #6 superseded.
-- **Device validation:** Android (Quran) done; iOS PENDING; notification update
-  device validation PENDING.
-- **Remaining gaps (CP09):** notifications validation (TASK 070/071), sync-queue
-  audit (TASK 072), security-console checklist (TASK 074), CP09 regression
-  checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.
+- **TASK 070 / 070A / 070B (notifications):** the planned 22.1.0 update (TASK 070)
+  surfaced a pre-existing Android manifest gap — the app never declared
+  `flutter_local_notifications`'s `ScheduledNotificationReceiver` /
+  `ScheduledNotificationBootReceiver`, so scheduled reminders could not fire.
+  TASK 070A added those receivers + `RECEIVE_BOOT_COMPLETED` and manifest-contract
+  regression tests (Flutter tests **586 → 589**), with **no** dependency change
+  (stayed 22.0.1). TASK 070B validated the fix on a real **Samsung Galaxy A36 /
+  Android 16** device (source `074ec01`): update-install with data preservation,
+  notification + exact-alarm permission flows, live removed-from-recents delivery,
+  replace/cancel, and **reboot restore without opening the app** all PASS; **reboot
+  notification delivery was DEFERRED / not observed** (owner-approved risk, to be
+  re-verified in TASK 071). Merged via PR #13.
+- **Device validation:** Android (Quran) done; Android notification manifest fix
+  validated on A36 (reboot delivery deferred); iOS PENDING.
+- **Remaining gaps (CP09):** reapply 22.1.0 on the fix (TASK 070C), final A36
+  end-to-end incl. reboot delivery (TASK 071), sync-queue audit (TASK 072),
+  security-console checklist (TASK 074), CP09 regression checkpoint (TASK 075).
+  PR #4 (Drift 2.34.2) and PR #3 (notifications 22.1.0) remain DEFERRED.

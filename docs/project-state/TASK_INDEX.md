@@ -26,7 +26,10 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 068 | COMPLETED | CP09 | Node.js 22 Functions runtime and Functions CI | PR #9, merge `c847c4b` | — |
 | TASK 068A | COMPLETED | CP09 | Permanent Claude project memory | PR #10, merge `c167454` | — |
 | TASK 069 | COMPLETED | CP09 | fast-xml-parser 5.10.1 validation on Node 22 (23/23) | supersedes PR #6 | — |
-| TASK 070 | PLANNED | CP09 | flutter_local_notifications 22.1.0 automated validation | PR pending | run TASK 070 |
+| TASK 070 | SUPERSEDED | CP09 | 22.1.0 update — blocked by pre-existing manifest gap; work moved to 070A | local `a05f439` (unpushed) | reapply in TASK 070C |
+| TASK 070A | COMPLETED | CP09 | Declare scheduled-notification receivers + manifest regression tests (589 tests) | PR #13 | — |
+| TASK 070B | COMPLETED | CP09 | Samsung A36 / Android 16 device validation of manifest fix; reboot delivery deferred | PR #13, device report | re-verify in TASK 071 |
+| TASK 070C | PLANNED | CP09 | Reapply flutter_local_notifications 22.1.0 on validated manifest fix | PR #3 / local `a05f439` | run TASK 070C |
 
 ## Selected forward milestones
 
@@ -47,5 +50,6 @@ The live Git history is authoritative; this index is a human-readable summary.
 | PR | Item | Status | Note |
 |---|---|---|---|
 | PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker |
+| PR #3 | flutter_local_notifications 22.1.0 | DEFERRED | validated locally (a05f439); reapply in TASK 070C after manifest fix |
 | PR #6 | fast-xml-parser 5.10.1 | SUPERSEDED | applied by TASK 069 on Node 22 baseline |
 | PR #2 | flutter-action 2.23.0 | SUPERSEDED | closed; replaced by PR #8 (TASK 067) |
