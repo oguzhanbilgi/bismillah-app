@@ -221,6 +221,16 @@ final class AppLocalizations {
   String get reminderPermissionNeeded => _t('reminderPermissionNeeded');
   String get reminderLocationNeeded => _t('reminderLocationNeeded');
 
+  // Kesin (exact) alarm özel-erişimi UX'i (TASK 070D). Ton: sakin, dürüst,
+  // suçlayıcı değil; teknik terim yok; izin zorunluymuş gibi sunulmaz.
+  String get reminderExactTitle => _t('reminderExactTitle');
+  String get reminderExactBody => _t('reminderExactBody');
+  String get reminderExactOpenSettings => _t('reminderExactOpenSettings');
+  String get reminderExactNotNow => _t('reminderExactNotNow');
+  String get reminderExactGranted => _t('reminderExactGranted');
+  String get reminderExactNotGranted => _t('reminderExactNotGranted');
+  String get reminderExactAction => _t('reminderExactAction');
+
   /// Bildirim başlığı (widget bağlamı dışında da kullanılır).
   String get reminderNotificationTitle => _t('reminderNotificationTitle');
 
@@ -794,6 +804,17 @@ final class AppLocalizations {
           'Hatırlatma zamanı cihazına göre birkaç dakika kayabilir.',
       'reminderPermissionNeeded': 'Hatırlatıcılar için bildirim izni gerekli.',
       'reminderLocationNeeded': 'Vakitleri hesaplamak için konum gerekli.',
+      'reminderExactTitle': 'Hatırlatmalar tam zamanında gelsin',
+      'reminderExactBody':
+          'Android, namaz hatırlatmalarını tam vaktinde gösterebilmek için ayrı '
+          'bir “Alarmlar ve hatırlatıcılar” izni ister. İzin vermezsen '
+          'hatırlatmalar yaklaşık zamanda çalışmaya devam eder.',
+      'reminderExactOpenSettings': 'İzin ekranını aç',
+      'reminderExactNotNow': 'Şimdi değil',
+      'reminderExactGranted': 'Tam zamanlı hatırlatmalar etkinleştirildi.',
+      'reminderExactNotGranted':
+          'Hatırlatmalar yaklaşık zamanda çalışmaya devam edecek.',
+      'reminderExactAction': 'Tam zamanlı hatırlatmalar',
       'reminderNotificationTitle': 'Namaz vakti',
       'reminderNotificationBody': '{prayer} vakti için sakin bir hatırlatma.',
       'profilePersonalizationTitle': 'Kişiselleştirme',
@@ -1297,6 +1318,17 @@ final class AppLocalizations {
       'reminderPermissionNeeded':
           'Notification permission is needed for reminders.',
       'reminderLocationNeeded': 'Location is needed to calculate the times.',
+      'reminderExactTitle': 'Let reminders arrive right on time',
+      'reminderExactBody':
+          'Android asks for a separate “Alarms & reminders” permission so prayer '
+          'reminders can show exactly on time. If you don’t allow it, reminders '
+          'keep working at an approximate time.',
+      'reminderExactOpenSettings': 'Open permission screen',
+      'reminderExactNotNow': 'Not now',
+      'reminderExactGranted': 'On-time reminders enabled.',
+      'reminderExactNotGranted':
+          'Reminders will keep working at an approximate time.',
+      'reminderExactAction': 'On-time reminders',
       'reminderNotificationTitle': 'Prayer time',
       'reminderNotificationBody': 'A calm reminder for {prayer}.',
       'profilePersonalizationTitle': 'Personalization',
@@ -1801,6 +1833,16 @@ final class AppLocalizations {
       'reminderInexactNote': 'قد يتغيّر وقت التذكير بضع دقائق حسب جهازك.',
       'reminderPermissionNeeded': 'يلزم إذن الإشعارات للتذكيرات.',
       'reminderLocationNeeded': 'يلزم تحديد الموقع لحساب الأوقات.',
+      'reminderExactTitle': 'لتصل التذكيرات في وقتها تمامًا',
+      'reminderExactBody':
+          'يطلب أندرويد إذنًا منفصلًا باسم «المنبّهات والتذكيرات» حتى تظهر تذكيرات '
+          'الصلاة في وقتها تمامًا. إن لم تسمح به، تستمر التذكيرات في العمل في وقت '
+          'تقريبي.',
+      'reminderExactOpenSettings': 'فتح شاشة الإذن',
+      'reminderExactNotNow': 'ليس الآن',
+      'reminderExactGranted': 'تم تفعيل التذكيرات في وقتها.',
+      'reminderExactNotGranted': 'ستستمر التذكيرات في العمل في وقت تقريبي.',
+      'reminderExactAction': 'تذكيرات في وقتها',
       'reminderNotificationTitle': 'وقت الصلاة',
       'reminderNotificationBody': 'تذكير هادئ لصلاة {prayer}.',
       'profilePersonalizationTitle': 'التخصيص',

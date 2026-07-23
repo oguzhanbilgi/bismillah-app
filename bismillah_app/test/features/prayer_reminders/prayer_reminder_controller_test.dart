@@ -49,33 +49,37 @@ void main() {
 
   test('build: enabled + permission granted → ReminderEnabled', () async {
     final container = build(
-      notifications: _FakeNotifications(check: NotificationPermissionStatus.granted),
+      notifications: _FakeNotifications(
+        check: NotificationPermissionStatus.granted,
+      ),
       prefs: _FakePrefs(true),
     );
     final state = await container.read(prayerReminderControllerProvider.future);
     expect(state, isA<ReminderEnabled>());
   });
 
-  test('enable: granted + location → schedules, persists, ReminderEnabled',
-      () async {
-    final notifications = _FakeNotifications(
-      request: NotificationPermissionStatus.granted,
-    );
-    final prefs = _FakePrefs(false);
-    final container = build(notifications: notifications, prefs: prefs);
-    await container.read(prayerReminderControllerProvider.future);
+  test(
+    'enable: granted + location → schedules, persists, ReminderEnabled',
+    () async {
+      final notifications = _FakeNotifications(
+        request: NotificationPermissionStatus.granted,
+      );
+      final prefs = _FakePrefs(false);
+      final container = build(notifications: notifications, prefs: prefs);
+      await container.read(prayerReminderControllerProvider.future);
 
-    await container
-        .read(prayerReminderControllerProvider.notifier)
-        .enable(copy);
+      await container
+          .read(prayerReminderControllerProvider.notifier)
+          .enable(copy);
 
-    expect(
-      container.read(prayerReminderControllerProvider).value,
-      isA<ReminderEnabled>(),
-    );
-    expect(notifications.scheduled, isNotEmpty); // 7 gün × 5 vakit
-    expect(await prefs.isEnabled(), isTrue);
-  });
+      expect(
+        container.read(prayerReminderControllerProvider).value,
+        isA<ReminderEnabled>(),
+      );
+      expect(notifications.scheduled, isNotEmpty); // 7 gün × 5 vakit
+      expect(await prefs.isEnabled(), isTrue);
+    },
+  );
 
   test('enable: permission denied → blocked, nothing scheduled', () async {
     final notifications = _FakeNotifications(
@@ -115,40 +119,181 @@ void main() {
     );
   });
 
-  test('enable: granted but location unavailable → ReminderLocationNeeded',
-      () async {
+  test(
+    'enable: granted but location unavailable → ReminderLocationNeeded',
+    () async {
+      final container = build(
+        notifications: _FakeNotifications(
+          request: NotificationPermissionStatus.granted,
+        ),
+        prefs: _FakePrefs(false),
+        location: fakeLocationOverride(), // reddedilmiş konum
+      );
+      await container.read(prayerReminderControllerProvider.future);
+      await container
+          .read(prayerReminderControllerProvider.notifier)
+          .enable(copy);
+      expect(
+        container.read(prayerReminderControllerProvider).value,
+        isA<ReminderLocationNeeded>(),
+      );
+    },
+  );
+
+  test(
+    'disable: cancels own reminders, persists off, ReminderDisabled',
+    () async {
+      final notifications = _FakeNotifications();
+      final prefs = _FakePrefs(true);
+      final container = build(notifications: notifications, prefs: prefs);
+      await container.read(prayerReminderControllerProvider.future);
+
+      await container.read(prayerReminderControllerProvider.notifier).disable();
+
+      expect(
+        container.read(prayerReminderControllerProvider).value,
+        isA<ReminderDisabled>(),
+      );
+      expect(notifications.cancelAllCalls, greaterThan(0));
+      expect(await prefs.isEnabled(), isFalse);
+    },
+  );
+
+  // --- TASK 070D: exact-alarm özel-erişim akışı ---
+
+  test(
+    'requestExactTiming: exact zaten açık → exact yeniden planlar',
+    () async {
+      final notifications = _FakeNotifications(canExact: true);
+      final container = build(
+        notifications: notifications,
+        prefs: _FakePrefs(true),
+      );
+      await container.read(prayerReminderControllerProvider.future);
+
+      final granted = await container
+          .read(prayerReminderControllerProvider.notifier)
+          .requestExactTiming(copy);
+
+      expect(granted, isTrue);
+      expect(notifications.scheduled, isNotEmpty);
+      expect(notifications.scheduleExactModes.every((e) => e), isTrue);
+      final state = container.read(prayerReminderControllerProvider).value;
+      expect((state! as ReminderEnabled).exact, isTrue);
+    },
+  );
+
+  test(
+    'requestExactTiming: istekten sonra izin verildi → exact planlanır',
+    () async {
+      final notifications = _FakeNotifications(
+        canExact: false,
+        grantExactOnRequest: true,
+      );
+      final container = build(
+        notifications: notifications,
+        prefs: _FakePrefs(true),
+      );
+      await container.read(prayerReminderControllerProvider.future);
+
+      final granted = await container
+          .read(prayerReminderControllerProvider.notifier)
+          .requestExactTiming(copy);
+
+      expect(granted, isTrue);
+      expect(notifications.exactPermissionRequests, 1);
+      expect(notifications.scheduled, isNotEmpty);
+      expect(notifications.scheduleExactModes.every((e) => e), isTrue);
+      expect(
+        (container.read(prayerReminderControllerProvider).value!
+                as ReminderEnabled)
+            .exact,
+        isTrue,
+      );
+    },
+  );
+
+  test(
+    'requestExactTiming: izin verilmedi → inexact fallback korunur, çökme yok',
+    () async {
+      final notifications = _FakeNotifications(
+        canExact: false,
+        grantExactOnRequest: false,
+      );
+      final prefs = _FakePrefs(true);
+      final container = build(notifications: notifications, prefs: prefs);
+      await container.read(prayerReminderControllerProvider.future);
+
+      final granted = await container
+          .read(prayerReminderControllerProvider.notifier)
+          .requestExactTiming(copy);
+
+      expect(granted, isFalse);
+      expect(notifications.exactPermissionRequests, 1);
+      // Hatırlatıcılar açık kalır; exact iddia edilmez.
+      expect(
+        (container.read(prayerReminderControllerProvider).value!
+                as ReminderEnabled)
+            .exact,
+        isFalse,
+      );
+      expect(await prefs.isEnabled(), isTrue);
+    },
+  );
+
+  test('requestExactTiming: eşzamanlı çağrı ekranı iki kez açmaz', () async {
+    final notifications = _FakeNotifications(
+      canExact: false,
+      grantExactOnRequest: true,
+    );
     final container = build(
-      notifications: _FakeNotifications(
-        request: NotificationPermissionStatus.granted,
-      ),
-      prefs: _FakePrefs(false),
-      location: fakeLocationOverride(), // reddedilmiş konum
+      notifications: notifications,
+      prefs: _FakePrefs(true),
     );
     await container.read(prayerReminderControllerProvider.future);
-    await container
+    final notifier = container.read(prayerReminderControllerProvider.notifier);
+
+    await Future.wait([
+      notifier.requestExactTiming(copy),
+      notifier.requestExactTiming(copy),
+    ]);
+
+    expect(notifications.exactPermissionRequests, 1);
+  });
+
+  test('requestExactTiming: istek hata verirse çökmez, sakin durum', () async {
+    final notifications = _FakeNotifications(
+      canExact: false,
+      throwOnExactRequest: true,
+    );
+    final container = build(
+      notifications: notifications,
+      prefs: _FakePrefs(true),
+    );
+    await container.read(prayerReminderControllerProvider.future);
+
+    final granted = await container
         .read(prayerReminderControllerProvider.notifier)
-        .enable(copy);
+        .requestExactTiming(copy);
+
+    expect(granted, isFalse);
     expect(
       container.read(prayerReminderControllerProvider).value,
-      isA<ReminderLocationNeeded>(),
+      isA<ReminderEnabled>(),
     );
   });
 
-  test('disable: cancels own reminders, persists off, ReminderDisabled',
-      () async {
+  test('disable: kesin-alarm izin ekranını asla açmaz', () async {
     final notifications = _FakeNotifications();
-    final prefs = _FakePrefs(true);
-    final container = build(notifications: notifications, prefs: prefs);
+    final container = build(
+      notifications: notifications,
+      prefs: _FakePrefs(true),
+    );
     await container.read(prayerReminderControllerProvider.future);
 
     await container.read(prayerReminderControllerProvider.notifier).disable();
 
-    expect(
-      container.read(prayerReminderControllerProvider).value,
-      isA<ReminderDisabled>(),
-    );
-    expect(notifications.cancelAllCalls, greaterThan(0));
-    expect(await prefs.isEnabled(), isFalse);
+    expect(notifications.exactPermissionRequests, 0);
   });
 }
 
@@ -156,12 +301,21 @@ final class _FakeNotifications implements LocalNotificationService {
   _FakeNotifications({
     this._request = NotificationPermissionStatus.granted,
     this._check = NotificationPermissionStatus.granted,
+    this._canExact = true,
+    this._grantExactOnRequest = false,
+    this._throwOnExactRequest = false,
   });
 
   final NotificationPermissionStatus _request;
   final NotificationPermissionStatus _check;
+  bool _canExact;
+  final bool _grantExactOnRequest;
+  final bool _throwOnExactRequest;
+
   final List<PrayerReminder> scheduled = [];
+  final List<bool> scheduleExactModes = [];
   int cancelAllCalls = 0;
+  int exactPermissionRequests = 0;
 
   @override
   Stream<String> get reminderTaps => const Stream.empty();
@@ -176,11 +330,25 @@ final class _FakeNotifications implements LocalNotificationService {
   Future<NotificationPermissionStatus> checkPermission() async => _check;
 
   @override
-  Future<bool> canScheduleExact() async => true;
+  Future<bool> canScheduleExact() async => _canExact;
 
   @override
-  Future<void> schedule(PrayerReminder reminder, {required bool exact}) async =>
-      scheduled.add(reminder);
+  Future<bool?> requestExactAlarmPermission() async {
+    exactPermissionRequests++;
+    if (_throwOnExactRequest) {
+      throw StateError('exact permission request failed');
+    }
+    if (_grantExactOnRequest) {
+      _canExact = true; // Kullanıcı özel-erişimi verdi (simülasyon).
+    }
+    return _canExact;
+  }
+
+  @override
+  Future<void> schedule(PrayerReminder reminder, {required bool exact}) async {
+    scheduled.add(reminder);
+    scheduleExactModes.add(exact);
+  }
 
   @override
   Future<void> cancelAllPrayerReminders() async {

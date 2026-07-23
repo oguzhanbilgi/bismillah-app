@@ -192,11 +192,14 @@ final class _PrayerReminderCard extends ConsumerWidget {
     final state = async.value;
 
     Widget card(Widget child) => AppCard(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        AppText(l10n.reminderCardTitle, token: AppTextStyleToken.h3),
-        const SizedBox(height: AppSpacing.s3),
-        child,
-      ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(l10n.reminderCardTitle, token: AppTextStyleToken.h3),
+          const SizedBox(height: AppSpacing.s3),
+          child,
+        ],
+      ),
     );
 
     Widget action(String label, VoidCallback onTap) => AppButton(
@@ -234,6 +237,13 @@ final class _PrayerReminderCard extends ConsumerWidget {
                 token: AppTextStyleToken.caption,
                 secondary: true,
               ),
+              const SizedBox(height: AppSpacing.s3),
+              // Kullanıcının AÇIK isteğiyle: kesin-alarm özel-erişim ekranına
+              // götürür (açılışta/otomatik gösterilmez).
+              action(
+                l10n.reminderExactAction,
+                () => _promptExactTiming(context, ref, l10n),
+              ),
             ],
             const SizedBox(height: AppSpacing.s3),
             action(l10n.reminderDisable, controller.disable),
@@ -256,7 +266,7 @@ final class _PrayerReminderCard extends ConsumerWidget {
                   : l10n.reminderEnable,
               permanentlyDenied
                   ? controller.openSettings
-                  : () => controller.enable(_reminderCopy(l10n)),
+                  : () => _onEnablePressed(context, ref, l10n),
             ),
           ],
         ),
@@ -273,18 +283,78 @@ final class _PrayerReminderCard extends ConsumerWidget {
             const SizedBox(height: AppSpacing.s3),
             action(
               l10n.reminderEnable,
-              () => controller.enable(_reminderCopy(l10n)),
+              () => _onEnablePressed(context, ref, l10n),
             ),
           ],
         ),
       ),
       _ => card(
-        action(
-          l10n.reminderEnable,
-          () => controller.enable(_reminderCopy(l10n)),
-        ),
+        action(l10n.reminderEnable, () => _onEnablePressed(context, ref, l10n)),
       ),
     };
+  }
+
+  /// "Hatırlatıcıları aç" dokunuşu: etkinleştirir; sonuç açık ama INEXACT ise
+  /// (kesin-alarm erişimi yok) kullanıcıya kesin-zamanlama açıklamasını gösterir.
+  /// Açıklama YALNIZ bu açık kullanıcı eyleminden sonra çıkar (açılışta değil).
+  Future<void> _onEnablePressed(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+  ) async {
+    await ref
+        .read(prayerReminderControllerProvider.notifier)
+        .enable(_reminderCopy(l10n));
+    if (!context.mounted) {
+      return;
+    }
+    final state = ref.read(prayerReminderControllerProvider).value;
+    if (state is ReminderEnabled && !state.exact) {
+      await _promptExactTiming(context, ref, l10n);
+    }
+  }
+
+  /// Kesin-zamanlama açıklaması + "İzin ekranını aç" / "Şimdi değil". Onaylanırsa
+  /// özel-erişim ekranı açılır, dönüşte yeniden kontrol edilir; sonuç dürüstçe
+  /// snackbar ile bildirilir. Ayar ekranını açmak başarı SAYILMAZ.
+  Future<void> _promptExactTiming(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+  ) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final open = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.reminderExactTitle),
+        content: Text(l10n.reminderExactBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.reminderExactNotNow),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.reminderExactOpenSettings),
+          ),
+        ],
+      ),
+    );
+    if (open != true) {
+      return; // "Şimdi değil" → ekran açılmaz, inexact fallback korunur.
+    }
+    final granted = await ref
+        .read(prayerReminderControllerProvider.notifier)
+        .requestExactTiming(_reminderCopy(l10n));
+    messenger
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            granted ? l10n.reminderExactGranted : l10n.reminderExactNotGranted,
+          ),
+        ),
+      );
   }
 }
 

@@ -17,6 +17,9 @@ final prayerReminderControllerProvider =
 
 final class PrayerReminderController
     extends AsyncNotifier<PrayerReminderState> {
+  // Aynı anda iki kez özel-erişim ekranı açılmasını / çift zamanlamayı önler.
+  bool _exactRequestInFlight = false;
+
   @override
   Future<PrayerReminderState> build() async {
     // Bildirim altyapısı hazırlanamazsa (platform yok/eklenti hatası) sakin
@@ -75,6 +78,61 @@ final class PrayerReminderController
     await ref.read(localNotificationServiceProvider).cancelAllPrayerReminders();
     await ref.read(reminderPreferenceStoreProvider).setEnabled(false);
     state = const AsyncData(ReminderDisabled());
+  }
+
+  /// Kullanıcı "tam zamanlı hatırlatmalar" istediğinde (hatırlatıcılar açık ama
+  /// inexact planlanmışken) çağrılır: Android'in "Alarmlar ve hatırlatıcılar"
+  /// özel-erişim ekranını açar, DÖNÜŞTE kesin-alarm yeteneğini YENİDEN kontrol
+  /// eder ve izin verildiyse mevcut hatırlatıcı setini exact modda yeniden
+  /// planlar. İzin verilmezse hatırlatıcılar açık kalır ve inexact fallback
+  /// korunur. Ekranı açmak izin sayılmaz — sonuç yalnız [canScheduleExact] ile
+  /// belirlenir. Dönen değer: sonuçta kesin zamanlama etkin mi?
+  Future<bool> requestExactTiming(PrayerReminderCopy copy) async {
+    if (_exactRequestInFlight) {
+      // Zaten süren bir istek varsa mevcut kesin durumu bildir (çift açmayı önle).
+      return _safeCanExact();
+    }
+    _exactRequestInFlight = true;
+    try {
+      final notifications = ref.read(localNotificationServiceProvider);
+      await notifications.requestExactAlarmPermission();
+      // Ayar ekranını açmak İZİN demek değildir → her zaman yeniden doğrula.
+      final canExact = await notifications.canScheduleExact();
+      var exact = false;
+      if (canExact) {
+        final location = await ref
+            .read(prayerLocationServiceProvider)
+            .requestLocation();
+        if (location is PrayerLocationResolved) {
+          final outcome = await ref
+              .read(prayerReminderSchedulerProvider)
+              .reschedule(
+                coordinates: location.location.coordinates,
+                copy: copy,
+              );
+          exact = outcome.exact;
+        }
+      }
+      state = AsyncData(ReminderEnabled(exact: exact));
+      return exact;
+    } on Object {
+      // Sakin ve çökme-yok: gerçek yeteneği yansıt, hatırlatıcılar açık kalır.
+      final exact = await _safeCanExact();
+      state = AsyncData(ReminderEnabled(exact: exact));
+      return exact;
+    } finally {
+      _exactRequestInFlight = false;
+    }
+  }
+
+  Future<bool> _safeCanExact() async {
+    try {
+      return await ref
+          .read(localNotificationServiceProvider)
+          .canScheduleExact();
+    } on Object {
+      return false;
+    }
   }
 
   Future<void> openSettings() =>

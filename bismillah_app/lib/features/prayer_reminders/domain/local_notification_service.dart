@@ -22,6 +22,13 @@ abstract interface class LocalNotificationService {
   /// kısıtları). `false` ise inexact'e düşülür — dakika hassasiyeti değişebilir.
   Future<bool> canScheduleExact();
 
+  /// Android'de "Alarmlar ve hatırlatıcılar" özel-erişim ekranını açar. Ekranı
+  /// AÇMAK izin verildiği anlamına GELMEZ; çağıran taraf ardından mutlaka
+  /// [canScheduleExact] ile yeniden doğrulamalıdır. Android dışında kesin
+  /// zamanlama bu izinle kısıtlanmadığından `true` döner. Yalnız kullanıcının
+  /// açık isteğiyle çağrılır (açılışta/otomatik ÇAĞRILMAZ).
+  Future<bool?> requestExactAlarmPermission();
+
   /// Tek hatırlatıcıyı zamanlar; [exact] ise kesin, değilse pil-dostu inexact.
   /// UTC → cihaz timezone dönüşümü implementasyonda (tz) yapılır.
   Future<void> schedule(PrayerReminder reminder, {required bool exact});
