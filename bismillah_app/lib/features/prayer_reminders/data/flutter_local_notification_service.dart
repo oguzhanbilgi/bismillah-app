@@ -4,7 +4,8 @@ import 'package:bismillah_app/features/prayer_reminders/domain/device_time_zone_
 import 'package:bismillah_app/features/prayer_reminders/domain/local_notification_service.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/prayer_reminder.dart';
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
@@ -13,7 +14,8 @@ import 'package:timezone/timezone.dart' as tz;
 /// flutter_local_notifications + timezone tabanlı cihaz-yerel bildirim
 /// servisi. Eklenti/tz tipleri bu dosyanın dışına SIZMAZ. FCM/uzak
 /// bildirim YOKTUR; zamanlama tamamen cihazda + offline.
-final class FlutterLocalNotificationService implements LocalNotificationService {
+final class FlutterLocalNotificationService
+    implements LocalNotificationService {
   FlutterLocalNotificationService({
     required this._timeZoneService,
     FlutterLocalNotificationsPlugin? plugin,
@@ -46,7 +48,9 @@ final class FlutterLocalNotificationService implements LocalNotificationService 
       return;
     }
     tzdata.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(await _timeZoneService.localTimeZoneId()));
+    tz.setLocalLocation(
+      tz.getLocation(await _timeZoneService.localTimeZoneId()),
+    );
 
     await _plugin.initialize(
       settings: const InitializationSettings(
@@ -108,6 +112,16 @@ final class FlutterLocalNotificationService implements LocalNotificationService 
       return true; // iOS zamanlaması kesindir.
     }
     return await _android?.canScheduleExactNotifications() ?? false;
+  }
+
+  @override
+  Future<bool?> requestExactAlarmPermission() async {
+    // Yalnız Android'de anlamlı; diğer platformlarda kesin zamanlama bu izinle
+    // kısıtlanmaz. Android plugin erişimi bu katmanın DIŞINA sızmaz.
+    if (defaultTargetPlatform != TargetPlatform.android) {
+      return true;
+    }
+    return _android?.requestExactAlarmsPermission();
   }
 
   @override

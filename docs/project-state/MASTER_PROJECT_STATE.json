@@ -8,31 +8,35 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "dd74ac9",
+    "last_verified_main_before_task": "f52775a",
     "public_tag": "v0.1.0-alpha.1",
     "flutter_version": "3.44.6",
     "dart_version": "3.12.2",
-    "flutter_tests": 589,
+    "flutter_tests": 595,
+    "focused_prayer_reminder_tests": 26,
     "storage_tests": 11,
     "functions_tests": 23,
     "flutter_analyze": "clean",
     "functions_runtime": "nodejs22"
   },
   "current_task": {
-    "id": "TASK-070B",
-    "name": "Samsung Galaxy A36 notification device validation of the manifest fix",
+    "id": "TASK-071",
+    "name": "Final Samsung A36 notification validation and PR #14 merge",
     "status": "completed",
     "latest_completed_documentation_task": "TASK-068A",
-    "next_functional_task": "TASK-070C",
-    "notification_dependency": "22.0.1",
+    "next_functional_task": "TASK-072",
+    "notification_dependency": "22.1.0",
+    "notification_platform_interface": "12.0.1",
     "device_validation": {
       "device": "Samsung Galaxy A36 (SM-A366B)",
       "os": "Android 16 (SDK 36)",
-      "source_commit": "074ec01",
-      "apk_sha256": "ab86da0b5cd323cc1a219faefb408fa94ac3a6696908a4ba26c378dd6d231717",
+      "commits": ["93d1c86", "50dacef"],
+      "apk_sha256": "a8d00a7f66ec6453104ba73076c9cd88750462c3470bf4cc0056738c252493e1",
+      "exact_alarm_deeplink_ux": "PASS",
+      "inexact_fallback": "PASS",
       "reboot_restore": "PASS",
-      "reboot_delivery": "DEFERRED_NOT_OBSERVED_owner_risk_accepted",
-      "follow_up": "TASK-071"
+      "reboot_delivery": "PASS_exact_on_time_single_clean_logcat",
+      "closes": "TASK-070B deferred reboot-delivery gap"
     }
   },
   "feature_status": {
@@ -57,7 +61,8 @@
     "TASK-001-060 (grouped: foundation, nav, l10n, onboarding, prayer, quran, learn gate, profile, assistant)",
     "TASK-061A-2", "TASK-061A-3", "TASK-061B", "TASK-062A", "TASK-062B",
     "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068",
-    "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B"
+    "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B", "TASK-070C",
+    "TASK-070D", "TASK-071"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
@@ -110,8 +115,7 @@
     "PR #6 fast-xml-parser superseded by TASK-069 (5.10.1 on Node.js 22)",
     "actions/checkout v7 major deferred",
     "TASK-070 superseded by TASK-070A (pre-existing Android notification manifest gap)",
-    "flutter_local_notifications 22.1.0 (PR #3 / local a05f439) deferred to TASK-070C reapply",
-    "TASK-070B reboot notification DELIVERY deferred/not observed (owner risk accepted; re-verify in TASK-071)",
+    "PR #3 superseded by PR #14 (22.1.0 applied via TASK-070C on validated baseline)",
     "empty onUpgrade migration placeholder; no migration tests; no encryption",
     "Firebase Console hardening unverified",
     "iOS physical-device validation pending",

@@ -68,9 +68,19 @@ individually reconstructable from Git history and are not invented here.
   replace/cancel, and **reboot restore without opening the app** all PASS; **reboot
   notification delivery was DEFERRED / not observed** (owner-approved risk, to be
   re-verified in TASK 071). Merged via PR #13.
-- **Device validation:** Android (Quran) done; Android notification manifest fix
-  validated on A36 (reboot delivery deferred); iOS PENDING.
-- **Remaining gaps (CP09):** reapply 22.1.0 on the fix (TASK 070C), final A36
-  end-to-end incl. reboot delivery (TASK 071), sync-queue audit (TASK 072),
-  security-console checklist (TASK 074), CP09 regression checkpoint (TASK 075).
-  PR #4 (Drift 2.34.2) and PR #3 (notifications 22.1.0) remain DEFERRED.
+- **TASK 070C / 070D / 071 (notifications, PR #14):** `flutter_local_notifications
+  22.0.1 → 22.1.0` (+ platform_interface 12.0.1) reapplied on the validated manifest
+  baseline (070C); exact-alarm permission deep-link UX added — calm TR/EN/AR dialog,
+  direct "Alarms & reminders" screen, real capability recheck on return, honest
+  inexact fallback, 6 new tests (focused **26**, full **595**) (070D). TASK 071
+  validated the combined APK end-to-end on **Samsung Galaxy A36 / Android 16**:
+  update-install + data preservation, inexact fallback, "Not now", deep-link +
+  recheck + exact reschedule, replace/cancel, removed-from-recents, reboot restore,
+  and **reboot physical delivery** (exact on-time at prayer minute, single
+  notification, tap OK, clean logcat) — closing the gap TASK 070B had deferred.
+  PR #14 merged; Dependabot PR #3 superseded.
+- **Device validation:** Android (Quran) done; Android notification stack fully
+  validated on A36 incl. reboot delivery; iOS PENDING.
+- **Remaining gaps (CP09):** sync-queue audit (TASK 072), project-state docs
+  completion (TASK 073), security-console checklist (TASK 074), CP09 regression
+  checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.

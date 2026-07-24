@@ -28,8 +28,10 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 069 | COMPLETED | CP09 | fast-xml-parser 5.10.1 validation on Node 22 (23/23) | supersedes PR #6 | — |
 | TASK 070 | SUPERSEDED | CP09 | 22.1.0 update — blocked by pre-existing manifest gap; work moved to 070A | local `a05f439` (unpushed) | reapply in TASK 070C |
 | TASK 070A | COMPLETED | CP09 | Declare scheduled-notification receivers + manifest regression tests (589 tests) | PR #13 | — |
-| TASK 070B | COMPLETED | CP09 | Samsung A36 / Android 16 device validation of manifest fix; reboot delivery deferred | PR #13, device report | re-verify in TASK 071 |
-| TASK 070C | PLANNED | CP09 | Reapply flutter_local_notifications 22.1.0 on validated manifest fix | PR #3 / local `a05f439` | run TASK 070C |
+| TASK 070B | COMPLETED | CP09 | Samsung A36 / Android 16 device validation of manifest fix; reboot delivery deferred | PR #13, device report | — (closed by TASK 071) |
+| TASK 070C | COMPLETED | CP09 | flutter_local_notifications 22.1.0 reapplied on validated manifest fix | PR #14, `93d1c86` | — |
+| TASK 070D | COMPLETED | CP09 | Exact-alarm permission deep-link UX + 6 tests (focused 26, full 595) | PR #14, `50dacef` | — |
+| TASK 071 | COMPLETED | CP09 | Final Samsung A36 end-to-end validation incl. reboot physical delivery; PR #14 merged | PR #14, device report | — |
 
 ## Selected forward milestones
 
@@ -50,6 +52,6 @@ The live Git history is authoritative; this index is a human-readable summary.
 | PR | Item | Status | Note |
 |---|---|---|---|
 | PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker |
-| PR #3 | flutter_local_notifications 22.1.0 | DEFERRED | validated locally (a05f439); reapply in TASK 070C after manifest fix |
+| PR #3 | flutter_local_notifications 22.1.0 | SUPERSEDED | applied by TASK 070C via PR #14 on validated baseline |
 | PR #6 | fast-xml-parser 5.10.1 | SUPERSEDED | applied by TASK 069 on Node 22 baseline |
 | PR #2 | flutter-action 2.23.0 | SUPERSEDED | closed; replaced by PR #8 (TASK 067) |

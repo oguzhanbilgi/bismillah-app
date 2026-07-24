@@ -33,6 +33,9 @@ final class _FakeNotifications implements LocalNotificationService {
   Future<bool> canScheduleExact() async => false;
 
   @override
+  Future<bool?> requestExactAlarmPermission() async => false;
+
+  @override
   Future<void> schedule(PrayerReminder reminder, {required bool exact}) async {}
 
   @override
