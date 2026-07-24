@@ -99,7 +99,17 @@ individually reconstructable from Git history and are not invented here.
   **36 → 70**, full suite **595 → 629**, Functions 23/23. Verdict upgraded to
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer stack, conflicts, Security Rules, App Check).
+- **TASK 074 (Firebase security readiness audit, docs-only):** repo Firebase
+  footprint is minimal and clean — anonymous-auth bootstrap with local
+  fallback; one callable (auth-required, validated, Secret Manager, sanitized
+  logs, maxInstances 5). **Rules, Rules tests, App Check, emulator suite and
+  staging separation are all ABSENT** (P1 blockers before any remote sync);
+  read-only CLI shows the deployed callable still on **EOL nodejs20** vs repo
+  nodejs22 (controlled redeploy pending); secret scan clean. Verdict:
+  **READY FOR LOCAL SECURITY HARDENING ONLY** (P0 0 / P1 6 / P2 5); remote
+  sync remains disabled.
 - **Device validation:** Android (Quran) done; Android notification stack fully
   validated on A36 incl. reboot delivery; iOS PENDING.
-- **Remaining gaps (CP09):** security-console checklist (TASK 074), CP09
-  regression checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.
+- **Remaining gaps (CP09):** CP09 regression checkpoint (TASK 075: Firebase
+  implementation order, staging prerequisites, payload-version migration
+  placement, CP10 start gate). PR #4 (Drift 2.34.2) remains DEFERRED.

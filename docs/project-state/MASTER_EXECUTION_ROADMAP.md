@@ -58,6 +58,7 @@ TASK 070D   — Exact-alarm permission deep-link UX — COMPLETED
 TASK 071    — Final Samsung A36 end-to-end validation and PR #14 merge — COMPLETED
 TASK 072    — Offline sync-queue architecture and data-loss risk audit — COMPLETED
 TASK 073    — Local sync-queue hardening (backoff + taxonomy + pruning) — COMPLETED
+TASK 074    — Firebase security and console readiness audit — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -76,8 +77,11 @@ TASK 072  — COMPLETED   — Sync-queue audit (verdict: READY FOR LOCAL QUEUE H
 TASK 073  — COMPLETED   — Local sync-queue hardening (backoff + taxonomy + pruning +
                           stale-recovery + diagnostics; NO remote writes) — redefined by
                           TASK 072; original docs scope was largely done by TASK 068A
-TASK 074  — PLANNED     — Firebase and GitHub security-console checklist
-TASK 075  — PLANNED     — CP09 full regression checkpoint
+TASK 074  — COMPLETED   — Firebase security readiness audit (verdict: READY FOR
+                          LOCAL SECURITY HARDENING ONLY; Rules/App Check/emulator/
+                          staging absent; deployed callable on EOL nodejs20)
+TASK 075  — PLANNED     — CP09 full regression checkpoint + Firebase implementation
+                          order, staging prerequisites, CP10 start gate
 ```
 
 ## CP10 — Today and 30-day plan
