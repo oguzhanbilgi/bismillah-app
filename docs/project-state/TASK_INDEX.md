@@ -33,7 +33,8 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 070D | COMPLETED | CP09 | Exact-alarm permission deep-link UX + 6 tests (focused 26, full 595) | PR #14, `50dacef` | — |
 | TASK 071 | COMPLETED | CP09 | Final Samsung A36 end-to-end validation incl. reboot physical delivery; PR #14 merged | PR #14, device report | — |
 | TASK 072 | COMPLETED | CP09 | Sync-queue audit: atomic producer + tested queue, NO consumer/remote; verdict READY FOR LOCAL QUEUE HARDENING ONLY (P0 0 / P1 6 / P2 4) | `TASK_072_SYNC_QUEUE_AUDIT.md` | — |
-| TASK 073 | PLANNED | CP09 | Local sync-queue hardening (backoff + error taxonomy + pruning; no remote writes) — redefined by TASK 072 | audit §16 | run TASK 073 |
+| TASK 073 | COMPLETED | CP09 | Local sync-queue hardening: backoff policy + failure taxonomy + recordFailure + pruning + stale recovery + diagnostics (sync 70/70, full 629); verdict READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION; remote sync stays disabled | `TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md` | — |
+| TASK 074 | PLANNED | CP09 | Firebase and GitHub security-console checklist | roadmap | run TASK 074 |
 
 ## Selected forward milestones
 
