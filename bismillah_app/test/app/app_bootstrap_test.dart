@@ -15,8 +15,10 @@ import 'package:bismillah_app/features/prayer/data/prayer_data_providers.dart';
 import 'package:bismillah_app/features/quran/data/unavailable_quran_audio_session_service.dart';
 import 'package:bismillah_app/features/sync/data/sync_data_providers.dart';
 import 'package:bismillah_app/features/sync/domain/entities/sync_operation.dart';
+import 'package:bismillah_app/features/sync/domain/entities/sync_queue_diagnostics.dart';
 import 'package:bismillah_app/features/sync/domain/repositories/sync_queue_repository.dart';
 import 'package:bismillah_app/features/sync/domain/value_objects/sync_enums.dart';
+import 'package:bismillah_app/features/sync/domain/value_objects/sync_failure_class.dart';
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -212,4 +214,23 @@ final class _AlwaysFailingSyncQueueRepository implements SyncQueueRepository {
   @override
   ResultFuture<int> pendingCount({SyncEntityType? entityType}) async =>
       _failure;
+
+  @override
+  ResultFuture<void> recordFailure(
+    OperationId operationId, {
+    required SyncFailureClass failureClass,
+    required UtcDateTime now,
+  }) async => _failure;
+
+  @override
+  ResultFuture<int> pruneTerminal({required UtcDateTime now}) async => _failure;
+
+  @override
+  ResultFuture<int> recoverStaleInFlight({required UtcDateTime now}) async =>
+      _failure;
+
+  @override
+  ResultFuture<SyncQueueDiagnostics> diagnostics({
+    required UtcDateTime now,
+  }) async => _failure;
 }
