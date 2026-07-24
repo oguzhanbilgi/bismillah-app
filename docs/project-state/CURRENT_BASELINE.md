@@ -6,33 +6,34 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 072). After the TASK 072 merge, read the real current commit from
+> task (TASK 073). After the TASK 073 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 072: `a8bd880`
+- Last verified main before TASK 073: `601c796`
 - Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
-- Latest completed documentation task: **TASK 072** — offline sync-queue
-  architecture and data-loss risk audit (audit-only; verdict: **READY FOR LOCAL
-  QUEUE HARDENING ONLY** — durable atomic queue exists, but no consumer, no
-  `cloud_firestore` dependency, no pull/conflict code; remote sync must NOT be
-  enabled; report: `docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md`)
-- Latest completed functional task: **TASK 070C + 070D + 071** —
-  flutter_local_notifications 22.1.0 reapplied on the validated manifest baseline
-  (070C), exact-alarm permission deep-link UX added (070D), and the combined
-  candidate fully validated end-to-end on Samsung Galaxy A36 / Android 16 including
-  reboot physical delivery (071); merged via PR #14
-- Next planned functional task: **TASK 073** — local sync-queue hardening slice
-  (backoff policy + error taxonomy + pruning; NO remote writes; owner-directed
-  redefinition — the original docs-completion scope was largely done by TASK 068A)
+- Latest completed documentation task: **TASK 072** — offline sync-queue audit
+  (report: `docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md`)
+- Latest completed functional task: **TASK 073** — local sync-queue hardening:
+  deterministic backoff policy (staged + FNV-1a jitter, 24h cap, attempt-8
+  quarantine), privacy-safe failure classification (stable enum names only),
+  policy-driven atomic `recordFailure`, bounded pruning (30-day terminal
+  retention; pending work never pruned), stale-inFlight recovery and
+  privacy-safe queue diagnostics. **No consumer, no remote write, no schema
+  change, no migration — remote sync stays disabled.** Verdict upgraded to
+  **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
+  payload versioning, consumer, conflicts, Security Rules, App Check).
+  Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
+- Next planned functional task: **TASK 074** — Firebase and GitHub
+  security-console checklist
 
 ## Tests (verified)
 
 - Flutter analyze: **clean**
-- Flutter test baseline: **595 / 595** (589 + 6 exact-alarm permission-flow tests
-  from TASK 070D; focused prayer-reminder suite 26/26)
+- Flutter test baseline: **629 / 629** (595 + 34 sync-hardening tests from
+  TASK 073; focused prayer-reminder suite 26/26; sync-focused suite 70/70)
 - Storage (Drift) tests: **11 / 11**
 - Functions tests (Vitest): **23 / 23**
 - Real-device: Quran main flows verified on **Samsung Galaxy A36 / Android 16**
@@ -84,6 +85,11 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - TASK 072 — sync-queue audit (docs-only): P0 = 0, P1 = 6, P2 = 4; queue producer
   (prayer log) atomic + tested (sync-focused 36/36); **no queue consumer exists**;
   remote sync currently **not enabled and not enabled-able** (no cloud_firestore)
+- TASK 073 — local sync-queue hardening: backoff policy + failure taxonomy +
+  recordFailure + pruning + stale-inFlight recovery + diagnostics (sync-focused
+  70/70; full 629/629); closes the TASK 072 "no backoff/taxonomy" P1; remaining
+  queue P1s: consumer stack, cloud_firestore + Rules/App Check, pull/conflicts,
+  payload versioning, account linking
 
 ## Open / known dependency status
 

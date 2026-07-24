@@ -57,6 +57,7 @@ TASK 070C   — Reapply flutter_local_notifications 22.1.0 on the manifest fix �
 TASK 070D   — Exact-alarm permission deep-link UX — COMPLETED
 TASK 071    — Final Samsung A36 end-to-end validation and PR #14 merge — COMPLETED
 TASK 072    — Offline sync-queue architecture and data-loss risk audit — COMPLETED
+TASK 073    — Local sync-queue hardening (backoff + taxonomy + pruning) — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -72,9 +73,9 @@ TASK 070C — COMPLETED   — Reapply flutter_local_notifications 22.1.0 on the 
 TASK 070D — COMPLETED   — Exact-alarm permission deep-link UX (honest recheck + fallback)
 TASK 071  — COMPLETED   — Final Samsung A36 end-to-end validation incl. reboot delivery
 TASK 072  — COMPLETED   — Sync-queue audit (verdict: READY FOR LOCAL QUEUE HARDENING ONLY)
-TASK 073  — PLANNED     — Local sync-queue hardening slice (backoff + taxonomy + pruning;
-                          NO remote writes) — redefined by TASK 072; original docs scope
-                          was largely completed early by TASK 068A
+TASK 073  — COMPLETED   — Local sync-queue hardening (backoff + taxonomy + pruning +
+                          stale-recovery + diagnostics; NO remote writes) — redefined by
+                          TASK 072; original docs scope was largely done by TASK 068A
 TASK 074  — PLANNED     — Firebase and GitHub security-console checklist
 TASK 075  — PLANNED     — CP09 full regression checkpoint
 ```

@@ -88,8 +88,18 @@ individually reconstructable from Git history and are not invented here.
   must stay disabled until the CP16 stack (engine, Security Rules, App Check).
   TASK 073 redefined as the local hardening slice (backoff policy, error
   taxonomy, pruning, diagnostics; no remote writes).
+- **TASK 073 (local sync-queue hardening):** deterministic retry/backoff
+  (staged delays, FNV-1a-seeded bounded jitter, 24h cap, attempt-8 quarantine,
+  slow auth-unavailable schedule, conservative unknown rule), privacy-safe
+  failure classification (stable enum names only in `lastErrorCode`),
+  policy-driven atomic `recordFailure`, bounded pruning (30-day terminal
+  retention; pending work never pruned by age), stale-inFlight recovery and a
+  privacy-safe diagnostics summary. **No consumer, no remote write, no schema
+  change, no migration; remote sync stays disabled.** Sync-focused tests
+  **36 → 70**, full suite **595 → 629**, Functions 23/23. Verdict upgraded to
+  **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
+  payload versioning, consumer stack, conflicts, Security Rules, App Check).
 - **Device validation:** Android (Quran) done; Android notification stack fully
   validated on A36 incl. reboot delivery; iOS PENDING.
-- **Remaining gaps (CP09):** local queue hardening (TASK 073), security-console
-  checklist (TASK 074), CP09 regression checkpoint (TASK 075). PR #4
-  (Drift 2.34.2) remains DEFERRED.
+- **Remaining gaps (CP09):** security-console checklist (TASK 074), CP09
+  regression checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.

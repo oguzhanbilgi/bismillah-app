@@ -8,34 +8,41 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "f52775a",
+    "last_verified_main_before_task": "601c796",
     "public_tag": "v0.1.0-alpha.1",
     "flutter_version": "3.44.6",
     "dart_version": "3.12.2",
-    "flutter_tests": 595,
+    "flutter_tests": 629,
     "focused_prayer_reminder_tests": 26,
+    "sync_focused_tests": 70,
     "storage_tests": 11,
     "functions_tests": 23,
     "flutter_analyze": "clean",
     "functions_runtime": "nodejs22"
   },
   "current_task": {
-    "id": "TASK-072",
-    "name": "Offline sync queue architecture and data-loss risk audit",
+    "id": "TASK-073",
+    "name": "Local sync queue hardening",
     "status": "completed",
     "latest_completed_documentation_task": "TASK-072",
-    "next_functional_task": "TASK-073",
+    "next_functional_task": "TASK-074",
     "notification_dependency": "22.1.0",
     "notification_platform_interface": "12.0.1",
-    "sync_audit": {
-      "verdict": "READY_FOR_LOCAL_QUEUE_HARDENING_ONLY",
+    "sync_state": {
+      "verdict": "READY_FOR_CONTROLLED_REMOTE_SYNC_IMPLEMENTATION",
       "remote_sync_enabled": false,
       "cloud_firestore_dependency": false,
       "queue_consumer_exists": false,
-      "queue_producer": "prayer log only (atomic, same Drift transaction)",
-      "risk_counts": {"p0": 0, "p1": 6, "p2": 4},
-      "task_073_scope": "local hardening: backoff policy + error taxonomy + pruning + diagnostics; no remote writes, no schema change",
-      "report": "docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md"
+      "backoff_policy": "implemented (deterministic, FNV-1a jitter, 24h cap, attempt-8 quarantine)",
+      "failure_classification": "implemented (stable enum names only; no raw error text persisted)",
+      "record_failure": "implemented (atomic single-increment; terminal states safely rejected)",
+      "pruning": "implemented (quarantined/cancelled 30-day retention; pending never pruned by age)",
+      "stale_inflight_recovery": "implemented (15-min threshold; attempt metadata preserved)",
+      "diagnostics": "implemented (privacy-safe counts + coarse age bucket; no payload/ID/UID)",
+      "remaining_p1": ["consumer stack", "cloud_firestore + Security Rules + App Check", "pull/conflict/tombstone", "operation payload versioning", "account linking"],
+      "sync_track_next_slice": "payload/schema versioning migration (v1->v2) with non-empty-queue fixture proof",
+      "audit_report": "docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md",
+      "report": "docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md"
     },
     "device_validation": {
       "device": "Samsung Galaxy A36 (SM-A366B)",
@@ -72,7 +79,7 @@
     "TASK-061A-2", "TASK-061A-3", "TASK-061B", "TASK-062A", "TASK-062B",
     "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068",
     "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B", "TASK-070C",
-    "TASK-070D", "TASK-071", "TASK-072"
+    "TASK-070D", "TASK-071", "TASK-072", "TASK-073"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
