@@ -6,22 +6,27 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 071). After the TASK 071 merge, read the real current commit from
+> task (TASK 072). After the TASK 072 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 071: `f52775a`
+- Last verified main before TASK 072: `a8bd880`
 - Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
-- Latest completed documentation task: **TASK 068A** (permanent Claude project memory)
+- Latest completed documentation task: **TASK 072** — offline sync-queue
+  architecture and data-loss risk audit (audit-only; verdict: **READY FOR LOCAL
+  QUEUE HARDENING ONLY** — durable atomic queue exists, but no consumer, no
+  `cloud_firestore` dependency, no pull/conflict code; remote sync must NOT be
+  enabled; report: `docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md`)
 - Latest completed functional task: **TASK 070C + 070D + 071** —
   flutter_local_notifications 22.1.0 reapplied on the validated manifest baseline
   (070C), exact-alarm permission deep-link UX added (070D), and the combined
   candidate fully validated end-to-end on Samsung Galaxy A36 / Android 16 including
   reboot physical delivery (071); merged via PR #14
-- Next planned functional task: **TASK 072** — audit and control sync queue
-  growth / data risk
+- Next planned functional task: **TASK 073** — local sync-queue hardening slice
+  (backoff policy + error taxonomy + pruning; NO remote writes; owner-directed
+  redefinition — the original docs-completion scope was largely done by TASK 068A)
 
 ## Tests (verified)
 
@@ -76,6 +81,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   fallback; TR/EN/AR copy; 6 new tests (PR #14, commit `50dacef`)
 - TASK 071 — final Samsung A36 / Android 16 end-to-end validation incl. reboot
   physical delivery; PR #14 merged
+- TASK 072 — sync-queue audit (docs-only): P0 = 0, P1 = 6, P2 = 4; queue producer
+  (prayer log) atomic + tested (sync-focused 36/36); **no queue consumer exists**;
+  remote sync currently **not enabled and not enabled-able** (no cloud_firestore)
 
 ## Open / known dependency status
 

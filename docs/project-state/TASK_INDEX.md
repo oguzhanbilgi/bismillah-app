@@ -32,6 +32,8 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 070C | COMPLETED | CP09 | flutter_local_notifications 22.1.0 reapplied on validated manifest fix | PR #14, `93d1c86` | — |
 | TASK 070D | COMPLETED | CP09 | Exact-alarm permission deep-link UX + 6 tests (focused 26, full 595) | PR #14, `50dacef` | — |
 | TASK 071 | COMPLETED | CP09 | Final Samsung A36 end-to-end validation incl. reboot physical delivery; PR #14 merged | PR #14, device report | — |
+| TASK 072 | COMPLETED | CP09 | Sync-queue audit: atomic producer + tested queue, NO consumer/remote; verdict READY FOR LOCAL QUEUE HARDENING ONLY (P0 0 / P1 6 / P2 4) | `TASK_072_SYNC_QUEUE_AUDIT.md` | — |
+| TASK 073 | PLANNED | CP09 | Local sync-queue hardening (backoff + error taxonomy + pruning; no remote writes) — redefined by TASK 072 | audit §16 | run TASK 073 |
 
 ## Selected forward milestones
 
