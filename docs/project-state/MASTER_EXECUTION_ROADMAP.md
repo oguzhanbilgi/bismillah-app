@@ -53,6 +53,9 @@ TASK 069    — fast-xml-parser 5.10.1 validation under Node.js 22 — COMPLETED
 TASK 070    — flutter_local_notifications 22.1.0 update — SUPERSEDED by TASK 070A
 TASK 070A   — Android scheduled-notification manifest receiver contract — COMPLETED
 TASK 070B   — Samsung A36 device validation of the manifest fix — COMPLETED
+TASK 070C   — Reapply flutter_local_notifications 22.1.0 on the manifest fix — COMPLETED
+TASK 070D   — Exact-alarm permission deep-link UX — COMPLETED
+TASK 071    — Final Samsung A36 end-to-end validation and PR #14 merge — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -64,8 +67,9 @@ TASK 069  — COMPLETED   — Validate and merge fast-xml-parser 5.10.1 under No
 TASK 070  — SUPERSEDED  — 22.1.0 update blocked by a pre-existing manifest gap; see 070A
 TASK 070A — COMPLETED   — Declare scheduled-notification receivers + manifest tests
 TASK 070B — COMPLETED   — Samsung A36 device validation (reboot delivery deferred to 071)
-TASK 070C — PLANNED     — Reapply flutter_local_notifications 22.1.0 on the manifest fix
-TASK 071  — PLANNED     — Final Samsung A36 Android 16 end-to-end validation after 22.1.0
+TASK 070C — COMPLETED   — Reapply flutter_local_notifications 22.1.0 on the manifest fix
+TASK 070D — COMPLETED   — Exact-alarm permission deep-link UX (honest recheck + fallback)
+TASK 071  — COMPLETED   — Final Samsung A36 end-to-end validation incl. reboot delivery
 TASK 072  — PLANNED     — Audit and control sync queue growth / data risk
 TASK 073  — PLANNED     — Complete repository project-state and cross-computer docs
 TASK 074  — PLANNED     — Firebase and GitHub security-console checklist

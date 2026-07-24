@@ -6,33 +6,38 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 070A). After TASK 070A/070B merge, read the real current commit from
+> task (TASK 071). After the TASK 071 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 070A: `dd74ac9`
+- Last verified main before TASK 071: `f52775a`
 - Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
 - Latest completed documentation task: **TASK 068A** (permanent Claude project memory)
-- Latest completed functional task: **TASK 070A + 070B** — Android scheduled-notification
-  manifest receiver contract fixed (070A) and validated on a real Samsung Galaxy A36 /
-  Android 16 device (070B, merged via PR #13)
-- Next planned functional task: **TASK 070C** — reapply flutter_local_notifications
-  22.1.0 on top of the validated manifest fix and run automated validation
+- Latest completed functional task: **TASK 070C + 070D + 071** —
+  flutter_local_notifications 22.1.0 reapplied on the validated manifest baseline
+  (070C), exact-alarm permission deep-link UX added (070D), and the combined
+  candidate fully validated end-to-end on Samsung Galaxy A36 / Android 16 including
+  reboot physical delivery (071); merged via PR #14
+- Next planned functional task: **TASK 072** — audit and control sync queue
+  growth / data risk
 
 ## Tests (verified)
 
 - Flutter analyze: **clean**
-- Flutter test baseline: **589 / 589** (586 + 3 Android manifest-contract tests from TASK 070A)
+- Flutter test baseline: **595 / 595** (589 + 6 exact-alarm permission-flow tests
+  from TASK 070D; focused prayer-reminder suite 26/26)
 - Storage (Drift) tests: **11 / 11**
 - Functions tests (Vitest): **23 / 23**
 - Real-device: Quran main flows verified on **Samsung Galaxy A36 / Android 16**
-- Real-device (TASK 070B): notification manifest fix validated on **Samsung Galaxy A36 /
-  Android 16** — update-install, data preservation, exact-alarm flow, live delivery,
-  replace/cancel, and reboot **restore** all PASS; reboot notification **delivery**
-  **DEFERRED / NOT OBSERVED** (owner-approved risk; re-verify in TASK 071). APK SHA-256
-  `ab86da0b5cd323cc1a219faefb408fa94ac3a6696908a4ba26c378dd6d231717`
+- Real-device (TASK 071): combined notification candidate (22.1.0 + exact-alarm
+  deep-link UX) fully validated on **Samsung Galaxy A36 / Android 16** — update-install,
+  data preservation, inexact fallback, "Not now" flow, deep-link + real permission
+  recheck, exact reschedule, replace/cancel, removed-from-recents, reboot restore, and
+  **reboot physical delivery (exact on-time, single, tap OK, clean logcat)** all PASS.
+  APK SHA-256 `a8d00a7f66ec6453104ba73076c9cd88750462c3470bf4cc0056738c252493e1`.
+  This closes the reboot-delivery gap deferred by TASK 070B.
 - iOS physical-device validation: **not performed (PENDING)**
 
 ## Stack
@@ -65,6 +70,12 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   tests (PR #13; `flutter_local_notifications` unchanged at 22.0.1)
 - TASK 070B — Samsung Galaxy A36 / Android 16 device validation of the manifest fix
   (reboot delivery deferred to TASK 071); merged via PR #13
+- TASK 070C — flutter_local_notifications **22.1.0** (+ platform_interface 12.0.1)
+  reapplied on the validated manifest baseline (PR #14, commit `93d1c86`)
+- TASK 070D — exact-alarm permission deep-link UX with honest recheck + inexact
+  fallback; TR/EN/AR copy; 6 new tests (PR #14, commit `50dacef`)
+- TASK 071 — final Samsung A36 / Android 16 end-to-end validation incl. reboot
+  physical delivery; PR #14 merged
 
 ## Open / known dependency status
 
@@ -72,10 +83,10 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - PR #6 — fast-xml-parser 5.10.1 — **SUPERSEDED** by TASK 069 (applied on the
   current Node.js 22 baseline; `fast-xml-parser 5.10.1`, `@nodable/entities 3.0.0`)
 - actions/checkout v7 major — **DEFERRED**
-- PR #3 — flutter_local_notifications 22.1.0 — **OPEN** (still deferred; to be
-  reapplied on the validated manifest fix in TASK 070C, then re-validated in TASK 071)
-- Local candidate branch `task/070-notifications-22-1-0` (local commit `a05f439`) holds
-  the validated 22.1.0 lockfile change; **not pushed** — reserved for TASK 070C
+- PR #3 — flutter_local_notifications 22.1.0 — **SUPERSEDED** by PR #14 (TASK 070C
+  applied the same update on the validated manifest + exact-alarm UX baseline)
+- Local branch `task/070-notifications-22-1-0` (local commit `a05f439`) — historical;
+  superseded by the TASK 070C reapply, kept unpushed and untouched
 - TASK 070 (original notification-update task) — **SUPERSEDED** by TASK 070A after a
   pre-existing Android manifest gap (missing scheduled-notification receivers) was found
 
