@@ -6,16 +6,20 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 073). After the TASK 073 merge, read the real current commit from
+> task (TASK 074). After the TASK 074 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 073: `601c796`
+- Last verified main before TASK 074: `813c3c9`
 - Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
-- Latest completed documentation task: **TASK 072** — offline sync-queue audit
-  (report: `docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md`)
+- Latest completed documentation task: **TASK 074** — Firebase security and
+  console readiness audit (verdict: **READY FOR LOCAL SECURITY HARDENING
+  ONLY** — no Rules/App Check/emulator/staging exist yet; Functions callable
+  well-guarded but deployed on EOL nodejs20 vs repo nodejs22; secret scan
+  clean; P0 = 0, P1 = 6, P2 = 5; remote sync stays disabled.
+  Report: `docs/task-reports/TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md`)
 - Latest completed functional task: **TASK 073** — local sync-queue hardening:
   deterministic backoff policy (staged + FNV-1a jitter, 24h cap, attempt-8
   quarantine), privacy-safe failure classification (stable enum names only),
@@ -26,8 +30,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 074** — Firebase and GitHub
-  security-console checklist
+- Next planned functional task: **TASK 075** — CP09 full regression
+  checkpoint (finalize Firebase implementation order, staging prerequisites,
+  payload-version migration placement, CP10 start gate)
 
 ## Tests (verified)
 
@@ -90,6 +95,11 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   70/70; full 629/629); closes the TASK 072 "no backoff/taxonomy" P1; remaining
   queue P1s: consumer stack, cloud_firestore + Rules/App Check, pull/conflicts,
   payload versioning, account linking
+- TASK 074 — Firebase security readiness audit (docs-only): Rules/App Check/
+  emulator suite/staging all ABSENT (P1 blockers before remote sync); the one
+  deployed callable is auth-gated + validated + secret-managed, but runs EOL
+  nodejs20 in the console (repo says nodejs22 — controlled redeploy pending);
+  no tracked secrets; single dev Firebase project, Android+iOS apps registered
 
 ## Open / known dependency status
 

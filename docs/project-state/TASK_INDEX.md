@@ -34,7 +34,8 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 071 | COMPLETED | CP09 | Final Samsung A36 end-to-end validation incl. reboot physical delivery; PR #14 merged | PR #14, device report | — |
 | TASK 072 | COMPLETED | CP09 | Sync-queue audit: atomic producer + tested queue, NO consumer/remote; verdict READY FOR LOCAL QUEUE HARDENING ONLY (P0 0 / P1 6 / P2 4) | `TASK_072_SYNC_QUEUE_AUDIT.md` | — |
 | TASK 073 | COMPLETED | CP09 | Local sync-queue hardening: backoff policy + failure taxonomy + recordFailure + pruning + stale recovery + diagnostics (sync 70/70, full 629); verdict READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION; remote sync stays disabled | `TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md` | — |
-| TASK 074 | PLANNED | CP09 | Firebase and GitHub security-console checklist | roadmap | run TASK 074 |
+| TASK 074 | COMPLETED | CP09 | Firebase security readiness audit: Rules/App Check/emulator/staging ABSENT (P1 blockers); callable auth-gated + secret-managed but deployed on EOL nodejs20; secret scan clean; verdict READY FOR LOCAL SECURITY HARDENING ONLY (P0 0 / P1 6 / P2 5) | `TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md` | — |
+| TASK 075 | PLANNED | CP09 | CP09 regression checkpoint + Firebase implementation order / staging prerequisites / CP10 gate | audit §20 | run TASK 075 |
 
 ## Selected forward milestones
 
