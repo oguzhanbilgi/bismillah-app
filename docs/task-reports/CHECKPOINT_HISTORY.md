@@ -79,8 +79,17 @@ individually reconstructable from Git history and are not invented here.
   and **reboot physical delivery** (exact on-time at prayer minute, single
   notification, tap OK, clean logcat) — closing the gap TASK 070B had deferred.
   PR #14 merged; Dependabot PR #3 superseded.
+- **TASK 072 (sync-queue audit, docs-only):** the local queue is durable, atomic
+  (prayer-log save + enqueue in one Drift transaction), idempotency-keyed,
+  uid-owned, merge-bounded, startup-recovered and reset-cleared — verified by
+  36/36 sync-focused tests. **No consumer/SyncEngine exists, `cloud_firestore`
+  is not a dependency, pull/conflict/tombstone are spec-only.** Verdict:
+  **READY FOR LOCAL QUEUE HARDENING ONLY** (P0 0 / P1 6 / P2 4); remote sync
+  must stay disabled until the CP16 stack (engine, Security Rules, App Check).
+  TASK 073 redefined as the local hardening slice (backoff policy, error
+  taxonomy, pruning, diagnostics; no remote writes).
 - **Device validation:** Android (Quran) done; Android notification stack fully
   validated on A36 incl. reboot delivery; iOS PENDING.
-- **Remaining gaps (CP09):** sync-queue audit (TASK 072), project-state docs
-  completion (TASK 073), security-console checklist (TASK 074), CP09 regression
-  checkpoint (TASK 075). PR #4 (Drift 2.34.2) remains DEFERRED.
+- **Remaining gaps (CP09):** local queue hardening (TASK 073), security-console
+  checklist (TASK 074), CP09 regression checkpoint (TASK 075). PR #4
+  (Drift 2.34.2) remains DEFERRED.

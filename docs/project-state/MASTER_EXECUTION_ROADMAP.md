@@ -56,6 +56,7 @@ TASK 070B   — Samsung A36 device validation of the manifest fix — COMPLETED
 TASK 070C   — Reapply flutter_local_notifications 22.1.0 on the manifest fix — COMPLETED
 TASK 070D   — Exact-alarm permission deep-link UX — COMPLETED
 TASK 071    — Final Samsung A36 end-to-end validation and PR #14 merge — COMPLETED
+TASK 072    — Offline sync-queue architecture and data-loss risk audit — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -70,14 +71,13 @@ TASK 070B — COMPLETED   — Samsung A36 device validation (reboot delivery def
 TASK 070C — COMPLETED   — Reapply flutter_local_notifications 22.1.0 on the manifest fix
 TASK 070D — COMPLETED   — Exact-alarm permission deep-link UX (honest recheck + fallback)
 TASK 071  — COMPLETED   — Final Samsung A36 end-to-end validation incl. reboot delivery
-TASK 072  — PLANNED     — Audit and control sync queue growth / data risk
-TASK 073  — PLANNED     — Complete repository project-state and cross-computer docs
+TASK 072  — COMPLETED   — Sync-queue audit (verdict: READY FOR LOCAL QUEUE HARDENING ONLY)
+TASK 073  — PLANNED     — Local sync-queue hardening slice (backoff + taxonomy + pruning;
+                          NO remote writes) — redefined by TASK 072; original docs scope
+                          was largely completed early by TASK 068A
 TASK 074  — PLANNED     — Firebase and GitHub security-console checklist
 TASK 075  — PLANNED     — CP09 full regression checkpoint
 ```
-
-> Most of TASK 073 is completed early by TASK 068A. When TASK 073 runs, it should
-> only fill remaining gaps and historical records — not rewrite these documents.
 
 ## CP10 — Today and 30-day plan
 

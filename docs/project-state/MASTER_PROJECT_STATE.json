@@ -20,13 +20,23 @@
     "functions_runtime": "nodejs22"
   },
   "current_task": {
-    "id": "TASK-071",
-    "name": "Final Samsung A36 notification validation and PR #14 merge",
+    "id": "TASK-072",
+    "name": "Offline sync queue architecture and data-loss risk audit",
     "status": "completed",
-    "latest_completed_documentation_task": "TASK-068A",
-    "next_functional_task": "TASK-072",
+    "latest_completed_documentation_task": "TASK-072",
+    "next_functional_task": "TASK-073",
     "notification_dependency": "22.1.0",
     "notification_platform_interface": "12.0.1",
+    "sync_audit": {
+      "verdict": "READY_FOR_LOCAL_QUEUE_HARDENING_ONLY",
+      "remote_sync_enabled": false,
+      "cloud_firestore_dependency": false,
+      "queue_consumer_exists": false,
+      "queue_producer": "prayer log only (atomic, same Drift transaction)",
+      "risk_counts": {"p0": 0, "p1": 6, "p2": 4},
+      "task_073_scope": "local hardening: backoff policy + error taxonomy + pruning + diagnostics; no remote writes, no schema change",
+      "report": "docs/task-reports/TASK_072_SYNC_QUEUE_AUDIT.md"
+    },
     "device_validation": {
       "device": "Samsung Galaxy A36 (SM-A366B)",
       "os": "Android 16 (SDK 36)",
@@ -48,7 +58,7 @@
     "profile": "implemented (personalization, language, sources, privacy/reset, About)",
     "assistant": "implemented (deterministic local published-only retrieval, citations, fatwa refusal, history<=20, sensitive not persisted)",
     "monetization": "dormant scaffolding only (no payment SDK)",
-    "cloud_sync": "not active (queue accumulates, no engine)",
+    "cloud_sync": "not active (durable local queue, growth bounded by per-entity merge; no engine/consumer; audited in TASK-072)",
     "ios": "unvalidated on hardware"
   },
   "persistence": {
@@ -62,7 +72,7 @@
     "TASK-061A-2", "TASK-061A-3", "TASK-061B", "TASK-062A", "TASK-062B",
     "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068",
     "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B", "TASK-070C",
-    "TASK-070D", "TASK-071"
+    "TASK-070D", "TASK-071", "TASK-072"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
