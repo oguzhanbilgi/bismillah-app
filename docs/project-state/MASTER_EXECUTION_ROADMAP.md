@@ -63,6 +63,7 @@ TASK 075    — CP09 technical stabilization and full regression checkpoint — 
 TASK 076    — DailyPlan repository and local persistence — COMPLETED
 TASK 077    — Daily plan state machine — COMPLETED
 TASK 078    — Onboarding profile mapping — COMPLETED
+TASK 079    — Deterministic daily plan generator — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -96,6 +97,15 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
 gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
 which is local-first by design.
 
+**CP10 generation rule (fixed by TASK 079):** `DailyPlanGenerator` produces the
+30-day frame only; **plan content comes from `DailyPlanItemSource`
+implementations**, owned by TASK 080 (Prayer), TASK 081 (Quran) and TASK 082
+(Learn). `dhikr`, `dua` and `reflection` have **no approved content yet** and
+none may be invented. The pace budget (5/10/20, with `advanced`+`focused`→30)
+and the zero-based **four-phase** `weekIndex` (21–29 → 3; index 4 never
+produced) are **approved TASK 079 product decisions**, not inherited from the
+onboarding spec.
+
 **CP10 profile rule (fixed by TASK 078):** the canonical profile set is
 **eight** buckets (`04_ONBOARDING_FLOW` §10), typed as `DailyPlanProfileType`
 with stable IDs. No ninth profile may be added. Profile derivation maps from
@@ -117,8 +127,8 @@ Drift table (`11_LOCAL_DB` §3).
 TASK 076 — DailyPlan repository and local persistence   — COMPLETED
 TASK 077 — Daily plan state machine                     — COMPLETED
 TASK 078 — Onboarding profile mapping                   — COMPLETED
-TASK 079 — Deterministic daily plan generator           <-- NEXT TASK
-TASK 080 — Prayer plan items
+TASK 079 — Deterministic daily plan generator           — COMPLETED
+TASK 080 — Prayer plan items                            <-- NEXT TASK
 TASK 081 — Quran plan items
 TASK 082 — Learn plan items
 TASK 083 — Today task UI

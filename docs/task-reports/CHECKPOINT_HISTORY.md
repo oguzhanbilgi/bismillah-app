@@ -237,6 +237,42 @@ that task's time*; the current verified baseline lives in
   70/70; Drift storage 11/11; Functions 23/23; analyze clean. **Zero tracked
   files modified** — no generation, Today UI, onboarding UI, persistence,
   Drift, Firebase or remote-sync change.
-- **Next:** **TASK 079 — Deterministic daily plan generator** (consumes the
-  typed profile, daily pace and local start `DayKey`; must emit 30 per-day
-  records).
+- **TASK 079 (deterministic daily plan generator):** a third stop gate fired
+  before implementation. Three of the six `PlanItemType` categories —
+  **`dhikr`, `dua` and `reflection` — have no content at all** (domain
+  entities and repository *interfaces* only; `assets/content/` holds only
+  `learn/`), and no plan template/catalog structure exists anywhere in `lib/`.
+  Producing items would have meant inventing worship prescriptions, which
+  `DO_NOT_BREAK` forbids. Two further conditions fired: the docs' four-bucket
+  `dailyTime` (5/10/20/30) has no canonical mapping to the shipped three-value
+  `OnboardingDailyPace`, and `weekIndex` had no defined semantics (domain
+  enforces only `>= 0`; "four-week curve" vs. 30 ÷ 7 = five buckets). The
+  roadmap itself resolved the scope — Prayer/Quran/Learn plan items are
+  **TASK 080/081/082**, *after* 079 — and the owner approved **Option B**:
+  build the generation skeleton plus an extensible item-source contract.
+  Delivered: `DailyPlanGenerationRequest` (profile · goals · pace · start
+  `DayKey`; typed `GenerationRequestIssue`), `DailyPlanGenerator`, and
+  `DailyPlanItemSource` / `DailyPlanDayContext` / `PlanItemDraft` /
+  `EmptyDailyPlanItemSource` / `DailyPlanItemIdBuilder`. Output is exactly
+  **30 per-day `DailyPlan` records** with continuous local `DayKey`s —
+  `DateTime(y, m, d+n)` arithmetic only, so month/year/leap/DST transitions
+  cannot shift a day. **Approved TASK 079 product decisions:** pace budget
+  `light` 5 · `balanced` 10 · `focused` 20 · **`advanced`+`focused` → 30**
+  (the only profile-specific override; 15 never produced), and a zero-based
+  **four-phase** `weekIndex` (0–6→0, 7–13→1, 14–20→2, **21–29→3**; days 29–30
+  stay in phase 3, index 4 never produced, distribution 7/7/7/9). Request
+  validation rejects profile×pace pairs TASK 078 could not produce, and the
+  generator **never re-runs** the profile mapper. With the default empty
+  source, 30 fully valid plans carry **empty `items`** — explicitly not a
+  failure. Item identity is `rule-engine-v1:<dayKey>:<templateId>:<slot>`:
+  no random UUID, timestamp, `hashCode` or device value. Failures reuse
+  existing types — **no new `AppFailure` subtype, no new localization key** —
+  source failures propagate unchanged and **partial plans are never
+  returned**. **63 new tests**; full suite **820 → 883**; TASK 078 78/78;
+  TASK 077 43/43; persistence 70/70; canonical sync 70/70; Drift storage
+  11/11; Functions 23/23; analyze clean. **Zero tracked files modified** — no
+  persistence write, Today UI, Drift, Firebase or remote-sync change, and **no
+  religious content invented**.
+- **Next:** **TASK 080 — Prayer plan items** (first approved
+  `DailyPlanItemSource`; content for dhikr/dua/reflection remains an open
+  owner decision).
