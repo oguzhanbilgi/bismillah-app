@@ -42,7 +42,8 @@ The live Git history is authoritative; this index is a human-readable summary.
 | Task | Status | Checkpoint | Summary | Evidence | Next action |
 |---|---|---|---|---|---|
 | TASK 076 | COMPLETED | CP10 | DailyPlan local persistence: first implementation of the existing `DailyPlanRepository` via a **temporary versioned key-value envelope** (persistence version 1, key `bismillah.daily_plans`); canonical **per-day** model preserved (30-day frame = 30 records) and the brief's conflicting 30-day-snapshot model rejected with owner approval; typed corruption failures, no silent overwrite; 67 focused tests, full suite 629 → **696**; **no Drift schema/dependency/generation/UI/Firebase/remote-sync change** | `TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md` | run TASK 077 |
-| TASK 077 | **NEXT** | CP10 | Daily plan state machine — load per-day plan via repository; loading/empty/available/corrupt states; controlled save/refresh transitions; local-only; **not** generation (TASK 079) and **not** final Today UI | roadmap CP10 | run TASK 077 |
+| TASK 077 | COMPLETED | CP10 | Daily plan state machine: `DailyPlanController` + sealed `DailyPlanState` (Loading/Empty/Available/Corrupt/Failure); epoch counter blocks stale results; latest-valid-completion-wins save rule; single watch subscription cancelled on day switch/disposal; bootstrap never loads it. Includes approved contract fix **`StorageCorruptionFailure`** (type-only failure mapping; no signature/l10n/envelope/key change). 43 focused tests; persistence 67 → **70**; full 696 → **742**; **no generation/UI/Firebase/Drift/remote-sync change** | `TASK_077_DAILY_PLAN_STATE_MACHINE.md` | run TASK 078 |
+| TASK 078 | **NEXT** | CP10 | Onboarding profile mapping | roadmap CP10 | run TASK 078 |
 
 ## Selected forward milestones
 
