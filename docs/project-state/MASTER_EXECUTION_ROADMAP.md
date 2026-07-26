@@ -62,6 +62,7 @@ TASK 074    — Firebase security and console readiness audit — COMPLETED
 TASK 075    — CP09 technical stabilization and full regression checkpoint — COMPLETED
 TASK 076    — DailyPlan repository and local persistence — COMPLETED
 TASK 077    — Daily plan state machine — COMPLETED
+TASK 078    — Onboarding profile mapping — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -95,6 +96,14 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
 gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
 which is local-first by design.
 
+**CP10 profile rule (fixed by TASK 078):** the canonical profile set is
+**eight** buckets (`04_ONBOARDING_FLOW` §10), typed as `DailyPlanProfileType`
+with stable IDs. No ninth profile may be added. Profile derivation maps from
+the **implemented three-axis `OnboardingPreferences`** (goals · journey stage ·
+daily pace) — *not* from the unimplemented 16-question `OnboardingAnswers`
+scaffolding. The axis precedence and multi-goal tie-break order are an
+**approved TASK 078 product decision**, not inherited from the onboarding spec.
+
 **CP10 model rule (fixed by TASK 076):** `DailyPlan` is a **per-day** entity
 keyed by `DayKey` (`10_DATA_MODEL` §4/§5/§7); the 30-day plan is a
 **composition of 30 per-day records**, never a single aggregate snapshot. No
@@ -107,8 +116,8 @@ Drift table (`11_LOCAL_DB` §3).
 ```text
 TASK 076 — DailyPlan repository and local persistence   — COMPLETED
 TASK 077 — Daily plan state machine                     — COMPLETED
-TASK 078 — Onboarding profile mapping                   <-- NEXT TASK
-TASK 079 — Deterministic daily plan generator
+TASK 078 — Onboarding profile mapping                   — COMPLETED
+TASK 079 — Deterministic daily plan generator           <-- NEXT TASK
 TASK 080 — Prayer plan items
 TASK 081 — Quran plan items
 TASK 082 — Learn plan items
