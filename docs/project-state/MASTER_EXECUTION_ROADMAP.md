@@ -59,6 +59,7 @@ TASK 071    — Final Samsung A36 end-to-end validation and PR #14 merge — COM
 TASK 072    — Offline sync-queue architecture and data-loss risk audit — COMPLETED
 TASK 073    — Local sync-queue hardening (backoff + taxonomy + pruning) — COMPLETED
 TASK 074    — Firebase security and console readiness audit — COMPLETED
+TASK 075    — CP09 technical stabilization and full regression checkpoint — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -80,14 +81,22 @@ TASK 073  — COMPLETED   — Local sync-queue hardening (backoff + taxonomy + p
 TASK 074  — COMPLETED   — Firebase security readiness audit (verdict: READY FOR
                           LOCAL SECURITY HARDENING ONLY; Rules/App Check/emulator/
                           staging absent; deployed callable on EOL nodejs20)
-TASK 075  — PLANNED     — CP09 full regression checkpoint + Firebase implementation
-                          order, staging prerequisites, CP10 start gate
+TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COMPLETE —
+                          TECHNICALLY STABLE); all baselines re-run unchanged;
+                          authoritative Firebase gate order G1–G14 fixed; deployed
+                          nodejs20 drift re-verified as P1; npm advisories split into
+                          dev-only vs production chains; product gate: READY TO ENTER
+                          NEXT LOCAL-FIRST PRODUCT CHECKPOINT
 ```
+
+**CP09 is closed.** CP10 may begin. Remote sync remains disabled and is gated
+by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10, which
+is local-first by design.
 
 ## CP10 — Today and 30-day plan
 
 ```text
-TASK 076 — DailyPlan repository and local persistence
+TASK 076 — DailyPlan repository and local persistence   <-- NEXT TASK
 TASK 077 — Daily plan state machine
 TASK 078 — Onboarding profile mapping
 TASK 079 — Deterministic daily plan generator

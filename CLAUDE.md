@@ -24,15 +24,33 @@ and the product vision in `Bismillah Engineering Constitution.md`.
 
 ## What you must always know
 
-- The **live Git HEAD / `origin/main` are authoritative** for the current commit;
-  stored commit fields record the last verified baseline at documentation time.
-- Latest completed functional task: **TASK 068** (Node.js 22 Functions runtime + Functions CI).
-- Current documentation task: **TASK 068A** (this project-memory work).
-- Next functional task: **TASK 069** (validate + merge fast-xml-parser PR #6 on Node 22).
+**Where the live state lives.** Do not trust any task number, commit or test
+count hard-coded in this file. The authoritative sources, in order:
+
+1. **Live Git HEAD / `origin/main`** — always authoritative for the current commit.
+2. **`docs/project-state/CURRENT_BASELINE.md`** — current task, next task, verified
+   test baselines, dependency status, blockers.
+3. **`docs/project-state/MASTER_PROJECT_STATE.json`** — the same state, machine-readable.
+
+Read those three before planning any work. Stored commit fields in documentation
+record the last verified baseline **at documentation time**, never the live HEAD.
+
+**Position at the time of writing** (verify against the sources above — it moves
+with every merged task):
+
+- Current checkpoint branch: **CP09 / TASK 075** — CP09 technical stabilization
+  and full regression checkpoint (docs-only).
+- Next task after the TASK 075 merge: **TASK 076** — DailyPlan repository and
+  local persistence, the first task of **CP10**.
+
+**Stable facts** (these do not drift with task numbers):
+
 - Functions runtime baseline: **Node.js 22**.
 - First possible real revenue: **TASK 115**. Commercial validation: **TASK 122**.
 - Five fixed tabs: **Today, Prayer, Quran, Learn, Profile**. The **Assistant is a
   FAB / root route, never a sixth tab**.
+- **Remote sync is disabled** and must stay disabled until the full Firebase gate
+  order recorded in `CURRENT_BASELINE.md` is satisfied.
 
 ## Mandatory operating rules
 

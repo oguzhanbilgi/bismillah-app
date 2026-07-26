@@ -6,19 +6,25 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 074). After the TASK 074 merge, read the real current commit from
+> task (TASK 075). After the TASK 075 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 074: `813c3c9`
-- Public tag: `v0.1.0-alpha.1` (may remain on the older public-alpha release commit)
-- Latest completed documentation task: **TASK 074** — Firebase security and
+- Last verified main before TASK 075: `f72fdbf`
+- Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
+- Latest completed documentation task: **TASK 075** — CP09 technical
+  stabilization and full regression checkpoint (verdict: **CP09 COMPLETE —
+  TECHNICALLY STABLE**; product gate: **READY TO ENTER NEXT LOCAL-FIRST
+  PRODUCT CHECKPOINT**; P0 = 0, P1 = 15, P2 = 12, deferred = 5; remote sync
+  stays disabled.
+  Report: `docs/task-reports/TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md`)
+- Previous documentation task: **TASK 074** — Firebase security and
   console readiness audit (verdict: **READY FOR LOCAL SECURITY HARDENING
   ONLY** — no Rules/App Check/emulator/staging exist yet; Functions callable
   well-guarded but deployed on EOL nodejs20 vs repo nodejs22; secret scan
-  clean; P0 = 0, P1 = 6, P2 = 5; remote sync stays disabled.
+  clean; P0 = 0, P1 = 6, P2 = 5.
   Report: `docs/task-reports/TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md`)
 - Latest completed functional task: **TASK 073** — local sync-queue hardening:
   deterministic backoff policy (staged + FNV-1a jitter, 24h cap, attempt-8
@@ -30,17 +36,29 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 075** — CP09 full regression
-  checkpoint (finalize Firebase implementation order, staging prerequisites,
-  payload-version migration placement, CP10 start gate)
+- Next planned functional task: **TASK 076** — DailyPlan repository and local
+  persistence (first task of **CP10 — Today and 30-day personal plan**,
+  TASK 076–085; confirmed by the TASK 075 checkpoint)
 
-## Tests (verified)
+## Tests (verified — re-run and reproduced at TASK 075)
 
-- Flutter analyze: **clean**
-- Flutter test baseline: **629 / 629** (595 + 34 sync-hardening tests from
-  TASK 073; focused prayer-reminder suite 26/26; sync-focused suite 70/70)
-- Storage (Drift) tests: **11 / 11**
-- Functions tests (Vitest): **23 / 23**
+- Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
+- Flutter test baseline: **629 / 629**, 0 failed, 0 skipped
+- **Canonical sync-focused baseline: 70 / 70.** Exact command:
+  `flutter test test/features/sync test/app/persistence_wiring_test.dart
+  test/app/app_bootstrap_test.dart
+  test/features/prayer/data/drift_prayer_log_repository_test.dart`
+  — **`test/features/sync` alone is 52 / 52**; that figure is the sync
+  directory in isolation and must never replace the official 70 baseline.
+- Focused prayer-reminder suite: 26 / 26 (TASK 070D)
+- Storage (Drift) tests: **11 / 11** — command: `flutter test test/core/storage`
+- Functions tests (Vitest): **23 / 23** on Node.js 22.22.0
+- Android debug build: **SUCCESS** at TASK 075
+  (`bismillah_app/build/app/outputs/flutter-apk/app-debug.apk`, 170.26 MB,
+  SHA-256 `51ca8748877467b58f3b16368b6e5f23bac5eecdd7222e97595f5cc2764cde99`;
+  not installed, no device test)
+- Known non-blocking test warning: one `tap()` off-screen-offset warning in
+  `bismillah_app/test/features/learn/learn_screens_test.dart` (test passes)
 - Real-device: Quran main flows verified on **Samsung Galaxy A36 / Android 16**
 - Real-device (TASK 071): combined notification candidate (22.1.0 + exact-alarm
   deep-link UX) fully validated on **Samsung Galaxy A36 / Android 16** — update-install,
@@ -53,7 +71,8 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 ## Stack
 
-- Flutter `3.44.6` / Dart `3.12.2`
+- Flutter `3.44.6` / Dart `3.12.2` (Node.js `22.22.0`, npm `10.9.4`;
+  Android SDK 36.1.0, Gradle JDK 21)
 - Riverpod (state/DI), GoRouter (routing)
 - Drift (SQLite local DB) + SharedPreferences
 - Firebase anonymous auth bootstrap; Firebase Cloud Functions
@@ -100,10 +119,55 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   deployed callable is auth-gated + validated + secret-managed, but runs EOL
   nodejs20 in the console (repo says nodejs22 — controlled redeploy pending);
   no tracked secrets; single dev Firebase project, Android+iOS apps registered
+- TASK 075 — CP09 technical stabilization and full regression checkpoint
+  (docs-only): all baselines re-run and reproduced (analyze clean, 629/629,
+  70/70, 11/11, 23/23, debug APK build SUCCESS) with **no dependency or
+  lockfile change**; authoritative 14-gate Firebase security order fixed
+  (G1–G14); deployed `nodejs20` drift **re-verified** and promoted to a P1
+  operational redeploy; npm advisories enumerated as **two independent
+  chains** (5 high = `eslint` dev-only, never deployed; 8 moderate =
+  `firebase-admin`/`firebase-functions` production tree; 0 critical; no
+  non-breaking fix); payload-version migration (G8) confirmed to belong
+  before consumer work and outside CP10. Verdict: **CP09 COMPLETE —
+  TECHNICALLY STABLE**; product gate **READY TO ENTER NEXT LOCAL-FIRST
+  PRODUCT CHECKPOINT** (TASK 076).
+  Report: `docs/task-reports/TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md`
+
+## Firebase security gate order (authoritative — TASK 075)
+
+Remote sync stays disabled until **all** of G1–G14 are satisfied, in order:
+G1 staging environment + aliases + wrong-project guard · G2 Firestore section
+in `firebase.json` · G3 Firestore Security Rules · G4 Rules unit tests ·
+G5 Emulator Suite in CI · G6 server-side UID ownership · G7 App Check ·
+G8 operation payload/schema versioning · G9 queue consumer + `cloud_firestore` ·
+G10 remote idempotency · G11 conflict policy · G12 tombstone semantics ·
+G13 account-link contract · G14 monitoring/budget/kill switch.
+
+Roadmap owners: G3/G4/G6 → TASK 133 · G7 → TASK 134 · G9–G12 → TASK 132 ·
+G13 → TASK 131. **G1, G2, G5, G8 and G14 have no task number yet** — assigning
+them is an owner decision; TASK 075 deliberately invented no numbers.
 
 ## Open / known dependency status
 
-- PR #4 — Drift 2.34.2 — **DEFERRED** (blocked by TASK 066 toolchain incompatibility)
+- PR #4 — Drift 2.34.2 — **DEFERRED, must not be merged** (blocked by TASK 066
+  toolchain incompatibility; TASK 075 added a second reason: `drift_dev` is
+  capped at 2.34.0, so merging would desynchronise `drift` from `drift_dev`)
+- Dependabot branch `dependabot/pub/bismillah_app/cloud_functions-6.3.4` —
+  **UNRECORDED / NEEDS TRIAGE** (found at TASK 075; PR state UNVERIFIED
+  because `gh` is not installed on the current machine)
+- `flutter pub outdated` at TASK 075: **39** outdated (5 direct, 2 direct dev,
+  27 transitive, 5 transitive dev). Direct: `flutter_local_notifications`
+  22.1.0→22.2.0 (deliberately held at the device-validated 22.1.0),
+  `drift` 2.34.1→2.34.2 (PR #4), `cloud_functions` 6.3.3→6.3.5,
+  `firebase_auth` 6.5.4→6.5.6, `firebase_core` 4.12.0→4.12.1.
+  **No update is required to pass CP09**; none applied.
+- npm audit (Functions, TASK 075): **13 total — 0 critical, 5 high, 8
+  moderate**, all transitive root advisories, **no non-breaking fix**.
+  Chain A (all 5 high): `eslint` devDependency → … → `brace-expansion` —
+  lint/build time only, **never deployed**. Chain B (all 8 moderate):
+  `firebase-admin`/`firebase-functions` → … → `uuid` — **present in the
+  deployed runtime tree**. Both need a major upgrade in a separate gated
+  task; `firebase-admin` v14 must precede any remote-sync deployment.
 - PR #6 — fast-xml-parser 5.10.1 — **SUPERSEDED** by TASK 069 (applied on the
   current Node.js 22 baseline; `fast-xml-parser 5.10.1`, `@nodable/entities 3.0.0`)
 - actions/checkout v7 major — **DEFERRED**

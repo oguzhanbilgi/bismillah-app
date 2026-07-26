@@ -45,7 +45,11 @@ individually reconstructable from Git history and are not invented here.
 - **Verified result:** 586/586 Flutter tests; 11/11 storage tests.
 - **Blocked:** TASK 066 (Drift official CLI toolchain vs analyzer 13).
 
-## Current — CP09 (technical stabilization)
+## CP09 — technical stabilization (CLOSED at TASK 075)
+
+Test counts quoted inside individual task bullets below are the baselines *at
+that task's time*; the current verified baseline lives in
+`docs/project-state/CURRENT_BASELINE.md`.
 
 - **Scope:** Node.js 22 Functions runtime + Functions CI (TASK 068); permanent
   Claude project memory (TASK 068A); fast-xml-parser 5.10.1 validation (TASK 069).
@@ -108,8 +112,34 @@ individually reconstructable from Git history and are not invented here.
   nodejs22 (controlled redeploy pending); secret scan clean. Verdict:
   **READY FOR LOCAL SECURITY HARDENING ONLY** (P0 0 / P1 6 / P2 5); remote
   sync remains disabled.
+- **TASK 075 (CP09 full regression checkpoint, docs-only):** every recorded
+  baseline was re-run on the verified toolchain (Flutter 3.44.6 / Dart 3.12.2
+  / Node 22.22.0 / npm 10.9.4) and reproduced exactly — analyze **clean**
+  (0/0/0), Flutter **629/629**, canonical sync-focused **70/70**, Drift
+  storage **11/11**, Functions **23/23**, and an Android debug APK build
+  **SUCCESS** — with `pubspec.yaml`, `pubspec.lock`, `package.json` and
+  `package-lock.json` all **unchanged** after full resolution. Two findings
+  refined earlier documentation: (a) the npm advisory picture is **two
+  independent chains** — all **5 high** sit under `eslint` (devDependency,
+  lint/build time only, never deployed) and all **8 moderate** under
+  `firebase-admin`/`firebase-functions` (production, inside the deployed
+  tree), 0 critical, **no non-breaking fix** for either; (b) the deployed
+  callable was **re-verified as `nodejs20`** against a repo declaring
+  `nodejs22`, promoting the controlled redeploy from an observation to a
+  verified **P1**. The authoritative 14-gate Firebase security order
+  (G1–G14) was fixed, with G3/G4/G6 → TASK 133, G7 → TASK 134, G9–G12 →
+  TASK 132, G13 → TASK 131, and **G1/G2/G5/G8/G14 explicitly unnumbered**
+  (owner decision; no task number was invented). Payload/schema versioning
+  (G8) was confirmed to belong **before consumer work and outside CP10**.
+  Remote sync re-verified disabled: no `cloud_firestore`, no pattern match in
+  `lib/features/sync`, and **no production caller** of any queue-draining
+  method. **P0 = 0 · P1 = 15 · P2 = 12 · deferred = 5.** Verdict:
+  **CP09 COMPLETE — TECHNICALLY STABLE**; product gate: **READY TO ENTER
+  NEXT LOCAL-FIRST PRODUCT CHECKPOINT**.
 - **Device validation:** Android (Quran) done; Android notification stack fully
-  validated on A36 incl. reboot delivery; iOS PENDING.
-- **Remaining gaps (CP09):** CP09 regression checkpoint (TASK 075: Firebase
-  implementation order, staging prerequisites, payload-version migration
-  placement, CP10 start gate). PR #4 (Drift 2.34.2) remains DEFERRED.
+  validated on A36 incl. reboot delivery; iOS PENDING. TASK 075 built a debug
+  APK for build-health only — **not installed, no device test**.
+- **Remaining gaps (CP09):** none blocking. CP09 is **closed**; CP10 begins at
+  **TASK 076 — DailyPlan repository and local persistence**. Carried forward:
+  PR #4 (Drift 2.34.2) DEFERRED, TASK 066 BLOCKED, iOS validation PENDING,
+  remote sync gated by G1–G14, and monitored npm/pub dependency debt.
