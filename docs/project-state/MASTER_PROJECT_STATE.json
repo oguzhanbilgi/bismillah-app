@@ -8,24 +8,53 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "813c3c9",
+    "last_verified_main_before_task": "f72fdbf",
     "public_tag": "v0.1.0-alpha.1",
+    "public_tag_commit": "c23f490",
     "flutter_version": "3.44.6",
     "dart_version": "3.12.2",
+    "node_version": "22.22.0",
+    "npm_version": "10.9.4",
+    "android_sdk": "36.1.0",
+    "gradle_jdk": "21",
     "flutter_tests": 629,
     "focused_prayer_reminder_tests": 26,
     "sync_focused_tests": 70,
+    "sync_focused_command": "flutter test test/features/sync test/app/persistence_wiring_test.dart test/app/app_bootstrap_test.dart test/features/prayer/data/drift_prayer_log_repository_test.dart",
+    "sync_directory_only_tests": 52,
+    "sync_baseline_note": "Official sync baseline is 70 via the four-path canonical command; 52 is test/features/sync in isolation and must never replace it.",
     "storage_tests": 11,
+    "storage_command": "flutter test test/core/storage",
     "functions_tests": 23,
     "flutter_analyze": "clean",
-    "functions_runtime": "nodejs22"
+    "functions_runtime": "nodejs22",
+    "android_debug_build": "success",
+    "android_debug_apk_sha256": "51ca8748877467b58f3b16368b6e5f23bac5eecdd7222e97595f5cc2764cde99",
+    "known_non_blocking_test_warning": "one off-screen tap() offset warning in bismillah_app/test/features/learn/learn_screens_test.dart; test passes"
   },
   "current_task": {
-    "id": "TASK-074",
-    "name": "Firebase security and console readiness audit",
+    "id": "TASK-075",
+    "name": "CP09 technical stabilization and full regression checkpoint",
     "status": "completed",
-    "latest_completed_documentation_task": "TASK-074",
-    "next_functional_task": "TASK-075",
+    "latest_completed_documentation_task": "TASK-075",
+    "next_functional_task": "TASK-076",
+    "next_functional_task_name": "DailyPlan repository and local persistence",
+    "cp09_checkpoint": {
+      "verdict": "CP09_COMPLETE_TECHNICALLY_STABLE",
+      "product_gate": "READY_TO_ENTER_NEXT_LOCAL_FIRST_PRODUCT_CHECKPOINT",
+      "next_checkpoint": "CP10 (TASK 076-085)",
+      "risk_counts": {"p0": 0, "p1": 15, "p2": 12, "deferred": 5},
+      "dependencies_changed": false,
+      "lockfiles_changed": false,
+      "remote_sync_enabled": false,
+      "firebase_gate_order": ["G1 staging environment + aliases + wrong-project guard", "G2 firestore section in firebase.json", "G3 Firestore Security Rules", "G4 Rules unit tests", "G5 Emulator Suite in CI", "G6 server-side UID ownership", "G7 App Check", "G8 operation payload/schema versioning", "G9 queue consumer + cloud_firestore", "G10 remote idempotency", "G11 conflict policy", "G12 tombstone semantics", "G13 account-link contract", "G14 monitoring/budget/kill switch"],
+      "firebase_gate_owners": {"TASK-131": ["G13"], "TASK-132": ["G9", "G10", "G11", "G12"], "TASK-133": ["G3", "G4", "G6"], "TASK-134": ["G7"], "unnumbered_owner_decision": ["G1", "G2", "G5", "G8", "G14"]},
+      "payload_versioning_placement": "before consumer work (before TASK-132); outside CP10; no task number invented",
+      "npm_audit": {"total": 13, "critical": 0, "high": 5, "moderate": 8, "low": 0, "chains": {"dev_only_high": "eslint (devDependency) -> @eslint/config-array,@eslint/eslintrc,minimatch -> brace-expansion; never deployed", "production_moderate": "firebase-admin/firebase-functions -> @google-cloud/firestore,@google-cloud/storage,google-gax,retry-request,teeny-request,gaxios -> uuid; present in deployed runtime tree"}, "non_breaking_fix_available": false, "fix_applied": false},
+      "flutter_pub_outdated": {"total": 39, "direct": 5, "direct_dev": 2, "transitive": 27, "transitive_dev": 5, "updates_applied": 0, "required_for_cp09": false},
+      "report": "docs/task-reports/TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md"
+    },
+    "previous_documentation_task": "TASK-074",
     "firebase_security": {
       "verdict": "READY_FOR_LOCAL_SECURITY_HARDENING_ONLY",
       "remote_sync_enabled": false,
@@ -35,7 +64,7 @@
       "emulator_suite": "absent",
       "environment_separation": "single dev project, single default alias; no staging",
       "functions_security": "1 callable: auth-required, validated input, Secret Manager, sanitized logs",
-      "deployed_functions_runtime_drift": "console nodejs20 (EOL) vs repo nodejs22 — redeploy pending",
+      "deployed_functions_runtime_drift": "console nodejs20 (EOL) vs repo nodejs22 — RE-VERIFIED at TASK-075 via read-only firebase functions:list; promoted to P1 controlled redeploy (operational task, no code change, owner-assigned number)",
       "secret_scan": "clean (no tracked credentials; client config tracked per policy)",
       "risk_counts": {"p0": 0, "p1": 6, "p2": 5},
       "report": "docs/task-reports/TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md"
@@ -93,13 +122,14 @@
     "TASK-061A-2", "TASK-061A-3", "TASK-061B", "TASK-062A", "TASK-062B",
     "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068",
     "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B", "TASK-070C",
-    "TASK-070D", "TASK-071", "TASK-072", "TASK-073", "TASK-074"
+    "TASK-070D", "TASK-071", "TASK-072", "TASK-073", "TASK-074",
+    "TASK-075"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
   ],
   "roadmap": {
-    "checkpoint": "CP09 technical stabilization",
+    "checkpoint": "CP09 technical stabilization — CLOSED at TASK-075; CP10 next",
     "ranges": {
       "001-060": "foundation",
       "061-067": "public alpha and stabilization",
@@ -148,9 +178,13 @@
     "TASK-070 superseded by TASK-070A (pre-existing Android notification manifest gap)",
     "PR #3 superseded by PR #14 (22.1.0 applied via TASK-070C on validated baseline)",
     "empty onUpgrade migration placeholder; no migration tests; no encryption",
-    "Firebase Console hardening unverified",
+    "Firebase console posture partially verified at TASK-074/075 (deployed runtime nodejs20 VERIFIED); budget/alerting/log-retention still UNVERIFIED",
     "iOS physical-device validation pending",
-    "Today plan engine not built",
-    "Learn coverage 9 of 20 categories"
+    "Today plan engine not built (CP10 TASK-076 starts it)",
+    "Learn coverage 9 of 20 categories",
+    "TASK-075: npm advisories 13 (5 high dev-only eslint chain; 8 moderate production firebase-admin chain); no non-breaking fix; major upgrades deferred to separate gated tasks",
+    "TASK-075: Kotlin Gradle Plugin migration warning (cloud_functions, flutter_timezone) — future Flutter versions will fail to build",
+    "TASK-075: unrecorded Dependabot branch cloud_functions-6.3.4 needs triage; PR state UNVERIFIED (gh not installed)",
+    "TASK-075: CLAUDE.md 'What you must always know' and docs/setup/NEW_COMPUTER_SETUP.md carry stale task/test figures (TASK-068 era, 586 tests) — outside TASK-075 allowed diff; needs a memory-reconciliation task"
   ]
 }

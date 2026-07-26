@@ -35,13 +35,13 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 072 | COMPLETED | CP09 | Sync-queue audit: atomic producer + tested queue, NO consumer/remote; verdict READY FOR LOCAL QUEUE HARDENING ONLY (P0 0 / P1 6 / P2 4) | `TASK_072_SYNC_QUEUE_AUDIT.md` | — |
 | TASK 073 | COMPLETED | CP09 | Local sync-queue hardening: backoff policy + failure taxonomy + recordFailure + pruning + stale recovery + diagnostics (sync 70/70, full 629); verdict READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION; remote sync stays disabled | `TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md` | — |
 | TASK 074 | COMPLETED | CP09 | Firebase security readiness audit: Rules/App Check/emulator/staging ABSENT (P1 blockers); callable auth-gated + secret-managed but deployed on EOL nodejs20; secret scan clean; verdict READY FOR LOCAL SECURITY HARDENING ONLY (P0 0 / P1 6 / P2 5) | `TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md` | — |
-| TASK 075 | PLANNED | CP09 | CP09 regression checkpoint + Firebase implementation order / staging prerequisites / CP10 gate | audit §20 | run TASK 075 |
+| TASK 075 | COMPLETED | CP09 | CP09 full regression checkpoint: all baselines re-run unchanged (analyze clean, 629/629, canonical sync 70/70 — `test/features/sync` alone 52, storage 11/11, Functions 23/23, debug APK SUCCESS); no dependency/lockfile change; authoritative Firebase gate order G1–G14; deployed nodejs20 drift re-verified (P1); npm audit 13 (0 critical / 5 high dev-only `eslint` chain / 8 moderate production `firebase-admin` chain); verdict **CP09 COMPLETE — TECHNICALLY STABLE**; product gate **READY TO ENTER NEXT LOCAL-FIRST PRODUCT CHECKPOINT**; P0 0 / P1 15 / P2 12 / deferred 5 | `TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md` | run TASK 076 |
 
 ## Selected forward milestones
 
 | Task | Status | Checkpoint | Summary |
 |---|---|---|---|
-| TASK 075 | PLANNED | CP09 | CP09 full regression checkpoint |
+| TASK 076 | **NEXT** | CP10 | DailyPlan repository and local persistence — first CP10 task |
 | TASK 085 | PLANNED | CP10 | 30-day plan and CP10 checkpoint |
 | TASK 094 | PLANNED | CP11 | Learn/Assistant depth checkpoint |
 | TASK 101 | PLANNED | CP12 | Closed alpha/beta package |
@@ -55,7 +55,9 @@ The live Git history is authoritative; this index is a human-readable summary.
 
 | PR | Item | Status | Note |
 |---|---|---|---|
-| PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker |
+| PR #4 | Drift 2.34.2 (+sqlite3 3.5.0) | DEFERRED | tied to TASK 066 blocker; TASK 075 adds: `drift_dev` capped at 2.34.0, so merging would desynchronise drift/drift_dev |
+| PR unknown | `cloud_functions` 6.3.4 (Dependabot branch on origin) | **NEEDS TRIAGE** | found at TASK 075; not previously recorded; PR state UNVERIFIED (`gh` not installed on current machine) |
+| — | `actions/checkout` v7 (Dependabot branch on origin) | DEFERRED | unchanged; major-version bump |
 | PR #3 | flutter_local_notifications 22.1.0 | SUPERSEDED | applied by TASK 070C via PR #14 on validated baseline |
 | PR #6 | fast-xml-parser 5.10.1 | SUPERSEDED | applied by TASK 069 on Node 22 baseline |
 | PR #2 | flutter-action 2.23.0 | SUPERSEDED | closed; replaced by PR #8 (TASK 067) |
