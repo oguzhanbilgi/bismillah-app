@@ -6,15 +6,36 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 078). After the TASK 078 merge, read the real current commit from
+> task (TASK 079). After the TASK 079 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 078: `1813a1c`
+- Last verified main before TASK 079: `8b5f6eb`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 078** — Onboarding profile mapping:
+- Latest completed functional task: **TASK 079** — Deterministic daily plan
+  generator (**skeleton + item-source contract**): `DailyPlanGenerator` emits
+  exactly **30 per-day `DailyPlan` records** from a validated
+  `DailyPlanGenerationRequest` (profile · goals · pace · start `DayKey`).
+  The stop gate fired first: `dhikr`/`dua`/`reflection` have **no content at
+  all** (interfaces only; `assets/content/` holds only `learn/`), so producing
+  items would have meant inventing worship prescriptions. The roadmap resolves
+  it — Prayer/Quran/Learn items are **TASK 080/081/082**. Owner approved
+  **Option B**.
+  **Approved TASK 079 product decisions (NOT in the old spec):** pace budget
+  `light` 5 · `balanced` 10 · `focused` 20 · **`advanced`+`focused` → 30**
+  (the only profile-specific override; 15 never produced); `weekIndex` is a
+  zero-based **four-phase** index — offsets 0–6→0, 7–13→1, 14–20→2, **21–29→3**
+  (days 29–30 stay in phase 3; **`weekIndex` 4 is never produced**; 7/7/7/9).
+  Default `EmptyDailyPlanItemSource` ⇒ 30 valid plans with **empty `items`**
+  (explicitly not a failure). Stable item ID =
+  `rule-engine-v1:<dayKey>:<templateId>:<slot>` — no random/timestamp/hashCode.
+  63 focused tests; full suite 820 → **883**. **No persistence write, no Today
+  UI, no Drift change, no Firebase write, no religious content; remote sync
+  stays disabled; zero tracked files modified.**
+  Report: `docs/task-reports/TASK_079_DETERMINISTIC_DAILY_PLAN_GENERATOR.md`
+- Previous completed functional task: **TASK 078** — Onboarding profile mapping:
   `DailyPlanProfileType` (the **eight** canonical §10 buckets, finally given
   stable IDs: `beginner`, `returning`, `prayer_focused`, `quran_focused`,
   `dhikr_focused`, `learning_focused`, `advanced`, `low_time`) plus the pure
@@ -85,15 +106,17 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 079** — Deterministic daily plan
-  generator (CP10; consumes `DailyPlanProfileType` + daily pace + local start
-  `DayKey`; must emit **30 per-day records**, never one aggregate)
+- Next planned functional task: **TASK 080** — Prayer plan items (CP10; the
+  first approved `DailyPlanItemSource`; no persistence orchestration, no Today
+  UI — that is TASK 083)
 
-## Tests (verified at TASK 078)
+## Tests (verified at TASK 079)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **820 / 820**, 0 failed, 0 skipped
-  (742 at TASK 077 + 78 profile-mapping tests)
+- Flutter test baseline: **883 / 883**, 0 failed, 0 skipped
+  (820 at TASK 078 + 63 generator tests)
+- Daily plan generator suite: **63 / 63** — command:
+  `flutter test test/features/today/domain/daily_plan_generator_test.dart`
 - Onboarding profile-mapping suite: **78 / 78** — command:
   `flutter test test/features/today/domain/onboarding_profile_mapper_test.dart`
 - DailyPlan state-machine suite: **43 / 43** — command:
@@ -224,6 +247,31 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   focus goal is left unmapped; no provider added (pure static utility, so
   bootstrap cannot invoke it).
   Report: `docs/task-reports/TASK_078_ONBOARDING_PROFILE_MAPPING.md`
+- TASK 079 — Deterministic daily plan generator: `DailyPlanGenerationRequest`
+  (+ typed `GenerationRequestIssue`: `emptyGoals`, `profilePaceMismatch`),
+  `DailyPlanGenerator`, and the extensible `DailyPlanItemSource` /
+  `DailyPlanDayContext` / `PlanItemDraft` / `EmptyDailyPlanItemSource` /
+  `DailyPlanItemIdBuilder`. Request validation rejects profile×pace
+  combinations TASK 078 could never produce; the generator **never re-runs**
+  the profile mapper. Local calendar arithmetic only (`DateTime(y, m, d+n)`) —
+  no UTC conversion, no `Duration(hours: 24)`, DST-safe. Failures reuse
+  existing types (`ValidationFailure`/`UnexpectedFailure`) — **no new
+  `AppFailure` subtype and no new localization key**; source failures propagate
+  unchanged and **partial plans are never returned**. No provider (pure static
+  service, like the TASK 078 mapper).
+  Report: `docs/task-reports/TASK_079_DETERMINISTIC_DAILY_PLAN_GENERATOR.md`
+
+## Plan content reality (fixed by TASK 079)
+
+Of the six `PlanItemType` categories, only **`quran`** (bundled Tanzil +
+QuranEnc) and **`lesson`** (`assets/content/learn/`, 30 published, source
+verified) have real content. **`dhikr`, `dua` and `reflection` have none** —
+`features/dhikr` and `features/dua` contain domain entities and repository
+*interfaces* only, with no implementation, data source or asset. No plan
+template/catalog structure exists in `lib/`. TASK 079 therefore generates the
+30-day frame with **empty `items`**; approved content sources arrive in
+**TASK 080 (Prayer) · TASK 081 (Quran) · TASK 082 (Learn)**. Content for
+dhikr/dua/reflection remains an **open owner decision** — do not invent it.
 
 ## Onboarding model reality (fixed by TASK 078)
 
