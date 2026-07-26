@@ -199,5 +199,44 @@ that task's time*; the current verified baseline lives in
   storage 11/11; Functions 23/23; analyze clean. **No generation, no Today UI,
   no Firebase write, no Drift/schema/dependency change; remote sync stays
   disabled.**
-- **Next:** **TASK 078 — Onboarding profile mapping** (TASK 079 still owns
-  deterministic plan generation).
+- **TASK 078 (onboarding profile mapping):** the eight canonical profile
+  buckets named in `04_ONBOARDING_FLOW` §10 finally became a typed
+  `DailyPlanProfileType` with stable IDs (`beginner`, `returning`,
+  `prayer_focused`, `quran_focused`, `dhikr_focused`, `learning_focused`,
+  `advanced`, `low_time`) — fulfilling the note in `personalization_profile.dart`
+  that the buckets would be enumerated by the personalization task. **Eight,
+  not nine.**
+  A second stop gate fired first: doc §474 derives the profile from
+  `growthGoal` → `prayerRoutine`/`quranHabit` → `dailyTime` → `mainStruggle`,
+  but the shipped onboarding is a **three-screen flow** and collects none of
+  those. The 16-question `OnboardingAnswers` model, `OnboardingGoal`,
+  `PersonalizationProfile` and `OnboardingRepository` were found to be
+  **unused scaffolding** — never constructed, persisted or referenced. The
+  owner approved **Option A**: map from the really implemented
+  `OnboardingPreferences` (goals · journeyStage · dailyPace), leaving the
+  onboarding UI and persistence untouched.
+  The **axis precedence and multi-goal tie-break are an approved TASK 078
+  product decision, not inherited from the old specification**:
+  `justBeginning`→beginner (outranks pace, so a light-pace beginner stays
+  beginner) · `rebuildingRoutine`→returning · `strengtheningRoutine`+`focused`
+  →advanced (never inferred from goals alone) · `light`→low_time (a scheduling
+  constraint, never a religious judgment) · else goals in the fixed order
+  prayer→quran→dhikr→learning. `completedAtUtc` never affects classification.
+  The sealed result has only **Mapped** and **Incomplete**; `Invalid` and
+  `Contradictory` were deliberately **not** created because the current model
+  cannot represent them — multi-goal and stage+pace combinations are
+  legitimate, not contradictions. The historical "justBeginning skips the
+  prayer-frequency question" rule was documented as inapplicable: that
+  question does not exist in the current flow, so no fake skip logic was
+  written. The mapper is pure — no Ref, storage, Firebase, clock, locale,
+  timezone or randomness — and logs nothing.
+  **78 new tests** (per-profile reachability plus **enum-coverage locks** that
+  fail the suite if a future profile or focus goal is left unmapped, full
+  3 × 3 × 5 grid determinism, tie boundaries, privacy and neutrality checks);
+  full suite **742 → 820**; TASK 077 43/43; persistence 70/70; canonical sync
+  70/70; Drift storage 11/11; Functions 23/23; analyze clean. **Zero tracked
+  files modified** — no generation, Today UI, onboarding UI, persistence,
+  Drift, Firebase or remote-sync change.
+- **Next:** **TASK 079 — Deterministic daily plan generator** (consumes the
+  typed profile, daily pace and local start `DayKey`; must emit 30 per-day
+  records).

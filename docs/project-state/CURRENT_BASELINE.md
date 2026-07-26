@@ -6,15 +6,35 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 077). After the TASK 077 merge, read the real current commit from
+> task (TASK 078). After the TASK 078 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 077: `d9671c4`
+- Last verified main before TASK 078: `1813a1c`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 077** — DailyPlan state machine:
+- Latest completed functional task: **TASK 078** — Onboarding profile mapping:
+  `DailyPlanProfileType` (the **eight** canonical §10 buckets, finally given
+  stable IDs: `beginner`, `returning`, `prayer_focused`, `quran_focused`,
+  `dhikr_focused`, `learning_focused`, `advanced`, `low_time`) plus the pure
+  `OnboardingProfileMapper`. **Input is the really implemented three-axis
+  `OnboardingPreferences`** (`goals` / `journeyStage` / `dailyPace`);
+  `completedAtUtc` never affects classification. The 16-question
+  `OnboardingAnswers` / `OnboardingGoal` / `PersonalizationProfile` types are
+  **UNUSED FUTURE SCAFFOLDING** and were not used, deleted or rewritten.
+  Doc §474's derivation recipe was unusable because its inputs
+  (`growthGoal`, `prayerRoutine`, `mainStruggle`) are **not collected by the
+  app** — the stop gate fired and the owner approved Option A.
+  **Approved TASK 078 product decision (NOT in the old spec):** priority
+  1 `justBeginning`→beginner · 2 `rebuildingRoutine`→returning ·
+  3 `strengtheningRoutine`+`focused`→advanced · 4 `light`→low_time ·
+  5 goals by fixed order prayer→quran→dhikr→learning. 78 focused tests;
+  full suite 742 → **820**. **No generation, no UI, no persistence change,
+  no Firebase write, no Drift change; remote sync stays disabled; zero
+  tracked files modified.**
+  Report: `docs/task-reports/TASK_078_ONBOARDING_PROFILE_MAPPING.md`
+- Previous completed functional task: **TASK 077** — DailyPlan state machine:
   `DailyPlanController` (`Notifier<DailyPlanState?>`) loads/observes/refreshes/
   saves one selected `DayKey` through the **unchanged** repository contract.
   Sealed states: **Loading · Empty · Available · Corrupt · Failure** (calm
@@ -65,14 +85,17 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 078** — Onboarding profile mapping
-  (CP10; TASK 079 still owns deterministic plan generation)
+- Next planned functional task: **TASK 079** — Deterministic daily plan
+  generator (CP10; consumes `DailyPlanProfileType` + daily pace + local start
+  `DayKey`; must emit **30 per-day records**, never one aggregate)
 
-## Tests (verified at TASK 077)
+## Tests (verified at TASK 078)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **742 / 742**, 0 failed, 0 skipped
-  (696 at TASK 076 + 43 state-machine tests + 3 strengthened persistence tests)
+- Flutter test baseline: **820 / 820**, 0 failed, 0 skipped
+  (742 at TASK 077 + 78 profile-mapping tests)
+- Onboarding profile-mapping suite: **78 / 78** — command:
+  `flutter test test/features/today/domain/onboarding_profile_mapper_test.dart`
 - DailyPlan state-machine suite: **43 / 43** — command:
   `flutter test test/features/today/application/daily_plan_controller_test.dart`
 - DailyPlan persistence suite: **70 / 70** — command:
@@ -192,6 +215,28 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   `StorageCorruptionFailure` (approved §10 gate correction) — failure mapping
   inspects **type only**, never `messageKey` or exception text.
   Report: `docs/task-reports/TASK_077_DAILY_PLAN_STATE_MACHINE.md`
+- TASK 078 — Onboarding profile mapping: `DailyPlanProfileType` (8 buckets,
+  stable IDs) + pure `OnboardingProfileMapper` over the real
+  `OnboardingPreferences`; sealed result **Mapped / Incomplete** only
+  (`Invalid` and `Contradictory` deliberately omitted as unreachable in the
+  current model); stable neutral rule IDs (`journey_beginner`, `pace_low_time`,
+  `focus_prayer`…); enum-coverage locks fail the suite if a new profile or
+  focus goal is left unmapped; no provider added (pure static utility, so
+  bootstrap cannot invoke it).
+  Report: `docs/task-reports/TASK_078_ONBOARDING_PROFILE_MAPPING.md`
+
+## Onboarding model reality (fixed by TASK 078)
+
+The shipped onboarding is **three screens** (goals · journey stage · daily
+pace), persisted as `OnboardingPreferences` under `bismillah.onboarding_*`
+keys. The 16-question `OnboardingAnswers` model, `OnboardingGoal`,
+`PersonalizationProfile` and `OnboardingRepository` are **UNUSED / FUTURE
+EXTENDED ONBOARDING SCAFFOLDING** — never constructed, persisted or
+referenced. Do not present them as active inputs, and do not map from them.
+The historical "justBeginning skips the prayer-frequency question" skip rule
+belongs to that unimplemented spec: **the current flow has no
+prayer-frequency question**, so there is no skip or stale-answer handling to
+implement.
 
 ## Firebase security gate order (authoritative — TASK 075)
 

@@ -43,13 +43,13 @@ The live Git history is authoritative; this index is a human-readable summary.
 |---|---|---|---|---|---|
 | TASK 076 | COMPLETED | CP10 | DailyPlan local persistence: first implementation of the existing `DailyPlanRepository` via a **temporary versioned key-value envelope** (persistence version 1, key `bismillah.daily_plans`); canonical **per-day** model preserved (30-day frame = 30 records) and the brief's conflicting 30-day-snapshot model rejected with owner approval; typed corruption failures, no silent overwrite; 67 focused tests, full suite 629 → **696**; **no Drift schema/dependency/generation/UI/Firebase/remote-sync change** | `TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md` | run TASK 077 |
 | TASK 077 | COMPLETED | CP10 | Daily plan state machine: `DailyPlanController` + sealed `DailyPlanState` (Loading/Empty/Available/Corrupt/Failure); epoch counter blocks stale results; latest-valid-completion-wins save rule; single watch subscription cancelled on day switch/disposal; bootstrap never loads it. Includes approved contract fix **`StorageCorruptionFailure`** (type-only failure mapping; no signature/l10n/envelope/key change). 43 focused tests; persistence 67 → **70**; full 696 → **742**; **no generation/UI/Firebase/Drift/remote-sync change** | `TASK_077_DAILY_PLAN_STATE_MACHINE.md` | run TASK 078 |
-| TASK 078 | **NEXT** | CP10 | Onboarding profile mapping | roadmap CP10 | run TASK 078 |
+| TASK 078 | COMPLETED | CP10 | Onboarding profile mapping: `DailyPlanProfileType` (**8** canonical §10 buckets with stable IDs) + pure `OnboardingProfileMapper` over the really implemented three-axis `OnboardingPreferences`; the 16-question `OnboardingAnswers` model is **unused scaffolding** and doc §474's recipe was unusable (its inputs are not collected) — stop gate fired, Option A approved. **Approved product decision:** priority justBeginning→beginner, rebuildingRoutine→returning, strengthening+focused→advanced, light→low_time, else goals prayer→quran→dhikr→learning. Sealed result Mapped/Incomplete only. 78 focused tests; full 742 → **820**; **no generation/UI/persistence/Drift/Firebase/remote-sync change** | `TASK_078_ONBOARDING_PROFILE_MAPPING.md` | run TASK 079 |
+| TASK 079 | **NEXT** | CP10 | Deterministic daily plan generator — consumes `DailyPlanProfileType` + daily pace + local start `DayKey`; must emit **30 per-day records** | roadmap CP10 | run TASK 079 |
 
 ## Selected forward milestones
 
 | Task | Status | Checkpoint | Summary |
 |---|---|---|---|
-| TASK 079 | PLANNED | CP10 | Deterministic daily plan generator |
 | TASK 085 | PLANNED | CP10 | 30-day plan and CP10 checkpoint |
 | TASK 094 | PLANNED | CP11 | Learn/Assistant depth checkpoint |
 | TASK 101 | PLANNED | CP12 | Closed alpha/beta package |
