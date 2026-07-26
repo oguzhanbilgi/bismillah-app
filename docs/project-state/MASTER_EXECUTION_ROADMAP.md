@@ -64,6 +64,7 @@ TASK 076    — DailyPlan repository and local persistence — COMPLETED
 TASK 077    — Daily plan state machine — COMPLETED
 TASK 078    — Onboarding profile mapping — COMPLETED
 TASK 079    — Deterministic daily plan generator — COMPLETED
+TASK 080    — Prayer plan items — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -97,6 +98,15 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
 gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
 which is local-first by design.
 
+**CP10 item-source rule (fixed by TASK 080):** plan items come from the user's
+**onboarding goals**, never from `DailyPlanProfileType`; contribution is
+identical across all eight profiles and all four phases (no escalation, no
+beginner discount, no advanced quota). `estimatedMinutes` is in-app
+*interaction* cost, never worship duration or religious value. Prayer items
+attach **no** prayer name and **no** prayer count. Source composition
+(Prayer → Quran → Learn) is deliberately **not** built yet — it arrives with
+**TASK 081**, the first task needing multiple concurrent sources.
+
 **CP10 generation rule (fixed by TASK 079):** `DailyPlanGenerator` produces the
 30-day frame only; **plan content comes from `DailyPlanItemSource`
 implementations**, owned by TASK 080 (Prayer), TASK 081 (Quran) and TASK 082
@@ -128,8 +138,8 @@ TASK 076 — DailyPlan repository and local persistence   — COMPLETED
 TASK 077 — Daily plan state machine                     — COMPLETED
 TASK 078 — Onboarding profile mapping                   — COMPLETED
 TASK 079 — Deterministic daily plan generator           — COMPLETED
-TASK 080 — Prayer plan items                            <-- NEXT TASK
-TASK 081 — Quran plan items
+TASK 080 — Prayer plan items                            — COMPLETED
+TASK 081 — Quran plan items                             <-- NEXT TASK
 TASK 082 — Learn plan items
 TASK 083 — Today task UI
 TASK 084 — Missed-day recovery and gentle rollover
