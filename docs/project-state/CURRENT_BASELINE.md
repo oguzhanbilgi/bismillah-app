@@ -6,15 +6,37 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 080). After the TASK 080 merge, read the real current commit from
+> task (TASK 081). After the TASK 081 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 080: `36e64f8`
+- Last verified main before TASK 081: `a63e023`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 080** — Prayer plan items: the
+- Latest completed functional task: **TASK 081** — Quran plan items **and
+  ordered source composition**. `QuranDailyPlanItemSource` emits a single
+  neutral *continuation/tracking* action `quran_continue_daily` when the
+  `quranHabit` goal is present (absent ⇒ empty list, not a failure), costing
+  **`estimatedMinutes = 2`** (in-app interaction budget — **not** required
+  reading duration, a religious minimum, a ruling, reward or rank).
+  **No surah, ayah, juz, page, translation text, reciter, audio URL or
+  reading/listening quantity is assigned**; `targetRef`/`sizeParam` stay
+  null. No Quran repository, progress, saved verses or audio is read.
+  `CompositeDailyPlanItemSource` runs an **explicitly ordered** child list
+  once per day and concatenates in **Prayer → Quran → Learn** order —
+  a deterministic product rule, **not** a religious ranking. It propagates
+  the first typed child failure with **no partial output**, rejects
+  **cross-source** duplicate template IDs (`ValidationFailure`, no new
+  failure type or l10n key), and returns an empty success for an empty child
+  list. Because it implements the same single-source interface, the
+  **generator needed no change**. Appending Learn later **cannot shift**
+  Prayer/Quran slots or final IDs (tested). Contribution is identical across
+  all 8 profiles and 4 phases. 70 focused tests; full suite 945 → **1015**.
+  **No persistence, Today UI, Drift, Firebase or remote sync; zero tracked
+  files modified.**
+  Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
+- Previous completed functional task: **TASK 080** — Prayer plan items: the
   **first approved `DailyPlanItemSource`**. `PrayerDailyPlanItemSource` emits
   `prayer_track_daily` (goal `trackPrayers`) and/or `prayer_on_time_daily`
   (goal `prayOnTime`), in that fixed order, each costing
@@ -124,16 +146,19 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 081** — Quran plan items (CP10; second
-  approved `DailyPlanItemSource`; **first task that requires source
-  composition** — Prayer → Quran → Learn; no persistence orchestration, no
-  Today UI — that is TASK 083)
+- Next planned functional task: **TASK 082** — Learn plan items (CP10; third
+  approved `DailyPlanItemSource`; joins the existing ordered composite
+  **after** Prayer and Quran; **published + source-verified Learn article IDs
+  only**; no persistence orchestration, no Today UI — that is TASK 083)
 
-## Tests (verified at TASK 080)
+## Tests (verified at TASK 081)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **945 / 945**, 0 failed, 0 skipped
-  (883 at TASK 079 + 62 prayer plan-item tests)
+- Flutter test baseline: **1015 / 1015**, 0 failed, 0 skipped
+  (945 at TASK 080 + 70 Quran plan-item/composition tests)
+- Quran plan-item + composition suite: **70 / 70** — command:
+  `flutter test test/features/today/domain/quran_daily_plan_item_source_test.dart`
+- Quran feature suite: **89 / 89** — command: `flutter test test/features/quran`
 - Prayer plan-item suite: **62 / 62** — command:
   `flutter test test/features/today/domain/prayer_daily_plan_item_source_test.dart`
 - Daily plan generator suite: **63 / 63** — command:
@@ -290,6 +315,14 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   directly; composition arrives when **TASK 081** first needs Prayer → Quran →
   Learn together.
   Report: `docs/task-reports/TASK_080_PRAYER_PLAN_ITEMS.md`
+- TASK 081 — Quran plan items + `CompositeDailyPlanItemSource`: composition
+  arrived exactly where TASK 080 predicted. Composite is `const`, pure,
+  order-from-constructor-list, one call per child per day; duplicate
+  detection is scoped **across children only** (a single source repeating a
+  template stays its own decision — TASK 079's `slot` already separates final
+  identities). Quran source is `const`, stateless and **total**; no
+  unreachable failure branch was fabricated.
+  Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
 
 ## Plan content reality (fixed by TASK 079)
 
@@ -307,6 +340,14 @@ dhikr/dua/reflection remains an **open owner decision** — do not invent it.
 prayer items are app *tracking* actions carrying only a stable template ID, with
 `targetRef`/`sizeParam` null (no prayer name, no prayer count). Quran and Learn
 (TASK 081/082) do have real bundled content to reference by ID.
+
+**TASK 081 update:** the Quran slice also needed **no content**. Although
+bundled Quran content exists, the Quran item is a neutral *continuation*
+action — no surah/ayah/juz/page/translation/reciter/audio and no reading
+quantity is assigned, and no Quran repository is read. Resolving a concrete
+reading position remains a later orchestration/content decision. **TASK 082
+(Learn) is the first source expected to reference real content IDs** — and it
+may use only **published, source-verified** Learn article identifiers.
 
 ## Onboarding model reality (fixed by TASK 078)
 

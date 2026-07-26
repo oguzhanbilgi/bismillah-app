@@ -65,6 +65,7 @@ TASK 077    — Daily plan state machine — COMPLETED
 TASK 078    — Onboarding profile mapping — COMPLETED
 TASK 079    — Deterministic daily plan generator — COMPLETED
 TASK 080    — Prayer plan items — COMPLETED
+TASK 081    — Quran plan items and ordered source composition — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -97,6 +98,16 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
 **CP09 is closed.** CP10 is in progress. Remote sync remains disabled and is
 gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
 which is local-first by design.
+
+**CP10 composition rule (fixed by TASK 081):** multiple item sources run
+through `CompositeDailyPlanItemSource` — an **explicitly ordered** child list,
+one call per child per day, concatenated in **Prayer → Quran → Learn** order.
+That order is a deterministic product rule, **not** a religious ranking. The
+first typed child failure propagates with **no partial output**; duplicate
+template IDs **across** children are rejected. Because the composite implements
+the same single-source interface, `DailyPlanGenerator` is unchanged, and
+appending Learn later **cannot shift** existing Prayer/Quran slots or final
+item IDs.
 
 **CP10 item-source rule (fixed by TASK 080):** plan items come from the user's
 **onboarding goals**, never from `DailyPlanProfileType`; contribution is
@@ -139,8 +150,8 @@ TASK 077 — Daily plan state machine                     — COMPLETED
 TASK 078 — Onboarding profile mapping                   — COMPLETED
 TASK 079 — Deterministic daily plan generator           — COMPLETED
 TASK 080 — Prayer plan items                            — COMPLETED
-TASK 081 — Quran plan items                             <-- NEXT TASK
-TASK 082 — Learn plan items
+TASK 081 — Quran plan items                             — COMPLETED
+TASK 082 — Learn plan items                             <-- NEXT TASK
 TASK 083 — Today task UI
 TASK 084 — Missed-day recovery and gentle rollover
 TASK 085 — 30-day plan and CP10 checkpoint

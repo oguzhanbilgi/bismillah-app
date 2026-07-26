@@ -312,6 +312,53 @@ that task's time*; the current verified baseline lives in
   TASK 079 63/63; TASK 078 78/78; TASK 077 43/43; persistence 70/70; canonical
   sync 70/70; Drift storage 11/11; prayer feature suite 24/24; Functions 23/23;
   analyze clean. **Zero tracked files modified.**
-- **Next:** **TASK 081 — Quran plan items** (uses approved bundled Quran
-  content identifiers; first task requiring source composition). Content for
+- **TASK 081 (Quran plan items + ordered source composition):** the second
+  approved `DailyPlanItemSource` and the first task needing two concurrent
+  sources, so composition arrived exactly where TASK 080 predicted. The
+  representation gate passed cleanly again — `targetRef`/`sizeParam` are
+  optional nullable on both `PlanItemDraft` and `PlanItem`, so **no domain,
+  localization, persistence, envelope-version or Drift change** was needed.
+  `QuranDailyPlanItemSource` emits a single neutral **continuation/tracking**
+  action `quran_continue_daily` when — and only when — the existing
+  `quranHabit` goal is selected (absent ⇒ empty list, not a failure), costing
+  **2 estimated in-app interaction minutes**, explicitly *not* a required
+  reading duration, religious minimum, ruling, reward or rank. Notably the
+  Quran slice **also needed no content**: despite bundled Quran content
+  existing, **no surah, ayah, juz, page, translation text, reciter, audio URL
+  or reading/listening quantity is assigned**, and none of the 13 Quran
+  repository interfaces, progress, saved verses or audio is read — resolving a
+  concrete reading position stays a later orchestration decision.
+  `CompositeDailyPlanItemSource` is `const`, pure and takes an **explicitly
+  ordered** child list: order comes from the constructor list (never runtime
+  type, class name, `Set` storage or map iteration), each child is called
+  **once per day**, and contributions concatenate in the approved
+  **Prayer → Quran → Learn** order — a deterministic product rule, **not** a
+  religious ranking. The first typed child failure propagates and **earlier
+  contributions are discarded** (no partial list); duplicate template IDs
+  **across children** are rejected via the existing
+  `ValidationFailure` — **no new `AppFailure` subtype and no new localization
+  key**; a single source repeating a template internally remains its own
+  decision because TASK 079's `slot` already separates final identities; an
+  empty child list yields an empty success. Because the composite implements
+  the same single-source interface, **`DailyPlanGenerator` needed no change**,
+  and since Learn will append *after* Quran, existing Prayer (slots 0, 1) and
+  Quran (slot 2) final IDs **cannot shift** — asserted by a test that appends a
+  third source. Contribution is identical across all eight profiles and all
+  four phases, with no beginner quota, advanced quantity or phase-based ayah
+  escalation.
+  **70 new tests** (goal selection, template identity, PlanItem representation,
+  profile/phase independence with an **enum coverage lock**, composition
+  ordering including reversed-constructor and third-source-append cases,
+  composite failure and duplicate handling, budget across all eight
+  profile×pace combinations including the tightest 5-minute `light` holding all
+  three items, six 30-day scenarios with 50-repeat determinism, and
+  religious-safety/privacy assertions that no scripture, translation,
+  assignment, coordinate or UID ever appears); full suite **945 → 1015**;
+  TASK 080 62/62; TASK 079 63/63; TASK 078 78/78; TASK 077 43/43; persistence
+  70/70; canonical sync 70/70; Drift storage 11/11; **Quran feature suite
+  89/89** (measured, not assumed); Functions 23/23; analyze clean. **Zero
+  tracked files modified.**
+- **Next:** **TASK 082 — Learn plan items** (joins the ordered composite after
+  Prayer and Quran; **published and source-verified** Learn article IDs only —
+  the first source expected to reference real content). Content for
   dhikr/dua/reflection remains an **open owner decision**.
