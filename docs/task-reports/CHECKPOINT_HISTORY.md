@@ -273,6 +273,45 @@ that task's time*; the current verified baseline lives in
   11/11; Functions 23/23; analyze clean. **Zero tracked files modified** — no
   persistence write, Today UI, Drift, Firebase or remote-sync change, and **no
   religious content invented**.
-- **Next:** **TASK 080 — Prayer plan items** (first approved
-  `DailyPlanItemSource`; content for dhikr/dua/reflection remains an open
-  owner decision).
+- **TASK 080 (prayer plan items):** the **first approved
+  `DailyPlanItemSource`**, and the first CP10 task with **no stop gate** — the
+  representation gate passed cleanly. `PrayerDailyPlanItemSource` emits
+  `prayer_track_daily` and/or `prayer_on_time_daily` purely from the user's own
+  onboarding goals (`trackPrayers` / `prayOnTime`), always tracking first, each
+  costing **1 estimated in-app interaction minute** — explicitly *not* prayer
+  duration, a religious minimum, a ruling, worship value or spiritual rank.
+  The gate passed **without any domain change**: the two actions are
+  distinguished by their stable `templateId`, which TASK 079's
+  `DailyPlanItemIdBuilder` already composes into the final item identity
+  (`rule-engine-v1:<dayKey>:<templateId>:<slot>`), so no field was overloaded
+  and no localization key, persistence field, envelope-version or Drift change
+  was needed.
+  **Approved TASK 080 product decisions:** items derive from **goals, never
+  from the profile** (`prayer_focused` adds nothing by itself, `prayOnTime`
+  does not imply `trackPrayers`, unrelated goals change nothing, no prayer goal
+  ⇒ empty list which is not a failure); a fixed contribution order declared as
+  an **explicit ordered list** (never `Set`/enum/map iteration order); 1 minute
+  per item; and **no progression-phase escalation** — contribution is identical
+  across all eight profiles and all four phases, with no beginner discount,
+  advanced quota, recovery week or streak requirement invented.
+  Hard boundaries held: **no prayer-time calculation, no location access, no
+  notification scheduling, no `PrayerLogDay` read, no completion inference**;
+  `targetRef` and `sizeParam` stay null so no prayer name and no prayer count
+  is ever claimed. The source is pure, `const`, stateless, logs nothing, and is
+  **total** — an unreachable failure branch was deliberately not fabricated.
+  Per the task's own rule, **no source composition was added**: the generator
+  still accepts a single source and Prayer is passed directly; composition
+  (Prayer → Quran → Learn) arrives with **TASK 081**, the first task needing
+  multiple concurrent sources.
+  **62 new tests** (goal selection, ordering, template and final-item identity,
+  budget across all eight profile×pace combinations including the tightest
+  5-minute `light`, profile and phase independence with an **enum coverage
+  lock**, 30-day integration over four goal scenarios with 50-repeat
+  determinism, and religious-safety/privacy assertions that no prayer name,
+  coordinate, UID or judgmental token ever appears); full suite **883 → 945**;
+  TASK 079 63/63; TASK 078 78/78; TASK 077 43/43; persistence 70/70; canonical
+  sync 70/70; Drift storage 11/11; prayer feature suite 24/24; Functions 23/23;
+  analyze clean. **Zero tracked files modified.**
+- **Next:** **TASK 081 — Quran plan items** (uses approved bundled Quran
+  content identifiers; first task requiring source composition). Content for
+  dhikr/dua/reflection remains an **open owner decision**.

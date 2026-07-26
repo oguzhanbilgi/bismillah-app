@@ -6,15 +6,33 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 079). After the TASK 079 merge, read the real current commit from
+> task (TASK 080). After the TASK 080 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 079: `8b5f6eb`
+- Last verified main before TASK 080: `36e64f8`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 079** — Deterministic daily plan
+- Latest completed functional task: **TASK 080** — Prayer plan items: the
+  **first approved `DailyPlanItemSource`**. `PrayerDailyPlanItemSource` emits
+  `prayer_track_daily` (goal `trackPrayers`) and/or `prayer_on_time_daily`
+  (goal `prayOnTime`), in that fixed order, each costing
+  **`estimatedMinutes = 1`** (in-app *interaction* cost — **not** prayer
+  duration, a religious minimum, a ruling or a rank). Items come from
+  **goals, never from the profile**; `prayOnTime` does not imply
+  `trackPrayers`; unrelated goals change nothing; no prayer goal ⇒ empty list
+  (not a failure). Contribution is **identical across all 8 profiles and all
+  4 phases** — no escalation, no beginner discount, no advanced quota.
+  Representation gate passed with **no domain change**: the two actions are
+  distinguished by `templateId`, which `DailyPlanItemIdBuilder` already
+  composes into the final item ID. `targetRef`/`sizeParam` stay **null** — no
+  prayer name and no prayer count is ever claimed. **No prayer-time
+  calculation, no location, no notification, no `PrayerLog` read, no
+  persistence, no Today UI, no Firebase; remote sync stays disabled; zero
+  tracked files modified.** 62 focused tests; full suite 883 → **945**.
+  Report: `docs/task-reports/TASK_080_PRAYER_PLAN_ITEMS.md`
+- Previous completed functional task: **TASK 079** — Deterministic daily plan
   generator (**skeleton + item-source contract**): `DailyPlanGenerator` emits
   exactly **30 per-day `DailyPlan` records** from a validated
   `DailyPlanGenerationRequest` (profile · goals · pace · start `DayKey`).
@@ -106,15 +124,18 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 080** — Prayer plan items (CP10; the
-  first approved `DailyPlanItemSource`; no persistence orchestration, no Today
-  UI — that is TASK 083)
+- Next planned functional task: **TASK 081** — Quran plan items (CP10; second
+  approved `DailyPlanItemSource`; **first task that requires source
+  composition** — Prayer → Quran → Learn; no persistence orchestration, no
+  Today UI — that is TASK 083)
 
-## Tests (verified at TASK 079)
+## Tests (verified at TASK 080)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **883 / 883**, 0 failed, 0 skipped
-  (820 at TASK 078 + 63 generator tests)
+- Flutter test baseline: **945 / 945**, 0 failed, 0 skipped
+  (883 at TASK 079 + 62 prayer plan-item tests)
+- Prayer plan-item suite: **62 / 62** — command:
+  `flutter test test/features/today/domain/prayer_daily_plan_item_source_test.dart`
 - Daily plan generator suite: **63 / 63** — command:
   `flutter test test/features/today/domain/daily_plan_generator_test.dart`
 - Onboarding profile-mapping suite: **78 / 78** — command:
@@ -260,6 +281,15 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   unchanged and **partial plans are never returned**. No provider (pure static
   service, like the TASK 078 mapper).
   Report: `docs/task-reports/TASK_079_DETERMINISTIC_DAILY_PLAN_GENERATOR.md`
+- TASK 080 — Prayer plan items: `PrayerDailyPlanItemSource` (const, stateless,
+  pure; reads only `DailyPlanDayContext.goals`). Stable template IDs
+  `prayer_track_daily` / `prayer_on_time_daily`; fixed order via an **explicit
+  ordered list** (never `Set`/enum/map order). Source is **total** — no
+  unreachable failure branch was fabricated. **No source composition was
+  added**: the generator still takes a single source and Prayer is passed
+  directly; composition arrives when **TASK 081** first needs Prayer → Quran →
+  Learn together.
+  Report: `docs/task-reports/TASK_080_PRAYER_PLAN_ITEMS.md`
 
 ## Plan content reality (fixed by TASK 079)
 
@@ -272,6 +302,11 @@ template/catalog structure exists in `lib/`. TASK 079 therefore generates the
 30-day frame with **empty `items`**; approved content sources arrive in
 **TASK 080 (Prayer) · TASK 081 (Quran) · TASK 082 (Learn)**. Content for
 dhikr/dua/reflection remains an **open owner decision** — do not invent it.
+
+**TASK 080 update:** the prayer slice is done and needed **no content at all** —
+prayer items are app *tracking* actions carrying only a stable template ID, with
+`targetRef`/`sizeParam` null (no prayer name, no prayer count). Quran and Learn
+(TASK 081/082) do have real bundled content to reference by ID.
 
 ## Onboarding model reality (fixed by TASK 078)
 
