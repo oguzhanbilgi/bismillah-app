@@ -6,15 +6,28 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 075). After the TASK 075 merge, read the real current commit from
+> task (TASK 076). After the TASK 076 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 075: `f72fdbf`
+- Last verified main before TASK 076: `86857d1`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed documentation task: **TASK 075** — CP09 technical
+- Latest completed functional task: **TASK 076** — DailyPlan local persistence:
+  the canonical **per-day** `DailyPlan` model and the existing
+  `DailyPlanRepository` contract were preserved and given their first real
+  implementation, backed by a **temporary versioned key-value envelope**
+  (persistence version **1**, single key `bismillah.daily_plans`). The original
+  brief's "single active 30-day snapshot" model was **rejected** as
+  contradicting `10_DATA_MODEL` §4/§5/§7 and `11_LOCAL_DB` §3; a 30-day plan
+  remains a composition of 30 per-day records and **no second DailyPlan
+  abstraction exists**. Corruption returns typed failures and is never
+  silently overwritten. **No Drift schema change, no dependency change, no
+  generation, no Today UI, no Firebase write; remote sync stays disabled.**
+  67 focused tests; full suite 629 → **696**.
+  Report: `docs/task-reports/TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md`
+- Previous completed documentation task: **TASK 075** — CP09 technical
   stabilization and full regression checkpoint (verdict: **CP09 COMPLETE —
   TECHNICALLY STABLE**; product gate: **READY TO ENTER NEXT LOCAL-FIRST
   PRODUCT CHECKPOINT**; P0 = 0, P1 = 15, P2 = 12, deferred = 5; remote sync
@@ -26,7 +39,7 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   well-guarded but deployed on EOL nodejs20 vs repo nodejs22; secret scan
   clean; P0 = 0, P1 = 6, P2 = 5.
   Report: `docs/task-reports/TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md`)
-- Latest completed functional task: **TASK 073** — local sync-queue hardening:
+- Previous completed functional task: **TASK 073** — local sync-queue hardening:
   deterministic backoff policy (staged + FNV-1a jitter, 24h cap, attempt-8
   quarantine), privacy-safe failure classification (stable enum names only),
   policy-driven atomic `recordFailure`, bounded pruning (30-day terminal
@@ -36,14 +49,18 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 076** — DailyPlan repository and local
-  persistence (first task of **CP10 — Today and 30-day personal plan**,
-  TASK 076–085; confirmed by the TASK 075 checkpoint)
+- Next planned functional task: **TASK 077** — Daily plan state machine
+  (CP10; load per-day plan through the repository, expose
+  loading/empty/available/corrupt states, controlled save/refresh
+  transitions; local-only; **not** plan generation — that is TASK 079)
 
-## Tests (verified — re-run and reproduced at TASK 075)
+## Tests (verified at TASK 076)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **629 / 629**, 0 failed, 0 skipped
+- Flutter test baseline: **696 / 696**, 0 failed, 0 skipped
+  (629 at TASK 075 + 67 DailyPlan-focused tests from TASK 076)
+- DailyPlan-focused suite: **67 / 67** — command:
+  `flutter test test/features/today/data`
 - **Canonical sync-focused baseline: 70 / 70.** Exact command:
   `flutter test test/features/sync test/app/persistence_wiring_test.dart
   test/app/app_bootstrap_test.dart
@@ -84,7 +101,16 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - **Drift** tables: `PrayerLogDays`, `PrayerEntries`, `SyncOperations`
   (schemaVersion 1; empty `onUpgrade` placeholder; no encryption)
 - **SharedPreferences**: onboarding, Quran progress/bookmarks/preferences,
-  Learn progress, Assistant history (cap 20), locale, reminders, session identity
+  Learn progress, Assistant history (cap 20), locale, reminders, session identity,
+  **daily plans** (TASK 076)
+- **Interim key-value adapters awaiting Drift** (canonical target is a Drift
+  table per `11_LOCAL_DB` §3 — these are explicitly NOT the final architecture):
+  - `bismillah.daily_plans` — per-day `DailyPlan` envelope, persistence
+    version **1** (TASK 076). Future migration: read v1 envelope → insert one
+    row per `DayKey` in a single transaction → verify counts/equality →
+    remove envelope only after commit → roll back safely on failure.
+    Payload/schema-versioning gate **G8** stays owned by **TASK 132**.
+  - `bismillah.quran_daily_progress.*` — per-day Quran progress (TASK 047)
 
 ## Latest completed tasks
 
@@ -132,6 +158,16 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   TECHNICALLY STABLE**; product gate **READY TO ENTER NEXT LOCAL-FIRST
   PRODUCT CHECKPOINT** (TASK 076).
   Report: `docs/task-reports/TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md`
+- TASK 076 — DailyPlan local persistence (CP10 opens): first implementation of
+  the existing `DailyPlanRepository` (`getPlan`/`watchPlan`/`savePlan`/
+  `getRange`) via `SharedPrefsDailyPlanRepository` + `DailyPlanEnvelopeCodec`;
+  canonical **per-day** model preserved (30-day frame = 30 records); the
+  brief's conflicting 30-day snapshot model was rejected with owner approval;
+  typed corruption failures, no silent overwrite, no auto-regeneration;
+  privacy-minimal payload (6 canonical fields); full local reset already
+  clears the envelope via the `bismillah.` prefix (no reset change needed).
+  **Zero tracked files modified — new files only.**
+  Report: `docs/task-reports/TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md`
 
 ## Firebase security gate order (authoritative — TASK 075)
 

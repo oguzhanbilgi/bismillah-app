@@ -8,7 +8,7 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "f72fdbf",
+    "last_verified_main_before_task": "86857d1",
     "public_tag": "v0.1.0-alpha.1",
     "public_tag_commit": "c23f490",
     "flutter_version": "3.44.6",
@@ -17,7 +17,10 @@
     "npm_version": "10.9.4",
     "android_sdk": "36.1.0",
     "gradle_jdk": "21",
-    "flutter_tests": 629,
+    "flutter_tests": 696,
+    "flutter_tests_previous": 629,
+    "daily_plan_focused_tests": 67,
+    "daily_plan_focused_command": "flutter test test/features/today/data",
     "focused_prayer_reminder_tests": 26,
     "sync_focused_tests": 70,
     "sync_focused_command": "flutter test test/features/sync test/app/persistence_wiring_test.dart test/app/app_bootstrap_test.dart test/features/prayer/data/drift_prayer_log_repository_test.dart",
@@ -33,12 +36,39 @@
     "known_non_blocking_test_warning": "one off-screen tap() offset warning in bismillah_app/test/features/learn/learn_screens_test.dart; test passes"
   },
   "current_task": {
-    "id": "TASK-075",
-    "name": "CP09 technical stabilization and full regression checkpoint",
+    "id": "TASK-076",
+    "name": "DailyPlan repository and local persistence",
     "status": "completed",
+    "latest_completed_functional_task": "TASK-076",
     "latest_completed_documentation_task": "TASK-075",
-    "next_functional_task": "TASK-076",
-    "next_functional_task_name": "DailyPlan repository and local persistence",
+    "next_functional_task": "TASK-077",
+    "next_functional_task_name": "Daily plan state machine",
+    "next_functional_task_scope": "load per-day DailyPlan through the repository; expose loading/empty/available/corrupt states; controlled save/refresh transitions; local-only; NOT plan generation (TASK-079) and NOT the final Today UI",
+    "daily_plan": {
+      "model": "canonical per-day DailyPlan keyed by DayKey; 30-day plan = composition of 30 per-day records",
+      "rejected_model": "single active 30-day snapshot aggregate from the original TASK-076 brief — contradicts 10_DATA_MODEL §4/§5/§7 and 11_LOCAL_DB §3; rejected with owner approval (Option A)",
+      "second_abstraction_added": false,
+      "repository_contract": ["getPlan(DayKey)", "watchPlan(DayKey)", "savePlan(DailyPlan)", "getRange(from,to)"],
+      "contract_changed": false,
+      "domain_changed": false,
+      "implementation": "SharedPrefsDailyPlanRepository + DailyPlanEnvelopeCodec",
+      "persistence": "TEMPORARY versioned key-value envelope (NOT final architecture)",
+      "persistence_version": 1,
+      "storage_key": "bismillah.daily_plans",
+      "canonical_target": "Drift table keyed by dayKey (11_LOCAL_DB §3); blocked by TASK-066 toolchain and G8 migration gate owned by TASK-132",
+      "corruption_policy": "typed StorageFailure only; no crash, no silent overwrite, no auto-delete, no auto-regeneration, no raw payload in errors",
+      "watch_limitation": "subscribing does not replay the current value; stream carries subsequent saves only (matches existing Quran progress convention); real reactive queries arrive with Drift",
+      "reset_decision": "no reset code changed — full local reset already clears the envelope via the existing bismillah. prefix rule (proven by test)",
+      "range_semantics": "inclusive on both ends; ascending DayKey order; inverted range returns typed failure",
+      "drift_schema_changed": false,
+      "generation_implemented": false,
+      "today_ui_changed": false,
+      "firebase_write": false,
+      "remote_sync_enabled": false,
+      "tracked_files_modified": 0,
+      "focused_tests": 67,
+      "report": "docs/task-reports/TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md"
+    },
     "cp09_checkpoint": {
       "verdict": "CP09_COMPLETE_TECHNICALLY_STABLE",
       "product_gate": "READY_TO_ENTER_NEXT_LOCAL_FIRST_PRODUCT_CHECKPOINT",
@@ -101,7 +131,7 @@
   },
   "feature_status": {
     "navigation": "five fixed tabs (Today, Prayer, Quran, Learn, Profile); Assistant is FAB/root route, not a sixth tab",
-    "today": "partial (summary hub + one deterministic suggestion; no plan engine)",
+    "today": "partial (summary hub + one deterministic suggestion; DailyPlan local persistence landed in TASK-076; no plan state machine, no plan engine, no plan UI yet)",
     "prayer": "implemented (offline times, mark/undo, 7-day history, local exact-alarm reminders)",
     "quran": "implemented (reader, translation, offline search, bookmarks, progress, reciter, MP3Quran audio, Android background/lock-screen)",
     "learn": "engine implemented; coverage partial (30 published / 2 pending; 9 of 20 categories populated)",
@@ -114,7 +144,11 @@
   "persistence": {
     "drift_tables": ["PrayerLogDays", "PrayerEntries", "SyncOperations"],
     "drift_schema_version": 1,
-    "shared_preferences": ["onboarding", "quran-progress", "quran-bookmarks", "quran-preferences", "learn-progress", "assistant-history", "locale", "reminders", "session"],
+    "shared_preferences": ["onboarding", "quran-progress", "quran-bookmarks", "quran-preferences", "learn-progress", "assistant-history", "locale", "reminders", "session", "daily-plans"],
+    "interim_key_value_adapters": [
+      {"key": "bismillah.daily_plans", "entity": "DailyPlan (per-day)", "version": 1, "task": "TASK-076", "canonical_target": "Drift table keyed by dayKey", "migration": "read v1 envelope -> insert one row per DayKey in a single transaction -> verify counts/equality -> remove envelope only after commit -> roll back safely on failure"},
+      {"key": "bismillah.quran_daily_progress.*", "entity": "Quran daily progress (per-day)", "task": "TASK-047", "canonical_target": "Drift table"}
+    ],
     "encryption": "none"
   },
   "completed_tasks": [
@@ -123,13 +157,13 @@
     "TASK-063", "TASK-064", "TASK-065", "TASK-067", "TASK-068",
     "TASK-068A", "TASK-069", "TASK-070A", "TASK-070B", "TASK-070C",
     "TASK-070D", "TASK-071", "TASK-072", "TASK-073", "TASK-074",
-    "TASK-075"
+    "TASK-075", "TASK-076"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
   ],
   "roadmap": {
-    "checkpoint": "CP09 technical stabilization — CLOSED at TASK-075; CP10 next",
+    "checkpoint": "CP10 Today and 30-day plan (in progress; CP09 CLOSED at TASK-075)",
     "ranges": {
       "001-060": "foundation",
       "061-067": "public alpha and stabilization",
@@ -180,7 +214,10 @@
     "empty onUpgrade migration placeholder; no migration tests; no encryption",
     "Firebase console posture partially verified at TASK-074/075 (deployed runtime nodejs20 VERIFIED); budget/alerting/log-retention still UNVERIFIED",
     "iOS physical-device validation pending",
-    "Today plan engine not built (CP10 TASK-076 starts it)",
+    "Today plan engine not built (TASK-076 delivered persistence only; state machine TASK-077, generator TASK-079)",
+    "TASK-076: DailyPlan stored in a TEMPORARY key-value envelope; migration to the canonical Drift table still required (gate G8, TASK-132)",
+    "TASK-076: watchPlan does not replay the current value on subscribe (interim limitation until Drift reactive queries)",
+    "TASK-076: DailyPlan domain entity does not enforce unique item IDs; enforced at codec level only — future domain hardening",
     "Learn coverage 9 of 20 categories",
     "TASK-075: npm advisories 13 (5 high dev-only eslint chain; 8 moderate production firebase-admin chain); no non-breaking fix; major upgrades deferred to separate gated tasks",
     "TASK-075: Kotlin Gradle Plugin migration warning (cloud_functions, flutter_timezone) — future Flutter versions will fail to build",

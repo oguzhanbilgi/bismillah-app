@@ -37,11 +37,18 @@ The live Git history is authoritative; this index is a human-readable summary.
 | TASK 074 | COMPLETED | CP09 | Firebase security readiness audit: Rules/App Check/emulator/staging ABSENT (P1 blockers); callable auth-gated + secret-managed but deployed on EOL nodejs20; secret scan clean; verdict READY FOR LOCAL SECURITY HARDENING ONLY (P0 0 / P1 6 / P2 5) | `TASK_074_FIREBASE_SECURITY_READINESS_AUDIT.md` | — |
 | TASK 075 | COMPLETED | CP09 | CP09 full regression checkpoint: all baselines re-run unchanged (analyze clean, 629/629, canonical sync 70/70 — `test/features/sync` alone 52, storage 11/11, Functions 23/23, debug APK SUCCESS); no dependency/lockfile change; authoritative Firebase gate order G1–G14; deployed nodejs20 drift re-verified (P1); npm audit 13 (0 critical / 5 high dev-only `eslint` chain / 8 moderate production `firebase-admin` chain); verdict **CP09 COMPLETE — TECHNICALLY STABLE**; product gate **READY TO ENTER NEXT LOCAL-FIRST PRODUCT CHECKPOINT**; P0 0 / P1 15 / P2 12 / deferred 5 | `TASK_075_CP09_TECHNICAL_STABILIZATION_CHECKPOINT.md` | run TASK 076 |
 
+## CP10 — Today and 30-day plan
+
+| Task | Status | Checkpoint | Summary | Evidence | Next action |
+|---|---|---|---|---|---|
+| TASK 076 | COMPLETED | CP10 | DailyPlan local persistence: first implementation of the existing `DailyPlanRepository` via a **temporary versioned key-value envelope** (persistence version 1, key `bismillah.daily_plans`); canonical **per-day** model preserved (30-day frame = 30 records) and the brief's conflicting 30-day-snapshot model rejected with owner approval; typed corruption failures, no silent overwrite; 67 focused tests, full suite 629 → **696**; **no Drift schema/dependency/generation/UI/Firebase/remote-sync change** | `TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md` | run TASK 077 |
+| TASK 077 | **NEXT** | CP10 | Daily plan state machine — load per-day plan via repository; loading/empty/available/corrupt states; controlled save/refresh transitions; local-only; **not** generation (TASK 079) and **not** final Today UI | roadmap CP10 | run TASK 077 |
+
 ## Selected forward milestones
 
 | Task | Status | Checkpoint | Summary |
 |---|---|---|---|
-| TASK 076 | **NEXT** | CP10 | DailyPlan repository and local persistence — first CP10 task |
+| TASK 079 | PLANNED | CP10 | Deterministic daily plan generator |
 | TASK 085 | PLANNED | CP10 | 30-day plan and CP10 checkpoint |
 | TASK 094 | PLANNED | CP11 | Learn/Assistant depth checkpoint |
 | TASK 101 | PLANNED | CP12 | Closed alpha/beta package |

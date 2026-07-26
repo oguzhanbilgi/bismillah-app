@@ -139,7 +139,37 @@ that task's time*; the current verified baseline lives in
 - **Device validation:** Android (Quran) done; Android notification stack fully
   validated on A36 incl. reboot delivery; iOS PENDING. TASK 075 built a debug
   APK for build-health only — **not installed, no device test**.
-- **Remaining gaps (CP09):** none blocking. CP09 is **closed**; CP10 begins at
+- **Remaining gaps (CP09):** none blocking. CP09 is **closed**; CP10 began at
   **TASK 076 — DailyPlan repository and local persistence**. Carried forward:
   PR #4 (Drift 2.34.2) DEFERRED, TASK 066 BLOCKED, iOS validation PENDING,
   remote sync gated by G1–G14, and monitored npm/pub dependency debt.
+
+## CP10 — Today and 30-day personal plan (in progress)
+
+- **TASK 076 (DailyPlan local persistence):** the existing
+  `DailyPlanRepository` contract (`getPlan` / `watchPlan` / `savePlan` /
+  `getRange`) received its **first real implementation**. A model conflict was
+  found and resolved before any code was written: the task brief specified a
+  *single active 30-day snapshot*, which contradicts `10_DATA_MODEL` §4/§5/§7
+  ("**Bir günün planı**"; `dayKey`-keyed; `users/{uid}/plans/{dayKey}`;
+  item-level completed-wins), `11_LOCAL_DB` §3 and the code already present.
+  Work stopped and reported; the owner approved **Option A — preserve the
+  canonical per-day model**. A 30-day plan is therefore a **composition of 30
+  per-day records**, and **no second DailyPlan abstraction was added**.
+  Persistence is a **temporary versioned key-value envelope** (version **1**,
+  single key `bismillah.daily_plans`, deterministic `DayKey` ordering, stable
+  enum names) documented in-source as *TEMPORARY LOCAL ADAPTER — MIGRATION
+  REQUIRED*; the canonical target remains a Drift table, blocked today by the
+  TASK 066 toolchain and the G8 migration gate (owned by **TASK 132**).
+  Corruption — invalid JSON, missing/wrong/unsupported version, bad `DayKey`,
+  key/field mismatch, unknown enum, duplicate item ID, read/write failure —
+  yields **typed `StorageFailure`** only: never a crash, never a silent
+  overwrite, never auto-deletion or auto-regeneration, and never raw payload
+  in error output. Full local reset already clears the envelope through the
+  existing `bismillah.` prefix rule, so **no reset code changed**.
+  **67 new focused tests**; full suite **629 → 696**; canonical sync 70/70;
+  Drift storage 11/11; Functions 23/23; analyze clean. **Zero tracked files
+  modified** — no Drift schema, dependency, generation, Today UI, Firebase
+  write or remote-sync change; remote sync stays disabled.
+- **Next:** **TASK 077 — Daily plan state machine** (local-only; not
+  generation, which is TASK 079).

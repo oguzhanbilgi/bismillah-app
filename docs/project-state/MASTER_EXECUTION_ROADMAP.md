@@ -60,6 +60,7 @@ TASK 072    — Offline sync-queue architecture and data-loss risk audit — COM
 TASK 073    — Local sync-queue hardening (backoff + taxonomy + pruning) — COMPLETED
 TASK 074    — Firebase security and console readiness audit — COMPLETED
 TASK 075    — CP09 technical stabilization and full regression checkpoint — COMPLETED
+TASK 076    — DailyPlan repository and local persistence — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -89,15 +90,22 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
                           NEXT LOCAL-FIRST PRODUCT CHECKPOINT
 ```
 
-**CP09 is closed.** CP10 may begin. Remote sync remains disabled and is gated
-by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10, which
-is local-first by design.
+**CP09 is closed.** CP10 is in progress. Remote sync remains disabled and is
+gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
+which is local-first by design.
+
+**CP10 model rule (fixed by TASK 076):** `DailyPlan` is a **per-day** entity
+keyed by `DayKey` (`10_DATA_MODEL` §4/§5/§7); the 30-day plan is a
+**composition of 30 per-day records**, never a single aggregate snapshot. No
+second DailyPlan abstraction may be introduced. Plan data currently lives in
+a temporary versioned key-value envelope; its canonical target remains a
+Drift table (`11_LOCAL_DB` §3).
 
 ## CP10 — Today and 30-day plan
 
 ```text
-TASK 076 — DailyPlan repository and local persistence   <-- NEXT TASK
-TASK 077 — Daily plan state machine
+TASK 076 — DailyPlan repository and local persistence   — COMPLETED
+TASK 077 — Daily plan state machine                     <-- NEXT TASK
 TASK 078 — Onboarding profile mapping
 TASK 079 — Deterministic daily plan generator
 TASK 080 — Prayer plan items
