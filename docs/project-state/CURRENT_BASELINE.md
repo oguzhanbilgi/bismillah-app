@@ -6,15 +6,31 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 076). After the TASK 076 merge, read the real current commit from
+> task (TASK 077). After the TASK 077 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 076: `86857d1`
+- Last verified main before TASK 077: `d9671c4`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 076** — DailyPlan local persistence:
+- Latest completed functional task: **TASK 077** — DailyPlan state machine:
+  `DailyPlanController` (`Notifier<DailyPlanState?>`) loads/observes/refreshes/
+  saves one selected `DayKey` through the **unchanged** repository contract.
+  Sealed states: **Loading · Empty · Available · Corrupt · Failure** (calm
+  states are data, not errors). Stale results are blocked by a **generation
+  (epoch) counter** (`QuranSearchController` idiom); save concurrency rule is
+  **latest valid completion wins** — an older failed save can never replace a
+  newer success. Included the owner-approved minimum contract correction:
+  **`StorageCorruptionFailure`** added beside `StorageFailure` so corruption
+  (unreadable stored data, not retryable) is distinguishable from transient
+  storage-operation failures — **no signature, localization key, envelope
+  version, storage key or persistence format changed**. 43 focused tests;
+  TASK 076 persistence tests strengthened 67 → **70**; full suite 696 → **742**.
+  **No generation, no Today UI, no Firebase write, no Drift migration; remote
+  sync stays disabled.**
+  Report: `docs/task-reports/TASK_077_DAILY_PLAN_STATE_MACHINE.md`
+- Previous completed functional task: **TASK 076** — DailyPlan local persistence:
   the canonical **per-day** `DailyPlan` model and the existing
   `DailyPlanRepository` contract were preserved and given their first real
   implementation, backed by a **temporary versioned key-value envelope**
@@ -49,17 +65,17 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 077** — Daily plan state machine
-  (CP10; load per-day plan through the repository, expose
-  loading/empty/available/corrupt states, controlled save/refresh
-  transitions; local-only; **not** plan generation — that is TASK 079)
+- Next planned functional task: **TASK 078** — Onboarding profile mapping
+  (CP10; TASK 079 still owns deterministic plan generation)
 
-## Tests (verified at TASK 076)
+## Tests (verified at TASK 077)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **696 / 696**, 0 failed, 0 skipped
-  (629 at TASK 075 + 67 DailyPlan-focused tests from TASK 076)
-- DailyPlan-focused suite: **67 / 67** — command:
+- Flutter test baseline: **742 / 742**, 0 failed, 0 skipped
+  (696 at TASK 076 + 43 state-machine tests + 3 strengthened persistence tests)
+- DailyPlan state-machine suite: **43 / 43** — command:
+  `flutter test test/features/today/application/daily_plan_controller_test.dart`
+- DailyPlan persistence suite: **70 / 70** — command:
   `flutter test test/features/today/data`
 - **Canonical sync-focused baseline: 70 / 70.** Exact command:
   `flutter test test/features/sync test/app/persistence_wiring_test.dart
@@ -168,6 +184,14 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   clears the envelope via the `bismillah.` prefix (no reset change needed).
   **Zero tracked files modified — new files only.**
   Report: `docs/task-reports/TASK_076_DAILY_PLAN_LOCAL_PERSISTENCE.md`
+- TASK 077 — DailyPlan state machine: `DailyPlanController` +
+  sealed `DailyPlanState` (Loading/Empty/Available/Corrupt/Failure); epoch
+  counter blocks stale reads/writes/watch events; latest-valid-completion-wins
+  save rule; `watchPlan` subscription owned by the controller and cancelled on
+  day switch and disposal; bootstrap never instantiates or loads it. Added
+  `StorageCorruptionFailure` (approved §10 gate correction) — failure mapping
+  inspects **type only**, never `messageKey` or exception text.
+  Report: `docs/task-reports/TASK_077_DAILY_PLAN_STATE_MACHINE.md`
 
 ## Firebase security gate order (authoritative — TASK 075)
 

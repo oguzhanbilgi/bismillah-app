@@ -61,6 +61,7 @@ TASK 073    — Local sync-queue hardening (backoff + taxonomy + pruning) — CO
 TASK 074    — Firebase security and console readiness audit — COMPLETED
 TASK 075    — CP09 technical stabilization and full regression checkpoint — COMPLETED
 TASK 076    — DailyPlan repository and local persistence — COMPLETED
+TASK 077    — Daily plan state machine — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -105,8 +106,8 @@ Drift table (`11_LOCAL_DB` §3).
 
 ```text
 TASK 076 — DailyPlan repository and local persistence   — COMPLETED
-TASK 077 — Daily plan state machine                     <-- NEXT TASK
-TASK 078 — Onboarding profile mapping
+TASK 077 — Daily plan state machine                     — COMPLETED
+TASK 078 — Onboarding profile mapping                   <-- NEXT TASK
 TASK 079 — Deterministic daily plan generator
 TASK 080 — Prayer plan items
 TASK 081 — Quran plan items

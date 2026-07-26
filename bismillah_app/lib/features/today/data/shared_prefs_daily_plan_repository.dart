@@ -93,8 +93,11 @@ final class SharedPrefsDailyPlanRepository implements DailyPlanRepository {
     final existing = await _readAll();
     // Bozuk depo SESSİZCE EZİLMEZ — bozulma çağırana bildirilir ve
     // kurtarma kararı (yeniden üretim/temizleme) sonraki görevlere kalır.
-    if (existing.isFailure) {
-      return const Result.failure(StorageFailure());
+    // Okuma hatasının TÜRÜ korunur: bozulma `StorageCorruptionFailure`,
+    // geçici okuma hatası `StorageFailure` olarak yukarı taşınır.
+    final existingFailure = existing.failureOrNull;
+    if (existingFailure != null) {
+      return Result.failure(existingFailure);
     }
 
     final updated = Map<DayKey, DailyPlan>.from(
@@ -105,6 +108,8 @@ final class SharedPrefsDailyPlanRepository implements DailyPlanRepository {
     try {
       encoded = DailyPlanEnvelopeCodec.encode(updated);
     } on FormatException {
+      // Kodlama hatası ÇAĞIRAN/domain durumundan doğar (ör. gün içinde
+      // tekrar eden öğe kimliği) — saklanan veri bozulması DEĞİLDİR.
       return const Result.failure(StorageFailure());
     }
 
@@ -124,8 +129,17 @@ final class SharedPrefsDailyPlanRepository implements DailyPlanRepository {
     return const Result.success(null);
   }
 
-  /// Zarfın tamamını okur. Bozuk/desteklenmeyen zarf tipli hata döner —
-  /// istisna çağırana sızmaz, ham yük hiçbir yere kopyalanmaz.
+  /// Zarfın tamamını okur; istisna çağırana sızmaz ve ham yük hiçbir yere
+  /// kopyalanmaz.
+  ///
+  /// Hata TÜRÜ anlamlıdır (TASK 077):
+  /// - **`StorageCorruptionFailure`** — saklanan verinin kendisi
+  ///   çözümlenemiyor: değer beklenen tipte değil, JSON bozuk, zarf yapısal
+  ///   olarak geçersiz, sürüm eksik/hatalı/desteklenmiyor ya da
+  ///   serileştirilmiş plan/öğe/gün/enum verisi geçersiz. Tekrar denemek
+  ///   aynı sonucu verir.
+  /// - **`StorageFailure`** — depo *işlemi* başarısız (SharedPreferences
+  ///   okuma istisnası). Geçicidir; tekrar denemek anlamlıdır.
   Future<Result<Map<DayKey, DailyPlan>>> _readAll() async {
     final Object? raw;
     try {
@@ -139,12 +153,15 @@ final class SharedPrefsDailyPlanRepository implements DailyPlanRepository {
       return const Result.success(<DayKey, DailyPlan>{});
     }
     if (raw is! String) {
-      return const Result.failure(StorageFailure());
+      // Saklanan değer beklenen tipte değil → veri bozulması.
+      return const Result.failure(StorageCorruptionFailure());
     }
     try {
       return Result.success(DailyPlanEnvelopeCodec.decode(raw));
     } on FormatException {
-      return const Result.failure(StorageFailure());
+      // Bozuk JSON / geçersiz yapı / desteklenmeyen sürüm / geçersiz
+      // plan-öğe-gün-enum verisi — hepsi saklanan veri bozulmasıdır.
+      return const Result.failure(StorageCorruptionFailure());
     }
   }
 

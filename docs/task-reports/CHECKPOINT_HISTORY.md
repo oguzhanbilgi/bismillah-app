@@ -171,5 +171,33 @@ that task's time*; the current verified baseline lives in
   Drift storage 11/11; Functions 23/23; analyze clean. **Zero tracked files
   modified** — no Drift schema, dependency, generation, Today UI, Firebase
   write or remote-sync change; remote sync stays disabled.
-- **Next:** **TASK 077 — Daily plan state machine** (local-only; not
-  generation, which is TASK 079).
+- **TASK 077 (DailyPlan state machine):** the application layer that consumes
+  TASK 076's repository. `DailyPlanController` (`Notifier<DailyPlanState?>`)
+  selects one `DayKey` and moves it through a sealed **Loading · Empty ·
+  Available · Corrupt · Failure** model, where calm situations are data rather
+  than errors (`PrayerTimesState` precedent). Because `watchPlan` does not
+  replay the stored value on subscribe, the controller combines an explicit
+  `getPlan` with a live subscription and resolves the resulting race with a
+  **generation (epoch) counter** (`QuranSearchController` idiom): a late read,
+  save or old-day watch event can never overwrite newer state. Save
+  concurrency follows **latest valid completion wins** — an older *failed*
+  save cannot replace a newer success. Exactly one watch subscription exists
+  per controller, cancelled on day switch and on disposal; bootstrap neither
+  instantiates nor loads it (verified with a recording repository).
+  A genuine contract defect was found first and reported at the stop gate:
+  the repository returned an identical `StorageFailure()` for corrupt stored
+  data and for ordinary I/O errors, so the required Corrupt/Failure split was
+  impossible without parsing error text. The owner approved the minimum fix —
+  a sibling **`StorageCorruptionFailure`** reusing `errorStorage`. **No
+  method signature, localization key, envelope version (still 1), storage key
+  or persistence format changed**, and no exhaustive `AppFailure` switch
+  existed to break. Failure→state mapping inspects **type only**. TASK 076
+  persistence tests were *strengthened* 67 → **70** (corruption now demands
+  the new type; caller-validation errors explicitly are **not** corruption).
+  **43 new state-machine tests** (including six deterministic race tests using
+  per-call gates); full suite **696 → 742**; canonical sync 70/70; Drift
+  storage 11/11; Functions 23/23; analyze clean. **No generation, no Today UI,
+  no Firebase write, no Drift/schema/dependency change; remote sync stays
+  disabled.**
+- **Next:** **TASK 078 — Onboarding profile mapping** (TASK 079 still owns
+  deterministic plan generation).

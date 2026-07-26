@@ -94,7 +94,7 @@ void main() {
       expect(other.valueOrNull, isNull);
     });
 
-    test('zarf bozuksa tipli hata döner (çökme yok)', () async {
+    test('zarf bozuksa BOZULMA hatası döner (çökme yok)', () async {
       SharedPreferences.setMockInitialValues({key: '{bozuk'});
       final repo = SharedPrefsDailyPlanRepository();
       addTearDown(repo.dispose);
@@ -102,10 +102,10 @@ void main() {
       final result = await repo.getPlan(day('2026-07-26'));
 
       expect(result.isFailure, isTrue);
-      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
     });
 
-    test('desteklenmeyen sürüm tipli hata döner', () async {
+    test('desteklenmeyen sürüm BOZULMA hatası döner', () async {
       SharedPreferences.setMockInitialValues({
         key: json.encode({'v': 99, 'plans': <String, Object?>{}}),
       });
@@ -114,15 +114,56 @@ void main() {
 
       final result = await repo.getPlan(day('2026-07-26'));
 
-      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
     });
 
-    test('anahtar String değilse tipli hata döner', () async {
+    test('anahtar String değilse BOZULMA hatası döner', () async {
       SharedPreferences.setMockInitialValues({key: 42});
       final repo = SharedPrefsDailyPlanRepository();
       addTearDown(repo.dispose);
 
-      expect((await repo.getPlan(day('2026-07-26'))).isFailure, isTrue);
+      final result = await repo.getPlan(day('2026-07-26'));
+
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
+    });
+
+    test('geçersiz serileştirilmiş plan verisi BOZULMA hatasıdır', () async {
+      SharedPreferences.setMockInitialValues({
+        key: json.encode({
+          'v': 1,
+          'plans': {
+            '2026-07-26': {
+              'dayKey': '2026-07-26',
+              'profileType': 'reconnect',
+              'sizeMinutes': 20,
+              'weekIndex': 0,
+              'generatedBy': 'rule-engine-v1',
+              'items': [
+                {'itemId': 'a', 'type': 'telepathy', 'status': 'pending'},
+              ],
+            },
+          },
+        }),
+      });
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final result = await repo.getPlan(day('2026-07-26'));
+
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
+    });
+
+    test('bozulma hatası da yalnız errorStorage anahtarını taşır', () async {
+      // Kullanıcıya gösterilen metin DEĞİŞMEZ — yeni localization anahtarı
+      // eklenmedi; ayrım yalnız tip düzeyindedir.
+      SharedPreferences.setMockInitialValues({key: '{bozuk'});
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final failure = (await repo.getPlan(day('2026-07-26'))).failureOrNull!;
+
+      expect(failure, isA<StorageCorruptionFailure>());
+      expect(failure.messageKey, 'errorStorage');
     });
 
     test('hata çıktısı ham yükü taşımaz', () async {
@@ -197,7 +238,7 @@ void main() {
       expect(loaded.items.single.completedAt, completedAt);
     });
 
-    test('bozuk depoyu SESSİZCE EZMEZ; tipli hata döner', () async {
+    test('bozuk depoyu SESSİZCE EZMEZ; BOZULMA hatası döner', () async {
       SharedPreferences.setMockInitialValues({key: '{bozuk'});
       final repo = SharedPrefsDailyPlanRepository();
       addTearDown(repo.dispose);
@@ -205,11 +246,25 @@ void main() {
       final result = await repo.savePlan(plan('2026-07-26'));
 
       expect(result.isFailure, isTrue);
-      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
 
       // Bozuk içerik yerinde durur — otomatik silme/yeniden üretim yok.
       final prefs = await SharedPreferences.getInstance();
       expect(prefs.getString(key), '{bozuk');
+    });
+
+    test('geçersiz çağıran durumu SIRADAN hatadır (bozulma DEĞİL)', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      // Gün içinde tekrar eden öğe kimliği codec kodlamasında reddedilir;
+      // bu ÇAĞIRAN/domain durumu hatasıdır, saklanan veri bozulması değil.
+      final result = await repo.savePlan(
+        plan('2026-07-26', items: [item('dup'), item('dup')]),
+      );
+
+      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isNot(isA<StorageCorruptionFailure>()));
     });
 
     test('ilgisiz tercih anahtarlarına dokunmaz', () async {
@@ -305,23 +360,26 @@ void main() {
       expect(range, isEmpty);
     });
 
-    test('ters aralık tipli hata döner', () async {
+    test('ters aralık SIRADAN hata döner (bozulma DEĞİL)', () async {
       final repo = await seeded();
       addTearDown(repo.dispose);
 
       final result = await repo.getRange(day('2026-07-30'), day('2026-07-26'));
 
+      // Çağıran doğrulama hatası — saklanan veri bozulması olarak
+      // SINIFLANDIRILMAZ.
       expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isNot(isA<StorageCorruptionFailure>()));
     });
 
-    test('bozuk zarf tipli hata döner', () async {
+    test('bozuk zarf BOZULMA hatası döner', () async {
       SharedPreferences.setMockInitialValues({key: '{bozuk'});
       final repo = SharedPrefsDailyPlanRepository();
       addTearDown(repo.dispose);
 
       final result = await repo.getRange(day('2026-07-26'), day('2026-07-30'));
 
-      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
     });
 
     test('30 günlük çatı 30 ayrı günden okunur', () async {
