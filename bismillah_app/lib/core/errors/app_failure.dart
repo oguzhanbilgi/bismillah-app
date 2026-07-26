@@ -19,6 +19,25 @@ final class StorageFailure extends AppFailure {
   const StorageFailure() : super(messageKey: 'errorStorage');
 }
 
+/// Kalıcı depodaki verinin kendisi bozuk/okunamaz durumda (TASK 077).
+///
+/// [StorageFailure]'dan AYRI bir tiptir çünkü anlamları farklıdır:
+/// `StorageFailure` geçici bir depo *işlemi* hatasıdır (okuma/yazma
+/// istisnası) ve tekrar denemek mantıklıdır; bu tip ise **saklanan
+/// verinin** çözümlenemediğini söyler (bozuk JSON, desteklenmeyen şema
+/// sürümü, yapısal olarak geçersiz kayıt) — tekrar denemek aynı sonucu
+/// verir ve kurtarma ayrı bir karardır.
+///
+/// Çağıran doğrulama hataları (geçersiz argüman, geçersiz domain durumu)
+/// bu tiple TEMSİL EDİLMEZ — onlar depo bozulması değildir.
+///
+/// Kullanıcı metni değişmez: aynı `errorStorage` anahtarını kullanır, yeni
+/// localization anahtarı gerekmez. Ham istisna, JSON, yük, dosya yolu veya
+/// depolama anahtarı TAŞIMAZ.
+final class StorageCorruptionFailure extends AppFailure {
+  const StorageCorruptionFailure() : super(messageKey: 'errorStorage');
+}
+
 final class SyncFailure extends AppFailure {
   const SyncFailure() : super(messageKey: 'errorSync');
 }
