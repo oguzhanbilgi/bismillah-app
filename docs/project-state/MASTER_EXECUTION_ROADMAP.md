@@ -67,6 +67,7 @@ TASK 079    — Deterministic daily plan generator — COMPLETED
 TASK 080    — Prayer plan items — COMPLETED
 TASK 081    — Quran plan items and ordered source composition — COMPLETED
 TASK 082    — Source-verified Learn plan items — COMPLETED
+TASK 083    — Today task UI — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -109,6 +110,21 @@ template IDs **across** children are rejected. Because the composite implements
 the same single-source interface, `DailyPlanGenerator` is unchanged, and
 appending Learn later **cannot shift** existing Prayer/Quran slots or final
 item IDs.
+
+**CP10 Today-surface rule (fixed by TASK 083):** the Today plan section is
+the **only** consumer of `DailyPlanController` and must render all five
+sealed states. It **never generates or auto-saves a plan**: the Empty state
+shows a neutral explanation, not a "generate" button, until generation
+orchestration exists. Item titles come from a pure template-ID mapper and,
+for Learn, from the existing **published-only** content repository — an
+unresolved article falls back to a neutral label and **no title is ever
+fabricated**. Card order is the plan's own Prayer → Quran → Learn order and
+is never re-sorted by localized text. Completing an item is an **in-app
+tracking action only**; it preserves every other plan field, takes its
+timestamp from the injected `AppClock`, and routes through the existing
+`savePlan` — **no new storage key and no envelope-version change**.
+Unmarked tasks carry no red styling, guilt language, streak, score or rank.
+**Day navigation belongs to TASK 084**, not here.
 
 **CP10 Learn-content rule (fixed by TASK 082):** the Learn source is the
 **only** plan source that references real content, and it may reference
@@ -167,8 +183,8 @@ TASK 079 — Deterministic daily plan generator           — COMPLETED
 TASK 080 — Prayer plan items                            — COMPLETED
 TASK 081 — Quran plan items                             — COMPLETED
 TASK 082 — Source-verified Learn plan items             — COMPLETED
-TASK 083 — Today task UI                                <-- NEXT TASK
-TASK 084 — Missed-day recovery and gentle rollover
+TASK 083 — Today task UI                                — COMPLETED
+TASK 084 — Missed-day recovery and gentle rollover      <-- NEXT TASK
 TASK 085 — 30-day plan and CP10 checkpoint
 ```
 

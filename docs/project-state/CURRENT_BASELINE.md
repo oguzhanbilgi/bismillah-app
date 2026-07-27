@@ -6,15 +6,40 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 082). After the TASK 082 merge, read the real current commit from
+> task (TASK 083). After the TASK 083 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 082: `b390141`
+- Last verified main before TASK 083: `b995931`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 082** — Source-verified Learn plan
+- Latest completed functional task: **TASK 083** — Today task UI: the first
+  real surface over the TASK 077 `DailyPlanController`. `TodayPlanSection`
+  renders all five states — **Loading** (non-animated neutral skeleton),
+  **Empty** (neutral text, **no fake "generate plan" button**), **Available**
+  (selected day, `n/total` progress, `AppProgressBar`, ordered task cards),
+  **Corrupt** (calm "nothing was deleted", no retry, no auto-reset) and
+  **Failure** (neutral message + `retry()`). Item titles come from the pure
+  `TodayPlanItemPresentation` mapper (template ID → neutral localized text);
+  Learn titles resolve through the existing **published-only**
+  `LearningKnowledgeRepository`, and an unresolved/removed/failing article
+  falls back to a neutral label — **no fabricated title, no crash, no raw
+  template/article ID or generator version on screen**. Card order is the
+  plan's own **Prayer → Quran → Learn** order (proved not re-sorted by
+  localized text). **Completion is implemented**:
+  `DailyPlanController.toggleItemCompletion` preserves every other plan field,
+  takes `completedAt` from the injected `AppClock`, persists through the
+  existing `savePlan` path, blocks duplicate writes while saving, and never
+  generates a plan or touches another day — **no new storage key and no
+  envelope-version change**. **Day navigation is deliberately deferred to
+  TASK 084**: today's `DayKey` is selected once from the clock and exactly one
+  watch subscription is opened. Free core: no paywall, ad, supporter or
+  donation element. 53 focused tests; full suite 1178 → **1231**. **No plan
+  generation orchestration, no persistence-format change, no Drift change, no
+  Firebase write; remote sync stays disabled.**
+  Report: `docs/task-reports/TASK_083_TODAY_TASK_UI.md`
+- Previous completed functional task: **TASK 082** — Source-verified Learn plan
   items **and the complete Prayer → Quran → Learn core composition**.
   `LearnDailyPlanItemSource` emits **one** Learn item per generated day when
   the `islamicKnowledge` goal is present (absent ⇒ empty list, not a
@@ -175,16 +200,20 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 083** — Today task UI (CP10). Open
+- Next planned functional task: **TASK 084** — Missed-day recovery and gentle
+  rollover (CP10); day navigation was deferred there by TASK 083. Open
   sequencing note for the owner: generation is still **not connected** to
-  persistence or onboarding completion, and the roadmap names no dedicated
-  task for that wiring between TASK 082 and TASK 083.
+  persistence or onboarding completion, so the Today plan section shows the
+  Empty state in practice, and the roadmap still names no dedicated task for
+  that wiring.
 
-## Tests (verified at TASK 082)
+## Tests (verified at TASK 083)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1178 / 1178**, 0 failed, 0 skipped
-  (1015 at TASK 081 + 163 Learn catalog/plan-item tests)
+- Flutter test baseline: **1231 / 1231**, 0 failed, 0 skipped
+  (1178 at TASK 082 + 53 Today task-UI tests)
+- Today task-UI suite: **53 / 53** — command:
+  `flutter test test/features/today/presentation/today_plan_section_test.dart`
 - Learn plan-item + catalog suite: **163 / 163** — command:
   `flutter test test/features/today/domain/learn_daily_plan_catalog_test.dart
   test/features/today/domain/learn_daily_plan_item_source_test.dart`
@@ -210,12 +239,12 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   directory in isolation and must never replace the official 70 baseline.
 - Focused prayer-reminder suite: 26 / 26 (TASK 070D)
 - Storage (Drift) tests: **11 / 11** — command: `flutter test test/core/storage`
-- Functions tests (Vitest): **23 / 23** on Node.js 22.22.0 — last verified at
-  TASK 075. **NOT re-run at TASK 082: Node.js is not installed on the current
-  machine** (the Node install directory is still listed on `PATH` but no
-  longer exists, so `node` and `npm` are unavailable).
-  TASK 082 changed no Functions file, dependency or lockfile; Functions CI
-  verifies this baseline on every PR.
+- Functions tests (Vitest): **23 / 23** on Node.js v22.22.0 / npm 10.9.4 —
+  re-verified at **TASK 083**. This supersedes the TASK 082 record of
+  `PENDING (environment)`: the Node.js toolchain has been reinstalled under
+  NVM for Windows, and the TASK 082 Functions status is now **POST-MERGE
+  VERIFIED — 23/23**. Neither task changed any Functions file, dependency or
+  lockfile.
 - Android debug build: **SUCCESS** at TASK 075
   (`bismillah_app/build/app/outputs/flutter-apk/app-debug.apk`, 170.26 MB,
   SHA-256 `51ca8748877467b58f3b16368b6e5f23bac5eecdd7222e97595f5cc2764cde99`;
@@ -361,6 +390,16 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   identities). Quran source is `const`, stateless and **total**; no
   unreachable failure branch was fabricated.
   Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
+- TASK 083 — Today task UI: first consumer of the TASK 077 state machine.
+  Completion was implemented because the architecture already supported it
+  safely (`AppClock` provider + existing `savePlan` + an envelope that already
+  round-trips `status`/`completedAt`) — the widget never calls `savePlan`
+  itself. The loading state is a **non-animated** skeleton on purpose: a
+  spinner is restless and blocks every `pumpAndSettle` test that mounts Today.
+  No "zero-jump" height is claimed (item count is unknown before the read);
+  the skeleton only reserves a real block. Day navigation and missed-day
+  handling were **deferred to TASK 084** rather than guessed.
+  Report: `docs/task-reports/TASK_083_TODAY_TASK_UI.md`
 - TASK 082 — Source-verified Learn plan items + `CoreDailyPlanItemSource`:
   the **three core item sources are now complete**. Learn is the first source
   that attaches a real content reference, so eligibility is re-derived from

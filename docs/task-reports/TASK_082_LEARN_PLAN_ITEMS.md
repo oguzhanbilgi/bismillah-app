@@ -461,6 +461,13 @@ TASK 077 **43/43** · DailyPlan persistence **70/70** · canonical sync
 **Learn feature 108/108** (measured, not assumed —
 `flutter test test/features/learn`).
 
+> **Correction (2026-07-27, TASK 083): POST-MERGE VERIFIED — 23/23.**
+> The Node.js toolchain was reinstalled under NVM for Windows and verified
+> at the start of TASK 083 (Node.js v22.22.0, npm 10.9.4). `npm test` in
+> `functions/` passes **23/23**. The "PENDING (environment)" status below was
+> a shell/`PATH` limitation at TASK 082 time, not a Functions regression;
+> TASK 082 changed no Functions file. Git history was not rewritten.
+
 **Functions tests were NOT RUN on this machine: Node.js is not installed**
 (the Node install directory is still listed on `PATH` but no longer exists,
 so `node` and `npm` are unavailable). TASK 082 changes
@@ -552,8 +559,10 @@ referenced in code during TASK 082.
 - `flutter analyze`: **No issues found**.
 - Learn feature suite (measured): **108 / 108** —
   `flutter test test/features/learn`.
-- Functions (`npm test`): **NOT RUN — Node.js absent on this machine**;
-  no Functions file, dependency or lockfile changed.
+- Functions (`npm test`): **POST-MERGE VERIFIED at TASK 083 — 23 / 23** on
+  Node.js v22.22.0 / npm 10.9.4 (was NOT RUN at TASK 082 time because Node.js
+  was absent from this machine); no Functions file, dependency or lockfile
+  changed.
 - Tracked files modified: **0**.
 - Commits: `feat(today): add source-verified Learn plan items` and
   `docs(today): record Learn plan items`.
