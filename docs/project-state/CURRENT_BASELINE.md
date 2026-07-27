@@ -6,15 +6,46 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 083). After the TASK 083 merge, read the real current commit from
-> Git — do not treat the stored value as the live HEAD.
+> task (TASK 083A). After the TASK 083A merge, read the real current commit
+> from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 083: `b995931`
+- Last verified main before TASK 083A: `6dd65e3`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 083** — Today task UI: the first
+- Latest completed functional task: **TASK 083A** — Initial DailyPlan
+  orchestration: the **controlled roadmap insertion** that finally connects
+  onboarding → profile → generation → persistence. Until now nothing ever
+  invoked the generator, so Today showed Empty for every user.
+  `InitialDailyPlanOrchestrator` runs `OnboardingPreferences` →
+  `OnboardingProfileMapper` → `DailyPlanGenerationRequest` →
+  `DailyPlanGenerator` + `CoreDailyPlanItemSource` → **one atomic write**.
+  Start day is `DayKey.fromLocal(clock.nowLocal())` — no `DateTime.now()`.
+  New repository method **`savePlans(List<DailyPlan>)`** writes the whole
+  batch as a **single logical envelope write** (read-all → merge → encode
+  once → write once); an empty batch and duplicate `DayKey`s are rejected,
+  a corrupt envelope is never overwritten, days outside the batch are
+  preserved, and watch events fire only after success. **30 sequential
+  `savePlan` calls are explicitly forbidden** — a partial range cannot exist.
+  Typed sealed outcomes: **Created · AlreadyAvailable · OnboardingIncomplete
+  · RangeConflict · GenerationFailed · PersistenceFailed**; none carries raw
+  answers, plan JSON, storage keys, UID, device data or exception text.
+  Idempotent: a complete matching range returns `alreadyAvailable` with
+  **completion status and timestamps untouched**; a **partial** range returns
+  `rangeConflict` and is **never auto-filled or overwritten** (recovery is
+  TASK 084); concurrent calls share one memoized operation, so two callers
+  produce exactly **one** write. Onboarding completion now returns success
+  **only after** the plan exists — a failure keeps the gate closed, keeps
+  preferences persisted for safe retry and shows the existing neutral
+  message. `InitialDailyPlanBootstrapController` covers already-onboarded
+  users with no plan: it runs **at most once per app lifecycle**, never
+  inside a widget `build`, with an explicit user-driven `retry()`.
+  73 focused tests; full suite 1231 → **1304**. **No storage key change, no
+  envelope-version change, no Drift, no Firebase write, no remote sync, no
+  premium/monetization work.**
+  Report: `docs/task-reports/TASK_083A_INITIAL_DAILY_PLAN_ORCHESTRATION.md`
+- Previous completed functional task: **TASK 083** — Today task UI: the first
   real surface over the TASK 077 `DailyPlanController`. `TodayPlanSection`
   renders all five states — **Loading** (non-animated neutral skeleton),
   **Empty** (neutral text, **no fake "generate plan" button**), **Available**
@@ -201,17 +232,17 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
 - Next planned functional task: **TASK 084** — Missed-day recovery and gentle
-  rollover (CP10); day navigation was deferred there by TASK 083. Open
-  sequencing note for the owner: generation is still **not connected** to
-  persistence or onboarding completion, so the Today plan section shows the
-  Empty state in practice, and the roadmap still names no dedicated task for
-  that wiring.
+  rollover (CP10); day navigation was deferred there by TASK 083, and the
+  typed `rangeConflict` outcome from TASK 083A is exactly the state it must
+  learn to recover. The generation-wiring gap is **CLOSED** by TASK 083A.
 
-## Tests (verified at TASK 083)
+## Tests (verified at TASK 083A)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1231 / 1231**, 0 failed, 0 skipped
-  (1178 at TASK 082 + 53 Today task-UI tests)
+- Flutter test baseline: **1304 / 1304**, 0 failed, 0 skipped
+  (1231 at TASK 083 + 73 initial-orchestration tests)
+- Initial plan orchestration suite: **59 / 59** — command:
+  `flutter test test/features/today/application/initial_daily_plan_orchestrator_test.dart`
 - Today task-UI suite: **53 / 53** — command:
   `flutter test test/features/today/presentation/today_plan_section_test.dart`
 - Learn plan-item + catalog suite: **163 / 163** — command:
@@ -229,8 +260,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   `flutter test test/features/today/domain/onboarding_profile_mapper_test.dart`
 - DailyPlan state-machine suite: **43 / 43** — command:
   `flutter test test/features/today/application/daily_plan_controller_test.dart`
-- DailyPlan persistence suite: **70 / 70** — command:
+- DailyPlan persistence suite: **81 / 81** — command:
   `flutter test test/features/today/data`
+  (70 at TASK 083 + 11 atomic `savePlans` contract tests)
 - **Canonical sync-focused baseline: 70 / 70.** Exact command:
   `flutter test test/features/sync test/app/persistence_wiring_test.dart
   test/app/app_bootstrap_test.dart
@@ -390,6 +422,15 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   identities). Quran source is `const`, stateless and **total**; no
   unreachable failure branch was fabricated.
   Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
+- TASK 083A — Initial DailyPlan orchestration (controlled roadmap insertion
+  between TASK 083 and TASK 084; no task renumbered). Atomicity was solved
+  **without a storage-format change**: the existing single-key envelope
+  already supports read-all → merge → encode once → write once, so
+  `savePlans` is a contract addition, not a migration. The orchestrator
+  deliberately **classifies rather than repairs**: a partial range is a typed
+  conflict, not an invitation to auto-fill, because silently completing a
+  half-written range would let a stale profile overwrite real user history.
+  Report: `docs/task-reports/TASK_083A_INITIAL_DAILY_PLAN_ORCHESTRATION.md`
 - TASK 083 — Today task UI: first consumer of the TASK 077 state machine.
   Completion was implemented because the architecture already supported it
   safely (`AppClock` provider + existing `savePlan` + an envelope that already
