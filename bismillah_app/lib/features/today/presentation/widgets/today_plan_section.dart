@@ -5,16 +5,15 @@ import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
-import 'package:bismillah_app/core/utils/clock_provider.dart';
-import 'package:bismillah_app/core/value_objects/day_key.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_controller.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_state.dart';
-import 'package:bismillah_app/features/today/application/initial_daily_plan_bootstrap_controller.dart';
+import 'package:bismillah_app/features/today/application/today_day_controller.dart';
 import 'package:bismillah_app/features/today/application/today_plan_lesson_titles_provider.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
 import 'package:bismillah_app/features/today/presentation/today_plan_item_presentation.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_task_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_recovery_note.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
@@ -28,13 +27,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// yükleme, plan yok, plan var, bozuk veri ve geçici hata hâllerini sakin
 /// bir dille gösterir.
 ///
+/// Gün seçimi ve yerel takvim devri `TodayDayController`'a aittir
+/// (TASK 084); bu widget yalnız yaşam döngüsü olayını iletir ve durumu
+/// çizer.
+///
 /// ## Sınırlar
 ///
-/// Plan **ÜRETMEZ** ve otomatik kaydetmez: üretim orkestrasyonu (onboarding
-/// tamamlanmasından plana) hâlâ bağlı değildir ve bu görevin kapsamı dışıdır.
-/// Gün gezinme (takvim) EKLENMEZ — controller'ın seçtiği tek gün gösterilir.
-/// Firebase yazımı, uzak senkron, bildirim, ücretli özellik kapısı, reklam
-/// veya bağış mesajı YOKTUR.
+/// Plan **ÜRETMEZ** ve otomatik kaydetmez; geçmiş günleri değiştirmez.
+/// Elle gün gezinme (takvim seçici) EKLENMEZ — gösterilen gün daima yerel
+/// takvim günüdür. Firebase yazımı, uzak senkron, bildirim, seri/puan,
+/// ücretli özellik kapısı, reklam veya bağış mesajı YOKTUR.
 ///
 /// ## Ton
 ///
@@ -76,82 +78,88 @@ class _SkeletonBar extends StatelessWidget {
   }
 }
 
-class _TodayPlanSectionState extends ConsumerState<TodayPlanSection> {
+class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // Bugünün günü ilk frame'den SONRA seçilir: build sırasında provider
-    // durumu değiştirilmez. Saat enjekte edilir (`DateTime.now()` yok).
-    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(_start()));
+    // Uygulama ön plana döndüğünde yerel gün değişmiş olabilir (TASK 084).
+    WidgetsBinding.instance.addObserver(this);
+    // Gün seçimi ilk frame'den SONRA yapılır: build sırasında provider
+    // durumu değiştirilmez.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => unawaited(_startIfMounted()),
+    );
   }
 
-  /// Tek seferlik açılış: gerekirse ilk planı kurar, sonra bugünü yükler.
-  ///
-  /// Üretim `build` içinde ÇALIŞMAZ; tetikleyici bayrağı
-  /// `InitialDailyPlanBootstrapController` içinde yaşadığı için yeniden
-  /// çizim, sekme değişimi veya tazeleme ikinci bir üretim başlatamaz
-  /// (TASK 083A).
-  Future<void> _start() async {
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && mounted) {
+      // Gün değişmediyse controller hiçbir şey yapmaz — yeniden okuma,
+      // yeni abonelik veya yeni üretim tetiklenmez.
+      unawaited(ref.read(todayDayControllerProvider.notifier).onAppResumed());
+    }
+  }
+
+  Future<void> _startIfMounted() async {
     if (!mounted) {
       return;
     }
-    final controller = ref.read(dailyPlanControllerProvider.notifier);
-    if (controller.selectedDay != null) {
-      return; // gün zaten seçili — tekrar abone olunmaz
-    }
-    final today = DayKey.fromLocal(ref.read(clockProvider).nowLocal());
-
-    // Önce kurulum: planı olmayan mevcut kullanıcı boş ekranla
-    // karşılaşmaz. Zaten planı olan kullanıcıda bu çağrı yazma YAPMAZ.
-    await ref.read(initialDailyPlanBootstrapProvider.notifier).ensureOnce();
-    if (!mounted) {
-      return;
-    }
-    await controller.loadDay(today);
+    await ref.read(todayDayControllerProvider.notifier).start();
   }
 
-  /// Kullanıcı isteğiyle yeniden deneme.
-  ///
-  /// Önce plan kurulumu tekrar denenir (okuma hatası yüzünden ilk deneme
-  /// düşmüş olabilir), sonra gün yeniden okunur. Orkestratör mevcut
-  /// geçerli planı koruduğu için bu çift plan ÜRETEMEZ.
+  /// Kullanıcı isteğiyle yeniden deneme (nötr hata yolundan).
   Future<void> _retry() async {
-    await ref.read(initialDailyPlanBootstrapProvider.notifier).retry();
     if (!mounted) {
       return;
     }
-    await ref.read(dailyPlanControllerProvider.notifier).retry();
+    await ref.read(todayDayControllerProvider.notifier).retry();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(dailyPlanControllerProvider);
+    final recovery = ref.watch(
+      todayDayControllerProvider.select((day) => day.recovery),
+    );
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-      child: AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(l10n.todayPlanTitle, token: AppTextStyleToken.h3),
-            const SizedBox(height: AppSpacing.s2),
-            _dateLine(l10n, state),
-            const SizedBox(height: AppSpacing.s4),
-            switch (state) {
-              null || DailyPlanLoading() => _loading(l10n),
-              DailyPlanEmpty() => _empty(l10n),
-              DailyPlanAvailable(:final plan, :final isSaving) => _available(
-                l10n,
-                plan,
-                isSaving: isSaving,
-              ),
-              DailyPlanCorrupt() => _corrupt(l10n),
-              DailyPlanFailure() => _failure(l10n),
-            },
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Sakin dönüş notu planın ÜSTÜNDE durur; hiçbir görevi gizlemez
+        // ve sırayı değiştirmez.
+        if (TodayRecoveryNote.shouldShow(recovery, state))
+          TodayRecoveryNote(recovery: recovery),
+        Padding(
+          padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+          child: AppCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(l10n.todayPlanTitle, token: AppTextStyleToken.h3),
+                const SizedBox(height: AppSpacing.s2),
+                _dateLine(l10n, state),
+                const SizedBox(height: AppSpacing.s4),
+                switch (state) {
+                  null || DailyPlanLoading() => _loading(l10n),
+                  DailyPlanEmpty() => _empty(l10n),
+                  DailyPlanAvailable(:final plan, :final isSaving) =>
+                    _available(l10n, plan, isSaving: isSaving),
+                  DailyPlanCorrupt() => _corrupt(l10n),
+                  DailyPlanFailure() => _failure(l10n),
+                },
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 

@@ -213,6 +213,13 @@ final class AppLocalizations {
   String get todayPlanItemReflectionFallback =>
       _t('todayPlanItemReflectionFallback');
 
+  // Ara verdikten sonra sakin dönüş notu (TASK 084). Kaçırılan gün SAYISI
+  // gösterilmez; suçlama, seri kaybı, ceza ve manevi değerlendirme dili
+  // YASAK.
+  String get todayRecoveryTitle => _t('todayRecoveryTitle');
+  String get todayRecoveryGentleBody => _t('todayRecoveryGentleBody');
+  String get todayRecoveryExtendedBody => _t('todayRecoveryExtendedBody');
+
   /// "Seçili gün: 2026-07-27" biçimli satır.
   String todayPlanSelectedDay(String day) =>
       _t('todayPlanSelectedDay').replaceAll('{day}', day);
@@ -810,6 +817,12 @@ final class AppLocalizations {
       'todayPlanItemDhikrFallback': 'Zikir görevi',
       'todayPlanItemDuaFallback': 'Dua görevi',
       'todayPlanItemReflectionFallback': 'Düşünme görevi',
+      // Sakin dönüş notu (TASK 084)
+      'todayRecoveryTitle': 'Yeni bir gün',
+      'todayRecoveryGentleBody':
+          'Hazır olduğunda küçük bir adımla devam edebilirsin.',
+      'todayRecoveryExtendedBody':
+          'Buraya dönmen güzel. Bugün tek bir küçük adım yeter.',
       'todayGoToPrayers': 'Namazlara git',
       'todayLocalNote': 'Kayıtların cihazında saklanır.',
       'todayLoadIssue': 'Özet şu an açılamadı.',
@@ -1348,6 +1361,12 @@ final class AppLocalizations {
       'todayPlanItemDhikrFallback': 'Dhikr task',
       'todayPlanItemDuaFallback': 'Dua task',
       'todayPlanItemReflectionFallback': 'Reflection task',
+      // Calm return note (TASK 084)
+      'todayRecoveryTitle': 'A new day',
+      'todayRecoveryGentleBody':
+          'Continue with one small step whenever you are ready.',
+      'todayRecoveryExtendedBody':
+          'Good to see you back. One small step is enough for today.',
       'todayGoToPrayers': 'Go to prayers',
       'todayLocalNote': 'Your records stay on your device.',
       'todayLoadIssue': 'The summary could not be opened right now.',
@@ -1894,6 +1913,11 @@ final class AppLocalizations {
       'todayPlanItemDhikrFallback': 'مهمة ذكر',
       'todayPlanItemDuaFallback': 'مهمة دعاء',
       'todayPlanItemReflectionFallback': 'مهمة تأمل',
+      // ملاحظة العودة الهادئة (TASK 084)
+      'todayRecoveryTitle': 'يوم جديد',
+      'todayRecoveryGentleBody': 'واصل بخطوة صغيرة عندما تكون مستعداً.',
+      'todayRecoveryExtendedBody':
+          'سعيدون بعودتك. تكفيك اليوم خطوة صغيرة واحدة.',
       'todayGoToPrayers': 'اذهب إلى الصلوات',
       'todayLocalNote': 'تبقى سجلاتك على جهازك.',
       'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',

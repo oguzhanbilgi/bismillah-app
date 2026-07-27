@@ -69,6 +69,7 @@ TASK 081    — Quran plan items and ordered source composition — COMPLETED
 TASK 082    — Source-verified Learn plan items — COMPLETED
 TASK 083    — Today task UI — COMPLETED
 TASK 083A   — Initial DailyPlan orchestration — COMPLETED
+TASK 084    — Missed-day recovery and gentle rollover — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -111,6 +112,27 @@ template IDs **across** children are rejected. Because the composite implements
 the same single-source interface, `DailyPlanGenerator` is unchanged, and
 appending Learn later **cannot shift** existing Prayer/Quran slots or final
 item IDs.
+
+**CP10 rollover rule (fixed by TASK 084):** the day Today shows is owned by
+`TodayDayController` and is **always the local calendar day**, derived only
+from the injected `AppClock` via `DayKey.fromLocal` — never by UTC
+conversion and never with `DateTime.now()`. Local midnight uses **one armed
+one-shot timer** through an injected `DayRolloverScheduler`; **periodic
+polling is forbidden** and the timer is cancelled on disposal. The next
+boundary is computed as `DateTime(y, m, d + 1)` minus local now, so **24
+hours is never assumed** (DST-safe). A resume or timer fire on the **same**
+day must be a no-op — no second read, no second watch subscription, no
+second bootstrap. A **missed day** is only a past `DayKey` that has a plan,
+has items and has zero completions; absent, empty and corrupt days are data
+states, are never called user-missed and **break** the consecutive chain.
+Missed-day handling is **presentation only**: no item is auto-completed,
+failed, copied forward, deleted, reordered or re-timed, and the recovery
+path performs **zero writes**. The recovery note carries **no count, no
+streak, no score, no red styling and no guilt**, and disappears once any
+current-day task is marked — **without a new persistence key**. At 3+ missed
+days only the wording softens: the full plan, its Prayer → Quran → Learn
+order and the minute budget are unchanged. Adaptive plan shrinking, day-30
+renewal and streak persistence remain **out of scope**.
 
 **CP10 orchestration rule (fixed by TASK 083A):** the initial 30-day plan is
 created by **one** application-level orchestrator
@@ -202,8 +224,8 @@ TASK 081 — Quran plan items                             — COMPLETED
 TASK 082 — Source-verified Learn plan items             — COMPLETED
 TASK 083 — Today task UI                                — COMPLETED
 TASK 083A — Initial DailyPlan orchestration             — COMPLETED
-TASK 084 — Missed-day recovery and gentle rollover      <-- NEXT TASK
-TASK 085 — 30-day plan and CP10 checkpoint
+TASK 084 — Missed-day recovery and gentle rollover      — COMPLETED
+TASK 085 — 30-day plan and CP10 checkpoint              <-- NEXT TASK
 ```
 
 ## CP11 — Learn and Assistant

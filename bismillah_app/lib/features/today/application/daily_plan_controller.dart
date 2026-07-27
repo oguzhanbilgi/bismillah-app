@@ -73,7 +73,13 @@ final class DailyPlanController extends Notifier<DailyPlanState?> {
     state = DailyPlanLoading(dayKey: dayKey);
 
     // Önceki günün aboneliği kapatılır — controller başına TEK aktif watch.
-    await _subscription?.cancel();
+    //
+    // İptal BEKLENMEZ (TASK 084): `cancel()` bazı akış implementasyonlarında
+    // yalnız akış kapanınca çözülür ve gün devrinde yeni okumayı süresiz
+    // bekletirdi. Beklemek gerekmez de: `_onWatchEvent` abone olunan günü
+    // aktif günle karşılaştırır, bu yüzden eski akıştan geç gelen bir olay
+    // zaten yok sayılır ve jenerasyon sayacı bayat sonucu ayrıca engeller.
+    unawaited(_subscription?.cancel());
     _subscription = null;
     if (_isStale(generation)) {
       return;
