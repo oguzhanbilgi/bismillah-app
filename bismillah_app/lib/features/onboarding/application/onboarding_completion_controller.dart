@@ -6,6 +6,7 @@ import 'package:bismillah_app/features/onboarding/application/onboarding_pace_co
 import 'package:bismillah_app/features/onboarding/application/onboarding_status_controller.dart';
 import 'package:bismillah_app/features/onboarding/data/onboarding_data_providers.dart';
 import 'package:bismillah_app/features/onboarding/domain/entities/onboarding_preferences.dart';
+import 'package:bismillah_app/features/today/application/initial_daily_plan_orchestrator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Onboarding final adımı controller'ı (TASK 028): üç adımın seçimlerini
@@ -43,27 +44,45 @@ final class OnboardingCompletionController extends AsyncNotifier<void> {
     }
 
     state = const AsyncLoading();
+    final preferences = OnboardingPreferences(
+      goals: goals,
+      journeyStage: journey,
+      dailyPace: pace,
+      completedAtUtc: ref.read(clockProvider).nowUtc(),
+    );
     final result = await ref
         .read(onboardingPreferencesRepositoryProvider)
-        .saveCompleted(
-          OnboardingPreferences(
-            goals: goals,
-            journeyStage: journey,
-            dailyPace: pace,
-            completedAtUtc: ref.read(clockProvider).nowUtc(),
-          ),
-        );
-    return result.fold(
-      onSuccess: (_) {
-        // Kapı yalnız kayıt başarısından SONRA açılır.
-        ref.read(onboardingCompletedProvider.notifier).markCompleted();
-        state = const AsyncData(null);
-        return true;
-      },
-      onFailure: (failure) {
-        state = AsyncError(failure, StackTrace.current);
-        return false;
-      },
-    );
+        .saveCompleted(preferences);
+
+    final saveFailure = result.failureOrNull;
+    if (saveFailure != null) {
+      state = AsyncError(saveFailure, StackTrace.current);
+      return false;
+    }
+
+    // TASK 083A: ilk 30 günlük plan tercihlerle AYNI akışta kurulur.
+    // Tercihler zaten kalıcı olduğu için elde tutulan nesne verilir —
+    // ikinci bir okuma veya ikinci bir kalıcılık yolu YOKTUR.
+    final outcome = await ref
+        .read(initialDailyPlanOrchestratorProvider)
+        .ensureInitialPlan(preferences: preferences);
+
+    if (!outcome.isPlanAvailable) {
+      // Plan kurulamadıysa tamamlanma BAŞARILI sayılmaz ve Today'e
+      // geçilmez — kullanıcı boş bir ekrana "başarı" olarak gönderilmez.
+      // Tercihler kalıcı kaldığı için tekrar deneme güvenlidir ve ikinci
+      // bir plan üretmez. Hata nesnesi ham sebep TAŞIMAZ; ekran mevcut
+      // nötr `onboardingSaveIssue` metnini gösterir.
+      state = AsyncError(
+        const ValidationFailure(messageKey: 'onboardingSaveIssue'),
+        StackTrace.current,
+      );
+      return false;
+    }
+
+    // Kapı yalnız kayıt VE plan kurulumu başarısından SONRA açılır.
+    ref.read(onboardingCompletedProvider.notifier).markCompleted();
+    state = const AsyncData(null);
+    return true;
   }
 }

@@ -302,6 +302,178 @@ void main() {
     );
   });
 
+  group('savePlans (atomik toplu yazma)', () {
+    test('çok gün TEK zarf yazımıyla kaydedilir', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final result = await repo.savePlans([
+        plan('2026-07-27'),
+        plan('2026-07-28'),
+        plan('2026-07-29'),
+      ]);
+
+      expect(result.isSuccess, isTrue);
+      final prefs = await SharedPreferences.getInstance();
+      final decoded =
+          json.decode(prefs.getString(key)!) as Map<String, Object?>;
+      expect((decoded['plans']! as Map).keys.toList(), [
+        '2026-07-27',
+        '2026-07-28',
+        '2026-07-29',
+      ]);
+      // Tek anahtar, tek yazma: ikinci bir plan anahtarı OLUŞMAZ.
+      expect(prefs.getKeys().where((k) => k.contains('daily_plan')), [key]);
+    });
+
+    test('kalıcılık sürümü 1 kalır', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      await repo.savePlans([plan('2026-07-27')]);
+
+      final prefs = await SharedPreferences.getInstance();
+      final decoded =
+          json.decode(prefs.getString(key)!) as Map<String, Object?>;
+      expect(decoded['v'], 1);
+    });
+
+    test('boş liste tipli doğrulama hatası verir', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final result = await repo.savePlans([]);
+
+      expect(result.failureOrNull, isA<ValidationFailure>());
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(key), isNull, reason: 'depoya dokunulmaz');
+    });
+
+    test('tekrar eden gün REDDEDİLİR ve hiçbir gün yazılmaz', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final result = await repo.savePlans([
+        plan('2026-07-27'),
+        plan('2026-07-28'),
+        plan('2026-07-27', sizeMinutes: 5),
+      ]);
+
+      expect(result.failureOrNull, isA<ValidationFailure>());
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(key), isNull, reason: 'kısmi aralık kalmaz');
+    });
+
+    test('kodlama hatası önceki depoyu DEĞİŞTİRMEZ', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      await repo.savePlan(plan('2026-07-26'));
+      final prefs = await SharedPreferences.getInstance();
+      final before = prefs.getString(key);
+
+      // Gün içinde tekrar eden öğe kimliği codec tarafından reddedilir.
+      final result = await repo.savePlans([
+        plan('2026-07-27', items: [item('dup'), item('dup')]),
+      ]);
+
+      expect(result.failureOrNull, isA<StorageFailure>());
+      expect(prefs.getString(key), before, reason: 'depo aynen korunur');
+    });
+
+    test('bozuk depo üzerine YAZILMAZ', () async {
+      SharedPreferences.setMockInitialValues({key: 'not-json'});
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+
+      final result = await repo.savePlans([plan('2026-07-27')]);
+
+      expect(result.failureOrNull, isA<StorageCorruptionFailure>());
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString(key), 'not-json');
+    });
+
+    test('toplu yazmada olmayan mevcut günler KORUNUR', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      await repo.savePlan(
+        plan(
+          '2020-01-01',
+          items: [
+            item(
+              'legacy',
+              status: PlanItemStatus.completed,
+              completedAt: UtcDateTime(DateTime.utc(2020)),
+            ),
+          ],
+        ),
+      );
+
+      await repo.savePlans([plan('2026-07-27'), plan('2026-07-28')]);
+
+      final preserved = await repo.getPlan(day('2020-01-01'));
+      expect(preserved.valueOrNull, isNotNull);
+      expect(preserved.valueOrNull!.items.single.isCompleted, isTrue);
+      expect(preserved.valueOrNull!.items.single.completedAt, isNotNull);
+    });
+
+    test('aynı günün tekrar yazımı üzerine yazar (çift kayıt yok)', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      await repo.savePlans([plan('2026-07-27', sizeMinutes: 20)]);
+
+      await repo.savePlans([plan('2026-07-27', sizeMinutes: 5)]);
+
+      final stored = await repo.getPlan(day('2026-07-27'));
+      expect(stored.valueOrNull!.sizeMinutes, 5);
+      final range = await repo.getRange(day('2026-07-27'), day('2026-07-27'));
+      expect(range.valueOrNull!.length, 1);
+    });
+
+    test('izleyicilere bildirim yalnız BAŞARIDAN sonra gider', () async {
+      SharedPreferences.setMockInitialValues({key: 'not-json'});
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      final seen = <String>[];
+      final sub = repo
+          .watchPlan(day('2026-07-27'))
+          .listen((p) => seen.add(p!.dayKey.value));
+      addTearDown(sub.cancel);
+
+      await repo.savePlans([plan('2026-07-27')]);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(seen, isEmpty, reason: 'başarısız yazma yayın YAPMAZ');
+    });
+
+    test('başarılı toplu yazma izlenen günü yayar', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      final seen = <String>[];
+      final sub = repo
+          .watchPlan(day('2026-07-28'))
+          .listen((p) => seen.add(p!.dayKey.value));
+      addTearDown(sub.cancel);
+
+      await repo.savePlans([plan('2026-07-27'), plan('2026-07-28')]);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(seen, ['2026-07-28']);
+    });
+
+    test('30 günlük aralık tek çağrıda kalıcılaşır', () async {
+      final repo = SharedPrefsDailyPlanRepository();
+      addTearDown(repo.dispose);
+      final days = [
+        for (var d = 1; d <= 30; d++) '2026-09-${d.toString().padLeft(2, '0')}',
+      ];
+
+      final result = await repo.savePlans([for (final d in days) plan(d)]);
+
+      expect(result.isSuccess, isTrue);
+      final range = await repo.getRange(day(days.first), day(days.last));
+      expect(range.valueOrNull!.length, 30);
+    });
+  });
+
   group('getRange', () {
     Future<SharedPrefsDailyPlanRepository> seeded() async {
       final repo = SharedPrefsDailyPlanRepository();

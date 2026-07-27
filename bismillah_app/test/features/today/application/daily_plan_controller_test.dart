@@ -687,6 +687,7 @@ final class _FakeDailyPlanRepository implements DailyPlanRepository {
 
   int getCalls = 0;
   int saveCalls = 0;
+  int batchSaveCalls = 0;
   int watchCalls = 0;
   int rangeCalls = 0;
   int cancelledWatches = 0;
@@ -762,6 +763,15 @@ final class _FakeDailyPlanRepository implements DailyPlanRepository {
       return Result.failure(failure);
     }
     plans[plan.dayKey] = plan;
+    return const Result.success(null);
+  }
+
+  @override
+  ResultFuture<void> savePlans(List<DailyPlan> plans) async {
+    batchSaveCalls++;
+    for (final plan in plans) {
+      this.plans[plan.dayKey] = plan;
+    }
     return const Result.success(null);
   }
 
