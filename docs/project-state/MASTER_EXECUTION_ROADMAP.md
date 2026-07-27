@@ -66,6 +66,7 @@ TASK 078    — Onboarding profile mapping — COMPLETED
 TASK 079    — Deterministic daily plan generator — COMPLETED
 TASK 080    — Prayer plan items — COMPLETED
 TASK 081    — Quran plan items and ordered source composition — COMPLETED
+TASK 082    — Source-verified Learn plan items — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -109,6 +110,20 @@ the same single-source interface, `DailyPlanGenerator` is unchanged, and
 appending Learn later **cannot shift** existing Prayer/Quran slots or final
 item IDs.
 
+**CP10 Learn-content rule (fixed by TASK 082):** the Learn source is the
+**only** plan source that references real content, and it may reference
+**only published, source-verified article identifiers** — eligibility
+(`published` + `sourceBodyVerified` + publication gate + registered source +
+identical stable IDs in TR/EN/AR) is re-derived from the actual assets by
+test, never trusted from a hard-coded list. The plan order is an **explicit,
+immutable, versioned 30-entry catalog**, never JSON file order, localized
+title sorting, runtime locale or map iteration. Only the stable article ID
+enters the plan; **no title, summary, body, translation or source text is
+ever copied into a `DailyPlan`**, and no Learn repository or asset bundle is
+read during generation. The three core item sources (Prayer, Quran, Learn)
+are now **complete**; `dhikr`, `dua` and `reflection` still have no approved
+content and must not be invented.
+
 **CP10 item-source rule (fixed by TASK 080):** plan items come from the user's
 **onboarding goals**, never from `DailyPlanProfileType`; contribution is
 identical across all eight profiles and all four phases (no escalation, no
@@ -151,8 +166,8 @@ TASK 078 — Onboarding profile mapping                   — COMPLETED
 TASK 079 — Deterministic daily plan generator           — COMPLETED
 TASK 080 — Prayer plan items                            — COMPLETED
 TASK 081 — Quran plan items                             — COMPLETED
-TASK 082 — Learn plan items                             <-- NEXT TASK
-TASK 083 — Today task UI
+TASK 082 — Source-verified Learn plan items             — COMPLETED
+TASK 083 — Today task UI                                <-- NEXT TASK
 TASK 084 — Missed-day recovery and gentle rollover
 TASK 085 — 30-day plan and CP10 checkpoint
 ```
