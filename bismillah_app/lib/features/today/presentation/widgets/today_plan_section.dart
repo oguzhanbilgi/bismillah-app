@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
@@ -7,6 +9,7 @@ import 'package:bismillah_app/core/utils/clock_provider.dart';
 import 'package:bismillah_app/core/value_objects/day_key.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_controller.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_state.dart';
+import 'package:bismillah_app/features/today/application/initial_daily_plan_bootstrap_controller.dart';
 import 'package:bismillah_app/features/today/application/today_plan_lesson_titles_provider.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
@@ -79,17 +82,45 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection> {
     super.initState();
     // Bugünün günü ilk frame'den SONRA seçilir: build sırasında provider
     // durumu değiştirilmez. Saat enjekte edilir (`DateTime.now()` yok).
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) {
-        return;
-      }
-      final controller = ref.read(dailyPlanControllerProvider.notifier);
-      if (controller.selectedDay != null) {
-        return; // gün zaten seçili — tekrar abone olunmaz
-      }
-      final today = DayKey.fromLocal(ref.read(clockProvider).nowLocal());
-      controller.loadDay(today);
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(_start()));
+  }
+
+  /// Tek seferlik açılış: gerekirse ilk planı kurar, sonra bugünü yükler.
+  ///
+  /// Üretim `build` içinde ÇALIŞMAZ; tetikleyici bayrağı
+  /// `InitialDailyPlanBootstrapController` içinde yaşadığı için yeniden
+  /// çizim, sekme değişimi veya tazeleme ikinci bir üretim başlatamaz
+  /// (TASK 083A).
+  Future<void> _start() async {
+    if (!mounted) {
+      return;
+    }
+    final controller = ref.read(dailyPlanControllerProvider.notifier);
+    if (controller.selectedDay != null) {
+      return; // gün zaten seçili — tekrar abone olunmaz
+    }
+    final today = DayKey.fromLocal(ref.read(clockProvider).nowLocal());
+
+    // Önce kurulum: planı olmayan mevcut kullanıcı boş ekranla
+    // karşılaşmaz. Zaten planı olan kullanıcıda bu çağrı yazma YAPMAZ.
+    await ref.read(initialDailyPlanBootstrapProvider.notifier).ensureOnce();
+    if (!mounted) {
+      return;
+    }
+    await controller.loadDay(today);
+  }
+
+  /// Kullanıcı isteğiyle yeniden deneme.
+  ///
+  /// Önce plan kurulumu tekrar denenir (okuma hatası yüzünden ilk deneme
+  /// düşmüş olabilir), sonra gün yeniden okunur. Orkestratör mevcut
+  /// geçerli planı koruduğu için bu çift plan ÜRETEMEZ.
+  Future<void> _retry() async {
+    await ref.read(initialDailyPlanBootstrapProvider.notifier).retry();
+    if (!mounted) {
+      return;
+    }
+    await ref.read(dailyPlanControllerProvider.notifier).retry();
   }
 
   @override
@@ -270,7 +301,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection> {
       AppButton(
         label: l10n.commonRetry,
         variant: AppButtonVariant.secondary,
-        onPressed: () => ref.read(dailyPlanControllerProvider.notifier).retry(),
+        onPressed: () => unawaited(_retry()),
       ),
     ],
   );

@@ -472,12 +472,55 @@ that task's time*; the current verified baseline lives in
   **Functions 23/23 re-verified** on Node.js v22.22.0 / npm 10.9.4 — this
   also closes the TASK 082 `PENDING (environment)` record, now **POST-MERGE
   VERIFIED**; no Functions file was touched by either task.
+- **TASK 083A — Initial DailyPlan orchestration (CP10, controlled roadmap
+  insertion between TASK 083 and TASK 084; nothing renumbered).** Everything
+  from TASK 076 onward existed, but **nothing ever invoked the generator** —
+  so Today showed Empty for every user, and TASK 084 would have had no plans
+  to recover. `InitialDailyPlanOrchestrator` closes the chain in one place:
+  `OnboardingPreferences` → `OnboardingProfileMapper` →
+  `DailyPlanGenerationRequest` → `DailyPlanGenerator` +
+  `CoreDailyPlanItemSource` → **one atomic write**, with the start day taken
+  from the injected `AppClock` (no `DateTime.now()`, asserted at source
+  level). The key data-integrity decision: **atomicity needed no
+  storage-format change**. The existing single-key envelope already supports
+  read-all → merge → encode once → write once, so the new
+  `DailyPlanRepository.savePlans(List)` is a contract addition, not a
+  migration — the storage key and persistence version **1** are untouched.
+  **30 sequential `savePlan` calls are explicitly forbidden**: an interruption
+  would leave a partial plan. `savePlans` rejects an empty batch and duplicate
+  `DayKey`s, never overwrites a corrupt envelope, preserves every day outside
+  the batch, and publishes watch events only **after** a successful write; a
+  failed encode or write leaves storage byte-identical. The orchestrator
+  **classifies rather than repairs**: a complete matching range returns
+  `alreadyAvailable` with completion status, `completedAt`, `profileType` and
+  `generatedBy` untouched, while a partial or non-continuous range returns a
+  typed `rangeConflict` that is deliberately **never auto-filled or
+  overwritten** — silently completing a half-written range would let a stale
+  profile bulldoze real user history, and recovery is TASK 084's job.
+  Concurrent callers share one memoized operation, so two (and three)
+  simultaneous calls produce exactly **one** write. Onboarding completion now
+  returns success **only after** the plan exists: on failure the gate stays
+  closed, the user is not sent to an Empty Today as "success", preferences
+  stay persisted for a safe retry, and the existing neutral
+  `onboardingSaveIssue` message is reused without leaking the raw cause.
+  Already-onboarded users with no plan are covered by
+  `InitialDailyPlanBootstrapController`, which runs **at most once per app
+  lifecycle and never inside a widget `build`** (no provider or rebuild loop
+  can regenerate), with an explicit user-driven `retry()`. App bootstrap
+  itself still touches no plan provider. Typed outcomes carry no raw
+  onboarding answers, plan JSON, article text, storage keys, UID, device data
+  or exception text.
+  **73 new tests** (orchestrator 59 — generation, all eight profiles with a
+  coverage lock, atomic failure paths, idempotency, concurrency, partial and
+  conflicting ranges, onboarding integration, existing-user bootstrap, Today
+  integration and restart persistence; `savePlans` contract 11, persistence
+  suite 70 → **81**; Today section 3, suite 50 → **53**); full suite
+  **1231 → 1304**; analyze clean. Functions untouched and not re-run.
 - **Next:** **TASK 084 — Missed-day recovery and gentle rollover** (CP10),
-  which owns the day navigation deferred here. The generation-wiring gap
-  persists: nothing invokes the generator, so the Today plan section shows the
-  Empty state in practice, and the roadmap still names no task for
-  onboarding-completion → generation → persistence. The commercial
-  roadmap-alignment task recorded below remains open and unnumbered.
+  now unblocked: real plans exist and the typed `rangeConflict` state is
+  exactly what it must learn to recover. It also owns the day navigation
+  deferred by TASK 083. The commercial roadmap-alignment task recorded below
+  remains open and unnumbered.
 - **Standing owner decisions (opened at TASK 082, still open):**
   (1) generation is **not wired** to persistence or onboarding completion and
   the roadmap names no dedicated task for that wiring; (2) a **commercial

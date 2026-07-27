@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
@@ -16,6 +16,12 @@ import 'package:bismillah_app/features/learn/domain/entities/learning_article.da
 import 'package:bismillah_app/features/learn/domain/entities/learning_category.dart';
 import 'package:bismillah_app/features/learn/domain/repositories/learning_knowledge_repository.dart';
 import 'package:bismillah_app/features/learn/domain/value_objects/knowledge_enums.dart';
+import 'package:bismillah_app/features/onboarding/data/onboarding_data_providers.dart';
+import 'package:bismillah_app/features/onboarding/domain/entities/onboarding_preferences.dart';
+import 'package:bismillah_app/features/onboarding/domain/repositories/onboarding_preferences_repository.dart';
+import 'package:bismillah_app/features/onboarding/domain/value_objects/onboarding_daily_pace.dart';
+import 'package:bismillah_app/features/onboarding/domain/value_objects/onboarding_focus_goal.dart';
+import 'package:bismillah_app/features/onboarding/domain/value_objects/onboarding_journey_stage.dart';
 import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_controller.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_state.dart';
@@ -99,10 +105,14 @@ void main() {
 
   late _FakePlanRepository repo;
   late _FakeLearnRepository learn;
+  late _FakeOnboardingPreferencesRepository preferences;
 
   setUp(() {
     repo = _FakePlanRepository();
     learn = _FakeLearnRepository();
+    // Varsayılan: kayıtlı tercih YOK → TASK 083A orkestratörü plan
+    // üretmez ve bu dosyanın konusu olan durum makinesi izole kalır.
+    preferences = _FakeOnboardingPreferencesRepository();
   });
 
   Future<void> pumpSection(
@@ -121,6 +131,9 @@ void main() {
         overrides: [
           dailyPlanRepositoryProvider.overrideWithValue(repo),
           learningKnowledgeRepositoryProvider.overrideWithValue(learn),
+          onboardingPreferencesRepositoryProvider.overrideWithValue(
+            preferences,
+          ),
           clockProvider.overrideWithValue(FixedClock(fixedLocalNow)),
           appLocaleAtLaunchProvider.overrideWithValue(locale),
         ],
@@ -290,6 +303,52 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(repo.watchCalls, 1);
+    });
+
+    testWidgets('kayıtlı tercihle açılış planı KURAR ve Available olur', (
+      tester,
+    ) async {
+      // TASK 083A: mevcut kullanıcı (onboarding tamam, plan yok).
+      preferences.stored = OnboardingPreferences(
+        goals: const {
+          OnboardingFocusGoal.trackPrayers,
+          OnboardingFocusGoal.quranHabit,
+        },
+        journeyStage: OnboardingJourneyStage.justBeginning,
+        dailyPace: OnboardingDailyPace.balanced,
+        completedAtUtc: fixedLocalNow.toUtc(),
+      );
+      await pumpSection(tester);
+
+      expect(repo.batchSaveCalls, 1);
+      expect(repo.plans.length, 30);
+      expect(find.byType(TodayPlanTaskCard), findsNWidgets(2));
+      expect(find.text(tr.todayPlanEmptyTitle), findsNothing);
+    });
+
+    testWidgets('yeniden çizim planı YENİDEN ÜRETMEZ', (tester) async {
+      preferences.stored = OnboardingPreferences(
+        goals: const {OnboardingFocusGoal.trackPrayers},
+        journeyStage: OnboardingJourneyStage.justBeginning,
+        dailyPace: OnboardingDailyPace.balanced,
+        completedAtUtc: fixedLocalNow.toUtc(),
+      );
+      await pumpSection(tester);
+      expect(repo.batchSaveCalls, 1);
+
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(repo.batchSaveCalls, 1, reason: 'build döngüsü üretim yapmaz');
+      expect(repo.plans.length, 30);
+    });
+
+    testWidgets('tercih yokken plan UYDURULMAZ (Empty kalır)', (tester) async {
+      await pumpSection(tester);
+
+      expect(repo.batchSaveCalls, 0);
+      expect(repo.plans, isEmpty);
+      expect(find.text(tr.todayPlanEmptyTitle), findsOneWidget);
     });
 
     testWidgets('öğesiz plan: nötr satır, ilerleme %0', (tester) async {
@@ -913,6 +972,7 @@ final class _FakePlanRepository implements DailyPlanRepository {
 
   int getCalls = 0;
   int saveCalls = 0;
+  int batchSaveCalls = 0;
   int watchCalls = 0;
 
   Completer<void>? _getGate;
@@ -963,8 +1023,43 @@ final class _FakePlanRepository implements DailyPlanRepository {
   }
 
   @override
-  ResultFuture<List<DailyPlan>> getRange(DayKey from, DayKey to) async =>
-      const Result.success(<DailyPlan>[]);
+  ResultFuture<void> savePlans(List<DailyPlan> plans) async {
+    batchSaveCalls++;
+    for (final plan in plans) {
+      this.plans[plan.dayKey] = plan;
+    }
+    return const Result.success(null);
+  }
+
+  @override
+  ResultFuture<List<DailyPlan>> getRange(DayKey from, DayKey to) async {
+    final selected =
+        plans.entries
+            .where(
+              (e) => e.key.compareTo(from) >= 0 && e.key.compareTo(to) <= 0,
+            )
+            .toList()
+          ..sort((a, b) => a.key.compareTo(b.key));
+    return Result.success([for (final e in selected) e.value]);
+  }
+}
+
+/// Kayıtlı onboarding tercihi olmayan sahte depo (varsayılan).
+final class _FakeOnboardingPreferencesRepository
+    implements OnboardingPreferencesRepository {
+  OnboardingPreferences? stored;
+
+  @override
+  Future<bool> isCompleted() async => stored != null;
+
+  @override
+  ResultFuture<OnboardingPreferences?> load() async => Result.success(stored);
+
+  @override
+  ResultFuture<void> saveCompleted(OnboardingPreferences preferences) async {
+    stored = preferences;
+    return const Result.success(null);
+  }
 }
 
 /// Yalnız kimlik→başlık çözümünü taklit eden sahte Learn deposu.

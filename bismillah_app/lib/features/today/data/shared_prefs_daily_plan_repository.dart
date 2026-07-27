@@ -129,6 +129,72 @@ final class SharedPrefsDailyPlanRepository implements DailyPlanRepository {
     return const Result.success(null);
   }
 
+  /// Birden çok günü tek zarf yazımıyla kaydeder (TASK 083A).
+  ///
+  /// Akış: mevcut zarfı oku → bellekte birleştir → **bir kez** kodla →
+  /// **bir kez** yaz. Kodlama veya yazma başarısız olursa depoya hiç
+  /// dokunulmamış olur, bu yüzden kısmi bir aralık kalamaz. Kalıcılık
+  /// sürümü ve depolama anahtarı DEĞİŞMEZ.
+  @override
+  ResultFuture<void> savePlans(List<DailyPlan> plans) async {
+    if (plans.isEmpty) {
+      // Boş toplu yazma çağıran hatasıdır; sessizce başarı DÖNÜLMEZ.
+      return const Result.failure(
+        ValidationFailure(messageKey: 'errorUnexpected'),
+      );
+    }
+    final incoming = <DayKey, DailyPlan>{};
+    for (final plan in plans) {
+      if (incoming.containsKey(plan.dayKey)) {
+        // Aynı gün iki kez verilmiş — hangisinin kazanacağı tahmin
+        // EDİLMEZ, yazma reddedilir.
+        return const Result.failure(
+          ValidationFailure(messageKey: 'errorUnexpected'),
+        );
+      }
+      incoming[plan.dayKey] = plan;
+    }
+
+    final existing = await _readAll();
+    final existingFailure = existing.failureOrNull;
+    if (existingFailure != null) {
+      // Bozuk depo SESSİZCE EZİLMEZ (savePlan ile aynı kural).
+      return Result.failure(existingFailure);
+    }
+
+    // Toplu yazmada olmayan günler aynen korunur.
+    final updated = Map<DayKey, DailyPlan>.from(
+      existing.valueOrNull ?? const {},
+    )..addAll(incoming);
+
+    final String encoded;
+    try {
+      encoded = DailyPlanEnvelopeCodec.encode(updated);
+    } on FormatException {
+      // Kodlama çağıran/domain durumundan düştü; depo değişmedi.
+      return const Result.failure(StorageFailure());
+    }
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final written = await prefs.setString(storageKey, encoded);
+      if (!written) {
+        return const Result.failure(StorageFailure());
+      }
+    } on Exception {
+      return const Result.failure(StorageFailure());
+    }
+
+    // Bildirim yalnız kalıcı yazma BAŞARILI olduktan sonra yayılır.
+    if (!_disposed && _saved.hasListener) {
+      final orderedDays = incoming.keys.toList()..sort();
+      for (final dayKey in orderedDays) {
+        _saved.add(incoming[dayKey]!);
+      }
+    }
+    return const Result.success(null);
+  }
+
   /// Zarfın tamamını okur; istisna çağırana sızmaz ve ham yük hiçbir yere
   /// kopyalanmaz.
   ///

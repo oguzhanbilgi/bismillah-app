@@ -80,6 +80,9 @@ void main() {
 
     expect(fake.getPlanCalls, 0);
     expect(fake.savePlanCalls, 0);
+    // TASK 083A: toplu yazma da bootstrap'tan tetiklenmez — ilk plan
+    // kurulumu açık bir çağrı gerektirir.
+    expect(fake.savePlansCalls, 0);
     expect(fake.getRangeCalls, 0);
     expect(fake.watchPlanCalls, 0);
   });
@@ -89,6 +92,7 @@ void main() {
 final class _RecordingDailyPlanRepository implements DailyPlanRepository {
   int getPlanCalls = 0;
   int savePlanCalls = 0;
+  int savePlansCalls = 0;
   int getRangeCalls = 0;
   int watchPlanCalls = 0;
 
@@ -101,6 +105,12 @@ final class _RecordingDailyPlanRepository implements DailyPlanRepository {
   @override
   ResultFuture<void> savePlan(DailyPlan plan) async {
     savePlanCalls++;
+    return const Result.success(null);
+  }
+
+  @override
+  ResultFuture<void> savePlans(List<DailyPlan> plans) async {
+    savePlansCalls++;
     return const Result.success(null);
   }
 

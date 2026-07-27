@@ -68,6 +68,7 @@ TASK 080    — Prayer plan items — COMPLETED
 TASK 081    — Quran plan items and ordered source composition — COMPLETED
 TASK 082    — Source-verified Learn plan items — COMPLETED
 TASK 083    — Today task UI — COMPLETED
+TASK 083A   — Initial DailyPlan orchestration — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -110,6 +111,22 @@ template IDs **across** children are rejected. Because the composite implements
 the same single-source interface, `DailyPlanGenerator` is unchanged, and
 appending Learn later **cannot shift** existing Prayer/Quran slots or final
 item IDs.
+
+**CP10 orchestration rule (fixed by TASK 083A):** the initial 30-day plan is
+created by **one** application-level orchestrator
+(`InitialDailyPlanOrchestrator`) and persisted as **one atomic write**
+(`DailyPlanRepository.savePlans`) — **30 sequential `savePlan` calls are
+forbidden**, because an interruption would leave a partial plan. The
+orchestrator **never silently regenerates or overwrites**: a complete
+matching range returns `alreadyAvailable` with completion state and
+timestamps untouched, and a partial or non-continuous range returns a typed
+`rangeConflict` that is never auto-filled (recovery belongs to TASK 084).
+Concurrent calls share one memoized operation, so two callers can only
+produce one write. Onboarding completion succeeds **only after** the plan
+exists; a failure keeps the gate closed and preferences persisted for a safe
+retry. Already-onboarded users are covered by a dedicated bootstrap
+controller that runs **at most once per app lifecycle and never inside a
+widget `build`**. The storage key and envelope version **1** are unchanged.
 
 **CP10 Today-surface rule (fixed by TASK 083):** the Today plan section is
 the **only** consumer of `DailyPlanController` and must render all five
@@ -184,6 +201,7 @@ TASK 080 — Prayer plan items                            — COMPLETED
 TASK 081 — Quran plan items                             — COMPLETED
 TASK 082 — Source-verified Learn plan items             — COMPLETED
 TASK 083 — Today task UI                                — COMPLETED
+TASK 083A — Initial DailyPlan orchestration             — COMPLETED
 TASK 084 — Missed-day recovery and gentle rollover      <-- NEXT TASK
 TASK 085 — 30-day plan and CP10 checkpoint
 ```
