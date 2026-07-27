@@ -516,11 +516,64 @@ that task's time*; the current verified baseline lives in
   integration and restart persistence; `savePlans` contract 11, persistence
   suite 70 → **81**; Today section 3, suite 50 → **53**); full suite
   **1231 → 1304**; analyze clean. Functions untouched and not re-run.
-- **Next:** **TASK 084 — Missed-day recovery and gentle rollover** (CP10),
-  now unblocked: real plans exist and the typed `rangeConflict` state is
-  exactly what it must learn to recover. It also owns the day navigation
-  deferred by TASK 083. The commercial roadmap-alignment task recorded below
-  remains open and unnumbered.
+- **TASK 084 — Missed-day recovery and gentle rollover (CP10).** Today now
+  follows the **local calendar day** on its own. `TodayDayController` owns the
+  displayed day and the calm return state; `TodayPlanSection` only forwards
+  lifecycle events and draws. Three cases are covered and tested: app starts
+  on the current day, app resumes after the date changed, and the app stays
+  open across local midnight. Midnight uses **one armed one-shot timer**
+  through an injected `DayRolloverScheduler` — **periodic polling is
+  forbidden**, exactly one timer exists at a time, it is cancelled on
+  disposal, and a fire after disposal changes nothing. The boundary is
+  `DateTime(y, m, d + 1)` minus the injected local now, so **24 hours is
+  never assumed** and DST, month, year and leap-day transitions fall out
+  naturally; `DayKey` comes only from `DayKey.fromLocal(clock.nowLocal())`
+  with no UTC conversion and no `DateTime.now()` (asserted at source level).
+  A resume or timer fire on the **same** day is a genuine no-op — no second
+  read, no second watch subscription, no second bootstrap — and a generation
+  counter stops an old day's late read from overwriting a newer day.
+  The **missed-day definition is deliberately narrow**: a past `DayKey`
+  counts only if it has a plan, has items, and has zero completions. Absent
+  records, empty plans, corrupt records, today and future days are **data or
+  product states, not user behaviour** — they are never called missed and
+  each of them **breaks** the consecutive chain, so the app can never imply a
+  gap it cannot honestly prove. Lookback is capped at the canonical 30 days.
+  `MissedDayCalculator` is pure (no repository, clock, locale or write) and
+  `MissedDayRecovery` is explicitly **not a streak model**: nothing is
+  persisted, no score, badge or rank is derived, and **the count is never
+  rendered**. Historical integrity is absolute — nothing is auto-completed,
+  marked failed, copied into today, deleted, reordered or re-timed, and the
+  recovery path performs **zero writes** (asserted after both a rollover and
+  a current-day toggle). `TodayRecoveryNote` sits **above** the plan without
+  blocking a single task: no modal, no animation in its own subtree
+  (reduced-motion friendly), no error colour, no warning icon, no flame, and
+  no streak/penalty/score/paywall/donation language in any of TR, EN or AR.
+  It disappears once any current-day task is marked — derived purely from
+  existing plan state, so **no new persistence key was added** just to
+  dismiss a message. At **3+** consecutive missed days only the wording
+  softens to a warm re-entry sentence; the full plan, its Prayer → Quran →
+  Learn order and the daily minute budget are untouched, because adaptive
+  shrinking belongs to a later decision. A day with no plan keeps the honest
+  Empty state — nothing is generated, yesterday is never copied forward, and
+  the range is never extended past day 30.
+  One pre-existing behaviour had to change: `DailyPlanController.loadDay`
+  still cancels the previous watch subscription but **no longer awaits** it.
+  `StreamSubscription.cancel()` does not resolve promptly for every stream
+  implementation, and awaiting it left the second day load stuck in `Loading`
+  forever (reproduced by widget test). Waiting was never necessary —
+  `_onWatchEvent` compares the subscribed day against the active day and the
+  generation counter independently blocks stale results.
+  **88 new tests** (calculator 30, rollover controller 31, recovery note 21,
+  Today section +6); full suite **1304 → 1392**; analyze clean. Functions
+  untouched and not run. **Stored-figure correction:** the Today section
+  suite was recorded as 53 by TASK 083 and TASK 083A but measures **56** on
+  merged `7b0d2b5` — only the stored number was wrong, no test was lost, and
+  every full-suite total on record stays correct.
+- **Next:** **TASK 085 — 30-day plan and CP10 checkpoint**. Deliberately
+  still deferred and not implemented anywhere: day-30 plan renewal, adaptive
+  plan shrinking, streak/XP/achievements, manual calendar navigation, and
+  repair of TASK 083A's typed `rangeConflict`. The commercial
+  roadmap-alignment task recorded below remains open and unnumbered.
 - **Standing owner decisions (opened at TASK 082, still open):**
   (1) generation is **not wired** to persistence or onboarding completion and
   the roadmap names no dedicated task for that wiring; (2) a **commercial

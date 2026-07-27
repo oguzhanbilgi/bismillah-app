@@ -6,15 +6,53 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 083A). After the TASK 083A merge, read the real current commit
+> task (TASK 084). After the TASK 084 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 083A: `6dd65e3`
+- Last verified main before TASK 084: `7b0d2b5`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 083A** — Initial DailyPlan
+- Latest completed functional task: **TASK 084** — Missed-day recovery and
+  gentle rollover. `TodayDayController` now owns which local calendar day
+  Today shows: `start()` (bootstrap once + select day), `onAppResumed()`
+  (via `WidgetsBindingObserver`; **no-op when the day is unchanged**) and a
+  **one-shot** injected `DayRolloverScheduler` for local midnight — **no
+  periodic polling**, one armed timer at a time, cancelled on disposal. The
+  next boundary is `DateTime(y, m, d + 1)` minus the injected local now, so
+  **24 hours is never assumed** (DST/month/year/leap safe); `DayKey` always
+  comes from `DayKey.fromLocal(clock.nowLocal())` with no UTC conversion and
+  no `DateTime.now()` (asserted at source level). A generation counter stops
+  an old day's late read from overwriting a newer day.
+  **Missed day** = a valid plan exists for that past `DayKey` **and** it has
+  items **and** none are completed. Absent records, empty plans, corrupt
+  records, today and future days are **not** user-missed and each **breaks**
+  the consecutive chain; lookback is capped at the canonical 30 days.
+  `MissedDayCalculator` is pure — no repository, clock, locale or write —
+  and `MissedDayRecovery` is **not a streak model** (nothing persisted, no
+  score/badge/rank, count never rendered).
+  **Historical integrity:** nothing is auto-completed, failed, copied
+  forward, deleted, reordered or re-timed; the recovery path performs zero
+  writes (asserted). `TodayRecoveryNote` sits **above** the plan, blocks no
+  task, opens no modal, animates nothing and uses no error colour; it hides
+  naturally once any current-day task is marked — **no new persistence key**
+  was added to dismiss it. At **3+** consecutive missed days the copy becomes
+  a simpler warm re-entry sentence while the full plan, its Prayer → Quran →
+  Learn order and the minute budget stay unchanged. A new day with no plan
+  keeps the honest Empty state — nothing is generated and the range is never
+  extended past day 30.
+  One required fix: `DailyPlanController.loadDay` still cancels the previous
+  watch subscription but **no longer awaits** it (`cancel()` does not resolve
+  promptly for every stream and left the second day load stuck in Loading);
+  waiting is unnecessary because `_onWatchEvent` compares the subscribed day
+  and the generation counter blocks stale results.
+  88 focused tests; full suite 1304 → **1392**. **No persistence key or
+  envelope-version change, no Drift, no Firebase, no remote sync, no
+  notifications, no streak/XP/achievements, no plan adaptation, no day-30
+  renewal, no premium work.**
+  Report: `docs/task-reports/TASK_084_MISSED_DAY_RECOVERY.md`
+- Previous completed functional task: **TASK 083A** — Initial DailyPlan
   orchestration: the **controlled roadmap insertion** that finally connects
   onboarding → profile → generation → persistence. Until now nothing ever
   invoked the generator, so Today showed Empty for every user.
@@ -231,16 +269,29 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 084** — Missed-day recovery and gentle
-  rollover (CP10); day navigation was deferred there by TASK 083, and the
-  typed `rangeConflict` outcome from TASK 083A is exactly the state it must
-  learn to recover. The generation-wiring gap is **CLOSED** by TASK 083A.
+- Next planned functional task: **TASK 085** — 30-day plan and CP10
+  checkpoint. Still open and deliberately deferred: day-30 plan renewal,
+  adaptive plan shrinking, streak/XP/achievements, manual calendar
+  navigation, and TASK 083A's typed `rangeConflict` repair.
 
-## Tests (verified at TASK 083A)
+## Tests (verified at TASK 084)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1304 / 1304**, 0 failed, 0 skipped
-  (1231 at TASK 083 + 73 initial-orchestration tests)
+- Flutter test baseline: **1392 / 1392**, 0 failed, 0 skipped
+  (1304 at TASK 083A + 88 missed-day/rollover tests)
+- Missed-day recovery + rollover suite: **82 / 82** — command:
+  `flutter test test/features/today/domain/missed_day_recovery_test.dart
+  test/features/today/application/today_day_controller_test.dart
+  test/features/today/presentation/today_recovery_note_test.dart`
+  (calculator 30 + rollover controller 31 + recovery note 21; the remaining
+  6 TASK 084 tests live in the Today section suite)
+- Today task-UI suite: **62 / 62** — command:
+  `flutter test test/features/today/presentation/today_plan_section_test.dart`
+  (**56** measured at TASK 083A + 6 recovery-integration tests).
+  **Correction:** TASK 083 and TASK 083A both recorded this suite as
+  `53`; the real post-TASK-083A count measured from merged `7b0d2b5` is
+  **56**. Only this stored figure was wrong — no test was lost, and the
+  full-suite totals were always correct.
 - Initial plan orchestration suite: **59 / 59** — command:
   `flutter test test/features/today/application/initial_daily_plan_orchestrator_test.dart`
 - Today task-UI suite: **53 / 53** — command:
