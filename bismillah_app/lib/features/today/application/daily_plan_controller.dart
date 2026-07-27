@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:bismillah_app/core/errors/app_failure.dart';
+import 'package:bismillah_app/core/utils/clock_provider.dart';
 import 'package:bismillah_app/core/value_objects/day_key.dart';
+import 'package:bismillah_app/core/value_objects/unique_id.dart';
+import 'package:bismillah_app/core/value_objects/utc_date_time.dart';
 import 'package:bismillah_app/features/today/application/daily_plan_state.dart';
 import 'package:bismillah_app/features/today/data/today_data_providers.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
+import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Seçili günün plan durum makinesi (TASK 077).
@@ -133,6 +137,59 @@ final class DailyPlanController extends Notifier<DailyPlanState?> {
     state = result.fold(
       onSuccess: (_) => DailyPlanAvailable(plan: plan),
       onFailure: (failure) => _toFailureState(dayKey, failure),
+    );
+  }
+
+  /// Görünen plandaki tek bir öğenin tamamlanma durumunu çevirir (TASK 083).
+  ///
+  /// Yalnız **gösterimde olan** plan üzerinde çalışır: gün seçili değilse,
+  /// durum [DailyPlanAvailable] değilse, kayıt zaten sürüyorsa veya öğe
+  /// kimliği planda yoksa güvenle hiçbir şey yapmaz. Böylece hızlı çift
+  /// dokunuş ikinci bir yazma başlatamaz.
+  ///
+  /// Plan ÜRETİLMEZ, başka gün DEĞİŞTİRİLMEZ, yeni depolama anahtarı veya
+  /// zarf sürümü eklenmez: değişen tek şey öğenin `status`/`completedAt`
+  /// alanlarıdır ve kayıt mevcut [savePlan] yolundan geçer. Zaman damgası
+  /// enjekte edilen `AppClock`'tan gelir — `DateTime.now()` çağrılmaz.
+  Future<void> toggleItemCompletion(EntityId itemId) async {
+    final current = state;
+    if (_disposed || _dayKey == null || current is! DailyPlanAvailable) {
+      return;
+    }
+    if (current.isSaving) {
+      return; // yazma sürüyor — tekrarlı yazma engellenir
+    }
+
+    final plan = current.plan;
+    final index = plan.items.indexWhere((item) => item.itemId == itemId);
+    if (index < 0) {
+      return; // bu güne ait olmayan/bilinmeyen öğe sessizce yok sayılır
+    }
+
+    final target = plan.items[index];
+    final completing = !target.isCompleted;
+    final updatedItems = [...plan.items];
+    updatedItems[index] = PlanItem(
+      // Kimlik, tip ve içerik referansı AYNEN korunur.
+      itemId: target.itemId,
+      type: target.type,
+      targetRef: target.targetRef,
+      sizeParam: target.sizeParam,
+      status: completing ? PlanItemStatus.completed : PlanItemStatus.pending,
+      completedAt: completing
+          ? UtcDateTime(ref.read(clockProvider).nowUtc())
+          : null,
+    );
+
+    await savePlan(
+      DailyPlan(
+        dayKey: plan.dayKey,
+        items: updatedItems,
+        profileType: plan.profileType,
+        sizeMinutes: plan.sizeMinutes,
+        weekIndex: plan.weekIndex,
+        generatedBy: plan.generatedBy,
+      ),
     );
   }
 
