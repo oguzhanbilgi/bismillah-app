@@ -358,7 +358,83 @@ that task's time*; the current verified baseline lives in
   70/70; canonical sync 70/70; Drift storage 11/11; **Quran feature suite
   89/89** (measured, not assumed); Functions 23/23; analyze clean. **Zero
   tracked files modified.**
-- **Next:** **TASK 082 — Learn plan items** (joins the ordered composite after
-  Prayer and Quran; **published and source-verified** Learn article IDs only —
-  the first source expected to reference real content). Content for
-  dhikr/dua/reflection remains an **open owner decision**.
+- **TASK 082 — Source-verified Learn plan items (CP10).** The **third and
+  final core `DailyPlanItemSource`**, and the **only** one that references
+  real content. The content stop gate passed with **no content change**: the
+  shipped Learn assets already hold **exactly 30** articles that are
+  `published`, carry a `sourceBodyReview` verification record satisfying the
+  publication gate, reference a registered official source, and exist under
+  **identical stable IDs in TR, EN and AR**. The two `scholarlyReviewPending`
+  articles (`art-kuran-okumaya-baslangic`, `art-dua-adabi`) carry only a
+  `urlExistenceCheck` record and are **excluded and proved absent** from the
+  catalog. Nothing was padded, duplicated, weakened or newly authored, and
+  **no article asset was edited**. Eligibility is **re-derived from the real
+  assets by test on every run**, so the catalog breaks if an article is
+  unpublished, removed, loses a locale or loses source metadata.
+  `LearnDailyPlanCatalog.v1` is an **immutable, explicit, versioned 30-entry**
+  catalog holding only stable article IDs — no title, summary, body,
+  translation, source text, locale, date, UID or device data. Entries **0–10
+  are source-backed**: the already-existing editorial `beginnerPathOrder`
+  field, published members only, ascending. Entries **11–29 are an approved
+  TASK 082 product decision**: the remaining 19 grouped by the existing
+  `categories.json` `sortOrder` (purity → prayer → fasting → zakat → hajj)
+  with the within-group sequence written explicitly. Plan order is proved
+  **not** to be JSON file order, any localized title sort, runtime locale or
+  map iteration. `LearnDailyPlanItemSource` is `const`, pure and stateless
+  apart from the injected catalog: it emits **one** `PlanItemType.lesson` item
+  per day when — and only when — `islamicKnowledge` is selected (absent ⇒
+  empty list, not a failure), costing **1 estimated in-app interaction
+  minute**, explicitly *not* the time needed to study the article, a
+  religiously sufficient duration, a mandatory amount, a ruling or spiritual
+  value. `context.dayOffset` **is** the catalog index — no modulo, cycling,
+  repetition, randomness, day-of-month, weekday, `weekIndex`, locale sorting,
+  asset order, current date or profile reordering; all 30 mappings and the
+  uniqueness of the 30 article IDs are asserted individually. `targetRef`
+  carries **only** the stable article ID and `sizeParam` stays null, so no
+  article text and no learning quantity ever reaches a `DailyPlan`; **no Learn
+  repository, asset bundle or reading history is read during generation**
+  (asserted structurally over the production source files). `templateId` is a
+  **lossless** `learn_article_<articleId>` concatenation — no normalization,
+  no `hashCode`, no hashing dependency — and article IDs are verified free of
+  the `:` separator used by `DailyPlanItemIdBuilder`. A typed
+  `LearnPlanCatalogIssue` (mirroring TASK 079's `GenerationRequestIssue`)
+  meant **no new `AppFailure` subtype and no new localization key**; a broken
+  catalog or out-of-contract offset fails the **entire** 30-day generation
+  with no partial output. `CoreDailyPlanItemSource` bundles the approved
+  **Prayer → Quran → Learn** order as a `const` value plus a pure
+  `withCatalog` factory — deliberately **not** a provider, singleton or
+  bootstrap hook; `CompositeDailyPlanItemSource` and `DailyPlanGenerator` were
+  **unchanged**, and for **all 30 days** the first three final item IDs are
+  byte-identical with and without Learn present. The complete core day costs
+  **5 minutes**, which the `light` budget accepts **exactly**; TASK 079 budget
+  validation was not weakened (one extra minute on top fails the whole
+  generation, and core items are never silently dropped). Contribution is
+  identical across all eight profiles and all four phases — `learning_focused`
+  gets no extra article, `low_time` loses nothing, `advanced` gains nothing,
+  and no educational ability is inferred.
+  **163 new tests** (content eligibility gate against the real assets,
+  source-verification evidence, TR/EN/AR identity parity, catalog composition
+  and order determinism, broken-catalog rejection, goal selection, all 30
+  day-offset mappings, PlanItem representation, profile independence with an
+  **enum coverage lock**, phase independence, composite ordering, identity
+  stability, budget, 30-day integration with 50-repeat determinism, structural
+  no-side-effect checks and religious-safety/privacy assertions); full suite
+  **1015 → 1178**; TASK 081 70/70; TASK 080 62/62; TASK 079 63/63; TASK 078
+  78/78; TASK 077 43/43; persistence 70/70; canonical sync 70/70; Drift
+  storage 11/11; Quran feature 89/89; **Learn feature suite 108/108**
+  (measured, not assumed); analyze clean. **Functions tests were NOT RUN —
+  Node.js is not installed on the current machine** (the Node install
+  directory is still listed on `PATH` but no longer exists); no Functions file,
+  dependency or lockfile changed and Functions CI verifies the 23/23 baseline
+  on the PR. **Zero tracked files modified.** This task is **free core
+  product**: no Bismillah+ paywall, entitlement, price or upsell was added.
+- **Next:** **TASK 083 — Today task UI** (CP10). Two open owner decisions
+  recorded rather than silently resolved: (1) generation is still **not wired**
+  to persistence or onboarding completion and the roadmap names no dedicated
+  task for that wiring; (2) a **commercial roadmap-alignment task is required
+  but unnumbered** — the owner's approved pricing (first month 29.99 TL then
+  69.99 TL), supporter tiers, conditional LÖSEV process, store presentation,
+  social creatives and AI-ad disclosure **conflict** with the canonical
+  `MONETIZATION_DECISIONS.md` (79.99 TL monthly, no introductory price, no
+  LÖSEV/creative/AI-disclosure policy). Content for dhikr/dua/reflection
+  remains an **open owner decision**.

@@ -6,15 +6,44 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 081). After the TASK 081 merge, read the real current commit from
+> task (TASK 082). After the TASK 082 merge, read the real current commit from
 > Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 081: `a63e023`
+- Last verified main before TASK 082: `b390141`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 081** — Quran plan items **and
+- Latest completed functional task: **TASK 082** — Source-verified Learn plan
+  items **and the complete Prayer → Quran → Learn core composition**.
+  `LearnDailyPlanItemSource` emits **one** Learn item per generated day when
+  the `islamicKnowledge` goal is present (absent ⇒ empty list, not a
+  failure), costing **`estimatedMinutes = 1`** (in-app interaction budget —
+  **not** required study time, a religious minimum, a ruling, reward or
+  rank). The item is `PlanItemType.lesson` with `targetRef` = the **stable
+  published + source-verified article ID** and `sizeParam` null. **No article
+  title, summary, body, translation or source text is copied into the plan**;
+  **no Learn repository, asset bundle or reading history is read during
+  generation**. Selection is `dayOffset` → catalog index (no modulo, no
+  repetition, no randomness, no locale/profile/phase reordering).
+  `LearnDailyPlanCatalog.v1` is an immutable, explicit, versioned **30-entry**
+  catalog: entries 0–10 follow the **existing editorial `beginnerPathOrder`**
+  (published members only — 11 and 12 are `scholarlyReviewPending` and
+  excluded); entries 11–29 are an **approved TASK 082 product decision**
+  grouped by `categories.json` `sortOrder`. Content gate passed with **no
+  content change**: exactly **30 eligible published + `sourceBodyReview`
+  verified** articles, with **identical stable ID sets in TR/EN/AR**.
+  `CoreDailyPlanItemSource` bundles the approved **Prayer → Quran → Learn**
+  order (`const`, pure, no provider, no bootstrap wiring); the composite and
+  generator were **unchanged**, and appending Learn **did not shift** any
+  Prayer/Quran slot or final ID on any of the 30 days (tested). Complete core
+  day cost = **5 minutes**, which `light` accepts exactly. Contribution is
+  identical across all 8 profiles and 4 phases. 163 focused tests; full suite
+  1015 → **1178**. **No persistence, Today UI, onboarding integration, Drift,
+  Firebase or remote sync; no article asset edited; zero tracked files
+  modified.**
+  Report: `docs/task-reports/TASK_082_LEARN_PLAN_ITEMS.md`
+- Previous completed functional task: **TASK 081** — Quran plan items **and
   ordered source composition**. `QuranDailyPlanItemSource` emits a single
   neutral *continuation/tracking* action `quran_continue_daily` when the
   `quranHabit` goal is present (absent ⇒ empty list, not a failure), costing
@@ -146,16 +175,20 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 082** — Learn plan items (CP10; third
-  approved `DailyPlanItemSource`; joins the existing ordered composite
-  **after** Prayer and Quran; **published + source-verified Learn article IDs
-  only**; no persistence orchestration, no Today UI — that is TASK 083)
+- Next planned functional task: **TASK 083** — Today task UI (CP10). Open
+  sequencing note for the owner: generation is still **not connected** to
+  persistence or onboarding completion, and the roadmap names no dedicated
+  task for that wiring between TASK 082 and TASK 083.
 
-## Tests (verified at TASK 081)
+## Tests (verified at TASK 082)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1015 / 1015**, 0 failed, 0 skipped
-  (945 at TASK 080 + 70 Quran plan-item/composition tests)
+- Flutter test baseline: **1178 / 1178**, 0 failed, 0 skipped
+  (1015 at TASK 081 + 163 Learn catalog/plan-item tests)
+- Learn plan-item + catalog suite: **163 / 163** — command:
+  `flutter test test/features/today/domain/learn_daily_plan_catalog_test.dart
+  test/features/today/domain/learn_daily_plan_item_source_test.dart`
+- Learn feature suite: **108 / 108** — command: `flutter test test/features/learn`
 - Quran plan-item + composition suite: **70 / 70** — command:
   `flutter test test/features/today/domain/quran_daily_plan_item_source_test.dart`
 - Quran feature suite: **89 / 89** — command: `flutter test test/features/quran`
@@ -177,7 +210,12 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   directory in isolation and must never replace the official 70 baseline.
 - Focused prayer-reminder suite: 26 / 26 (TASK 070D)
 - Storage (Drift) tests: **11 / 11** — command: `flutter test test/core/storage`
-- Functions tests (Vitest): **23 / 23** on Node.js 22.22.0
+- Functions tests (Vitest): **23 / 23** on Node.js 22.22.0 — last verified at
+  TASK 075. **NOT re-run at TASK 082: Node.js is not installed on the current
+  machine** (the Node install directory is still listed on `PATH` but no
+  longer exists, so `node` and `npm` are unavailable).
+  TASK 082 changed no Functions file, dependency or lockfile; Functions CI
+  verifies this baseline on every PR.
 - Android debug build: **SUCCESS** at TASK 075
   (`bismillah_app/build/app/outputs/flutter-apk/app-debug.apk`, 170.26 MB,
   SHA-256 `51ca8748877467b58f3b16368b6e5f23bac5eecdd7222e97595f5cc2764cde99`;
@@ -323,6 +361,22 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   identities). Quran source is `const`, stateless and **total**; no
   unreachable failure branch was fabricated.
   Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
+- TASK 082 — Source-verified Learn plan items + `CoreDailyPlanItemSource`:
+  the **three core item sources are now complete**. Learn is the first source
+  that attaches a real content reference, so eligibility is re-derived from
+  the actual assets on every test run (published + `sourceBodyVerified` +
+  publication gate + registered source + TR/EN/AR parity) rather than trusted
+  from a hard-coded list. The catalog is an explicit ordered value type, not
+  a derived query: JSON file order, localized title sort, runtime locale and
+  map iteration are all proved **not** to define plan order. Template ID is a
+  **lossless** `learn_article_<articleId>` concatenation — no normalization,
+  no `hashCode`, no hashing dependency, and article IDs are verified free of
+  the `:` separator used by `DailyPlanItemIdBuilder`. Typed
+  `LearnPlanCatalogIssue` mirrors TASK 079's `GenerationRequestIssue`, so
+  **no new `AppFailure` subtype and no new localization key** were needed.
+  `CoreDailyPlanItemSource` is a `const` value plus a pure `withCatalog`
+  factory — deliberately **not** a provider, singleton or bootstrap hook.
+  Report: `docs/task-reports/TASK_082_LEARN_PLAN_ITEMS.md`
 
 ## Plan content reality (fixed by TASK 079)
 
@@ -345,9 +399,19 @@ prayer items are app *tracking* actions carrying only a stable template ID, with
 bundled Quran content exists, the Quran item is a neutral *continuation*
 action — no surah/ayah/juz/page/translation/reciter/audio and no reading
 quantity is assigned, and no Quran repository is read. Resolving a concrete
-reading position remains a later orchestration/content decision. **TASK 082
-(Learn) is the first source expected to reference real content IDs** — and it
-may use only **published, source-verified** Learn article identifiers.
+reading position remains a later orchestration/content decision.
+
+**TASK 082 update:** the Learn slice is the **first and only** source that
+references real content IDs, and it needed **no new content** — the existing
+30 published articles were exactly enough. Eligibility (published +
+`sourceBodyVerified` + publication gate + registered source + TR/EN/AR
+identity parity) is re-derived from the actual assets by test on every run.
+The **2** `scholarlyReviewPending` articles (`art-kuran-okumaya-baslangic`,
+`art-dua-adabi`) are excluded and proved absent from the catalog. Only the
+stable article ID enters the plan — **no title, summary, body, translation or
+source text**. **All three core item sources are now complete;** `dhikr`,
+`dua` and `reflection` still have no approved content and remain an open
+owner decision — do not invent it.
 
 ## Onboarding model reality (fixed by TASK 078)
 
