@@ -33,6 +33,7 @@ import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dar
 import 'package:bismillah_app/features/today/presentation/today_plan_item_presentation.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_task_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_recovery_note.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final fixedLocalNow = DateTime(2026, 7, 27, 9, 30);
   final today = DayKey('2026-07-27');
+  final yesterday = DayKey('2026-07-26');
   const article = 'art-islam-nedir';
 
   const trackId = 'prayer_track_daily';
@@ -349,6 +351,83 @@ void main() {
       expect(repo.batchSaveCalls, 0);
       expect(repo.plans, isEmpty);
       expect(find.text(tr.todayPlanEmptyTitle), findsOneWidget);
+    });
+
+    testWidgets('kaçırılmış gün notu planın ÜSTÜNDE görünür', (tester) async {
+      // TASK 084: dün plan vardı ve hiç işaretlenmedi.
+      repo.plans[today] = corePlan();
+      repo.plans[yesterday] = corePlan(dayKey: yesterday);
+      await pumpSection(tester);
+
+      expect(find.byType(TodayRecoveryNote), findsOneWidget);
+      expect(find.text(tr.todayRecoveryGentleBody), findsOneWidget);
+      // Görevler gizlenmez ve kanonik sıra korunur.
+      expect(find.byType(TodayPlanTaskCard), findsNWidgets(4));
+      expect(
+        tester.getTopLeft(find.byType(TodayRecoveryNote)).dy,
+        lessThan(tester.getTopLeft(find.byType(TodayPlanTaskCard).first).dy),
+      );
+    });
+
+    testWidgets('kaçırılmış gün yokken not GÖSTERİLMEZ', (tester) async {
+      repo.plans[today] = corePlan();
+      await pumpSection(tester);
+
+      expect(find.byType(TodayRecoveryNote), findsNothing);
+    });
+
+    testWidgets('dün bir görev işaretlenmişse not GÖSTERİLMEZ', (tester) async {
+      repo.plans[today] = corePlan();
+      repo.plans[yesterday] = corePlan(
+        dayKey: yesterday,
+        completedSlots: const [0],
+      );
+      await pumpSection(tester);
+
+      expect(find.byType(TodayRecoveryNote), findsNothing);
+    });
+
+    testWidgets('üç gün ara → sade dönüş metni', (tester) async {
+      repo.plans[today] = corePlan();
+      for (var back = 1; back <= 3; back++) {
+        final day = DailyPlanGenerator.dayAt(today, -back);
+        repo.plans[day] = corePlan(dayKey: day);
+      }
+      await pumpSection(tester);
+
+      expect(find.text(tr.todayRecoveryExtendedBody), findsOneWidget);
+      // Tam plan korunur: hafifletilmiş/küçültülmüş plan ÜRETİLMEZ.
+      expect(find.byType(TodayPlanTaskCard), findsNWidgets(4));
+      expect(repo.batchSaveCalls, 0);
+      expect(repo.saveCalls, 0);
+    });
+
+    testWidgets('bugün bir görev işaretlenince not kaybolur', (tester) async {
+      repo.plans[today] = corePlan();
+      repo.plans[yesterday] = corePlan(dayKey: yesterday);
+      await pumpSection(tester);
+      expect(find.byType(TodayRecoveryNote), findsOneWidget);
+
+      await tester.tap(find.text(tr.todayPlanItemQuranContinue));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(TodayRecoveryNote), findsNothing);
+      expect(find.byType(TodayPlanTaskCard), findsNWidgets(4));
+    });
+
+    testWidgets('geçmiş gün planı DEĞİŞTİRİLMEZ', (tester) async {
+      repo.plans[today] = corePlan();
+      repo.plans[yesterday] = corePlan(dayKey: yesterday);
+      await pumpSection(tester);
+
+      await tester.tap(find.text(tr.todayPlanItemPrayerTrack));
+      await tester.pumpAndSettle();
+
+      final past = repo.plans[yesterday]!;
+      expect(past.completedCount, 0);
+      expect(past.items.length, 4);
+      expect(past.items.every((i) => i.completedAt == null), isTrue);
+      expect(past.generatedBy, DailyPlanGenerator.generatorVersion);
     });
 
     testWidgets('öğesiz plan: nötr satır, ilerleme %0', (tester) async {
