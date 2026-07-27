@@ -6,6 +6,7 @@ import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_daily_verse_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_next_prayer_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_quran_center_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_small_step_card.dart';
@@ -73,14 +74,17 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
             const SizedBox(height: AppSpacing.s4),
-            // 3) Bugünün Ayeti — kaynaklı, deterministik.
+            // 3) Bugünün görevleri — DailyPlan durum makinesinin tek
+            // yüzeyi (TASK 083). Plan ÜRETMEZ; yalnız kayıtlı günü gösterir.
+            const TodayPlanSection(),
+            // 4) Bugünün Ayeti — kaynaklı, deterministik.
             const TodayDailyVerseCard(),
-            // 4) "Bugünkü yolculuğun": Kur'an merkezi, kişisel öneri ve
+            // 5) "Bugünkü yolculuğun": Kur'an merkezi, kişisel öneri ve
             // haftalık ritim tek anlamlı grup altında toplanır — ekran
             // bağlantısız kart yığını gibi okunmaz.
             AppSectionHeader(title: l10n.todayJourneyTitle),
             const TodayQuranCenterCard(),
-            // 5) Kişiselleştirilmiş öneri — kart gizliyken kendi alt
+            // 6) Kişiselleştirilmiş öneri — kart gizliyken kendi alt
             // boşluğunu da gizler (kartlar arası boşluk sabit kalır).
             const TodaySmallStepCard(),
             TodayWeeklyRhythmCard(

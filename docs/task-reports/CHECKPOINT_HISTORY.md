@@ -428,13 +428,62 @@ that task's time*; the current verified baseline lives in
   dependency or lockfile changed and Functions CI verifies the 23/23 baseline
   on the PR. **Zero tracked files modified.** This task is **free core
   product**: no Bismillah+ paywall, entitlement, price or upsell was added.
-- **Next:** **TASK 083 — Today task UI** (CP10). Two open owner decisions
-  recorded rather than silently resolved: (1) generation is still **not wired**
-  to persistence or onboarding completion and the roadmap names no dedicated
-  task for that wiring; (2) a **commercial roadmap-alignment task is required
-  but unnumbered** — the owner's approved pricing (first month 29.99 TL then
-  69.99 TL), supporter tiers, conditional LÖSEV process, store presentation,
-  social creatives and AI-ad disclosure **conflict** with the canonical
-  `MONETIZATION_DECISIONS.md` (79.99 TL monthly, no introductory price, no
-  LÖSEV/creative/AI-disclosure policy). Content for dhikr/dua/reflection
-  remains an **open owner decision**.
+- **TASK 083 — Today task UI (CP10).** The plan engine finally has a face:
+  `TodayPlanSection` is the **first and only** consumer of the TASK 077
+  `DailyPlanController`, rendering all five sealed states inside the existing
+  Today screen. Loading uses a **non-animated** neutral skeleton — a spinner
+  is restless and, as this task proved, blocks every `pumpAndSettle` test that
+  mounts Today; no "zero-jump" height is claimed because the item count is
+  unknown before the read, so the skeleton only reserves a real block. Empty
+  shows a neutral explanation and **no fake "generate plan" button**, because
+  generation orchestration still does not exist. Corrupt states that nothing
+  was deleted, offers no retry (`canRetry` is false) and never auto-resets.
+  Failure is a neutral message plus the existing `retry()`. Item titles come
+  from the pure `TodayPlanItemPresentation` mapper (composed item ID →
+  template ID → neutral localized text); Learn titles resolve through the
+  existing **published-only** `LearningKnowledgeRepository`, and an
+  unresolved, removed, unpublished, null-`targetRef` or failing article falls
+  back to a neutral label — **no fabricated title, no crash, and no raw
+  template ID, article ID or generator version ever printed**. Card order is
+  the plan's own **Prayer → Quran → Learn** order, proved not re-sorted by
+  localized text. **Completion was implemented** rather than deferred, because
+  the architecture already supported it safely: the `AppClock` provider
+  supplies `completedAt`, `savePlan` already carries epoch staleness
+  protection, and the persistence envelope already round-trips
+  `status`/`completedAt`. `toggleItemCompletion` preserves every other plan
+  field, blocks a second write while one is in flight, ignores unknown item
+  IDs, never generates a plan and never touches another day — **no new storage
+  key and no envelope-version change**, and the widget never calls `savePlan`
+  itself. **Day navigation was deliberately deferred to TASK 084**: today's
+  `DayKey` is selected once from the injected clock and exactly one watch
+  subscription is opened. Tone guardrails hold — unmarked tasks get no red
+  styling, warning icon, guilt language, streak, score, rank or profile
+  ranking, and marking is presented as an in-app tracking action, never as a
+  claim that worship was performed or accepted. Free core: no paywall,
+  upgrade banner, locked task, supporter badge, donation message or ad
+  (asserted by test).
+  **53 new tests** (five states incl. skeleton and single-subscription,
+  canonical ordering, pure template mapping with a `PlanItemType` coverage
+  lock, Learn resolution and every fallback path, progress at 0/partial/full,
+  completion incl. duplicate-write guard, injected clock, reload persistence,
+  save failure and cross-day safety, semantics/touch target/320 px/1.5× text/
+  RTL/EN/three-language parity, and religious-safety + privacy assertions);
+  full suite **1178 → 1231**; analyze clean.
+  **Functions 23/23 re-verified** on Node.js v22.22.0 / npm 10.9.4 — this
+  also closes the TASK 082 `PENDING (environment)` record, now **POST-MERGE
+  VERIFIED**; no Functions file was touched by either task.
+- **Next:** **TASK 084 — Missed-day recovery and gentle rollover** (CP10),
+  which owns the day navigation deferred here. The generation-wiring gap
+  persists: nothing invokes the generator, so the Today plan section shows the
+  Empty state in practice, and the roadmap still names no task for
+  onboarding-completion → generation → persistence. The commercial
+  roadmap-alignment task recorded below remains open and unnumbered.
+- **Standing owner decisions (opened at TASK 082, still open):**
+  (1) generation is **not wired** to persistence or onboarding completion and
+  the roadmap names no dedicated task for that wiring; (2) a **commercial
+  roadmap-alignment task is required but unnumbered** — the owner's approved
+  pricing (first month 29.99 TL then 69.99 TL), supporter tiers, conditional
+  LÖSEV process, store presentation, social creatives and AI-ad disclosure
+  **conflict** with the canonical `MONETIZATION_DECISIONS.md` (79.99 TL
+  monthly, no introductory price, no LÖSEV/creative/AI-disclosure policy).
+  Content for dhikr/dua/reflection remains an **open owner decision**.

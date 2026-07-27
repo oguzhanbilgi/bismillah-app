@@ -182,6 +182,46 @@ final class AppLocalizations {
     'todayPrayerProgress',
   ).replaceAll('{completed}', '$completed').replaceAll('{total}', '$total');
 
+  // Today günlük görev listesi (TASK 083). Ton kuralları: suçlama, seri
+  // kaybı, puan, rütbe ve manevi değerlendirme YASAK. İşaretleme
+  // uygulama içi bir TAKİP eylemidir — ibadetin kabul edildiği iddiası
+  // değildir.
+  String get todayPlanTitle => _t('todayPlanTitle');
+  String get todayPlanLoading => _t('todayPlanLoading');
+  String get todayPlanEmptyTitle => _t('todayPlanEmptyTitle');
+  String get todayPlanEmptyBody => _t('todayPlanEmptyBody');
+  String get todayPlanNoItems => _t('todayPlanNoItems');
+  String get todayPlanCorruptTitle => _t('todayPlanCorruptTitle');
+  String get todayPlanCorruptBody => _t('todayPlanCorruptBody');
+  String get todayPlanFailureBody => _t('todayPlanFailureBody');
+  String get todayPlanItemCompleted => _t('todayPlanItemCompleted');
+  String get todayPlanItemPending => _t('todayPlanItemPending');
+
+  /// Namaz/Kur'an şablonlarının nötr karşılıkları — kota, ayet ataması,
+  /// süre veya hüküm İÇERMEZ.
+  String get todayPlanItemPrayerTrack => _t('todayPlanItemPrayerTrack');
+  String get todayPlanItemPrayerOnTime => _t('todayPlanItemPrayerOnTime');
+  String get todayPlanItemQuranContinue => _t('todayPlanItemQuranContinue');
+
+  /// Tip bazlı nötr yedekler — tanınmayan şablon için UYDURMA başlık
+  /// üretilmez.
+  String get todayPlanItemPrayerFallback => _t('todayPlanItemPrayerFallback');
+  String get todayPlanItemQuranFallback => _t('todayPlanItemQuranFallback');
+  String get todayPlanItemLessonFallback => _t('todayPlanItemLessonFallback');
+  String get todayPlanItemDhikrFallback => _t('todayPlanItemDhikrFallback');
+  String get todayPlanItemDuaFallback => _t('todayPlanItemDuaFallback');
+  String get todayPlanItemReflectionFallback =>
+      _t('todayPlanItemReflectionFallback');
+
+  /// "Seçili gün: 2026-07-27" biçimli satır.
+  String todayPlanSelectedDay(String day) =>
+      _t('todayPlanSelectedDay').replaceAll('{day}', day);
+
+  /// "1/4 tamamlandı" biçimli plan ilerlemesi.
+  String todayPlanProgress(int completed, int total) => _t(
+    'todayPlanProgress',
+  ).replaceAll('{completed}', '$completed').replaceAll('{total}', '$total');
+
   // Namaz takibi (TASK 016 — ton: sakin, suçlayıcı dil YASAK)
   String get prayerTodaySubtitle => _t('prayerTodaySubtitle');
   String get prayerGentleLine => _t('prayerGentleLine');
@@ -744,6 +784,32 @@ final class AppLocalizations {
       'todayGentleLine': 'Bugün için küçük adımlar.',
       'todayPrayerCardTitle': 'Bugünün namaz takibi',
       'todayPrayerProgress': '{completed}/{total} tamamlandı',
+      // Today günlük görev listesi (TASK 083)
+      'todayPlanTitle': 'Bugünün görevleri',
+      'todayPlanSelectedDay': 'Seçili gün: {day}',
+      'todayPlanProgress': '{completed}/{total} tamamlandı',
+      'todayPlanLoading': 'Bugünün görevleri hazırlanıyor',
+      'todayPlanEmptyTitle': 'Bu gün için henüz bir plan yok.',
+      'todayPlanEmptyBody':
+          'Günlük planın hazır olduğunda görevlerin burada görünecek.',
+      'todayPlanNoItems': 'Bu güne görev eklenmemiş.',
+      'todayPlanCorruptTitle': 'Bu günün planı okunamıyor.',
+      'todayPlanCorruptBody':
+          'Kayıtlı veri açılamadı. Hiçbir şey silinmedi; bu günün planı '
+          'yeniden hazırlandığında görünecek.',
+      'todayPlanFailureBody':
+          'Bugünün görevleri şu an açılamadı. Tekrar deneyebilirsin.',
+      'todayPlanItemCompleted': 'İşaretlendi',
+      'todayPlanItemPending': 'Henüz işaretlenmedi',
+      'todayPlanItemPrayerTrack': 'Günlük namaz takibi',
+      'todayPlanItemPrayerOnTime': 'Namaz vakti takibi',
+      'todayPlanItemQuranContinue': "Kur'an alışkanlığına devam et",
+      'todayPlanItemPrayerFallback': 'Namaz görevi',
+      'todayPlanItemQuranFallback': "Kur'an görevi",
+      'todayPlanItemLessonFallback': 'Öğrenme görevi',
+      'todayPlanItemDhikrFallback': 'Zikir görevi',
+      'todayPlanItemDuaFallback': 'Dua görevi',
+      'todayPlanItemReflectionFallback': 'Düşünme görevi',
       'todayGoToPrayers': 'Namazlara git',
       'todayLocalNote': 'Kayıtların cihazında saklanır.',
       'todayLoadIssue': 'Özet şu an açılamadı.',
@@ -1256,6 +1322,32 @@ final class AppLocalizations {
       'todayGentleLine': 'Small steps for today.',
       'todayPrayerCardTitle': "Today's prayer tracking",
       'todayPrayerProgress': '{completed}/{total} completed',
+      // Today daily task list (TASK 083)
+      'todayPlanTitle': 'Today\'s tasks',
+      'todayPlanSelectedDay': 'Selected day: {day}',
+      'todayPlanProgress': '{completed}/{total} completed',
+      'todayPlanLoading': 'Preparing today\'s tasks',
+      'todayPlanEmptyTitle': 'There is no plan for this day yet.',
+      'todayPlanEmptyBody':
+          'Your tasks will appear here once your daily plan is ready.',
+      'todayPlanNoItems': 'No tasks were added to this day.',
+      'todayPlanCorruptTitle': 'This day\'s plan cannot be read.',
+      'todayPlanCorruptBody':
+          'The saved data could not be opened. Nothing was deleted; this '
+          'day will appear again once its plan is prepared.',
+      'todayPlanFailureBody':
+          'Today\'s tasks could not be opened right now. You can try again.',
+      'todayPlanItemCompleted': 'Marked',
+      'todayPlanItemPending': 'Not marked yet',
+      'todayPlanItemPrayerTrack': 'Daily prayer tracking',
+      'todayPlanItemPrayerOnTime': 'Prayer timeliness tracking',
+      'todayPlanItemQuranContinue': 'Continue your Quran habit',
+      'todayPlanItemPrayerFallback': 'Prayer task',
+      'todayPlanItemQuranFallback': 'Quran task',
+      'todayPlanItemLessonFallback': 'Learning task',
+      'todayPlanItemDhikrFallback': 'Dhikr task',
+      'todayPlanItemDuaFallback': 'Dua task',
+      'todayPlanItemReflectionFallback': 'Reflection task',
       'todayGoToPrayers': 'Go to prayers',
       'todayLocalNote': 'Your records stay on your device.',
       'todayLoadIssue': 'The summary could not be opened right now.',
@@ -1777,6 +1869,31 @@ final class AppLocalizations {
       'todayGentleLine': 'خطوات صغيرة لهذا اليوم.',
       'todayPrayerCardTitle': 'متابعة صلوات اليوم',
       'todayPrayerProgress': 'اكتملت {completed}/{total}',
+      // قائمة مهام اليوم (TASK 083)
+      'todayPlanTitle': 'مهام اليوم',
+      'todayPlanSelectedDay': 'اليوم المحدد: {day}',
+      'todayPlanProgress': 'اكتملت {completed}/{total}',
+      'todayPlanLoading': 'يجري تحضير مهام اليوم',
+      'todayPlanEmptyTitle': 'لا توجد خطة لهذا اليوم بعد.',
+      'todayPlanEmptyBody': 'ستظهر مهامك هنا عندما تصبح خطتك اليومية جاهزة.',
+      'todayPlanNoItems': 'لم تُضَف مهام إلى هذا اليوم.',
+      'todayPlanCorruptTitle': 'تعذّرت قراءة خطة هذا اليوم.',
+      'todayPlanCorruptBody':
+          'تعذّر فتح البيانات المحفوظة. لم يُحذف شيء؛ وسيظهر هذا اليوم مجدداً '
+          'عند تحضير خطته.',
+      'todayPlanFailureBody':
+          'تعذّر فتح مهام اليوم الآن. يمكنك المحاولة مرة أخرى.',
+      'todayPlanItemCompleted': 'تم التحديد',
+      'todayPlanItemPending': 'لم يُحدَّد بعد',
+      'todayPlanItemPrayerTrack': 'متابعة الصلاة اليومية',
+      'todayPlanItemPrayerOnTime': 'متابعة أوقات الصلاة',
+      'todayPlanItemQuranContinue': 'واصل عادتك مع القرآن',
+      'todayPlanItemPrayerFallback': 'مهمة صلاة',
+      'todayPlanItemQuranFallback': 'مهمة قرآن',
+      'todayPlanItemLessonFallback': 'مهمة تعلّم',
+      'todayPlanItemDhikrFallback': 'مهمة ذكر',
+      'todayPlanItemDuaFallback': 'مهمة دعاء',
+      'todayPlanItemReflectionFallback': 'مهمة تأمل',
       'todayGoToPrayers': 'اذهب إلى الصلوات',
       'todayLocalNote': 'تبقى سجلاتك على جهازك.',
       'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',
