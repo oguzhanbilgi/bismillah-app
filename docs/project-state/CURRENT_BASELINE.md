@@ -6,15 +6,45 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 086). After the TASK 086 merge, read the real current commit
+> task (TASK 087). After the TASK 087 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 086: `969414f`
+- Last verified main before TASK 087: `df1fec0`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 086** — Content-source matrix (first task of
+- Latest completed task: **TASK 087** — Learn pack: Hadith, Seerah, Prophets
+  (**CP11**). Owner-fixed scope **3 + 3 + 3**: **9 new published articles**,
+  **27 localized records**, populating `cat-hadith`, `cat-seerah` and
+  `cat-prophets`. Per locale: **41 records, 39 published** (was 32 / 30);
+  populated categories **9 → 12 of 20**; sources grounding published content
+  **1 → 3 of 7**. One **new source record** `diyanet-hz-muhammedin-hayati`
+  (*Hz. Muhammed'in Hayatı*, Casim Avcı – Mevlâna İdris, Genel Yayın No 1286,
+  **Çocuk Kitapları 302**, 16. Baskı Mart 2025, ISBN 978-975-19-6627-8) — its
+  series, edition and authorship are explicit and **no Diyanet endorsement is
+  implied**. `diyanet-hadislerle-islam` now grounds published content for the
+  first time. **The content gate blocked twice and both blocks were correct:**
+  the originally proposed Seerah/Prophets URLs are dead (`dijital.diyanet.gov.tr`
+  answers HTTP/0.9; the Prophets PDF redirects to `hata.html`) and were replaced
+  with working official sources; and `art-guzel-ahlak-ve-yardimlasma` was
+  rejected because *Hadislerle İslâm* Cilt 1 s. 250 covers the first revelation,
+  not good character — the topic was replaced only on explicit owner permission.
+  **Direct-source rule honoured**: PDFs downloaded outside the repo and text
+  extracted directly; no summary used as evidence; nothing committed.
+  `diyanet-islam-ilmihali` confirmed as **34. Baskı, 2019** from the PDF colophon.
+  Review provenance was reported as **AMBIGUOUS** (the repo never defined who may
+  perform `editorialReview`) and no verified status was written until the owner
+  recorded an explicit source-fidelity review; proposed `CONTENT_POLICY.md`
+  wording was prepared but **not applied**. **TASK 082 catalog untouched** —
+  same 30 entries, order and version; none of the 9 IDs enters it (asserted).
+  **Four merged TASK 082 assertions encoding "library == catalog" were
+  reconciled in this branch on owner decision** (see the catalog-boundary rule
+  below); source verification, publication, locale parity and review gates were
+  **not** weakened. No Assistant, Quran, Prayer, persistence, Firebase, remote,
+  premium or monetization change.
+  Report: `docs/task-reports/TASK_087_LEARN_HADITH_SEERAH_PROPHETS.md`
+- Previous completed task: **TASK 086** — Content-source matrix (first task of
   **CP11**). Docs + one validation test; **zero production Dart or asset files
   changed**. Establishes the canonical governance matrix at
   `docs/CONTENT_SOURCE_MATRIX.md` — **22 rows**, each with a stable
@@ -325,8 +355,8 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 087** — Learn pack: Hadith, Seerah,
-  Prophets (**CP11 — Learn and Assistant depth**). Still open and deliberately
+- Next planned functional task: **TASK 088** — Learn pack: Dua, Family, Halal
+  foundations (**CP11 — Learn and Assistant depth**). Still open and deliberately
   deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
@@ -353,10 +383,32 @@ never filled in from general knowledge. Adding or changing a content area means
 updating the matrix; `flutter test test/content` fails if a row loses a
 required field, uses an invalid value, or cites a path that does not exist.
 
-## Tests (verified at TASK 086)
+## Learn catalog boundary rule (fixed by TASK 087)
+
+**TASK 082's fixed 30-entry DailyPlan catalog is a curated versioned subset of
+the growing published Learn library, not a permanent mirror of the full
+library.** The canonical contract: `LearnDailyPlanCatalog.v1` stays exactly 30
+ordered unique entries; every catalog ID must resolve to a published,
+source-verified article in TR, EN **and** AR; locale ID sets and review states
+stay identical; the library **is expected to grow** past 30; and new Learn-pack
+articles must **not** enter the catalog. Four merged TASK 082 assertions that
+encoded library-equals-catalog were corrected accordingly (exact count → **at
+least** `requiredEntryCount` plus identical locale ID sets; `catalogIds ==
+eligibleIds` → removed with the subset invariant **strengthened** to all
+locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
+file-order comparison → restricted to the catalog's own IDs).
+
+## Tests (verified at TASK 087)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1436 / 1436**, 0 failed, 0 skipped
+- Flutter test baseline: **1472 / 1472**, 0 failed, 0 skipped
+  (1436 at TASK 086 + 34 TASK 087 pack tests + 2 catalog-boundary tests)
+- TASK 087 Learn pack suite: **34 / 34** — command:
+  `flutter test test/features/learn/task_087_learn_pack_test.dart`
+- Learn plan catalog suite: **40 / 40** — command:
+  `flutter test test/features/today/domain/learn_daily_plan_catalog_test.dart`
+- Learn + catalog + item-source + Assistant: **338 / 338**
+- Previous baseline: **1436 / 1436** at TASK 086
   (1422 at TASK 085 + 14 content-source-matrix tests)
 - Content-source matrix suite: **14 / 14** — command:
   `flutter test test/content`
