@@ -569,11 +569,57 @@ that task's time*; the current verified baseline lives in
   suite was recorded as 53 by TASK 083 and TASK 083A but measures **56** on
   merged `7b0d2b5` — only the stored number was wrong, no test was lost, and
   every full-suite total on record stays correct.
-- **Next:** **TASK 085 — 30-day plan and CP10 checkpoint**. Deliberately
-  still deferred and not implemented anywhere: day-30 plan renewal, adaptive
-  plan shrinking, streak/XP/achievements, manual calendar navigation, and
-  repair of TASK 083A's typed `rangeConflict`. The commercial
-  roadmap-alignment task recorded below remains open and unnumbered.
+- **TASK 085 — 30-day plan and CP10 checkpoint. Verdict: CP10 COMPLETE —
+  30-DAY LOCAL PLAN FLOW STABLE. Product gate: READY TO ENTER CP11.**
+  The whole local-first chain — onboarding → profile mapping → generation →
+  Prayer/Quran/Learn sources → **one atomic write** → bootstrap → Today →
+  completion → restart → local-day rollover → missed-day recovery — was
+  validated against **executed** suites rather than inspection: CP10
+  checkpoint 30, generator 63, mapper 78, Learn catalog+source 163,
+  orchestrator 59, persistence 81, state machine 43, rollover/recovery 82,
+  Today UI 62. The new end-to-end harness deliberately runs on the **real**
+  `SharedPrefsDailyPlanRepository` over mocked prefs, so "restart" means a
+  new `ProviderContainer` **and** a new repository instance reading the same
+  stored bytes — a fake would have proved nothing about persistence.
+  **The checkpoint's real value was the audit, not the green tests.**
+  Reviewing TASK 084's non-awaited subscription cancellation exposed a
+  genuine data-path defect: `unawaited(future)` **contains nothing**, so a
+  failing `cancel()` escaped as an **unhandled asynchronous error** — a
+  test-zone failure in tests and a zone error-handler hit in production.
+  The fix is the smallest safe containment,
+  `unawaited(cancel().catchError((Object _) {}))`, and it was proved
+  load-bearing by reverting it and watching the audit test fail with
+  `Bad state: cancel failed (test)` escaping through `_cancelQuietly`.
+  Awaited cancellation was **deliberately not restored** — awaiting is
+  precisely what deadlocked the second day load at TASK 084. Genuine
+  repository watch failures are still surfaced through `listen(onError:)`
+  and, per the TASK 077 stream contract, do not topple the last known state
+  (asserted separately). The remaining nine audit properties all passed:
+  rapid A→B→C never sticks in `Loading`, events from A or B cannot replace
+  C, the final state belongs only to C, old subscriptions really are
+  cancelled (3 listens → 2 cancels), **12 day switches leave exactly one
+  active listener**, disposal drops it to zero, and late-resolving cancels
+  cannot mutate newer state.
+  Scenario coverage: fresh user gets 30 continuous plans and a completion
+  that survives restart; an onboarded user with no range bootstraps **once**;
+  a complete range is a no-op preserving status and `completedAt`; a partial
+  range stays a typed conflict with **no repair and no overwrite**; day N's
+  completion survives the switch to N+1; a missed-day return shows gentle
+  then extended copy **without shrinking, reordering or regenerating** the
+  plan and leaves history byte-identical; day 30 loads normally while **day
+  31 stays honest Empty** with the stored range still exactly 30.
+  Full suite **1392 → 1422**; analyze clean; Functions **23/23** on Node.js
+  v22.22.0 / npm 10.9.4. No schema, storage-key, envelope-version, Drift,
+  Firebase, remote-sync, notification, dependency or premium change.
+  **CP10 is closed.** This is explicitly **not** a release-readiness claim:
+  the plan flow has had no physical-device validation and iOS remains
+  unvalidated.
+- **Next:** **TASK 086 — Content-source matrix** (CP11, Learn and Assistant
+  depth). Deferred out of CP10 and owned by **no task yet**: day-30 plan
+  renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar
+  navigation, opening a Learn article from a task card, and repair of TASK
+  083A's typed `rangeConflict`. The commercial roadmap-alignment item below
+  remains open and unnumbered, as do Firebase gates G1, G2, G5, G8 and G14.
 - **Standing owner decisions (opened at TASK 082, still open):**
   (1) generation is **not wired** to persistence or onboarding completion and
   the roadmap names no dedicated task for that wiring; (2) a **commercial

@@ -6,15 +6,37 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 084). After the TASK 084 merge, read the real current commit
+> task (TASK 085). After the TASK 085 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 084: `7b0d2b5`
+- Last verified main before TASK 085: `4458a55`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed functional task: **TASK 084** — Missed-day recovery and
+- Latest completed task: **TASK 085** — 30-day plan and CP10 checkpoint.
+  Verdict: **CP10 COMPLETE — 30-DAY LOCAL PLAN FLOW STABLE**; product gate
+  **READY TO ENTER CP11**. The full chain (onboarding → profile → generator
+  → core sources → atomic `savePlans` → bootstrap → Today → completion →
+  restart → rollover → missed-day recovery) was validated against executed
+  suites, using the **real** `SharedPrefsDailyPlanRepository` so "restart"
+  means a new container **and** a new repository over the same stored bytes.
+  **One checkpoint-blocking defect was found and fixed:** TASK 084's
+  `unawaited(subscription.cancel())` did not contain errors, so a failing
+  `cancel()` escaped as an **unhandled asynchronous error**.
+  `DailyPlanController._cancelQuietly` now uses
+  `unawaited(cancel().catchError((Object _) {}))`; the fix was proved
+  load-bearing by reverting it and watching the audit test fail. Awaited
+  cancellation was **not** restored (that is what hung the second day load in
+  TASK 084), and genuine watch failures are still surfaced through
+  `listen(onError:)`. Full subscription audit passed: rapid A→B→C never
+  sticks in Loading, A/B events cannot replace C, 12 switches leave exactly
+  **1** active listener, disposal drops it to 0, and late-resolving cancels
+  cannot mutate newer state. 30 focused tests; full suite 1392 → **1422**;
+  Functions **23/23** on Node v22.22.0 / npm 10.9.4. **No schema, key,
+  envelope-version, Drift, Firebase, remote, notification or premium change.**
+  Report: `docs/task-reports/TASK_085_CP10_30_DAY_PLAN_CHECKPOINT.md`
+- Previous completed functional task: **TASK 084** — Missed-day recovery and
   gentle rollover. `TodayDayController` now owns which local calendar day
   Today shows: `start()` (bootstrap once + select day), `onAppResumed()`
   (via `WidgetsBindingObserver`; **no-op when the day is unchanged**) and a
@@ -269,16 +291,19 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 085** — 30-day plan and CP10
-  checkpoint. Still open and deliberately deferred: day-30 plan renewal,
-  adaptive plan shrinking, streak/XP/achievements, manual calendar
-  navigation, and TASK 083A's typed `rangeConflict` repair.
+- Next planned functional task: **TASK 086** — Content-source matrix (first
+  task of **CP11 — Learn and Assistant depth**). Still open and deliberately
+  deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
+  streak/XP/achievements, manual calendar navigation, opening a Learn article
+  from a task card, and TASK 083A's typed `rangeConflict` repair.
 
-## Tests (verified at TASK 084)
+## Tests (verified at TASK 085)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1392 / 1392**, 0 failed, 0 skipped
-  (1304 at TASK 083A + 88 missed-day/rollover tests)
+- Flutter test baseline: **1422 / 1422**, 0 failed, 0 skipped
+  (1392 at TASK 084 + 30 CP10 checkpoint tests)
+- CP10 checkpoint suite: **30 / 30** — command:
+  `flutter test test/features/today/cp10_plan_flow_checkpoint_test.dart`
 - Missed-day recovery + rollover suite: **82 / 82** — command:
   `flutter test test/features/today/domain/missed_day_recovery_test.dart
   test/features/today/application/today_day_controller_test.dart
@@ -323,7 +348,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - Focused prayer-reminder suite: 26 / 26 (TASK 070D)
 - Storage (Drift) tests: **11 / 11** — command: `flutter test test/core/storage`
 - Functions tests (Vitest): **23 / 23** on Node.js v22.22.0 / npm 10.9.4 —
-  re-verified at **TASK 083**. This supersedes the TASK 082 record of
+  re-verified at the **TASK 085 CP10 checkpoint** (previously at TASK 083).
+  No Functions file, dependency or lockfile has changed since TASK 069.
+  The TASK 083 record supersedes the TASK 082 record of
   `PENDING (environment)`: the Node.js toolchain has been reinstalled under
   NVM for Windows, and the TASK 082 Functions status is now **POST-MERGE
   VERIFIED — 23/23**. Neither task changed any Functions file, dependency or
@@ -473,6 +500,14 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   identities). Quran source is `const`, stateless and **total**; no
   unreachable failure branch was fabricated.
   Report: `docs/task-reports/TASK_081_QURAN_PLAN_ITEMS.md`
+- TASK 085 — CP10 checkpoint. The checkpoint's own value was the **audit**,
+  not the tests: reviewing TASK 084's non-awaited cancellation found that
+  `unawaited(future)` contains nothing, so a failing `cancel()` became an
+  unhandled zone error. Containment (`catchError`) was chosen over restoring
+  `await`, because awaiting is precisely what deadlocked the day switch.
+  Restart scenarios deliberately use the **real** SharedPreferences
+  repository — a fake would have proved nothing about persistence.
+  Report: `docs/task-reports/TASK_085_CP10_30_DAY_PLAN_CHECKPOINT.md`
 - TASK 083A — Initial DailyPlan orchestration (controlled roadmap insertion
   between TASK 083 and TASK 084; no task renumbered). Atomicity was solved
   **without a storage-format change**: the existing single-key envelope

@@ -70,6 +70,7 @@ TASK 082    — Source-verified Learn plan items — COMPLETED
 TASK 083    — Today task UI — COMPLETED
 TASK 083A   — Initial DailyPlan orchestration — COMPLETED
 TASK 084    — Missed-day recovery and gentle rollover — COMPLETED
+TASK 085    — 30-day plan and CP10 checkpoint — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -99,9 +100,10 @@ TASK 075  — COMPLETED   — CP09 full regression checkpoint (verdict: CP09 COM
                           NEXT LOCAL-FIRST PRODUCT CHECKPOINT
 ```
 
-**CP09 is closed.** CP10 is in progress. Remote sync remains disabled and is
-gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates blocks CP10,
-which is local-first by design.
+**CP09 is closed. CP10 is closed** (TASK 085 verdict: **CP10 COMPLETE —
+30-DAY LOCAL PLAN FLOW STABLE**). CP11 is next. Remote sync remains disabled
+and is gated by G1–G14 (see `CURRENT_BASELINE.md`); none of those gates
+blocked CP10, which is local-first by design.
 
 **CP10 composition rule (fixed by TASK 081):** multiple item sources run
 through `CompositeDailyPlanItemSource` — an **explicitly ordered** child list,
@@ -225,13 +227,22 @@ TASK 082 — Source-verified Learn plan items             — COMPLETED
 TASK 083 — Today task UI                                — COMPLETED
 TASK 083A — Initial DailyPlan orchestration             — COMPLETED
 TASK 084 — Missed-day recovery and gentle rollover      — COMPLETED
-TASK 085 — 30-day plan and CP10 checkpoint              <-- NEXT TASK
+TASK 085 — 30-day plan and CP10 checkpoint              — COMPLETED
 ```
+
+**CP10 is closed.** Verdict: **CP10 COMPLETE — 30-DAY LOCAL PLAN FLOW
+STABLE**; product gate **READY TO ENTER CP11**. One checkpoint-blocking
+defect was found and fixed at TASK 085: a non-awaited subscription
+cancellation whose failure escaped as an unhandled asynchronous error.
+Deliberately deferred out of CP10 and owned by no task yet: day-30 plan
+renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar
+navigation, opening a Learn article from a task card, and repair of TASK
+083A's typed `rangeConflict`.
 
 ## CP11 — Learn and Assistant
 
 ```text
-TASK 086 — Content-source matrix
+TASK 086 — Content-source matrix                        <-- NEXT TASK
 TASK 087 — Learn pack: Hadith, Seerah, Prophets
 TASK 088 — Learn pack: Dua, Family, Halal foundations
 TASK 089 — Learn pack: Women, Afterlife, Islamic history
