@@ -85,6 +85,20 @@
       "attribution": "T.C. Diyanet İşleri Başkanlığı, Dinî Soru Hizmetleri",
       "usageNotes": "Kullanıcının kendi sorusunu resmî mercie iletebilmesi için başvuru adresi olarak gösterilir.",
       "isOfficial": true
+    },
+    {
+      "id": "diyanet-hz-muhammedin-hayati",
+      "institution": "T.C. Cumhurbaşkanlığı Diyanet İşleri Başkanlığı",
+      "title": "Hz. Muhammed'in Hayatı",
+      "sourceType": "officialPublication",
+      "canonicalUrl": "https://egitimhizmetleri.diyanet.gov.tr/Documents/Hz.%20Muhammed%27in%20Hayat%C4%B1.pdf",
+      "originalLanguage": "tr",
+      "publicationInfo": "Prof. Dr. Casim Avcı – Mevlâna İdris; Genel Yayın No: 1286, Çocuk Kitapları: 302; 16. Baskı, İstanbul, Mart 2025; ISBN 978-975-19-6627-8",
+      "accessedAt": "2026-07-28",
+      "lastVerifiedAt": "2026-07-28",
+      "attribution": "T.C. Cumhurbaşkanlığı Diyanet İşleri Başkanlığı, Hz. Muhammed'in Hayatı",
+      "usageNotes": "Uygulamadaki metin bu eserin ilgili bölümlerine dayanan özgün özettir; eserden aynen alıntı değildir. Eser Diyanet'in çocuk yayınları serisinde çıkmıştır ve Diyanet'in Bismillah'a özel bir onayı olduğu ileri sürülmez.",
+      "isOfficial": true
     }
   ]
 }

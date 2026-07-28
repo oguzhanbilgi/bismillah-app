@@ -701,4 +701,64 @@ that task's time*; the current verified baseline lives in
   lockfile changed; last verified 23/23 at TASK 085). **No religious content was
   written, edited, repaired or reclassified, and zero production Dart or asset
   files changed.**
-- **Next:** **TASK 087 — Learn pack: Hadith, Seerah, Prophets.**
+- **TASK 087 — Learn pack: Hadith, Seerah, Prophets.** The first CP11 task to
+  write content, and the first Learn expansion since the public alpha. The
+  roadmap fixes no article counts, so the owner set the scope explicitly at
+  **3 + 3 + 3** — **9 new stable IDs, 27 localized records** — populating
+  `cat-hadith`, `cat-seerah` and `cat-prophets`. Per locale the library moved
+  from 32 records / 30 published to **41 / 39**; populated categories **9 → 12
+  of 20**; sources grounding published content **1 → 3 of 7**.
+  **The value of this task was the gate, not the volume.** It blocked twice and
+  both blocks were correct. First, the Seerah e-book and Prophets PDF named for
+  the pack were **unreachable** — `dijital.diyanet.gov.tr` answers HTTP/0.9 and
+  the Prophets download redirects to `diyanet.gov.tr/hata.html` — so working
+  official substitutes were located rather than the sources being declared
+  absent. Second, a proposed hadith article was rejected outright: reading
+  *Hadislerle İslâm* Cilt 1 s. 250 in full showed it covers the first
+  revelation, Hz. Hatice's consolation and Varaka b. Nevfel, **not** good
+  character; the candidate sentence was one clause inside an unrelated
+  narrative. The topic was replaced only on explicit owner permission, never
+  silently. The **direct-source rule** held throughout: PDFs were downloaded
+  outside the repository and their text extracted directly, the digital hadith
+  work was read as rendered page bodies, **no summary or snippet was used as
+  evidence**, and nothing downloaded was committed. `diyanet-islam-ilmihali`
+  was confirmed as **34. Baskı, 2019** from the PDF's own colophon — the exact
+  edition the existing 30 articles already cite.
+  A **new source record** `diyanet-hz-muhammedin-hayati` was registered
+  (*Hz. Muhammed'in Hayatı*, Prof. Dr. Casim Avcı – Mevlâna İdris, Genel Yayın
+  No 1286, **Çocuk Kitapları 302**, 16. Baskı Mart 2025, ISBN
+  978-975-19-6627-8). Its series, edition and authorship are explicit and **no
+  Diyanet endorsement of the app is implied**. `diyanet-hadislerle-islam` now
+  grounds published content for the first time.
+  **Review provenance was handled honestly.** The repository never defined who
+  may perform `editorialReview`, so the packet was reported as **AMBIGUOUS** and
+  **no verified status was written** until the owner performed and recorded an
+  explicit source-fidelity review — editorial comparison only, expressly not
+  scholar approval, fatwa review, hadith grading or Diyanet approval. Proposed
+  `CONTENT_POLICY.md` wording was prepared and deliberately **not applied**.
+  **A structural conflict surfaced and was resolved in-branch on owner
+  decision:** four merged TASK 082 assertions encoded "the eligible library
+  *equals* the 30-entry plan catalog", which every CP11 Learn pack necessarily
+  breaks. The canonical rule is now fixed: **TASK 082's catalog is a curated
+  versioned subset of the growing published Learn library, not a permanent
+  mirror.** The exact-count assertion became **at least** `requiredEntryCount`
+  plus identical TR/EN/AR eligible ID sets; the equality assertion was removed
+  and the subset invariant **strengthened** to require every catalog ID to be
+  eligible in **every** locale; the length comparison became catalog length plus
+  ID uniqueness; and the file-order check now compares only the catalog's own
+  IDs. `LearnDailyPlanCatalog.v1` itself is **untouched** — same 30 entries,
+  order and version, absent from the diff — and none of the 9 new IDs enters it
+  (asserted). Source verification, publication, locale parity and review gates
+  were **not** weakened.
+  Content-safety exclusions were deliberate: hadith authenticity grading,
+  personal rulings, sectarian argument, political comparison, reward or
+  punishment guarantees, miracle framing, the definitive 28-prophet count and
+  the disputed Zülkarneyn/Lokman/Üzeyir classification, and the exact Veda Haccı
+  attendance figure in user-facing prose (kept in evidence metadata only). New
+  articles carry no `beginnerPathOrder`, so the beginner path stays contiguous,
+  and the two `scholarlyReviewPending` articles remain pending for TASK 091.
+  **No Assistant code was touched**: the 9 articles become retrievable solely
+  because they are published and source-verified, and no Assistant readiness is
+  claimed. 34 focused tests; catalog suite **40/40**; full suite **1436 →
+  1472**; analyze clean; Functions untouched and not run.
+- **Next:** **TASK 088 — Learn pack: Dua, Family, Halal foundations.**

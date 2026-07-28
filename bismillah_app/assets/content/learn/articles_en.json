@@ -2036,6 +2036,576 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-hadis-ve-sunnet-nedir",
+      "slug": "what-are-hadith-and-sunnah",
+      "categoryId": "cat-hadith",
+      "title": "What are hadith and sunnah?",
+      "summary": "Hadith refers to the sayings transmitted from the Prophet; sunnah refers to the way he lived. Both are core sources that explain the Qur'an.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hadith",
+        "sunnah",
+        "prophet",
+        "source",
+        "narration"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hadith is the general name for the sayings transmitted from the Prophet Muhammad (peace be upon him). Sunnah refers together to his words, his practice and his approvals. The two together show how the Qur'an was understood and how it was lived day to day."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hadith and sunnah do not take the place of the Qur'an; they are core sources that help explain it and help us understand how it is applied in life."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Rereading and explaining hadith texts in every age is an effort to build a bridge between the text and lived life."
+        },
+        {
+          "type": "paragraph",
+          "text": "These narrations were transmitted carefully throughout history and in time grew into a very large body of literature. Hadith scholars worked both to transmit the texts faithfully and to keep the principles and values of the sunnah livable."
+        },
+        {
+          "type": "paragraph",
+          "text": "Classical hadith sources are not works that everyone can draw on easily. For this reason, in almost every period studies have been produced to make this accumulated knowledge accessible."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When you come across a hadith, first look at which subject it explains; learning its source and context is the first step to understanding it correctly."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ilim-ve-hidayet-yagmuru",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 41, 60",
+        "evidenceSummary": "Eserin giriş bölümü, hadis ve sünnetin Kur'an'ın beyanı olması yönüyle Müslümanların inanç, ibadet ve ahlak esaslarını belirlediğini; bu mirasın geniş bir külliyata dönüştüğünü ve İslam'ın sürekliliğini sağladığını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ilim-ve-hidayet-yagmuru",
+      "slug": "knowledge-and-guidance-rain-parable",
+      "categoryId": "cat-hadith",
+      "title": "Knowledge and guidance: the parable of rain",
+      "summary": "The Prophet compared the knowledge and guidance sent with him to rain, and people to different kinds of soil that receive that rain differently.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "knowledge",
+        "guidance",
+        "learning",
+        "parable",
+        "rain"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The Prophet (peace be upon him) compared the guidance and knowledge God sent with him to abundant rain falling on soils of different kinds."
+        },
+        {
+          "type": "paragraph",
+          "text": "The comparison describes three cases. One soil absorbs the water and grows abundant plants. Another holds the water on its surface; people drink from it, water their animals and farm with it. The third is flat and bare: it neither holds water nor grows plants."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The heart of the comparison is this: what water is to soil, the guidance that comes through revelation is to a human being."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source explains it this way: the person who learns and absorbs this knowledge and also teaches it to others is like fertile soil; the person who pays it no attention is like barren ground that does not accept water."
+        },
+        {
+          "type": "paragraph",
+          "text": "The measure here is not to judge people but to make us reflect on our own attitude toward knowledge. Sharing what you have learned is as much part of the comparison as learning it."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Share a useful piece of knowledge you learned from a source you trust, together with its correct context."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 397",
+        "evidenceSummary": "Sayfada, Allah Resûlü'nün kendisiyle gönderilen hidayet ve ilmi farklı topraklara düşen bol yağmura benzettiği rivayet ve ardından gelen açıklama yer alır; üç toprak türü sayılır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hayvanlara-merhamet",
+      "slug": "compassion-toward-animals",
+      "categoryId": "cat-hadith",
+      "title": "Compassion toward animals",
+      "summary": "The Prophet urged responsible treatment of animals that cannot speak, and opposed cruelty toward them and needless harm.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "compassion",
+        "animals",
+        "responsibility",
+        "cruelty",
+        "care"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The Prophet (peace be upon him) urged those with him to carry a sense of responsibility toward animals, saying: \"Fear God regarding these animals that cannot speak.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "An incident recorded in the source makes this concrete. One day, travelling with his cousin Abdullah ibn Ja'far, the Messenger of God saw a camel tied in a date garden. When the camel saw him it began to groan and tears ran from its eyes. The Prophet went up to it and stroked its ears, and the animal grew calm."
+        },
+        {
+          "type": "paragraph",
+          "text": "He then called for the camel's owner and said to him: \"Do you not fear God regarding this camel that He has given you? It has complained to me that you leave it hungry and work it to exhaustion.\""
+        },
+        {
+          "type": "keyPoint",
+          "text": "The measure here is clear: a living creature in our care is a responsibility upon us."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source notes that animals were created for people to benefit from, and that they are at the same time part of nature's beauty and a subject worth reflecting on. The Prophet himself came from within this life: like other prophets he herded sheep, and at times milked his animals with his own hands."
+        },
+        {
+          "type": "paragraph",
+          "text": "This compassion was not a feeling that stayed in words. According to the source the Prophet forbade taking living creatures as targets and setting animals to fight one another; he took measures to protect animal life, and opposed cruelty toward animals and needless harm to them."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Check today on the water, feed, shelter and rest of an animal that is in your care."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-ilim-ve-hidayet-yagmuru"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 5, s. 255-261",
+        "evidenceSummary": "Bölüm, hayvanlara merhametle muameleyi konu alan müstakil bir bahistir: s. 255 konunun hadis kümesini, s. 257 aç bırakılan devenin Hz. Peygamber'e şikâyeti anlatısını, s. 258-259 hayvanların nimet ve ibret oluşunu, s. 261 hayvan neslinin korunmasına ve eziyetin yasaklanmasına dair uygulamaları aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hilful-fudul",
+      "slug": "hilf-al-fudul-pact",
+      "categoryId": "cat-seerah",
+      "title": "Hilf al-Fudul: the pact of the virtuous",
+      "summary": "Formed in Mecca during the Prophet's youth, Hilf al-Fudul was a pact of solidarity aimed at standing beside anyone who suffered injustice.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "justice",
+        "injustice",
+        "solidarity",
+        "mecca",
+        "pact"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "In pre-Islamic Arab society, disputes between individuals and tribes often turned into open conflict. This wore down trade, daily life and people's sense of security."
+        },
+        {
+          "type": "paragraph",
+          "text": "To overcome this, the tribes had accepted four months of the year as sacred (Dhu al-Qa'dah, Dhu al-Hijjah, Muharram and Rajab) and pledged not to fight during them. Even so, wars were waged in the sacred months; these were called the Fijar wars."
+        },
+        {
+          "type": "paragraph",
+          "text": "In this climate, safety of life, property and honour in Mecca had grown badly weakened. Vulnerable people who came to the city to trade were subjected to injustice."
+        },
+        {
+          "type": "keyPoint",
+          "text": "A merchant from Yemen who was in Mecca for trade could not obtain payment for the goods he had sold, and called out loudly for justice. That cry became the turning point."
+        },
+        {
+          "type": "paragraph",
+          "text": "The tribes who heard it gathered in a house and swore an oath that no one would be wronged and that anyone suffering injustice would be helped. The core of the oath was this: when someone in Mecca was wronged, whether that person was one of their own or a stranger, they would act as a single hand until the right was restored."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When you see an injustice around you, before saying \"this is not my concern\", recall the measure of this pact: what matters is not who was wronged, but the wrong itself."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kabe-hakemligi",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Hılfu'l-Fudûl, s. 37-39",
+        "evidenceSummary": "Bölüm, cahiliye Arap toplumundaki anlaşmazlıkları, haram ayları ve Ficâr savaşlarını anlatır; Mekke'de haksızlığa uğrayan Yemenli tüccarın feryadı üzerine kabilelerin toplanıp haksızlığa uğrayana yardım etme yemini ettiğini ve yeminin içeriğini aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kabe-hakemligi",
+      "slug": "kaaba-arbitration",
+      "categoryId": "cat-seerah",
+      "title": "The arbitration at the Kaaba",
+      "summary": "A dispute that arose during the repair of the Kaaba, and was close to turning into fighting, ended with a simple and fair solution the Prophet proposed.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "kaaba",
+        "arbitration",
+        "dispute",
+        "solution",
+        "quraysh"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The Kaaba is the first place of worship on earth, built by God's command by Abraham and his son Ishmael. Even before Islam it was regarded as an important religious centre."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the year 605 CE, when the Prophet was around thirty-five, the Quraysh decided to repair the Kaaba. The building had been worn down by fire and flood damage. All the Quraysh clans drew lots to divide the work, and each contributed a set share."
+        },
+        {
+          "type": "paragraph",
+          "text": "Those who would contribute financially were told that the money given for the Kaaba must be clean and lawfully earned, and that nothing obtained through usury or injustice should be mixed into the work. The Prophet himself took part in the repair, carrying stones together with his uncle Abbas."
+        },
+        {
+          "type": "paragraph",
+          "text": "When the building was finished, a dispute arose over who would set the Black Stone in its place. No clan was willing to leave the task to another; the argument lasted for days and some were even ready to fight over it."
+        },
+        {
+          "type": "keyPoint",
+          "text": "In the end they agreed on a proposal: \"Let us make the first person to enter the Kaaba through the gate of Banu Shayba our arbitrator.\" When the Prophet came through the gate, the Quraysh expressed their relief, saying \"Here comes al-Amin.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "Accepted as arbitrator, the Prophet called for a cloth, placed the Black Stone on it with his own hands, and asked the chiefs of every clan to take hold of an edge. When the stone reached the required height he lifted it himself and set it in place. In this way a serious conflict that was about to break out was prevented by a solution everyone accepted."
+        },
+        {
+          "type": "practicalAction",
+          "text": "In a disagreement, think through a solution that is both fair and brings all sides into the process."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Kâbe Hakemliği, s. 47-50",
+        "evidenceSummary": "Bölüm, Kâbe'nin Hz. İbrahim ve Hz. İsmail tarafından inşa edilen ilk mescit oluşunu; miladî 605'te Kureyş'in Kâbe'yi tamir kararını; Hacerülesved'i yerine koyma tartışmasını ve Peygamberimizin örtü çözümüyle çatışmayı önlemesini anlatır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-veda-hacci-ve-hutbesi",
+      "slug": "farewell-pilgrimage-and-sermon",
+      "categoryId": "cat-seerah",
+      "title": "The Farewell Pilgrimage and Sermon",
+      "summary": "The address the Prophet gave at Arafat during the last pilgrimage of his life reads as a farewell that sums up basic rights and responsibilities.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "farewell sermon",
+        "arafat",
+        "pilgrimage",
+        "rights",
+        "taqwa"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "In the tenth year after the migration (632) the Prophet began preparing to perform the pilgrimage and asked all Muslims to join the journey. He set out from Medina, entered the state of consecration at Dhu al-Hulayfa, and reached Mecca."
+        },
+        {
+          "type": "paragraph",
+          "text": "On Friday the ninth of Dhu al-Hijjah he moved on to Arafat. After combining the noon and afternoon prayers, he delivered to a very large gathering at Arafat the address known as the Farewell Sermon."
+        },
+        {
+          "type": "paragraph",
+          "text": "He began by reminding everyone that all people are servants of God and descend from the same parents. He stated that people are equal regardless of race, colour, language or class, and that the measure of excellence in God's sight is mindfulness of Him."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The sermon dwells largely on human rights: the safety of life, property and honour, care for the rights owed to others, avoiding oppression and unlawful gain, and keeping trusts."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Prophet asked that mutual rights and responsibilities between spouses be observed, and drew attention to unity by declaring that all Muslims are brothers and sisters. He said the Qur'an and the Sunnah are indispensable guidance, and stressed performing acts of worship such as prayer, fasting, zakat and pilgrimage, and keeping to moral principles."
+        },
+        {
+          "type": "paragraph",
+          "text": "He announced that certain practices of the pre-Islamic era were abolished, and that usury and blood vengeance were forbidden. Throughout the address he repeatedly asked those present, \"Have I conveyed the message?\", having them affirm what he said, and closed by saying three times, \"Bear witness, O Lord!\""
+        },
+        {
+          "type": "practicalAction",
+          "text": "Think of one small step you can take today to protect what is owed to another person."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-kabe-hakemligi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Veda Haccı ve Hutbesi, s. 248-251",
+        "evidenceSummary": "Bölüm, hicretin 10. yılındaki hac yolculuğunu tarihleriyle anlatır ve Arafat'ta yapılan Veda Hutbesi'nin içeriğini özetler: insanların eşitliği, üstünlük ölçüsünün takvâ oluşu, can/mal/ırz güvenliği, kul hakkı, emanet, eşlerin karşılıklı hakları, kardeşlik, Kur'an ve Sünnet'e bağlılık, faizin ve kan davasının kaldırılması. Kaynakta katılım sayısı 120.000'i aşan ashab olarak verilir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamber-kimdir",
+      "slug": "who-is-a-prophet",
+      "categoryId": "cat-prophets",
+      "title": "Who is a prophet?",
+      "summary": "A prophet is a chosen human being appointed by God to show people the right path, acting as a messenger between God and His servants.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "prophet",
+        "messenger",
+        "nabi",
+        "revelation",
+        "faith"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "One of the six articles of faith is believing in the prophets."
+        },
+        {
+          "type": "paragraph",
+          "text": "The word used in Turkish for prophet, \"peygamber\", comes from Persian and means \"one who carries news\". In religious terms it refers to a chosen human being whom God appoints to show people the right path. A prophet announces to people what God has revealed to him, acting as a messenger between God and His servants."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to the explanation in the Diyanet İslam İlmihali, a scripture was sent down to some of the prophets; these are called \"rasul\". To others no scripture was sent down; they act upon the scriptures revealed to prophets before them and convey those scriptures. These are called \"nabi\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "By the definition given in that same source, every rasul is also a nabi, but not every nabi is a rasul."
+        },
+        {
+          "type": "paragraph",
+          "text": "People need prophets, because a human being cannot know everything by reason alone. Even if we can reach God, who created us and the universe, through our reason, we cannot work out on our own how to worship Him or what His commands and prohibitions are. It is the prophets who make these known to us."
+        },
+        {
+          "type": "practicalAction",
+          "text": "The next time you hear the words \"rasul\" and \"nabi\", recall the difference between them; this distinction is the key to understanding prophethood."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamberlerin-sifatlari",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 59-60",
+        "evidenceSummary": "Bölüm, peygamber kelimesinin Farsça 'haber götüren' anlamını, dindeki tanımını, resul-nebi ayrımını ve insanın peygambere olan ihtiyacını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamberlerin-sifatlari",
+      "slug": "attributes-of-the-prophets",
+      "categoryId": "cat-prophets",
+      "title": "The attributes of the prophets",
+      "summary": "So that they could carry out the task of conveying God's message, the prophets bear the attributes of truthfulness, trustworthiness, conveyance, intelligence and protection from sin.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "attributes",
+        "truthfulness",
+        "trust",
+        "conveyance",
+        "intelligence"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Since the prophets act as messengers between God and His servants, their task is to make God known, to teach how He is to be worshipped, and to announce His commands and prohibitions. All the prophets fulfilled this task completely."
+        },
+        {
+          "type": "paragraph",
+          "text": "The prophets are human beings like us. Yet because they are God's chosen servants they have certain attributes. These fall into two groups, necessary and permissible. In the source, the attributes regarded as necessarily present in the prophets are called the \"necessary attributes\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "There are five necessary attributes. Truthfulness (sidq): the prophets never lie, and do not deceive or act unjustly. Trustworthiness (amana): being reliable. Conveyance (tabligh): announcing in full everything revealed to them. Intelligence (fatana): being wise and discerning, for without it they could not carry out their task. Protection from sin (isma): being kept from sin."
+        },
+        {
+          "type": "keyPoint",
+          "text": "These five attributes explain the trustworthiness of the prophets in the task of conveying the message."
+        },
+        {
+          "type": "paragraph",
+          "text": "The permissible attributes are qualities found in other people as well: because the prophets too are human, they eat, drink, sleep, grow tired, and when their lifetime ends they pass away."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Reflect briefly on truthfulness and trustworthiness: where do keeping your word and guarding what is entrusted to you come up for you today?"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 60-61",
+        "evidenceSummary": "Bölüm, peygamberlerin görevlerini ve kendilerinde bulunması vacib olan beş sıfatı (sıdk, emanet, tebliğ, fetanet, ismet) tanımlar; ayrıca peygamberlerin insan olmaları yönüyle taşıdıkları caiz sıfatları açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranda-adi-gecen-peygamberler",
+      "slug": "prophets-named-in-the-quran",
+      "categoryId": "cat-prophets",
+      "title": "The prophets named in the Qur'an",
+      "summary": "Twenty-five prophets are named in the Qur'an; the number of all the prophets God sent is known to God alone.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "prophets",
+        "quran",
+        "adam",
+        "faith",
+        "names"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Between the first prophet, Adam, and the last prophet, Muhammad (peace be upon him), many prophets came and passed."
+        },
+        {
+          "type": "paragraph",
+          "text": "Only God knows their exact number. The Qur'an gives the names of some prophets and states that there were many more whose names are not given."
+        },
+        {
+          "type": "keyPoint",
+          "text": "For this reason a Muslim believes in all the prophets God sent and leaves their number to God."
+        },
+        {
+          "type": "paragraph",
+          "text": "Twenty-five prophets are named in the Qur'an: Adam, Idris, Nuh, Hud, Salih, Shu'ayb, Ibrahim, Lut, Ishaq, Isma'il, Ya'qub, Yusuf, Musa, Harun, Dawud, Sulayman, Ayyub, Dhul-Kifl, Ilyas, Al-Yasa', Zakariya, Yunus, Yahya, Isa and Muhammad (peace be upon them)."
+        },
+        {
+          "type": "paragraph",
+          "text": "Believing in the prophets requires believing not only in some of them, but in all the prophets God sent."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Note down a name you do not recognise, and set it aside to learn about from a source you trust."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-peygamberlerin-sifatlari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 61",
+        "evidenceSummary": "Bölüm, ilk peygamber Hz. Âdem ile son peygamber Hz. Muhammed arasında pek çok peygamber geldiğini, kesin sayılarını ancak Allah'ın bildiğini ve Kur'an-ı Kerim'de ismi geçen peygamberlerin 25 olduğunu belirterek bu isimleri sıralar. İhtilaflı sınıflandırmalar bu makaleye ALINMAMIŞTIR.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

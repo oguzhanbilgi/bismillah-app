@@ -2040,6 +2040,576 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-hadis-ve-sunnet-nedir",
+      "slug": "hadis-ve-sunnet-nedir",
+      "categoryId": "cat-hadith",
+      "title": "Hadis ve sünnet nedir?",
+      "summary": "Hadis, Hz. Peygamber'den nakledilen sözlerin adıdır; sünnet ise onun yaşayışını ifade eder. İkisi de Kur'an'ı açıklayan temel kaynaklardır.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hadis",
+        "sünnet",
+        "peygamber",
+        "kaynak",
+        "rivayet"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hadis, Hz. Peygamber'den (s.a.v.) nakledilen sözlerin genel adıdır. Sünnet ise onun sözlerini, uygulamalarını ve onaylarını birlikte ifade eder. Bu ikisi, Kur'an-ı Kerim'in nasıl anlaşıldığını ve günlük hayatta nasıl yaşandığını gösterir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hadis ve sünnet, Kur'an'ın yerine geçmez; onun açıklanmasına ve hayatta nasıl uygulandığının anlaşılmasına yardımcı olan temel kaynaklardır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hadis metinlerinin her çağda yeniden okunup açıklanması, metin ile hayat arasında köprü kurma çabasıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu rivayetler tarih boyunca dikkatle nakledilmiş ve zamanla çok geniş bir literatüre dönüşmüştür. Hadis âlimleri hem metinleri aslına uygun aktarmaya hem de sünnetin ilke ve değerlerini yaşanır kılmaya çalışmışlardır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Klasik hadis kaynakları herkesin kolayca yararlanabileceği eserler değildir. Bu yüzden hemen her dönemde, bu birikimi anlaşılır kılmaya yönelik çalışmalar yapılmıştır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bir hadisle karşılaştığında önce onun hangi konuyu açıkladığına bak; kaynağını ve bağlamını öğrenmek doğru anlamanın ilk adımıdır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-ilim-ve-hidayet-yagmuru",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 41, 60",
+        "evidenceSummary": "Eserin giriş bölümü, hadis ve sünnetin Kur'an'ın beyanı olması yönüyle Müslümanların inanç, ibadet ve ahlak esaslarını belirlediğini; bu mirasın geniş bir külliyata dönüştüğünü ve İslam'ın sürekliliğini sağladığını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ilim-ve-hidayet-yagmuru",
+      "slug": "ilim-ve-hidayet-yagmuru",
+      "categoryId": "cat-hadith",
+      "title": "İlim ve hidayet: yağmur benzetmesi",
+      "summary": "Hz. Peygamber, kendisiyle gönderilen bilgi ve rehberliği yağmura; insanları da o yağmuru farklı biçimde karşılayan topraklara benzetmiştir.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "ilim",
+        "hidayet",
+        "öğrenmek",
+        "benzetme",
+        "yağmur"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hz. Peygamber (s.a.v.), Allah'ın kendisiyle gönderdiği hidayet ve ilmi, farklı yapıdaki topraklara düşen bol yağmura benzetmiştir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu benzetmede üç durum anlatılır. Bir toprak suyu emer ve bol bitki yetiştirir. Bir başkası suyu yüzeyinde tutar; insanlar ondan içer, hayvanlarını sular ve ziraat yaparlar. Üçüncüsü ise dümdüzdür: ne su tutar ne bitki yetiştirir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Benzetmenin özü şudur: toprağın suya ihtiyacı neyse, insanın da vahiyle gelen rehberliğe ihtiyacı odur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak bu benzetmeyi şöyle açıklar: gelen bilgiyi öğrenip özümseyen ve başkalarına da öğreten kimse verimli toprak gibidir; bu bilgiyi umursamayan kimse ise suyu kabul etmeyen çorak arazi gibidir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Buradaki ölçü kişileri yargılamak değil, insanın bilgi karşısındaki tutumunu düşündürmektir. Öğrenmek kadar öğrendiğini paylaşmak da benzetmenin bir parçasıdır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Güvendiğin bir kaynaktan öğrendiğin faydalı bir bilgiyi, doğru bağlamıyla birlikte paylaş."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 397",
+        "evidenceSummary": "Sayfada, Allah Resûlü'nün kendisiyle gönderilen hidayet ve ilmi farklı topraklara düşen bol yağmura benzettiği rivayet ve ardından gelen açıklama yer alır; üç toprak türü sayılır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hayvanlara-merhamet",
+      "slug": "hayvanlara-merhamet",
+      "categoryId": "cat-hadith",
+      "title": "Hayvanlara merhamet",
+      "summary": "Hz. Peygamber, dilsiz hayvanlara karşı sorumlu davranmayı öğütlemiş; onlara eziyet edilmesine ve gereksiz zarar verilmesine karşı çıkmıştır.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "merhamet",
+        "hayvan",
+        "sorumluluk",
+        "eziyet",
+        "şefkat"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hz. Peygamber (s.a.v.), yanındakilere hayvanlar hakkında sorumluluk bilinci taşımayı öğütlemiş ve \"Bu dilsiz hayvanlar hakkında Allah'tan korkun\" buyurmuştur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynakta anlatılan bir olay bu ölçüyü somutlaştırır: Allah Resûlü bir gün amcasının oğlu Abdullah b. Ca'fer ile giderken bir hurma bahçesinde bağlı bir deve görür. Deve onu görünce inlemeye başlar ve gözlerinden yaşlar süzülür. Hz. Peygamber devenin yanına varıp kulaklarını okşar, hayvan sakinleşir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ardından devenin sahibini çağırır ve ona \"Sana verdiği şu deve hakkında Allah'tan korkmuyor musun? Bu hayvan bana, senin onu hem aç bıraktığını hem de yorduğunu şikâyet etti\" der."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Buradaki ölçü nettir: bakımını üstlendiğimiz bir canlı, üzerimizde bir sorumluluktur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, hayvanların insanın yararlanması için var edildiğini, aynı zamanda tabiatın bir güzelliği ve üzerinde düşünülmesi gereken bir ibret vesilesi olduğunu belirtir. Hz. Peygamber de bu hayatın içinden gelmiştir: diğer peygamberler gibi koyun gütmüş, zaman zaman hayvanlarını kendi elleriyle sağmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu merhamet, sözde kalan bir duygu değildir. Kaynağa göre Hz. Peygamber canlıları hedef edinmeyi ve hayvanları birbirleriyle dövüştürmeyi yasaklamış; hayvan neslinin korunmasına yönelik tedbirler almış, onlara eziyet edilmesine ve gereksiz yere zarar verilmesine karşı çıkmıştır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Sorumluluğundaki bir hayvanın su, yem, barınma ve dinlenme ihtiyacını bugün kontrol et."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-ilim-ve-hidayet-yagmuru"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 5, s. 255-261",
+        "evidenceSummary": "Bölüm, hayvanlara merhametle muameleyi konu alan müstakil bir bahistir: s. 255 konunun hadis kümesini, s. 257 aç bırakılan devenin Hz. Peygamber'e şikâyeti anlatısını, s. 258-259 hayvanların nimet ve ibret oluşunu, s. 261 hayvan neslinin korunmasına ve eziyetin yasaklanmasına dair uygulamaları aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hilful-fudul",
+      "slug": "hilful-fudul",
+      "categoryId": "cat-seerah",
+      "title": "Hılfu'l-Fudûl: erdemliler ittifakı",
+      "summary": "Peygamberimizin gençliğinde Mekke'de kurulan Hılfu'l-Fudûl, haksızlığa uğrayan herkesin yanında durmayı amaçlayan bir dayanışma antlaşmasıdır.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "adalet",
+        "haksızlık",
+        "dayanışma",
+        "mekke",
+        "antlaşma"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam'dan önceki Arap toplumunda kişiler ve kabileler arasındaki anlaşmazlıklar sık sık çatışmaya dönüşüyordu. Bu durum ticareti, günlük hayatı ve insanların güvenlik duygusunu yıpratıyordu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kabileler bu sorunu aşmak için yılın dört ayını (Zilkâde, Zilhicce, Muharrem ve Receb) kutsal kabul etmiş, bu aylarda savaşmamaya söz vermişlerdi. Buna rağmen haram aylarda savaşlar yapıldı; bunlara Ficâr savaşları denildi."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu ortamda Mekke'de can, mal ve namus güvenliği iyice zayıflamıştı. Ticaret için şehre gelen güçsüz kimseler haksızlığa uğruyordu."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Ticaret için Mekke'de bulunan Yemenli bir tüccar, sattığı malların parasını alamayınca yüksek sesle adalet istedi. Bu feryat, olayların dönüm noktası oldu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu sesi duyan kabileler bir evde toplandılar ve hiç kimseye zulmedilmemesi, haksızlığa uğrayana yardım edilmesi için yemin ettiler. Yeminin özü şuydu: Mekke'de biri haksızlığa uğradığında, o kişi ister kendilerinden ister yabancı olsun, hakkı verilinceye kadar tek bir el gibi hareket edeceklerdi."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Çevrende bir haksızlık gördüğünde, \"beni ilgilendirmiyor\" demeden önce bu antlaşmanın ölçüsünü hatırla: haksızlığa uğrayanın kim olduğu değil, haksızlığın kendisi esastır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-kabe-hakemligi",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Hılfu'l-Fudûl, s. 37-39",
+        "evidenceSummary": "Bölüm, cahiliye Arap toplumundaki anlaşmazlıkları, haram ayları ve Ficâr savaşlarını anlatır; Mekke'de haksızlığa uğrayan Yemenli tüccarın feryadı üzerine kabilelerin toplanıp haksızlığa uğrayana yardım etme yemini ettiğini ve yeminin içeriğini aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kabe-hakemligi",
+      "slug": "kabe-hakemligi",
+      "categoryId": "cat-seerah",
+      "title": "Kâbe hakemliği",
+      "summary": "Kâbe'nin tamiri sırasında çıkan ve savaşa dönüşmek üzere olan bir anlaşmazlık, Peygamberimizin bulduğu basit ve adil bir çözümle sona ermiştir.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "kâbe",
+        "hakemlik",
+        "anlaşmazlık",
+        "çözüm",
+        "kureyş"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kâbe, Allah'ın emriyle Hz. İbrahim ve oğlu Hz. İsmail tarafından inşa edilen, yeryüzündeki ilk mescittir. İslam'dan önce de önemli bir dinî merkez sayılıyordu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Miladî 605 yılında, Peygamber Efendimiz otuz beş yaşlarındayken Kureyşliler Kâbe'yi tamir etmeye karar verdiler. Yapı yangın ve sel baskınları sebebiyle yıpranmıştı. Bütün Kureyş kabileleri kura çekerek iş bölümü yaptı ve herkes belirli bir katkıda bulundu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Tamire katkı verecek olanlara, Kâbe için verilecek paranın temiz ve helâl kazançtan olması, faiz veya haksızlıkla elde edilmiş hiçbir şeyin bu işe karıştırılmaması söylendi. Peygamber Efendimiz de amcası Abbas ile birlikte taş taşıyarak tamire katıldı."
+        },
+        {
+          "type": "paragraph",
+          "text": "Yapı tamamlanınca Hacerülesved'i yerine kimin koyacağı tartışması çıktı. Hiçbir kabile bu görevi bir diğerine bırakmak istemiyordu; tartışma günlerce sürdü ve savaşı göze alanlar bile oldu."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Sonunda \"Benî Şeybe kapısından Kâbe'ye ilk giren kişiyi hakem yapalım\" teklifinde birleştiler. Kapıdan Peygamber Efendimiz girince Kureyşliler \"İşte el-Emîn geldi\" diyerek memnuniyetlerini dile getirdiler."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hakem olarak kabul edilen Hz. Peygamber bir örtü getirtti, Hacerülesved'i kendi elleriyle örtünün üzerine koydu ve bütün kabile reislerinden örtünün birer ucundan tutmalarını istedi. Taş gereken yüksekliğe gelince onu yine kendi elleriyle yerine yerleştirdi. Böylece çıkmak üzere olan ciddi bir çatışma, herkesin razı olduğu bir çözümle önlendi."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bir anlaşmazlıkta, adil olan ile tarafları sürece dâhil eden bir çözüm yolunu birlikte düşün."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Kâbe Hakemliği, s. 47-50",
+        "evidenceSummary": "Bölüm, Kâbe'nin Hz. İbrahim ve Hz. İsmail tarafından inşa edilen ilk mescit oluşunu; miladî 605'te Kureyş'in Kâbe'yi tamir kararını; Hacerülesved'i yerine koyma tartışmasını ve Peygamberimizin örtü çözümüyle çatışmayı önlemesini anlatır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-veda-hacci-ve-hutbesi",
+      "slug": "veda-hacci-ve-hutbesi",
+      "categoryId": "cat-seerah",
+      "title": "Veda Haccı ve Veda Hutbesi",
+      "summary": "Hz. Peygamber'in hayatının son haccında Arafat'ta yaptığı konuşma, temel hak ve sorumlulukları özetleyen bir veda niteliğindedir.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "veda hutbesi",
+        "arafat",
+        "hac",
+        "kul hakkı",
+        "takva"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Hicretin 10. yılında (632) Hz. Peygamber hacca gitmek için hazırlığa başladı ve bütün Müslümanların bu yolculuğa katılmasını istedi. Medine'den yola çıkıp Zülhuleyfe'de ihrama girdi ve Mekke'ye ulaştı."
+        },
+        {
+          "type": "paragraph",
+          "text": "9 Zilhicce Cuma günü Arafat'a hareket etti. Öğle ve ikindi namazlarını birleştirerek kıldıktan sonra, Arafat'ta çok kalabalık bir topluluğa Veda Hutbesi diye anılan konuşmasını yaptı."
+        },
+        {
+          "type": "paragraph",
+          "text": "Konuşmasında önce bütün insanların Allah'ın kulu olduğunu ve aynı anne babadan geldiklerini hatırlattı. Irk, renk, dil ve sınıf farkı gözetilmeksizin insanların eşit olduğunu, Allah katında üstünlük ölçüsünün takvâ olduğunu belirtti."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hutbe ağırlıklı olarak insan hakları üzerinde durur: can, mal ve ırz güvenliği, kul hakkına dikkat, zulümden ve haram kazançtan kaçınma, emanete riayet."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hz. Peygamber eşler arasındaki karşılıklı hak ve sorumlulukların gözetilmesini istedi, bütün Müslümanların kardeş olduğunu ifade ederek birlik ve beraberliğin önemine dikkat çekti. Kur'an ve Sünnet'in vazgeçilmez rehber olduğunu belirtti; namaz, oruç, zekât ve hac gibi ibadetlerin yerine getirilmesini ve ahlak kurallarına uyulmasını vurguladı."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cahiliye dönemine ait bazı uygulamaların kaldırıldığını, faizin ve kan davasının yasaklandığını ilan etti. Konuşması boyunca ashabına sık sık \"Tebliğ ettim mi?\" diye sorup söylediklerini tasdik ettirdi ve üç defa \"Şâhid ol ya Rab!\" diyerek sözünü tamamladı."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün başkasının hakkını gözetmek için yapabileceğin küçük bir adımı düşün."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-kabe-hakemligi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Veda Haccı ve Hutbesi, s. 248-251",
+        "evidenceSummary": "Bölüm, hicretin 10. yılındaki hac yolculuğunu tarihleriyle anlatır ve Arafat'ta yapılan Veda Hutbesi'nin içeriğini özetler: insanların eşitliği, üstünlük ölçüsünün takvâ oluşu, can/mal/ırz güvenliği, kul hakkı, emanet, eşlerin karşılıklı hakları, kardeşlik, Kur'an ve Sünnet'e bağlılık, faizin ve kan davasının kaldırılması. Kaynakta katılım sayısı 120.000'i aşan ashab olarak verilir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamber-kimdir",
+      "slug": "peygamber-kimdir",
+      "categoryId": "cat-prophets",
+      "title": "Peygamber kimdir?",
+      "summary": "Peygamber, Allah'ın insanlara doğru yolu göstermek üzere görevlendirdiği seçkin insandır; Allah ile kulları arasında elçilik yapar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "peygamber",
+        "resul",
+        "nebi",
+        "vahiy",
+        "iman"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İmanın altı esasından biri de peygamberlere inanmaktır."
+        },
+        {
+          "type": "paragraph",
+          "text": "\"Peygamber\" Farsça bir kelime olup \"haber götüren\" demektir. Dindeki anlamı ise Allah'ın, insanlara doğru yolu göstermek üzere görevlendirdiği seçkin insandır. Peygamber, Allah'ın kendisine vahyettiğini insanlara duyurur; Allah ile kulları arasında elçilik yapar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Diyanet İslam İlmihali'ndeki açıklamaya göre peygamberlerin bir kısmına kitap indirilmiştir; onlara \"resul\" denir. Bir kısmına kitap indirilmemiştir; bunlar kendilerinden önceki peygamberlere inen kitaplarla amel eder ve o kitapları tebliğ ederler. Bunlara da \"nebi\" denir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Aynı kaynaktaki tarife göre her resul aynı zamanda nebidir; fakat her nebi resul değildir."
+        },
+        {
+          "type": "paragraph",
+          "text": "İnsanların peygamberlere ihtiyacı vardır. Çünkü insan aklıyla her şeyi bilemez. Bizi ve kâinatı yaratan Allah'ı aklımızla bulabilsek de, O'na nasıl ibadet edeceğimizi, emir ve yasaklarının neler olduğunu kendi başımıza bilmemiz mümkün değildir. Bunları bize bildirenler peygamberlerdir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "\"Resul\" ve \"nebi\" kelimelerini bir daha duyduğunda aradaki farkı hatırla; bu ayrım, peygamberlik kavramını anlamanın anahtarıdır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-peygamberlerin-sifatlari",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 59-60",
+        "evidenceSummary": "Bölüm, peygamber kelimesinin Farsça 'haber götüren' anlamını, dindeki tanımını, resul-nebi ayrımını ve insanın peygambere olan ihtiyacını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamberlerin-sifatlari",
+      "slug": "peygamberlerin-sifatlari",
+      "categoryId": "cat-prophets",
+      "title": "Peygamberlerin sıfatları",
+      "summary": "Peygamberler, tebliğ görevlerini yerine getirebilmeleri için doğruluk, güvenilirlik, tebliğ, zekâ ve günahtan korunmuşluk sıfatlarını taşırlar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "sıfat",
+        "sıdk",
+        "emanet",
+        "tebliğ",
+        "fetanet"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Peygamberler Allah ile kulları arasında elçilik yaptıklarına göre görevleri; Allah'ı tanıtmak, O'na nasıl ibadet edileceğini bildirmek, emir ve yasakları duyurmaktır. Bütün peygamberler bu görevlerini eksiksiz yerine getirmişlerdir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Peygamberler bizim gibi insanlardır. Ancak Allah'ın seçkin kulları oldukları için birtakım sıfatları vardır. Bunlar vacib ve caiz olmak üzere ikiye ayrılır. Kaynakta peygamberlerde bulunması gerekli görülen sıfatlar \"vacib sıfatlar\" olarak adlandırılır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Vacib sıfatlar beş tanedir. Sıdk doğruluktur; peygamberler kesin olarak yalan söylemez, hile ve haksızlık yapmazlar. Emanet güvenilir olmaktır. Tebliğ, kendilerine vahyedilen her şeyi eksiksiz duyurmalarıdır. Fetanet akıllı ve anlayışlı olmaktır; akıllı olmasalar görevlerini yapamazlardı. İsmet ise günahtan korunmuş olmaktır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Bu beş sıfat, peygamberlerin tebliğ görevindeki güvenilirliğini açıklar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Caiz sıfatlar ise diğer insanlarda da bulunan özelliklerdir: peygamberler de insan oldukları için yer, içer, uyur, yorulur ve ömürleri sona erince vefat ederler."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Sıdk ve emanet üzerinde kısaca düşün: bugün sözünde durmak ve kendine emanet edileni gözetmek nerede karşına çıkıyor?"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 60-61",
+        "evidenceSummary": "Bölüm, peygamberlerin görevlerini ve kendilerinde bulunması vacib olan beş sıfatı (sıdk, emanet, tebliğ, fetanet, ismet) tanımlar; ayrıca peygamberlerin insan olmaları yönüyle taşıdıkları caiz sıfatları açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranda-adi-gecen-peygamberler",
+      "slug": "kuranda-adi-gecen-peygamberler",
+      "categoryId": "cat-prophets",
+      "title": "Kur'an'da adı geçen peygamberler",
+      "summary": "Kur'an-ı Kerim'de ismi geçen peygamberler 25 tanedir; gönderilen bütün peygamberlerin sayısını ise ancak Allah bilir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "peygamberler",
+        "kur'an",
+        "âdem",
+        "iman",
+        "isimler"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İlk peygamber Hz. Âdem ile son peygamber Hz. Muhammed (s.a.v.) arasında pek çok peygamber gelmiş ve geçmiştir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bunların kesin sayısını ancak Allah bilir. Çünkü Kur'an'da bir kısım peygamberlerin ismi bildirilmiş, ismi bildirilmeyen daha pek çok peygamberin bulunduğu ifade edilmiştir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Bu sebeple Müslüman, Allah'ın gönderdiği bütün peygamberlere inanır ve sayılarını Allah'a bırakır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kur'an-ı Kerim'de ismi geçen peygamberler 25 tanedir: Âdem, İdris, Nuh, Hud, Salih, Şuayb, İbrahim, Lut, İshak, İsmail, Yakub, Yusuf, Musa, Harun, Davud, Süleyman, Eyyüb, Zülkifl, İlyas, Elyesa, Zekeriya, Yunus, Yahya, İsa ve Muhammed (a.s.)."
+        },
+        {
+          "type": "paragraph",
+          "text": "Peygamberlere iman, bunlardan yalnız bazılarına değil, Allah'ın gönderdiği bütün peygamberlere inanmayı gerektirir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Tanımadığın bir ismi not al ve güvenilir bir kaynaktan öğrenmek üzere kaydet."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-peygamberlerin-sifatlari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 61",
+        "evidenceSummary": "Bölüm, ilk peygamber Hz. Âdem ile son peygamber Hz. Muhammed arasında pek çok peygamber geldiğini, kesin sayılarını ancak Allah'ın bildiğini ve Kur'an-ı Kerim'de ismi geçen peygamberlerin 25 olduğunu belirterek bu isimleri sıralar. İhtilaflı sınıflandırmalar bu makaleye ALINMAMIŞTIR.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

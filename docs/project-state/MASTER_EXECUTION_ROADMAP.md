@@ -72,6 +72,7 @@ TASK 083A   — Initial DailyPlan orchestration — COMPLETED
 TASK 084    — Missed-day recovery and gentle rollover — COMPLETED
 TASK 085    — 30-day plan and CP10 checkpoint — COMPLETED
 TASK 086    — Content-source matrix — COMPLETED
+TASK 087    — Learn pack: Hadith, Seerah, Prophets — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -260,10 +261,23 @@ consume **only** published Learn articles, category titles as a weak ranking
 signal, and the source registry; pending/draft content, Quran text/translation/
 audio, prayer-time output and all interface copy are **excluded**.
 
+**CP11 Learn-catalog rule (fixed by TASK 087):** TASK 082's fixed 30-entry
+DailyPlan catalog is a **curated versioned subset** of the growing published
+Learn library, **not a permanent mirror** of it. `LearnDailyPlanCatalog.v1`
+stays exactly 30 ordered unique entries whose IDs each resolve to a published,
+source-verified article in TR, EN **and** AR; the library is **expected to
+grow** past 30; and Learn-pack articles must **not** enter the catalog. Every
+Learn pack must also re-derive eligibility from the shipped assets, keep the
+2 `scholarlyReviewPending` articles pending (TASK 091 owns them), and omit
+`beginnerPathOrder` so the existing beginner path stays contiguous. A Learn
+pack may register a new source only under `diyanet.gov.tr` with an exact
+locatable section, and must record its series, edition and authorship without
+implying Diyanet endorsement.
+
 ```text
 TASK 086 — Content-source matrix                        — COMPLETED
-TASK 087 — Learn pack: Hadith, Seerah, Prophets         <-- NEXT TASK
-TASK 088 — Learn pack: Dua, Family, Halal foundations
+TASK 087 — Learn pack: Hadith, Seerah, Prophets         — COMPLETED
+TASK 088 — Learn pack: Dua, Family, Halal foundations   <-- NEXT TASK
 TASK 089 — Learn pack: Women, Afterlife, Islamic history
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps
 TASK 091 — Review pending Learn articles
