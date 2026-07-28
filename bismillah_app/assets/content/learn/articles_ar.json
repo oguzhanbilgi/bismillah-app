@@ -2027,6 +2027,576 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-hadis-ve-sunnet-nedir",
+      "slug": "ma-al-hadith-wa-al-sunna",
+      "categoryId": "cat-hadith",
+      "title": "ما الحديث وما السنة؟",
+      "summary": "الحديث اسم لما نُقل من أقوال النبي، والسنة تعبّر عن طريقته في الحياة، وكلاهما مصدر أساسي يوضّح القرآن.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الحديث",
+        "السنة",
+        "النبي",
+        "المصدر",
+        "الرواية"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الحديث هو الاسم العام لما نُقل من أقوال النبي محمد صلى الله عليه وسلم. أما السنة فتشمل أقواله وأفعاله وإقراره معًا. وهما يبيّنان كيف فُهم القرآن الكريم وكيف طُبّق في الحياة اليومية."
+        },
+        {
+          "type": "paragraph",
+          "text": "الحديث والسنة لا يحلّان محلّ القرآن، بل هما مصدران أساسيان يعينان على بيانه وعلى فهم كيفية تطبيقه في الحياة."
+        },
+        {
+          "type": "keyPoint",
+          "text": "إعادة قراءة نصوص الحديث وشرحها في كل عصر هي محاولة لبناء جسر بين النص والحياة."
+        },
+        {
+          "type": "paragraph",
+          "text": "نُقلت هذه الروايات بعناية عبر التاريخ وتحوّلت مع الزمن إلى تراث واسع. وقد عمل علماء الحديث على نقل النصوص كما هي، وعلى إبقاء مبادئ السنة وقيمها قابلة للتطبيق."
+        },
+        {
+          "type": "paragraph",
+          "text": "مصادر الحديث الكلاسيكية ليست كتبًا يسهل على كل أحد الإفادة منها مباشرة، ولذلك أُنجزت في كل عصر تقريبًا أعمال تجعل هذا التراث مفهومًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إذا مرّ بك حديث فانظر أولًا إلى الموضوع الذي يوضّحه؛ فمعرفة مصدره وسياقه أول خطوة نحو الفهم الصحيح."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ilim-ve-hidayet-yagmuru",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 41, 60",
+        "evidenceSummary": "Eserin giriş bölümü, hadis ve sünnetin Kur'an'ın beyanı olması yönüyle Müslümanların inanç, ibadet ve ahlak esaslarını belirlediğini; bu mirasın geniş bir külliyata dönüştüğünü ve İslam'ın sürekliliğini sağladığını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ilim-ve-hidayet-yagmuru",
+      "slug": "al-ilm-wa-al-huda-mathal-al-matar",
+      "categoryId": "cat-hadith",
+      "title": "العلم والهدى: مثل المطر",
+      "summary": "شبّه النبي ما بُعث به من العلم والهدى بالمطر، وشبّه الناس بأنواع من الأرض تتلقى ذلك المطر على وجوه مختلفة.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "العلم",
+        "الهدى",
+        "التعلم",
+        "المثل",
+        "المطر"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "شبّه النبي صلى الله عليه وسلم ما بعثه الله به من الهدى والعلم بغيث كثير أصاب أرضًا مختلفة الطبائع."
+        },
+        {
+          "type": "paragraph",
+          "text": "يذكر هذا المثل ثلاث حالات: أرض طيّبة تقبل الماء فتنبت الكلأ والعشب الكثير؛ وأرض تمسك الماء على سطحها فينتفع الناس به فيشربون ويسقون ويزرعون؛ وأرض ملساء لا تمسك ماءً ولا تنبت كلأً."
+        },
+        {
+          "type": "keyPoint",
+          "text": "جوهر المثل أن حاجة الإنسان إلى هدى الوحي كحاجة الأرض إلى الماء."
+        },
+        {
+          "type": "paragraph",
+          "text": "يوضّح المصدر ذلك بأن من تعلّم هذا العلم واستوعبه وعلّمه غيره فهو كالأرض المثمرة، ومن لم يعبأ به فهو كالأرض القاحلة التي لا تقبل الماء."
+        },
+        {
+          "type": "paragraph",
+          "text": "والمقصود هنا ليس الحكم على الناس، بل التأمل في موقف الإنسان من العلم؛ فنقلُ ما تعلّمته جزء من المثل كتعلّمه."
+        },
+        {
+          "type": "practicalAction",
+          "text": "شارك معلومة نافعة تعلّمتها من مصدر تثق به، مع بيان سياقها الصحيح."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-hayvanlara-merhamet"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 1, s. 397",
+        "evidenceSummary": "Sayfada, Allah Resûlü'nün kendisiyle gönderilen hidayet ve ilmi farklı topraklara düşen bol yağmura benzettiği rivayet ve ardından gelen açıklama yer alır; üç toprak türü sayılır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hayvanlara-merhamet",
+      "slug": "al-rahma-bi-al-hayawan",
+      "categoryId": "cat-hadith",
+      "title": "الرحمة بالحيوان",
+      "summary": "حثّ النبي على حسن رعاية الحيوان الذي لا ينطق، ونهى عن تعذيبه وعن الإضرار به من غير حاجة.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "الرحمة",
+        "الحيوان",
+        "المسؤولية",
+        "التعذيب",
+        "الرعاية"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "أوصى النبي صلى الله عليه وسلم من حوله بأن يستشعروا المسؤولية تجاه الحيوان فقال: \"اتقوا الله في هذه البهائم المعجمة\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي المصدر خبر يجسّد هذا المعنى: خرج رسول الله يومًا ومعه ابن عمه عبد الله بن جعفر، فرأى بعيرًا في حائط من حوائط الأنصار، فلما رآه البعير حنّ وذرفت عيناه، فدنا منه النبي ومسح على أذنيه فسكن."
+        },
+        {
+          "type": "paragraph",
+          "text": "ثم سأل عن صاحبه فلما جاء قال له: \"أفلا تتقي الله في هذه البهيمة التي ملّكك الله إياها؟ فإنها شكت إليّ أنك تجيعها وتُدئبها\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "والمعنى واضح: كل كائن حيّ نتولى رعايته هو أمانة ومسؤولية علينا."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويذكر المصدر أن الحيوان سُخّر لينتفع به الإنسان، وأنه في الوقت نفسه من جمال الطبيعة وموضع للتفكر والاعتبار. وقد عاش النبي هذه الحياة من داخلها، فرعى الغنم كسائر الأنبياء، وكان يحلب شاته بيده أحيانًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولم تبقَ هذه الرحمة قولًا فحسب؛ فبحسب المصدر نهى النبي عن اتخاذ شيء فيه الروح غرضًا، وعن التحريش بين البهائم، واتخذ من التدابير ما يحفظ نسل الحيوان، وأنكر تعذيبه والإضرار به بغير حاجة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "تفقّد اليوم ماء حيوان في رعايتك وعلفه ومأواه وراحته."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hadis-ve-sunnet-nedir",
+        "art-ilim-ve-hidayet-yagmuru"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 5, s. 255-261",
+        "evidenceSummary": "Bölüm, hayvanlara merhametle muameleyi konu alan müstakil bir bahistir: s. 255 konunun hadis kümesini, s. 257 aç bırakılan devenin Hz. Peygamber'e şikâyeti anlatısını, s. 258-259 hayvanların nimet ve ibret oluşunu, s. 261 hayvan neslinin korunmasına ve eziyetin yasaklanmasına dair uygulamaları aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hilful-fudul",
+      "slug": "hilf-al-fudul",
+      "categoryId": "cat-seerah",
+      "title": "حلف الفضول: حلف أهل الفضل",
+      "summary": "حلف الفضول ميثاق تعاون قام في مكة في شباب النبي، غايته نصرة كل من وقع عليه ظلم.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "العدل",
+        "الظلم",
+        "التعاون",
+        "مكة",
+        "الميثاق"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "كانت الخلافات بين الأفراد والقبائل في المجتمع العربي قبل الإسلام تتحول كثيرًا إلى نزاع مسلح، فأضرّ ذلك بالتجارة وبالحياة اليومية وبشعور الناس بالأمان."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولتجاوز هذه المشكلة اعتبرت القبائل أربعة أشهر من السنة حرمًا (ذو القعدة وذو الحجة والمحرم ورجب) وتعاهدت ألا تقاتل فيها، ومع ذلك وقعت حروب في الأشهر الحرم سُمّيت حروب الفِجار."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي هذا الجو ضعف أمن النفس والمال والعرض في مكة ضعفًا شديدًا، وكان الضعفاء القادمون إليها للتجارة يتعرضون للظلم."
+        },
+        {
+          "type": "keyPoint",
+          "text": "قدم تاجر من اليمن إلى مكة للتجارة فلم يحصل على ثمن ما باع، فنادى بأعلى صوته طالبًا العدل، فكان نداؤه نقطة التحول."
+        },
+        {
+          "type": "paragraph",
+          "text": "اجتمعت القبائل التي سمعت النداء في بيت وتحالفت على ألا يُظلم أحد وأن يُنصر المظلوم. وخلاصة الحلف أن أحدًا إذا ظُلم بمكة، من أهلها أو من غيرهم، كانوا يدًا واحدة حتى يُردّ إليه حقه."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إذا رأيت ظلمًا من حولك فتذكّر قبل أن تقول \"هذا لا يعنيني\" ميزان هذا الحلف: العبرة بالظلم نفسه لا بهوية المظلوم."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kabe-hakemligi",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Hılfu'l-Fudûl, s. 37-39",
+        "evidenceSummary": "Bölüm, cahiliye Arap toplumundaki anlaşmazlıkları, haram ayları ve Ficâr savaşlarını anlatır; Mekke'de haksızlığa uğrayan Yemenli tüccarın feryadı üzerine kabilelerin toplanıp haksızlığa uğrayana yardım etme yemini ettiğini ve yeminin içeriğini aktarır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kabe-hakemligi",
+      "slug": "tahkim-al-kaaba",
+      "categoryId": "cat-seerah",
+      "title": "التحكيم عند الكعبة",
+      "summary": "خلاف نشب أثناء إعادة بناء الكعبة وكاد يتحول إلى قتال، فانتهى بحلّ بسيط عادل اقترحه النبي.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "الكعبة",
+        "التحكيم",
+        "الخلاف",
+        "الحل",
+        "قريش"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الكعبة أول مسجد وُضع في الأرض، بناها بأمر الله إبراهيم وابنه إسماعيل عليهما السلام، وكانت قبل الإسلام أيضًا مركزًا دينيًا مهمًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي سنة 605 للميلاد، والنبي في نحو الخامسة والثلاثين، قررت قريش إعادة بناء الكعبة بعدما أضعفها الحريق والسيول. فاقترعت بطون قريش على العمل واشترك كل منهم بنصيب معلوم."
+        },
+        {
+          "type": "paragraph",
+          "text": "وقيل لمن يسهم بماله إن ما يُنفق على الكعبة يجب أن يكون من كسب طيب حلال، وألا يُدخل فيه شيء من ربا أو ظلم. وشارك النبي في البناء فحمل الحجارة مع عمه العباس."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولما تم البناء وقع الخلاف في وضع الحجر الأسود في موضعه، فلم ترضَ قبيلة أن تترك ذلك لغيرها، ودام النزاع أيامًا حتى همّ بعضهم بالقتال."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ثم اتفقوا على اقتراح: أن يُحكّموا أول داخل عليهم من باب بني شيبة. فلما دخل النبي قالوا: \"هذا الأمين\" وسُرّوا بذلك."
+        },
+        {
+          "type": "paragraph",
+          "text": "فلما رضوا بتحكيمه دعا بثوب فوضع الحجر الأسود عليه بيده، وطلب من رؤساء القبائل أن يأخذ كل واحد بطرف من الثوب. فلما بلغ الحجر موضعه رفعه بيده ووضعه مكانه، فحُقن بذلك دم كاد يُراق ورضي الجميع بالحل."
+        },
+        {
+          "type": "practicalAction",
+          "text": "عند الخلاف فكّر في حلّ يجمع بين العدل وإشراك الأطراف جميعًا في الوصول إليه."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-veda-hacci-ve-hutbesi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Kâbe Hakemliği, s. 47-50",
+        "evidenceSummary": "Bölüm, Kâbe'nin Hz. İbrahim ve Hz. İsmail tarafından inşa edilen ilk mescit oluşunu; miladî 605'te Kureyş'in Kâbe'yi tamir kararını; Hacerülesved'i yerine koyma tartışmasını ve Peygamberimizin örtü çözümüyle çatışmayı önlemesini anlatır.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-veda-hacci-ve-hutbesi",
+      "slug": "hajjat-al-wada-wa-khutbatuha",
+      "categoryId": "cat-seerah",
+      "title": "حجة الوداع وخطبتها",
+      "summary": "الخطبة التي ألقاها النبي في عرفة في آخر حجّة من حياته تلخّص الحقوق والمسؤوليات الأساسية وتأتي في معنى الوداع.",
+      "contentType": "generalTeaching",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "خطبة الوداع",
+        "عرفة",
+        "الحج",
+        "حقوق العباد",
+        "التقوى"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "في السنة العاشرة للهجرة (632م) بدأ النبي الاستعداد للحج وطلب من المسلمين جميعًا أن يشاركوا في هذه الرحلة، فخرج من المدينة وأحرم من ذي الحليفة حتى بلغ مكة."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي يوم الجمعة التاسع من ذي الحجة توجّه إلى عرفة، فلما جمع بين الظهر والعصر خطب في جمع كبير جدًا الخطبةَ المعروفة بخطبة الوداع."
+        },
+        {
+          "type": "paragraph",
+          "text": "بدأ بأن ذكّر الناس بأنهم جميعًا عباد لله وأنهم من أبٍ وأمّ واحدة، وبيّن أن الناس سواء لا فضل بينهم بعرق ولا لون ولا لسان ولا طبقة، وأن ميزان التفاضل عند الله هو التقوى."
+        },
+        {
+          "type": "keyPoint",
+          "text": "تدور الخطبة في جملتها على حقوق الإنسان: حرمة الدم والمال والعرض، والعناية بحقوق العباد، واجتناب الظلم والكسب الحرام، وأداء الأمانة."
+        },
+        {
+          "type": "paragraph",
+          "text": "وطلب النبي رعاية الحقوق والواجبات المتبادلة بين الزوجين، ونبّه على أهمية الوحدة فبيّن أن المسلمين جميعًا إخوة، وذكر أن القرآن والسنة هدى لا غنى عنه، وحثّ على أداء العبادات كالصلاة والصوم والزكاة والحج وعلى التمسك بالأخلاق."
+        },
+        {
+          "type": "paragraph",
+          "text": "وأعلن إبطال جملة من عادات الجاهلية، وتحريم الربا والثأر. وكان يسأل أصحابه في أثناء الخطبة: \"ألا هل بلّغت؟\" فيُقرّونه، ثم ختم قائلًا ثلاثًا: \"اللهم اشهد\"."
+        },
+        {
+          "type": "practicalAction",
+          "text": "فكّر اليوم في خطوة صغيرة تحفظ بها حقًّا لغيرك."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hilful-fudul",
+        "art-kabe-hakemligi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hz-muhammedin-hayati",
+        "sourceLocator": "Hz. Muhammed'in Hayatı (16. Baskı, 2025), Veda Haccı ve Hutbesi, s. 248-251",
+        "evidenceSummary": "Bölüm, hicretin 10. yılındaki hac yolculuğunu tarihleriyle anlatır ve Arafat'ta yapılan Veda Hutbesi'nin içeriğini özetler: insanların eşitliği, üstünlük ölçüsünün takvâ oluşu, can/mal/ırz güvenliği, kul hakkı, emanet, eşlerin karşılıklı hakları, kardeşlik, Kur'an ve Sünnet'e bağlılık, faizin ve kan davasının kaldırılması. Kaynakta katılım sayısı 120.000'i aşan ashab olarak verilir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamber-kimdir",
+      "slug": "man-huwa-al-nabi",
+      "categoryId": "cat-prophets",
+      "title": "من هو النبي؟",
+      "summary": "النبي إنسان مصطفى اختاره الله ليدل الناس على الطريق المستقيم، وهو سفير بين الله وعباده.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "النبي",
+        "الرسول",
+        "الوحي",
+        "الإيمان",
+        "الرسالة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "من أركان الإيمان الستة الإيمانُ بالأنبياء."
+        },
+        {
+          "type": "paragraph",
+          "text": "لفظ \"بيغمبر\" المستعمل في التركية فارسي الأصل ومعناه \"حامل الخبر\"، وأما معناه في الدين فهو الإنسان المصطفى الذي يكلّفه الله بهداية الناس إلى الطريق المستقيم؛ يبلّغ الناس ما أوحى الله إليه، ويكون سفيرًا بين الله وعباده."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبحسب ما جاء في \"إسلام إلمهالي\" الصادر عن رئاسة الشؤون الدينية، من الأنبياء من أُنزل عليه كتاب ويسمى \"رسولًا\"، ومنهم من لم يُنزل عليه كتاب فيعمل بكتاب من قبله من الأنبياء ويبلّغه، ويسمى \"نبيًّا\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وبحسب التعريف نفسه في المصدر: كل رسول نبي، وليس كل نبي رسولًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "والناس محتاجون إلى الأنبياء، لأن الإنسان لا يبلغ بعقله كل شيء. فنحن وإن أمكننا أن نستدل بعقولنا على الله الذي خلقنا وخلق الكون، فإننا لا نستطيع وحدنا أن نعرف كيف نعبده وما أوامره ونواهيه، وإنما يعرّفنا ذلك الأنبياء."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إذا سمعت لفظي \"رسول\" و\"نبي\" مرة أخرى فتذكّر الفرق بينهما؛ فهذا التمييز مفتاح فهم معنى النبوة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamberlerin-sifatlari",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 59-60",
+        "evidenceSummary": "Bölüm, peygamber kelimesinin Farsça 'haber götüren' anlamını, dindeki tanımını, resul-nebi ayrımını ve insanın peygambere olan ihtiyacını açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-peygamberlerin-sifatlari",
+      "slug": "sifat-al-anbiya",
+      "categoryId": "cat-prophets",
+      "title": "صفات الأنبياء",
+      "summary": "يتصف الأنبياء بالصدق والأمانة والتبليغ والفطانة والعصمة ليؤدوا مهمة البلاغ على وجهها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الصفات",
+        "الصدق",
+        "الأمانة",
+        "التبليغ",
+        "الفطانة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "لما كان الأنبياء سفراء بين الله وعباده كانت مهمتهم أن يعرّفوا بالله، وأن يبيّنوا كيف يُعبد، وأن يبلّغوا أوامره ونواهيه. وقد أدّى الأنبياء جميعًا هذه المهمة على التمام."
+        },
+        {
+          "type": "paragraph",
+          "text": "والأنبياء بشر مثلنا، غير أنهم لما كانوا صفوة عباد الله كانت لهم صفات، وهي قسمان: واجبة وجائزة. وتسمّى في المصدر الصفاتُ التي يلزم ثبوتها للأنبياء \"الصفات الواجبة\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "والصفات الواجبة خمس: الصدق، فلا يكذب الأنبياء البتة ولا يخدعون ولا يظلمون؛ والأمانة، وهي أن يكونوا موضع ثقة؛ والتبليغ، وهو أن يبلّغوا كل ما أُوحي إليهم من غير نقص؛ والفطانة، وهي الذكاء وحسن الفهم، إذ لولاها ما استطاعوا أداء مهمتهم؛ والعصمة، وهي الحفظ من الذنب."
+        },
+        {
+          "type": "keyPoint",
+          "text": "هذه الصفات الخمس تبيّن وجه الثقة بالأنبياء في أداء مهمة البلاغ."
+        },
+        {
+          "type": "paragraph",
+          "text": "وأما الصفات الجائزة فهي ما يوجد في سائر الناس أيضًا: فالأنبياء بشر يأكلون ويشربون وينامون ويتعبون، وإذا انقضت آجالهم توفّوا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "تأمّل قليلًا في الصدق والأمانة: أين يظهر اليوم في حياتك الوفاء بالوعد وحفظ ما اؤتمنت عليه؟"
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-kuranda-adi-gecen-peygamberler"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 60-61",
+        "evidenceSummary": "Bölüm, peygamberlerin görevlerini ve kendilerinde bulunması vacib olan beş sıfatı (sıdk, emanet, tebliğ, fetanet, ismet) tanımlar; ayrıca peygamberlerin insan olmaları yönüyle taşıdıkları caiz sıfatları açıklar.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranda-adi-gecen-peygamberler",
+      "slug": "al-anbiya-al-madhkurun-fi-al-quran",
+      "categoryId": "cat-prophets",
+      "title": "الأنبياء المذكورون في القرآن",
+      "summary": "عدد الأنبياء الذين ذُكرت أسماؤهم في القرآن خمسة وعشرون، وأما عدد الأنبياء جميعًا فلا يعلمه إلا الله.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الأنبياء",
+        "القرآن",
+        "آدم",
+        "الإيمان",
+        "الأسماء"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بين أول الأنبياء آدم عليه السلام وآخرهم محمد صلى الله عليه وسلم جاء أنبياء كثيرون ومضوا."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولا يعلم عددهم على التحديد إلا الله، فقد ذكر القرآن أسماء بعض الأنبياء وأخبر أن هناك أنبياء كثيرين لم تُذكر أسماؤهم."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ولذلك يؤمن المسلم بجميع من أرسل الله من الأنبياء ويكل عددهم إلى الله."
+        },
+        {
+          "type": "paragraph",
+          "text": "والأنبياء الذين ذُكرت أسماؤهم في القرآن خمسة وعشرون: آدم وإدريس ونوح وهود وصالح وشعيب وإبراهيم ولوط وإسحاق وإسماعيل ويعقوب ويوسف وموسى وهارون وداود وسليمان وأيوب وذو الكفل وإلياس واليسع وزكريا ويونس ويحيى وعيسى ومحمد عليهم السلام."
+        },
+        {
+          "type": "paragraph",
+          "text": "والإيمان بالأنبياء يقتضي الإيمان بهم جميعًا لا ببعضهم فقط."
+        },
+        {
+          "type": "practicalAction",
+          "text": "قيّد اسمًا لا تعرفه واحفظه لتتعلّم عنه من مصدر موثوق."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-peygamber-kimdir",
+        "art-peygamberlerin-sifatlari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Peygamberlere İman, s. 61",
+        "evidenceSummary": "Bölüm, ilk peygamber Hz. Âdem ile son peygamber Hz. Muhammed arasında pek çok peygamber geldiğini, kesin sayılarını ancak Allah'ın bildiğini ve Kur'an-ı Kerim'de ismi geçen peygamberlerin 25 olduğunu belirterek bu isimleri sıralar. İhtilaflı sınıflandırmalar bu makaleye ALINMAMIŞTIR.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

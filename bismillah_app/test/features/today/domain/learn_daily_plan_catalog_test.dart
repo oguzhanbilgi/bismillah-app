@@ -48,13 +48,21 @@ void main() {
   final catalogIds = [for (final entry in catalog.entries) entry.articleId];
 
   group('içerik uygunluk kapısı', () {
-    test('her locale tam olarak 30 uygun makale taşır', () {
+    test('her locale en az katalog kadar uygun makale taşır ve kimlik '
+        'kümeleri BİREBİR aynıdır', () {
+      // Learn kütüphanesi katalogdan BÜYÜK olabilir (CP11 Learn paketleri,
+      // TASK 087+). Katalog, büyüyen kütüphanenin küratörlü ve sürümlü bir
+      // ALT KÜMESİDİR; kütüphanenin aynası değildir.
       for (final locale in locales) {
         expect(
           eligibleById(locale).length,
-          LearnDailyPlanCatalog.requiredEntryCount,
+          greaterThanOrEqualTo(LearnDailyPlanCatalog.requiredEntryCount),
           reason: locale,
         );
+      }
+      final tr = eligibleById('tr').keys.toSet();
+      for (final locale in ['en', 'ar']) {
+        expect(eligibleById(locale).keys.toSet(), tr, reason: locale);
       }
     });
 
@@ -184,12 +192,47 @@ void main() {
       }
     });
 
-    test('katalog uygun kimliklerin TAMAMINI kapsar', () {
-      expect(catalogIds.toSet(), eligibleTr.keys.toSet());
+    test('katalog HER locale\'de uygun kimliklere çözümlenir', () {
+      // ALT KÜME değişmezi: katalog kütüphaneyi aynalamaz, ondan seçer.
+      // Kütüphane büyüyebilir; katalogdaki her kimlik üç locale'de de
+      // yayınlanmış ve kaynak gövdesi doğrulanmış olmak ZORUNDADIR.
+      for (final locale in locales) {
+        final eligible = eligibleById(locale).keys.toSet();
+        for (final id in catalogIds) {
+          expect(eligible, contains(id), reason: '$locale eksik: $id');
+        }
+      }
     });
 
-    test('sayıyı tutturmak için makale çoğaltılmamıştır', () {
-      expect(catalogIds.length, eligibleTr.length);
+    test('katalog uzunluğu sabit ve kimlikleri tekildir', () {
+      // Sayıyı tutturmak için makale çoğaltılamaz; sıra değişmezliği
+      // "katalog sırası determinizmi" grubunda ayrıca doğrulanır.
+      expect(catalogIds.length, LearnDailyPlanCatalog.requiredEntryCount);
+      expect(catalogIds.toSet().length, catalogIds.length);
+    });
+  });
+
+  group('TASK 087 katalog sınırı', () {
+    const task087Ids = <String>[
+      'art-hadis-ve-sunnet-nedir',
+      'art-ilim-ve-hidayet-yagmuru',
+      'art-hayvanlara-merhamet',
+      'art-hilful-fudul',
+      'art-kabe-hakemligi',
+      'art-veda-hacci-ve-hutbesi',
+      'art-peygamber-kimdir',
+      'art-peygamberlerin-sifatlari',
+      'art-kuranda-adi-gecen-peygamberler',
+    ];
+
+    test('TASK 087 makalelerinin hiçbiri plan kataloğuna GİRMEZ', () {
+      for (final id in task087Ids) {
+        expect(catalogIds, isNot(contains(id)), reason: id);
+      }
+    });
+
+    test('katalog TASK 082 uzunluğunu korur', () {
+      expect(catalog.entries.length, 30);
     });
   });
 
@@ -227,9 +270,11 @@ void main() {
     });
 
     test('sıra asset JSON dosya sırasına EŞİT DEĞİLDİR', () {
+      // Kütüphane katalogdan büyük olabildiği için karşılaştırma, aynı
+      // kimliklerin dosyadaki görünme sırası ile yapılır.
       final assetOrder = [
         for (final a in byLocale['tr']!)
-          if (isEligible(a)) a.id,
+          if (isEligible(a) && catalogIds.contains(a.id)) a.id,
       ];
       expect(assetOrder.length, catalogIds.length);
       expect(
