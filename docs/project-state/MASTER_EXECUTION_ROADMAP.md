@@ -73,6 +73,7 @@ TASK 084    — Missed-day recovery and gentle rollover — COMPLETED
 TASK 085    — 30-day plan and CP10 checkpoint — COMPLETED
 TASK 086    — Content-source matrix — COMPLETED
 TASK 087    — Learn pack: Hadith, Seerah, Prophets — COMPLETED
+TASK 088    — Learn pack: Dua, Family, Halal foundations — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -277,8 +278,8 @@ implying Diyanet endorsement.
 ```text
 TASK 086 — Content-source matrix                        — COMPLETED
 TASK 087 — Learn pack: Hadith, Seerah, Prophets         — COMPLETED
-TASK 088 — Learn pack: Dua, Family, Halal foundations   <-- NEXT TASK
-TASK 089 — Learn pack: Women, Afterlife, Islamic history
+TASK 088 — Learn pack: Dua, Family, Halal foundations   — COMPLETED
+TASK 089 — Learn pack: Women, Afterlife, Islamic history <-- NEXT TASK
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps
 TASK 091 — Review pending Learn articles
 TASK 092 — Official-answer / fatwa-source index foundation

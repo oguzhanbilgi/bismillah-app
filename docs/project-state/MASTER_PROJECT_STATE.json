@@ -8,7 +8,7 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "df1fec0",
+    "last_verified_main_before_task": "c133fb6",
     "public_tag": "v0.1.0-alpha.1",
     "public_tag_commit": "c23f490",
     "flutter_version": "3.44.6",
@@ -17,8 +17,10 @@
     "npm_version": "10.9.4",
     "android_sdk": "36.1.0",
     "gradle_jdk": "21",
-    "flutter_tests": 1472,
-    "flutter_tests_previous": 1436,
+    "flutter_tests": 1501,
+    "flutter_tests_previous": 1472,
+    "learn_pack_088_tests": 29,
+    "learn_pack_088_command": "flutter test test/features/learn/task_088_learn_pack_test.dart",
     "learn_pack_087_tests": 34,
     "learn_pack_087_command": "flutter test test/features/learn/task_087_learn_pack_test.dart",
     "learn_plan_catalog_tests": 40,
@@ -74,14 +76,37 @@
     "known_non_blocking_test_warning": "one off-screen tap() offset warning in bismillah_app/test/features/learn/learn_screens_test.dart; test passes"
   },
   "current_task": {
-    "id": "TASK-087",
-    "name": "Learn pack: Hadith, Seerah, Prophets",
+    "id": "TASK-088",
+    "name": "Learn pack: Dua, Family, Halal foundations",
     "status": "completed",
-    "latest_completed_functional_task": "TASK-087",
+    "latest_completed_functional_task": "TASK-088",
     "latest_completed_documentation_task": "TASK-086",
-    "next_functional_task": "TASK-088",
-    "next_functional_task_name": "Learn pack: Dua, Family, Halal foundations",
+    "next_functional_task": "TASK-089",
+    "next_functional_task_name": "Learn pack: Women, Afterlife, Islamic history",
     "next_functional_task_scope": "CP11 (Learn and Assistant depth). Deliberately deferred out of CP10 and owned by NO task yet: day-30 plan renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar navigation, opening a Learn article from a task card, and repair of TASK-083A's typed rangeConflict",
+    "learn_pack_088": {
+      "owner_scope_decision": "4 articles - cat-dua 1, cat-family 2, cat-halal 1 (12 localized records); the roadmap defines no count and TASK-087 3+3+3 was NOT inherited",
+      "article_ids": ["art-dua-nedir", "art-ailenin-onemi", "art-anne-babaya-saygi-ve-nezaket", "art-helal-ve-haram-nedir"],
+      "records_per_locale": 45,
+      "published_per_locale": 43,
+      "categories_populated_total": "12 -> 15 of 20",
+      "categories_still_empty": ["cat-women", "cat-afterlife", "cat-history", "cat-madhhabs", "cat-calendar"],
+      "new_source_record_added": false,
+      "registered_sources": 7,
+      "phase_a_gate": "PARTIALLY READY - the Ilmihal has NO standalone dua chapter and its general dua page (s.163) extracts with CORRUPTED GLYPHS; the Hadislerle Islam dua chapter spine is guaranteed-acceptance and special-times material (s.35-37, 40-41) which is excluded, so art-dua-nedir rests on s.40 ALONE (disclosed, not padded)",
+      "dua_pending_record_untouched": "art-dua-adabi remains scholarlyReviewPending and is owned by TASK-091; cat-dua is now the first category holding a published and a pending record side by side",
+      "family_article_renamed": "art-anne-babaya-saygi-ve-nezaket - narrowed to courtesy; the source blanket-obedience items and the maintenance item were dropped",
+      "halal_scope": "definitions only, attributed explicitly to the Diyanet Islam Ilmihali, redirecting personal cases to the competent authority; art-haramin-cesitleri left OUT OF SCOPE as SCHOLARLY REVIEW REQUIRED",
+      "instruction_not_followed_literally": "attentive listening was omitted from the parent article because it does not appear in the source body in that form",
+      "task_087_test_corrected": "absolute totals (32+9=41, 30+9=39) replaced with growth-tolerant assertions plus a check that all nine TASK-087 articles remain present, published and source-verified - same frozen-count defect class as the TASK-082 reconciliation",
+      "catalog_production_file_modified": false,
+      "task_088_ids_in_catalog": false,
+      "assistant_code_changed": false,
+      "focused_tests": 29,
+      "flutter_suite": "1472 -> 1501",
+      "functions_suite": "not run - untouched",
+      "report": "docs/task-reports/TASK_088_LEARN_DUA_FAMILY_HALAL.md"
+    },
     "learn_pack_087": {
       "owner_scope_decision": "3 hadith + 3 seerah + 3 prophets = 9 new stable IDs, 27 localized records; the roadmap defines no counts",
       "article_ids": ["art-hadis-ve-sunnet-nedir", "art-ilim-ve-hidayet-yagmuru", "art-hayvanlara-merhamet", "art-hilful-fudul", "art-kabe-hakemligi", "art-veda-hacci-ve-hutbesi", "art-peygamber-kimdir", "art-peygamberlerin-sifatlari", "art-kuranda-adi-gecen-peygamberler"],
@@ -681,7 +706,7 @@
     "today": "working end to end for the initial 30-day plan, including local calendar-day rollover and gentle missed-day recovery (persistence TASK-076 + state machine TASK-077 + profile mapping TASK-078 + generator TASK-079 + three core item sources TASK-080/081/082 + task UI with completion TASK-083 + onboarding/bootstrap orchestration TASK-083A + rollover/recovery TASK-084); day-30 renewal and the CP10 checkpoint remain TASK-085",
     "prayer": "implemented (offline times, mark/undo, 7-day history, local exact-alarm reminders)",
     "quran": "implemented (reader, translation, offline search, bookmarks, progress, reciter, MP3Quran audio, Android background/lock-screen)",
-    "learn": "engine implemented; coverage growing (39 published / 2 pending; 12 of 20 categories populated after TASK-087)",
+    "learn": "engine implemented; coverage growing (43 published / 2 pending; 15 of 20 categories populated after TASK-088)",
     "profile": "implemented (personalization, language, sources, privacy/reset, About)",
     "assistant": "implemented (deterministic local published-only retrieval, citations, fatwa refusal, history<=20, sensitive not persisted)",
     "monetization": "dormant scaffolding only (no payment SDK)",
@@ -706,7 +731,7 @@
     "TASK-070D", "TASK-071", "TASK-072", "TASK-073", "TASK-074",
     "TASK-075", "TASK-076", "TASK-077", "TASK-078", "TASK-079",
     "TASK-080", "TASK-081", "TASK-082", "TASK-083", "TASK-083A",
-    "TASK-084", "TASK-085", "TASK-086", "TASK-087"
+    "TASK-084", "TASK-085", "TASK-086", "TASK-087", "TASK-088"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}

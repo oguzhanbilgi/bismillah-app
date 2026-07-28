@@ -244,15 +244,15 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 
 - **Surface:** Learn library, Learn article screen, Today Learn task titles, Assistant answers
 - **Content type:** original short Islamic-knowledge summaries grounded in cited sources
-- **Source name:** Diyanet İslam İlmihali (33 published articles), Hadislerle İslam (3, TASK 087) and Hz. Muhammed'in Hayatı (3, TASK 087); the Kur'an Portalı grounds an unpublished record only
+- **Source name:** Diyanet İslam İlmihali (36 published articles), Hadislerle İslam (4) and Hz. Muhammed'in Hayatı (3); the Kur'an Portalı grounds an unpublished record only
 - **Source class:** reviewed-secondary
-- **Evidence:** `bismillah_app/assets/content/learn/articles_tr.json`, `articles_en.json`, `articles_ar.json` (41 records each: 39 `published`, 2 `scholarlyReviewPending`), `bismillah_app/lib/features/learn/domain/entities/learning_article.dart`, `bismillah_app/lib/features/learn/data/learning_content_parser.dart`
+- **Evidence:** `bismillah_app/assets/content/learn/articles_tr.json`, `articles_en.json`, `articles_ar.json` (45 records each: 43 `published`, 2 `scholarlyReviewPending`), `bismillah_app/lib/features/learn/domain/entities/learning_article.dart`, `bismillah_app/lib/features/learn/data/learning_content_parser.dart`
 - **Delivery:** bundled-asset
 - **Publication status:** publication gate enforced in the domain entity — a `published` article cannot be constructed without `sourceBodyVerified`, an exact locator, an evidence summary and a `verifiedAt`
-- **Source review:** all 39 published records carry `verificationMethod = sourceBodyReview`; the 2 pending records carry `urlExistenceCheck` only and are excluded from the client
-- **TR:** yes — 41 records, `translationStatus = original` (canonical language)
-- **EN:** yes — 41 records, `translationStatus = explanatoryTranslation`
-- **AR:** yes — 41 records, `translationStatus = explanatoryTranslation`
+- **Source review:** all 43 published records carry `verificationMethod = sourceBodyReview`; the 2 pending records carry `urlExistenceCheck` only and are excluded from the client
+- **TR:** yes — 45 records, `translationStatus = original` (canonical language)
+- **EN:** yes — 45 records, `translationStatus = explanatoryTranslation`
+- **AR:** yes — 45 records, `translationStatus = explanatoryTranslation`
 - **Locale rule:** the three locales carry **identical stable ID sets and identical review statuses**; the repository additionally intersects every locale against the canonical Turkish published ID set, so a translation can never publish an article the Turkish canon does not publish
 - **Attribution:** required — institution, work and exact locator resolved from `learn-source-registry`
 - **Licensing:** no Diyanet publication is redistributed; no endorsement is claimed
@@ -260,7 +260,8 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Prohibited:** exposing `scholarlyReviewPending` records; fabricating a title for an unresolved ID (Today falls back to a neutral label); issuing personal rulings from article text
 - **Status:** READY
 - **TASK 087 update:** the Hadith, Seerah and Prophets packs added **9** published articles (3 per category) on directly reviewed source bodies. `diyanet-hadislerle-islam` now grounds published content for the first time, and a new source record `diyanet-hz-muhammedin-hayati` was registered. **TASK 082's fixed 30-entry DailyPlan catalog is a curated versioned subset of the growing published Learn library, not a permanent mirror of the full library** — the 9 new articles deliberately do **not** enter `LearnDailyPlanCatalog.v1`.
-- **Follow-up:** coverage expansion continues in TASK 088–090; pending-article review is owned by TASK 091
+- **TASK 088 update:** the Dua, Family and Halal packs added **4** published articles (`cat-dua` 1, `cat-family` 2, `cat-halal` 1) on directly reviewed source bodies, with **no new source record**. `cat-dua` now holds one published and one `scholarlyReviewPending` record side by side — `art-dua-adabi` is untouched and remains owned by TASK 091.
+- **Follow-up:** coverage expansion continues in TASK 089–090; pending-article review is owned by TASK 091
 
 ### learn-prayer-education
 
@@ -303,8 +304,8 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Consumers:** Learn, Assistant (category titles contribute to retrieval ranking only)
 - **Prohibited:** presenting a category description as sourced religious teaching
 - **Status:** READY WITH DOCUMENTED LIMITATION
-- **Limitation:** **8 of 20 categories are empty** — `cat-dua`, `cat-family`, `cat-halal`, `cat-women`, `cat-afterlife`, `cat-history`, `cat-madhhabs`, `cat-calendar`. TASK 087 populated `cat-hadith`, `cat-seerah` and `cat-prophets` (3 published articles each), raising populated categories from 9 to **12 of 20**.
-- **Follow-up:** TASK 088–090 (remaining Learn packs)
+- **Limitation:** **5 of 20 categories are empty** — `cat-women`, `cat-afterlife`, `cat-history`, `cat-madhhabs`, `cat-calendar`. TASK 087 populated `cat-hadith`, `cat-seerah` and `cat-prophets` (3 each) and TASK 088 populated `cat-dua`, `cat-family` and `cat-halal` (1 + 2 + 1), raising populated categories from 9 to **15 of 20**.
+- **Follow-up:** TASK 089–090 (remaining Learn packs)
 
 ### learn-source-registry
 
@@ -325,7 +326,7 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Consumers:** Learn, Assistant, Profile
 - **Prohibited:** citing a generic fatwa homepage as an exact locator (rejected by the parser); adding a non-`diyanet.gov.tr` source without a separate approved decision
 - **Status:** READY WITH DOCUMENTED LIMITATION
-- **Limitation:** **4 of 7 registered sources ground no published article** — `diyanet-kuran-portali` (grounds a pending record only), `diyanet-kuran-yolu-tefsiri`, `diyanet-din-isleri-yuksek-kurulu` and `diyanet-dini-soru-hizmetleri`; the latter two are still used as Assistant guidance redirect targets. TASK 087 activated `diyanet-hadislerle-islam` for published content and registered `diyanet-hz-muhammedin-hayati`, so **3 of 7** sources now ground published articles (was 1 of 6). The new Seerah source is an official Diyanet publication issued in the **`Çocuk Kitapları`** series (16. Baskı, Mart 2025, ISBN 978-975-19-6627-8) — its series, edition, authorship and official status are recorded explicitly in `sources.json`, and no Diyanet endorsement of the app is implied.
+- **Limitation:** **4 of 7 registered sources ground no published article** — `diyanet-kuran-portali` (grounds a pending record only), `diyanet-kuran-yolu-tefsiri`, `diyanet-din-isleri-yuksek-kurulu` and `diyanet-dini-soru-hizmetleri`; the latter two are still used as Assistant guidance redirect targets. TASK 087 activated `diyanet-hadislerle-islam` and registered `diyanet-hz-muhammedin-hayati`, so **3 of 7** sources ground published articles (was 1 of 6); **TASK 088 added no new source record**. The new Seerah source is an official Diyanet publication issued in the **`Çocuk Kitapları`** series (16. Baskı, Mart 2025, ISBN 978-975-19-6627-8) — its series, edition, authorship and official status are recorded explicitly in `sources.json`, and no Diyanet endorsement of the app is implied.
 - **Follow-up:** TASK 092 (official-answer / fatwa-source index foundation)
 
 ### learn-plan-catalog
@@ -497,7 +498,7 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Prohibited:** consuming `scholarlyReviewPending` or draft content; consuming Quran/prayer/onboarding/Today interface copy as religious authority; issuing a personal fatwa; treating a category title as a source
 - **Status:** READY WITH DOCUMENTED LIMITATION
 - **Limitation:** no `officialFatwa` content exists in the corpus, so `AssistantRetriever.isVerdictCapable` can never return true today — every verdict-class query falls back to the official-guidance redirect, which is the intended safe behaviour but means the Assistant answers nothing definitively in that class
-- **TASK 087 update:** the 9 new Hadith/Seerah/Prophets articles become retrievable **solely because they are published and source-verified**; **no Assistant provider, classifier, retrieval rule or history behaviour was changed**, and no Assistant readiness is claimed. F1 and F2 remain owned by TASK 094.
+- **TASK 087–088 update:** the 13 new Hadith/Seerah/Prophets and Dua/Family/Halal articles become retrievable **solely because they are published and source-verified**; **no Assistant provider, classifier, retrieval rule or history behaviour was changed**, and no Assistant readiness is claimed. F1 and F2 remain owned by TASK 094.
 - **Follow-up:** TASK 092 and TASK 093
 
 ### assistant-safety-copy
@@ -590,11 +591,11 @@ licensing conflict for content that actually ships.
 ### F5 — Source and category coverage gaps
 
 - **Content areas:** `learn-source-registry`, `learn-categories`
-- **Evidence:** 4 of 7 registered sources ground no published article; 8 of 20 categories contain no published article.
+- **Evidence:** 4 of 7 registered sources ground no published article; 5 of 20 categories contain no published article.
 - **Affected surface:** Learn, Assistant.
 - **Severity:** P2 — a completeness gap, not a safety defect. Empty categories render an honest "in preparation" state.
-- **Partially addressed by TASK 087:** populated categories 9 → **12 of 20**; sources grounding published content 1 → **3 of 7**.
-- **Smallest safe follow-up:** the remaining CP11 Learn packs, **TASK 088–090**, and the fatwa-source index, **TASK 092**.
+- **Partially addressed by TASK 087–088:** populated categories 9 → **15 of 20**; sources grounding published content 1 → **3 of 7**.
+- **Smallest safe follow-up:** the remaining CP11 Learn packs, **TASK 089–090**, and the fatwa-source index, **TASK 092**.
 
 ### F6 — Upstream Quran corpora were never fully diffed
 

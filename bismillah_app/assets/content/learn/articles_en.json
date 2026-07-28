@@ -2606,6 +2606,246 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-dua-nedir",
+      "slug": "what-is-dua",
+      "categoryId": "cat-dua",
+      "title": "What is dua?",
+      "summary": "Dua is the servant turning to their Lord and laying their need before Him; the source calls it \"the essence of servanthood\".",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "dua",
+        "supplication",
+        "servanthood",
+        "asking",
+        "lord"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Dua is the servant turning to their Lord, asking of Him and laying their need before Him. The source describes dua as \"the essence of servanthood\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Qur'an says: \"Call upon Me, and I will respond to you.\" This call is a reminder that a servant is always invited to turn to their Lord."
+        },
+        {
+          "type": "keyPoint",
+          "text": "According to the source, it is through dua that a servant holds worth in God's sight."
+        },
+        {
+          "type": "paragraph",
+          "text": "This meaning is expressed in the verse: \"Say: My Lord would not care for you were it not for your prayer.\" Dua is the name of the bond a person forms with their Lord."
+        },
+        {
+          "type": "paragraph",
+          "text": "Seen this way, dua is not merely asking for something; it is recognising one's own helplessness and need, and turning to one's Lord in trust."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Say something to your Lord today in your own plain words; you do not need to know a special formula to make dua."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 2, Dua: Kulluğun Özü, s. 40",
+        "evidenceSummary": "Sayfa duayı \"kulluğun özü\" olarak niteler, \"Bana dua edin ki duanıza icabet edeyim\" ve \"De ki: Duanız olmasa Rabbim size ne diye değer versin!\" ayetlerini aktarır ve kulun duası sayesinde Allah katında değer kazandığını belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ailenin-onemi",
+      "slug": "the-importance-of-family",
+      "categoryId": "cat-family",
+      "title": "The importance of family",
+      "summary": "The family is the nucleus of society and a person's first place of learning; its peace is kept when its members carry their responsibilities toward one another.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "family",
+        "society",
+        "responsibility",
+        "peace",
+        "upbringing"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "A family is made up of mother, father and children. The source describes the family as the nucleus of society and the foundation stone of a nation: the larger community called a nation is formed by families coming together."
+        },
+        {
+          "type": "paragraph",
+          "text": "Just as a building is sound only if the parts that make it up are sound, a society is strong only if the families that make it up are sound."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The family is a school in which the first knowledge of faith and character is given and spiritual values are taught."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to the source, the ease and peace sought in this home can only be secured when family members fulfil their duties toward one another. This is why it matters that each person knows the responsibility they carry."
+        },
+        {
+          "type": "paragraph",
+          "text": "The continuity of the family is fundamental; the source asks that words and behaviour which would cause a family to break apart be avoided."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Say one kind word today to a member of your family, without asking anything of them."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-anne-babaya-saygi-ve-nezaket"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ailemize Karşı Görevlerimiz — Ailenin Önemi, s. 503",
+        "evidenceSummary": "Bölüm, ailenin ana, baba ve çocuklardan oluştuğunu, toplumun çekirdeği olduğunu; dinî ve ahlaki ilk bilgilerin verildiği bir okul durumunda bulunduğunu; huzurun ancak fertlerin birbirine karşı görevlerini yerine getirmesiyle sağlanabileceğini belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-anne-babaya-saygi-ve-nezaket",
+      "slug": "respect-and-kindness-toward-parents",
+      "categoryId": "cat-family",
+      "title": "Respect and kindness toward parents",
+      "summary": "The heart of how we treat our parents is courtesy: gentle words, conduct that does not wound, and a respectful tone of voice.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "parents",
+        "mother",
+        "father",
+        "respect",
+        "courtesy"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The source lists the duties owed to parents as plain items. The first of them is to be cheerful and gentle-spoken toward them."
+        },
+        {
+          "type": "paragraph",
+          "text": "The second measure is in the look: not to gaze at them harshly or in anger. The third is in speech and conduct — not to wound them in any way."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The source conveys this delicacy through a striking limit: not to say even \"uff\" to them."
+        },
+        {
+          "type": "paragraph",
+          "text": "The same passage also lists not raising one's voice in their presence. What these items share is the tone of communication with parents: gentle words and a respectful manner."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source counts a duty toward parents who have died as well: to remember them with mercy."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Pay attention to your tone of voice when you speak with a parent today; if they have passed away, remember them kindly."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ailenin-onemi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Anne ve Babamıza Karşı Görevlerimiz, s. 507-508",
+        "evidenceSummary": "Bölüm, anne babaya karşı görevleri maddeler hâlinde sayar: güler yüzlü ve tatlı dilli olmak, yüzlerine sert ve öfkeli bakmamak, söz ve davranışla hiçbir şekilde incitmemek (\"öf\" bile dememek), yanlarında yüksek sesle konuşmamak; vefatlarından sonra ise onları rahmetle anmak.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-helal-ve-haram-nedir",
+      "slug": "the-concepts-of-halal-and-haram",
+      "categoryId": "cat-halal",
+      "title": "The concepts of halal and haram",
+      "summary": "According to the Diyanet İslam İlmihali, halal is what is not religiously forbidden and haram is what is definitively forbidden. The default is permissibility.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "halal",
+        "haram",
+        "concept",
+        "measure",
+        "knowledge"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "According to the definition in the Diyanet İslam İlmihali, halal means that which it is not religiously forbidden to do, eat or drink. Haram is that which is definitively forbidden in religion."
+        },
+        {
+          "type": "paragraph",
+          "text": "Accordingly, if something is halal it is not haram, and if it is haram it cannot be halal."
+        },
+        {
+          "type": "keyPoint",
+          "text": "By the same source, the default is permissibility: nothing is forbidden except what has been declared so, and the things made haram are countable and limited."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source completes this measure with a warning from the Qur'an: \"Do not say, concerning what your tongues falsely describe, 'This is lawful and this is unlawful'.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "This warning shows that it is not right to issue rulings of halal or haram without knowledge, on our own opinion. When your own situation requires a definitive ruling, you should turn to the competent official authority."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When you hesitate over whether something is permissible, ask a trustworthy and competent source instead of guessing."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Helaller ve Haramlar, s. 383-384",
+        "evidenceSummary": "Bölüm helal ve haramı tanımlar; Allah'ın yarattığı her şeyde aslolanın helal ve mübah olduğunu, haram kılınanların sayılı ve sınırlı olduğunu belirtir; ve \"Dillerinizin yalan olarak nitelediği şeyler hakkında 'Bu helaldir, bu da haramdır' demeyin\" ayetini aktararak bilgisizce helal-haram hükmü vermeyi men eder.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }
