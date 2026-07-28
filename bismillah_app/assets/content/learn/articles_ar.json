@@ -2597,6 +2597,246 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-dua-nedir",
+      "slug": "ma-huwa-al-dua",
+      "categoryId": "cat-dua",
+      "title": "ما هو الدعاء؟",
+      "summary": "الدعاء إقبال العبد على ربه وعرضُ حاجته عليه، وقد وصفه المصدر بأنه \"مخ العبادة\".",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الدعاء",
+        "العبودية",
+        "الإقبال",
+        "السؤال",
+        "الرب"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "الدعاء هو إقبال العبد على ربه وسؤاله وعرض حاجته عليه. وقد وصف المصدر الدعاء بأنه جوهر العبودية."
+        },
+        {
+          "type": "paragraph",
+          "text": "قال الله تعالى: \"ادعوني أستجب لكم\"، وفي هذا النداء تذكير بأن العبد مدعوّ في كل حين إلى الإقبال على ربه."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وبحسب المصدر فإن العبد إنما تكون له قيمة عند الله بدعائه."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويعبّر عن هذا المعنى قوله تعالى: \"قل ما يعبأ بكم ربي لولا دعاؤكم\". فالدعاء اسم للصلة التي يقيمها الإنسان مع ربه."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبهذا الاعتبار ليس الدعاء مجرد طلب شيء، بل هو أن يدرك العبد عجزه وحاجته فيقبل على ربه واثقًا به."
+        },
+        {
+          "type": "practicalAction",
+          "text": "قل لربك اليوم شيئًا بكلماتك البسيطة؛ فلا يلزمك لفظ خاص لتدعوَ."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 2, Dua: Kulluğun Özü, s. 40",
+        "evidenceSummary": "Sayfa duayı \"kulluğun özü\" olarak niteler, \"Bana dua edin ki duanıza icabet edeyim\" ve \"De ki: Duanız olmasa Rabbim size ne diye değer versin!\" ayetlerini aktarır ve kulun duası sayesinde Allah katında değer kazandığını belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ailenin-onemi",
+      "slug": "ahammiyyat-al-usra",
+      "categoryId": "cat-family",
+      "title": "أهمية الأسرة",
+      "summary": "الأسرة نواة المجتمع وأول مدرسة يتعلم فيها الإنسان، ويُحفظ سكونها بأداء أفرادها ما عليهم بعضهم تجاه بعض.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الأسرة",
+        "المجتمع",
+        "المسؤولية",
+        "السكينة",
+        "التربية"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تتكون الأسرة من الأب والأم والأولاد. ويصف المصدر الأسرة بأنها نواة المجتمع وحجر الأساس للأمة، فالأمة إنما تتكون من اجتماع الأسر."
+        },
+        {
+          "type": "paragraph",
+          "text": "وكما أن متانة البناء تتوقف على متانة أجزائه، فكذلك قوة المجتمع تتوقف على صلاح الأسر التي يتكون منها."
+        },
+        {
+          "type": "keyPoint",
+          "text": "الأسرة مدرسة تُعطى فيها أول المعارف في الدين والأخلاق وتُعلَّم فيها القيم المعنوية."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبحسب المصدر لا تتحقق الراحة والسكينة المنشودة في هذا البيت إلا بأداء أفراد الأسرة ما عليهم من واجبات بعضهم تجاه بعض؛ ولذلك كان من المهم أن يعرف كل فرد مسؤوليته."
+        },
+        {
+          "type": "paragraph",
+          "text": "ودوام الأسرة أصل، ويطلب المصدر اجتناب الأقوال والأفعال التي تؤدي إلى تفككها."
+        },
+        {
+          "type": "practicalAction",
+          "text": "قل اليوم كلمة طيبة لأحد أفراد أسرتك من غير أن تطلب منه شيئًا."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-anne-babaya-saygi-ve-nezaket"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ailemize Karşı Görevlerimiz — Ailenin Önemi, s. 503",
+        "evidenceSummary": "Bölüm, ailenin ana, baba ve çocuklardan oluştuğunu, toplumun çekirdeği olduğunu; dinî ve ahlaki ilk bilgilerin verildiği bir okul durumunda bulunduğunu; huzurun ancak fertlerin birbirine karşı görevlerini yerine getirmesiyle sağlanabileceğini belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-anne-babaya-saygi-ve-nezaket",
+      "slug": "birr-al-walidayn-al-adab",
+      "categoryId": "cat-family",
+      "title": "احترام الوالدين وحسن الأدب معهما",
+      "summary": "جوهر التعامل مع الوالدين هو اللطف: لين القول، وترك ما يجرحهما، وخفض الصوت احترامًا.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الوالدان",
+        "الأم",
+        "الأب",
+        "الاحترام",
+        "الأدب"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يعدّد المصدر ما على الولد تجاه والديه في صورة بنود واضحة، أولها أن يلقاهما ببشاشة ولين في القول."
+        },
+        {
+          "type": "paragraph",
+          "text": "والميزان الثاني في النظر: ألا ينظر إليهما نظرة غليظة أو غاضبة. والثالث في القول والفعل: ألا يؤذيهما بأي وجه."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ويبيّن المصدر هذا اللطف بحدّ لافت: ألا يقول لهما حتى \"أفٍّ\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويُذكر في الموضع نفسه ألا يرفع صوته بحضرتهما. والجامع بين هذه البنود هو نبرة التواصل مع الوالدين: لين القول وحسن الأدب."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويعدّ المصدر للوالدين بعد وفاتهما حقًّا أيضًا: أن يذكرهما بالرحمة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "انتبه اليوم إلى نبرة صوتك حين تكلّم أحد والديك، وإن كانا قد توفّيا فاذكرهما بخير."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ailenin-onemi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Anne ve Babamıza Karşı Görevlerimiz, s. 507-508",
+        "evidenceSummary": "Bölüm, anne babaya karşı görevleri maddeler hâlinde sayar: güler yüzlü ve tatlı dilli olmak, yüzlerine sert ve öfkeli bakmamak, söz ve davranışla hiçbir şekilde incitmemek (\"öf\" bile dememek), yanlarında yüksek sesle konuşmamak; vefatlarından sonra ise onları rahmetle anmak.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-helal-ve-haram-nedir",
+      "slug": "mafhum-al-halal-wa-al-haram",
+      "categoryId": "cat-halal",
+      "title": "مفهوما الحلال والحرام",
+      "summary": "بحسب \"إسلام إلمهالي\" الصادر عن رئاسة الشؤون الدينية، الحلال ما لم يُحظر شرعًا، والحرام ما حُرّم تحريمًا قاطعًا، والأصل في الأشياء الإباحة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الحلال",
+        "الحرام",
+        "المفهوم",
+        "الميزان",
+        "العلم"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بحسب التعريف الوارد في \"إسلام إلمهالي\" الصادر عن رئاسة الشؤون الدينية، الحلال ما لا يُحظر شرعًا فعله أو أكله أو شربه، والحرام ما حُرّم في الدين تحريمًا قاطعًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "وعليه، فما كان حلالًا فليس بحرام، وما كان حرامًا فلا يكون حلالًا."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وبحسب المصدر نفسه فالأصل هو الإباحة: فلا شيء محرّم إلا ما ورد تحريمه، والمحرّمات معدودة محدودة."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويُتمّ المصدر هذا الميزان بتحذير من القرآن الكريم: \"ولا تقولوا لما تصف ألسنتكم الكذب هذا حلال وهذا حرام\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا التحذير يبيّن أنه لا يصح إصدار حكم بالحل أو الحرمة بغير علم وبمجرد الرأي. وإذا احتاج أمرك إلى حكم قاطع فارجع إلى الجهة الرسمية المختصة."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إذا ترددت في أمر: \"أحلال هو؟\" فاسأل مصدرًا موثوقًا مختصًا بدل التخمين."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Helaller ve Haramlar, s. 383-384",
+        "evidenceSummary": "Bölüm helal ve haramı tanımlar; Allah'ın yarattığı her şeyde aslolanın helal ve mübah olduğunu, haram kılınanların sayılı ve sınırlı olduğunu belirtir; ve \"Dillerinizin yalan olarak nitelediği şeyler hakkında 'Bu helaldir, bu da haramdır' demeyin\" ayetini aktararak bilgisizce helal-haram hükmü vermeyi men eder.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

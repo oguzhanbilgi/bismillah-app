@@ -398,16 +398,26 @@ void main() {
       }
     });
 
-    test('toplam içerik sayısı 32 + 9 = 41\'dir', () {
+    test('kütüphane TASK 087 sonrası taban sayıdan küçülmemiştir', () {
+      // Kütüphane sonraki Learn paketleriyle BÜYÜR (TASK 088+); bu yüzden
+      // mutlak toplam değil, TASK 087 tabanı doğrulanır.
       for (final locale in locales) {
-        expect(byLocale[locale]!.length, 41, reason: locale);
+        expect(byLocale[locale]!.length, greaterThanOrEqualTo(41),
+            reason: locale);
+        final published = byLocale[locale]!.where((a) => a.isPublished);
+        expect(published.length, greaterThanOrEqualTo(39), reason: locale);
       }
     });
 
-    test('yayınlanmış toplam 30 + 9 = 39\'dur', () {
+    test('TASK 087 paketinin dokuz makalesi hâlâ yayındadır', () {
       for (final locale in locales) {
-        final published = byLocale[locale]!.where((a) => a.isPublished);
-        expect(published.length, 39, reason: locale);
+        final map = mapOf(locale);
+        for (final id in pack.keys) {
+          final article = map[id];
+          expect(article, isNotNull, reason: '$locale/$id');
+          expect(article!.isPublished, isTrue, reason: '$locale/$id');
+          expect(article.isSourceBodyVerified, isTrue, reason: '$locale/$id');
+        }
       }
     });
 

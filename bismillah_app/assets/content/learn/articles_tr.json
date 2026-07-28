@@ -2610,6 +2610,246 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-dua-nedir",
+      "slug": "dua-nedir",
+      "categoryId": "cat-dua",
+      "title": "Dua nedir?",
+      "summary": "Dua, kulun Rabbine yönelmesi ve ihtiyacını O'na arz etmesidir; kaynak duayı \"kulluğun özü\" olarak niteler.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "dua",
+        "kulluk",
+        "yönelmek",
+        "istemek",
+        "rab"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Dua, kulun Rabbine yönelmesi, O'ndan istemesi ve ihtiyacını O'na arz etmesidir. Kaynak duayı \"kulluğun özü\" olarak niteler."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kur'an-ı Kerim'de \"Bana dua edin ki duanıza icabet edeyim\" buyrulur. Bu çağrı, kulun Rabbine yönelmeye her zaman davetli olduğunu hatırlatır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynağa göre kul, duası sayesinde Allah katında değer kazanır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu anlam, \"De ki: Duanız olmasa Rabbim size ne diye değer versin!\" ayetiyle ifade edilir. Dua, insanın Rabbiyle kurduğu bağın adıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yönüyle dua yalnızca bir şey istemek değildir; kulun kendi acizliğini ve ihtiyacını fark edip Rabbine güvenerek yönelmesidir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün kendi sade cümlelerinle Rabbine bir şey söyle; dua için özel bir söz bilmek gerekmez."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 2, Dua: Kulluğun Özü, s. 40",
+        "evidenceSummary": "Sayfa duayı \"kulluğun özü\" olarak niteler, \"Bana dua edin ki duanıza icabet edeyim\" ve \"De ki: Duanız olmasa Rabbim size ne diye değer versin!\" ayetlerini aktarır ve kulun duası sayesinde Allah katında değer kazandığını belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ailenin-onemi",
+      "slug": "ailenin-onemi",
+      "categoryId": "cat-family",
+      "title": "Ailenin önemi",
+      "summary": "Aile, toplumun çekirdeği ve insanın ilk öğrenme ortamıdır; huzuru fertlerin birbirine karşı sorumluluklarını taşımasıyla korunur.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "aile",
+        "toplum",
+        "sorumluluk",
+        "huzur",
+        "eğitim"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Aile; ana, baba ve çocuklardan meydana gelir. Kaynak aileyi toplumun çekirdeği ve milletin temel taşı olarak tanımlar: millet denilen büyük topluluk, ailelerin bir araya gelmesinden oluşur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bir binanın sağlamlığı onu meydana getiren parçaların sağlamlığına bağlı olduğu gibi, bir toplumun güçlü olması da onu oluşturan ailelerin sağlam olmasına bağlıdır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Aile, dinî ve ahlaki konularda ilk bilgilerin verildiği, manevi değerlerin öğretildiği bir okul durumundadır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre bu yuvada aranan rahatlık ve huzur, ancak aile fertlerinin birbirlerine karşı görevlerini yerine getirmeleriyle sağlanabilir. Bu yüzden herkesin taşıdığı sorumluluğu bilmesi önemlidir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ailenin devamlılığı esastır; kaynak, ailenin dağılmasına sebep olacak söz ve davranışlardan sakınılmasını ister."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün ailenden bir kişiye, ondan bir şey istemeden, iyi bir söz söyle."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-anne-babaya-saygi-ve-nezaket"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ailemize Karşı Görevlerimiz — Ailenin Önemi, s. 503",
+        "evidenceSummary": "Bölüm, ailenin ana, baba ve çocuklardan oluştuğunu, toplumun çekirdeği olduğunu; dinî ve ahlaki ilk bilgilerin verildiği bir okul durumunda bulunduğunu; huzurun ancak fertlerin birbirine karşı görevlerini yerine getirmesiyle sağlanabileceğini belirtir.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-anne-babaya-saygi-ve-nezaket",
+      "slug": "anne-babaya-saygi-ve-nezaket",
+      "categoryId": "cat-family",
+      "title": "Anne babaya saygı ve nezaket",
+      "summary": "Anne babaya karşı tutumun özü nezakettir: yumuşak söz, incitmeyen davranış ve saygılı bir ses tonu.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "anne",
+        "baba",
+        "saygı",
+        "nezaket",
+        "iletişim"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynak, anne ve babaya karşı görevleri sade maddeler hâlinde sıralar. Bunların ilki, onlara karşı güler yüzlü ve tatlı dilli olmaktır."
+        },
+        {
+          "type": "paragraph",
+          "text": "İkinci ölçü bakıştadır: yüzlerine sert ve öfkeli bakmamak. Üçüncüsü ise sözde ve davranıştadır — onları hiçbir şekilde incitmemek."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynak bu inceliği çarpıcı bir sınırla anlatır: onlara \"öf\" bile dememek."
+        },
+        {
+          "type": "paragraph",
+          "text": "Aynı bölümde, yanlarında yüksek sesle konuşmamak da sayılır. Bu maddelerin ortak yanı, anne babayla kurulan iletişimin tonudur: yumuşak söz ve saygılı bir üslup."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, vefat etmiş anne baba için de bir görev sayar: onları rahmetle anmak."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün anne veya babanla konuşurken ses tonuna dikkat et; hayatta değillerse onları hayırla an."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-ailenin-onemi"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Anne ve Babamıza Karşı Görevlerimiz, s. 507-508",
+        "evidenceSummary": "Bölüm, anne babaya karşı görevleri maddeler hâlinde sayar: güler yüzlü ve tatlı dilli olmak, yüzlerine sert ve öfkeli bakmamak, söz ve davranışla hiçbir şekilde incitmemek (\"öf\" bile dememek), yanlarında yüksek sesle konuşmamak; vefatlarından sonra ise onları rahmetle anmak.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-helal-ve-haram-nedir",
+      "slug": "helal-ve-haram-kavramlari",
+      "categoryId": "cat-halal",
+      "title": "Helal ve haram kavramları",
+      "summary": "Diyanet İslam İlmihali'ne göre helal, dinen yasaklanmamış olan; haram ise kesin olarak yasaklanmış olandır. Aslolan helalliktir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "helal",
+        "haram",
+        "kavram",
+        "ölçü",
+        "bilgi"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Diyanet İslam İlmihali'ndeki tanıma göre helal, dinen yapılması ve yenilip içilmesi yasak olmayan şey demektir. Haram ise dinen kesin olarak yasaklanmış olan şeydir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Buna göre bir şey helalse haram değildir, haramsa helal olamaz."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Aynı kaynağa göre aslolan helalliktir: haram olduğu bildirilenler dışında hiçbir şey haram değildir ve haram kılınanlar sayılı ve sınırlıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak bu ölçüyü Kur'an-ı Kerim'den bir uyarıyla tamamlar: \"Dillerinizin yalan olarak nitelediği şeyler hakkında 'Bu helaldir, bu da haramdır' demeyin.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu uyarı, bilgisizce ve kendi kanaatimizle helal-haram hükmü vermenin doğru olmadığını gösterir. Kendi durumunla ilgili kesin bir hüküm gerektiğinde yetkili resmî mercie başvurman gerekir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bir konuda \"acaba helal mi\" diye tereddüt ettiğinde, tahmin yürütmek yerine güvenilir ve yetkili bir kaynağa sor."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-28",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Helaller ve Haramlar, s. 383-384",
+        "evidenceSummary": "Bölüm helal ve haramı tanımlar; Allah'ın yarattığı her şeyde aslolanın helal ve mübah olduğunu, haram kılınanların sayılı ve sınırlı olduğunu belirtir; ve \"Dillerinizin yalan olarak nitelediği şeyler hakkında 'Bu helaldir, bu da haramdır' demeyin\" ayetini aktararak bilgisizce helal-haram hükmü vermeyi men eder.",
+        "verifiedAt": "2026-07-28",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }
