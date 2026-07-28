@@ -761,4 +761,53 @@ that task's time*; the current verified baseline lives in
   because they are published and source-verified, and no Assistant readiness is
   claimed. 34 focused tests; catalog suite **40/40**; full suite **1436 →
   1472**; analyze clean; Functions untouched and not run.
-- **Next:** **TASK 088 — Learn pack: Dua, Family, Halal foundations.**
+- **TASK 088 — Learn pack: Dua, Family, Halal foundations.** The roadmap fixes no
+  article count, and TASK 087's 3+3+3 was deliberately **not** inherited. A Phase A
+  evidence gate ran first and returned **PARTIALLY READY**, which is what set the
+  final scope: the owner fixed **4 articles** — `cat-dua` 1, `cat-family` 2,
+  `cat-halal` 1 (12 localized records). Per locale the library moved from 41
+  records / 39 published to **45 / 43**; populated categories **12 → 15 of 20**;
+  **no new source record** was needed, so the registry stays at 7.
+  **Three gate findings shaped the pack.** First, Dua had no usable source at the
+  outset: the İslam İlmihali has **no standalone dua chapter** — its TOC carries
+  only namaz-attached duas — and its one general dua passage at printed s. 163
+  **extracts with corrupted glyphs**, making it unusable as evidence. Second, once
+  the owner named the right location and the chapter boundary was confirmed
+  (Hadislerle İslâm Cilt 2: s. 33 previous chapter, s. 34 blank, s. 35–37 hadith
+  cluster, s. 38 blank, s. 39 onward commentary), the chapter turned out to be
+  built on precisely the excluded material — *guaranteed acceptance and special
+  times* ("hangi dua daha çok kabule şayandır", the Friday hour where "Allah ona
+  dilediğini mutlaka verir", "duaların en hayırlısı arefe günü", the night-descent
+  hadith). `art-dua-nedir` therefore rests on **s. 40 alone**, and that thinner
+  evidence base was **disclosed before drafting rather than padded**. Third,
+  `cat-dua` was already occupied by the pending `art-dua-adabi`, which belongs to
+  **TASK 091** and was left untouched — `cat-dua` is now the first category
+  carrying a published and a pending record side by side.
+  Scope was narrowed rather than stretched elsewhere too. The second family
+  article was renamed `art-anne-babaya-saygi-ve-nezaket` and reduced to courtesy,
+  dropping the source's **blanket-obedience items** (answering when called,
+  carrying out instructions, pleasing them in every matter) and its **financial
+  maintenance item**. The halal article is definitions only — it attributes them
+  explicitly to the Diyanet İslam İlmihali and redirects personal cases to the
+  competent authority — while `art-haramin-cesitleri` was left out of scope and
+  classified **SCHOLARLY REVIEW REQUIRED**. One instruction was **not** followed
+  literally: "attentive listening" was omitted from the parent article because it
+  does not appear in the source body in that form, and the omission was recorded
+  rather than invented around.
+  **A frozen-count defect recurred and was fixed at source.** The suite written in
+  TASK 087 asserted absolute library totals (`32 + 9 = 41`, `30 + 9 = 39`) — the
+  same class of assumption the TASK 082 reconciliation had already corrected, and
+  one that every later Learn pack necessarily breaks. Those two assertions were
+  replaced with a growth-tolerant pair: totals must be **at least** the TASK 087
+  baseline, and all nine TASK 087 articles must still be present, published and
+  source-verified in every locale — strengthening the real guarantee while
+  removing the false one. `LearnDailyPlanCatalog.v1` remains untouched and none of
+  the 4 new IDs enters it.
+  All four records carry `verifiedBy: editorialReview` on the owner's explicit
+  source-fidelity approval — editorial comparison only, expressly not scholar
+  approval, fatwa review, hadith grading or Diyanet approval. `CONTENT_POLICY.md`
+  still does not define who may perform `editorialReview`; the wording proposed at
+  TASK 087 remains unapplied and open. No Assistant code was touched. 29 focused
+  tests; Learn + catalog **211/211**; full suite **1472 → 1501**; analyze clean;
+  Functions untouched and not run.
+- **Next:** **TASK 089 — Learn pack: Women, Afterlife, Islamic history.**

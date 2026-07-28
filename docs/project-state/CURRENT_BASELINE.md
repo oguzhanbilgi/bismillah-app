@@ -6,15 +6,43 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 087). After the TASK 087 merge, read the real current commit
+> task (TASK 088). After the TASK 088 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 087: `df1fec0`
+- Last verified main before TASK 088: `c133fb6`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 087** — Learn pack: Hadith, Seerah, Prophets
+- Latest completed task: **TASK 088** — Learn pack: Dua, Family, Halal
+  foundations (**CP11**). The roadmap defines no count and TASK 087's 3+3+3 was
+  **not** inherited; after a **PARTIALLY READY** Phase A gate the owner fixed
+  **4 articles** — `cat-dua` 1, `cat-family` 2, `cat-halal` 1 (12 localized
+  records). Per locale: **45 records, 43 published** (was 41 / 39); populated
+  categories **12 -> 15 of 20** (still empty: `cat-women`, `cat-afterlife`,
+  `cat-history`, `cat-madhhabs`, `cat-calendar`); **no new source record** — the
+  registry stays at **7** (asserted). **Gate findings:** the Islam Ilmihali has
+  **no standalone dua chapter** and its general dua page (s. 163) **extracts with
+  corrupted glyphs**, so it is unusable; the Hadislerle Islam dua chapter's spine
+  is *guaranteed acceptance and special times* (s. 35-37, 40-41) which is
+  excluded, so `art-dua-nedir` rests on **s. 40 alone** — disclosed rather than
+  padded; and `cat-dua` was already occupied by the pending `art-dua-adabi`
+  (**TASK 091**, untouched — `cat-dua` is now the first category holding a
+  published and a pending record side by side). The second family article was
+  renamed `art-anne-babaya-saygi-ve-nezaket` and narrowed to courtesy, dropping
+  the source's blanket-obedience and maintenance items; the halal article is
+  definitions only, attributes them explicitly to the Ilmihal and redirects
+  personal cases to the competent authority, with `art-haramin-cesitleri` left
+  out of scope as **SCHOLARLY REVIEW REQUIRED**. "Attentive listening" was
+  **omitted** because it does not appear in the source body. **One TASK 087 test
+  was corrected**: its absolute totals (`32+9=41`, `30+9=39`) were replaced with
+  growth-tolerant assertions plus a check that all nine TASK 087 articles remain
+  present, published and source-verified — the same frozen-count defect class as
+  the TASK 082 reconciliation. TASK 082 catalog untouched; none of the 4 IDs
+  enters it. No Assistant, Quran, Prayer, persistence, Firebase, remote, premium
+  or monetization change.
+  Report: `docs/task-reports/TASK_088_LEARN_DUA_FAMILY_HALAL.md`
+- Previous completed task: **TASK 087** — Learn pack: Hadith, Seerah, Prophets
   (**CP11**). Owner-fixed scope **3 + 3 + 3**: **9 new published articles**,
   **27 localized records**, populating `cat-hadith`, `cat-seerah` and
   `cat-prophets`. Per locale: **41 records, 39 published** (was 32 / 30);
@@ -355,9 +383,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 088** — Learn pack: Dua, Family, Halal
-  foundations (**CP11 — Learn and Assistant depth**). Still open and deliberately
-  deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
+- Next planned functional task: **TASK 089** — Learn pack: Women, Afterlife,
+  Islamic history (**CP11 — Learn and Assistant depth**). Still open and
+  deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
 
@@ -398,16 +426,18 @@ eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
 
-## Tests (verified at TASK 087)
+## Tests (verified at TASK 088)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1472 / 1472**, 0 failed, 0 skipped
-  (1436 at TASK 086 + 34 TASK 087 pack tests + 2 catalog-boundary tests)
+- Flutter test baseline: **1501 / 1501**, 0 failed, 0 skipped
+  (1472 at TASK 087 + 29 TASK 088 pack tests)
+- TASK 088 Learn pack suite: **29 / 29** — command:
+  `flutter test test/features/learn/task_088_learn_pack_test.dart`
 - TASK 087 Learn pack suite: **34 / 34** — command:
   `flutter test test/features/learn/task_087_learn_pack_test.dart`
 - Learn plan catalog suite: **40 / 40** — command:
   `flutter test test/features/today/domain/learn_daily_plan_catalog_test.dart`
-- Learn + catalog + item-source + Assistant: **338 / 338**
+- Learn + catalog suites: **211 / 211**
 - Previous baseline: **1436 / 1436** at TASK 086
   (1422 at TASK 085 + 14 content-source-matrix tests)
 - Content-source matrix suite: **14 / 14** — command:
