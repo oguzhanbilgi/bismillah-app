@@ -6,15 +6,49 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 085). After the TASK 085 merge, read the real current commit
+> task (TASK 086). After the TASK 086 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 085: `4458a55`
+- Last verified main before TASK 086: `969414f`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 085** — 30-day plan and CP10 checkpoint.
+- Latest completed task: **TASK 086** — Content-source matrix (first task of
+  **CP11**). Docs + one validation test; **zero production Dart or asset files
+  changed**. Establishes the canonical governance matrix at
+  `docs/CONTENT_SOURCE_MATRIX.md` — **22 rows**, each with a stable
+  kebab-case ID, covering Quran text/metadata/page-map/translation/search/
+  audio/reciter-catalog, the inactive remote Diyanet callable, Learn
+  articles/prayer-education/categories/source-registry/plan-catalog,
+  prayer-time calculation, prayer labels, dua, dhikr, onboarding copy, Today
+  plan copy, Assistant retrieval corpus, Assistant safety copy and the Profile
+  source registry. Status counts: **READY 8 · READY WITH DOCUMENTED LIMITATION
+  11 · REVIEW REQUIRED 1 · BLOCKED 0 · NOT IMPLEMENTED 2**. Every claim was
+  recomputed from shipped assets, not copied from prior reports.
+  **No P0/P1 issue:** no published religious content lacks a source, no
+  registry entry mismatches shipped content, no locale set represents different
+  subjects, no review-pending content is exposed as published, the Assistant
+  cannot reach unpublished material, and no evidenced licensing conflict exists
+  for shipping content. **Six P2 findings** (F1–F6) are recorded in the matrix:
+  F1 the Assistant persistence gate excludes `worshipRule` while the
+  classifier's own `isSensitiveVerdict` includes it — and that helper has **no
+  production caller** (owner **TASK 094**); F2 `app_source_reference.dart`
+  duplicates `sources.json` with no cross-check (**TASK 094**); F3 QuranEnc
+  translation licensing **UNRESOLVED**; F4 the deployed Diyanet callable is
+  client-inactive with unresolved licensing, EOL `nodejs20` and App Check still
+  a TODO; F5 3 of 6 registered sources ground no published article and 11 of 20
+  categories are empty (**TASK 087–090**, **TASK 092**); F6 the Tanzil and
+  QuranEnc corpora were never fully diffed upstream. **Locale result:** TR/EN/AR
+  carry identical stable article ID sets **and** identical review statuses
+  (recomputed); the Quran translation is **TR only** by design. **Assistant
+  boundary fixed:** published Learn articles + category titles (weak ranking
+  signal) + the source registry only; all `internal-ui-copy` is explicitly
+  **not** religious authority. **No religious content was written, edited,
+  repaired or reclassified**; no schema, key, envelope-version, Drift, Firebase,
+  remote, notification, dependency or premium change.
+  Report: `docs/task-reports/TASK_086_CONTENT_SOURCE_MATRIX.md`
+- Previous completed task: **TASK 085** — 30-day plan and CP10 checkpoint.
   Verdict: **CP10 COMPLETE — 30-DAY LOCAL PLAN FLOW STABLE**; product gate
   **READY TO ENTER CP11**. The full chain (onboarding → profile → generator
   → core sources → atomic `savePlans` → bootstrap → Today → completion →
@@ -291,16 +325,50 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 086** — Content-source matrix (first
-  task of **CP11 — Learn and Assistant depth**). Still open and deliberately
+- Next planned functional task: **TASK 087** — Learn pack: Hadith, Seerah,
+  Prophets (**CP11 — Learn and Assistant depth**). Still open and deliberately
   deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
 
-## Tests (verified at TASK 085)
+## Content source governance (fixed by TASK 086)
+
+The canonical matrix is `docs/CONTENT_SOURCE_MATRIX.md` — **the single place**
+that records, per content area, the source class, delivery method, publication
+and review gates, TR/EN/AR coverage, allowed consumers and unresolved items.
+Do not create a competing source-policy document: `docs/CONTENT_SOURCES.md`
+(attribution/delivery notice), `THIRD_PARTY_NOTICES.md` (formal licences) and
+`CONTENT_POLICY.md` (publication gate) each keep their own role, and the matrix
+references them rather than restating licensing facts.
+
+Rules fixed here: a row is **READY** only with a concrete source, valid
+metadata, passing publication rules, understood locale handling and no known
+licensing contradiction — religious text with missing source evidence can never
+be READY. **`internal-ui-copy` is a first-class class**: onboarding wording,
+Today plan labels, prayer labels and the Assistant's own safety strings are
+interface copy, never sourced religious teaching, and the Assistant must never
+treat them as authority. Where the repository does not establish a fact
+(notably translation licensing), the matrix records **UNRESOLVED** — it is
+never filled in from general knowledge. Adding or changing a content area means
+updating the matrix; `flutter test test/content` fails if a row loses a
+required field, uses an invalid value, or cites a path that does not exist.
+
+## Tests (verified at TASK 086)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1422 / 1422**, 0 failed, 0 skipped
+- Flutter test baseline: **1436 / 1436**, 0 failed, 0 skipped
+  (1422 at TASK 085 + 14 content-source-matrix tests)
+- Content-source matrix suite: **14 / 14** — command:
+  `flutter test test/content`
+  (validates the matrix document itself: unique stable IDs, summary/detail
+  agreement, required fields, closed value sets, `Limitation` presence, no
+  `UNRESOLVED` inside a `READY` row, and that **every cited repository path
+  exists on disk**. Deliberately does **not** duplicate
+  `learn_content_integrity_test.dart`.)
+- Content governance suite: **199 / 199** — command:
+  `flutter test test/features/learn test/features/assistant
+  test/features/profile/content_sources_test.dart test/content`
+- Previous baseline: **1422 / 1422** at TASK 085
   (1392 at TASK 084 + 30 CP10 checkpoint tests)
 - CP10 checkpoint suite: **30 / 30** — command:
   `flutter test test/features/today/cp10_plan_flow_checkpoint_test.dart`
@@ -348,7 +416,8 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 - Focused prayer-reminder suite: 26 / 26 (TASK 070D)
 - Storage (Drift) tests: **11 / 11** — command: `flutter test test/core/storage`
 - Functions tests (Vitest): **23 / 23** on Node.js v22.22.0 / npm 10.9.4 —
-  re-verified at the **TASK 085 CP10 checkpoint** (previously at TASK 083).
+  last verified at the **TASK 085 CP10 checkpoint**. **Not re-run at TASK 086**:
+  no Functions file, dependency or lockfile changed.
   No Functions file, dependency or lockfile has changed since TASK 069.
   The TASK 083 record supersedes the TASK 082 record of
   `PENDING (environment)`: the Node.js toolchain has been reinstalled under
