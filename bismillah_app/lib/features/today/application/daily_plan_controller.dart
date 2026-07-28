@@ -50,10 +50,30 @@ final class DailyPlanController extends Notifier<DailyPlanState?> {
   DailyPlanState? build() {
     ref.onDispose(() {
       _disposed = true;
-      unawaited(_subscription?.cancel());
+      _cancelQuietly(_subscription);
       _subscription = null;
     });
     return null;
+  }
+
+  /// Aboneliği iptal eder ve **iptal hatasını yutar** (TASK 085).
+  ///
+  /// Çıplak `unawaited(cancel())` yetmez: `cancel()` hata ile tamamlanırsa
+  /// bu **yakalanmamış asenkron hata** olur (testte başarısızlık, üretimde
+  /// zone hata kancası). Bir aboneliği kapatamamak kullanıcının sorunu
+  /// değildir; sessizce yutulur, çünkü:
+  ///
+  /// - yeni günün yüklenmesini bloklamamalıdır (bu yüzden beklenmez),
+  /// - eski akıştan gelecek olaylar zaten `_onWatchEvent`'in gün
+  ///   karşılaştırması ve jenerasyon sayacıyla etkisizdir.
+  ///
+  /// Gerçek depo **watch hataları** yutulmaz — onlar `listen`'in `onError`
+  /// kancasına düşer ve akış sözleşmesi gereği son bilinen durumu devirmez.
+  static void _cancelQuietly(StreamSubscription<DailyPlan?>? subscription) {
+    if (subscription == null) {
+      return;
+    }
+    unawaited(subscription.cancel().catchError((Object _) {}));
   }
 
   /// Test/tanı amaçlı: şu an seçili gün.
@@ -79,7 +99,8 @@ final class DailyPlanController extends Notifier<DailyPlanState?> {
     // bekletirdi. Beklemek gerekmez de: `_onWatchEvent` abone olunan günü
     // aktif günle karşılaştırır, bu yüzden eski akıştan geç gelen bir olay
     // zaten yok sayılır ve jenerasyon sayacı bayat sonucu ayrıca engeller.
-    unawaited(_subscription?.cancel());
+    // İptal hatası [_cancelQuietly] içinde kapsanır (TASK 085).
+    _cancelQuietly(_subscription);
     _subscription = null;
     if (_isStale(generation)) {
       return;
