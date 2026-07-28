@@ -57,13 +57,14 @@ The live Git history is authoritative; this index is a human-readable summary.
 
 | Task | Status | Checkpoint | Summary | Evidence | Next action |
 |---|---|---|---|---|---|
-| TASK 086 | **NEXT** | CP11 | Content-source matrix — first task of CP11 | roadmap CP11 | run TASK 086 |
+| TASK 086 | COMPLETED | CP11 | Content-source matrix — first task of CP11. Canonical governance matrix at `docs/CONTENT_SOURCE_MATRIX.md`: **22 rows** with stable kebab-case IDs covering Quran text/metadata/page-map/translation/search/audio/reciter-catalog, the **inactive** remote Diyanet callable, Learn articles/prayer-education/categories/source-registry/plan-catalog, prayer-time calculation, prayer labels, dua, dhikr, onboarding copy, Today plan copy, Assistant retrieval corpus, Assistant safety copy and the Profile source registry. Status counts **READY 8 · READY WITH DOCUMENTED LIMITATION 11 · REVIEW REQUIRED 1 · BLOCKED 0 · NOT IMPLEMENTED 2**. Every figure recomputed from shipped assets: **30 published / 2 `scholarlyReviewPending`** per locale, TR/EN/AR carrying **identical stable ID sets AND identical review statuses**, all 30 published on `sourceBodyReview` with locator + evidence + `verifiedAt`, every referenced source ID resolving to `sources.json`. **No P0/P1**: no sourceless published content, no registry mismatch, no divergent-subject locale set, no pending content exposed as published, no Assistant path to unpublished material, no evidenced licensing conflict for shipping content. **Six P2 findings**: F1 Assistant persistence gate excludes `worshipRule` while `isSensitiveVerdict` includes it and has **no production caller** (TASK 094); F2 `app_source_reference.dart` duplicates `sources.json` uncross-checked (TASK 094); F3 QuranEnc licensing **UNRESOLVED**; F4 deployed Diyanet callable client-inactive, licensing unresolved, EOL `nodejs20`, App Check TODO; F5 3/6 sources unused + 11/20 categories empty (TASK 087–090, TASK 092); F6 Tanzil/QuranEnc never fully diffed upstream. Assistant boundary fixed to published Learn + category titles + source registry; **`internal-ui-copy` is never religious authority**. **No religious content written, edited, repaired or reclassified; zero production Dart/asset files changed.** 14 focused tests; full suite 1422 → **1436**; analyze clean; Functions not re-run (untouched) | `TASK_086_CONTENT_SOURCE_MATRIX.md` | run TASK 087 |
+| TASK 087 | **NEXT** | CP11 | Learn pack: Hadith, Seerah, Prophets | roadmap CP11 | run TASK 087 |
 
 ## Selected forward milestones
 
 | Task | Status | Checkpoint | Summary |
 |---|---|---|---|
-| TASK 086 | **NEXT** | CP11 | Content-source matrix |
+| TASK 087 | **NEXT** | CP11 | Learn pack: Hadith, Seerah, Prophets |
 | TASK 094 | PLANNED | CP11 | Learn/Assistant depth checkpoint |
 | TASK 101 | PLANNED | CP12 | Closed alpha/beta package |
 | TASK 115 | PLANNED | CP13 | Google Play soft launch — **first possible revenue** |

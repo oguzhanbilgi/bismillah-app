@@ -71,6 +71,7 @@ TASK 083    — Today task UI — COMPLETED
 TASK 083A   — Initial DailyPlan orchestration — COMPLETED
 TASK 084    — Missed-day recovery and gentle rollover — COMPLETED
 TASK 085    — 30-day plan and CP10 checkpoint — COMPLETED
+TASK 086    — Content-source matrix — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -241,9 +242,27 @@ navigation, opening a Learn article from a task card, and repair of TASK
 
 ## CP11 — Learn and Assistant
 
+**CP11 content-governance rule (fixed by TASK 086):** the canonical
+per-area source matrix is `docs/CONTENT_SOURCE_MATRIX.md` and **no competing
+source-policy document may be created** — `CONTENT_SOURCES.md`,
+`THIRD_PARTY_NOTICES.md` and `CONTENT_POLICY.md` keep their existing roles and
+the matrix references them. Every new or changed content area must add or
+update a matrix row; `flutter test test/content` fails on a missing required
+field, an invalid status/class/delivery/consumer value, or a cited repository
+path that does not exist. A row is **READY** only with a concrete source, valid
+metadata, passing publication rules, understood locale handling and no known
+licensing contradiction — **religious text with missing source evidence is
+never READY**, and where the repository establishes nothing the matrix records
+**UNRESOLVED** rather than general knowledge. `internal-ui-copy` (onboarding
+wording, Today plan labels, prayer labels, Assistant safety strings) is
+classified separately and is **never** religious authority. The Assistant may
+consume **only** published Learn articles, category titles as a weak ranking
+signal, and the source registry; pending/draft content, Quran text/translation/
+audio, prayer-time output and all interface copy are **excluded**.
+
 ```text
-TASK 086 — Content-source matrix                        <-- NEXT TASK
-TASK 087 — Learn pack: Hadith, Seerah, Prophets
+TASK 086 — Content-source matrix                        — COMPLETED
+TASK 087 — Learn pack: Hadith, Seerah, Prophets         <-- NEXT TASK
 TASK 088 — Learn pack: Dua, Family, Halal foundations
 TASK 089 — Learn pack: Women, Afterlife, Islamic history
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps

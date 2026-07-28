@@ -614,8 +614,8 @@ that task's time*; the current verified baseline lives in
   **CP10 is closed.** This is explicitly **not** a release-readiness claim:
   the plan flow has had no physical-device validation and iOS remains
   unvalidated.
-- **Next:** **TASK 086 — Content-source matrix** (CP11, Learn and Assistant
-  depth). Deferred out of CP10 and owned by **no task yet**: day-30 plan
+- **Next:** **CP11 opened at TASK 086 — Content-source matrix** (see the CP11
+  section below). Deferred out of CP10 and owned by **no task yet**: day-30 plan
   renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar
   navigation, opening a Learn article from a task card, and repair of TASK
   083A's typed `rangeConflict`. The commercial roadmap-alignment item below
@@ -629,3 +629,76 @@ that task's time*; the current verified baseline lives in
   **conflict** with the canonical `MONETIZATION_DECISIONS.md` (79.99 TL
   monthly, no introductory price, no LÖSEV/creative/AI-disclosure policy).
   Content for dhikr/dua/reflection remains an **open owner decision**.
+
+## CP11 — Learn and Assistant depth (in progress)
+
+- **TASK 086 — Content-source matrix (CP11 opens).** The first governance task
+  since the public-alpha content work: an audit that answers, for every
+  religious and educational content class, what the source is, whether it is
+  official/primary or reviewed secondary, where it lives, how it is delivered,
+  which publication and review gates apply, what TR/EN/AR coverage exists,
+  which surfaces may consume it, and what is still unresolved. A competing
+  source-policy architecture was deliberately **not** created:
+  `docs/CONTENT_SOURCES.md` (attribution/delivery), `THIRD_PARTY_NOTICES.md`
+  (formal licences) and `CONTENT_POLICY.md` (publication gate) keep their
+  roles, the new `docs/CONTENT_SOURCE_MATRIX.md` references them rather than
+  restating licensing facts, and `CONTENT_SOURCES.md` gained a cross-reference
+  so there is one entry point.
+  **22 rows**, each with a stable kebab-case ID: Quran text, chapter metadata,
+  verse-page map, Turkish translation, search index, recitation audio and
+  reciter catalog; the **inactive** remote Diyanet translation callable; Learn
+  articles, prayer education, categories, source registry and plan catalog;
+  prayer-time calculation and prayer labels; dua and dhikr; onboarding copy and
+  Today plan copy; the Assistant retrieval corpus and safety copy; and the
+  Profile source registry. Status counts: **READY 8 · READY WITH DOCUMENTED
+  LIMITATION 11 · REVIEW REQUIRED 1 · BLOCKED 0 · NOT IMPLEMENTED 2**.
+  Every figure was **recomputed from the shipped assets**, not carried over
+  from earlier reports: **32 records per locale — 30 `published`, 2
+  `scholarlyReviewPending`**, with TR/EN/AR carrying identical stable ID sets
+  **and** identical review statuses; all 30 published on `sourceBodyReview`
+  with an exact locator, evidence summary and `verifiedAt`; every referenced
+  source ID resolving to a registered `sources.json` record; zero orphan
+  references. Where the repository establishes nothing — notably translation
+  licensing — the matrix records **UNRESOLVED** rather than general knowledge.
+  A classification decision was fixed: **`internal-ui-copy` is a first-class
+  source class.** Onboarding wording, Today plan labels ("Continue your Quran
+  habit", "Daily prayer tracking"), prayer name labels and the Assistant's own
+  safety strings are interface copy, **never** sourced religious teaching, and
+  the Assistant may never treat them as authority. Prayer times were confirmed
+  honestly labelled: `adhan_dart`'s `turkiye()` preset behind "Türkiye
+  hesaplama yöntemi", with **no official-Diyanet claim** anywhere in code or
+  interface.
+  **No P0 or P1 issue was found.** No published religious content lacks an
+  identifiable source; no source-registry entry mismatches shipped content; no
+  locale set represents different religious subjects; no review-pending content
+  is exposed as published; the Assistant cannot reach unpublished material; and
+  no evidenced licensing conflict exists for content that actually ships.
+  **Six P2 findings** were recorded with owners: **F1** the Assistant
+  sensitive-query persistence gate excludes `worshipRule` while the classifier's
+  own `isSensitiveVerdict` includes it — and that helper has **no production
+  caller** (TASK 094); **F2** `app_source_reference.dart` duplicates
+  `sources.json` facts with no cross-check (TASK 094); **F3** QuranEnc/Rowad
+  licensing is unestablished (UNRESOLVED, owner decision); **F4** the deployed
+  Diyanet callable is client-inactive with unresolved upstream licensing, EOL
+  `nodejs20` and `enforceAppCheck` still a TODO (existing P1 redeploy + gate G7,
+  TASK 134); **F5** 3 of 6 registered sources ground no published article and 11
+  of 20 categories are empty (TASK 087–090, TASK 092); **F6** neither Quran
+  corpus was ever fully diffed upstream (UNRESOLVED). **No task number was
+  invented**, and the deferred governance items — Bismillah+ pricing, supporter
+  tiers, LÖSEV, advertising creatives, AI-ad disclosure and the unnamed Firebase
+  gates — were preserved untouched.
+  A small durable validator was added (`test/content/content_source_matrix_test.dart`,
+  **14 tests**) that checks the matrix document itself — unique IDs,
+  summary/detail agreement including status, all 18 required fields, closed
+  value sets, a `Limitation` field wherever a limitation status is claimed, no
+  `UNRESOLVED` inside a `READY` row, and **every cited repository path really
+  existing on disk**. It deliberately does not duplicate
+  `learn_content_integrity_test.dart`. The validator caught two real defects
+  during authoring: the parser was absorbing the Findings section into the last
+  row, and one `Delivery` value carried a parenthetical instead of a bare token.
+  Full suite **1422 → 1436**; analyze clean; Learn/Assistant/content-sources +
+  matrix **199/199**; Functions **not run** (no Functions file, dependency or
+  lockfile changed; last verified 23/23 at TASK 085). **No religious content was
+  written, edited, repaired or reclassified, and zero production Dart or asset
+  files changed.**
+- **Next:** **TASK 087 — Learn pack: Hadith, Seerah, Prophets.**
