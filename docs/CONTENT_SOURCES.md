@@ -4,6 +4,13 @@ Bismillah bundles or references third-party religious content under **their own 
 **not** under the Mozilla Public License 2.0 that covers the source code. See
 [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) for the formal notices.
 
+This file is the **attribution and delivery notice**. For the per-area governance
+view — source class, publication and review gates, locale coverage, which surfaces
+may consume each content class, and what is still unresolved — see
+[`CONTENT_SOURCE_MATRIX.md`](CONTENT_SOURCE_MATRIX.md). Licensing facts are stated
+here and in the third-party notices; the matrix references them rather than
+restating them.
+
 ## Tanzil Quran Text
 
 - **Delivery:** Bundled (`bismillah_app/assets/quran/verses_uthmani_v1.json`).
