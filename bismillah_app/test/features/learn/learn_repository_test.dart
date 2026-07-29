@@ -72,10 +72,15 @@ void main() {
       expect(purity.publishedCount, greaterThan(0));
       expect(purity.isEmpty, isFalse);
 
+      // Boş kategori örneği SABİT KODLANMAZ: Learn kütüphanesi her paketle
+      // büyüdüğü için hangi kategorinin boş kaldığı zamanla değişir.
       final empty = categories.firstWhere(
-        (c) => c.category.id == 'cat-history',
+        (c) => c.publishedCount == 0,
+        orElse: () => throw StateError(
+          'Boş kategori kalmadı; bu testin dürüst-boş güvencesi '
+          'yeniden tasarlanmalıdır',
+        ),
       );
-      expect(empty.publishedCount, 0);
       expect(empty.isEmpty, isTrue);
     });
 

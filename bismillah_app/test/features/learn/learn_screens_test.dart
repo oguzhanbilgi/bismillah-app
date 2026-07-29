@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
@@ -214,10 +217,12 @@ void main() {
     });
 
     testWidgets('boş kategori sakin boş durum gösterir', (tester) async {
+      // Boş kategori slug'ı SABİT KODLANMAZ: Learn kütüphanesi her paketle
+      // büyüdüğü için hangi kategorinin boş kaldığı zamanla değişir.
+      final slug = _firstEmptyCategorySlug();
       await pumpLearn(
         tester,
-        initialLocation:
-            '${AppRoutes.learnCategory}/islam-tarihi-ve-medeniyeti',
+        initialLocation: '${AppRoutes.learnCategory}/$slug',
       );
 
       expect(find.byType(GentleEmptyState), findsOneWidget);
@@ -410,4 +415,37 @@ final class _AlwaysFailsLinkService implements ExternalLinkService {
 
   @override
   Future<bool> openOfficialSource(String url) async => false;
+}
+
+/// Yayınlanmış içeriği olmayan ilk kategorinin slug'ı.
+///
+/// Learn kütüphanesi CP11 paketleriyle büyüdüğü için boş kategori sabit
+/// kodlanmaz; asset'lerden türetilir.
+String _firstEmptyCategorySlug() {
+  Object? readJson(String name) =>
+      json.decode(File('assets/content/learn/$name').readAsStringSync());
+
+  final categories =
+      (readJson('categories.json')! as Map<String, Object?>)['categories']!
+          as List<Object?>;
+  final articles =
+      (readJson('articles_tr.json')! as Map<String, Object?>)['articles']!
+          as List<Object?>;
+
+  final publishedCategoryIds = <String>{
+    for (final raw in articles)
+      if ((raw! as Map<String, Object?>)['reviewStatus'] == 'published')
+        (raw as Map<String, Object?>)['categoryId']! as String,
+  };
+
+  for (final raw in categories) {
+    final category = raw! as Map<String, Object?>;
+    if (!publishedCategoryIds.contains(category['id'])) {
+      return category['slug']! as String;
+    }
+  }
+  throw StateError(
+    'Boş kategori kalmadı; bu testin boş-durum senaryosu yeniden '
+    'tasarlanmalıdır',
+  );
 }

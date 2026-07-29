@@ -2846,6 +2846,314 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-ahiret-nedir",
+      "slug": "what-is-the-hereafter",
+      "categoryId": "cat-afterlife",
+      "title": "What does the hereafter mean?",
+      "summary": "The hereafter is the life that begins with resurrection and continues forever; belief in it is one of the six articles of faith.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hereafter",
+        "faith",
+        "resurrection",
+        "eternity",
+        "belief"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "One of the six articles of faith is believing in the hereafter."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source begins with a simple measure: everything other than God has an end. The world too will one day come to an end. The only one who will never die and will remain is God."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The time that begins with resurrection and continues forever is called the Day of the Hereafter."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to the source, after the end of the world the trumpet will be sounded a second time and all creatures will be raised again. This is called resurrection after death."
+        },
+        {
+          "type": "paragraph",
+          "text": "To those who say \"we cannot grasp being raised after death\", the source gives a plain answer: the God who created us when we were nothing is also able to raise us again."
+        },
+        {
+          "type": "paragraph",
+          "text": "Believing in the Day of the Hereafter means believing in these things."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Think of belief in the hereafter not as a list of fears, but as a measure reminding you that life has an end and a reckoning."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kiyametin-vakti-bilinmez",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahiret Ne Demektir? / Öldükten Sonra Dirilmek, s. 65-67",
+        "evidenceSummary": "Bölüm, ahirete imanın imanın altı şartından biri olduğunu; Allah'tan başka her şeyin bir sonu bulunduğunu ve yalnız Allah'ın bâki olduğunu; sûra ikinci üfürüşle bütün yaratıkların yeniden dirileceğini; bu dirilişle başlayıp sonsuza kadar devam edecek zamana \"Ahiret Günü\" dendiğini ve ahiret gününe iman etmenin bunlara inanmak olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kiyametin-vakti-bilinmez",
+      "slug": "the-hour-is-known-only-to-god",
+      "categoryId": "cat-afterlife",
+      "title": "The time of the Hour is unknown",
+      "summary": "That the Hour will come is certain; but no one except God knows when — and the Prophet said he had no knowledge of it either.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "hour",
+        "time",
+        "knowledge",
+        "unseen",
+        "measure"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The source carefully separates two things: that the Hour will come is certain, but when it will come is not known."
+        },
+        {
+          "type": "keyPoint",
+          "text": "No one except God knows the time of the Hour; the source records that the Prophet too said he had no knowledge of it."
+        },
+        {
+          "type": "paragraph",
+          "text": "This measure leads to a plain conclusion: predictions about the date of the Hour have no religious basis. Speaking as though we know a time we do not know does not fit what the source says."
+        },
+        {
+          "type": "paragraph",
+          "text": "What is known for certain, according to the source, is that one day the order of the heavens and the earth will break down and the whole universe will come to an end; its timing rests with God."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When you meet a claim about a date or a sign of the Hour, recall the measure the source sets: only God knows its time."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Kıyamet Ne Zaman Kopacaktır?, s. 66",
+        "evidenceSummary": "Bölüm, kıyametin kopacağının muhakkak olmakla birlikte zamanını Allah'tan başka kimsenin bilemeyeceğini ve Peygamberimizin de bu hususta bilgisi olmadığını söylediğini açıkça belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ahirete-imanin-faydalari",
+      "slug": "how-belief-in-the-hereafter-shapes-life",
+      "categoryId": "cat-afterlife",
+      "title": "How belief in the hereafter shapes life",
+      "summary": "Belief in the hereafter is not an abstract acceptance; according to the source it directly shapes conduct, relationships and intention.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hereafter",
+        "character",
+        "intention",
+        "neighbour",
+        "honesty"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The source explains the effect of belief in the hereafter through conduct: a person who believes they will be raised again one day and will answer for what they did listens to God's commands and keeps away from what He forbade."
+        },
+        {
+          "type": "paragraph",
+          "text": "This belief becomes visible in character. According to the source, such a person takes care to acquire good character and treats their relatives and neighbours well."
+        },
+        {
+          "type": "paragraph",
+          "text": "The same measure appears in dealings with others: they keep away from deceit, injustice and cheating, and try to do good to everyone as far as they can."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The source does not stop at visible behaviour: it recalls that a person will be asked not only about what they did, but also about what they kept hidden within."
+        },
+        {
+          "type": "paragraph",
+          "text": "For this reason belief in the hereafter calls for more than appearing proper on the outside; it calls for clearing the heart of bad feelings as well."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Check your intention once while doing something today: as much as the visible act, what lies behind it is part of this measure."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-kiyametin-vakti-bilinmez"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahirete İmanın Faydaları, s. 67",
+        "evidenceSummary": "Bölüm, ahirete inanan kimsenin Allah'ın emirlerini dinleyip yasaklarından sakındığını, güzel ahlakla ahlaklanmaya özen gösterdiğini, akraba ve komşularına iyi davrandığını, hile, haksızlık ve aldatmadan sakındığını, elinden geldiğince iyilik yapmaya çalıştığını; ayrıca yalnız yaptıklarından değil içinde sakladıklarından da sorulacağına inandığı için kalbini kötü duygulardan arındırmaya çalıştığını belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kadinlarin-ilim-talebi",
+      "slug": "women-asking-to-learn",
+      "categoryId": "cat-women",
+      "title": "Women asking to learn",
+      "summary": "After a woman voiced her request to learn, the Prophet set aside a separate day for women and taught them himself.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "knowledge",
+        "learning",
+        "women",
+        "request",
+        "teaching"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "A narration recorded in the source shows women's request to learn in their own words. A woman came to the Prophet and said: \"Men benefit from your teaching all the time; set aside a day for us too, so we may come to you and you may teach us from what God has taught you.\""
+        },
+        {
+          "type": "keyPoint",
+          "text": "The Prophet did not turn the request away; he said: \"Then gather on such and such days.\""
+        },
+        {
+          "type": "paragraph",
+          "text": "The women gathered on the appointed day, and the Messenger of God came to them and taught them from what God had taught him."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source does not leave this example standing alone. The same passage relates that in that period women were aware of their social rights and duties, and took part in areas such as seeking knowledge, trade, solidarity and mutual help, and caring for the sick."
+        },
+        {
+          "type": "paragraph",
+          "text": "The measure here is plain: a request to learn was voiced, it was met, and it was given a regular arrangement."
+        },
+        {
+          "type": "practicalAction",
+          "text": "If there is something you want to learn, say it plainly instead of putting the question off; in this narration too, everything began with a question."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 4, s. 240-241",
+        "evidenceSummary": "s. 241'de Ebû Saîd el-Hudrî'den nakledilen rivayet yer alır: bir kadın Resûlullah'a gelerek \"Senin sohbetinden hep erkekler faydalanıyor. Bize bir gününü ayırsan da o gün sana gelsek, bize Allah'ın sana öğrettiğinden öğretsen.\" demiş; Hz. Peygamber \"O hâlde şu şu günlerde toplanın.\" buyurmuş, kadınlar toplanınca yanlarına gelip onlara öğretmiştir (Müslim, Birr, 152). s. 240 ise o dönemde hanımların sosyal hak ve görevlerinin farkında olduklarını ve ilim öğrenmek, ticaret yapmak, dayanışma faaliyetlerinde yer almak, hastalara bakmak gibi alanlarda bulunduklarını özetler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranin-yazilmasi-ve-cogaltilmasi",
+      "slug": "the-writing-and-copying-of-the-quran",
+      "categoryId": "cat-history",
+      "title": "The writing and copying of the Qur'an",
+      "summary": "From the time of its revelation the Qur'an was preserved both by memorisation and in writing; it was later gathered into a single mushaf and copied for the main centres.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "mushaf",
+        "scribe",
+        "preservation",
+        "copying",
+        "history"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The revealed verses were being memorised on the one hand and, by the Prophet's instruction, written down by the scribes of revelation on the other."
+        },
+        {
+          "type": "paragraph",
+          "text": "There was no paper at that time. According to the source, the verses were written on thin stones, shoulder blades, palm branches and hides. The Prophet would read the verses and have the scribes read them back, to check that what was written was correct."
+        },
+        {
+          "type": "keyPoint",
+          "text": "In this way the Qur'an was preserved in the Prophet's own lifetime, both in writing and in memory."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the period of Abu Bakr, after around seventy memorisers were killed at Yamama, a commission was formed under Zayd ibn Thabit, who had served as a scribe of revelation. Drawing both on what the scribes had written and on the memories of those who had memorised it, this commission gathered the Qur'an with great care into a single mushaf."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the period of Uthman, when differences in recitation began to appear in different regions, a commission again headed by Zayd ibn Thabit took the original copy kept with Hafsa and produced some seven copies. These were sent to various Islamic centres, and mistaken readings were thereby prevented."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source also notes that some copies written in that period have reached our own day."
+        },
+        {
+          "type": "practicalAction",
+          "text": "When you look at the mushaf in your hands, recall once how this text was preserved and passed on through writing and memorisation."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'in Yazılışı ve Mushaf Hâline Getirilişi / Mushaf Nüshalarının Çoğaltılması, s. 55-56",
+        "evidenceSummary": "Bölüm, vahyedilen ayetlerin hem ezberlendiğini hem de Peygamberimizin emriyle vahiy kâtiplerince yazıldığını; henüz kâğıt olmadığı için ince taş, kürek kemiği, hurma dalı ve deri üzerine yazıldığını; Peygamberimizin yazılanları okutarak kontrol ettiğini belirtir. Hz. Ebû Bekir döneminde Yemâme'de yaklaşık yetmiş hâfızın şehit edilmesi üzerine Zeyd b. Sâbit başkanlığında bir komisyon kurulduğunu ve Kur'an'ın tek mushaf hâlinde toplandığını; Hz. Osman döneminde okuyuş ayrılıkları ortaya çıkınca yine Zeyd b. Sâbit başkanlığındaki komisyonun Hz. Hafsa'nın yanındaki asıl nüshadan yedi kadar nüsha çoğaltıp muhtelif İslam merkezlerine gönderdiğini aktarır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

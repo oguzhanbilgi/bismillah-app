@@ -2837,6 +2837,314 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-ahiret-nedir",
+      "slug": "ma-mana-al-akhira",
+      "categoryId": "cat-afterlife",
+      "title": "ما معنى الآخرة؟",
+      "summary": "الآخرة هي الحياة التي تبدأ بالبعث وتدوم أبدًا، والإيمان بها أحد أركان الإيمان الستة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الآخرة",
+        "الإيمان",
+        "البعث",
+        "الخلود",
+        "العقيدة"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "من أركان الإيمان الستة الإيمانُ بالآخرة."
+        },
+        {
+          "type": "paragraph",
+          "text": "يبدأ المصدر بميزان بسيط: كل شيء سوى الله له نهاية، والدنيا أيضًا ستنتهي يومًا، والباقي الذي لا يموت هو الله وحده."
+        },
+        {
+          "type": "keyPoint",
+          "text": "والزمن الذي يبدأ بالبعث ويدوم أبدًا يسمى \"يوم الآخرة\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبحسب المصدر يُنفخ في الصور نفخة ثانية بعد انتهاء الدنيا فتُبعث الخلائق من جديد، وهذا هو البعث بعد الموت."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولمن يقول: \"لا تدرك عقولنا البعث بعد الموت\" يجيب المصدر جوابًا واضحًا: الذي خلقنا ولم نكن شيئًا قادر على أن يعيدنا."
+        },
+        {
+          "type": "paragraph",
+          "text": "والإيمان بيوم الآخرة هو الإيمان بهذه الأمور."
+        },
+        {
+          "type": "practicalAction",
+          "text": "انظر إلى الإيمان بالآخرة لا بوصفه قائمة مخاوف، بل ميزانًا يذكّرك بأن للحياة نهاية وحسابًا."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-kiyametin-vakti-bilinmez",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahiret Ne Demektir? / Öldükten Sonra Dirilmek, s. 65-67",
+        "evidenceSummary": "Bölüm, ahirete imanın imanın altı şartından biri olduğunu; Allah'tan başka her şeyin bir sonu bulunduğunu ve yalnız Allah'ın bâki olduğunu; sûra ikinci üfürüşle bütün yaratıkların yeniden dirileceğini; bu dirilişle başlayıp sonsuza kadar devam edecek zamana \"Ahiret Günü\" dendiğini ve ahiret gününe iman etmenin bunlara inanmak olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kiyametin-vakti-bilinmez",
+      "slug": "waqt_al_saa_la_yalamuh_illa_allah",
+      "categoryId": "cat-afterlife",
+      "title": "وقت الساعة لا يعلمه إلا الله",
+      "summary": "قيام الساعة حق، غير أن وقتها لا يعلمه إلا الله، وقد أخبر النبي أنه لا علم له بذلك.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "الساعة",
+        "الوقت",
+        "العلم",
+        "الغيب",
+        "الميزان"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يفرّق المصدر بعناية بين أمرين: قيام الساعة أمر مقطوع به، وأما وقتها فغير معلوم."
+        },
+        {
+          "type": "keyPoint",
+          "text": "لا يعلم وقت الساعة إلا الله، وينقل المصدر أن النبي صلى الله عليه وسلم أخبر أنه لا علم له بذلك."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويترتب على هذا الميزان نتيجة واضحة: ما يُطرح من تقديرات لتاريخ الساعة لا سند ديني له، والكلام عن وقت لا نعلمه وكأننا نعلمه لا يوافق ما قرره المصدر."
+        },
+        {
+          "type": "paragraph",
+          "text": "والمعلوم يقينًا بحسب المصدر أن نظام السماوات والأرض سيختل يومًا وينتهي هذا العالم، وأما وقت ذلك فعند الله."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إذا مرّ بك ادعاء بتاريخ للساعة أو بعلامة لها فتذكّر الميزان الذي قرره المصدر: لا يعلم وقتها إلا الله."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Kıyamet Ne Zaman Kopacaktır?, s. 66",
+        "evidenceSummary": "Bölüm, kıyametin kopacağının muhakkak olmakla birlikte zamanını Allah'tan başka kimsenin bilemeyeceğini ve Peygamberimizin de bu hususta bilgisi olmadığını söylediğini açıkça belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ahirete-imanin-faydalari",
+      "slug": "athar_al_iman_bi_al_akhira",
+      "categoryId": "cat-afterlife",
+      "title": "أثر الإيمان بالآخرة في الحياة",
+      "summary": "الإيمان بالآخرة ليس قبولًا مجردًا، بل يؤثر بحسب المصدر في السلوك والعلاقات والنية مباشرة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الآخرة",
+        "الأخلاق",
+        "النية",
+        "الجار",
+        "الصدق"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يبيّن المصدر أثر الإيمان بالآخرة من خلال السلوك: فمن آمن أنه يُبعث يومًا ويحاسَب على عمله أطاع أوامر الله واجتنب نواهيه."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويظهر هذا الإيمان في الأخلاق، فبحسب المصدر يحرص صاحبه على التخلق بالأخلاق الحسنة ويُحسن إلى أقاربه وجيرانه."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويظهر الميزان نفسه في معاملة الناس: فيجتنب الخديعة والظلم والغش، ويجتهد في الإحسان إلى الناس بقدر طاقته."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ولا يقف المصدر عند السلوك الظاهر، بل يذكّر بأن الإنسان يُسأل عما أخفاه في نفسه كما يُسأل عما عمل."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولذلك يقتضي الإيمان بالآخرة أكثر من حسن المظهر، إذ يقتضي تطهير القلب من المشاعر السيئة أيضًا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "راجع نيتك مرة وأنت تعمل عملًا اليوم؛ فما وراء الفعل جزء من هذا الميزان كالفعل نفسه."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-kiyametin-vakti-bilinmez"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahirete İmanın Faydaları, s. 67",
+        "evidenceSummary": "Bölüm, ahirete inanan kimsenin Allah'ın emirlerini dinleyip yasaklarından sakındığını, güzel ahlakla ahlaklanmaya özen gösterdiğini, akraba ve komşularına iyi davrandığını, hile, haksızlık ve aldatmadan sakındığını, elinden geldiğince iyilik yapmaya çalıştığını; ayrıca yalnız yaptıklarından değil içinde sakladıklarından da sorulacağına inandığı için kalbini kötü duygulardan arındırmaya çalıştığını belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kadinlarin-ilim-talebi",
+      "slug": "talab_al_nisa_lil_ilm",
+      "categoryId": "cat-women",
+      "title": "طلب النساء للعلم",
+      "summary": "لما عبّرت امرأة عن رغبتها في التعلّم خصّص النبي للنساء يومًا وعلّمهنّ بنفسه.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "العلم",
+        "التعلم",
+        "النساء",
+        "الطلب",
+        "التعليم"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يُظهر خبر في المصدر رغبة النساء في التعلّم بألفاظهنّ: جاءت امرأة إلى رسول الله فقالت: \"غلبنا عليك الرجال، فاجعل لنا يومًا من نفسك نأتيك فيه تعلّمنا مما علّمك الله\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ولم يردّ النبي طلبها، بل قال: \"اجتمعن يوم كذا وكذا\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "فاجتمع النساء في اليوم المحدد، فأتاهنّ رسول الله فعلّمهنّ مما علّمه الله."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولا يترك المصدر هذا المثال وحده، بل يذكر في الموضع نفسه أن النساء في ذلك العهد كنّ على وعي بحقوقهنّ وواجباتهنّ الاجتماعية، وشاركن في مجالات كطلب العلم والتجارة والتعاون ورعاية المرضى."
+        },
+        {
+          "type": "paragraph",
+          "text": "والميزان هنا واضح: طُلب العلم صراحةً، فوجد استجابة، ونُظّم في موعد."
+        },
+        {
+          "type": "practicalAction",
+          "text": "إن كان ثمّة أمر تريد تعلّمه فصرّح به ولا تؤجّل السؤال؛ ففي هذا الخبر بدأ كل شيء بسؤال."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 4, s. 240-241",
+        "evidenceSummary": "s. 241'de Ebû Saîd el-Hudrî'den nakledilen rivayet yer alır: bir kadın Resûlullah'a gelerek \"Senin sohbetinden hep erkekler faydalanıyor. Bize bir gününü ayırsan da o gün sana gelsek, bize Allah'ın sana öğrettiğinden öğretsen.\" demiş; Hz. Peygamber \"O hâlde şu şu günlerde toplanın.\" buyurmuş, kadınlar toplanınca yanlarına gelip onlara öğretmiştir (Müslim, Birr, 152). s. 240 ise o dönemde hanımların sosyal hak ve görevlerinin farkında olduklarını ve ilim öğrenmek, ticaret yapmak, dayanışma faaliyetlerinde yer almak, hastalara bakmak gibi alanlarda bulunduklarını özetler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranin-yazilmasi-ve-cogaltilmasi",
+      "slug": "kitabat_al_quran_wa_nasakhuh",
+      "categoryId": "cat-history",
+      "title": "كتابة القرآن ونسخه",
+      "summary": "حُفظ القرآن منذ نزوله بالحفظ في الصدور والكتابة معًا، ثم جُمع في مصحف واحد ونُسخ وأُرسل إلى الأمصار.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "المصحف",
+        "كاتب الوحي",
+        "الحفظ",
+        "النسخ",
+        "التاريخ"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "كانت الآيات المنزَّلة تُحفظ من جهة، وتُكتب من جهة أخرى بأمر النبي صلى الله عليه وسلم على يد كتّاب الوحي."
+        },
+        {
+          "type": "paragraph",
+          "text": "ولم يكن الورق موجودًا حينئذ، فكانت الآيات تُكتب بحسب المصدر على الحجارة الرقيقة والأكتاف وجريد النخل والأديم. وكان النبي يقرأ الآيات ويُقرئها الكتّاب ليتحقق من صحة ما كُتب."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وبهذا حُفظ القرآن في عهد النبي نفسه كتابةً وحفظًا في الصدور."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي عهد أبي بكر رضي الله عنه، بعد أن استُشهد نحو سبعين من الحفّاظ في اليمامة، شُكّلت لجنة برئاسة زيد بن ثابت الذي كان من كتّاب الوحي، فجمعت القرآن في مصحف واحد بعناية بالغة، رجوعًا إلى ما كتبه الكتّاب وإلى حفظ الحافظين."
+        },
+        {
+          "type": "paragraph",
+          "text": "وفي عهد عثمان رضي الله عنه، لما ظهرت وجوه اختلاف في القراءة بين الأمصار، أخذت لجنة برئاسة زيد بن ثابت أيضًا النسخة الأصلية التي كانت عند حفصة فنسخت منها نحو سبع نسخ، أُرسلت إلى أمصار المسلمين فحال ذلك دون القراءات الخاطئة."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويذكر المصدر أن بعض النسخ المكتوبة في ذلك العهد وصلت إلى أيامنا."
+        },
+        {
+          "type": "practicalAction",
+          "text": "حين تنظر إلى المصحف بين يديك تذكّر كيف حُفظ هذا النص ونُقل بالكتابة والحفظ."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'in Yazılışı ve Mushaf Hâline Getirilişi / Mushaf Nüshalarının Çoğaltılması, s. 55-56",
+        "evidenceSummary": "Bölüm, vahyedilen ayetlerin hem ezberlendiğini hem de Peygamberimizin emriyle vahiy kâtiplerince yazıldığını; henüz kâğıt olmadığı için ince taş, kürek kemiği, hurma dalı ve deri üzerine yazıldığını; Peygamberimizin yazılanları okutarak kontrol ettiğini belirtir. Hz. Ebû Bekir döneminde Yemâme'de yaklaşık yetmiş hâfızın şehit edilmesi üzerine Zeyd b. Sâbit başkanlığında bir komisyon kurulduğunu ve Kur'an'ın tek mushaf hâlinde toplandığını; Hz. Osman döneminde okuyuş ayrılıkları ortaya çıkınca yine Zeyd b. Sâbit başkanlığındaki komisyonun Hz. Hafsa'nın yanındaki asıl nüshadan yedi kadar nüsha çoğaltıp muhtelif İslam merkezlerine gönderdiğini aktarır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }
