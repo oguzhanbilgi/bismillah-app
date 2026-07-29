@@ -8,7 +8,7 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "c133fb6",
+    "last_verified_main_before_task": "17a753e",
     "public_tag": "v0.1.0-alpha.1",
     "public_tag_commit": "c23f490",
     "flutter_version": "3.44.6",
@@ -17,8 +17,10 @@
     "npm_version": "10.9.4",
     "android_sdk": "36.1.0",
     "gradle_jdk": "21",
-    "flutter_tests": 1501,
-    "flutter_tests_previous": 1472,
+    "flutter_tests": 1528,
+    "flutter_tests_previous": 1501,
+    "learn_pack_089_tests": 27,
+    "learn_pack_089_command": "flutter test test/features/learn/task_089_learn_pack_test.dart",
     "learn_pack_088_tests": 29,
     "learn_pack_088_command": "flutter test test/features/learn/task_088_learn_pack_test.dart",
     "learn_pack_087_tests": 34,
@@ -76,14 +78,36 @@
     "known_non_blocking_test_warning": "one off-screen tap() offset warning in bismillah_app/test/features/learn/learn_screens_test.dart; test passes"
   },
   "current_task": {
-    "id": "TASK-088",
-    "name": "Learn pack: Dua, Family, Halal foundations",
+    "id": "TASK-089",
+    "name": "Learn pack: Women, Afterlife, Islamic history",
     "status": "completed",
-    "latest_completed_functional_task": "TASK-088",
+    "latest_completed_functional_task": "TASK-089",
     "latest_completed_documentation_task": "TASK-086",
-    "next_functional_task": "TASK-089",
-    "next_functional_task_name": "Learn pack: Women, Afterlife, Islamic history",
+    "next_functional_task": "TASK-090",
+    "next_functional_task_name": "Learn pack: Madhhabs, Islamic calendar and remaining gaps",
     "next_functional_task_scope": "CP11 (Learn and Assistant depth). Deliberately deferred out of CP10 and owned by NO task yet: day-30 plan renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar navigation, opening a Learn article from a task card, and repair of TASK-083A's typed rangeConflict",
+    "learn_pack_089": {
+      "owner_scope_decision": "5 articles - cat-afterlife 3, cat-women 1, cat-history 1 (15 localized records)",
+      "article_ids": ["art-ahiret-nedir", "art-kiyametin-vakti-bilinmez", "art-ahirete-imanin-faydalari", "art-kadinlarin-ilim-talebi", "art-kuranin-yazilmasi-ve-cogaltilmasi"],
+      "records_per_locale": 50,
+      "published_per_locale": 48,
+      "categories_populated_total": "15 -> 18 of 20",
+      "categories_still_empty": ["cat-madhhabs", "cat-calendar"],
+      "new_source_record_added": false,
+      "registered_sources": 7,
+      "pointed_history_section_rejected": "Hadislerle Islam C.1 s.66-82 has NO rihle chapter - s.69 is military expansion, s.70 gives openly conflicting sahabi counts (12.304 / ~4.000 / 1.500), s.71 is fitne, sects and Umayyad-era fabrication, s.72-82 is authenticity grading; art-ilim-yolculuklari was dropped, not forced",
+      "history_replacement": "art-kuranin-yazilmasi-ve-cogaltilmasi from Islam Ilmihali s.55-56 (written revelation -> Abu Bakr single mushaf after Yemame -> Uthman seven copies), approved by the owner",
+      "locator_corrected": "art-ahiret-nedir recorded as s.65-67 (not s.65) because the Ahiret Gunu definition sits on s.67",
+      "art_olum_nedir_added": false,
+      "stale_fixtures_fixed": "learn_repository_test and learn_screens_test hard-coded cat-history as their empty-category exemplar; both now DERIVE an empty category from the shipped assets so future Learn packs cannot break them",
+      "catalog_production_file_modified": false,
+      "task_089_ids_in_catalog": false,
+      "assistant_code_changed": false,
+      "focused_tests": 27,
+      "flutter_suite": "1501 -> 1528",
+      "functions_suite": "not run - untouched",
+      "report": "docs/task-reports/TASK_089_LEARN_WOMEN_AFTERLIFE_HISTORY.md"
+    },
     "learn_pack_088": {
       "owner_scope_decision": "4 articles - cat-dua 1, cat-family 2, cat-halal 1 (12 localized records); the roadmap defines no count and TASK-087 3+3+3 was NOT inherited",
       "article_ids": ["art-dua-nedir", "art-ailenin-onemi", "art-anne-babaya-saygi-ve-nezaket", "art-helal-ve-haram-nedir"],
@@ -706,7 +730,7 @@
     "today": "working end to end for the initial 30-day plan, including local calendar-day rollover and gentle missed-day recovery (persistence TASK-076 + state machine TASK-077 + profile mapping TASK-078 + generator TASK-079 + three core item sources TASK-080/081/082 + task UI with completion TASK-083 + onboarding/bootstrap orchestration TASK-083A + rollover/recovery TASK-084); day-30 renewal and the CP10 checkpoint remain TASK-085",
     "prayer": "implemented (offline times, mark/undo, 7-day history, local exact-alarm reminders)",
     "quran": "implemented (reader, translation, offline search, bookmarks, progress, reciter, MP3Quran audio, Android background/lock-screen)",
-    "learn": "engine implemented; coverage growing (43 published / 2 pending; 15 of 20 categories populated after TASK-088)",
+    "learn": "engine implemented; coverage growing (48 published / 2 pending; 18 of 20 categories populated after TASK-089)",
     "profile": "implemented (personalization, language, sources, privacy/reset, About)",
     "assistant": "implemented (deterministic local published-only retrieval, citations, fatwa refusal, history<=20, sensitive not persisted)",
     "monetization": "dormant scaffolding only (no payment SDK)",
@@ -731,7 +755,7 @@
     "TASK-070D", "TASK-071", "TASK-072", "TASK-073", "TASK-074",
     "TASK-075", "TASK-076", "TASK-077", "TASK-078", "TASK-079",
     "TASK-080", "TASK-081", "TASK-082", "TASK-083", "TASK-083A",
-    "TASK-084", "TASK-085", "TASK-086", "TASK-087", "TASK-088"
+    "TASK-084", "TASK-085", "TASK-086", "TASK-087", "TASK-088", "TASK-089"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}

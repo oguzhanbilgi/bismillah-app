@@ -810,4 +810,58 @@ that task's time*; the current verified baseline lives in
   TASK 087 remains unapplied and open. No Assistant code was touched. 29 focused
   tests; Learn + catalog **211/211**; full suite **1472 → 1501**; analyze clean;
   Functions untouched and not run.
-- **Next:** **TASK 089 — Learn pack: Women, Afterlife, Islamic history.**
+- **TASK 089 — Learn pack: Women, Afterlife, Islamic history.** Owner scope after
+  a **PARTIALLY READY** evidence gate: **5 articles** — `cat-afterlife` 3,
+  `cat-women` 1, `cat-history` 1 (15 localized records). Per locale the library
+  moved from 45 records / 43 published to **50 / 48**; populated categories
+  **15 → 18 of 20**, leaving only `cat-madhhabs` and `cat-calendar` for TASK 090;
+  **no new source record**, so the registry stays at 7. The optional
+  `art-olum-nedir` was **not** added.
+  **The task's own pointer was rejected rather than forced.** The brief named
+  Hadislerle İslâm Cilt 1 ~s. 69 as the likely home of an article on scholarly
+  journeys. Eleven pages across s. 66–82 were fetched and read directly, and
+  **there is no *rihle* chapter there**: s. 66–67 is narration methodology,
+  s. 69 is *"halifeler zamanında düzenlenen askerî seferlerle… ele geçirdiği
+  bölgelerin tamamına"* (military and political history), s. 70 gives counts the
+  source itself reports as conflicting (12.304 / ~4.000 / 1.500 and "asla
+  2.000'i bulmaz"), s. 71 is fitne, sects, Hz. Osman's killing and Emevî-era
+  fabrication, and s. 72–82 discusses the collections throughout in terms of
+  *sahîh*, *zayıf* and *illetli*. The words *seyahat* and *sefer* on s. 76 and
+  s. 78 are incidental. `art-ilim-yolculuklari` was therefore dropped and — on
+  explicit owner approval — replaced by `art-kuranin-yazilmasi-ve-cogaltilmasi`
+  from İslam İlmihali s. 55–56: written revelation on stone, shoulder blade,
+  palm branch and hide because paper did not yet exist; Hz. Ebû Bekir's single
+  mushaf after Yemâme; Hz. Osman's seven copies sent to the centres. Stable,
+  broadly accepted, non-political chronology.
+  **A locator was corrected during drafting:** `art-ahiret-nedir` is recorded as
+  **s. 65–67**, not s. 65, because the "Ahiret Günü" definition it summarises
+  sits at the end of the *Öldükten Sonra Dirilmek* sub-section on s. 67.
+  Content-safety exclusions were substantial and deliberate. The Afterlife set
+  drops the fear-toned Hacc 1–2 kıyamet scene, cennet and cehennem description,
+  kabir azabı, şefaat (classified SCHOLARLY REVIEW REQUIRED and left out),
+  hesap/mizan/sırat detail, salvation judgments, and the source's "milletine ve
+  vatanına karşı görevler" clause. Notably `art-kiyametin-vakti-bilinmez` is a
+  **protective** article: it carries direct source support that only God knows
+  the time and that the Prophet said he had no knowledge of it — a counterweight
+  to date speculation rather than an invitation to it. The Women article rests
+  on the narration at Cilt 4 s. 241 (Müslim, Birr, 152) where a woman asks the
+  Prophet to set aside a day to teach women and he does, while excluding the
+  governance narration (s. 236), mahrem-travel rulings (s. 238), covering
+  rulings, the war-participation clause and s. 240's normative social
+  conclusion. The History article excludes conquest framing, caliphal
+  legitimacy, sectarian reading and manuscript criticism, and preserves the
+  source's own hedging — "yaklaşık yetmiş hâfız", "yedi kadar nüsha" — which is
+  test-enforced.
+  **Two stale fixtures were fixed durably.** `learn_repository_test` and
+  `learn_screens_test` both hard-coded `cat-history` as their empty-category
+  exemplar — a fixture this task necessarily invalidates. Rather than swapping in
+  another soon-to-be-populated category, both now **derive** an empty category
+  from the shipped assets, so no future Learn pack can break them. This is the
+  third instance of the same growth-tolerance lesson, after the TASK 082 catalog
+  reconciliation and the TASK 087 total-count correction.
+  `LearnDailyPlanCatalog.v1` remains untouched and none of the 5 new IDs enters
+  it. No Assistant code was touched. 27 focused tests; Learn + catalog
+  **238/238**; full suite **1501 → 1528**; analyze clean; Functions untouched and
+  not run.
+- **Next:** **TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining
+  gaps.**
