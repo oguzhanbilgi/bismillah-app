@@ -65,8 +65,8 @@ Diyanet endorsement** and is **not** an official Diyanet application. Sources re
 - **Dinî Soru Hizmetleri** — <https://kurul.diyanet.gov.tr/>
 
 For each Learn item, verification requires `sourceBodyVerified` with an exact source
-locator and an evidence summary before publication. Current Learn status: **54 published /
-2 pending scholarly review**.
+locator and an evidence summary before publication. Current Learn status: **55 published /
+1 pending scholarly review**.
 
 ## Flutter / Dart dependencies
 

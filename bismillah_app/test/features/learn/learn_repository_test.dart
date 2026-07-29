@@ -257,19 +257,25 @@ void main() {
     // -----------------------------------------------------------------
 
     test("kaynak gövdesi doğrulanmamış içerik RUNTIME'DA GÖRÜNMEZ", () async {
-      // TASK 057: "Dua adabı" ve "Kur'an okumaya başlangıç" kaynak gövdesi
-      // okunamadığı için pending; hiçbir okuma yolundan sızmamalıdır.
+      // TASK 057: "Dua adabı" kaynak gövdesi okunamadığı için pending;
+      // hiçbir okuma yolundan sızmamalıdır.
+      //
+      // TASK 091: "Kur'an okumaya başlangıç" İslam İlmihali s. 58'e
+      // dayandırılarak yeniden yazıldı ve yayına alındı. Bu yüzden artık
+      // ERİŞİLEBİLİR olmalıdır — ve kaynak gövdesi doğrulanmış olmalıdır.
+      // Kural değişmedi: görünen içerik doğrulanmış, doğrulanmamış içerik
+      // görünmez.
       expect(
         (await repository.getArticleBySlug('tr', 'dua-adabi')).valueOrNull,
         isNull,
       );
-      expect(
-        (await repository.getArticleBySlug(
-          'tr',
-          'kuran-okumaya-baslangic',
-        )).valueOrNull,
-        isNull,
-      );
+      final quran = (await repository.getArticleBySlug(
+        'tr',
+        'kuran-okumaya-baslangic',
+      )).valueOrNull;
+      expect(quran, isNotNull);
+      expect(quran!.isSourceBodyVerified, isTrue);
+      expect(quran.verification!.sourceLocator, contains('s. 58'));
 
       final dua = (await repository.getArticlesByCategory(
         'tr',

@@ -76,6 +76,7 @@ TASK 087    — Learn pack: Hadith, Seerah, Prophets — COMPLETED
 TASK 088    — Learn pack: Dua, Family, Halal foundations — COMPLETED
 TASK 089    — Learn pack: Women, Afterlife, Islamic history — COMPLETED
 TASK 090    — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
+TASK 091    — Review pending Learn articles — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -285,6 +286,18 @@ invented to satisfy the rule above. Such a source must still sit on
 heading** rather than a bare URL, and be marked **READY WITH DOCUMENTED
 LIMITATION** in the matrix because a live page can change without notice.
 
+**CP11 pending-review rule (fixed by TASK 091):** a `scholarlyReviewPending`
+record is resolved in exactly one of two ways — it is **re-grounded on a directly
+read source body** and published, or it **stays pending**. It is never published
+by relaxing the gate. TASK 091 did the first for `art-kuran-okumaya-baslangic`
+(re-grounded on İslam İlmihali s. 58; the unsupported body and the
+`diyanet-kuran-portali` attribution were removed) and the second for
+`art-dua-adabi`, whose subject — dua etiquette — is normative worship guidance and
+therefore needs a **qualified reviewer**, not owner editorial review. A pending
+record must not carry `isFeatured`, and no test may freeze **how many** records
+are pending. A source that stops grounding Learn content is **kept registered**
+if it still serves another purpose.
+
 **CP11 Learn-coverage rule (closed by TASK 090):** all **20 of 20** Learn
 categories now carry published content and Learn coverage expansion is
 **complete** — no further Learn pack is planned. Empty-state UI coverage must
@@ -300,8 +313,8 @@ TASK 087 — Learn pack: Hadith, Seerah, Prophets         — COMPLETED
 TASK 088 — Learn pack: Dua, Family, Halal foundations   — COMPLETED
 TASK 089 — Learn pack: Women, Afterlife, Islamic history — COMPLETED
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
-TASK 091 — Review pending Learn articles                <-- NEXT TASK
-TASK 092 — Official-answer / fatwa-source index foundation
+TASK 091 — Review pending Learn articles                — COMPLETED
+TASK 092 — Official-answer / fatwa-source index foundation <-- NEXT TASK
 TASK 093 — Assistant retrieval ranking and no-source UX
 TASK 094 — Learn/Assistant security, language and RTL checkpoint
 ```

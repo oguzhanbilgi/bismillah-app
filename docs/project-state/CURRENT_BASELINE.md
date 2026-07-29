@@ -6,15 +6,59 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 090). After the TASK 090 merge, read the real current commit
+> task (TASK 091). After the TASK 091 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 090: `1c1e282`
+- Last verified main before TASK 091: `b174789`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 090** — Learn pack: Madhhabs, Islamic calendar
+- Latest completed task: **TASK 091** — Review pending Learn articles (**CP11**).
+  Scope was read from the roadmap, which defines TASK 091 in **one line with no
+  acceptance criteria**, and therefore covers **only** the two long-standing
+  `scholarlyReviewPending` records. The four TASK 090 candidates stay deferred;
+  the two TASK 090-authored doc lines suggesting otherwise were recommendations,
+  not roadmap assignments.
+  Per locale: **56 records, 55 published, 1 pending** (was 56 / 54 / 2).
+  Categories stay **20 of 20**, registry stays at **8**, catalog stays at **30**.
+  **`art-kuran-okumaya-baslangic` was rewritten and published.** Its old body was
+  unsupported by its own registered source: `diyanet-kuran-portali` is a Quran
+  text/translation service with no chapter on learning to read, and the record
+  carried an **empty locator and empty evidence summary**. It now rests on
+  **İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'e Karşı Görevlerimiz —
+  b) Kur'an-ı Kerim'i Öğrenmek, s. 58**, read directly, and states only what that
+  page states: learning the Quran means learning to read it **and** working to
+  understand its meaning, with tajwid part of that learning. Removed: the
+  five-step list (on no source page), the s. 58 **virtue hadith**, the s. 58
+  **"farzdır"** ruling, the reward framing, and any pace/mastery/programme or
+  daily-amount claim. Title → "Kur'an'ı öğrenmek ne demektir?";
+  `contentType` → `ilmihalKnowledge`; `beginnerPathOrder` **11 preserved**; slugs
+  unchanged so deep links keep resolving. **No new source record.**
+  **`art-dua-adabi` remains `scholarlyReviewPending`** — body, title, summary,
+  source, locator and translations **untouched**; only `isFeatured` → `false`.
+  Recorded honestly: **qualified scholarly review is required**, the body is
+  **not approved** (empty locator/evidence, `blocker` preserved,
+  `contentType: hadithBased` with no hadith), the **Arabic strengthens one
+  sensitive claim** relative to the Turkish canon ("اليقين" vs "bilinci") and
+  must be fixed before any publication, and narrowing the subject would
+  **duplicate** the published `art-dua-nedir`. **No task owns the qualified
+  reviewer decision yet.**
+  `diyanet-kuran-portali` now grounds **no Learn article**; it is **deliberately
+  kept registered** as the official Quran reference address.
+  **Six existing assertions were re-pointed, not weakened** — three pack tests,
+  the Assistant pending exemplar, the repository runtime-visibility test (now
+  additionally asserting the published article **is** reachable and verified),
+  and two catalog assertions that had frozen "catalog head == every published
+  beginner-path member" and "orders 11 and 12 are pending". Both catalog
+  assertions now encode the durable invariant instead, so a later review cannot
+  break them again — same defect class TASK 088 and TASK 090 repaired.
+  One stale production doc comment in `learn_daily_plan_catalog.dart` corrected;
+  the catalog value itself unchanged. No Assistant, Quran, Prayer, persistence,
+  Firebase, remote, premium or monetization change; no schema, enum, storage key
+  or envelope-version change.
+  Report: `docs/task-reports/TASK_091_REVIEW_PENDING_LEARN_ARTICLES.md`
+- Previous completed task: **TASK 090** — Learn pack: Madhhabs, Islamic calendar
   and remaining gaps (**CP11**, final Learn pack). Owner scope **6 articles** —
   `cat-madhhabs` 3, `cat-calendar` 3 (18 localized records). Per locale:
   **56 records, 54 published** (was 50 / 48); populated categories
@@ -474,12 +518,12 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 091** — Review pending Learn articles
-  (**CP11 — Learn and Assistant depth**). It owns the two long-standing
-  `scholarlyReviewPending` records (`art-kuran-okumaya-baslangic`,
-  `art-dua-adabi`) and should also decide the four TASK 090 candidates that were
-  classified **SCHOLARLY REVIEW REQUIRED** and deliberately left unpublished.
-  Learn **coverage** expansion is complete — TASK 090 was the final Learn pack.
+- Next planned functional task: **TASK 092** — Official-answer / fatwa-source
+  index foundation (**CP11 — Learn and Assistant depth**).
+  Learn **coverage** expansion is complete (TASK 090) and pending-article review
+  is complete (TASK 091). Still open with **no owning task**: a qualified
+  scholarly reviewer for `art-dua-adabi`, and a decision on the four TASK 090
+  candidates classified **SCHOLARLY REVIEW REQUIRED** and left unpublished.
   Still open and deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
@@ -521,9 +565,21 @@ eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
 
-## Tests (verified at TASK 090)
+## Tests (verified at TASK 091)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
+- Flutter test baseline: **1590 / 1590**, 0 failed, 0 skipped
+  (1566 at TASK 090 + 24 TASK 091 tests)
+- TASK 091 suite: **24 / 24** — command:
+  `flutter test test/features/learn/task_091_pending_review_test.dart`
+- Learn + Assistant + catalog + content suites: **379 / 379** — command:
+  `flutter test test/features/learn test/features/assistant
+  test/features/today/domain/learn_daily_plan_catalog_test.dart test/content`
+- Functions at TASK 091: **not run** — no Functions file, dependency or lockfile
+  changed.
+
+## Tests (verified at TASK 090)
+
 - Flutter test baseline: **1566 / 1566**, 0 failed, 0 skipped
   (measured pre-TASK-090 baseline **1529** + 37 TASK 090 pack tests)
 - **Correction:** the stored TASK 089 figure **1528** was one short. The real

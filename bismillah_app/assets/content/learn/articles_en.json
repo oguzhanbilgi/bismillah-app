@@ -844,51 +844,45 @@
       "id": "art-kuran-okumaya-baslangic",
       "slug": "beginning-to-read-the-quran",
       "categoryId": "cat-quran-learning",
-      "title": "Beginning to read the Qur'an",
-      "summary": "A calm and realistic path for complete beginners.",
-      "contentType": "generalTeaching",
+      "title": "What does learning the Qur'an mean?",
+      "summary": "According to the İslam İlmihali, learning the Qur'an means both learning to read it and working to understand its meaning. The same section states that tajwid must also be learned in order to read it without error.",
+      "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
-      "estimatedMinutes": 4,
+      "estimatedMinutes": 3,
       "keywords": [
         "reading the quran",
-        "arabic alphabet",
-        "learning quran",
+        "learning the quran",
         "tajwid",
+        "meaning",
         "getting started"
       ],
       "sections": [
         {
           "type": "paragraph",
-          "text": "Learning to read the Qur'an takes time. Moving in small, regular steps without rushing is the healthiest path."
-        },
-        {
-          "type": "steps",
-          "items": [
-            "Begin by recognising the Arabic letters.",
-            "Learn how letters are read with vowel marks.",
-            "Listen to short chapters to become familiar with pronunciation.",
-            "Gradually move on to reading words and verses.",
-            "If possible, get support from a teacher or a course."
-          ]
+          "text": "Under the heading \"Our duties towards the Qur'an\", the İslam İlmihali lists one of those duties as \"learning the Qur'an\"."
         },
         {
           "type": "keyPoint",
-          "text": "Listening is one of the most effective ways to learn correct pronunciation; reading and listening progress together."
+          "text": "The source defines that learning as follows: learning the Qur'an means learning to read it and working to understand its meaning."
         },
         {
           "type": "paragraph",
-          "text": "If you cannot yet read Arabic, reading a translation is also valuable. Following the meaning makes the later reading journey easier."
+          "text": "So reading and understanding are presented in the source not as two separate tasks, but as two sides of the same learning."
         },
         {
-          "type": "practicalAction",
-          "text": "You could start today by listening to a single short chapter; starting matters more than progressing quickly."
+          "type": "paragraph",
+          "text": "The same section states that tajwid must also be learned in order to read the Qur'an without error. In the source tajwid appears not as a subject outside learning the Qur'an, but as part of that learning."
+        },
+        {
+          "type": "paragraph",
+          "text": "This article conveys the source's definition. It does not propose a programme, a duration, a pace or a daily amount of reading; for questions about your own path of learning you may consult the competent official authority or a trusted teacher."
         }
       ],
       "sourceIds": [
-        "diyanet-kuran-portali"
+        "diyanet-islam-ilmihali"
       ],
-      "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-kuran-nedir"
@@ -896,14 +890,13 @@
       "beginnerPathOrder": 11,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
-        "sourceId": "diyanet-kuran-portali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
-        "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "İlmihalde Kur'an okumayı öğrenme sürecine dair kesin bir bölüm/sayfa eşleştirilemedi; Kur'an Portalı gövdesi de okunamadı."
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'e Karşı Görevlerimiz — b) Kur'an-ı Kerim'i Öğrenmek, s. 58",
+        "evidenceSummary": "s. 58'deki \"Kur'an-ı Kerim'e Karşı Görevlerimiz\" başlığının (b) maddesi \"Kur'an-ı Kerim'i öğrenmek\"tir. Aynı madde öğrenmeyi şöyle tanımlar: \"Kur'an'ı öğrenmek, okumasını öğrenmek ve manasını anlamaya çalışmak demektir.\" Hemen ardından \"Kur'an-ı Kerim'i hatasız okuyabilmek için tecvidini de öğrenmek lazımdır.\" denir. Makale yalnız bu iki cümleye dayanır; aynı sayfadaki övgü/fazilet ifadeleri, hadis ve namazla ilgili hüküm cümlesi makaleye alınmamıştır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -961,7 +954,7 @@
         "art-tevbe-ve-umit"
       ],
       "beginnerPathOrder": 12,
-      "isFeatured": true,
+      "isFeatured": false,
       "verification": {
         "sourceBodyVerified": false,
         "sourceId": "diyanet-hadislerle-islam",
