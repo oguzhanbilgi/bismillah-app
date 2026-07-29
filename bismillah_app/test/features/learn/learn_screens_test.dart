@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
@@ -16,11 +13,14 @@ import 'package:bismillah_app/features/settings/application/app_locale_controlle
 import 'package:bismillah_app/shared/islamic/gentle_empty_state.dart';
 import 'package:bismillah_app/shared/islamic/mosque_silhouette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'empty_category_fixture_bundle.dart';
 
 /// Learn ekranları (TASK 056 §14 UI).
 ///
@@ -31,9 +31,10 @@ void main() {
   /// Kur'an testlerindeki desen).
   Future<AssetLearningKnowledgeRepository> warmRepository(
     WidgetTester tester,
-    String locale,
-  ) async {
-    final repository = AssetLearningKnowledgeRepository();
+    String locale, {
+    AssetBundle? bundle,
+  }) async {
+    final repository = AssetLearningKnowledgeRepository(bundle: bundle);
     await tester.runAsync(() async {
       await repository.getCategories(locale);
       await repository.getBeginnerPath(locale);
@@ -53,13 +54,14 @@ void main() {
     double textScale = 1.0,
     ExternalLinkService? linkService,
     Map<String, Object> prefs = const {},
+    AssetBundle? bundle,
   }) async {
     SharedPreferences.setMockInitialValues(prefs);
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
-    final repository = await warmRepository(tester, locale.name);
+    final repository = await warmRepository(tester, locale.name, bundle: bundle);
 
     final router = GoRouter(
       initialLocation: initialLocation,
@@ -217,12 +219,13 @@ void main() {
     });
 
     testWidgets('boş kategori sakin boş durum gösterir', (tester) async {
-      // Boş kategori slug'ı SABİT KODLANMAZ: Learn kütüphanesi her paketle
-      // büyüdüğü için hangi kategorinin boş kaldığı zamanla değişir.
-      final slug = _firstEmptyCategorySlug();
+      // Boş kategori senaryosu üretim içeriğine bağlanmaz: TEST-YEREL
+      // sentetik bir kategori kullanılır (bkz. EmptyCategoryFixtureBundle).
       await pumpLearn(
         tester,
-        initialLocation: '${AppRoutes.learnCategory}/$slug',
+        initialLocation:
+            '${AppRoutes.learnCategory}/${EmptyCategoryFixtureBundle.slug}',
+        bundle: EmptyCategoryFixtureBundle(rootBundle),
       );
 
       expect(find.byType(GentleEmptyState), findsOneWidget);
@@ -415,37 +418,4 @@ final class _AlwaysFailsLinkService implements ExternalLinkService {
 
   @override
   Future<bool> openOfficialSource(String url) async => false;
-}
-
-/// Yayınlanmış içeriği olmayan ilk kategorinin slug'ı.
-///
-/// Learn kütüphanesi CP11 paketleriyle büyüdüğü için boş kategori sabit
-/// kodlanmaz; asset'lerden türetilir.
-String _firstEmptyCategorySlug() {
-  Object? readJson(String name) =>
-      json.decode(File('assets/content/learn/$name').readAsStringSync());
-
-  final categories =
-      (readJson('categories.json')! as Map<String, Object?>)['categories']!
-          as List<Object?>;
-  final articles =
-      (readJson('articles_tr.json')! as Map<String, Object?>)['articles']!
-          as List<Object?>;
-
-  final publishedCategoryIds = <String>{
-    for (final raw in articles)
-      if ((raw! as Map<String, Object?>)['reviewStatus'] == 'published')
-        (raw as Map<String, Object?>)['categoryId']! as String,
-  };
-
-  for (final raw in categories) {
-    final category = raw! as Map<String, Object?>;
-    if (!publishedCategoryIds.contains(category['id'])) {
-      return category['slug']! as String;
-    }
-  }
-  throw StateError(
-    'Boş kategori kalmadı; bu testin boş-durum senaryosu yeniden '
-    'tasarlanmalıdır',
-  );
 }
