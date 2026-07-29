@@ -75,6 +75,7 @@ TASK 086    — Content-source matrix — COMPLETED
 TASK 087    — Learn pack: Hadith, Seerah, Prophets — COMPLETED
 TASK 088    — Learn pack: Dua, Family, Halal foundations — COMPLETED
 TASK 089    — Learn pack: Women, Afterlife, Islamic history — COMPLETED
+TASK 090    — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -276,13 +277,30 @@ pack may register a new source only under `diyanet.gov.tr` with an exact
 locatable section, and must record its series, edition and authorship without
 implying Diyanet endorsement.
 
+**CP11 source-form rule (fixed by TASK 090):** where a source has **no** series,
+edition, author or ISBN — as with an official Diyanet **web service page** — the
+missing fields are **left absent and the absence is recorded**; they are never
+invented to satisfy the rule above. Such a source must still sit on
+`diyanet.gov.tr`, be read directly as a body, be cited by a **named section
+heading** rather than a bare URL, and be marked **READY WITH DOCUMENTED
+LIMITATION** in the matrix because a live page can change without notice.
+
+**CP11 Learn-coverage rule (closed by TASK 090):** all **20 of 20** Learn
+categories now carry published content and Learn coverage expansion is
+**complete** — no further Learn pack is planned. Empty-state UI coverage must
+therefore be proved against a **synthetic test-only category**
+(`EmptyCategoryFixtureBundle`), never against a production category that
+happens to be empty. A candidate classified **SCHOLARLY REVIEW REQUIRED** is
+never published to fill a category; TASK 090 left four such candidates
+unpublished and asserted their absence by test.
+
 ```text
 TASK 086 — Content-source matrix                        — COMPLETED
 TASK 087 — Learn pack: Hadith, Seerah, Prophets         — COMPLETED
 TASK 088 — Learn pack: Dua, Family, Halal foundations   — COMPLETED
 TASK 089 — Learn pack: Women, Afterlife, Islamic history — COMPLETED
-TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps <-- NEXT TASK
-TASK 091 — Review pending Learn articles
+TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
+TASK 091 — Review pending Learn articles                <-- NEXT TASK
 TASK 092 — Official-answer / fatwa-source index foundation
 TASK 093 — Assistant retrieval ranking and no-source UX
 TASK 094 — Learn/Assistant security, language and RTL checkpoint

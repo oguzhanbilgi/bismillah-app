@@ -3145,6 +3145,367 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-mezhep-nedir",
+      "slug": "ma-huwa-al-madhhab",
+      "categoryId": "cat-madhhabs",
+      "title": "ما هو المذهب؟",
+      "summary": "المذهب في اللغة \"الطريق المسلوك\". وبحسب المصدر نشأت المذاهب من اختلاف فهم العلماء في المسائل التي لا نص قاطع فيها، وكلها تعتمد القرآن والسنة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "المذهب",
+        "الاجتهاد",
+        "الفهم",
+        "النص",
+        "التعريف"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يشرح \"إسلام إلمهالي\" المذهب في اللغة بأنه \"الطريق المسلوك\"، وفي الاصطلاح بأنه \"آراء تنشأ في الدين من اختلاف الفهم بين علمائه\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويذكر المصدر أن في الإسلام مذاهب، وأنه لا اختلاف بينها في الأصول، وأنها جميعًا تعتمد القرآن الكريم وسنة النبي صلى الله عليه وسلم."
+        },
+        {
+          "type": "keyPoint",
+          "text": "فالمذاهب لا تُعرض بوصفها جهات تفترق في أصول الدين، بل بوصفها اختلافًا في الفهم يقوم على المصدرين نفسيهما."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبحسب المصدر يقع الاختلاف في المسائل التي لا يوجد فيها نص واضح قاطع من آية أو حديث؛ ففي مثل هذه المسائل اجتهد العلماء وأبدوا آراءهم. وأهل الاجتهاد قد يتفقون على رأي واحد في المسألة، وقد يبدون آراء مختلفة."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويتناول \"إسلام إلمهالي\" المذاهب تحت عنوانين: مذاهب في الاعتقاد ومذاهب في العمل. وهذا المقال مقتصر على تعريف المصطلح."
+        },
+        {
+          "type": "paragraph",
+          "text": "وليس هذا المقال توجيهًا لاختيار مذهب. ومن احتاج حكمًا يخص حاله فليرجع إلى الجهة الرسمية المختصة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / A) Mezhep Nedir?, s. 29",
+        "evidenceSummary": "s. 29, \"A) Mezhep Nedir?\" başlığı altında mezhebi sözlükte \"gidilen yol\", terim olarak \"bir dinin, bilginleri arasındaki yorum farklarından meydana gelen görüşleri\" diye tanımlar. Aynı sayfa, İslam dininde mezheplerin bulunduğunu, bunlar arasında temelde bir ayrılık olmadığını ve hepsinin Kur'an-ı Kerim'i ve Peygamberimizin sünnetini esas aldığını belirtir. Farklılığın kaynağı olarak, hakkında açık ve kesin nass bulunmayan hususlarda bilginlerin ictihad edip görüş bildirmesi gösterilir; ictihad yetkisi olan bilginlerin aynı görüşe varabilecekleri gibi farklı görüşler de belirtebilecekleri söylenir. Sayfa, mezheplerin itikadî ve amelî olmak üzere ikiye ayrıldığını da kaydeder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-dini-hukumlerin-kaynaklari",
+      "slug": "al-masadir-al-asasiyya-lil-ahkam",
+      "categoryId": "cat-madhhabs",
+      "title": "المصادر الأساسية للأحكام الدينية",
+      "summary": "يعدّ \"إسلام إلمهالي\" مصادر الأحكام الدينية أربعة: الكتاب والسنة والإجماع والقياس. وبحسب المصدر فالكتاب والسنة هما الأصل، والإجماع والقياس يرجعان إليهما.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "الكتاب",
+        "السنة",
+        "الإجماع",
+        "القياس",
+        "المصدر"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "يعدّ \"إسلام إلمهالي\" المصادر التي تستند إليها الأحكام الدينية أربعة: الكتاب والسنة والإجماع والقياس."
+        },
+        {
+          "type": "paragraph",
+          "text": "والكتاب هو القرآن الكريم. ويعرّفه المصدر بأنه \"الكلام المنزَّل على نبينا بالعربية بواسطة جبريل، المنقول إلينا بالتواتر، المكتوب في المصاحف\"، ويذكر أن القرآن هو المصدر الأول للأحكام الدينية."
+        },
+        {
+          "type": "paragraph",
+          "text": "والسنة في اللغة \"الطريقة والعادة\"، وفي الاصطلاح أقوال النبي صلى الله عليه وسلم وأفعاله فيما سوى القرآن. ويقسمها المصدر ثلاثة أقسام: السنة القولية أي أقواله، والسنة الفعلية أي أفعاله، والسنة التقريرية أي سكوته وعدم اعتراضه على أمر علم به."
+        },
+        {
+          "type": "paragraph",
+          "text": "والإجماع في اللغة الاتفاق على أمر. وبحسب المصدر معناه في الدين اتفاق علماء المسلمين في عصر من العصور بعد النبي صلى الله عليه وسلم على حكم مسألة دينية. فإن صرّحوا بالرأي سُمّي إجماعًا صريحًا، وإن سكت المجتهدون الآخرون بعد علمهم بالرأي ولم يعترضوا سُمّي إجماعًا سكوتيًّا."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "ويسجّل المصدر هنا اختلافًا في الرأي بوضوح: فعند جمهور العلماء الإجماع الصريح مصدر قطعي للأحكام الدينية، أما الإجماع السكوتي فقطعيّته محل خلاف."
+        },
+        {
+          "type": "paragraph",
+          "text": "والقياس في اللغة تقدير شيء بشيء. ومعناه في الدين إعطاء مسألة لا حكم لها في الكتاب أو السنة أو الإجماع حكمَ مسألة واردة في أحد هذه المصادر، لاشتراكهما في العلة."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وبحسب المصدر فالأولان من هذه الأربعة، أي الكتاب والسنة، هما الأصل في الدين، أما الإجماع والقياس فيرجعان إلى الكتاب والسنة."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا المقال ينقل تعريفات هذه المصادر فحسب؛ فلا يشرح منهج كل مذهب على حدة، ولا يقارن بين المذاهب، ولا يفتي في أي مسألة."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — III. Dinî Hükümlerin Kaynakları (Şer'î Deliller), s. 33-38",
+        "evidenceSummary": "s. 33'teki \"Dinî Hükümlerin Kaynakları (Şer'î Deliller)\" başlığı, hükümlerin dayandığı kaynakların Kitap, Sünnet, İcma ve Kıyas olmak üzere dört olduğunu söyler ve Kitap'ı Kur'an-ı Kerim diye tanımlayıp ilk kaynak olduğunu belirtir. s. 34 sünneti sözlükte \"yol ve âdet\", terim olarak Peygamberimizin Kur'an'dan başka söz ve davranışları diye tanımlar ve kavlî, fiilî, takrirî üçlü ayrımını verir. s. 36-37 icmayı tanımlar, sarih ve sükûtî icma ayrımını yapar ve çoğunluğa göre sarih icmanın kesin, sükûtî icmanın kesinliğinin ise tartışmalı olduğunu kaydeder. s. 37 kıyası tanımlar. s. 38, Kitap ve Sünnetin dinde asıl kaynaklar olduğunu, İcma ve Kıyasın bunlara raci olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-amelde-mezhepler",
+      "slug": "al-madhahib-al-fiqhiyya-al-amaliyya",
+      "categoryId": "cat-madhhabs",
+      "title": "المذاهب الفقهية العملية",
+      "summary": "يعدّ \"إسلام إلمهالي\" المذاهب العملية المنتشرة بين أهل السنة: الحنفي والشافعي والمالكي والحنبلي. وهذا المقال يعرّف بها فقط، ولا يقارن بينها ولا يرتّبها.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "الحنفي",
+        "الشافعي",
+        "المالكي",
+        "الحنبلي",
+        "المذهب"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "تحت عنوان \"المذاهب في العمل\" يعدّ \"إسلام إلمهالي\" أربعة مذاهب منتشرة بين أهل السنة: الحنفي والشافعي والمالكي والحنبلي."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ويقدّم المصدر هذه الأربعة بوصفها \"المنتشرة بين أهل السنة\"؛ وليس هذا ترتيبًا في الفضل، ولا يتضمن حكمًا على تقاليد علمية لم تُذكر هنا."
+        },
+        {
+          "type": "paragraph",
+          "text": "مؤسس المذهب الحنفي هو أبو حنيفة المعروف بالإمام الأعظم، واسمه النعمان واسم أبيه ثابت. وبحسب المصدر وُلد في الكوفة سنة ٨٠ للهجرة وتوفي سنة ١٥٠ للهجرة. وانتشر مذهبه أولًا في العراق ثم في مصر والهند وبلاد الترك."
+        },
+        {
+          "type": "paragraph",
+          "text": "ومؤسس المذهب المالكي هو الإمام مالك بن أنس. وُلد في المدينة المنورة سنة ٩٣ للهجرة وتوفي فيها سنة ١٧٩ للهجرة. وأشهر مصنفاته الموطأ. ونشأ المذهب في المدينة وانتشر في الحجاز وإفريقية والأندلس."
+        },
+        {
+          "type": "paragraph",
+          "text": "ومؤسس المذهب الشافعي هو الإمام محمد بن إدريس الشافعي. وُلد في غزة سنة ١٥٠ للهجرة وتوفي في مصر سنة ٢٠٤ للهجرة. وانتشر المذهب في مصر وجنوب الجزيرة العربية وشرق إفريقية وأذربيجان وشرق الأناضول وإندونيسيا وجاوة."
+        },
+        {
+          "type": "paragraph",
+          "text": "ومؤسس المذهب الحنبلي هو أحمد بن حنبل. وُلد في بغداد سنة ١٦٤ للهجرة وتوفي فيها سنة ٢٤١ للهجرة. ويُعرف بكتابه في الحديث المسند. وانتشر المذهب في بغداد ومصر والشام والحجاز."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا المقال تعريفي؛ فلا يقارن الفروق الفقهية بين المذاهب، ولا يفضّل واحدًا على آخر، ولا يقول للقارئ أي مذهب يتبع."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / 2. Amelde Mezhepler, s. 31-32",
+        "evidenceSummary": "s. 31'deki \"2. Amelde Mezhepler\" başlığı, \"Sünni Müslümanlar arasında yaygın amelde mezhepler Hanefi, Şafii, Maliki ve Hanbeli olmak üzere dörttür\" der. Alt başlıklar Hanefî (s. 31) ile Mâlikî, Şâfiî ve Hanbelî (s. 32) mezheplerini tanıtır; her biri için kurucunun adı, doğum yeri, hicrî ve milâdî doğum-vefat yılları, belli başlı eseri ve mezhebin yayıldığı bölgeler verilir. Bu makale yalnız bu bilgileri aktarır; kaynakta yer alan siyasî olaylar, etnik köken tahmini ve değerlendirme cümleleri dışarıda bırakılmıştır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvim-nedir",
+      "slug": "ma-huwa-al-taqwim-al-hijri",
+      "categoryId": "cat-calendar",
+      "title": "ما هو التقويم الهجري؟",
+      "summary": "بحسب البيان الوارد في صفحة حساب المواقيت التابعة لرئاسة الشؤون الدينية، التقويم الهجري نظام تقويمي يتخذ هجرة النبي صلى الله عليه وسلم من مكة إلى المدينة بداية له، ويقوم على دوران القمر حول الأرض.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "التقويم الهجري",
+        "القمري",
+        "الشمسي",
+        "القمر",
+        "التقويم"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بحسب البيان الوارد في صفحة حساب المواقيت التابعة لرئاسة الشؤون الدينية، التقويم الهجري نظام تقويمي يتخذ هجرة النبي صلى الله عليه وسلم من مكة إلى المدينة بداية له، ويقوم على دوران القمر حول الأرض."
+        },
+        {
+          "type": "keyPoint",
+          "text": "ويقسم المصدر التقويم الهجري قسمين: هجري شمسي وهجري قمري. والمعروف عند الإطلاق باسم \"التقويم الهجري\" هو القمري."
+        },
+        {
+          "type": "paragraph",
+          "text": "وبحسب المصدر يقوم التقويم الهجري الشمسي على دوران الأرض حول الشمس، أما التقويم الهجري القمري فيقوم على حركة القمر. ويوم البداية في النظامين مختلف كذلك."
+        },
+        {
+          "type": "paragraph",
+          "text": "والتقويم الهجري نظام لتأريخ الأيام. وتطبيق بسم الله يعرّف به فقط، ولا يحدد التاريخ الرسمي لأي يوم ديني."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-aylar-ve-yil-uzunlugu"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"HİCRİ TAKVİM\" başlığı, giriş paragrafı ve 1. madde",
+        "evidenceSummary": "Sayfanın \"HİCRİ TAKVİM\" başlıklı açıklamasının ilk cümlesi hicrî takvimi, Peygamberimizin Mekke'den Medine'ye hicretini başlangıç kabul eden ve ayın dünya çevresinde dolanımını esas alan bir takvim sistemi diye tanımlar. Aynı paragraf takvimin hicrî şemsî ve hicrî kamerî olmak üzere ikiye ayrıldığını belirtir; 1. madde şemsî sistemin dünyanın güneş etrafındaki dolanımını esas aldığını, 2. maddenin sonu ise kamerî sistemin kısaca \"Hicri Takvim\" olarak bilindiğini söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-aylar-ve-yil-uzunlugu",
+      "slug": "al-ashhur-al-hijriyya-wa-tul-al-sana",
+      "categoryId": "cat-calendar",
+      "title": "الأشهر الهجرية وطول السنة",
+      "summary": "في التقويم الهجري القمري اثنا عشر شهرًا تأتي بترتيب معلوم، والشهر تسعة وعشرون أو ثلاثون يومًا. ولأن السنة القمرية أقصر من الميلادية بنحو أحد عشر يومًا تبدأ السنة الهجرية كل عام قبلها بعشرة أو أحد عشر يومًا.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الشهر الهجري",
+        "محرم",
+        "السنة القمرية",
+        "طول السنة",
+        "التقويم"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بحسب المصدر تأتي أشهر التقويم الهجري القمري بهذا الترتيب: محرم، صفر، ربيع الأول، ربيع الآخر، جمادى الأولى، جمادى الآخرة، رجب، شعبان، رمضان، شوال، ذو القعدة، ذو الحجة."
+        },
+        {
+          "type": "paragraph",
+          "text": "والشهر يكون أحيانًا تسعة وعشرين يومًا وأحيانًا ثلاثين."
+        },
+        {
+          "type": "paragraph",
+          "text": "والسنة القمرية ثلاثمئة وأربعة وخمسون يومًا. ويذكر المصدر أن في التقويم الهجري سنوات كبيسة أيضًا: ففي كل دورة من ثلاثين سنة تكون السنوات الثانية والخامسة والسابعة والعاشرة والثالثة عشرة والخامسة عشرة والثامنة عشرة والحادية والعشرين والرابعة والعشرين والسادسة والعشرين والتاسعة والعشرين ثلاثمئة وخمسة وخمسين يومًا، وسائر السنوات ثلاثمئة وأربعة وخمسين."
+        },
+        {
+          "type": "keyPoint",
+          "text": "السنة القمرية ٣٥٤٫٣٦٧ يومًا، والسنة الميلادية ٣٦٥٫٢٤٢٢ يومًا. وبسبب هذا الفارق البالغ نحو عشرة أيام وتسعة أعشار تبدأ السنة الهجرية كل عام قبل الميلادية بعشرة أو أحد عشر يومًا."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا التقدم نتيجة طبيعية لنظام التقويم؛ ولا يحمل معنى تفاؤل أو تنبؤ أو تفضيل."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"Hicri Kameri Takvimde aylar...\" paragrafı ve onu izleyen iki paragraf",
+        "evidenceSummary": "Sayfa ayları sırasıyla Muharrem, Safer, Rebiülevvel, Rebiülahir, Cemaziyelevvel, Cemaziyelahir, Recep, Şaban, Ramazan, Şevval, Zilkade ve Zilhicce olarak verir. Aynı paragraf hicrî takvimde de artık yıllar bulunduğunu, 30 yıllık dönemlerin 2, 5, 7, 10, 13, 15, 18, 21, 24, 26 ve 29. yıllarının 355 gün, diğer yılların 354 gün olduğunu belirtir. İzleyen paragraflar kamerî seneyi 354,367 gün, milâdî seneyi 365,2422 gün olarak verir; hicrî yılın milâdî yıldan yaklaşık 10,8752 gün kısa olduğunu, ayların bazen 29 bazen 30 gün çektiğini ve hicrî senenin milâdî seneye göre her yıl 10 veya 11 gün evvel başladığını söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvimin-baslangici",
+      "slug": "bidayat-al-taqwim-al-hijri",
+      "categoryId": "cat-calendar",
+      "title": "بداية التقويم الهجري",
+      "summary": "بحسب المصدر كان كل حدث مهم قبل الإسلام يُتخذ بداية للتأريخ. وفي زمن عمر رضي الله عنه اتُّخذ قرار جُعلت به سنة الهجرة السنة الأولى للتقويم الهجري وشهر المحرم رأس السنة.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "الهجرة",
+        "محرم",
+        "التقويم",
+        "البداية",
+        "التاريخ"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "بحسب المصدر كان كل حدث مهم قبل الإسلام يُتخذ بداية للتأريخ، وكان عام الفيل آخر بداية من هذا النوع. وعدّ السنين بحسب كل حدث على حدة كان يوقع في الاضطراب."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويذكر كتاب \"حياة محمد صلى الله عليه وسلم\" الأمر نفسه: فالعرب في ذلك العهد لم يكونوا يستعملون تقويمًا معينًا، بل كانوا يؤرخون بقولهم \"في عام الفيل\" أو \"قبل عام الفيل\" أو \"بعد عام الفيل\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "وفي زمن عمر رضي الله عنه، في السنة السابعة عشرة من الهجرة، اتُّخذ قرار جُعلت به السنة التي وقعت فيها الهجرة السنة الأولى للتقويم الهجري، وجُعل شهر المحرم من تلك السنة رأس السنة."
+        },
+        {
+          "type": "paragraph",
+          "text": "ويسجّل المصدر أيضًا أن يوم البداية في التقويمين الهجري القمري والهجري الشمسي مختلف."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا المقال يبيّن بداية التقويم؛ فلا يخوض في خلافات ذلك العصر السياسية، ولا يحسم أي نزاع في التأريخ."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama",
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", 1. ve 2. maddeler; ayrıca Hz. Muhammed'in Hayatı (16. Baskı, Mart 2025), s. 21",
+        "evidenceSummary": "Sayfanın 2. maddesi, İslamiyet'ten önce her önemli olayın tarih başlangıcı kabul edildiğini, en son Fil Vak'asının böyle sayıldığını ve yılların her olaya göre ayrı ayrı sayılmasının karışıklığa yol açtığını belirtir; ardından Hz. Ömer zamanında hicretin 17. yılında alınan bir kararla hicretin olduğu senenin hicrî takvimin 1. yılı, o yılın Muharrem ayının da yılbaşı kabul edildiğini kaydeder. 1. madde ise Peygamberimizin Kubâ'ya geliş gününü hicrî şemsî takvimin başlangıcı sayar; iki sistemin başlangıç günü birbirinden farklıdır. Kaynağın bu maddelerde verdiği kesin milâdî karşılıklar, sahip kararıyla yayımlanan içeriğin dışında tutulmuştur. Hz. Muhammed'in Hayatı s. 21 ise Arapların o dönemde belirli bir takvim kullanmadığını ve olayları \"Fil yılı\" ölçüsüyle tarihlendirdiğini bağımsız olarak teyit eder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

@@ -99,6 +99,20 @@
       "attribution": "T.C. Cumhurbaşkanlığı Diyanet İşleri Başkanlığı, Hz. Muhammed'in Hayatı",
       "usageNotes": "Uygulamadaki metin bu eserin ilgili bölümlerine dayanan özgün özettir; eserden aynen alıntı değildir. Eser Diyanet'in çocuk yayınları serisinde çıkmıştır ve Diyanet'in Bismillah'a özel bir onayı olduğu ileri sürülmez.",
       "isOfficial": true
+    },
+    {
+      "id": "diyanet-vakit-hesaplama",
+      "institution": "T.C. Diyanet İşleri Başkanlığı",
+      "title": "Vakit Hesaplama",
+      "sourceType": "officialPublication",
+      "canonicalUrl": "https://www2.diyanet.gov.tr/DinHizmetleriGenelMudurlugu/Sayfalar/HicridenMiladiye.aspx",
+      "originalLanguage": "tr",
+      "publicationInfo": "Diyanet İşleri Başkanlığı Vakit Hesaplama hizmeti; \"Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye\" sayfası. Sayfa bir internet hizmetidir; yazar, baskı ve yayım tarihi künyesi taşımaz. Sayfa altında verilen kaynakça: A. Kızılırmak, Gökbilimi Dersleri 1, 1977, Ege Üniversitesi; Memo Larousse; F. R. Unat, Hicrî Tarihleri Milâdî Tarihe Çevirme Kılavuzu.",
+      "accessedAt": "2026-07-29",
+      "lastVerifiedAt": "2026-07-29",
+      "attribution": "T.C. Diyanet İşleri Başkanlığı, Vakit Hesaplama",
+      "usageNotes": "Uygulamadaki metin bu sayfanın \"Hicri Takvim Hakkında Açıklama\" bölümüne dayanan özgün özettir; sayfadan aynen alıntı değildir. Diyanet'in Bismillah'a özel bir onayı olduğu ileri sürülmez.",
+      "isOfficial": true
     }
   ]
 }

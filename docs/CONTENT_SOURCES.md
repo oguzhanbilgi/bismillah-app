@@ -58,11 +58,14 @@ Diyanet endorsement** and is **not** an official Diyanet application. Sources re
 - **Diyanet Kur'an-ı Kerim Portalı** — <https://kuran.diyanet.gov.tr/>
 - **Kur'an Yolu Türkçe Meâl ve Tefsir** — <https://kuran.diyanet.gov.tr/Tefsir/>
 - **Hadislerle İslam** — <https://hadislerleislam.diyanet.gov.tr/>
+- **Hz. Muhammed'in Hayatı** — <https://egitimhizmetleri.diyanet.gov.tr/>
+- **Vakit Hesaplama (Hicrî takvim açıklaması)** —
+  <https://www2.diyanet.gov.tr/DinHizmetleriGenelMudurlugu/Sayfalar/HicridenMiladiye.aspx>
 - **Din İşleri Yüksek Kurulu (Fetvalar)** — <https://kurul.diyanet.gov.tr/tr/fetvalar>
 - **Dinî Soru Hizmetleri** — <https://kurul.diyanet.gov.tr/>
 
 For each Learn item, verification requires `sourceBodyVerified` with an exact source
-locator and an evidence summary before publication. Current Learn status: **30 published /
+locator and an evidence summary before publication. Current Learn status: **54 published /
 2 pending scholarly review**.
 
 ## Flutter / Dart dependencies

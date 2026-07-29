@@ -3154,6 +3154,367 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-mezhep-nedir",
+      "slug": "what-is-a-madhhab",
+      "categoryId": "cat-madhhabs",
+      "title": "What is a madhhab?",
+      "summary": "\"Madhhab\" literally means \"a road travelled\". According to the source, the madhhabs arose from differences of interpretation among scholars on matters with no clear and decisive text; all of them take the Quran and the Sunnah as their basis.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "madhhab",
+        "ijtihad",
+        "interpretation",
+        "text",
+        "definition"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "In the İslam İlmihali, \"madhhab\" is explained literally as \"a road travelled\". As a term it is defined as \"the views of a religion that arise from differences of interpretation among its scholars\"."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source states that madhhabs exist in Islam, that there is no difference between them in fundamentals, and that all of them take the Quran and the Sunnah of the Prophet as their basis."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Madhhabs are described not as bodies that diverge on the fundamentals of the religion, but as differences of interpretation resting on those same two sources."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to the source, the difference arises on matters where there is no clear and decisive text (a verse or a hadith). On such matters scholars performed ijtihad and stated their views. Scholars qualified to perform ijtihad may reach the same view on a question, or they may state different views."
+        },
+        {
+          "type": "paragraph",
+          "text": "The İslam İlmihali treats madhhabs under two headings: those of belief and those of practice. This article is limited to the definition of the concept."
+        },
+        {
+          "type": "paragraph",
+          "text": "This article is not advice on choosing a madhhab. A reader who needs a ruling for their own situation should consult the competent official authority."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / A) Mezhep Nedir?, s. 29",
+        "evidenceSummary": "s. 29, \"A) Mezhep Nedir?\" başlığı altında mezhebi sözlükte \"gidilen yol\", terim olarak \"bir dinin, bilginleri arasındaki yorum farklarından meydana gelen görüşleri\" diye tanımlar. Aynı sayfa, İslam dininde mezheplerin bulunduğunu, bunlar arasında temelde bir ayrılık olmadığını ve hepsinin Kur'an-ı Kerim'i ve Peygamberimizin sünnetini esas aldığını belirtir. Farklılığın kaynağı olarak, hakkında açık ve kesin nass bulunmayan hususlarda bilginlerin ictihad edip görüş bildirmesi gösterilir; ictihad yetkisi olan bilginlerin aynı görüşe varabilecekleri gibi farklı görüşler de belirtebilecekleri söylenir. Sayfa, mezheplerin itikadî ve amelî olmak üzere ikiye ayrıldığını da kaydeder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-dini-hukumlerin-kaynaklari",
+      "slug": "the-primary-sources-of-religious-rulings",
+      "categoryId": "cat-madhhabs",
+      "title": "The primary sources of religious rulings",
+      "summary": "The İslam İlmihali lists four sources on which religious rulings rest: the Book, the Sunnah, ijma and qiyas. According to the source the Book and the Sunnah are the principal sources; ijma and qiyas rest upon these two.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "book",
+        "sunnah",
+        "ijma",
+        "qiyas",
+        "source"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "The İslam İlmihali lists four sources on which religious rulings rest: the Book, the Sunnah, ijma and qiyas."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Book is the Quran. The source defines it as \"the speech sent down to our Prophet in Arabic through Gabriel, transmitted to us by mass transmission and written in the mushafs\", and states that the Quran is the first source on which religious rulings rest."
+        },
+        {
+          "type": "paragraph",
+          "text": "\"Sunnah\" literally means \"way and custom\". As a term it is the sayings and actions of the Prophet other than the Quran. The source divides it in three: verbal sunnah (his sayings), practical sunnah (his actions) and tacit sunnah — his remaining silent rather than objecting to something he was aware of."
+        },
+        {
+          "type": "paragraph",
+          "text": "\"Ijma\" literally means agreeing on a matter. According to the source, in religion it means the agreement of Muslim scholars, in some period after the Prophet, on the ruling of a religious question. Agreement stated openly is called explicit ijma; the silence of other qualified scholars who knew of a view and did not object is called tacit ijma."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "The source openly records a difference of opinion here: according to the great majority of Muslim scholars explicit ijma is a decisive source for religious rulings, whereas whether tacit ijma is decisive is disputed."
+        },
+        {
+          "type": "paragraph",
+          "text": "\"Qiyas\" literally means measuring one thing against another. In religion it means giving a question that has no ruling in the Book, the Sunnah or ijma the ruling of a case found in one of those sources, because of a shared underlying cause."
+        },
+        {
+          "type": "keyPoint",
+          "text": "According to the source the first two of these four — the Book and the Sunnah — are the principal sources in religion, while ijma and qiyas go back to the Book and the Sunnah."
+        },
+        {
+          "type": "paragraph",
+          "text": "This article only conveys the definitions of these sources. It does not explain each madhhab's own method, does not compare madhhabs and does not give a ruling on any question."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — III. Dinî Hükümlerin Kaynakları (Şer'î Deliller), s. 33-38",
+        "evidenceSummary": "s. 33'teki \"Dinî Hükümlerin Kaynakları (Şer'î Deliller)\" başlığı, hükümlerin dayandığı kaynakların Kitap, Sünnet, İcma ve Kıyas olmak üzere dört olduğunu söyler ve Kitap'ı Kur'an-ı Kerim diye tanımlayıp ilk kaynak olduğunu belirtir. s. 34 sünneti sözlükte \"yol ve âdet\", terim olarak Peygamberimizin Kur'an'dan başka söz ve davranışları diye tanımlar ve kavlî, fiilî, takrirî üçlü ayrımını verir. s. 36-37 icmayı tanımlar, sarih ve sükûtî icma ayrımını yapar ve çoğunluğa göre sarih icmanın kesin, sükûtî icmanın kesinliğinin ise tartışmalı olduğunu kaydeder. s. 37 kıyası tanımlar. s. 38, Kitap ve Sünnetin dinde asıl kaynaklar olduğunu, İcma ve Kıyasın bunlara raci olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-amelde-mezhepler",
+      "slug": "the-schools-of-law-in-practice",
+      "categoryId": "cat-madhhabs",
+      "title": "The schools of law in practice",
+      "summary": "The İslam İlmihali lists the schools of law widespread among Sunni Muslims as Hanafi, Shafi'i, Maliki and Hanbali. This article only introduces them; it neither compares nor ranks them.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "hanafi",
+        "shafii",
+        "maliki",
+        "hanbali",
+        "madhhab"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Under the heading \"schools of law in practice\", the İslam İlmihali lists four schools widespread among Sunni Muslims: Hanafi, Shafi'i, Maliki and Hanbali."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The source introduces these four as those \"widespread among Sunni Muslims\". This is not a ranking of merit, and it carries no judgement about scholarly traditions not mentioned here."
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder of the Hanafi school is Abu Hanifa, known as Imam A'zam; his name was Nu'man and his father's name Thabit. According to the source he was born in Kufa in AH 80 (CE 699) and died in AH 150 (CE 767). His school spread first in Iraq, then in Egypt, India and the Turkish lands."
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder of the Maliki school is Imam Malik b. Anas. He was born in Medina in AH 93 (CE 712) and died there in AH 179 (CE 795). His principal work is al-Muwatta. The school emerged in Medina and spread in the Hijaz, Africa and Andalusia."
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder of the Shafi'i school is Imam Muhammad b. Idris al-Shafi'i. He was born in Gaza in AH 150 (CE 767) and died in Egypt in AH 204 (CE 819). The school spread in Egypt, southern Arabia, East Africa, Azerbaijan, Eastern Anatolia, Indonesia and Java."
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder of the Hanbali school is Ahmad b. Hanbal. He was born in Baghdad in AH 164 (CE 780) and died there in AH 241 (CE 855). He is known for his hadith work, the Musnad. The school spread in Baghdad, Egypt, Syria and the Hijaz."
+        },
+        {
+          "type": "paragraph",
+          "text": "This article is introductory. It does not compare the legal differences between the schools, does not hold one above another, and does not tell the reader which school to follow."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / 2. Amelde Mezhepler, s. 31-32",
+        "evidenceSummary": "s. 31'deki \"2. Amelde Mezhepler\" başlığı, \"Sünni Müslümanlar arasında yaygın amelde mezhepler Hanefi, Şafii, Maliki ve Hanbeli olmak üzere dörttür\" der. Alt başlıklar Hanefî (s. 31) ile Mâlikî, Şâfiî ve Hanbelî (s. 32) mezheplerini tanıtır; her biri için kurucunun adı, doğum yeri, hicrî ve milâdî doğum-vefat yılları, belli başlı eseri ve mezhebin yayıldığı bölgeler verilir. Bu makale yalnız bu bilgileri aktarır; kaynakta yer alan siyasî olaylar, etnik köken tahmini ve değerlendirme cümleleri dışarıda bırakılmıştır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvim-nedir",
+      "slug": "what-is-the-hijri-calendar",
+      "categoryId": "cat-calendar",
+      "title": "What is the Hijri calendar?",
+      "summary": "According to the explanation on the Presidency of Religious Affairs' Vakit Hesaplama page, the Hijri calendar is a calendar system that takes the Prophet's migration from Mecca to Medina as its starting point and is based on the Moon's orbit around the Earth.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "hijri calendar",
+        "lunar",
+        "solar",
+        "moon",
+        "calendar"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "According to the explanation on the Presidency of Religious Affairs' Vakit Hesaplama page, the Hijri calendar is a calendar system that takes the Prophet's migration from Mecca to Medina as its starting point and is based on the Moon's orbit around the Earth."
+        },
+        {
+          "type": "keyPoint",
+          "text": "The source divides the Hijri calendar in two: the Hijri solar and the Hijri lunar calendar. The one commonly known simply as \"the Hijri calendar\" is the lunar one."
+        },
+        {
+          "type": "paragraph",
+          "text": "According to the source, the Hijri solar calendar is based on the Earth's orbit around the Sun, while the Hijri lunar calendar rests on the movement of the Moon. The two systems also have different starting days."
+        },
+        {
+          "type": "paragraph",
+          "text": "The Hijri calendar is a dating system. Bismillah only introduces it; it does not determine the official date of any religious day."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-aylar-ve-yil-uzunlugu"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"HİCRİ TAKVİM\" başlığı, giriş paragrafı ve 1. madde",
+        "evidenceSummary": "Sayfanın \"HİCRİ TAKVİM\" başlıklı açıklamasının ilk cümlesi hicrî takvimi, Peygamberimizin Mekke'den Medine'ye hicretini başlangıç kabul eden ve ayın dünya çevresinde dolanımını esas alan bir takvim sistemi diye tanımlar. Aynı paragraf takvimin hicrî şemsî ve hicrî kamerî olmak üzere ikiye ayrıldığını belirtir; 1. madde şemsî sistemin dünyanın güneş etrafındaki dolanımını esas aldığını, 2. maddenin sonu ise kamerî sistemin kısaca \"Hicri Takvim\" olarak bilindiğini söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-aylar-ve-yil-uzunlugu",
+      "slug": "hijri-months-and-the-length-of-the-year",
+      "categoryId": "cat-calendar",
+      "title": "Hijri months and the length of the year",
+      "summary": "In the Hijri lunar calendar twelve months follow a fixed order, and months have 29 or 30 days. Because the lunar year is about 11 days shorter than the Gregorian year, the Hijri year begins 10-11 days earlier each year.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hijri month",
+        "muharram",
+        "lunar year",
+        "year length",
+        "calendar"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "According to the source, the months of the Hijri lunar calendar follow this order: Muharram, Safar, Rabi al-Awwal, Rabi al-Akhir, Jumada al-Ula, Jumada al-Akhira, Rajab, Sha'ban, Ramadan, Shawwal, Dhu al-Qa'da, Dhu al-Hijja."
+        },
+        {
+          "type": "paragraph",
+          "text": "Months have sometimes 29 and sometimes 30 days."
+        },
+        {
+          "type": "paragraph",
+          "text": "A lunar year is 354 days. The source notes that the Hijri calendar also has leap years: within each 30-year period the 2nd, 5th, 7th, 10th, 13th, 15th, 18th, 21st, 24th, 26th and 29th years have 355 days, and the remaining years 354."
+        },
+        {
+          "type": "keyPoint",
+          "text": "A lunar year is 354.367 days and a Gregorian year 365.2422 days. Because of this difference of roughly 10.9 days, the Hijri year begins 10-11 days earlier than the Gregorian year each year."
+        },
+        {
+          "type": "paragraph",
+          "text": "This shift is a natural consequence of the calendar system. It carries no meaning of fortune, prediction or superiority."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"Hicri Kameri Takvimde aylar...\" paragrafı ve onu izleyen iki paragraf",
+        "evidenceSummary": "Sayfa ayları sırasıyla Muharrem, Safer, Rebiülevvel, Rebiülahir, Cemaziyelevvel, Cemaziyelahir, Recep, Şaban, Ramazan, Şevval, Zilkade ve Zilhicce olarak verir. Aynı paragraf hicrî takvimde de artık yıllar bulunduğunu, 30 yıllık dönemlerin 2, 5, 7, 10, 13, 15, 18, 21, 24, 26 ve 29. yıllarının 355 gün, diğer yılların 354 gün olduğunu belirtir. İzleyen paragraflar kamerî seneyi 354,367 gün, milâdî seneyi 365,2422 gün olarak verir; hicrî yılın milâdî yıldan yaklaşık 10,8752 gün kısa olduğunu, ayların bazen 29 bazen 30 gün çektiğini ve hicrî senenin milâdî seneye göre her yıl 10 veya 11 gün evvel başladığını söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvimin-baslangici",
+      "slug": "the-starting-point-of-the-hijri-calendar",
+      "categoryId": "cat-calendar",
+      "title": "The starting point of the Hijri calendar",
+      "summary": "According to the source, before Islam each important event served as a separate dating epoch. By a decision taken in the time of Umar, the year of the migration became the first year of the Hijri calendar and Muharram its first month.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "migration",
+        "muharram",
+        "calendar",
+        "starting point",
+        "history"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "According to the source, before Islam each important event was taken as a dating epoch; the Year of the Elephant was the last such starting point. Counting years separately by each important event caused confusion."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hz. Muhammed'in Hayatı describes the same situation: the Arabs of that period used no fixed calendar and dated events as \"in the Year of the Elephant\", \"before the Year of the Elephant\" or \"after the Year of the Elephant\"."
+        },
+        {
+          "type": "keyPoint",
+          "text": "By a decision taken in the time of Umar, in the seventeenth year after the migration, the year in which the migration took place was accepted as the first year of the Hijri calendar, and the month of Muharram of that year as the start of the year."
+        },
+        {
+          "type": "paragraph",
+          "text": "The source also records that the Hijri lunar and Hijri solar calendars have different starting days."
+        },
+        {
+          "type": "paragraph",
+          "text": "This article explains the calendar's starting point. It does not enter into the political disputes of that period and does not settle any question of chronology."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama",
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "explanatoryTranslation",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", 1. ve 2. maddeler; ayrıca Hz. Muhammed'in Hayatı (16. Baskı, Mart 2025), s. 21",
+        "evidenceSummary": "Sayfanın 2. maddesi, İslamiyet'ten önce her önemli olayın tarih başlangıcı kabul edildiğini, en son Fil Vak'asının böyle sayıldığını ve yılların her olaya göre ayrı ayrı sayılmasının karışıklığa yol açtığını belirtir; ardından Hz. Ömer zamanında hicretin 17. yılında alınan bir kararla hicretin olduğu senenin hicrî takvimin 1. yılı, o yılın Muharrem ayının da yılbaşı kabul edildiğini kaydeder. 1. madde ise Peygamberimizin Kubâ'ya geliş gününü hicrî şemsî takvimin başlangıcı sayar; iki sistemin başlangıç günü birbirinden farklıdır. Kaynağın bu maddelerde verdiği kesin milâdî karşılıklar, sahip kararıyla yayımlanan içeriğin dışında tutulmuştur. Hz. Muhammed'in Hayatı s. 21 ise Arapların o dönemde belirli bir takvim kullanmadığını ve olayları \"Fil yılı\" ölçüsüyle tarihlendirdiğini bağımsız olarak teyit eder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }

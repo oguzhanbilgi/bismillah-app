@@ -3158,6 +3158,367 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-mezhep-nedir",
+      "slug": "mezhep-nedir",
+      "categoryId": "cat-madhhabs",
+      "title": "Mezhep nedir?",
+      "summary": "Mezhep sözlükte \"gidilen yol\" demektir. Kaynağa göre mezhepler, hakkında açık ve kesin bir nass bulunmayan konularda bilginlerin yaptığı yorum farklarından doğmuştur; hepsi Kur'an'ı ve sünneti esas alır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "mezhep",
+        "ictihad",
+        "yorum",
+        "nass",
+        "tanım"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam İlmihali'nde mezhep, sözlükte \"gidilen yol\" olarak açıklanır. Terim olarak ise \"bir dinin, bilginleri arasındaki yorum farklarından meydana gelen görüşleri\" diye tanımlanır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, İslam dininde mezhepler bulunduğunu belirtir ve bunlar arasında temelde bir ayrılık olmadığını, hepsinin Kur'an-ı Kerim'i ve Peygamberimizin sünnetini esas aldığını söyler."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Mezhepler, dinin temel esaslarında birbirinden ayrılan yapılar olarak değil, aynı iki kaynağa dayanan yorum farkları olarak anlatılır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre farklılık, hakkında açık ve kesin nass (ayet veya hadis) bulunmayan hususlarda ortaya çıkar. Böyle konularda bilginler ictihad etmiş, görüş bildirmiştir. İctihad yetkisi olan bilginler bir mesele hakkında aynı görüşe varabilecekleri gibi birbirinden farklı görüşler de belirtebilirler."
+        },
+        {
+          "type": "paragraph",
+          "text": "İslam İlmihali, mezhepleri itikadî ve amelî olmak üzere iki başlıkta ele alır. Bu yazı, kavramın tanımıyla sınırlıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yazı bir mezhep tercihi tavsiyesi değildir. Kendi durumuna özel bir hüküm arayan okuyucu, yetkili resmî mercie başvurmalıdır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / A) Mezhep Nedir?, s. 29",
+        "evidenceSummary": "s. 29, \"A) Mezhep Nedir?\" başlığı altında mezhebi sözlükte \"gidilen yol\", terim olarak \"bir dinin, bilginleri arasındaki yorum farklarından meydana gelen görüşleri\" diye tanımlar. Aynı sayfa, İslam dininde mezheplerin bulunduğunu, bunlar arasında temelde bir ayrılık olmadığını ve hepsinin Kur'an-ı Kerim'i ve Peygamberimizin sünnetini esas aldığını belirtir. Farklılığın kaynağı olarak, hakkında açık ve kesin nass bulunmayan hususlarda bilginlerin ictihad edip görüş bildirmesi gösterilir; ictihad yetkisi olan bilginlerin aynı görüşe varabilecekleri gibi farklı görüşler de belirtebilecekleri söylenir. Sayfa, mezheplerin itikadî ve amelî olmak üzere ikiye ayrıldığını da kaydeder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-dini-hukumlerin-kaynaklari",
+      "slug": "dini-hukumlerin-temel-kaynaklari",
+      "categoryId": "cat-madhhabs",
+      "title": "Dinî hükümlerin temel kaynakları",
+      "summary": "İslam İlmihali, dinî hükümlerin dayandığı kaynakları dört başlıkta sayar: Kitap, Sünnet, İcma ve Kıyas. Kaynağa göre Kitap ve Sünnet asıl kaynaklardır; İcma ve Kıyas bu ikisine dayanır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "kitap",
+        "sünnet",
+        "icma",
+        "kıyas",
+        "kaynak"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam İlmihali, dinî hükümlerin dayandığı kaynakları dört başlıkta sayar: Kitap, Sünnet, İcma ve Kıyas."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kitap, Kur'an-ı Kerim'dir. Kaynak onu \"Allah tarafından Cebrail aracılığıyla Arapça olarak Peygamberimize indirilmiş ve bize kadar tevatür yoluyla nakledilmiş, mushaflarda yazılı kelam\" diye tanımlar ve dinî hükümlerin dayandığı ilk kaynağın Kur'an olduğunu belirtir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sünnet sözlükte \"yol ve âdet\" demektir. Terim olarak Peygamberimizin Kur'an dışındaki söz ve davranışlarıdır. Kaynak sünneti üçe ayırır: kavlî sünnet (sözleri), fiilî sünnet (davranışları) ve takrirî sünnet — bir sözden veya işten haberdar olduğu hâlde karşı çıkmayıp sükût etmesi."
+        },
+        {
+          "type": "paragraph",
+          "text": "İcma sözlükte \"bir konuda fikir birliği etmek\" anlamına gelir. Kaynağa göre dindeki anlamı, İslam bilginlerinin Peygamberimizden sonraki herhangi bir devirde dinî bir meselenin hükmü üzerinde fikir birliği etmeleridir. Görüşün açıkça belirtilmesine sarih icma, bir görüşten haberdar olan diğer müctehidlerin karşı çıkmayıp sükût etmesine sükûtî icma denir."
+        },
+        {
+          "type": "differenceOfOpinion",
+          "text": "Kaynak burada bir görüş farkını da açıkça kaydeder: İslam bilginlerinin büyük çoğunluğuna göre sarih icma dinî hükümler için kesin bir kaynaktır; sükûtî icmanın kesin olup olmadığı ise tartışmalıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kıyas sözlükte \"bir şeyi başka bir şeyle ölçmek\" demektir. Dindeki anlamı, Kitap, Sünnet veya İcmada hükmü bulunmayan bir meseleye, aralarındaki illet birliği sebebiyle bu kaynaklardan birinde yer alan konunun hükmünü vermektir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynağa göre bu dördünden ilk ikisi, yani Kitap ve Sünnet, dinde asıl kaynaklardır; İcma ve Kıyas ise Kitap ve Sünnete racidir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yazı yalnızca kaynakların tanımını aktarır. Her mezhebin kendi yöntemini ayrı ayrı açıklamaz, mezhepleri karşılaştırmaz ve herhangi bir meseleye hüküm vermez."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — III. Dinî Hükümlerin Kaynakları (Şer'î Deliller), s. 33-38",
+        "evidenceSummary": "s. 33'teki \"Dinî Hükümlerin Kaynakları (Şer'î Deliller)\" başlığı, hükümlerin dayandığı kaynakların Kitap, Sünnet, İcma ve Kıyas olmak üzere dört olduğunu söyler ve Kitap'ı Kur'an-ı Kerim diye tanımlayıp ilk kaynak olduğunu belirtir. s. 34 sünneti sözlükte \"yol ve âdet\", terim olarak Peygamberimizin Kur'an'dan başka söz ve davranışları diye tanımlar ve kavlî, fiilî, takrirî üçlü ayrımını verir. s. 36-37 icmayı tanımlar, sarih ve sükûtî icma ayrımını yapar ve çoğunluğa göre sarih icmanın kesin, sükûtî icmanın kesinliğinin ise tartışmalı olduğunu kaydeder. s. 37 kıyası tanımlar. s. 38, Kitap ve Sünnetin dinde asıl kaynaklar olduğunu, İcma ve Kıyasın bunlara raci olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-amelde-mezhepler",
+      "slug": "amelde-mezhepler",
+      "categoryId": "cat-madhhabs",
+      "title": "Amelde mezhepler",
+      "summary": "İslam İlmihali, Sünni Müslümanlar arasında yaygın amelî mezhepleri Hanefî, Şâfiî, Mâlikî ve Hanbelî olarak sayar. Bu yazı onları yalnızca tanıtır; karşılaştırmaz ve sıralamaz.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "hanefî",
+        "şâfiî",
+        "mâlikî",
+        "hanbelî",
+        "mezhep"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İslam İlmihali, \"amelde mezhepler\" başlığı altında Sünni Müslümanlar arasında yaygın olan mezhepleri dört başlıkta sayar: Hanefî, Şâfiî, Mâlikî ve Hanbelî."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynak bu dördünü \"Sünni Müslümanlar arasında yaygın\" olanlar diye tanıtır. Bu bir üstünlük sıralaması değildir ve burada anılmayan ilmî gelenekler hakkında bir hüküm içermez."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hanefî mezhebinin kurucusu, İmam A'zam diye anılan Ebû Hanîfe'dir; adı Nu'mân, babasının adı Sâbit'tir. Kaynağa göre Hicrî 80 (M. 699) yılında Kûfe'de doğmuş, Hicrî 150 (M. 767) yılında vefat etmiştir. Mezhebi önce Irak'ta, sonra Mısır, Hindistan ve Türk ülkelerinde yayılmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Mâlikî mezhebinin kurucusu İmam Mâlik b. Enes'tir. Hicrî 93 (M. 712) yılında Medine'de doğmuş, Hicrî 179 (M. 795) yılında yine Medine'de vefat etmiştir. Belli başlı eseri el-Muvatta'dır. Mezhep Medine'de ortaya çıkmış; Hicaz'da, Afrika'da ve Endülüs'te yayılmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Şâfiî mezhebinin kurucusu İmam Muhammed b. İdrîs eş-Şâfiî'dir. Hicrî 150 (M. 767) yılında Gazze'de doğmuş, Hicrî 204 (M. 819) yılında Mısır'da vefat etmiştir. Mezhep Mısır, Güney Arabistan, Doğu Afrika, Azerbaycan, Doğu Anadolu, Endonezya ve Cava'da yayılmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hanbelî mezhebinin kurucusu Ahmed b. Hanbel'dir. Hicrî 164 (M. 780) yılında Bağdat'ta doğmuş, Hicrî 241 (M. 855) yılında yine Bağdat'ta vefat etmiştir. Müsned adlı hadis eseriyle anılır. Mezhep Bağdat, Mısır, Suriye ve Hicaz'da yayılmıştır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yazı tanıtıcıdır. Mezhepler arasındaki fıkhî görüş farklarını karşılaştırmaz, birini diğerine üstün tutmaz ve okuyucuya hangi mezhebi izlemesi gerektiğini söylemez."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-mezhep-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), İtikad — II. İslâm'da Mezhepler / 2. Amelde Mezhepler, s. 31-32",
+        "evidenceSummary": "s. 31'deki \"2. Amelde Mezhepler\" başlığı, \"Sünni Müslümanlar arasında yaygın amelde mezhepler Hanefi, Şafii, Maliki ve Hanbeli olmak üzere dörttür\" der. Alt başlıklar Hanefî (s. 31) ile Mâlikî, Şâfiî ve Hanbelî (s. 32) mezheplerini tanıtır; her biri için kurucunun adı, doğum yeri, hicrî ve milâdî doğum-vefat yılları, belli başlı eseri ve mezhebin yayıldığı bölgeler verilir. Bu makale yalnız bu bilgileri aktarır; kaynakta yer alan siyasî olaylar, etnik köken tahmini ve değerlendirme cümleleri dışarıda bırakılmıştır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvim-nedir",
+      "slug": "hicri-takvim-nedir",
+      "categoryId": "cat-calendar",
+      "title": "Hicrî takvim nedir?",
+      "summary": "Diyanet İşleri Başkanlığı'nın Vakit Hesaplama sayfasındaki açıklamaya göre hicrî takvim, Peygamberimizin Mekke'den Medine'ye hicretini başlangıç kabul eden ve Ay'ın Dünya çevresindeki dolanımını esas alan bir takvim sistemidir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "hicrî takvim",
+        "kamerî",
+        "şemsî",
+        "ay",
+        "takvim"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Diyanet İşleri Başkanlığı'nın Vakit Hesaplama sayfasındaki açıklamaya göre hicrî takvim, Peygamberimizin Mekke'den Medine'ye hicretini başlangıç kabul eden ve Ay'ın Dünya çevresindeki dolanımını esas alan bir takvim sistemidir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynak hicrî takvimi ikiye ayırır: hicrî şemsî ve hicrî kamerî. Kısaca \"hicrî takvim\" denince bilinen, kamerî olanıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre hicrî şemsî takvim Dünya'nın Güneş etrafındaki dolanımını esas alır; hicrî kamerî takvim ise Ay'ın hareketine dayanır. İki sistemin başlangıç günü de birbirinden farklıdır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hicrî takvim bir tarih sistemidir. Bismillah bu sistemi yalnızca tanıtır; herhangi bir dinî günün resmî tarihini belirlemez."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hicri-aylar-ve-yil-uzunlugu"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"HİCRİ TAKVİM\" başlığı, giriş paragrafı ve 1. madde",
+        "evidenceSummary": "Sayfanın \"HİCRİ TAKVİM\" başlıklı açıklamasının ilk cümlesi hicrî takvimi, Peygamberimizin Mekke'den Medine'ye hicretini başlangıç kabul eden ve ayın dünya çevresinde dolanımını esas alan bir takvim sistemi diye tanımlar. Aynı paragraf takvimin hicrî şemsî ve hicrî kamerî olmak üzere ikiye ayrıldığını belirtir; 1. madde şemsî sistemin dünyanın güneş etrafındaki dolanımını esas aldığını, 2. maddenin sonu ise kamerî sistemin kısaca \"Hicri Takvim\" olarak bilindiğini söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-aylar-ve-yil-uzunlugu",
+      "slug": "hicri-aylar-ve-yil-uzunlugu",
+      "categoryId": "cat-calendar",
+      "title": "Hicrî aylar ve yıl uzunluğu",
+      "summary": "Hicrî kamerî takvimde on iki ay belirli bir sıra ile gelir; aylar 29 veya 30 gün çeker. Kamerî yıl milâdî yıldan yaklaşık 11 gün kısa olduğu için hicrî yıl her yıl 10-11 gün önce başlar.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hicrî ay",
+        "muharrem",
+        "kamerî yıl",
+        "yıl uzunluğu",
+        "takvim"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre hicrî kamerî takvimde aylar şu sırayla dizilir: Muharrem, Safer, Rebîülevvel, Rebîülâhir, Cemâziyelevvel, Cemâziyelâhir, Recep, Şâban, Ramazan, Şevval, Zilkade, Zilhicce."
+        },
+        {
+          "type": "paragraph",
+          "text": "Aylar bazen 29, bazen 30 gün çeker."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kamerî bir yıl 354 gündür. Kaynak, hicrî takvimde de artık yıllar bulunduğunu belirtir: 30 yıllık dönemlerin 2, 5, 7, 10, 13, 15, 18, 21, 24, 26 ve 29. yılları 355 gün, diğer yıllar 354 gündür."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kamerî yıl 354,367 gün, milâdî yıl ise 365,2422 gündür. Aradaki yaklaşık 10,9 günlük fark sebebiyle hicrî yıl, milâdî yıla göre her yıl 10-11 gün önce başlar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu kayma takvim sisteminin doğal sonucudur. Bir uğur, bir öngörü ya da bir üstünlük anlamı taşımaz."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", \"Hicri Kameri Takvimde aylar...\" paragrafı ve onu izleyen iki paragraf",
+        "evidenceSummary": "Sayfa ayları sırasıyla Muharrem, Safer, Rebiülevvel, Rebiülahir, Cemaziyelevvel, Cemaziyelahir, Recep, Şaban, Ramazan, Şevval, Zilkade ve Zilhicce olarak verir. Aynı paragraf hicrî takvimde de artık yıllar bulunduğunu, 30 yıllık dönemlerin 2, 5, 7, 10, 13, 15, 18, 21, 24, 26 ve 29. yıllarının 355 gün, diğer yılların 354 gün olduğunu belirtir. İzleyen paragraflar kamerî seneyi 354,367 gün, milâdî seneyi 365,2422 gün olarak verir; hicrî yılın milâdî yıldan yaklaşık 10,8752 gün kısa olduğunu, ayların bazen 29 bazen 30 gün çektiğini ve hicrî senenin milâdî seneye göre her yıl 10 veya 11 gün evvel başladığını söyler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-hicri-takvimin-baslangici",
+      "slug": "hicri-takvimin-baslangici",
+      "categoryId": "cat-calendar",
+      "title": "Hicrî takvimin başlangıcı",
+      "summary": "Kaynağa göre İslam'dan önce her önemli olay ayrı bir tarih başlangıcı sayılıyordu. Hz. Ömer zamanında alınan bir kararla hicretin gerçekleştiği yıl hicrî takvimin ilk yılı, Muharrem ayı da yılbaşı kabul edilmiştir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "hicret",
+        "muharrem",
+        "takvim",
+        "başlangıç",
+        "tarih"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre İslam'dan önce her önemli olay tarih başlangıcı olarak kabul edilirdi; en son Fil Vak'ası böyle bir başlangıç sayılmıştı. Yılların her önemli olaya göre ayrı ayrı sayılması karışıklığa yol açıyordu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hz. Muhammed'in Hayatı da aynı durumu anlatır: Araplar o dönemde belirli bir takvim kullanmıyor, olayları \"Fil yılında\", \"Fil yılından önce\" veya \"Fil yılından sonra\" diyerek tarihlendiriyordu."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hz. Ömer zamanında, hicretin 17. yılında alınan bir kararla hicretin gerçekleştiği yıl hicrî takvimin ilk yılı, o yılın Muharrem ayı da yılbaşı kabul edilmiştir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, hicrî kamerî ve hicrî şemsî takvimlerin başlangıç günlerinin birbirinden farklı olduğunu da kaydeder."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yazı takvimin başlangıcını anlatır; dönemin siyasî tartışmalarına girmez ve bir tarih tartışmasını çözüme bağlamaz."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-vakit-hesaplama",
+        "diyanet-hz-muhammedin-hayati"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-hicri-takvim-nedir"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-vakit-hesaplama",
+        "sourceLocator": "Vakit Hesaplama, Takvim Bilgileri / Tarih Dönüşümleri / Hicriden Miladiye — \"Hicri Takvim Hakkında Açıklama\", 1. ve 2. maddeler; ayrıca Hz. Muhammed'in Hayatı (16. Baskı, Mart 2025), s. 21",
+        "evidenceSummary": "Sayfanın 2. maddesi, İslamiyet'ten önce her önemli olayın tarih başlangıcı kabul edildiğini, en son Fil Vak'asının böyle sayıldığını ve yılların her olaya göre ayrı ayrı sayılmasının karışıklığa yol açtığını belirtir; ardından Hz. Ömer zamanında hicretin 17. yılında alınan bir kararla hicretin olduğu senenin hicrî takvimin 1. yılı, o yılın Muharrem ayının da yılbaşı kabul edildiğini kaydeder. 1. madde ise Peygamberimizin Kubâ'ya geliş gününü hicrî şemsî takvimin başlangıcı sayar; iki sistemin başlangıç günü birbirinden farklıdır. Kaynağın bu maddelerde verdiği kesin milâdî karşılıklar, sahip kararıyla yayımlanan içeriğin dışında tutulmuştur. Hz. Muhammed'in Hayatı s. 21 ise Arapların o dönemde belirli bir takvim kullanmadığını ve olayları \"Fil yılı\" ölçüsüyle tarihlendirdiğini bağımsız olarak teyit eder.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }
