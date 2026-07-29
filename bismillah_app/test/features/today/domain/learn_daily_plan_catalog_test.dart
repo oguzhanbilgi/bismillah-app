@@ -251,22 +251,36 @@ void main() {
     });
 
     test('0–10 mevcut beginnerPathOrder alanını izler (kaynak destekli)', () {
-      final ordered =
-          eligibleTr.values.where((a) => a.beginnerPathOrder != null).toList()
-            ..sort(
-              (a, b) => a.beginnerPathOrder!.compareTo(b.beginnerPathOrder!),
-            );
-      expect(ordered.length, 11);
-      expect(catalogIds.take(11).toList(), [for (final a in ordered) a.id]);
+      // Katalog DONDURULMUŞ bir alt kümedir; kütüphane büyüyebilir ve
+      // beklemedeki bir `beginnerPathOrder` üyesi sonradan yayına alınabilir
+      // (TASK 091, sıra 11). Bu yüzden "katalogdaki ilk 11 giriş, yayınlanmış
+      // TÜM beginnerPath üyelerine eşittir" iddiası DONDURULMAZ. Korunan
+      // gerçek iddia: ilk 11 giriş uygun, yayınlanmış beginnerPath üyeleridir
+      // ve sıraları `beginnerPathOrder` artışını izler.
+      final head = catalogIds.take(11).toList();
+      final orders = <int>[];
+      for (final id in head) {
+        final article = eligibleTr[id];
+        expect(article, isNotNull, reason: id);
+        expect(article!.beginnerPathOrder, isNotNull, reason: id);
+        orders.add(article.beginnerPathOrder!);
+      }
+      expect(orders, [...orders]..sort(), reason: 'sıra artan olmalı');
+      expect(orders.toSet().length, orders.length);
     });
 
     test('yayında olmayan beginnerPathOrder üyeleri atlanmıştır', () {
-      final pendingOrders = [
+      // Hangi sıraların beklemede olduğu DONDURULMAZ; korunan iddia,
+      // yayınlanmamış hiçbir beginnerPath üyesinin katalogda BULUNMAMASIDIR.
+      final pendingPathIds = [
         for (final a in byLocale['tr']!)
-          if (!a.isPublished && a.beginnerPathOrder != null)
-            a.beginnerPathOrder,
+          if (!a.isPublished && a.beginnerPathOrder != null) a.id,
       ];
-      expect(pendingOrders, containsAll(<int>[11, 12]));
+      for (final id in pendingPathIds) {
+        expect(catalogIds, isNot(contains(id)), reason: id);
+      }
+      // TASK 091 sonrası hâlâ beklemede olan tek beginnerPath üyesi budur.
+      expect(pendingPathIds, contains('art-dua-adabi'));
     });
 
     test('sıra asset JSON dosya sırasına EŞİT DEĞİLDİR', () {

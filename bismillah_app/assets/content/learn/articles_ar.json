@@ -839,51 +839,45 @@
       "id": "art-kuran-okumaya-baslangic",
       "slug": "al-bad-bi-qiraat-al-quran",
       "categoryId": "cat-quran-learning",
-      "title": "البدء بقراءة القرآن",
-      "summary": "طريق هادئ وواقعي لمن يبدأ من الصفر.",
-      "contentType": "generalTeaching",
+      "title": "ما معنى تعلّم القرآن؟",
+      "summary": "بحسب \"إسلام إلمهالي\" الصادر عن رئاسة الشؤون الدينية، تعلّم القرآن يعني تعلّم قراءته والسعي إلى فهم معناه معًا. ويذكر القسم نفسه أنه لا بد من تعلّم التجويد أيضًا لقراءته من غير خطأ.",
+      "contentType": "ilmihalKnowledge",
       "difficulty": "beginner",
-      "estimatedMinutes": 4,
+      "estimatedMinutes": 3,
       "keywords": [
         "قراءة القرآن",
-        "الحروف العربية",
         "تعلم القرآن",
         "التجويد",
+        "المعنى",
         "البداية"
       ],
       "sections": [
         {
           "type": "paragraph",
-          "text": "تعلّم قراءة القرآن مسيرة تحتاج وقتًا. والتقدّم بخطوات صغيرة منتظمة دون استعجال هو أسلم الطرق."
-        },
-        {
-          "type": "steps",
-          "items": [
-            "ابدأ بمعرفة الحروف العربية.",
-            "تعلّم كيف تُقرأ الحروف بالحركات.",
-            "استمع إلى السور القصيرة لتألف النطق.",
-            "انتقل تدريجيًا إلى قراءة الكلمات والآيات.",
-            "استعن بمعلم أو بدورة تعليمية إن أمكن."
-          ]
+          "text": "تحت عنوان \"واجباتنا تجاه القرآن الكريم\" يعدّ \"إسلام إلمهالي\" من هذه الواجبات \"تعلّم القرآن الكريم\"."
         },
         {
           "type": "keyPoint",
-          "text": "الاستماع من أنجع وسائل تعلّم النطق الصحيح؛ فالقراءة والسماع يتقدمان معًا."
+          "text": "ويعرّف المصدر هذا التعلّم بقوله: تعلّم القرآن يعني تعلّم قراءته والسعي إلى فهم معناه."
         },
         {
           "type": "paragraph",
-          "text": "إن كنت لا تقرأ العربية بعد، فقراءة ترجمة المعاني نافعة أيضًا. ومتابعة المعنى تيسّر رحلة القراءة لاحقًا."
+          "text": "فالقراءة والفهم لا يُعرضان في المصدر بوصفهما عملين منفصلين، بل وجهين لتعلّم واحد."
         },
         {
-          "type": "practicalAction",
-          "text": "يمكنك أن تبدأ اليوم بالاستماع إلى سورة قصيرة واحدة؛ فالبدء أهم من سرعة التقدم."
+          "type": "paragraph",
+          "text": "ويذكر القسم نفسه أنه لا بد من تعلّم التجويد أيضًا لقراءة القرآن الكريم من غير خطأ. والتجويد في المصدر ليس موضوعًا خارج تعلّم القرآن، بل جزء من هذا التعلّم."
+        },
+        {
+          "type": "paragraph",
+          "text": "وهذا المقال ينقل تعريف المصدر. فهو لا يقترح برنامجًا ولا مدة ولا سرعة ولا مقدارًا يوميًا للقراءة؛ ولسؤالك عن طريق تعلّمك أنت يمكنك الرجوع إلى الجهة الرسمية المختصة أو إلى معلّم موثوق."
         }
       ],
       "sourceIds": [
-        "diyanet-kuran-portali"
+        "diyanet-islam-ilmihali"
       ],
-      "reviewedAt": "2026-07-19",
-      "reviewStatus": "scholarlyReviewPending",
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
       "translationStatus": "explanatoryTranslation",
       "relatedArticleIds": [
         "art-kuran-nedir"
@@ -891,14 +885,13 @@
       "beginnerPathOrder": 11,
       "isFeatured": false,
       "verification": {
-        "sourceBodyVerified": false,
-        "sourceId": "diyanet-kuran-portali",
-        "sourceLocator": "",
-        "evidenceSummary": "",
-        "verifiedAt": "2026-07-19",
-        "verifiedBy": "automatedSourceCheck",
-        "verificationMethod": "urlExistenceCheck",
-        "blocker": "İlmihalde Kur'an okumayı öğrenme sürecine dair kesin bir bölüm/sayfa eşleştirilemedi; Kur'an Portalı gövdesi de okunamadı."
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'e Karşı Görevlerimiz — b) Kur'an-ı Kerim'i Öğrenmek, s. 58",
+        "evidenceSummary": "s. 58'deki \"Kur'an-ı Kerim'e Karşı Görevlerimiz\" başlığının (b) maddesi \"Kur'an-ı Kerim'i öğrenmek\"tir. Aynı madde öğrenmeyi şöyle tanımlar: \"Kur'an'ı öğrenmek, okumasını öğrenmek ve manasını anlamaya çalışmak demektir.\" Hemen ardından \"Kur'an-ı Kerim'i hatasız okuyabilmek için tecvidini de öğrenmek lazımdır.\" denir. Makale yalnız bu iki cümleye dayanır; aynı sayfadaki övgü/fazilet ifadeleri, hadis ve namazla ilgili hüküm cümlesi makaleye alınmamıştır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
       }
     },
     {
@@ -955,7 +948,7 @@
         "art-tevbe-ve-umit"
       ],
       "beginnerPathOrder": 12,
-      "isFeatured": true,
+      "isFeatured": false,
       "verification": {
         "sourceBodyVerified": false,
         "sourceId": "diyanet-hadislerle-islam",

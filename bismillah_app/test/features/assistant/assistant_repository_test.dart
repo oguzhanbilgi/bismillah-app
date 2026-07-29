@@ -106,13 +106,15 @@ void main() {
 
   group('Yayın/doğrulama garantileri', () {
     test('pending içerik retrieval sonucuna girmez', () async {
-      // art-kuran-okumaya-baslangic PENDING'tir (TASK 057).
-      final r = await ask("Kur'an okumaya başlangıç");
+      // art-dua-adabi PENDING'tir: nitelikli ilmî inceleme bekliyor
+      // (TASK 091). Örnek kayıt, TASK 091 `art-kuran-okumaya-baslangic`'i
+      // yayına aldığı için bu kayda taşındı.
+      final r = await ask('Dua adabı nedir?');
       final ids = [
         for (final s in r.sourceReferences) s.articleId,
         ...r.relatedArticles.map((a) => a.id),
       ];
-      expect(ids, isNot(contains('art-kuran-okumaya-baslangic')));
+      expect(ids, isNot(contains('art-dua-adabi')));
     });
 
     test(

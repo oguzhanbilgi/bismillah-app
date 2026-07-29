@@ -55,7 +55,12 @@ void main() {
   final catalogIds = [for (final e in catalog.entries) e.articleId];
 
   /// TASK 091'e ait, hâlâ beklemede kalması gereken içerik.
-  const stillPendingIds = ['art-kuran-okumaya-baslangic', 'art-dua-adabi'];
+  ///
+  /// TASK 091 `art-kuran-okumaya-baslangic`'i inceleyip yayına aldı; geriye
+  /// nitelikli ilmî inceleme bekleyen tek kayıt kaldı. Buradaki iddia
+  /// TASK 087'nin bu kayda DOKUNMAMASIDIR — beklemedeki kayıt sayısı
+  /// dondurulmaz.
+  const stillPendingIds = ['art-dua-adabi'];
 
   group('TASK 087 kapsamı', () {
     test('tam olarak dokuz yeni kimlik eklendi', () {

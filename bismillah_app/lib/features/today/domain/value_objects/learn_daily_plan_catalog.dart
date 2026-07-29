@@ -62,11 +62,16 @@ enum LearnPlanCatalogIssue {
 ///
 /// ## Sıra nereden geliyor
 ///
-/// - **0–10 (kaynak destekli):** asset'lerde ZATEN var olan editoryal
-///   `beginnerPathOrder` alanının **yayınlanmış** üyeleri, artan sırada
-///   (1,2,3,4,5,6,7,8,9,10,13). `beginnerPathOrder` 11 ve 12 numaralı iki
-///   makale `scholarlyReviewPending` olduğu için **bilinçli olarak
-///   dışarıdadır** — yayınlanmamış içerik plana giremez.
+/// - **0–10 (kaynak destekli):** katalog dondurulduğunda (TASK 082) asset'lerde
+///   ZATEN var olan editoryal `beginnerPathOrder` alanının **o an
+///   yayınlanmış** üyeleri, artan sırada (1,2,3,4,5,6,7,8,9,10,13).
+///   `beginnerPathOrder` 11 ve 12 numaralı iki makale o tarihte
+///   `scholarlyReviewPending` olduğu için **bilinçli olarak dışarıdadır** —
+///   yayınlanmamış içerik plana giremez. **TASK 091 güncellemesi:** 11 numaralı
+///   `art-kuran-okumaya-baslangic` incelenip yayına alındı, 12 numaralı
+///   `art-dua-adabi` ise beklemede kaldı. Katalog yine de **değişmez**: bu
+///   liste dondurulmuş bir alt kümedir, büyüyen kütüphanenin aynası değildir
+///   (CP11 katalog sınırı kuralı).
 /// - **11–29 (onaylı TASK 082 ürün kararı):** kalan 19 yayınlanmış makale.
 ///   Gruplama `categories.json` içindeki mevcut `sortOrder` alanını izler
 ///   (temizlik 3 → namaz 4 → oruç 5 → zekât 6 → hac 7); grup İÇİNDEKİ sıra

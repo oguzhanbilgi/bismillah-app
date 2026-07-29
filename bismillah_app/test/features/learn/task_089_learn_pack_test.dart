@@ -366,9 +366,12 @@ void main() {
       }
     });
 
-    test('iki inceleme bekleyen makale hâlâ beklemededir', () {
+    test('inceleme bekleyen makale hâlâ beklemededir', () {
+      // TASK 091 `art-kuran-okumaya-baslangic`'i yayına aldı; beklemedeki
+      // kayıt sayısı DONDURULMAZ. Korunan iddia: TASK 089 beklemedeki
+      // içeriğe dokunmamıştır.
       for (final locale in locales) {
-        for (final id in ['art-kuran-okumaya-baslangic', 'art-dua-adabi']) {
+        for (final id in ['art-dua-adabi']) {
           final article = mapOf(locale)[id];
           expect(article, isNotNull, reason: '$locale/$id');
           expect(article!.isPublished, isFalse, reason: '$locale/$id');

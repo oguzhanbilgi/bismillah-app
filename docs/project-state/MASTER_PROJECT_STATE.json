@@ -8,7 +8,7 @@
     "primary_language": "turkish"
   },
   "baseline": {
-    "last_verified_main_before_task": "1c1e282",
+    "last_verified_main_before_task": "b174789",
     "public_tag": "v0.1.0-alpha.1",
     "public_tag_commit": "c23f490",
     "flutter_version": "3.44.6",
@@ -17,9 +17,11 @@
     "npm_version": "10.9.4",
     "android_sdk": "36.1.0",
     "gradle_jdk": "21",
-    "flutter_tests": 1566,
-    "flutter_tests_previous": 1529,
+    "flutter_tests": 1590,
+    "flutter_tests_previous": 1566,
     "flutter_tests_previous_correction": "The stored TASK-089 figure 1528 was one short. Measured on the TASK-090 branch with the TASK-090 changes stashed, the real pre-TASK-090 full-suite count is 1529; no test was lost, only the stored figure was wrong. Same class as the TASK-083 53 -> 56 correction. Measured the same way, the pre-TASK-090 Learn suite was 199 and Learn + catalog 239 (stored 238)",
+    "task_091_tests": 24,
+    "task_091_command": "flutter test test/features/learn/task_091_pending_review_test.dart",
     "learn_pack_090_tests": 37,
     "learn_pack_090_command": "flutter test test/features/learn/task_090_learn_pack_test.dart",
     "learn_and_catalog_tests": 276,
@@ -83,14 +85,47 @@
     "known_non_blocking_test_warning": "one off-screen tap() offset warning in bismillah_app/test/features/learn/learn_screens_test.dart; test passes"
   },
   "current_task": {
-    "id": "TASK-090",
-    "name": "Learn pack: Madhhabs, Islamic calendar and remaining gaps",
+    "id": "TASK-091",
+    "name": "Review pending Learn articles",
     "status": "completed",
-    "latest_completed_functional_task": "TASK-090",
+    "latest_completed_functional_task": "TASK-091",
     "latest_completed_documentation_task": "TASK-086",
-    "next_functional_task": "TASK-091",
-    "next_functional_task_name": "Review pending Learn articles",
-    "next_functional_task_scope": "CP11 (Learn and Assistant depth). TASK-091 owns the two long-standing scholarlyReviewPending records (art-kuran-okumaya-baslangic, art-dua-adabi) and should also decide the four TASK-090 candidates classified SCHOLARLY REVIEW REQUIRED and left unpublished. Learn COVERAGE expansion is complete - TASK-090 was the final Learn pack. Deliberately deferred out of CP10 and owned by NO task yet: day-30 plan renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar navigation, opening a Learn article from a task card, and repair of TASK-083A's typed rangeConflict",
+    "next_functional_task": "TASK-092",
+    "next_functional_task_name": "Official-answer / fatwa-source index foundation",
+    "next_functional_task_scope": "CP11 (Learn and Assistant depth). Learn coverage expansion is complete (TASK-090) and pending-article review is complete (TASK-091). Open with NO owning task: a qualified scholarly reviewer for art-dua-adabi, and a decision on the four TASK-090 candidates classified SCHOLARLY REVIEW REQUIRED and left unpublished. Deliberately deferred out of CP10 and owned by NO task yet: day-30 plan renewal, adaptive plan shrinking, streak/XP/achievements, manual calendar navigation, opening a Learn article from a task card, and repair of TASK-083A's typed rangeConflict",
+    "task_091": {
+      "canonical_scope": "The roadmap defines TASK 091 in ONE line with NO acceptance criteria, so it covers ONLY the two long-standing scholarlyReviewPending records. The four TASK-090 candidates stay deferred; the two TASK-090-authored doc lines suggesting otherwise were recommendations, not roadmap assignments",
+      "records_per_locale": 56,
+      "published_per_locale": 55,
+      "pending_per_locale": 1,
+      "art_kuran_okumaya_baslangic": {
+        "outcome": "rewritten and published",
+        "why_rewrite_was_required": "The old body was unsupported by its own registered source: diyanet-kuran-portali is a Quran text/translation service with no chapter on learning to read, and the record carried an EMPTY sourceLocator and EMPTY evidenceSummary",
+        "new_source": "diyanet-islam-ilmihali",
+        "locator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'e Karşı Görevlerimiz — b) Kur'an-ı Kerim'i Öğrenmek, s. 58",
+        "covers_only": ["learning to read the Quran", "working to understand its meaning", "tajwid as part of learning the Quran"],
+        "removed": ["the unsupported five-step list", "diyanet-kuran-portali attribution", "the s.58 virtue hadith and its övülmüş framing", "the s.58 farzdır ruling and the kıraat/namaz validity sentence", "reward and spiritual-result framing", "fixed reading requirements", "pace, mastery and programme claims"],
+        "preserved": ["stable id", "slug", "cat-quran-learning", "beginnerPathOrder 11", "relatedArticleIds", "isFeatured false", "record schema"],
+        "metadata_changes": "title -> Kur'an'ı öğrenmek ne demektir?; contentType generalTeaching -> ilmihalKnowledge; estimatedMinutes 4 -> 3; keywords updated; verification block fully rewritten and blocker removed",
+        "new_source_record_added": false
+      },
+      "art_dua_adabi": {
+        "outcome": "remains scholarlyReviewPending",
+        "changed": "isFeatured true -> false ONLY",
+        "untouched": ["title", "summary", "body", "source", "locator", "verification", "translations", "reviewStatus", "beginnerPathOrder 12"],
+        "qualified_scholarly_review_required": true,
+        "body_approved": false,
+        "arabic_strengthens_sensitive_claim": "TR says the AWARENESS (bilinci esastır) that an answer comes at the fitting time; AR says الأصل هو اليقين (certainty). CONTENT_POLICY.md forbids a translation being stronger than the canonical Turkish. NOT edited in TASK-091 (owner scoped this task to isFeatured only); must be fixed before any publication",
+        "narrowing_would_duplicate": "art-dua-nedir (TASK-088, same category cat-dua)",
+        "owning_task_for_reviewer": null
+      },
+      "source_registry": "unchanged at 8. diyanet-kuran-portali now grounds NO Learn article and is DELIBERATELY kept registered as the official Quran reference address",
+      "assertions_repointed_not_weakened": "task_087 stillPendingIds, task_089 and task_090 pending checks -> art-dua-adabi only with the pending COUNT not frozen; assistant_repository_test pending exemplar -> art-dua-adabi; learn_repository_test now also asserts the published article IS reachable and source-body verified; two learn_daily_plan_catalog_test assertions that had frozen 'catalog head == every published beginner-path member' and 'orders 11 and 12 are pending' now encode the durable invariant instead (same defect class TASK-088 and TASK-090 repaired)",
+      "production_comment_fix": "learn_daily_plan_catalog.dart doc comment claimed beginner-path members 11 and 12 are pending; corrected. The catalog value itself is unchanged (30 entries)",
+      "catalog_untouched": true,
+      "content_policy_untouched": true,
+      "report": "docs/task-reports/TASK_091_REVIEW_PENDING_LEARN_ARTICLES.md"
+    },
     "learn_pack_090": {
       "owner_scope_decision": "6 articles - cat-madhhabs 3, cat-calendar 3 (18 localized records); the roadmap defines NO count and NO acceptance criteria",
       "article_ids": ["art-mezhep-nedir", "art-dini-hukumlerin-kaynaklari", "art-amelde-mezhepler", "art-hicri-takvim-nedir", "art-hicri-aylar-ve-yil-uzunlugu", "art-hicri-takvimin-baslangici"],
@@ -791,7 +826,7 @@
     "TASK-075", "TASK-076", "TASK-077", "TASK-078", "TASK-079",
     "TASK-080", "TASK-081", "TASK-082", "TASK-083", "TASK-083A",
     "TASK-084", "TASK-085", "TASK-086", "TASK-087", "TASK-088", "TASK-089",
-    "TASK-090"
+    "TASK-090", "TASK-091"
   ],
   "blocked_tasks": [
     {"id": "TASK-066", "reason": "drift_dev >=2.34.1 requires analyzer ^13; Flutter 3.44.6 caps analyzer <13; SDK not upgraded solely for Drift CLI; interim SQL snapshot baseline kept"}
