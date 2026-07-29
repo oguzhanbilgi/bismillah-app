@@ -3,6 +3,8 @@ import 'package:bismillah_app/features/learn/data/learning_search_normalizer.dar
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'empty_category_fixture_bundle.dart';
+
 /// Bilgi tabanı deposu ve offline arama (TASK 056 §14).
 ///
 /// Gerçek ağ ve Firebase KULLANILMAZ — depo tamamen asset tabanlıdır.
@@ -72,11 +74,41 @@ void main() {
       expect(purity.publishedCount, greaterThan(0));
       expect(purity.isEmpty, isFalse);
 
-      final empty = categories.firstWhere(
-        (c) => c.category.id == 'cat-history',
+      // Üretim kategorilerinin tamamı bir gün dolabilir; bu yüzden boş
+      // kategori güvencesi TEST-YEREL bir fikstür kategorisiyle ayrı
+      // testte doğrulanır (aşağıdaki "boş kategori" testi).
+    });
+
+    test('içeriği olmayan kategori dürüstçe boş döner', () async {
+      // Fikstür kategorisi YALNIZ testte yaşar: üretim JSON'una eklenmez,
+      // üretim içeriği değiştirilmez ve hiçbir makale ona referans vermez.
+      final fixtureRepository = AssetLearningKnowledgeRepository(
+        bundle: EmptyCategoryFixtureBundle(rootBundle),
+      );
+
+      final result = await fixtureRepository.getCategories('tr');
+      final categories = result.valueOrNull;
+      expect(categories, isNotNull);
+
+      final empty = categories!.firstWhere(
+        (c) => c.category.id == EmptyCategoryFixtureBundle.categoryId,
       );
       expect(empty.publishedCount, 0);
       expect(empty.isEmpty, isTrue);
+
+      // Aynı depoda dolu bir kategori hâlâ dolu görünmelidir.
+      final purity = categories.firstWhere(
+        (c) => c.category.id == 'cat-purity',
+      );
+      expect(purity.publishedCount, greaterThan(0));
+      expect(purity.isEmpty, isFalse);
+
+      // Fikstür kategorisinde içerik sorgusu da boş döner.
+      final articles = await fixtureRepository.getArticlesByCategory(
+        'tr',
+        EmptyCategoryFixtureBundle.categoryId,
+      );
+      expect(articles.valueOrNull, isEmpty);
     });
 
     test('kategori içerikleri filtrelenir ve sıralanır', () async {

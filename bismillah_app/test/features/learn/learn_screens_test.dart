@@ -13,11 +13,14 @@ import 'package:bismillah_app/features/settings/application/app_locale_controlle
 import 'package:bismillah_app/shared/islamic/gentle_empty_state.dart';
 import 'package:bismillah_app/shared/islamic/mosque_silhouette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'empty_category_fixture_bundle.dart';
 
 /// Learn ekranları (TASK 056 §14 UI).
 ///
@@ -28,9 +31,10 @@ void main() {
   /// Kur'an testlerindeki desen).
   Future<AssetLearningKnowledgeRepository> warmRepository(
     WidgetTester tester,
-    String locale,
-  ) async {
-    final repository = AssetLearningKnowledgeRepository();
+    String locale, {
+    AssetBundle? bundle,
+  }) async {
+    final repository = AssetLearningKnowledgeRepository(bundle: bundle);
     await tester.runAsync(() async {
       await repository.getCategories(locale);
       await repository.getBeginnerPath(locale);
@@ -50,13 +54,14 @@ void main() {
     double textScale = 1.0,
     ExternalLinkService? linkService,
     Map<String, Object> prefs = const {},
+    AssetBundle? bundle,
   }) async {
     SharedPreferences.setMockInitialValues(prefs);
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
-    final repository = await warmRepository(tester, locale.name);
+    final repository = await warmRepository(tester, locale.name, bundle: bundle);
 
     final router = GoRouter(
       initialLocation: initialLocation,
@@ -214,10 +219,13 @@ void main() {
     });
 
     testWidgets('boş kategori sakin boş durum gösterir', (tester) async {
+      // Boş kategori senaryosu üretim içeriğine bağlanmaz: TEST-YEREL
+      // sentetik bir kategori kullanılır (bkz. EmptyCategoryFixtureBundle).
       await pumpLearn(
         tester,
         initialLocation:
-            '${AppRoutes.learnCategory}/islam-tarihi-ve-medeniyeti',
+            '${AppRoutes.learnCategory}/${EmptyCategoryFixtureBundle.slug}',
+        bundle: EmptyCategoryFixtureBundle(rootBundle),
       );
 
       expect(find.byType(GentleEmptyState), findsOneWidget);

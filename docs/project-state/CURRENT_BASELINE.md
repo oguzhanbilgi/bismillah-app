@@ -6,15 +6,48 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 088). After the TASK 088 merge, read the real current commit
+> task (TASK 089). After the TASK 089 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 088: `c133fb6`
+- Last verified main before TASK 089: `17a753e`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 088** — Learn pack: Dua, Family, Halal
+- Latest completed task: **TASK 089** — Learn pack: Women, Afterlife, Islamic
+  history (**CP11**). Owner scope **5 articles** — `cat-afterlife` 3,
+  `cat-women` 1, `cat-history` 1 (15 localized records). Per locale:
+  **50 records, 48 published** (was 45 / 43); populated categories
+  **15 -> 18 of 20** — only `cat-madhhabs` and `cat-calendar` remain empty;
+  **no new source record** (registry stays at **7**).
+  **The pointed history section was rejected, not forced.** Hadislerle Islam
+  Cilt 1 s. 66-82 contains no *rihle* chapter: s. 69 is military expansion,
+  s. 70 gives openly conflicting sahâbî counts (12.304 / ~4.000 / 1.500),
+  s. 71 is fitne, sects and Umayyad-era fabrication, and s. 72-82 is hadith
+  authenticity grading. `art-ilim-yolculuklari` was therefore dropped and
+  replaced — on owner approval — by `art-kuranin-yazilmasi-ve-cogaltilmasi`
+  from Islam Ilmihali s. 55-56 (written revelation -> Hz. Ebu Bekir's single
+  mushaf after Yemame -> Hz. Osman's seven copies), which is stable,
+  non-political chronology.
+  **One locator was corrected during drafting:** `art-ahiret-nedir` is recorded
+  as **s. 65-67**, not s. 65, because the "Ahiret Gunu" definition it
+  summarises sits at the end of the *Olduk ten Sonra Dirilmek* sub-section on
+  s. 67. The Afterlife articles exclude cennet/cehennem description, kabir
+  azabi, sefaat, mizan/sirat, personal salvation judgments and fear framing;
+  the Women article excludes the governance hadith (C.4 s. 236), mahrem-travel
+  rulings (s. 238), covering rulings, the war-participation clause and
+  s. 240's normative social conclusion; the History article excludes conquest
+  framing, caliphal legitimacy, sectarian reading and manuscript criticism, and
+  preserves the source's own "yaklasik" and "yedi kadar" hedging.
+  `art-olum-nedir` was **not** added (asserted).
+  **Two stale empty-category fixtures were fixed durably:**
+  `learn_repository_test` and `learn_screens_test` hard-coded `cat-history` as
+  their empty-category exemplar, which TASK 089 populates. Both now **derive**
+  an empty category from the shipped assets, so future Learn packs cannot break
+  them. TASK 082 catalog untouched; none of the 5 IDs enters it. No Assistant,
+  Quran, Prayer, persistence, Firebase, remote, premium or monetization change.
+  Report: `docs/task-reports/TASK_089_LEARN_WOMEN_AFTERLIFE_HISTORY.md`
+- Previous completed task: **TASK 088** — Learn pack: Dua, Family, Halal
   foundations (**CP11**). The roadmap defines no count and TASK 087's 3+3+3 was
   **not** inherited; after a **PARTIALLY READY** Phase A gate the owner fixed
   **4 articles** — `cat-dua` 1, `cat-family` 2, `cat-halal` 1 (12 localized
@@ -383,9 +416,9 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 089** — Learn pack: Women, Afterlife,
-  Islamic history (**CP11 — Learn and Assistant depth**). Still open and
-  deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
+- Next planned functional task: **TASK 090** — Learn pack: Madhhabs, Islamic
+  calendar and remaining gaps (**CP11 — Learn and Assistant depth**). Still
+  open and deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
 
@@ -426,18 +459,20 @@ eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
 
-## Tests (verified at TASK 088)
+## Tests (verified at TASK 089)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1501 / 1501**, 0 failed, 0 skipped
-  (1472 at TASK 087 + 29 TASK 088 pack tests)
+- Flutter test baseline: **1528 / 1528**, 0 failed, 0 skipped
+  (1501 at TASK 088 + 27 TASK 089 pack tests)
+- TASK 089 Learn pack suite: **27 / 27** — command:
+  `flutter test test/features/learn/task_089_learn_pack_test.dart`
 - TASK 088 Learn pack suite: **29 / 29** — command:
   `flutter test test/features/learn/task_088_learn_pack_test.dart`
 - TASK 087 Learn pack suite: **34 / 34** — command:
   `flutter test test/features/learn/task_087_learn_pack_test.dart`
 - Learn plan catalog suite: **40 / 40** — command:
   `flutter test test/features/today/domain/learn_daily_plan_catalog_test.dart`
-- Learn + catalog suites: **211 / 211**
+- Learn + catalog suites: **238 / 238**
 - Previous baseline: **1436 / 1436** at TASK 086
   (1422 at TASK 085 + 14 content-source-matrix tests)
 - Content-source matrix suite: **14 / 14** — command:

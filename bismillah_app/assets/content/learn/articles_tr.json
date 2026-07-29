@@ -2850,6 +2850,314 @@
         "verifiedBy": "editorialReview",
         "verificationMethod": "sourceBodyReview"
       }
+    },
+    {
+      "id": "art-ahiret-nedir",
+      "slug": "ahiret-nedir",
+      "categoryId": "cat-afterlife",
+      "title": "Ahiret ne demektir?",
+      "summary": "Ahiret, yeniden dirilişle başlayan ve sonsuza kadar süren hayattır; ahirete iman, imanın altı şartından biridir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "ahiret",
+        "iman",
+        "diriliş",
+        "sonsuzluk",
+        "inanç"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "İmanın altı şartından biri de ahirete inanmaktır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak işe basit bir ölçüyle başlar: Allah'tan başka her şeyin bir sonu vardır. Dünyanın da bir gün sonu gelecektir. Hiç ölmeyecek, bâki kalacak olan yalnız Allah'tır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Yeniden dirilişle başlayan ve sonsuza kadar devam edecek olan zamana \"Ahiret Günü\" denir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre dünyanın sonundan sonra sûra ikinci kez üfürülecek ve bütün yaratıklar yeniden diriltilecektir. Buna \"öldükten sonra dirilme\" denir."
+        },
+        {
+          "type": "paragraph",
+          "text": "\"Öldükten sonra dirileceğimizi aklımız almıyor\" diyenler için kaynak sade bir cevap verir: hiç yokken bizi yaratan Allah, öldükten sonra yeniden diriltmeye de kadirdir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ahiret gününe iman etmek, işte bunlara inanmak demektir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Ahiret inancını bir korku listesi olarak değil, hayatın bir sonu ve bir karşılığı olduğunu hatırlatan bir ölçü olarak düşün."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-kiyametin-vakti-bilinmez",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahiret Ne Demektir? / Öldükten Sonra Dirilmek, s. 65-67",
+        "evidenceSummary": "Bölüm, ahirete imanın imanın altı şartından biri olduğunu; Allah'tan başka her şeyin bir sonu bulunduğunu ve yalnız Allah'ın bâki olduğunu; sûra ikinci üfürüşle bütün yaratıkların yeniden dirileceğini; bu dirilişle başlayıp sonsuza kadar devam edecek zamana \"Ahiret Günü\" dendiğini ve ahiret gününe iman etmenin bunlara inanmak olduğunu belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kiyametin-vakti-bilinmez",
+      "slug": "kiyametin-vakti-bilinmez",
+      "categoryId": "cat-afterlife",
+      "title": "Kıyametin vakti bilinmez",
+      "summary": "Kıyametin kopacağı kesindir; ancak zamanını Allah'tan başka kimse bilemez — Peygamberimiz de bu konuda bilgisi olmadığını söylemiştir.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 3,
+      "keywords": [
+        "kıyamet",
+        "vakit",
+        "bilgi",
+        "gayb",
+        "ölçü"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynak iki şeyi birbirinden dikkatle ayırır: kıyametin kopacağı muhakkaktır, fakat ne zaman kopacağı bilinmez."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kıyametin zamanını Allah'tan başka kimse bilemez; kaynak, Peygamberimizin de bu hususta bilgisi olmadığını söylediğini aktarır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu ölçü sade bir sonuç doğurur: kıyametin tarihi hakkında ileri sürülen tahminlerin dinî bir dayanağı yoktur. Bilmediğimiz bir zamanı bilir gibi konuşmak, kaynağın anlattığıyla bağdaşmaz."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynağa göre kesin olarak bilinen şey, bir gün yer ve göklerin düzeninin bozulacağı ve bütün âlemin son bulacağıdır; bunun zamanı ise Allah'ın bilgisindedir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Kıyametle ilgili bir tarih veya işaret iddiasıyla karşılaştığında, kaynağın koyduğu ölçüyü hatırla: vakti yalnız Allah bilir."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-ahirete-imanin-faydalari"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Kıyamet Ne Zaman Kopacaktır?, s. 66",
+        "evidenceSummary": "Bölüm, kıyametin kopacağının muhakkak olmakla birlikte zamanını Allah'tan başka kimsenin bilemeyeceğini ve Peygamberimizin de bu hususta bilgisi olmadığını söylediğini açıkça belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-ahirete-imanin-faydalari",
+      "slug": "ahirete-imanin-hayata-etkisi",
+      "categoryId": "cat-afterlife",
+      "title": "Ahirete imanın hayata etkisi",
+      "summary": "Ahirete iman soyut bir kabul değildir; kaynağa göre davranışı, ilişkileri ve niyeti doğrudan etkiler.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "ahiret",
+        "ahlak",
+        "niyet",
+        "komşu",
+        "dürüstlük"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynak, ahirete imanın etkisini davranış üzerinden anlatır: bir gün yeniden dirileceğine ve yaptıklarının hesabını vereceğine inanan kimse, Allah'ın emirlerini dinler ve yasaklarından sakınır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu inanç ahlakta görünür hâle gelir. Kaynağa göre böyle bir insan güzel ahlakla ahlaklanmaya özen gösterir, akrabasına ve komşusuna iyi davranır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Aynı ölçü, insanın başkalarıyla ilişkisinde de karşımıza çıkar: hileden, haksızlıktan ve aldatmadan sakınır; elinden geldiğince herkese iyilik yapmaya çalışır."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Kaynak yalnız görünen davranışla yetinmez: insanın yaptıklarından değil, içinde sakladıklarından da sorulacağını hatırlatır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Bu yüzden ahirete iman, dışarıdan düzgün görünmeyi değil, kalbi de kötü duygulardan arındırmayı gerektirir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Bugün bir işi yaparken niyetini bir kez kontrol et: görünen davranış kadar, arkasındaki niyet de bu ölçünün parçasıdır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [
+        "art-ahiret-nedir",
+        "art-kiyametin-vakti-bilinmez"
+      ],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Ahirete İman — Ahirete İmanın Faydaları, s. 67",
+        "evidenceSummary": "Bölüm, ahirete inanan kimsenin Allah'ın emirlerini dinleyip yasaklarından sakındığını, güzel ahlakla ahlaklanmaya özen gösterdiğini, akraba ve komşularına iyi davrandığını, hile, haksızlık ve aldatmadan sakındığını, elinden geldiğince iyilik yapmaya çalıştığını; ayrıca yalnız yaptıklarından değil içinde sakladıklarından da sorulacağına inandığı için kalbini kötü duygulardan arındırmaya çalıştığını belirtir.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kadinlarin-ilim-talebi",
+      "slug": "kadinlarin-ilim-talebi",
+      "categoryId": "cat-women",
+      "title": "Kadınların ilim talebi",
+      "summary": "Bir kadının doğrudan dile getirdiği öğrenme talebi üzerine Hz. Peygamber kadınlara ayrı bir gün ayırmış ve onlara bizzat öğretmiştir.",
+      "contentType": "hadithBased",
+      "difficulty": "beginner",
+      "estimatedMinutes": 4,
+      "keywords": [
+        "ilim",
+        "öğrenme",
+        "kadın",
+        "talep",
+        "sohbet"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Kaynakta aktarılan bir rivayet, kadınların öğrenme talebini kendi ağızlarından gösterir. Bir kadın Hz. Peygamber'e gelerek \"Senin sohbetinden hep erkekler faydalanıyor; bize de bir gününü ayırsan da sana gelsek, Allah'ın sana öğrettiğinden bize öğretsen.\" demiştir."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Hz. Peygamber bu talebi geri çevirmemiş, \"O hâlde şu şu günlerde toplanın.\" buyurmuştur."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kadınlar belirlenen günde toplanmış, Resûlullah da yanlarına gelerek Allah'ın kendisine öğrettiklerinden onlara öğretmiştir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, bu örneği tek başına bırakmaz. Aynı bölümde, o dönemde hanımların sosyal hak ve görevlerinin farkında oldukları; ilim öğrenmek, ticaret yapmak, dayanışma ve yardımlaşma faaliyetlerinde yer almak, hastalara bakmak gibi alanlarda bulundukları anlatılır."
+        },
+        {
+          "type": "paragraph",
+          "text": "Buradaki ölçü sadedir: öğrenme talebi dile getirilmiş, karşılık bulmuş ve bir düzene bağlanmıştır."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Öğrenmek istediğin bir konu varsa, sormayı ertelemek yerine onu açıkça dile getir; bu rivayette de her şey bir soruyla başlamıştır."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-hadislerle-islam"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-hadislerle-islam",
+        "sourceLocator": "Hadislerle İslâm, Cilt 4, s. 240-241",
+        "evidenceSummary": "s. 241'de Ebû Saîd el-Hudrî'den nakledilen rivayet yer alır: bir kadın Resûlullah'a gelerek \"Senin sohbetinden hep erkekler faydalanıyor. Bize bir gününü ayırsan da o gün sana gelsek, bize Allah'ın sana öğrettiğinden öğretsen.\" demiş; Hz. Peygamber \"O hâlde şu şu günlerde toplanın.\" buyurmuş, kadınlar toplanınca yanlarına gelip onlara öğretmiştir (Müslim, Birr, 152). s. 240 ise o dönemde hanımların sosyal hak ve görevlerinin farkında olduklarını ve ilim öğrenmek, ticaret yapmak, dayanışma faaliyetlerinde yer almak, hastalara bakmak gibi alanlarda bulunduklarını özetler.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
+    },
+    {
+      "id": "art-kuranin-yazilmasi-ve-cogaltilmasi",
+      "slug": "kuranin-yazilmasi-ve-cogaltilmasi",
+      "categoryId": "cat-history",
+      "title": "Kur'an'ın yazılması ve çoğaltılması",
+      "summary": "Kur'an-ı Kerim, indiği dönemden itibaren hem ezberlenerek hem yazılarak korunmuş; sonra tek mushaf hâlinde toplanmış ve çoğaltılarak merkezlere ulaştırılmıştır.",
+      "contentType": "ilmihalKnowledge",
+      "difficulty": "beginner",
+      "estimatedMinutes": 5,
+      "keywords": [
+        "mushaf",
+        "vahiy kâtibi",
+        "koruma",
+        "çoğaltma",
+        "tarih"
+      ],
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "Vahyedilen ayetler bir yandan ezberleniyor, bir yandan da Peygamberimizin emriyle vahiy kâtipleri tarafından yazılıyordu."
+        },
+        {
+          "type": "paragraph",
+          "text": "O dönemde henüz kâğıt yoktu. Kaynağa göre ayetler ince taşlar, kürek kemikleri, hurma dalları ve deriler üzerine yazılıyordu. Peygamberimiz yazılanların doğru olup olmadığını kontrol etmek için ayetleri okuyor ve kâtiplere okutuyordu."
+        },
+        {
+          "type": "keyPoint",
+          "text": "Böylece Kur'an-ı Kerim daha Peygamberimiz zamanında hem yazılarak hem ezberlenerek korunmuştu."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hz. Ebû Bekir döneminde Yemâme'de yaklaşık yetmiş hâfızın şehit edilmesi üzerine, vahiy kâtipliği yapmış olan Zeyd b. Sâbit başkanlığında bir komisyon kuruldu. Bu komisyon hem kâtiplerin yazdıklarına hem de ezberleyenlerin hafızalarına başvurarak Kur'an'ı büyük bir dikkatle tek mushaf hâlinde topladı."
+        },
+        {
+          "type": "paragraph",
+          "text": "Hz. Osman döneminde farklı bölgelerde okuyuş ayrılıkları ortaya çıkınca, yine Zeyd b. Sâbit başkanlığındaki bir komisyon, Hz. Hafsa'nın yanında bulunan asıl nüshadan yedi kadar nüsha çoğalttı. Bu nüshalar çeşitli İslam merkezlerine gönderildi ve yanlış okuyuşların önüne geçildi."
+        },
+        {
+          "type": "paragraph",
+          "text": "Kaynak, o dönemde yazılmış bazı nüshaların günümüze ulaştığını da belirtir."
+        },
+        {
+          "type": "practicalAction",
+          "text": "Elindeki mushafa bakarken, bu metnin yazı ve ezber yoluyla nasıl korunup aktarıldığını bir kez hatırla."
+        }
+      ],
+      "sourceIds": [
+        "diyanet-islam-ilmihali"
+      ],
+      "reviewedAt": "2026-07-29",
+      "reviewStatus": "published",
+      "translationStatus": "original",
+      "relatedArticleIds": [],
+      "verification": {
+        "sourceBodyVerified": true,
+        "sourceId": "diyanet-islam-ilmihali",
+        "sourceLocator": "İslam İlmihali (34. Baskı, 2019), Kur'an-ı Kerim'in Yazılışı ve Mushaf Hâline Getirilişi / Mushaf Nüshalarının Çoğaltılması, s. 55-56",
+        "evidenceSummary": "Bölüm, vahyedilen ayetlerin hem ezberlendiğini hem de Peygamberimizin emriyle vahiy kâtiplerince yazıldığını; henüz kâğıt olmadığı için ince taş, kürek kemiği, hurma dalı ve deri üzerine yazıldığını; Peygamberimizin yazılanları okutarak kontrol ettiğini belirtir. Hz. Ebû Bekir döneminde Yemâme'de yaklaşık yetmiş hâfızın şehit edilmesi üzerine Zeyd b. Sâbit başkanlığında bir komisyon kurulduğunu ve Kur'an'ın tek mushaf hâlinde toplandığını; Hz. Osman döneminde okuyuş ayrılıkları ortaya çıkınca yine Zeyd b. Sâbit başkanlığındaki komisyonun Hz. Hafsa'nın yanındaki asıl nüshadan yedi kadar nüsha çoğaltıp muhtelif İslam merkezlerine gönderdiğini aktarır.",
+        "verifiedAt": "2026-07-29",
+        "verifiedBy": "editorialReview",
+        "verificationMethod": "sourceBodyReview"
+      }
     }
   ]
 }
