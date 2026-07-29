@@ -6,15 +6,73 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 089). After the TASK 089 merge, read the real current commit
+> task (TASK 090). After the TASK 090 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 089: `17a753e`
+- Last verified main before TASK 090: `1c1e282`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 089** — Learn pack: Women, Afterlife, Islamic
+- Latest completed task: **TASK 090** — Learn pack: Madhhabs, Islamic calendar
+  and remaining gaps (**CP11**, final Learn pack). Owner scope **6 articles** —
+  `cat-madhhabs` 3, `cat-calendar` 3 (18 localized records). Per locale:
+  **56 records, 54 published** (was 50 / 48); populated categories
+  **18 -> 20 of 20** — **no Learn category is empty any more**. **One new source
+  record**: `diyanet-vakit-hesaplama` (registry **7 -> 8**; sources grounding
+  published content **3 -> 4 of 8**).
+  **"Remaining gaps" was read from the repository, not guessed:** the roadmap,
+  `TASK_INDEX.md` and the matrix define the phrase **only** as the two empty
+  categories, and define **no article count and no acceptance criteria**. The
+  thin categories (`cat-faith`, `cat-akhlaq`, `cat-halal`, `cat-history`,
+  `cat-women`, 1 each) are recorded nowhere as a TASK 090 obligation and were
+  left alone.
+  **Four evidenced candidates were classified SCHOLARLY REVIEW REQUIRED and
+  were NOT published** — `art-gorus-farkliliklari-nasil-olusur` (rests on the
+  contested Muâz b. Cebel narrative), `art-itikadi-ve-ameli-mezhep-ayrimi`
+  (every expansion available sits in the s. 30-31 **Ehl-i Sünnet / Ehl-i
+  Bidat** framing), `art-takvim-ve-resmi-dini-gun-tespiti` (only supported
+  inside the excluded rü'yet-i hilâl debate) and `art-aylarin-sayisi-on-ikidir`
+  (Tevbe 9/36-37 is inseparable from the war/nesî' context and haram-month
+  rulings). Their absence is asserted by test — sensitive content is never
+  shipped to fill a category.
+  **A new source was genuinely required:** `İslam İlmihali` contains "takvim"
+  on only two pages (s. 135 prayer timetables, s. 263 inside the moon-sighting
+  discussion) and has **no month list, no epoch and no year-length statement**;
+  `Hz. Muhammed'in Hayatı` has it on one page (s. 21) and never defines the
+  calendar. `diyanet-vakit-hesaplama` is the registry's first **maintained web
+  page** — `officialPublication` (no enum change; `diyanet-kuran-portali`
+  already uses it for a web property), `www2.diyanet.gov.tr` passes the
+  existing `OfficialSourceDomains` allowlist unchanged, and **author, edition,
+  ISBN and publication date are absent, not invented** (asserted by test).
+  Its volatility is recorded as a documented limitation.
+  **Owner binding correction applied:** the exact Gregorian conversion dates the
+  calendar source records are **excluded from all shipped content** — summary,
+  body, key point **and** the shipped `evidenceSummary` — and are **not**
+  replaced by another exact Gregorian date; a test enforces this across all
+  three locales. The published articles rest on the Hijra as the epoch, the
+  lunar structure and the directly supported institutional history.
+  Excluded elsewhere: superiority/correctness rankings, "which madhhab should I
+  follow", personal fiqh, comparative verdict tables, takfir/bid'ah language,
+  Abu Hanifa's imprisonment and the ethnic conjecture, the Nisâ 4/115 cehennem
+  framing, the killer-heir qiyas example, sacred-day virtues, moon-sighting
+  positions and any official religious-date determination. The one scholarly
+  difference the source itself records (sarih icma decisive, sükûtî icma
+  disputed) is **stated, not hidden**, in a `differenceOfOpinion` block.
+  **Three stale test fixtures were repaired durably:** `task_088` and
+  `task_089` both froze `sources.length == 7` (the same defect class TASK 088
+  fixed in TASK 087) and now assert the real intent — the seven post-TASK-087
+  IDs stay registered and each pack cites nothing outside them, while the
+  registry may grow; and `learn_screens_test`'s "Hazırlanıyor" label assertion
+  was still bound to a production category staying empty, so it now uses TASK
+  089's synthetic `EmptyCategoryFixtureBundle`. Empty-state coverage therefore
+  survives a fully populated library.
+  TASK 082 catalog untouched (30 entries); none of the 6 IDs enters it. TASK
+  091's two pending records untouched. No Assistant, Quran, Prayer,
+  persistence, Firebase, remote, premium or monetization change; no schema,
+  enum, storage key or envelope-version change.
+  Report: `docs/task-reports/TASK_090_LEARN_MADHHABS_CALENDAR.md`
+- Previous completed task: **TASK 089** — Learn pack: Women, Afterlife, Islamic
   history (**CP11**). Owner scope **5 articles** — `cat-afterlife` 3,
   `cat-women` 1, `cat-history` 1 (15 localized records). Per locale:
   **50 records, 48 published** (was 45 / 43); populated categories
@@ -416,9 +474,13 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 090** — Learn pack: Madhhabs, Islamic
-  calendar and remaining gaps (**CP11 — Learn and Assistant depth**). Still
-  open and deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
+- Next planned functional task: **TASK 091** — Review pending Learn articles
+  (**CP11 — Learn and Assistant depth**). It owns the two long-standing
+  `scholarlyReviewPending` records (`art-kuran-okumaya-baslangic`,
+  `art-dua-adabi`) and should also decide the four TASK 090 candidates that were
+  classified **SCHOLARLY REVIEW REQUIRED** and deliberately left unpublished.
+  Learn **coverage** expansion is complete — TASK 090 was the final Learn pack.
+  Still open and deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
 
@@ -459,11 +521,27 @@ eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
 
-## Tests (verified at TASK 089)
+## Tests (verified at TASK 090)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
-- Flutter test baseline: **1528 / 1528**, 0 failed, 0 skipped
-  (1501 at TASK 088 + 27 TASK 089 pack tests)
+- Flutter test baseline: **1566 / 1566**, 0 failed, 0 skipped
+  (measured pre-TASK-090 baseline **1529** + 37 TASK 090 pack tests)
+- **Correction:** the stored TASK 089 figure **1528** was one short. The real
+  pre-TASK-090 count, measured on this branch with the TASK 090 changes stashed,
+  is **1529**. No test was lost; only the stored figure was wrong — the same
+  class of stored-figure error as the TASK 083 `53` → `56` correction below.
+  Measured the same way, the pre-TASK-090 Learn feature suite was **199** and
+  Learn + catalog was **239** (stored: 238). All four TASK 090 figures below are
+  from actual runs on this branch, not derived by arithmetic.
+- TASK 090 Learn pack suite: **37 / 37** — command:
+  `flutter test test/features/learn/task_090_learn_pack_test.dart`
+- Learn feature suite: **236 / 236** — command: `flutter test test/features/learn`
+- Learn + catalog suites: **276 / 276** — command:
+  `flutter test test/features/learn
+  test/features/today/domain/learn_daily_plan_catalog_test.dart`
+- Content governance suite: **327 / 327** — command:
+  `flutter test test/features/learn test/features/assistant
+  test/features/profile/content_sources_test.dart test/content`
 - TASK 089 Learn pack suite: **27 / 27** — command:
   `flutter test test/features/learn/task_089_learn_pack_test.dart`
 - TASK 088 Learn pack suite: **29 / 29** — command:

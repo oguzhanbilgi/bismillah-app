@@ -192,7 +192,23 @@ void main() {
     });
 
     test('TASK 089 yeni kaynak kaydı EKLEMEZ', () {
-      expect(sources.length, 7);
+      // Mutlak sayı DONDURULMAZ: kayıt defteri sonraki paketlerle büyüyebilir
+      // (TASK 090 `diyanet-vakit-hesaplama` ekledi). Buradaki gerçek iddia,
+      // TASK 089'un kendi paketinin TASK 087 sonrası yedi kaynağın dışına
+      // ÇIKMAMASIDIR.
+      const afterTask087 = <String>{
+        'diyanet-islam-ilmihali',
+        'diyanet-kuran-portali',
+        'diyanet-kuran-yolu-tefsiri',
+        'diyanet-hadislerle-islam',
+        'diyanet-din-isleri-yuksek-kurulu',
+        'diyanet-dini-soru-hizmetleri',
+        'diyanet-hz-muhammedin-hayati',
+      };
+      expect(sourceIds, containsAll(afterTask087));
+      for (final id in pack.keys) {
+        expect(afterTask087, containsAll(mapOf('tr')[id]!.sourceIds));
+      }
     });
 
     test('TÜM kaynak alan adları diyanet.gov.tr altındadır', () {

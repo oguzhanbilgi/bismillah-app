@@ -139,7 +139,11 @@ void main() {
     testWidgets('boş kategori DÜRÜSTÇE "hazırlanıyor" etiketi taşır', (
       tester,
     ) async {
-      await pumpLearn(tester);
+      // TASK 090 sonrası ÜRETİMDE boş kategori KALMADI (20/20 doludur).
+      // Bu kapsamın üretim içeriğine bağlanması kırılgandı; boş-durum
+      // etiketi artık TEST-YEREL sentetik kategoriyle doğrulanır
+      // (bkz. EmptyCategoryFixtureBundle).
+      await pumpLearn(tester, bundle: EmptyCategoryFixtureBundle(rootBundle));
 
       // İçeriği olan kategori sayaç, olmayan "Hazırlanıyor" gösterir.
       expect(find.text('Hazırlanıyor'), findsWidgets);
