@@ -67,3 +67,7 @@ flutter:
     - assets/content/learn/articles_tr.json
     - assets/content/learn/articles_en.json
     - assets/content/learn/articles_ar.json
+    # Resmî cevap / fetva dizini TEMELİ (TASK 092) — sıfır üretim kaydı.
+    - assets/content/official_answers/index_tr.json
+    - assets/content/official_answers/index_en.json
+    - assets/content/official_answers/index_ar.json

@@ -6,15 +6,87 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 091). After the TASK 091 merge, read the real current commit
+> task (TASK 092). After the TASK 092 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 091: `b174789`
+- Last verified main before TASK 092: `06d1925`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 091** — Review pending Learn articles (**CP11**).
+- Latest completed task: **TASK 092** — Official-answer / fatwa-source index
+  foundation (**CP11**). The roadmap, `TASK_INDEX.md`, this file and the state
+  JSON all define TASK 092 in **one line with no acceptance criteria**, no
+  storage format, no record count and no approval gate; scope was read narrowly,
+  the same discipline TASK 090 and TASK 091 applied to their own underspecified
+  entries. Delivered: **the index contract only, with ZERO production records**,
+  **no consumer**, no UI, no network, no persistence key, no migration, no
+  dependency change.
+  New module `lib/features/official_answers/` — record entity carrying **no
+  answer body field at all** (so it is structurally incapable of holding a
+  composed ruling), per-locale index rejecting duplicate ids, a **read-only**
+  repository contract with no write or compose API, a strict pure-Dart
+  parser/validator throwing the existing `ContentSchemaError` with a **required**
+  `validSources`, and an offline `AssetBundle` loader. Assets
+  `assets/content/official_answers/index_{tr,en,ar}.json`, each exactly
+  `{"schemaVersion": 1, "locale": "<x>", "answers": []}`.
+  **Owner decision — a DEDICATED publication gate, deliberately stricter than
+  the Learn article gate.** `SourceVerification.satisfiesPublicationGate` never
+  inspects `verifiedBy`, so reusing it as the final gate would let
+  `editorialReview` publish a fatwa-shaped record; it is now reused only as
+  **one component**. A published, retrievable record requires **all** of:
+  `reviewStatus == published`; source body verified;
+  **`verifiedBy == scholarlyReview`** — `editorialReview` and
+  `automatedSourceCheck` both **fail**; an **approved authority source**, meaning
+  only the two authority-typed registry ids
+  (`diyanet-din-isleri-yuksek-kurulu` / `fatwa`,
+  `diyanet-dini-soru-hizmetleri` / `officialAnswer`) **read from `sources.json`
+  rather than invented**, plus `isOfficial` and a `sourceType` check; a non-empty
+  `https` `sourceUrl` passing the existing `OfficialSourceDomains` allowlist and
+  on a path **strictly deeper** than the source's own `canonicalUrl`, so a bare
+  fatwa landing page can never be presented as an exact answer address; a
+  non-empty exact locator; a stable unique `oa-` id containing no `:`; locale
+  consistency; and `isGeneralInformationOnly`. Issues are a typed
+  `OfficialAnswerGateIssue` list, never free text.
+  The gate runs at **both** construction and the retrieval chokepoint. The
+  `final class` record has one generative constructor, no `copyWith`, no
+  `fromJson` and an unmodifiable answer list, so a published-but-ungated record
+  **cannot be constructed**; the retrieval filter is retained as a guard against
+  a future shortcut rather than as today's only defence.
+  **The Learn article gate was NOT touched** — no file under
+  `lib/features/learn/` or `assets/content/learn/` is modified — and a
+  **negative-control test asserts `editorialReview` still satisfies the LEARN
+  gate**, so a later refactor cannot globally tighten Learn without failing the
+  suite. `verifiedBy: scholarlyReview` is a **data field the gate checks, NOT
+  evidence that a qualified human review occurred**; **no agent may record it**,
+  and a qualified human reviewer is required before any real record ships.
+  Privacy: no raw user question is stored, logged or echoed (`topic` and
+  `summary` are authored asset fields); no network, Firebase, SharedPreferences,
+  new storage key or migration; `getById` returns `null` for a missing or ungated
+  record and **never falls back to Learn**. `_guard` now contains `Error` as well
+  as `Exception`, because the record's own `ArgumentError` would otherwise escape
+  and leak validation prose — failures collapse to a bare `StorageFailure`.
+  **The pre-implementation Opus review returned BLOCKED with 7 blockers** (the
+  gate reused Learn's and so admitted `editorialReview`; no `sourceUrl` field
+  existed; any registered source including a book could ground a published
+  record; the retrieval boundary filtered on `isPublished` only; `_guard` did not
+  contain `Error`; and a merged test asserted the forbidden `editorialReview`
+  success as correct). All seven were the owner's **already-recorded**
+  requirements not yet implemented — no unresolved product or religious decision
+  — so they were implemented rather than escalated. **Final Opus review: PASS
+  WITH FOLLOW-UPS**, all seven verified closed.
+  `docs/CONTENT_SOURCE_MATRIX.md` gains one row `official-answer-index` as the
+  CP11 governance rule requires — **READY WITH DOCUMENTED LIMITATION**, because
+  the contract is shipped and tested but grounds no content, so `READY` would be
+  false and `NOT IMPLEMENTED` would also be false. Recorded limitations: zero
+  published records; no consumer wired; a qualified human scholarly reviewer
+  required before any real record; and `isGeneralInformationOnly` is
+  **declarative** — nothing verifies that a body is not a personal ruling.
+  `art-dua-adabi`, all Learn article content and `LearnDailyPlanCatalog.v1` (30
+  entries) are unchanged. Learn state per locale is untouched at **56 records,
+  55 published, 1 pending**; categories **20 of 20**; registry **8**.
+  Report: `docs/task-reports/TASK_092_OFFICIAL_ANSWER_INDEX_FOUNDATION.md`
+- Previous completed task: **TASK 091** — Review pending Learn articles (**CP11**).
   Scope was read from the roadmap, which defines TASK 091 in **one line with no
   acceptance criteria**, and therefore covers **only** the two long-standing
   `scholarlyReviewPending` records. The four TASK 090 candidates stay deferred;
@@ -518,12 +590,19 @@ Canonical, verified snapshot of the project at the time of this documentation ta
   **READY FOR CONTROLLED REMOTE SYNC IMPLEMENTATION** (remote still gated by
   payload versioning, consumer, conflicts, Security Rules, App Check).
   Report: `docs/task-reports/TASK_073_LOCAL_SYNC_QUEUE_HARDENING.md`
-- Next planned functional task: **TASK 092** — Official-answer / fatwa-source
-  index foundation (**CP11 — Learn and Assistant depth**).
-  Learn **coverage** expansion is complete (TASK 090) and pending-article review
-  is complete (TASK 091). Still open with **no owning task**: a qualified
-  scholarly reviewer for `art-dua-adabi`, and a decision on the four TASK 090
-  candidates classified **SCHOLARLY REVIEW REQUIRED** and left unpublished.
+- Next planned functional task: **TASK 093** — Assistant retrieval ranking and
+  no-source UX (**CP11 — Learn and Assistant depth**). It must consume the
+  official-answer repository's `getPublished` **only**, never `getIndex`, which
+  deliberately exposes unpublished records for internal audit and is currently
+  guarded only by a source-scan test.
+  Learn **coverage** expansion is complete (TASK 090), pending-article review is
+  complete (TASK 091), and the official-answer index **contract** is complete with
+  zero records (TASK 092). Still open with **no owning task**: a qualified
+  scholarly reviewer for `art-dua-adabi`, a qualified scholarly reviewer for any
+  real official-answer record, a decision on the four TASK 090 candidates
+  classified **SCHOLARLY REVIEW REQUIRED** and left unpublished, and verifying
+  that an official-answer body is not a personal ruling (today
+  `isGeneralInformationOnly` is declarative only).
   Still open and deliberately deferred from CP10: day-30 plan renewal, adaptive plan shrinking,
   streak/XP/achievements, manual calendar navigation, opening a Learn article
   from a task card, and TASK 083A's typed `rangeConflict` repair.
@@ -564,6 +643,24 @@ least** `requiredEntryCount` plus identical locale ID sets; `catalogIds ==
 eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
+
+## Tests (verified at TASK 092)
+
+- Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
+- Flutter test baseline: **1639 / 1639**, 0 failed, 0 skipped
+  (1590 at TASK 091 + 49 TASK 092 tests). Re-run after the final hardening
+  changes, not derived by arithmetic.
+- TASK 092 suite: **49 / 49** — command:
+  `flutter test test/features/official_answers`
+- Content governance suite (includes the new `official-answer-index` matrix row):
+  **14 / 14** — command: `flutter test test/content`
+- Learn + Assistant + content + catalog: **379 / 379** — command:
+  `flutter test test/features/learn test/features/assistant test/content
+  test/features/today/domain/learn_daily_plan_catalog_test.dart`
+  — **identical to the TASK 091 figure; no regression.**
+- Functions at TASK 092: **not run** — no Functions file, dependency or lockfile
+  changed.
+- Device validation at TASK 092: **not required** (no platform or native change).
 
 ## Tests (verified at TASK 091)
 
