@@ -525,8 +525,14 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Consumers:** Assistant
 - **Prohibited:** replacing a missing source with reassuring wording; presenting a safety notice as a ruling
 - **Status:** READY WITH DOCUMENTED LIMITATION
-- **Limitation:** the sensitive-query persistence rule and the classifier's own `isSensitiveVerdict` helper disagree — see **Finding F1** below
-- **Follow-up:** TASK 094
+- **Limitation:** the local history repository's `load()` now prunes any
+  stored record that re-classifies as sensitive (`personalCase`,
+  `halalHaramVerdict` or `worshipRule`, via the single canonical
+  `AssistantQueryClassifier.isSensitiveVerdict` predicate — see **Finding F1
+  (CLOSED)** below); because that classifier is keyword-based, this pruning
+  **may also delete a benign record** that happens to contain a matching
+  keyword — an accepted owner decision, not a defect
+- **Follow-up:** none open; TASK 094 closed F1
 
 ### app-source-reference-registry
 
@@ -610,13 +616,14 @@ religious subjects, **no** review-pending content exposed as published, **no**
 path by which the Assistant can reach unpublished material, and **no** evidenced
 licensing conflict for content that actually ships.
 
-### F1 — Assistant sensitive-query persistence is narrower than the classifier's own definition
+### F1 — CLOSED (TASK 094): Assistant sensitive-query persistence is narrower than the classifier's own definition
 
 - **Content area:** `assistant-safety-copy`
-- **Evidence:** `bismillah_app/lib/features/assistant/application/assistant_providers.dart` treats a query as non-persistable when it classifies as `personalCase` **or** `halalHaramVerdict`. `bismillah_app/lib/features/assistant/domain/services/assistant_query_classifier.dart` defines `isSensitiveVerdict` as `halalHaramVerdict`, `worshipRule` **or** `personalCase`. `isSensitiveVerdict` has **no production caller** — only a test references it.
+- **Original evidence:** `bismillah_app/lib/features/assistant/application/assistant_providers.dart` treated a query as non-persistable when it classified as `personalCase` **or** `halalHaramVerdict` only. `bismillah_app/lib/features/assistant/domain/services/assistant_query_classifier.dart` defines `isSensitiveVerdict` as `halalHaramVerdict`, `worshipRule` **or** `personalCase`. `isSensitiveVerdict` had **no production caller** — only a test referenced it.
 - **Affected surface:** Assistant local history (`bismillah.assistant_history`, cap 20, device-local).
-- **Severity:** P2. `DO_NOT_BREAK.md` states that sensitive verdict queries are not persisted; a `worshipRule` query ("does X invalidate my fast?") is classified sensitive by the domain helper yet is written to local history.
-- **Smallest safe follow-up:** have the persistence gate call `AssistantQueryClassifier.isSensitiveVerdict` instead of restating the rule, or record the narrower rule as a deliberate decision. Owner: **TASK 094** (Learn/Assistant security, language and RTL checkpoint).
+- **Resolution (TASK 094):** the persistence gate at `assistant_providers.dart:109` now calls the single canonical `AssistantQueryClassifier.isSensitiveVerdict` predicate directly — `worshipRule` is included and no second sensitivity list is restated. `SharedPrefsAssistantHistoryRepository.load()` additionally prunes any **pre-existing** sensitive record it finds in local history on read, so records written before this fix are also removed, not only new ones.
+- **New accepted limitation:** the pruning re-classifies stored `text` with the same keyword-based classifier used at write time. Because the classifier is keyword-based rather than semantic, this **may also delete a benign record** that happens to contain a matching keyword — an accepted owner decision, not a defect. Pruning is bounded (at most the existing cap of 20 stored records), idempotent (a second `load()` triggers no further write), touches only the `bismillah.assistant_history` key, never logs the removed text, and writes no backup or quarantine copy.
+- **Severity:** was P2; now resolved.
 
 ### F2 — Duplicate source facts with no cross-check
 

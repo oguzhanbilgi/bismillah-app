@@ -81,30 +81,32 @@ void main() {
     });
   });
 
-  group('Hassas hüküm işareti', () {
-    test('isSensitiveVerdict verdict/worshipRule/personal için doğru', () {
-      expect(
-        AssistantQueryClassifier.isSensitiveVerdict(
-          AssistantQueryClass.halalHaramVerdict,
-        ),
-        isTrue,
-      );
-      expect(
-        AssistantQueryClassifier.isSensitiveVerdict(
-          AssistantQueryClass.worshipRule,
-        ),
-        isTrue,
-      );
-      expect(
-        AssistantQueryClassifier.isSensitiveVerdict(
-          AssistantQueryClass.personalCase,
-        ),
-        isTrue,
-      );
-      expect(
-        AssistantQueryClassifier.isSensitiveVerdict(AssistantQueryClass.howTo),
-        isFalse,
-      );
+  group('Hassas hüküm işareti (TASK 094 §A — TEK kanonik yüklem)', () {
+    // Tablo tüm AssistantQueryClass değerlerini kapsar; switch'in `default`
+    // içermemesi sayesinde enum'a yeni bir değer eklenirse bu tablo
+    // GÜNCELLENMEDEN derleme HATASI alınır (assistant_query_classifier.dart).
+    const expected = <AssistantQueryClass, bool>{
+      AssistantQueryClass.halalHaramVerdict: true,
+      AssistantQueryClass.worshipRule: true,
+      AssistantQueryClass.personalCase: true,
+      AssistantQueryClass.howTo: false,
+      AssistantQueryClass.definition: false,
+      AssistantQueryClass.evidenceRequest: false,
+      AssistantQueryClass.generalLearning: false,
+      AssistantQueryClass.unknown: false,
+    };
+
+    test('her AssistantQueryClass değeri tabloda temsil edilir', () {
+      expect(expected.keys.toSet(), AssistantQueryClass.values.toSet());
     });
+
+    for (final entry in expected.entries) {
+      test('${entry.key} → isSensitiveVerdict == ${entry.value}', () {
+        expect(
+          AssistantQueryClassifier.isSensitiveVerdict(entry.key),
+          entry.value,
+        );
+      });
+    }
   });
 }

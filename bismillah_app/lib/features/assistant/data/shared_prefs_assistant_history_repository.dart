@@ -1,17 +1,28 @@
 import 'dart:convert';
 
+import 'package:bismillah_app/core/contracts/contracts.dart';
+import 'package:bismillah_app/core/errors/app_failure.dart';
+import 'package:bismillah_app/core/result/result.dart';
 import 'package:bismillah_app/features/assistant/domain/entities/assistant_message.dart';
 import 'package:bismillah_app/features/assistant/domain/entities/assistant_source_reference.dart';
 import 'package:bismillah_app/features/assistant/domain/repositories/assistant_history_repository.dart';
+import 'package:bismillah_app/features/assistant/domain/services/assistant_query_classifier.dart';
 import 'package:bismillah_app/features/assistant/domain/value_objects/assistant_enums.dart';
 import 'package:bismillah_app/features/learn/domain/value_objects/knowledge_enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// SharedPreferences tabanlı yerel geçmiş (TASK 059 §13).
+/// SharedPreferences tabanlı yerel geçmiş (TASK 059 §13; TASK 094 §B/§C).
 ///
 /// Bozuk/eksik kayıt sakin biçimde boş listeye düşer (crash yok). Zengin
 /// canlı görünüm (adımlar/maddeler) KALICI DEĞİLDİR — yeniden açılışta
 /// mesaj sade kart (metin + kaynak + ilgili) olarak çizilir.
+///
+/// `queryClass` hiçbir zaman saklanmadı; yalnız ham `text` saklanır. TASK
+/// 094 öncesinde `isSensitiveVerdict` üretim kodunda hiç çağrılmadığından
+/// (bkz. TASK 086 F1), eski kayıtlarda hassas metin çiftleri kalmış
+/// olabilir. `load()` bu yüzden her okumada geriye dönük bir TEMİZLİK
+/// geçişi uygular; `classify` saf/statik olduğundan yeniden sınıflandırma
+/// güvenlidir.
 final class SharedPrefsAssistantHistoryRepository
     implements AssistantHistoryRepository {
   const SharedPrefsAssistantHistoryRepository();
@@ -38,10 +49,77 @@ final class SharedPrefsAssistantHistoryRepository
           messages.add(message);
         }
       }
-      return messages;
+      final pruned = _pruneSensitive(messages);
+      // Yalnız GERÇEKTEN hassas bir kayıt bulunup silindiyse geri yazılır.
+      // Koşulsuz yeniden yazma YASAKTIR: `_decodeMessage` boş metin/geçersiz
+      // tarih/bilinmeyen rol için `null` döner ve bu kayıtlar `messages`'a
+      // hiç girmez — koşulsuz bir geri yazma, zararsız bozuk kayıtları
+      // KALICI OLARAK SİLERDİ (TASK 094 §C BLOCKER).
+      if (pruned.length != messages.length) {
+        await _writeBack(prefs, pruned);
+      }
+      return pruned;
     } on Exception {
       // Bozuk JSON/okuma hatası (FormatException dâhil) → boş geçmiş.
       return const [];
+    }
+  }
+
+  /// Kullanıcı mesajı yeniden sınıflandırıldığında hassasse, o mesajı VE
+  /// yalnız hemen ardından gelen asistan mesajını (rol kontrolüyle, ASLA
+  /// çift/tek indeks varsayımıyla değil — `save()` son 20'ye keserken
+  /// listenin bir yetim asistan mesajıyla BAŞLAMASI mümkündür) düşürür.
+  ///
+  /// Anahtar kelime tabanlı sınıflandırma bilinçli olarak KABA'dır: masum
+  /// bir cümle hassas bir anahtar kelime içeriyorsa da silinir (kabul
+  /// edilen yanlış pozitif — TASK 094 §G.6). Ham hassas metin hiçbir yere
+  /// LOGLANMAZ.
+  List<AssistantMessage> _pruneSensitive(List<AssistantMessage> messages) {
+    final drop = <String>{};
+    for (var i = 0; i < messages.length; i++) {
+      final message = messages[i];
+      if (message.role != AssistantRole.user) {
+        continue;
+      }
+      final queryClass = AssistantQueryClassifier.classify(message.text);
+      if (!AssistantQueryClassifier.isSensitiveVerdict(queryClass)) {
+        continue;
+      }
+      drop.add(message.id);
+      final next = i + 1 < messages.length ? messages[i + 1] : null;
+      if (next != null && next.role == AssistantRole.assistant) {
+        drop.add(next.id);
+      }
+    }
+    if (drop.isEmpty) {
+      return messages;
+    }
+    return [
+      for (final m in messages)
+        if (!drop.contains(m.id)) m,
+    ];
+  }
+
+  /// Temizlik sonrası geri yazma. `save()`'in genel yolundan AYRIDIR:
+  /// [messages] zaten en fazla 20 öğe içerir (önceden yazılmıştı) ve
+  /// yeniden sınıflandırma/tekrar kesme YAPILMAMALIDIR.
+  ///
+  /// `save()` yalnız `Exception` yakalar; burada — build() içindeki bir
+  /// provider'dan çağrıldığından — beklenmeyen bir `Error` de sessizce
+  /// kapsanır (TASK 094 §C). Ham metin, hata mesajına da YAZILMAZ.
+  Future<void> _writeBack(
+    SharedPreferences prefs,
+    List<AssistantMessage> messages,
+  ) async {
+    try {
+      final encoded = json.encode([
+        for (final message in messages) _encodeMessage(message),
+      ]);
+      await prefs.setString(_key, encoded);
+    } on Exception {
+      // yazma hatası → oturumda temizlenmiş liste yine de döner.
+    } on Error {
+      // beklenmeyen hata da build() güvenliği için burada durdurulur.
     }
   }
 
@@ -62,12 +140,13 @@ final class SharedPrefsAssistantHistoryRepository
   }
 
   @override
-  Future<void> clear() async {
+  ResultFuture<void> clear() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_key);
+      return const Result.success(null);
     } on Exception {
-      // yut
+      return const Result.failure(StorageFailure());
     }
   }
 
