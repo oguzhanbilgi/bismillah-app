@@ -59,8 +59,9 @@ above; this matrix references them and records only the governance decision.
 | `assistant-retrieval-corpus` | Assistant | reviewed-secondary | READY WITH DOCUMENTED LIMITATION |
 | `assistant-safety-copy` | Assistant | internal-ui-copy | READY WITH DOCUMENTED LIMITATION |
 | `app-source-reference-registry` | Profile | official-primary | READY WITH DOCUMENTED LIMITATION |
+| `official-answer-index` | Assistant (foundation only) | official-primary | READY WITH DOCUMENTED LIMITATION |
 
-Counts: READY **9** · READY WITH DOCUMENTED LIMITATION **10** ·
+Counts: READY **9** · READY WITH DOCUMENTED LIMITATION **11** ·
 REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 
 ---
@@ -548,6 +549,55 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Status:** READY WITH DOCUMENTED LIMITATION
 - **Limitation:** the seven entries restate facts that also live in `bismillah_app/assets/content/learn/sources.json` and the notice documents, with **no test cross-checking the two** — see **Finding F2** below
 - **Follow-up:** TASK 094
+
+### official-answer-index
+
+- **Surface:** none today — the parser, gate and asset-backed repository exist
+  but are wired to no consumer; Assistant retrieval integration is **TASK 093**
+- **Content type:** official Diyanet fatwa / "resmî cevap" answer index (id,
+  neutral topic, neutral summary, source reference, source-body verification,
+  a dedicated publication gate)
+- **Source name:** T.C. Diyanet İşleri Başkanlığı Din İşleri Yüksek Kurulu —
+  Fetvalar and Dinî Soru Hizmetleri (the only two approved authority sources);
+  **zero shipped records reference either one today**
+- **Source class:** official-primary
+- **Evidence:** `bismillah_app/assets/content/official_answers/index_tr.json`, `bismillah_app/assets/content/official_answers/index_en.json`, `bismillah_app/assets/content/official_answers/index_ar.json`, `bismillah_app/lib/features/official_answers/`, `bismillah_app/test/features/official_answers/task_092_official_answer_index_test.dart`
+- **Delivery:** bundled-asset
+- **Publication status:** contract shipped with **zero production records**,
+  delivered as fully offline local JSON with no network call; a dedicated,
+  **stricter-than-`learn-articles`** publication gate exists but has nothing to
+  publish yet
+- **Source review:** `OfficialAnswerPublicationGate` requires `reviewStatus ==
+  published` **and** `sourceBodyVerified` **and** `verifiedBy ==
+  VerifiedBy.scholarlyReview` **and** an approved authority source (only
+  `diyanet-din-isleri-yuksek-kurulu` / `diyanet-dini-soru-hizmetleri`, resolved
+  to a `fatwa`/`officialAnswer`-typed, official `KnowledgeSource`) **and** a
+  non-empty https `sourceUrl` on the allowlisted domain that is **strictly
+  deeper** than the source's own `canonicalUrl` **and** a non-empty
+  `sourceLocator` **and** `isGeneralInformationOnly == true`
+- **TR:** yes — `index_tr.json` present, zero records
+- **EN:** yes — `index_en.json` present, zero records
+- **AR:** yes — `index_ar.json` present, zero records
+- **Locale rule:** all three locale indexes are present and identically
+  empty, so locale parity is trivially satisfied; no divergence is possible
+  with zero records
+- **Attribution:** would be required per record (institution, title, exact
+  locator) once a real record ships; nothing is attributed today
+- **Licensing:** not applicable — no content is redistributed; a future
+  record would only reference an official Diyanet page
+- **Consumers:** none
+- **Prohibited:** publishing a record without qualified scholarly review;
+  treating `isGeneralInformationOnly` as a verified fact rather than a
+  declared field; wiring a consumer before TASK 093
+- **Status:** READY WITH DOCUMENTED LIMITATION
+- **Limitation:** zero published records exist and no consumer is wired; a
+  **qualified human scholarly reviewer is REQUIRED** before any real record
+  ships (no agent may record that review); and `isGeneralInformationOnly` is
+  **declarative only** — nothing in the parser or gate verifies that a
+  record's body is not actually a personal ruling
+- **Follow-up:** **TASK 093** (Assistant retrieval ranking and no-source UX)
+  owns consumer wiring; the qualified-scholarly-review gate for the first real
+  record remains an open owner decision with no task number yet
 
 ---
 

@@ -77,6 +77,7 @@ TASK 088    — Learn pack: Dua, Family, Halal foundations — COMPLETED
 TASK 089    — Learn pack: Women, Afterlife, Islamic history — COMPLETED
 TASK 090    — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
 TASK 091    — Review pending Learn articles — COMPLETED
+TASK 092    — Official-answer / fatwa-source index foundation — COMPLETED
 ```
 
 ## CP09 — Technical stabilization
@@ -298,6 +299,30 @@ record must not carry `isFeatured`, and no test may freeze **how many** records
 are pending. A source that stops grounding Learn content is **kept registered**
 if it still serves another purpose.
 
+**CP11 official-answer gate rule (fixed by TASK 092):** official-answer / fatwa
+records use a **dedicated publication gate that is deliberately stricter than the
+Learn article gate**, and the Learn gate must **never** be globally tightened to
+match it (a negative-control test asserts `editorialReview` still satisfies the
+Learn gate). `SourceVerification.satisfiesPublicationGate` never inspects
+`verifiedBy`, so it may be reused only as **one component**. A published,
+retrievable official-answer record requires **all** of: `reviewStatus ==
+published`; source body verified; **`verifiedBy == scholarlyReview`** —
+`editorialReview` and `automatedSourceCheck` **fail**; an **approved authority
+source**, meaning only the authority-typed registry ids (`sourceType` `fatwa` or
+`officialAnswer`), read from `sources.json` and never invented; a non-empty
+`https` `sourceUrl` on the existing allowlist and on a path **strictly deeper**
+than the source's `canonicalUrl`, so a bare fatwa landing page can never be
+presented as an exact answer address; a non-empty exact locator; a stable unique
+`oa-` id with no `:`; locale consistency; and `isGeneralInformationOnly`. The gate
+is enforced at **both** construction and the retrieval boundary. Authority or
+source-registry metadata may exist without `scholarlyReview` but must never become
+a user-facing answer or enter retrieval results. `verifiedBy: scholarlyReview` is
+a **data field the gate checks, not evidence that a qualified human review
+occurred** — **no agent may record it**, and a qualified human reviewer is
+required before any real record ships. TASK 092 ships **zero production records**
+and **no consumer**; TASK 093 must consume `getPublished` only, never `getIndex`,
+which deliberately exposes unpublished records for internal audit.
+
 **CP11 Learn-coverage rule (closed by TASK 090):** all **20 of 20** Learn
 categories now carry published content and Learn coverage expansion is
 **complete** — no further Learn pack is planned. Empty-state UI coverage must
@@ -314,8 +339,8 @@ TASK 088 — Learn pack: Dua, Family, Halal foundations   — COMPLETED
 TASK 089 — Learn pack: Women, Afterlife, Islamic history — COMPLETED
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
 TASK 091 — Review pending Learn articles                — COMPLETED
-TASK 092 — Official-answer / fatwa-source index foundation <-- NEXT TASK
-TASK 093 — Assistant retrieval ranking and no-source UX
+TASK 092 — Official-answer / fatwa-source index foundation — COMPLETED
+TASK 093 — Assistant retrieval ranking and no-source UX <-- NEXT TASK
 TASK 094 — Learn/Assistant security, language and RTL checkpoint
 ```
 
