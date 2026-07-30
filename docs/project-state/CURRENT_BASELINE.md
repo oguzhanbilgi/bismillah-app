@@ -9,6 +9,26 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 > task (TASK 094). After the TASK 094 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
+## How repository work is performed (fixed by the routing removal)
+
+The project-scoped Claude subagent and model-routing system is **retired**. The
+former `.claude/agents/bismillah-{fast-auditor,implementer,critical-reviewer}.md`
+and `.claude/rules/model-routing.md` are deleted and must not be recreated, and
+they must not be replaced by another agent framework.
+
+- All repository work is done by a **single main Claude Code session**.
+- The **model is selected manually by the user**; there is no automatic
+  delegation and no Haiku/Sonnet fallback.
+- Critical work still requires **focused review, tests, and real human approval
+  where applicable** — removing the routing removes only the delegation
+  mechanism, not any gate.
+- **Model quality never replaces CI, validation, or source-fidelity gates.**
+  A capable model is not evidence; terminal output, CI and a qualified human
+  reviewer are.
+
+Historical task reports that record which agents were used at the time remain
+accurate for their date and are deliberately **not** rewritten.
+
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
@@ -742,7 +762,7 @@ file-order comparison → restricted to the catalog's own IDs).
   (1639 at TASK 092 + 19 TASK 094 tests). Measured by an actual run after the
   final documentation and test additions — not derived by arithmetic.
 - Assistant suite: **84 / 84** — command: `flutter test test/features/assistant`
-- Focused TASK 094 file: **10 / 10** — command:
+- Focused TASK 094 file: **9 / 9** — command:
   `flutter test test/features/assistant/task_094_assistant_privacy_governance_test.dart`
 - TASK 092 official-answer gate + content governance: **63 / 63** — command:
   `flutter test test/features/official_answers test/content`
