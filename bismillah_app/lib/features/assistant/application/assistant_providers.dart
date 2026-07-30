@@ -7,7 +7,6 @@ import 'package:bismillah_app/features/assistant/domain/entities/assistant_query
 import 'package:bismillah_app/features/assistant/domain/repositories/assistant_history_repository.dart';
 import 'package:bismillah_app/features/assistant/domain/repositories/bismillah_assistant_repository.dart';
 import 'package:bismillah_app/features/assistant/domain/services/assistant_query_classifier.dart';
-import 'package:bismillah_app/features/assistant/domain/value_objects/assistant_enums.dart';
 import 'package:bismillah_app/features/assistant/domain/value_objects/assistant_response_strings.dart';
 import 'package:bismillah_app/features/learn/application/learn_providers.dart';
 import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
@@ -103,12 +102,11 @@ final class AssistantConversationController
       createdAt: createdAt,
     );
 
-    // Kalıcılık kararı: kişisel/hüküm niteliğindeki mesaj çifti KALICI
-    // saklanmaz (TASK 059 §13).
+    // Kalıcılık kararı: kişisel/hüküm/ibadet-kuralı niteliğindeki mesaj
+    // çifti KALICI saklanmaz (TASK 059 §13). TEK kanonik yüklem kullanılır
+    // (TASK 094 §A) — ikinci bir hassasiyet listesi burada TUTULMAZ.
     final queryClass = AssistantQueryClassifier.classify(text);
-    final sensitive =
-        queryClass == AssistantQueryClass.personalCase ||
-        queryClass == AssistantQueryClass.halalHaramVerdict;
+    final sensitive = AssistantQueryClassifier.isSensitiveVerdict(queryClass);
 
     // Kullanıcı mesajını hemen göster + gönderimi kilitle.
     state = AsyncData(
@@ -156,9 +154,17 @@ final class AssistantConversationController
     await ref.read(assistantHistoryRepositoryProvider).save(persistable);
   }
 
-  Future<void> clear() async {
+  /// Geçmişi temizler. Depo silme işlemi BAŞARISIZ olursa ekran state'i
+  /// DOKUNULMAZ ve `false` döner — kullanıcıya "temizlendi" YALANI
+  /// SÖYLENMEZ (TASK 094 §E); anahtar altında ham metin kalmaya devam
+  /// edebileceğinden başarı yalnız gerçek silmeden sonra bildirilir.
+  Future<bool> clear() async {
+    final result = await ref.read(assistantHistoryRepositoryProvider).clear();
+    if (result.isFailure) {
+      return false;
+    }
     _nonPersistableIds.clear();
-    await ref.read(assistantHistoryRepositoryProvider).clear();
     state = const AsyncData(AssistantConversationState());
+    return true;
   }
 }

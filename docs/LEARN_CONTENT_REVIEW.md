@@ -20,6 +20,35 @@ sağlamayan bir `published` nesne **hiç oluşturulamaz**.
 - Çıplak bir URL geçerli locator sayılmaz (liste/ana sayfa kanıt değildir).
 - Bir çeviri, Türkçe kanonik kayıttan güçlü bir yayın durumunda olamaz.
 
+## `editorialReview` etiketi ne anlama gelir? (TASK 094)
+
+`verifiedBy` alanı üç değerden birini taşır: `editorialReview`,
+`automatedSourceCheck`, `scholarlyReview`. Bu bölüm YALNIZ etiketin anlamını
+tanımlar; aşağıda listelenen kayıtların yayın durumunu DEĞİŞTİRMEZ ve
+onlara geriye veya ileriye dönük hiçbir onay VERMEZ (bkz. kök dizindeki
+`CONTENT_POLICY.md`, aynı tanımı taşır — iki belge birbirinden
+SAPAMAZ).
+
+- **`editorialReview` yalnız sahip/editör kaynak-doğruluğu ve sunum
+  incelemesi anlamına gelir** — inceleyen kişi atıf yapılan kaynak
+  gövdesini doğrudan okumuş ve makale iddialarının o kaynak sayfasında
+  gerçekten söylenenle örtüştüğünü, sunumun anlaşılır olduğunu
+  doğrulamıştır. **Bu, yetkin ilmî inceleme, fetva incelemesi, hadis
+  tahrici, hukukî inceleme, Diyanet onayı veya herhangi bir kurumsal
+  destek ANLAMINA GELMEZ.**
+- Bu belgenin yazıldığı tarih itibarıyla `editorialReview` taşıyan hiçbir
+  kayıt yetkin ilmî incelemeden geçmemiştir. Normatif ibadet yönergesi
+  niteliğindeki içerik için yetkin insan incelemesi KOŞULSUZ gereklidir
+  (bkz. `art-dua-adabi`, aşağıda `scholarlyReviewPending` olarak kalır).
+- `scholarlyReview`, gerçekten yetkin ilmî incelemeden geçmiş içerik için
+  ayrılan, DAHA GÜÇLÜ ve ayrı bir kapıdır; `editorialReview` ile
+  birleştirilmez.
+- **Bu tanım BUNDAN SONRAKİ gereksinimi belirtir.** Bu tanımın yazılmasından
+  ÖNCE `editorialReview` etiketiyle zaten yayınlanmış kayıtların geçmiş
+  inceleme kökenini YENİDEN DOĞRULAMAZ — TASK 087 bu kökeni BELİRSİZ
+  (AMBIGUOUS) olarak kaydetmiştir ve bu bölüm mevcut hiçbir kayıt için o
+  belirsizliği ÇÖZMEZ.
+
 ## Doğrulama turu (TASK 057)
 
 - **Yöntem:** `editorialReview` + `sourceBodyReview`

@@ -29,7 +29,21 @@ No worship data is required to leave the device for the core flows to work.
   knowledge base. It does **not** call an external generative AI API.
 - **Normal Assistant history** is stored **locally**, capped at the most recent **20**
   messages.
-- **Sensitive queries** (personal-case / ruling questions) are **not persisted**.
+- **Sensitive queries** (`personalCase`, `halalHaramVerdict` or `worshipRule` —
+  a single canonical classifier predicate) are **not persisted**.
+- **Retroactive cleanup on read:** on every `load()`, any **pre-existing**
+  stored record that re-classifies as sensitive is removed from local
+  history, so a sensitive record written before this cleanup existed is not
+  left behind. The cleanup is bounded (touches at most the existing 20-message
+  cap), idempotent (a second `load()` performs no further write), touches
+  only the `bismillah.assistant_history` key, never logs the removed text,
+  and writes no backup or quarantine copy of what it removes. Because
+  detection re-classifies stored text with a keyword-based classifier, this
+  cleanup **may also remove a benign record** that happens to contain a
+  matching keyword — a documented, accepted limitation, not a defect.
+- **Clearing history is not always silently reported as successful:**
+  `clear()` reports failure (rather than a false success) when the
+  underlying delete fails.
 
 ## Reset controls
 

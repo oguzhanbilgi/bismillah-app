@@ -34,6 +34,37 @@ verification model already enforced in the codebase.
 - We make **no claim of Diyanet endorsement**; Bismillah is not an official
   Diyanet application.
 
+## What `editorialReview` means (and does not mean)
+
+Learn content carries a `verifiedBy` field with one of three values:
+`editorialReview`, `automatedSourceCheck`, or `scholarlyReview`.
+
+- **`editorialReview` means an owner/editor source-fidelity and
+  presentation review only** — the person doing the review read the cited
+  source body directly and confirmed the article's claims match what that
+  source page actually says, and checked that the wording is presented
+  clearly. **It is explicitly NOT qualified scholarly review, fatwa review,
+  hadith grading, legal review, Diyanet approval, or any form of
+  institutional endorsement.**
+- As of this writing, no content record carrying `editorialReview` has
+  received qualified scholarly review. **Qualified human scholarly review
+  remains required before any `editorialReview` content can be treated as
+  religiously authoritative**, and is required unconditionally for content
+  the app itself classifies as normative worship guidance (see
+  `docs/LEARN_CONTENT_REVIEW.md`).
+- `scholarlyReview` is a separate, stronger gate reserved for content that
+  has actually undergone qualified scholarly review. It is not
+  interchangeable with `editorialReview`, and the two are never merged into
+  one meaning.
+- This section defines what the `editorialReview` label means. **It does
+  not change the publication status of any existing content, and it grants
+  no approval — retroactive or prospective — for any record.**
+- **This definition states the requirement going forward.** It does **not**
+  re-verify the historical review provenance of records already published
+  under the `editorialReview` label before this definition was written —
+  TASK 087 recorded that provenance as **AMBIGUOUS**, and this section does
+  not resolve that ambiguity for any existing record.
+
 ## Corrections and ongoing review
 
 - Content errors and correction requests can be reported through the project's

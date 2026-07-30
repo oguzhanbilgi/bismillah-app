@@ -323,6 +323,31 @@ required before any real record ships. TASK 092 ships **zero production records*
 and **no consumer**; TASK 093 must consume `getPublished` only, never `getIndex`,
 which deliberately exposes unpublished records for internal audit.
 
+**CP11 Assistant sensitivity rule (fixed by TASK 094):** Assistant query
+sensitivity has exactly **one** canonical predicate,
+`AssistantQueryClassifier.isSensitiveVerdict`, written as an **exhaustive `switch`
+over `AssistantQueryClass` with no `default` and no wildcard** so that adding an
+enum value is a **compile error** rather than a silent `false`. It covers
+`personalCase`, `halalHaramVerdict` and `worshipRule`. **Every** persistence,
+history and logging decision must call that predicate — a second inline list is
+the exact defect (finding F1) that let sensitive worship-rule queries reach disk,
+and no such list may be reintroduced. Assistant query text may live in **only**
+the `bismillah.assistant_history` SharedPreferences key: no Drift table, no sync
+queue, no second key, no backup or quarantine copy. Legacy cleanup re-classifies
+stored text on read, pairs by **`role == assistant`** and never by index parity
+(the stored list may begin with an orphan assistant message), writes back **only**
+when a sensitive record was actually removed (an unconditional resave would
+permanently erase corrupt records that `_decodeMessage` drops), and must stay
+bounded, idempotent and silent about the removed text. Because detection is
+keyword-based it **may delete a benign record** — an accepted, documented owner
+decision that must never be described as precise. `clear()` must not report
+success when the underlying delete fails. **`editorialReview` means owner/editor
+source-fidelity and presentation review only** — never scholarly review, fatwa
+review, hadith grading, legal review or Diyanet endorsement; `scholarlyReview`
+stays the separate stronger gate; the definition binds **going forward** and
+**does not re-verify** the provenance of already-published records (TASK 087
+recorded that as AMBIGUOUS). Documenting it changes no publication status.
+
 **CP11 Learn-coverage rule (closed by TASK 090):** all **20 of 20** Learn
 categories now carry published content and Learn coverage expansion is
 **complete** — no further Learn pack is planned. Empty-state UI coverage must
@@ -340,8 +365,13 @@ TASK 089 — Learn pack: Women, Afterlife, Islamic history — COMPLETED
 TASK 090 — Learn pack: Madhhabs, Islamic calendar and remaining gaps — COMPLETED
 TASK 091 — Review pending Learn articles                — COMPLETED
 TASK 092 — Official-answer / fatwa-source index foundation — COMPLETED
-TASK 093 — Assistant retrieval ranking and no-source UX <-- NEXT TASK
-TASK 094 — Learn/Assistant security, language and RTL checkpoint
+TASK 093 — Assistant retrieval ranking and no-source UX — DEFERRED (owner:
+           until real official-answer records exist; ranking and no-source UX
+           already ship, and the only new increment needs the unowned
+           qualified-human-reviewer decision)
+TASK 094 — Learn/Assistant security, language and RTL checkpoint — PARTIAL
+           (F1 privacy + editorialReview definition CLOSED; language
+           verification, RTL verification and F2 STILL OPEN) <-- CURRENT
 ```
 
 ## CP12 — Prayer quality and beta

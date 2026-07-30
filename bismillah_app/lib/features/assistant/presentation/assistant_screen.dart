@@ -119,11 +119,17 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
     if (confirmed != true) {
       return;
     }
-    await ref.read(assistantConversationProvider.notifier).clear();
+    final cleared = await ref
+        .read(assistantConversationProvider.notifier)
+        .clear();
     _didInitialScroll = false;
-    messenger
-      ..clearSnackBars()
-      ..showSnackBar(SnackBar(content: Text(l10n.assistantCleared)));
+    // Silme BAŞARISIZ olursa "temizlendi" mesajı GÖSTERİLMEZ (TASK 094 §E) —
+    // kullanıcıya yanlış bir güvence verilmemiş olur.
+    if (cleared) {
+      messenger
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(content: Text(l10n.assistantCleared)));
+    }
   }
 
   @override

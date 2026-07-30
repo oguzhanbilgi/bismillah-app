@@ -156,11 +156,23 @@ abstract final class AssistantQueryClassifier {
   }
 
   /// Hüküm sınıfları kişisel duruma yeni hüküm çıkaramaz (composer güvenlik
-  /// davranışını buradan okur).
+  /// davranışını buradan okur). Bu, TÜM kalıcılık kararlarının okuduğu TEK
+  /// kanonik yüklemdir (TASK 094 §A) — ikinci bir kopya oluşturulmamalıdır.
+  ///
+  /// Bilinçli olarak `default`/wildcard YOKTUR: [AssistantQueryClass]'a yeni
+  /// bir değer eklenirse bu switch derleme zamanında HATA verir, yeni sınıf
+  /// sessizce "hassas değil" sayılmaz.
   static bool isSensitiveVerdict(AssistantQueryClass queryClass) =>
-      queryClass == AssistantQueryClass.halalHaramVerdict ||
-      queryClass == AssistantQueryClass.worshipRule ||
-      queryClass == AssistantQueryClass.personalCase;
+      switch (queryClass) {
+        AssistantQueryClass.halalHaramVerdict => true,
+        AssistantQueryClass.worshipRule => true,
+        AssistantQueryClass.personalCase => true,
+        AssistantQueryClass.howTo => false,
+        AssistantQueryClass.definition => false,
+        AssistantQueryClass.evidenceRequest => false,
+        AssistantQueryClass.generalLearning => false,
+        AssistantQueryClass.unknown => false,
+      };
 
   /// Anahtar kelimeler ham (tr/en/ar) yazılır; token'lar normalize
   /// olduğundan karşılaştırmadan önce anahtar da normalize edilir.

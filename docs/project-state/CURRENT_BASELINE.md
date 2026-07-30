@@ -6,15 +6,106 @@ Canonical, verified snapshot of the project at the time of this documentation ta
 
 > The live Git HEAD and `origin/main` are authoritative for the current commit.
 > The stored commit below records the last verified baseline **before** this
-> task (TASK 092). After the TASK 092 merge, read the real current commit
+> task (TASK 094). After the TASK 094 merge, read the real current commit
 > from Git — do not treat the stored value as the live HEAD.
 
 ## Repository
 
 - Canonical repo: `https://github.com/oguzhanbilgi/bismillah-app`
-- Last verified main before TASK 092: `06d1925`
+- Last verified main before TASK 094: `0f69ea7`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
-- Latest completed task: **TASK 092** — Official-answer / fatwa-source index
+- Latest task: **TASK 094** — Learn/Assistant security, language and RTL
+  checkpoint (**CP11**) — **PARTIAL / IN PROGRESS, NOT COMPLETE** by owner
+  decision. It was **pulled forward** out of roadmap order to close one real
+  privacy defect before closed alpha.
+  **Closed:** finding **F1** (Assistant sensitive-query persistence) and the
+  formal **`editorialReview`** definition.
+  **STILL OPEN under TASK 094, with no owning follow-up task:** **language
+  verification**, **RTL verification**, and finding **F2**
+  (`app_source_reference.dart` duplicates `sources.json` with no cross-check).
+  Recording TASK 094 COMPLETE would falsely close these; no `TASK 094A` was
+  invented.
+  **The defect:** `assistant_providers.dart` decided persistence with an inline
+  duplicate list omitting **`worshipRule`**, so sensitive worship-rule query
+  pairs — including the raw user question text — **were persisted** to
+  `bismillah.assistant_history`, against the `DO_NOT_BREAK.md` rule that
+  sensitive verdict queries are not persisted. The classifier's own
+  `isSensitiveVerdict` already included `worshipRule` but had **zero production
+  callers**.
+  **Fix:** `isSensitiveVerdict` is now an **exhaustive `switch` with no
+  `default` and no wildcard**, so adding an `AssistantQueryClass` is a
+  **compile error** rather than a silent `false`; the provider calls it; and
+  **no duplicate sensitivity list remains in any persistence path**
+  (grep-verified across `lib/`). Only that one SharedPreferences key ever
+  receives Assistant query text — no Drift table, no sync queue, no other key.
+  **Legacy records — owner decision: delete, accepting bounded false
+  positives.** `queryClass` was never persisted and `answerType` is not a usable
+  proxy (`worshipRule` maps to `generalSourceSummary`/`noVerifiedSource`, both
+  shared with non-sensitive classes), but raw `text` **is** stored and
+  `classify` is pure, so `load()` re-classifies stored text and drops a
+  sensitive user message plus the immediately-following entry **only if
+  `role == assistant`** — a **role check, never index parity**, because `save`
+  caps via `sublist(length - 20)` so the stored list may legitimately begin with
+  an orphan assistant message. The pruned list is **written back, so records are
+  really deleted**, and the write-back is **gated on pruning having removed
+  something**: `_decodeMessage` drops records with empty text, unparseable
+  `createdAt` or an unknown role, so an unconditional resave would have
+  **permanently erased** those otherwise-harmless corrupt records (asserted
+  byte-for-byte). The cleanup is bounded (≤20), **idempotent**, touches only
+  `bismillah.assistant_history`, preserves every unrelated key, writes **no
+  backup or quarantine copy**, contains `Error` as well as `Exception`, and
+  **never logs, prints or embeds the removed raw text**.
+  **Accepted, documented limitation:** detection is keyword-based (`worshipRule`
+  keys on `{'bozar', 'invalidate', 'يبطل'}`), so a benign line such as "bu
+  gürültü konsantrasyonumu bozar mı" **is deleted too**. A test named honestly as
+  an accepted false positive proves it. The cleanup is **not** precise and must
+  never be described as such.
+  **`clear()` silent failure fixed** (owner approved in scope): it swallowed every
+  exception while the provider set state empty regardless, so the user could be
+  told history was cleared while the key still held raw text. `clear` is now
+  `ResultFuture<void>`, the controller returns `bool`, failure leaves state and
+  `_nonPersistableIds` untouched and suppresses the confirmation, and both
+  production call sites were updated. No new l10n copy was invented — on failure
+  the screen shows nothing rather than fabricating a message.
+  **Logging:** no Assistant code calls `print`, `debugPrint`, `AppLogger`,
+  `developer.log`, Crashlytics or analytics; `NoOpAnalyticsService` sends nothing
+  behind a `PrivacyGuard`; no `AppFailure` or exception path embeds query text.
+  **No broader privacy protection is claimed than the tests prove.**
+  **`editorialReview` governance:** root `CONTENT_POLICY.md` and
+  `docs/LEARN_CONTENT_REVIEW.md` now carry the same cross-referenced definition —
+  owner/editor **source-fidelity and presentation review only**, explicitly
+  **not** qualified scholarly review, fatwa review, hadith grading, legal review,
+  Diyanet approval or institutional endorsement, with **`scholarlyReview`
+  preserved as a separate, stronger gate**. It is scoped as **the requirement
+  going forward** and states that the historical review provenance of
+  already-published records carrying the label is **not re-verified** — TASK 087
+  recorded it as **AMBIGUOUS** — so it cannot read as retroactive certification of
+  the **55** shipped `editorialReview` records (vs **1** `scholarlyReview`).
+  **No content was reclassified and no publication status changed**; the words
+  "approved" and "cleared" are avoided.
+  **Stale governance corrected:** `docs/CONTENT_SOURCE_MATRIX.md` still recorded
+  F1 as open, including the now-false claim that `isSensitiveVerdict` has no
+  production caller; F1 is marked **CLOSED (TASK 094)** with the original evidence
+  preserved and the true new limitation recorded, and `docs/PRIVACY_MODEL.md` now
+  documents the retroactive cleanup and its accepted false positive.
+  Learn article bodies, `art-dua-adabi`, `LearnDailyPlanCatalog.v1`,
+  `lib/features/official_answers/**` and `app_source_reference.dart` are
+  untouched; no dependency, schema, migration, new storage key or remote-sync
+  change.
+  Report: `docs/task-reports/TASK_094_ASSISTANT_PRIVACY_REVIEW_GOVERNANCE.md`
+- **TASK 093 — DEFERRED by owner decision** until real official-answer records
+  exist. A priority gate found retrieval **ranking already implemented** (a
+  7-tier weighted scorer with deterministic tie-break, `maxArticles` 3 and an
+  empty-result branch) and the **no-source UX already shipped**
+  (`AssistantAnswerType.noVerifiedSource` / `officialFatwaRequired`, copy present
+  in TR/EN/AR), with the Assistant already wired end-to-end and personal-verdict
+  refusal already implemented. Its only genuinely new increment is wiring the
+  TASK 092 official-answer consumer against an index holding **zero records** —
+  user-invisible today, and blocked in substance on the **unowned qualified human
+  reviewer** decision. It is **not recorded anywhere as a closed-alpha
+  prerequisite** (closed alpha is TASK 101, behind CP12's TASK 095–100). When it
+  runs it must consume `getPublished` **only**, never `getIndex`.
+- Previous completed task: **TASK 092** — Official-answer / fatwa-source index
   foundation (**CP11**). The roadmap, `TASK_INDEX.md`, this file and the state
   JSON all define TASK 092 in **one line with no acceptance criteria**, no
   storage format, no record count and no approval gate; scope was read narrowly,
@@ -643,6 +734,24 @@ least** `requiredEntryCount` plus identical locale ID sets; `catalogIds ==
 eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
+
+## Tests (verified at TASK 094)
+
+- Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
+- Flutter test baseline: **1658 / 1658**, 0 failed, 0 skipped
+  (1639 at TASK 092 + 19 TASK 094 tests). Measured by an actual run after the
+  final documentation and test additions — not derived by arithmetic.
+- Assistant suite: **84 / 84** — command: `flutter test test/features/assistant`
+- Focused TASK 094 file: **10 / 10** — command:
+  `flutter test test/features/assistant/task_094_assistant_privacy_governance_test.dart`
+- TASK 092 official-answer gate + content governance: **63 / 63** — command:
+  `flutter test test/features/official_answers test/content`
+  — includes the negative control proving `editorialReview` still satisfies the
+  **Learn** gate, so Learn publication behaviour did **not** regress.
+- Content governance alone: **14 / 14** — command: `flutter test test/content`
+- Functions at TASK 094: **not run** — no Functions file, dependency or lockfile
+  changed.
+- Device validation at TASK 094: **not required** (no platform or native change).
 
 ## Tests (verified at TASK 092)
 

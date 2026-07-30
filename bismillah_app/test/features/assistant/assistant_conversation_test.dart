@@ -60,6 +60,43 @@ void main() {
     );
   });
 
+  test('ibadet-kuralı sorgusu (worshipRule) kalıcı SAKLANMAZ (TASK 094 §A — '
+      'TASK 086 F1 düzeltmesi)', () async {
+    final container = await boot();
+    final ctrl = container.read(assistantConversationProvider.notifier);
+
+    await ctrl.send('Teyemmüm nedir?'); // normal → kalıcı
+    await ctrl.send('Kan abdesti bozar mı?'); // worshipRule → kalıcı değil
+
+    final state = container.read(assistantConversationProvider).value!;
+    expect(state.messages, hasLength(4)); // oturum içinde hepsi görünür
+
+    final history = await container
+        .read(assistantHistoryRepositoryProvider)
+        .load();
+    // Yalnız normal çift kalıcıdır; worshipRule çifti geçmişe hiç
+    // YAZILMAMIŞTIR (önceden geçmişe yazılıp load() tarafından
+    // temizlenmesiyle KARIŞTIRILMAMALI — bu, §B/§C'nin ayrı bir testidir).
+    expect(history, hasLength(2));
+  });
+
+  test(
+    'normal (hassas olmayan) sorgular öncekiyle AYNI biçimde kalıcıdır',
+    () async {
+      final container = await boot();
+      final ctrl = container.read(assistantConversationProvider.notifier);
+
+      await ctrl.send('Teyemmüm nedir?'); // definition
+      await ctrl.send('Abdest nasıl alınır?'); // howTo
+      await ctrl.send('Namaz vakitleri'); // generalLearning
+
+      final history = await container
+          .read(assistantHistoryRepositoryProvider)
+          .load();
+      expect(history, hasLength(6));
+    },
+  );
+
   test('boş mesaj gönderilemez; loading sırasında kilit', () async {
     final container = await boot();
     final ctrl = container.read(assistantConversationProvider.notifier);
