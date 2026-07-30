@@ -20,7 +20,7 @@
     "flutter_tests": 1658,
     "flutter_tests_previous": 1639,
     "task_094_assistant_tests": 84,
-    "task_094_focused_tests": 10,
+    "task_094_focused_tests": 9,
     "task_094_focused_command": "flutter test test/features/assistant/task_094_assistant_privacy_governance_test.dart",
     "task_094_official_answers_and_content_tests": 63,
     "task_094_functions": "NOT RUN - no Functions file, dependency or lockfile changed",

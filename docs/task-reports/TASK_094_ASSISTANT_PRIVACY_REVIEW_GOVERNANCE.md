@@ -145,7 +145,7 @@ the retroactive cleanup, its bounds, and the accepted false-positive limitation.
 ## Tests
 
 Assistant suite **84 / 84** (was 82 before the last two additions); the focused
-TASK 094 file holds **10**. Proved: `worshipRule` is sensitive; all three sensitive
+TASK 094 file holds **9**. Proved: `worshipRule` is sensitive; all three sensitive
 classes share the one canonical predicate; a table-driven test over **every**
 `AssistantQueryClass` value asserts key-set equality with `values`, so a new enum
 value cannot be silently missed; a `worshipRule` pair is not persisted;
@@ -161,7 +161,7 @@ No unrelated growing total is frozen.
 ## Validation
 
 - Assistant suite: **84 / 84**
-- Focused TASK 094 file: **10 / 10**
+- Focused TASK 094 file: **9 / 9**
 - TASK 092 official-answer gate + content governance: **63 / 63** — the
   negative-control asserting `editorialReview` still satisfies the **Learn** gate
   passes, so Learn publication behaviour does not regress
