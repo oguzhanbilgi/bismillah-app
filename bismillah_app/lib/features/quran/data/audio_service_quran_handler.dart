@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:bismillah_app/features/quran/data/just_audio_quran_queue_player.dart';
 import 'package:bismillah_app/features/quran/data/unavailable_quran_audio_session_service.dart';
-import 'package:bismillah_app/features/quran/domain/entities/quran_chapter_recitation.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_queue.dart';
+import 'package:bismillah_app/features/quran/domain/services/quran_audio_queue_player.dart';
 import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
-import 'package:just_audio/just_audio.dart';
 
 /// AudioService.init YALNIZ burada, bootstrap'ta BİR KEZ çağrılır
 /// (TASK 045). Başarısızlık fatal DEĞİLDİR: reader Arapça/meal ile açılır,
@@ -32,30 +33,38 @@ Future<QuranAudioSessionService> initializeQuranAudioSessionService({
   }
 }
 
-/// Global Kur'an ses oturumu handler'ı (TASK 045).
+/// Global Kur'an ses oturumu handler'ı (TASK 045; sıra modeli TASK 095A).
 ///
-/// Uygulama süresince TEK handler ve TEK [AudioPlayer] yaşar — reader
-/// başına player OLUŞTURULMAZ. Kesintisiz modda ayet ilerletme, sistem
+/// Uygulama süresince TEK handler ve TEK oynatıcı yaşar — reader başına
+/// player OLUŞTURULMAZ. Kesintisiz modda ayet ilerletme, sistem
 /// bildirimi/kilit ekranı kontrolleri ve ses odağı yönetimi tamamen bu
 /// sınıftadır; reader kapansa da oynatma sürer. Ses oturumu konuşma
 /// odaklıdır; arama/odak kaybı/kulaklık çıkarma duraklatır — interruption
 /// dinleyicisi YALNIZ burada kurulur (ikinci katman yok).
+///
+/// ## TASK 095A — sıra modeli
+///
+/// Oturum başlarken **tüm ayet sırası bir kez** hazırlanır
+/// ([QuranAudioQueue]) ve oynatıcıya tek çağrıda verilir. Ayet geçişinde
+/// handler hiçbir yükleme yapmaz: aktif ayet, oynatıcının bildirdiği sıra
+/// konumundan TÜRETİLİR. Böylece ayetler arasındaki uygulama kaynaklı
+/// bekleme ortadan kalkar.
 final class AudioServiceQuranHandler extends BaseAudioHandler
     implements QuranAudioSessionService {
-  AudioServiceQuranHandler() {
-    unawaited(_configureSession());
-    _subscriptions.add(_player.playerStateStream.listen(_onPlayerState));
-    _subscriptions.add(
-      _player.playbackEventStream.listen(
-        (_) => _broadcastSystemState(),
-        // Oynatma sırasındaki platform hatası (ör. ağ kopması): bildirim
-        // sonsuza dek loading KALMAZ, foreground service kapanır.
-        onError: (Object error, StackTrace stackTrace) => _failSession(),
-      ),
-    );
+  AudioServiceQuranHandler({
+    QuranAudioQueuePlayer? player,
+    bool configureAudioSession = true,
+  }) : _player = player ?? JustAudioQuranQueuePlayer() {
+    if (configureAudioSession) {
+      unawaited(_configureSession());
+    }
+    _subscriptions.add(_player.snapshots.listen(_onSnapshot));
+    // Oynatma sırasındaki platform hatası (ör. ağ kopması): bildirim
+    // sonsuza dek loading KALMAZ, foreground service kapanır.
+    _subscriptions.add(_player.errors.listen((_) => _failSession()));
   }
 
-  final AudioPlayer _player = AudioPlayer();
+  final QuranAudioQueuePlayer _player;
   final List<StreamSubscription<Object?>> _subscriptions = [];
   final StreamController<QuranVerseAudioState> _stateController =
       StreamController<QuranVerseAudioState>.broadcast();
@@ -63,14 +72,13 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
   QuranVerseAudioState _current = const QuranVerseAudioState();
   QuranAudioSessionRequest? _request;
   QuranAudioPlaybackMode? _mode;
+  QuranAudioQueue? _queue;
   int? _activeVerse;
-  int? _completedVerse;
-  String? _loadedAudioUrl;
   bool _sourceReady = false;
 
-  /// Komut jetonu: her yeni oynat/geç/durdur komutu artırır; eski async
+  /// Komut jetonu: her yeni oynat/durdur komutu artırır; eski async
   /// işlemler await sonrası jetonu doğrular — hızlı komutlarda iki paralel
-  /// load/play oluşmaz, eski işlem yeni isteğin durumunu EZMEZ.
+  /// hazırlama oluşmaz, eski işlem yeni isteğin durumunu EZMEZ.
   int _generation = 0;
 
   @override
@@ -104,7 +112,7 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     if (_request == null) {
       return;
     }
-    // play() future'ı clip bitene dek tamamlanmayabilir — durum player
+    // play() future'ı parça bitene dek tamamlanmayabilir — durum oynatıcı
     // akışından türetildiği için await EDİLMEZ.
     unawaited(_playQuietly());
   }
@@ -150,59 +158,40 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     }
   }
 
+  /// Oturumu başlatır: sıra BİR KEZ kurulur, ardından oynatma başlar.
+  ///
+  /// Tek ayet modunda sıra tek parçadır, dolayısıyla oynatıcı sonraki
+  /// ayete geçemez. Kesintisiz modda sıra surenin tamamıdır ve başlangıç
+  /// ayeti sıradaki konumla seçilir — böylece geri gitmek de mümkündür ve
+  /// tüm sure önceden hazırlanmış olur.
   Future<void> _startSession(
     QuranAudioSessionRequest request,
     QuranAudioPlaybackMode mode,
   ) async {
     final generation = ++_generation;
+    final queue = mode == QuranAudioPlaybackMode.continuousChapter
+        ? QuranAudioQueue.forChapter(request.recitation)
+        : QuranAudioQueue.forSingleVerse(
+            request.recitation,
+            request.startVerseNumber,
+          );
+    final initialIndex = queue.indexOfVerse(request.startVerseNumber);
     _request = request;
     _mode = mode;
+    _queue = queue;
     _activeVerse = request.startVerseNumber;
-    _completedVerse = null;
     // Yükleme durumu senkron yayınlanır — çağıran anında yansıtabilir.
     _emit(_sessionState(QuranVerseAudioStatus.loading));
-    try {
-      await _player.stop();
-      if (generation != _generation) {
-        return;
-      }
-      // Aynı surenin MP3'ü zaten yüklüyse yeniden İNDİRİLMEZ.
-      if (_loadedAudioUrl != request.recitation.audioUrl) {
-        await _player.setUrl(request.recitation.audioUrl);
-        if (generation != _generation) {
-          return;
-        }
-        _loadedAudioUrl = request.recitation.audioUrl;
-      }
-      await _playClip(request.startVerseNumber, generation);
-    } on Exception {
-      if (generation == _generation) {
-        _failSession();
-      }
-    }
-  }
-
-  /// Yüklü MP3 içinde tek ayet clip'ini başlatır. Hatası oturumu sakin
-  /// biçimde sonlandırır — asla fırlatmaz.
-  Future<void> _playClip(int verseNumber, int generation) async {
-    final request = _request;
-    final timing = request?.recitation.timingFor(verseNumber);
-    if (request == null || timing == null) {
+    if (queue.isEmpty || initialIndex == null) {
+      _failSession();
       return;
     }
-    _activeVerse = verseNumber;
-    _completedVerse = null;
-    _publishMediaItem(request, timing);
-    _emit(_sessionState(QuranVerseAudioStatus.loading));
     try {
-      await _player.setClip(start: timing.start, end: timing.end);
+      await _player.setQueue(queue.clips, initialIndex: initialIndex);
       if (generation != _generation) {
         return;
       }
-      await _player.seek(Duration.zero);
-      if (generation != _generation) {
-        return;
-      }
+      _publishMediaItem(request, queue.clips[initialIndex]);
       unawaited(_playQuietly());
     } on Exception {
       if (generation == _generation) {
@@ -211,55 +200,64 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     }
   }
 
+  /// Önceki/sonraki ayet: sıra zaten hazır olduğu için yalnız konum
+  /// değişir — yeni bir yükleme isteği kurulmaz.
   Future<void> _skipTo(int delta) async {
+    final queue = _queue;
     final verse = _activeVerse;
-    final target = verse == null ? null : verse + delta;
-    if (target == null || _request?.recitation.timingFor(target) == null) {
+    if (queue == null || verse == null) {
+      return;
+    }
+    final index = queue.indexOfVerse(verse);
+    final target = index == null ? null : index + delta;
+    if (target == null || queue.verseAt(target) == null) {
       return; // sınır dışı — ilk ayette önceki, son ayette sonraki yok
     }
-    await _playClip(target, ++_generation);
+    try {
+      await _player.seekToIndex(target);
+    } on Exception {
+      // Geçiş hatası oturumu bozmaz — durum akıştan gelir.
+    }
   }
 
-  void _onPlayerState(PlayerState playerState) {
-    if (_request == null || _activeVerse == null) {
+  /// Oynatıcının tek durum kaynağı. Aktif ayet burada sıradaki konumdan
+  /// TÜRETİLİR; handler ayet geçişinde hiçbir yükleme tetiklemez.
+  void _onSnapshot(QuranAudioPlayerSnapshot snapshot) {
+    final queue = _queue;
+    if (_request == null || queue == null) {
       return; // oturum yok — stop/hata akışı kendi durumunu yayınladı
     }
-    switch (playerState.processingState) {
-      case ProcessingState.loading || ProcessingState.buffering:
+    final index = snapshot.currentIndex;
+    final verse = index == null ? null : queue.verseAt(index);
+    if (verse != null && verse != _activeVerse) {
+      _activeVerse = verse;
+      _publishMediaItem(_request!, queue.clips[index!]);
+    }
+    if (_activeVerse == null) {
+      return;
+    }
+    switch (snapshot.phase) {
+      case QuranAudioPlayerPhase.loading || QuranAudioPlayerPhase.buffering:
         _emit(_sessionState(QuranVerseAudioStatus.loading));
-      case ProcessingState.ready:
+      case QuranAudioPlayerPhase.ready:
         _sourceReady = true;
         _emit(
           _sessionState(
-            playerState.playing
+            snapshot.playing
                 ? QuranVerseAudioStatus.playing
                 : QuranVerseAudioStatus.paused,
           ),
         );
-      case ProcessingState.completed:
-        _onClipCompleted();
-      case ProcessingState.idle:
+      case QuranAudioPlayerPhase.completed:
+        // Sıranın SONU: tek ayet modunda tek parça bitmiştir, kesintisiz
+        // modda sure bitmiştir. Ara geçişler burada görünmez — onları
+        // oynatıcı kendi içinde yapar.
+        unawaited(stop());
+        return;
+      case QuranAudioPlayerPhase.idle:
         break; // stop/hata geçişleri kendi bildirimlerini yayınlar
     }
-    _broadcastSystemState();
-  }
-
-  /// Clip bitti: kesintisiz modda sonraki ayete geçilir (arka planda da);
-  /// tek ayet modunda veya son ayette oturum tamamen sonlanır — foreground
-  /// service boşta KALMAZ.
-  void _onClipCompleted() {
-    final verse = _activeVerse;
-    if (verse == null || _completedVerse == verse) {
-      return; // aynı clip için yinelenen completed olayı
-    }
-    _completedVerse = verse;
-    final next = verse + 1;
-    if (_mode == QuranAudioPlaybackMode.continuousChapter &&
-        _request?.recitation.timingFor(next) != null) {
-      unawaited(_playClip(next, _generation));
-    } else {
-      unawaited(stop());
-    }
+    _broadcastSystemState(snapshot);
   }
 
   /// Kalıcı oynatma hatası: bildirim/oturum temizlenir, reader'a yalnız
@@ -294,8 +292,8 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
   void _clearSession() {
     _request = null;
     _mode = null;
+    _queue = null;
     _activeVerse = null;
-    _completedVerse = null;
     mediaItem.add(null);
     playbackState.add(
       playbackState.value.copyWith(
@@ -312,7 +310,7 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
     try {
       await _player.play();
     } on Exception {
-      // Hata playbackEventStream üzerinden _failSession'a düşer.
+      // Hata errors akışı üzerinden _failSession'a düşer.
     }
   }
 
@@ -342,7 +340,9 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
 
   void _emit(QuranVerseAudioState state) {
     _current = state;
-    _stateController.add(state);
+    if (!_stateController.isClosed) {
+      _stateController.add(state);
+    }
   }
 
   /// Her aktif ayette sistem MediaItem'ı: doğrulanmış sure adı + "Ayet
@@ -350,39 +350,41 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
   /// kullanıcı verisi bildirime KONMAZ (TASK 045 §7).
   void _publishMediaItem(
     QuranAudioSessionRequest request,
-    QuranVerseTiming timing,
+    QuranAudioClip clip,
   ) {
     final display = request.display;
     mediaItem.add(
       MediaItem(
         id:
             'quran:read${request.recitation.source.readId}:'
-            '${request.recitation.chapterId}:${timing.verseNumber}',
+            '${request.recitation.chapterId}:${clip.verseNumber}',
         title:
             '${display.chapterDisplayName} · '
-            '${display.verseOfLabel(timing.verseNumber, request.totalVerseCount)}',
+            '${display.verseOfLabel(clip.verseNumber, request.totalVerseCount)}',
         artist: '${display.reciterName} · ${display.rewayaName}',
         album: display.albumName,
-        duration: timing.end - timing.start,
+        duration: clip.duration,
       ),
     );
   }
 
-  /// just_audio durumunu sistem PlaybackState'ine eşler. Kontroller
-  /// gerçek işlevlerdir: tek ayette önceki/sonraki YOK, kesintisiz modda
-  /// sınırlar dışına düşen yön gizlenir (TASK 045 §8/§9).
-  void _broadcastSystemState() {
+  /// Oynatıcı durumunu sistem PlaybackState'ine eşler. Kontroller gerçek
+  /// işlevlerdir: tek ayette önceki/sonraki YOK, kesintisiz modda sınırlar
+  /// dışına düşen yön gizlenir (TASK 045 §8/§9).
+  void _broadcastSystemState(QuranAudioPlayerSnapshot snapshot) {
     final request = _request;
+    final queue = _queue;
     final verse = _activeVerse;
-    if (request == null || verse == null) {
+    if (request == null || queue == null || verse == null) {
       return; // oturum sonu durumunu _clearSession yayınladı
     }
+    final index = queue.indexOfVerse(verse);
     final continuous = _mode == QuranAudioPlaybackMode.continuousChapter;
     final controls = <MediaControl>[
-      if (continuous && request.recitation.timingFor(verse - 1) != null)
+      if (continuous && index != null && queue.verseAt(index - 1) != null)
         MediaControl.skipToPrevious,
-      if (_player.playing) MediaControl.pause else MediaControl.play,
-      if (continuous && request.recitation.timingFor(verse + 1) != null)
+      if (snapshot.playing) MediaControl.pause else MediaControl.play,
+      if (continuous && index != null && queue.verseAt(index + 1) != null)
         MediaControl.skipToNext,
       MediaControl.stop,
     ];
@@ -393,20 +395,20 @@ final class AudioServiceQuranHandler extends BaseAudioHandler
         androidCompactActionIndices: [
           for (var i = 0; i < controls.length && i < 3; i++) i,
         ],
-        processingState: switch (_player.processingState) {
-          ProcessingState.idle => AudioProcessingState.idle,
-          ProcessingState.loading => AudioProcessingState.loading,
-          ProcessingState.buffering => AudioProcessingState.buffering,
-          ProcessingState.ready => AudioProcessingState.ready,
-          ProcessingState.completed => AudioProcessingState.completed,
+        processingState: switch (snapshot.phase) {
+          QuranAudioPlayerPhase.idle => AudioProcessingState.idle,
+          QuranAudioPlayerPhase.loading => AudioProcessingState.loading,
+          QuranAudioPlayerPhase.buffering => AudioProcessingState.buffering,
+          QuranAudioPlayerPhase.ready => AudioProcessingState.ready,
+          QuranAudioPlayerPhase.completed => AudioProcessingState.completed,
         },
         playing:
-            _player.playing &&
-            _player.processingState != ProcessingState.idle &&
-            _player.processingState != ProcessingState.completed,
-        updatePosition: _player.position,
-        bufferedPosition: _player.bufferedPosition,
-        speed: _player.speed,
+            snapshot.playing &&
+            snapshot.phase != QuranAudioPlayerPhase.idle &&
+            snapshot.phase != QuranAudioPlayerPhase.completed,
+        updatePosition: snapshot.position,
+        bufferedPosition: snapshot.bufferedPosition,
+        speed: snapshot.speed,
       ),
     );
   }
