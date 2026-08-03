@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/core/utils/clock_provider.dart';
@@ -305,6 +306,22 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
   /// ses/progress durumuna DOKUNMAZ.
   String? _targetHighlightKey;
 
+  /// Kıraat takibi (TASK 095A): çalan ayet kendiliğinden görünür konuma
+  /// getirilsin mi? Kullanıcı elle kaydırdığı anda kapanır — uygulama
+  /// kullanıcıyla kaydırma kavgasına GİRMEZ — ve yalnız kullanıcının
+  /// açık "kıraati takip et" dokunuşuyla ya da oturum bitip yeniden
+  /// başlayınca geri açılır.
+  bool _autoFollow = true;
+
+  /// En son takip edilen çalan ayet. Duraklat/devam aynı ayette kaldığı
+  /// için yeniden kaydırma yapılmaz; oturum bitince temizlenir.
+  String? _followedVerseKey;
+
+  /// Çalan ayetin viewport içindeki hedef hizası. Üstte değil, rahat
+  /// okunur bir bantta durur: uygulama çubuğunun ve oynatma panelinin
+  /// hemen altına sıkışmaz.
+  static const double _followAlignment = 0.28;
+
   @override
   void initState() {
     super.initState();
@@ -353,7 +370,10 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
   /// viewport adımlarıyla ilerlenir; TASK 047'nin verse GlobalKey'leri
   /// kullanılır (ikinci key sistemi YOK). Hedef bulunamazsa sessizce
   /// vazgeçilir — sure normal açık kalır, crash yok.
-  Future<void> _scrollToTargetVerse(int targetVerseNumber) async {
+  Future<void> _scrollToTargetVerse(
+    int targetVerseNumber, {
+    bool highlightOnArrival = true,
+  }) async {
     final targetKey = '${widget.chapter.id}:$targetVerseNumber';
     for (var attempt = 0; attempt < 200; attempt++) {
       if (!mounted) {
@@ -363,11 +383,11 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
       if (targetContext != null && targetContext.mounted) {
         await Scrollable.ensureVisible(
           targetContext,
-          alignment: 0.15,
-          duration: AppMotion.standard,
+          alignment: highlightOnArrival ? 0.15 : _followAlignment,
+          duration: AppMotion.of(context, AppMotion.standard),
           curve: AppMotion.standardCurve,
         );
-        if (mounted) {
+        if (mounted && highlightOnArrival) {
           setState(() => _targetHighlightKey = targetKey);
         }
         return;
@@ -462,6 +482,81 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
     }
   }
 
+  /// Çalan ayet değiştiğinde takip kararı (TASK 095A).
+  ///
+  /// Kurallar:
+  /// * Yalnız BU surenin oturumu takip edilir; global oturum başka surede
+  ///   çalıyorsa hiçbir şey yapılmaz.
+  /// * Duraklat/devam aynı ayette kaldığı için yeniden kaydırma OLMAZ —
+  ///   aktif ayet duraklatıldığında korunur ve aynı ayetten sürer.
+  /// * Oturum durunca/tamamlanınca takip durumu temizlenir ve otomatik
+  ///   takip yeniden açılır (sonraki oturum baştan takip eder).
+  void _onAudioStateChanged(QuranVerseAudioState next) {
+    final key = next.activeChapterId == widget.chapter.id
+        ? next.activeVerseKey
+        : null;
+    if (key == null) {
+      _followedVerseKey = null;
+      if (!_autoFollow && mounted) {
+        setState(() => _autoFollow = true);
+      }
+      return;
+    }
+    if (key == _followedVerseKey) {
+      return;
+    }
+    _followedVerseKey = key;
+    if (!_autoFollow) {
+      return; // kullanıcı elle kaydırdı — sırayı ona bırakırız
+    }
+    final verseNumber = int.tryParse(key.split(':').last);
+    if (verseNumber != null) {
+      unawaited(_scrollActiveVerseIntoView(verseNumber));
+    }
+  }
+
+  /// Çalan ayeti rahat okunur bir konuma getirir. Öğe zaten kuruluysa
+  /// doğrudan hizalanır; liste lazy olduğu için henüz kurulmadıysa
+  /// mevcut kademeli arama yolu kullanılır (ikinci scroll sistemi YOK).
+  Future<void> _scrollActiveVerseIntoView(int verseNumber) async {
+    if (!mounted) {
+      return;
+    }
+    final targetContext =
+        _verseItemKeys['${widget.chapter.id}:$verseNumber']?.currentContext;
+    if (targetContext != null && targetContext.mounted) {
+      await Scrollable.ensureVisible(
+        targetContext,
+        alignment: _followAlignment,
+        // Reduced-motion açıkken süre sıfırdır: kaydırma anında olur,
+        // aktif ayet yine net biçimde görünür.
+        duration: AppMotion.of(context, AppMotion.standard),
+        curve: AppMotion.standardCurve,
+      );
+      return;
+    }
+    await _scrollToTargetVerse(verseNumber, highlightOnArrival: false);
+  }
+
+  /// Kullanıcı elle kaydırdı: otomatik takip sakinçe askıya alınır.
+  /// Programatik kaydırmalarda (bizim kendi hizalamamız) `dragDetails`
+  /// boştur, dolayısıyla takip kendi kendini kapatmaz.
+  void _onScrollStart(ScrollStartNotification notification) {
+    if (notification.dragDetails == null || !_autoFollow) {
+      return;
+    }
+    setState(() => _autoFollow = false);
+  }
+
+  /// "Kıraati takip et": takibi geri açar ve çalan ayete döner.
+  void _resumeFollow() {
+    setState(() => _autoFollow = true);
+    final verseNumber = int.tryParse(_followedVerseKey?.split(':').last ?? '');
+    if (verseNumber != null) {
+      unawaited(_scrollActiveVerseIntoView(verseNumber));
+    }
+  }
+
   /// Kaydırma BİTİNCE konumu kaydeder (her frame'de DEĞİL). Kayıt hatası
   /// sessizce yok sayılır — okuma deneyimi kesintiye uğramaz.
   void _savePosition(ScrollMetrics metrics) {
@@ -535,6 +630,12 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
     // oturum başka surede çalıyor olabilir — panel yalnız BU sureye ait
     // durumu yansıtır (ayet aksiyonları zaten verseKey ile süzülür).
     final audioState = ref.watch(quranVerseAudioControllerProvider);
+    // Kıraat takibi (TASK 095A): çalan ayet değiştikçe görünür konuma
+    // getirilir. Karar build içinde DEĞİL, yalnız durum değiştiğinde
+    // verilir — her yeniden kurulumda kaydırma tetiklenmez.
+    ref.listen(quranVerseAudioControllerProvider, (_, next) {
+      _onAudioStateChanged(next);
+    });
     // Bildirim/kilit ekranı metadata'sı için doğrulanmış görüntü
     // metinleri (TASK 045): BuildContext servise TAŞINMAZ, istekle geçer.
     final audioDisplay = QuranAudioDisplayInfo(
@@ -558,8 +659,16 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
           setState(() => _targetHighlightKey = null);
         }
       },
-      child: NotificationListener<ScrollEndNotification>(
+      child: NotificationListener<ScrollNotification>(
         onNotification: (notification) {
+          if (notification is ScrollStartNotification) {
+            // Elle kaydırma otomatik takibi askıya alır (TASK 095A).
+            _onScrollStart(notification);
+            return false;
+          }
+          if (notification is! ScrollEndNotification) {
+            return false;
+          }
           _savePosition(notification.metrics);
           // Scroll bitti: etkileşim + yeni birincil ayet sinyali. Hızlı
           // scroll'da aradaki ayet/sayfalar dwell eşiğini DOLDURMAZ.
@@ -567,108 +676,216 @@ final class _ReaderBodyState extends ConsumerState<_ReaderBody>
           _reportPrimaryVerse();
           return false;
         },
-        child: ListView.builder(
-          controller: _scrollController,
-          itemCount: verses.length + 2,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _ChapterHeader(chapter: widget.chapter),
-                  _ChapterPlaybackPanel(
-                    chapterId: widget.chapter.id,
-                    verseCount: verses.length,
-                    audioState: audioState,
-                    display: audioDisplay,
-                  ),
-                  _TranslationStatus(
-                    chapterId: widget.chapter.id,
-                    translationAsync: translationAsync,
-                  ),
-                  // Ses hazır olduktan sonra doğrulanmış kaynak künyesi:
-                  // SEÇİLİ kârinin API'de doğrulanmış adı (TASK 049);
-                  // rivayet etiketi yerelleşmiş sabittir (tümü Hafs).
-                  if (audioState.sourceReady)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-                      child: AppText(
-                        '${l10n.quranAudioSourceLabel}: '
-                        '${ref.watch(quranSelectedReciterProvider).value?.reciterName ?? l10n.quranReciterName}'
-                        ' · ${l10n.quranRewayaName} · MP3Quran.net',
-                        token: AppTextStyleToken.caption,
-                        secondary: true,
-                      ),
-                    ),
-                ],
-              );
-            }
-            if (index == verses.length + 1) {
-              return _SourceAttribution(l10n: l10n);
-            }
-            final verse = verses[index - 1];
-            final isActiveVerse =
-                audioState.activeVerseKey == verse.verseKey ||
-                _targetHighlightKey == verse.verseKey;
-            return Padding(
-              // Birincil görünür ayet tespiti için hafif anahtar (TASK 047);
-              // yalnız build edilmiş öğeler bellekte yaşar.
-              key: _verseItemKeys.putIfAbsent(verse.verseKey, GlobalKey.new),
-              padding: const EdgeInsets.only(bottom: AppSpacing.s4),
-              // TASK 055: her ayet AĞIR beyaz kart değil — sıcak yüzey +
-              // ince token kenarlıkla sakin ayrım. Aktif ayet tonal
-              // spiritualGreen yüzey + primary çerçeve alır ve YALNIZ
-              // renkle değil, semantik durumla da işaretlenir (a11y).
-              child: Semantics(
-                selected: isActiveVerse,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: AppRadius.mdAll,
-                    border: Border.all(
-                      color: isActiveVerse
-                          ? scheme.primary
-                          : IslamicVisualTokens.of(context).surfaceBorder,
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
-                  // metin, zorunlu kaynak rozeti (no source, no render). Meal
-                  // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
-                  child: QuranTextBlock(
-                    arabicText: verse.textUthmani,
-                    sourceLabel: '${verse.verseKey} · Tanzil',
-                    size: blockSize,
-                    highlighted: isActiveVerse,
-                    translation: translationByKey[verse.verseKey],
-                    // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
-                    // alt satıra kırılır (TASK 044).
-                    footerAction: Wrap(
-                      spacing: AppSpacing.s2,
-                      runSpacing: AppSpacing.s1,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.end,
-                      children: [
-                        _VerseAudioAction(
-                          verse: verse,
-                          expectedVerseCount: verses.length,
-                          audioState: audioState,
-                          display: audioDisplay,
-                        ),
-                        _VerseBookmarkAction(
-                          bookmarked: bookmarks.isBookmarked(verse.verseKey),
-                          onTap: () => ref
-                              .read(
-                                quranVerseBookmarksControllerProvider.notifier,
-                              )
-                              .toggle(verse.verseKey),
-                        ),
-                      ],
-                    ),
-                  ),
+        child: Stack(
+          children: [
+            _buildVerseList(
+              verses: verses,
+              audioState: audioState,
+              audioDisplay: audioDisplay,
+              translationAsync: translationAsync,
+              translationByKey: translationByKey,
+              bookmarks: bookmarks,
+              blockSize: blockSize,
+              scheme: scheme,
+              l10n: l10n,
+            ),
+            // Takip askıdayken küçük, erişilebilir dönüş yolu. Kaydırma
+            // konumundan bağımsız görünür; takip açıkken hiç çizilmez.
+            if (!_autoFollow && _followedVerseKey != null)
+              Positioned(
+                top: AppSpacing.s3,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: _FollowRecitationAction(onTap: _resumeFollow),
                 ),
               ),
-            );
-          },
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVerseList({
+    required List<QuranVerse> verses,
+    required QuranVerseAudioState audioState,
+    required QuranAudioDisplayInfo audioDisplay,
+    required AsyncValue<QuranChapterTranslation?> translationAsync,
+    required Map<String, String> translationByKey,
+    required QuranVerseBookmarksState bookmarks,
+    required QuranTextBlockSize blockSize,
+    required ColorScheme scheme,
+    required AppLocalizations l10n,
+  }) {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: verses.length + 2,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _ChapterHeader(chapter: widget.chapter),
+              _ChapterPlaybackPanel(
+                chapterId: widget.chapter.id,
+                verseCount: verses.length,
+                audioState: audioState,
+                display: audioDisplay,
+              ),
+              _TranslationStatus(
+                chapterId: widget.chapter.id,
+                translationAsync: translationAsync,
+              ),
+              // Ses hazır olduktan sonra doğrulanmış kaynak künyesi:
+              // SEÇİLİ kârinin API'de doğrulanmış adı (TASK 049);
+              // rivayet etiketi yerelleşmiş sabittir (tümü Hafs).
+              if (audioState.sourceReady)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+                  child: AppText(
+                    '${l10n.quranAudioSourceLabel}: '
+                    '${ref.watch(quranSelectedReciterProvider).value?.reciterName ?? l10n.quranReciterName}'
+                    ' · ${l10n.quranRewayaName} · MP3Quran.net',
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
+                  ),
+                ),
+            ],
+          );
+        }
+        if (index == verses.length + 1) {
+          return _SourceAttribution(l10n: l10n);
+        }
+        final verse = verses[index - 1];
+        // Çalan ayet: yalnız BU surenin oturumu sayılır. Arama hedefi
+        // vurgusu aynı görsel dili paylaşır ama "çalan ayet" DEĞİLDİR
+        // (ekran okuyucuya farklı bildirilir).
+        final isPlayingVerse =
+            audioState.activeChapterId == widget.chapter.id &&
+            audioState.activeVerseKey == verse.verseKey;
+        final isActiveVerse =
+            isPlayingVerse || _targetHighlightKey == verse.verseKey;
+        return Padding(
+          // Birincil görünür ayet tespiti için hafif anahtar (TASK 047);
+          // yalnız build edilmiş öğeler bellekte yaşar.
+          key: _verseItemKeys.putIfAbsent(verse.verseKey, GlobalKey.new),
+          padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+          // TASK 055: her ayet AĞIR beyaz kart değil — sıcak yüzey +
+          // ince token kenarlıkla sakin ayrım. Aktif ayet tonal
+          // spiritualGreen yüzey + primary çerçeve alır ve YALNIZ
+          // renkle değil, semantik durumla da işaretlenir (a11y).
+          child: Semantics(
+            selected: isActiveVerse,
+            // Ekran okuyucu için "şu an çalan ayet" (TASK 095A);
+            // Arapça metin ve kaynak etiketi olduğu gibi okunur.
+            label: isPlayingVerse ? l10n.quranSemanticsPlayingVerse : null,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: AppRadius.mdAll,
+                border: Border.all(
+                  color: isActiveVerse
+                      ? scheme.primary
+                      : IslamicVisualTokens.of(context).surfaceBorder,
+                ),
+              ),
+              clipBehavior: Clip.antiAlias,
+              // QuranTextBlock: RTL, geniş satır yüksekliği, kırpılamaz
+              // metin, zorunlu kaynak rozeti (no source, no render). Meal
+              // Arapça metnin hemen altında, boyut ayarından ETKİLENMEZ.
+              child: QuranTextBlock(
+                arabicText: verse.textUthmani,
+                sourceLabel: '${verse.verseKey} · Tanzil',
+                size: blockSize,
+                highlighted: isActiveVerse,
+                translation: translationByKey[verse.verseKey],
+                // Wrap: çok dar ekranda aksiyonlar taşmak yerine güvenle
+                // alt satıra kırılır (TASK 044).
+                footerAction: Wrap(
+                  spacing: AppSpacing.s2,
+                  runSpacing: AppSpacing.s1,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  alignment: WrapAlignment.end,
+                  children: [
+                    _VerseAudioAction(
+                      verse: verse,
+                      expectedVerseCount: verses.length,
+                      audioState: audioState,
+                      display: audioDisplay,
+                    ),
+                    _VerseBookmarkAction(
+                      bookmarked: bookmarks.isBookmarked(verse.verseKey),
+                      onTap: () => ref
+                          .read(quranVerseBookmarksControllerProvider.notifier)
+                          .toggle(verse.verseKey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// "Kıraati takip et" dönüş yolu (TASK 095A).
+///
+/// Yalnız kullanıcı elle kaydırıp takibi askıya aldığında ve bu surede
+/// bir oturum sürerken görünür. Küçük, sakin ve dokunma hedefi yeterli
+/// büyüklüktedir; hiçbir metni ya da Kur'an içeriğini örtmez, çünkü
+/// listenin üstünde ince bir şerit olarak durur.
+final class _FollowRecitationAction extends StatelessWidget {
+  const _FollowRecitationAction({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final ext = AppThemeExtension.of(context);
+
+    return Semantics(
+      button: true,
+      label: l10n.quranFollowRecitation,
+      child: Material(
+        color: scheme.surface,
+        borderRadius: AppRadius.lgAll,
+        elevation: 0,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: AppRadius.lgAll,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: AppRadius.lgAll,
+              border: Border.all(color: scheme.primary),
+              boxShadow: ext.cardShadow,
+              color: scheme.surface,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.s4,
+              vertical: AppSpacing.s2,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.my_location,
+                  size: AppSizes.iconSm,
+                  color: scheme.primary,
+                ),
+                const SizedBox(width: AppSpacing.s2),
+                Flexible(
+                  child: AppText(
+                    l10n.quranFollowRecitation,
+                    token: AppTextStyleToken.bodySmall,
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

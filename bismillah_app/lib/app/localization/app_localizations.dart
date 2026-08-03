@@ -275,12 +275,10 @@ final class AppLocalizations {
   String get qiblaLocationInvite => _t('qiblaLocationInvite');
   String get qiblaUseLocation => _t('qiblaUseLocation');
   String get qiblaLocationDeniedForever => _t('qiblaLocationDeniedForever');
-  String get qiblaLocationServiceDisabled =>
-      _t('qiblaLocationServiceDisabled');
+  String get qiblaLocationServiceDisabled => _t('qiblaLocationServiceDisabled');
   String get qiblaLocationUnavailable => _t('qiblaLocationUnavailable');
   String get qiblaCalculationError => _t('qiblaCalculationError');
-  String get qiblaApproximateLocationNote =>
-      _t('qiblaApproximateLocationNote');
+  String get qiblaApproximateLocationNote => _t('qiblaApproximateLocationNote');
   String get qiblaGuidanceTitle => _t('qiblaGuidanceTitle');
   String get qiblaGuidanceFlat => _t('qiblaGuidanceFlat');
   String get qiblaGuidanceMetal => _t('qiblaGuidanceMetal');
@@ -466,6 +464,11 @@ final class AppLocalizations {
   String get quranAudioLoading => _t('quranAudioLoading');
   String get quranAudioLoadIssue => _t('quranAudioLoadIssue');
   String get quranAudioSourceLabel => _t('quranAudioSourceLabel');
+
+  /// Kıraat takibi (TASK 095A): kullanıcı elle kaydırıp takibi askıya
+  /// aldığında görünen dönüş yolu ve çalan ayetin ekran okuyucu etiketi.
+  String get quranFollowRecitation => _t('quranFollowRecitation');
+  String get quranSemanticsPlayingVerse => _t('quranSemanticsPlayingVerse');
   String get quranReciterName => _t('quranReciterName');
   String get quranRewayaName => _t('quranRewayaName');
 
@@ -937,7 +940,7 @@ final class AppLocalizations {
       'qiblaLowConfidence': 'Okuma oynak görünüyor.',
       'qiblaLocationInvite':
           'Kıble yönünü hesaplamak için bulunduğun yerin konumu gerekir. '
-              'Konum yalnız bu hesap için kullanılır; kaydedilmez.',
+          'Konum yalnız bu hesap için kullanılır; kaydedilmez.',
       'qiblaUseLocation': 'Konumu kullan',
       'qiblaLocationDeniedForever':
           'Konum izni kapalı. Ayarlardan açarsan kıble yönünü gösterebiliriz.',
@@ -945,8 +948,7 @@ final class AppLocalizations {
           'Cihazın konum servisi kapalı. Açtıktan sonra tekrar deneyebilirsin.',
       'qiblaLocationUnavailable':
           'Konum şu an alınamadı — dilediğinde tekrar deneyebilirsin.',
-      'qiblaCalculationError':
-          'Kıble yönü bu konum için hesaplanamadı.',
+      'qiblaCalculationError': 'Kıble yönü bu konum için hesaplanamadı.',
       'qiblaApproximateLocationNote': 'Yaklaşık konuma göre',
       'qiblaGuidanceTitle': 'Daha iyi bir okuma için',
       'qiblaGuidanceFlat': 'Telefonu yere paralel, düz tut.',
@@ -955,7 +957,7 @@ final class AppLocalizations {
           'Okuma oynaksa telefonu havada sekiz çizerek pusulayı kalibre et.',
       'qiblaHonestyNote':
           'Telefon sensörü yaklaşık bir yön verir. Bu gösterge kesin bir '
-              'ölçüm ya da dinî bir hüküm değildir.',
+          'ölçüm ya da dinî bir hüküm değildir.',
       'qiblaSemanticsBearing': 'Kıble yönü kuzeyden {degrees} derece.',
       'qiblaCardinalNorth': 'K',
       'qiblaCardinalEast': 'D',
@@ -1085,6 +1087,8 @@ final class AppLocalizations {
       'quranAudioLoading': 'Ses yükleniyor…',
       'quranAudioLoadIssue': 'Ses şu anda oynatılamadı.',
       'quranAudioSourceLabel': 'Ses kaynağı',
+      'quranFollowRecitation': 'Kıraati takip et',
+      'quranSemanticsPlayingVerse': 'Şu an çalan ayet',
       'quranReciterName': 'Ahmed el-Acemi',
       'quranRewayaName': 'Hafs an Asım',
       'quranChapterAudioPlay': 'Sureyi dinle',
@@ -1511,24 +1515,26 @@ final class AppLocalizations {
       'prayerTimesApproximate': 'Based on approximate location',
       'qiblaTitle': 'Qibla',
       'qiblaEntryTitle': 'Qibla direction',
-      'qiblaEntrySubtitle': 'A calm look at the Kaaba direction from where you are.',
+      'qiblaEntrySubtitle':
+          'A calm look at the Kaaba direction from where you are.',
       'qiblaBearingLabel': 'Qibla angle from north',
       'qiblaDegrees': '{degrees}°',
       'qiblaAligned': 'The phone is facing the Qibla direction.',
       'qiblaTurnHint': 'Turn the phone slowly.',
       'qiblaCompassWaiting': 'Waiting for a compass reading.',
-      'qiblaCompassInterrupted': 'The direction reading is unavailable right now.',
+      'qiblaCompassInterrupted':
+          'The direction reading is unavailable right now.',
       'qiblaCompassUnsupported': 'No compass sensor was found on this device.',
       'qiblaStaticBearingNote':
           'Only the Qibla angle measured from north is shown.',
       'qiblaLowConfidence': 'The reading looks unsteady.',
       'qiblaLocationInvite':
           'Your location is needed to calculate the Qibla direction. It is '
-              'used only for this calculation and is not stored.',
+          'used only for this calculation and is not stored.',
       'qiblaUseLocation': 'Use location',
       'qiblaLocationDeniedForever':
           'Location permission is off. If you enable it in settings we can '
-              'show the Qibla direction.',
+          'show the Qibla direction.',
       'qiblaLocationServiceDisabled':
           'Your device location service is off. You can try again once it is on.',
       'qiblaLocationUnavailable':
@@ -1538,19 +1544,22 @@ final class AppLocalizations {
       'qiblaApproximateLocationNote': 'Based on approximate location',
       'qiblaGuidanceTitle': 'For a better reading',
       'qiblaGuidanceFlat': 'Hold the phone flat, parallel to the ground.',
-      'qiblaGuidanceMetal': 'Move a little away from metal and magnetic objects.',
+      'qiblaGuidanceMetal':
+          'Move a little away from metal and magnetic objects.',
       'qiblaGuidanceCalibrate':
           'If the reading is unsteady, calibrate the compass by moving the '
-              'phone in a figure eight.',
+          'phone in a figure eight.',
       'qiblaHonestyNote':
           'The phone sensor gives an approximate direction. This indicator is '
-              'not an exact measurement and not a religious ruling.',
-      'qiblaSemanticsBearing': 'Qibla direction is {degrees} degrees from north.',
+          'not an exact measurement and not a religious ruling.',
+      'qiblaSemanticsBearing':
+          'Qibla direction is {degrees} degrees from north.',
       'qiblaCardinalNorth': 'N',
       'qiblaCardinalEast': 'E',
       'qiblaCardinalSouth': 'S',
       'qiblaCardinalWest': 'W',
-      'qiblaKaabaSemantics': 'The Kaaba at the centre of the dial: the direction target.',
+      'qiblaKaabaSemantics':
+          'The Kaaba at the centre of the dial: the direction target.',
       'reminderCardTitle': 'Prayer reminders',
       'reminderEnable': 'Turn on reminders',
       'reminderDisable': 'Turn off reminders',
@@ -1679,6 +1688,8 @@ final class AppLocalizations {
       'quranAudioLoading': 'Loading audio…',
       'quranAudioLoadIssue': 'The audio could not be played right now.',
       'quranAudioSourceLabel': 'Audio source',
+      'quranFollowRecitation': 'Follow recitation',
+      'quranSemanticsPlayingVerse': 'Currently playing verse',
       'quranReciterName': 'Ahmed al-Ajmi',
       'quranRewayaName': 'Hafs an Asim',
       'quranChapterAudioPlay': 'Listen to the surah',
@@ -2114,7 +2125,7 @@ final class AppLocalizations {
       'qiblaLowConfidence': 'تبدو القراءة غير مستقرة.',
       'qiblaLocationInvite':
           'نحتاج إلى موقعك لحساب اتجاه القبلة. يُستخدم الموقع لهذا الحساب '
-              'فقط ولا يُحفَظ.',
+          'فقط ولا يُحفَظ.',
       'qiblaUseLocation': 'استخدم الموقع',
       'qiblaLocationDeniedForever':
           'إذن الموقع مغلق. إذا فعّلته من الإعدادات يمكننا عرض اتجاه القبلة.',
@@ -2129,10 +2140,10 @@ final class AppLocalizations {
       'qiblaGuidanceMetal': 'ابتعد قليلاً عن الأجسام المعدنية والمغناطيسية.',
       'qiblaGuidanceCalibrate':
           'إذا كانت القراءة غير مستقرة فعايِر البوصلة بتحريك الهاتف على '
-              'شكل رقم ثمانية.',
+          'شكل رقم ثمانية.',
       'qiblaHonestyNote':
           'يعطي مستشعر الهاتف اتجاهاً تقريبياً. هذا المؤشر ليس قياساً دقيقاً '
-              'وليس حكماً شرعياً.',
+          'وليس حكماً شرعياً.',
       'qiblaSemanticsBearing': 'اتجاه القبلة {degrees} درجة من الشمال.',
       'qiblaCardinalNorth': 'ش',
       'qiblaCardinalEast': 'ق',
@@ -2256,6 +2267,8 @@ final class AppLocalizations {
       'quranAudioLoading': 'يتم تحميل الصوت…',
       'quranAudioLoadIssue': 'تعذّر تشغيل الصوت الآن.',
       'quranAudioSourceLabel': 'مصدر الصوت',
+      'quranFollowRecitation': 'تابع التلاوة',
+      'quranSemanticsPlayingVerse': 'الآية قيد التشغيل الآن',
       'quranReciterName': 'أحمد بن علي العجمي',
       'quranRewayaName': 'حفص عن عاصم',
       'quranChapterAudioPlay': 'استمع إلى السورة',
