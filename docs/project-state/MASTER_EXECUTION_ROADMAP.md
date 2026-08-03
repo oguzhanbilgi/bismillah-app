@@ -376,8 +376,17 @@ TASK 094 — Learn/Assistant security, language and RTL checkpoint — COMPLETED
 
 ## CP12 — Prayer quality and beta
 
+**Number conflict, recorded not resolved:** the owner assigned **TASK 095 —
+Motion System Foundation** (an owner-directed UI-motion task, branch
+`task/095-motion-system-foundation`), while this block already records
+**TASK 095 — Qibla**. Both entries are kept; the Qibla slot is **not
+renumbered here** because renumbering CP12 is an owner decision, not a
+side effect of a motion task. Whoever runs Qibla must resolve the number
+first.
+
 ```text
-TASK 095 — Qibla
+TASK 095 — Qibla (number also used by the owner-assigned Motion System
+           Foundation task — see the conflict note above)
 TASK 096 — Prayer calculation-method selection
 TASK 097 — Short adhan / notification sound options
 TASK 098 — TR/EN/AR real-device UX

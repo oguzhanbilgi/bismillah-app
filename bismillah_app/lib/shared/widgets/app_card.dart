@@ -1,7 +1,9 @@
+import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
+import 'package:bismillah_app/shared/widgets/app_press_scale.dart';
 import 'package:flutter/material.dart';
 
 /// Kart yüzey ailesi (TASK 054).
@@ -73,7 +75,13 @@ class AppCard extends StatelessWidget {
       _ => null,
     };
 
-    final card = DecoratedBox(
+    // TASK 095: `completed` değiştiğinde zemin sert biçimde değişmez,
+    // seçim süresinde yumuşar. Yapı aynıdır (dekorasyon + iç dolgu);
+    // yalnız renk geçişi zamana yayılır. Reduced-motion açıkken süre
+    // sıfırdır, yani davranış eski hâline birebir döner.
+    final card = AnimatedContainer(
+      duration: AppMotion.of(context, AppMotion.selection),
+      curve: AppMotion.selectionCurve,
       decoration: BoxDecoration(
         color: background,
         borderRadius: AppRadius.lgAll,
@@ -82,15 +90,22 @@ class AppCard extends StatelessWidget {
             ? Border.all(color: tokens.surfaceBorder)
             : null,
       ),
-      child: Padding(padding: padding, child: child),
+      padding: padding,
+      child: child,
     );
 
     if (onTap == null) {
       return card;
     }
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(onTap: onTap, borderRadius: AppRadius.lgAll, child: card),
+    return AppPressScale(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: AppRadius.lgAll,
+          child: card,
+        ),
+      ),
     );
   }
 }

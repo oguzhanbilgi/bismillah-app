@@ -3,6 +3,7 @@ import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/app_typography.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
+import 'package:bismillah_app/shared/widgets/app_motion_switcher.dart';
 import 'package:flutter/material.dart';
 
 /// Buton ailesi (03_DESIGN_SYSTEM §11).
@@ -34,18 +35,29 @@ class AppButton extends StatelessWidget {
     final ext = AppThemeExtension.of(context);
     final effectiveOnPressed = isLoading ? null : onPressed;
 
-    final child = isLoading
-        ? SizedBox(
-            width: AppSizes.iconMd,
-            height: AppSizes.iconMd,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: variant == AppButtonVariant.primary
-                  ? scheme.onPrimary
-                  : scheme.primary,
+    // TASK 095: etiket ile yükleme göstergesi arasında sert takas yerine
+    // sakin bir çapraz geçiş. Kilitlenme ANINDA olur — `effectiveOnPressed`
+    // yukarıda zaten `null`'dır; geçiş yalnız görüntüyü yumuşatır, basma
+    // davranışını GECİKTİRMEZ.
+    final child = AppMotionSwitcher(
+      child: isLoading
+          ? SizedBox(
+              key: const ValueKey<String>('app-button-loading'),
+              width: AppSizes.iconMd,
+              height: AppSizes.iconMd,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: variant == AppButtonVariant.primary
+                    ? scheme.onPrimary
+                    : scheme.primary,
+              ),
+            )
+          : Text(
+              label,
+              key: ValueKey<String>('app-button-label-$label'),
+              style: AppTypography.button,
             ),
-          )
-        : Text(label, style: AppTypography.button);
+    );
 
     const minSize = Size(AppSizes.touchTarget * 2.5, AppSizes.buttonHeight);
     const shape = RoundedRectangleBorder(borderRadius: AppRadius.pillAll);

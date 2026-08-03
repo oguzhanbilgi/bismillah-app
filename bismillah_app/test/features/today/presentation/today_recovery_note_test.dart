@@ -9,6 +9,7 @@ import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/missed_day_recovery.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_recovery_note.dart';
+import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -234,19 +235,42 @@ void main() {
       await pumpNote(tester, const MissedDayRecovery(consecutiveMissedDays: 3));
 
       // Not, ekranın akışında duran sıradan bir karttır: rota/modal
-      // AÇMAZ ve kendi alt ağacında animasyon çalıştırmaz.
+      // AÇMAZ ve dikkat çeken hiçbir animasyon çalıştırmaz.
       expect(find.byType(Dialog), findsNothing);
-      final inNote = find.descendant(
+      final attentionSeeking = find.descendant(
         of: find.byType(TodayRecoveryNote),
         matching: find.byWidgetPredicate(
           (w) =>
-              w is ImplicitlyAnimatedWidget ||
               w is AnimatedWidget ||
               w is CircularProgressIndicator ||
               w is LinearProgressIndicator,
         ),
       );
-      expect(inNote, findsNothing);
+      expect(attentionSeeking, findsNothing);
+
+      // TASK 095: ortak kart yüzeyi (`AppCard`) tamamlanma/seçim rengini
+      // sakin bir süreye yayar. Notun KENDİSİ örtük animasyon EKLEMEZ —
+      // buradaki tek örtük animasyonlu widget o paylaşılan yüzeydir ve
+      // notun `completed` değeri hiç değişmediği için pratikte hiç
+      // oynamaz. Reduced-motion açıkken süresi zaten sıfırdır.
+      final implicit = find.descendant(
+        of: find.byType(TodayRecoveryNote),
+        matching: find.byWidgetPredicate((w) => w is ImplicitlyAnimatedWidget),
+      );
+      for (final widget in tester.widgetList(implicit)) {
+        expect(
+          widget,
+          isA<AnimatedContainer>(),
+          reason: 'nota ait ek bir örtük animasyon eklenmemelidir',
+        );
+      }
+      expect(
+        find.descendant(
+          of: find.byType(TodayRecoveryNote),
+          matching: find.byType(AppCard),
+        ),
+        findsWidgets,
+      );
     });
 
     testWidgets('ham gün anahtarı veya şablon kimliği yazılmaz', (
