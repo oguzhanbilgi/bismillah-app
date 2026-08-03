@@ -15,7 +15,7 @@ abstract final class AppMotion {
   static const Curve gentleCurve = Curves.easeOutQuart;
   static const Curve celebrationCurve = Curves.easeOutBack;
 
-  // --- Anlamsal hareket katmanı (TASK 095) -------------------------------
+  // --- Anlamsal hareket katmanı (TASK 094A) -------------------------------
   //
   // Yukarıdaki ölçek token'ları ("ne kadar uzun") korunur; aşağıdakiler
   // **rol** token'larıdır ("hangi etkileşim"). Bir yüzey artık ham süre

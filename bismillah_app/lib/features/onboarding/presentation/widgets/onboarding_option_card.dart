@@ -58,7 +58,7 @@ class OnboardingOptionCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: AppSpacing.s3),
-            // TASK 095: seçim işareti sakin bir geçişle değişir; zemin
+            // TASK 094A: seçim işareti sakin bir geçişle değişir; zemin
             // yumuşaması AppCard'da aynı seçim süresiyle olur, böylece
             // ikon ve yüzey tek bir hareket gibi okunur.
             //

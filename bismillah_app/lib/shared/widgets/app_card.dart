@@ -75,7 +75,7 @@ class AppCard extends StatelessWidget {
       _ => null,
     };
 
-    // TASK 095: `completed` değiştiğinde zemin sert biçimde değişmez,
+    // TASK 094A: `completed` değiştiğinde zemin sert biçimde değişmez,
     // seçim süresinde yumuşar. Yapı aynıdır (dekorasyon + iç dolgu);
     // yalnız renk geçişi zamana yayılır. Reduced-motion açıkken süre
     // sıfırdır, yani davranış eski hâline birebir döner.

@@ -248,7 +248,7 @@ void main() {
       );
       expect(attentionSeeking, findsNothing);
 
-      // TASK 095: ortak kart yüzeyi (`AppCard`) tamamlanma/seçim rengini
+      // TASK 094A: ortak kart yüzeyi (`AppCard`) tamamlanma/seçim rengini
       // sakin bir süreye yayar. Notun KENDİSİ örtük animasyon EKLEMEZ —
       // buradaki tek örtük animasyonlu widget o paylaşılan yüzeydir ve
       // notun `completed` değeri hiç değişmediği için pratikte hiç

@@ -35,7 +35,7 @@ class AppButton extends StatelessWidget {
     final ext = AppThemeExtension.of(context);
     final effectiveOnPressed = isLoading ? null : onPressed;
 
-    // TASK 095: etiket ile yükleme göstergesi arasında sert takas yerine
+    // TASK 094A: etiket ile yükleme göstergesi arasında sert takas yerine
     // sakin bir çapraz geçiş. Kilitlenme ANINDA olur — `effectiveOnPressed`
     // yukarıda zaten `null`'dır; geçiş yalnız görüntüyü yumuşatır, basma
     // davranışını GECİKTİRMEZ.

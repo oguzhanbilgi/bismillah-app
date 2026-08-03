@@ -93,7 +93,7 @@ class TodayPlanTaskCard extends StatelessWidget {
                 // Onay göstergesi: tamamlanmamışta nötr boş halka —
                 // uyarı/hata rengi KULLANILMAZ.
                 //
-                // TASK 095: işaret sert biçimde yer değiştirmez, sakin bir
+                // TASK 094A: işaret sert biçimde yer değiştirmez, sakin bir
                 // çapraz geçişle belirir. Kutlama, konfeti, zıplama, puan
                 // ve seri dili YOKTUR; geçiş yalnız "değişti" der.
                 AppMotionSwitcher(

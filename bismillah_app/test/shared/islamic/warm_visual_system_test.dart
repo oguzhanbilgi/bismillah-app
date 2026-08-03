@@ -194,7 +194,7 @@ void main() {
       await tester.pumpWidget(
         host(const AppCard(variant: AppCardVariant.sage, child: Text('x'))),
       );
-      // TASK 095: kart yüzeyi artık seçim süresinde yumuşuyor; ölçülen
+      // TASK 094A: kart yüzeyi artık seçim süresinde yumuşuyor; ölçülen
       // şey **duran** yüzeydir, ara karedeki karışım değil.
       await tester.pumpAndSettle();
       final sage = decorationOf(tester);

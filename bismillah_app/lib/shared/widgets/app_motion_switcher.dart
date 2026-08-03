@@ -2,7 +2,7 @@ import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:flutter/widgets.dart';
 
 /// Durum değişimini sakin bir çapraz geçişle gösteren ortak sarmalayıcı
-/// (TASK 095).
+/// (TASK 094A).
 ///
 /// Kullanım alanı: aynı yerde duran ama **anlamı değişen** küçük bir
 /// öğe — tamamlandı işareti, seçim işareti, dinle/yükleniyor/duraklat

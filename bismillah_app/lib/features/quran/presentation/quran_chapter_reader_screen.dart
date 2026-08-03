@@ -917,7 +917,7 @@ final class _VerseAudioAction extends ConsumerWidget {
   final QuranVerseAudioState audioState;
   final QuranAudioDisplayInfo display;
 
-  /// TASK 095: dinle → yükleniyor → duraklat geçişi sakin bir çapraz
+  /// TASK 094A: dinle → yükleniyor → duraklat geçişi sakin bir çapraz
   /// geçişle okunur. Kilit ANINDA gelir (yükleme dalında `onPressed`
   /// `null`'dır); hareket yalnız hangi hâlde olunduğunu anlatır ve
   /// **ayet metnine dokunmaz**.

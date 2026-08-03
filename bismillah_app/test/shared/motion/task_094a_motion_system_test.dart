@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// TASK 095 — hareket sistemi temeli.
+/// TASK 094A — hareket sistemi temeli.
 ///
 /// Konu **hareketin davranışa zarar vermemesidir**: reduced-motion, hızlı
 /// dokunuşta durum tutarlılığı, Kur'an sesinin dinle/yükleniyor/duraklat

@@ -1,7 +1,7 @@
 import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:flutter/widgets.dart';
 
-/// Dokunma geri bildirimi: basılıyken yüzey çok az çöker (TASK 095).
+/// Dokunma geri bildirimi: basılıyken yüzey çok az çöker (TASK 094A).
 ///
 /// Jesti **sahiplenmez** — `Listener` yalnız işaretçi olaylarını dinler,
 /// jest arenasına girmez. Bu yüzden alttaki `InkWell`/buton dokunuşu,
