@@ -376,6 +376,13 @@ TASK 094 — Learn/Assistant security, language and RTL checkpoint — COMPLETED
 
 ## CP12 — Prayer quality and beta
 
+**Number conflict resolved by renaming the motion task, not Qibla:** the
+owner-assigned Motion System Foundation task was briefly numbered TASK 095
+and is now recorded as **TASK 094A** (CP11 follow-on, see `TASK_INDEX.md`).
+**TASK 095 remains Qibla** and no CP12 or later task was renumbered. The
+branch name `task/095-motion-system-foundation` is kept as-is because it is
+already published; it is a branch label, not a task number.
+
 ```text
 TASK 095 — Qibla
 TASK 096 — Prayer calculation-method selection

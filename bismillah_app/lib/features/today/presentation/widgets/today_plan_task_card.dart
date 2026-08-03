@@ -5,6 +5,7 @@ import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/presentation/today_plan_item_presentation.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
+import 'package:bismillah_app/shared/widgets/app_motion_switcher.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
@@ -91,10 +92,19 @@ class TodayPlanTaskCard extends StatelessWidget {
                 const SizedBox(width: AppSpacing.s3),
                 // Onay göstergesi: tamamlanmamışta nötr boş halka —
                 // uyarı/hata rengi KULLANILMAZ.
-                Icon(
-                  completed ? Icons.check_circle : Icons.radio_button_unchecked,
-                  size: AppSizes.iconMd,
-                  color: completed ? scheme.primary : ext.surfaceAlt,
+                //
+                // TASK 094A: işaret sert biçimde yer değiştirmez, sakin bir
+                // çapraz geçişle belirir. Kutlama, konfeti, zıplama, puan
+                // ve seri dili YOKTUR; geçiş yalnız "değişti" der.
+                AppMotionSwitcher(
+                  child: Icon(
+                    completed
+                        ? Icons.check_circle
+                        : Icons.radio_button_unchecked,
+                    key: ValueKey<bool>(completed),
+                    size: AppSizes.iconMd,
+                    color: completed ? scheme.primary : ext.surfaceAlt,
+                  ),
                 ),
               ],
             ),

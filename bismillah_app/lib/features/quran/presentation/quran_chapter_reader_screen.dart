@@ -31,6 +31,7 @@ import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
+import 'package:bismillah_app/shared/widgets/app_motion_switcher.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -916,8 +917,15 @@ final class _VerseAudioAction extends ConsumerWidget {
   final QuranVerseAudioState audioState;
   final QuranAudioDisplayInfo display;
 
+  /// TASK 094A: dinle → yükleniyor → duraklat geçişi sakin bir çapraz
+  /// geçişle okunur. Kilit ANINDA gelir (yükleme dalında `onPressed`
+  /// `null`'dır); hareket yalnız hangi hâlde olunduğunu anlatır ve
+  /// **ayet metnine dokunmaz**.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) =>
+      AppMotionSwitcher(child: _action(context, ref));
+
+  Widget _action(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final key = verse.verseKey;
     final isActive = audioState.activeVerseKey == key;
@@ -927,6 +935,7 @@ final class _VerseAudioAction extends ConsumerWidget {
       // Dinle/Duraklat ile benzer kalır (TASK 044). TextButton.icon
       // yapısı korunur ki durumlar arası geçişte hizalama zıplamasın.
       return Semantics(
+        key: const ValueKey<String>('verse-audio-loading'),
         label: l10n.quranAudioLoading,
         child: Tooltip(
           message: l10n.quranAudioLoading,
@@ -964,6 +973,7 @@ final class _VerseAudioAction extends ConsumerWidget {
     };
 
     return Semantics(
+      key: ValueKey<String>('verse-audio-$label'),
       button: true,
       selected: isActive,
       label: label,
