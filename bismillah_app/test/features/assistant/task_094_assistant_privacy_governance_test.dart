@@ -272,7 +272,7 @@ final class _FailingClearHistoryRepository
   Future<List<AssistantMessage>> load() => _delegate.load();
 
   @override
-  Future<void> save(List<AssistantMessage> messages) =>
+  ResultFuture<void> save(List<AssistantMessage> messages) =>
       _delegate.save(messages);
 
   @override

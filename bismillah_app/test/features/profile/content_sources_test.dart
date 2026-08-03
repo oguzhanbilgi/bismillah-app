@@ -6,11 +6,13 @@ import 'package:bismillah_app/features/profile/data/url_launcher_app_source_link
 import 'package:bismillah_app/features/profile/domain/app_source_link_service.dart';
 import 'package:bismillah_app/features/profile/domain/app_source_reference.dart';
 import 'package:bismillah_app/features/profile/presentation/content_sources_screen.dart';
+import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import '../../support/canonical_app_sources.dart';
 
 /// İçerik kaynakları ekranı + bağlantı servisi (TASK 058 §5).
 ///
@@ -45,7 +47,14 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [appSourceLinkServiceProvider.overrideWithValue(service)],
+        overrides: [
+          appSourceLinkServiceProvider.overrideWithValue(service),
+          // Künyeler kanonik sources.json'dan SENKRON okunur: widget testi
+          // gerçek asset G/Ç zamanlamasına bağlı kalmaz (TASK 094 §B).
+          resolvedAppSourcesProvider.overrideWith(
+            (ref) => canonicalResolvedAppSources(),
+          ),
+        ],
         child: MaterialApp(
           theme: AppTheme.light(),
           locale: locale.locale,
@@ -94,11 +103,18 @@ void main() {
     });
 
     test('kayıtlı tüm kaynak URL\'leri allowlist\'ten GEÇER', () {
-      for (final source in kAppSourceReferences) {
+      // Kayıt defterine bağlı kaynakların URL'i artık BURADA tutulmaz
+      // (TASK 094 §B / F2); onların allowlist kontrolü sources.json
+      // üzerinden task_094_source_drift_test.dart içinde yapılır.
+      final infrastructure = kAppSourceReferences
+          .where((s) => s.origin == AppSourceOrigin.infrastructure)
+          .toList();
+      expect(infrastructure, isNotEmpty);
+      for (final source in infrastructure) {
         expect(
-          AppSourceDomains.isAllowed(source.canonicalUrl),
+          AppSourceDomains.isAllowed(source.infrastructureUrl!),
           isTrue,
-          reason: source.name,
+          reason: source.infrastructureName,
         );
       }
     });
@@ -143,9 +159,14 @@ void main() {
       await pump(tester, service: _FakeSourceLinkService(succeeds: true));
 
       const l10n = AppLocalizations(SupportedLocale.tr);
-      for (final source in kAppSourceReferences) {
-        expect(find.text(source.name), findsOneWidget);
+      // Altyapı künyeleri sabittir; resmî kaynakların adı sources.json'dan
+      // ÇÖZÜLÜR (TASK 094 §B) — ekranda yine yedi künye kartı görünür.
+      for (final source in kAppSourceReferences.where(
+        (s) => s.origin == AppSourceOrigin.infrastructure,
+      )) {
+        expect(find.text(source.infrastructureName!), findsOneWidget);
       }
+      expect(find.byType(AppCard), findsNWidgets(kAppSourceReferences.length));
       expect(find.text(l10n.sourcesPolicyTitle), findsOneWidget);
       expect(find.text(l10n.sourcesPolicyNoEndorsement), findsOneWidget);
       expect(find.text(l10n.sourcesPolicyFatwa), findsOneWidget);

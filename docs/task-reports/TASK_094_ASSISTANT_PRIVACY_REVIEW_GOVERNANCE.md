@@ -1,6 +1,7 @@
 # TASK 094 — Learn/Assistant security, language and RTL checkpoint
 
-Status: **PARTIAL / IN PROGRESS — NOT COMPLETE**
+Status: **COMPLETE** (privacy/governance portion merged as `e8b0de7`;
+remaining scope closed by the completion branch — see the closing section)
 Checkpoint: **CP11 — Learn and Assistant depth**
 Branch: `task/094-assistant-privacy-review-governance`
 Starting commit: `0f69ea7`
@@ -18,15 +19,15 @@ recorded as **PARTIAL** by owner decision.
 - **Finding F1** — Assistant sensitive-query persistence / privacy hardening
 - the formal **`editorialReview`** definition
 
-**Still OPEN under TASK 094 — not closed, no owning follow-up task yet:**
+**Closed by the completion branch** (`task/094-complete-language-rtl-source-drift`):
 
-- **language verification**
+- **language verification** (TR/EN/AR)
 - **RTL verification**
-- **Finding F2** — `app_source_reference.dart` duplicates `sources.json` with no
-  cross-check
+- **Finding F2** — source-metadata duplication/drift
+- **persistence-boundary defense-in-depth** (repository now enforces the
+  canonical predicate itself)
 
-Recording TASK 094 COMPLETE would falsely close language/RTL and F2, so it is
-deliberately not marked complete. No `TASK 094A` was invented.
+See the closing section at the end of this report.
 
 ## The confirmed privacy defect (F1)
 
@@ -195,3 +196,79 @@ No unrelated growing total is frozen.
 - A neutral "could not clear history" localized string for the `clear()` failure
   path.
 - TASK 093 remains deferred until real official-answer records exist.
+
+
+---
+
+# TASK 094 — completion (language, RTL, source drift, persistence boundary)
+
+Branch: `task/094-complete-language-rtl-source-drift` · base `829c8db`
+
+## Persistence-boundary defense-in-depth (§A)
+
+The earlier work stopped sensitive history at the **controller**. The repository
+itself still trusted its caller. `SharedPrefsAssistantHistoryRepository.save`
+now runs the same `_pruneSensitive` pass that `load()` uses, so a **direct**
+repository call cannot write sensitive history. No second sensitivity list was
+introduced — both paths call `AssistantQueryClassifier.isSensitiveVerdict`.
+
+Pruning runs **before** the 20-message cap, so dropped sensitive records cannot
+consume the quota. `save` now returns `ResultFuture<void>` (mirroring `clear`),
+so a failed write is no longer silently indistinguishable from success; the one
+production caller and the test fake were updated.
+
+## Source-metadata drift, finding F2 (§B)
+
+`app_source_reference.dart` previously hand-copied the name, original language
+and canonical URL of four registered Diyanet sources. Those four entries now
+carry **only a `registrySourceId`**; the fields are resolved at runtime from
+`assets/content/learn/sources.json` via the existing `getSourceById`. There is
+nothing left to drift.
+
+Tanzil, QuranEnc and MP3Quran are **infrastructure** sources with no registry
+entry, so they keep literal metadata — they are a single definition, not a
+copy, and a test asserts they are absent from the registry.
+
+A missing id **fails safely and visibly**: the provider surfaces an error and the
+screen shows a neutral message. No metadata is invented and no source is silently
+skipped. **No religious claim, article body, locator or source record was
+changed.**
+
+## Language verification (§C)
+
+`_t()` falls back to English on a missing key, so a missing translation leaks
+English into the Turkish or Arabic UI. A test now asserts the **TR/EN/AR key
+sets are identical** — the real regression guard. Affected safety surfaces
+(no-source, official-fatwa redirect, qualified-guidance, source labels and
+policy lines) are asserted present, distinct per locale, and Arabic values are
+asserted to contain Arabic script. One new key, `sourcesUnavailable`, was added
+in all three locales. **No copy was rewritten and no religious meaning changed.**
+
+## RTL verification (§D)
+
+Focused widget tests on the highest-risk affected surfaces. They assert
+behaviour, not mere rendering: the Assistant screen and content-sources screen
+resolve to `TextDirection.rtl` under Arabic and `ltr` under Turkish; the user
+bubble is on the **end** side in both directions (right in LTR, mirrored left in
+RTL — proving logical rather than hard-coded alignment); refusal and no-source
+states render under RTL; a Latin source name stays LTR inside the Arabic page;
+and RTL at 1.5× text scale on a narrow screen produces no overflow.
+
+## Validation
+
+- Persistence boundary: **15 / 15**
+- Source drift: **8 / 8**
+- Language + RTL (sources screen): **21 / 21** within `test/features/settings`
+- Assistant RTL: **8 / 8**
+- Profile + settings focused run: **65 / 65**
+- `flutter analyze`: clean
+- Full suite: **1705 / 1705** (was 1658)
+- Functions: not run — no Functions file, dependency or lockfile changed
+
+## Remaining follow-ups (non-blocking)
+
+- A neutral "could not clear history" localized string for the `clear()` failure
+  path (today the screen correctly shows nothing rather than a false success).
+- Assistant source-reference rows resolve asynchronously, so an isolated widget
+  harness must await them; RTL of that row is covered on the content-sources
+  screen instead.
