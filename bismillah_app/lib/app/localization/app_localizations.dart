@@ -287,6 +287,16 @@ final class AppLocalizations {
   String get qiblaGuidanceCalibrate => _t('qiblaGuidanceCalibrate');
   String get qiblaHonestyNote => _t('qiblaHonestyNote');
 
+  /// Kadran yön harfleri. Kadranla DÖNMEZLER: konumları açıya göre
+  /// hesaplanır ama harfin kendisi daima dik durur.
+  String get qiblaCardinalNorth => _t('qiblaCardinalNorth');
+  String get qiblaCardinalEast => _t('qiblaCardinalEast');
+  String get qiblaCardinalSouth => _t('qiblaCardinalSouth');
+  String get qiblaCardinalWest => _t('qiblaCardinalWest');
+
+  /// Kadranın merkezindeki Kâbe görselinin ekran okuyucu açıklaması.
+  String get qiblaKaabaSemantics => _t('qiblaKaabaSemantics');
+
   /// "151°" biçimli açı okuması (kadranla DÖNMEZ, sabit metindir).
   String qiblaDegrees(int degrees) =>
       _t('qiblaDegrees').replaceFirst('{degrees}', '$degrees');
@@ -947,6 +957,11 @@ final class AppLocalizations {
           'Telefon sensörü yaklaşık bir yön verir. Bu gösterge kesin bir '
               'ölçüm ya da dinî bir hüküm değildir.',
       'qiblaSemanticsBearing': 'Kıble yönü kuzeyden {degrees} derece.',
+      'qiblaCardinalNorth': 'K',
+      'qiblaCardinalEast': 'D',
+      'qiblaCardinalSouth': 'G',
+      'qiblaCardinalWest': 'B',
+      'qiblaKaabaSemantics': 'Kadranın merkezinde Kâbe: yön hedefi.',
       'reminderCardTitle': 'Namaz hatırlatıcıları',
       'reminderEnable': 'Hatırlatıcıları aç',
       'reminderDisable': 'Hatırlatıcıları kapat',
@@ -1531,6 +1546,11 @@ final class AppLocalizations {
           'The phone sensor gives an approximate direction. This indicator is '
               'not an exact measurement and not a religious ruling.',
       'qiblaSemanticsBearing': 'Qibla direction is {degrees} degrees from north.',
+      'qiblaCardinalNorth': 'N',
+      'qiblaCardinalEast': 'E',
+      'qiblaCardinalSouth': 'S',
+      'qiblaCardinalWest': 'W',
+      'qiblaKaabaSemantics': 'The Kaaba at the centre of the dial: the direction target.',
       'reminderCardTitle': 'Prayer reminders',
       'reminderEnable': 'Turn on reminders',
       'reminderDisable': 'Turn off reminders',
@@ -2114,6 +2134,11 @@ final class AppLocalizations {
           'يعطي مستشعر الهاتف اتجاهاً تقريبياً. هذا المؤشر ليس قياساً دقيقاً '
               'وليس حكماً شرعياً.',
       'qiblaSemanticsBearing': 'اتجاه القبلة {degrees} درجة من الشمال.',
+      'qiblaCardinalNorth': 'ش',
+      'qiblaCardinalEast': 'ق',
+      'qiblaCardinalSouth': 'ج',
+      'qiblaCardinalWest': 'غ',
+      'qiblaKaabaSemantics': 'الكعبة في مركز القرص: هدف الاتجاه.',
       'reminderCardTitle': 'تذكيرات الصلاة',
       'reminderEnable': 'تفعيل التذكيرات',
       'reminderDisable': 'إيقاف التذكيرات',
