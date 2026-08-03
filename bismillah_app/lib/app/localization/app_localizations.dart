@@ -259,6 +259,42 @@ final class AppLocalizations {
   String get prayerTimesUnavailable => _t('prayerTimesUnavailable');
   String get prayerTimesApproximate => _t('prayerTimesApproximate');
 
+  // Kıble yönü (TASK 095 — ton: sakin ve DÜRÜST. Telefon sensörünün verdiği
+  // yön yaklaşıktır; "kesin ölçüm" ya da dinî hüküm iddiası YASAKTIR.)
+  String get qiblaTitle => _t('qiblaTitle');
+  String get qiblaEntryTitle => _t('qiblaEntryTitle');
+  String get qiblaEntrySubtitle => _t('qiblaEntrySubtitle');
+  String get qiblaBearingLabel => _t('qiblaBearingLabel');
+  String get qiblaAligned => _t('qiblaAligned');
+  String get qiblaTurnHint => _t('qiblaTurnHint');
+  String get qiblaCompassWaiting => _t('qiblaCompassWaiting');
+  String get qiblaCompassInterrupted => _t('qiblaCompassInterrupted');
+  String get qiblaCompassUnsupported => _t('qiblaCompassUnsupported');
+  String get qiblaStaticBearingNote => _t('qiblaStaticBearingNote');
+  String get qiblaLowConfidence => _t('qiblaLowConfidence');
+  String get qiblaLocationInvite => _t('qiblaLocationInvite');
+  String get qiblaUseLocation => _t('qiblaUseLocation');
+  String get qiblaLocationDeniedForever => _t('qiblaLocationDeniedForever');
+  String get qiblaLocationServiceDisabled =>
+      _t('qiblaLocationServiceDisabled');
+  String get qiblaLocationUnavailable => _t('qiblaLocationUnavailable');
+  String get qiblaCalculationError => _t('qiblaCalculationError');
+  String get qiblaApproximateLocationNote =>
+      _t('qiblaApproximateLocationNote');
+  String get qiblaGuidanceTitle => _t('qiblaGuidanceTitle');
+  String get qiblaGuidanceFlat => _t('qiblaGuidanceFlat');
+  String get qiblaGuidanceMetal => _t('qiblaGuidanceMetal');
+  String get qiblaGuidanceCalibrate => _t('qiblaGuidanceCalibrate');
+  String get qiblaHonestyNote => _t('qiblaHonestyNote');
+
+  /// "151°" biçimli açı okuması (kadranla DÖNMEZ, sabit metindir).
+  String qiblaDegrees(int degrees) =>
+      _t('qiblaDegrees').replaceFirst('{degrees}', '$degrees');
+
+  /// Ekran okuyucu için yön açıklaması.
+  String qiblaSemanticsBearing(int degrees) =>
+      _t('qiblaSemanticsBearing').replaceFirst('{degrees}', '$degrees');
+
   // Namaz hatırlatıcıları (TASK 022 — ton: sakin; suçlayıcı/streak/kaçırma YOK)
   String get reminderCardTitle => _t('reminderCardTitle');
   String get reminderEnable => _t('reminderEnable');
@@ -876,6 +912,41 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'Konum şu an alınamadı — dilediğinde tekrar deneyebilirsin.',
       'prayerTimesApproximate': 'Yaklaşık konuma göre',
+      'qiblaTitle': 'Kıble',
+      'qiblaEntryTitle': 'Kıble yönü',
+      'qiblaEntrySubtitle': 'Bulunduğun yerden Kâbe yönüne sakin bir bakış.',
+      'qiblaBearingLabel': 'Kuzeyden kıble açısı',
+      'qiblaDegrees': '{degrees}°',
+      'qiblaAligned': 'Telefon kıble yönüne dönük.',
+      'qiblaTurnHint': 'Telefonu yavaşça çevir.',
+      'qiblaCompassWaiting': 'Pusula okuması bekleniyor.',
+      'qiblaCompassInterrupted': 'Yön okuması şu an alınamıyor.',
+      'qiblaCompassUnsupported': 'Bu cihazda pusula sensörü bulunamadı.',
+      'qiblaStaticBearingNote':
+          'Yalnız kuzeyden ölçülen kıble açısı gösteriliyor.',
+      'qiblaLowConfidence': 'Okuma oynak görünüyor.',
+      'qiblaLocationInvite':
+          'Kıble yönünü hesaplamak için bulunduğun yerin konumu gerekir. '
+              'Konum yalnız bu hesap için kullanılır; kaydedilmez.',
+      'qiblaUseLocation': 'Konumu kullan',
+      'qiblaLocationDeniedForever':
+          'Konum izni kapalı. Ayarlardan açarsan kıble yönünü gösterebiliriz.',
+      'qiblaLocationServiceDisabled':
+          'Cihazın konum servisi kapalı. Açtıktan sonra tekrar deneyebilirsin.',
+      'qiblaLocationUnavailable':
+          'Konum şu an alınamadı — dilediğinde tekrar deneyebilirsin.',
+      'qiblaCalculationError':
+          'Kıble yönü bu konum için hesaplanamadı.',
+      'qiblaApproximateLocationNote': 'Yaklaşık konuma göre',
+      'qiblaGuidanceTitle': 'Daha iyi bir okuma için',
+      'qiblaGuidanceFlat': 'Telefonu yere paralel, düz tut.',
+      'qiblaGuidanceMetal': 'Metal ve mıknatıslı nesnelerden biraz uzaklaş.',
+      'qiblaGuidanceCalibrate':
+          'Okuma oynaksa telefonu havada sekiz çizerek pusulayı kalibre et.',
+      'qiblaHonestyNote':
+          'Telefon sensörü yaklaşık bir yön verir. Bu gösterge kesin bir '
+              'ölçüm ya da dinî bir hüküm değildir.',
+      'qiblaSemanticsBearing': 'Kıble yönü kuzeyden {degrees} derece.',
       'reminderCardTitle': 'Namaz hatırlatıcıları',
       'reminderEnable': 'Hatırlatıcıları aç',
       'reminderDisable': 'Hatırlatıcıları kapat',
@@ -1423,6 +1494,43 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'Location is unavailable right now — you can try again anytime.',
       'prayerTimesApproximate': 'Based on approximate location',
+      'qiblaTitle': 'Qibla',
+      'qiblaEntryTitle': 'Qibla direction',
+      'qiblaEntrySubtitle': 'A calm look at the Kaaba direction from where you are.',
+      'qiblaBearingLabel': 'Qibla angle from north',
+      'qiblaDegrees': '{degrees}°',
+      'qiblaAligned': 'The phone is facing the Qibla direction.',
+      'qiblaTurnHint': 'Turn the phone slowly.',
+      'qiblaCompassWaiting': 'Waiting for a compass reading.',
+      'qiblaCompassInterrupted': 'The direction reading is unavailable right now.',
+      'qiblaCompassUnsupported': 'No compass sensor was found on this device.',
+      'qiblaStaticBearingNote':
+          'Only the Qibla angle measured from north is shown.',
+      'qiblaLowConfidence': 'The reading looks unsteady.',
+      'qiblaLocationInvite':
+          'Your location is needed to calculate the Qibla direction. It is '
+              'used only for this calculation and is not stored.',
+      'qiblaUseLocation': 'Use location',
+      'qiblaLocationDeniedForever':
+          'Location permission is off. If you enable it in settings we can '
+              'show the Qibla direction.',
+      'qiblaLocationServiceDisabled':
+          'Your device location service is off. You can try again once it is on.',
+      'qiblaLocationUnavailable':
+          'Location could not be read right now — you can try again whenever you like.',
+      'qiblaCalculationError':
+          'The Qibla direction could not be calculated for this location.',
+      'qiblaApproximateLocationNote': 'Based on approximate location',
+      'qiblaGuidanceTitle': 'For a better reading',
+      'qiblaGuidanceFlat': 'Hold the phone flat, parallel to the ground.',
+      'qiblaGuidanceMetal': 'Move a little away from metal and magnetic objects.',
+      'qiblaGuidanceCalibrate':
+          'If the reading is unsteady, calibrate the compass by moving the '
+              'phone in a figure eight.',
+      'qiblaHonestyNote':
+          'The phone sensor gives an approximate direction. This indicator is '
+              'not an exact measurement and not a religious ruling.',
+      'qiblaSemanticsBearing': 'Qibla direction is {degrees} degrees from north.',
       'reminderCardTitle': 'Prayer reminders',
       'reminderEnable': 'Turn on reminders',
       'reminderDisable': 'Turn off reminders',
@@ -1972,6 +2080,40 @@ final class AppLocalizations {
       'prayerTimesUnavailable':
           'تعذّر الحصول على الموقع الآن — يمكنك المحاولة لاحقاً.',
       'prayerTimesApproximate': 'بحسب موقع تقريبي',
+      'qiblaTitle': 'القبلة',
+      'qiblaEntryTitle': 'اتجاه القبلة',
+      'qiblaEntrySubtitle': 'نظرة هادئة إلى اتجاه الكعبة من مكانك.',
+      'qiblaBearingLabel': 'زاوية القبلة من الشمال',
+      'qiblaDegrees': '{degrees}°',
+      'qiblaAligned': 'الهاتف موجَّه نحو القبلة.',
+      'qiblaTurnHint': 'أدر الهاتف ببطء.',
+      'qiblaCompassWaiting': 'في انتظار قراءة البوصلة.',
+      'qiblaCompassInterrupted': 'قراءة الاتجاه غير متاحة الآن.',
+      'qiblaCompassUnsupported': 'لم يُعثر على مستشعر بوصلة في هذا الجهاز.',
+      'qiblaStaticBearingNote': 'تُعرض زاوية القبلة المقيسة من الشمال فقط.',
+      'qiblaLowConfidence': 'تبدو القراءة غير مستقرة.',
+      'qiblaLocationInvite':
+          'نحتاج إلى موقعك لحساب اتجاه القبلة. يُستخدم الموقع لهذا الحساب '
+              'فقط ولا يُحفَظ.',
+      'qiblaUseLocation': 'استخدم الموقع',
+      'qiblaLocationDeniedForever':
+          'إذن الموقع مغلق. إذا فعّلته من الإعدادات يمكننا عرض اتجاه القبلة.',
+      'qiblaLocationServiceDisabled':
+          'خدمة الموقع في جهازك مغلقة. يمكنك المحاولة مرة أخرى بعد تفعيلها.',
+      'qiblaLocationUnavailable':
+          'تعذّر الحصول على الموقع الآن — يمكنك المحاولة مرة أخرى متى شئت.',
+      'qiblaCalculationError': 'تعذّر حساب اتجاه القبلة لهذا الموقع.',
+      'qiblaApproximateLocationNote': 'بحسب موقع تقريبي',
+      'qiblaGuidanceTitle': 'لقراءة أفضل',
+      'qiblaGuidanceFlat': 'أمسك الهاتف مستوياً وموازياً للأرض.',
+      'qiblaGuidanceMetal': 'ابتعد قليلاً عن الأجسام المعدنية والمغناطيسية.',
+      'qiblaGuidanceCalibrate':
+          'إذا كانت القراءة غير مستقرة فعايِر البوصلة بتحريك الهاتف على '
+              'شكل رقم ثمانية.',
+      'qiblaHonestyNote':
+          'يعطي مستشعر الهاتف اتجاهاً تقريبياً. هذا المؤشر ليس قياساً دقيقاً '
+              'وليس حكماً شرعياً.',
+      'qiblaSemanticsBearing': 'اتجاه القبلة {degrees} درجة من الشمال.',
       'reminderCardTitle': 'تذكيرات الصلاة',
       'reminderEnable': 'تفعيل التذكيرات',
       'reminderDisable': 'إيقاف التذكيرات',

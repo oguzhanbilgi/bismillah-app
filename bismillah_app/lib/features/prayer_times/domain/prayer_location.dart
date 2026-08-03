@@ -28,10 +28,19 @@ final class PrayerLocationPermissionDenied extends PrayerLocationResult {
   final bool permanentlyDenied;
 }
 
-/// Konum servisi kapalı ya da konum alınamadı (zaman aşımı/hata) ve
-/// güvenli son-bilinen konum da yok.
+/// Konum alınamadı (zaman aşımı/hata) ve güvenli son-bilinen konum da yok.
 final class PrayerLocationUnavailable extends PrayerLocationResult {
   const PrayerLocationUnavailable();
+}
+
+/// Cihazın konum servisi (GPS) KAPALI — izin verilmiş olsa bile konum
+/// alınamaz ve izin istemek işe yaramaz; kullanıcının sistem ayarından
+/// açması gerekir (TASK 095).
+///
+/// [PrayerLocationUnavailable]'dan ayrı tutulur: sebebi farklı olduğu için
+/// kullanıcıya söylenecek dürüst cümle de farklıdır.
+final class PrayerLocationServiceDisabled extends PrayerLocationResult {
+  const PrayerLocationServiceDisabled();
 }
 
 /// Ön-plan konum sözleşmesi (SADECE foreground; arka plan konumu YASAK).

@@ -55,6 +55,10 @@ final class PrayerTimesController extends AsyncNotifier<PrayerTimesState> {
       case PrayerLocationPermissionDenied(:final permanentlyDenied):
         return PrayerTimesNeedsPermission(permanentlyDenied: permanentlyDenied);
       case PrayerLocationUnavailable():
+      case PrayerLocationServiceDisabled():
+        // Namaz vakitleri yüzeyi TASK 095'te DEĞİŞTİRİLMEZ: konum servisi
+        // kapalı olması da kullanıcı için "şu an konum alınamadı" sakin
+        // durumudur. Ayrımı yalnız Kıble ekranı gösterir.
         return const PrayerTimesUnavailable();
     }
   }

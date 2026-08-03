@@ -46,7 +46,25 @@ final class GeolocatorPrayerLocationService implements PrayerLocationService {
 
   /// Güncel konumu dener; başarısızsa güvenli son-bilinen konuma düşer;
   /// o da yoksa [PrayerLocationUnavailable]. ASLA çökmez.
+  ///
+  /// Konum servisi kapalıysa (TASK 095) ayrı ve dürüst bir sonuç döner —
+  /// ama YALNIZ son-bilinen konum da yoksa: izin istemek bu durumda çözüm
+  /// değildir, sistem ayarı gerekir.
+  ///
+  /// Son-bilinen konum yedeği KORUNUR: servis kapalıyken de elde geçerli
+  /// bir konum varsa namaz vakitleri gösterilmeye devam eder (TASK 021
+  /// davranışı bu görevde bozulmaz).
   Future<PrayerLocationResult> _resolvePosition() async {
+    var serviceDisabled = false;
+    try {
+      serviceDisabled = !await Geolocator.isLocationServiceEnabled();
+    } on Exception {
+      // Servis durumu okunamadıysa normal akışa devam edilir; aşağıdaki
+      // konum denemesi zaten güvenli biçimde başarısız olabilir.
+    }
+    if (serviceDisabled) {
+      return await _lastKnownOrNull() ?? const PrayerLocationServiceDisabled();
+    }
     try {
       final position = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
@@ -56,17 +74,22 @@ final class GeolocatorPrayerLocationService implements PrayerLocationService {
       );
       return PrayerLocationResolved(_toLocation(position, approximate: false));
     } on Exception {
-      // Zaman aşımı / servis kapalı / başka hata → son-bilinen konum.
-      try {
-        final last = await Geolocator.getLastKnownPosition();
-        if (last != null) {
-          return PrayerLocationResolved(_toLocation(last, approximate: true));
-        }
-      } on Exception {
-        // Son-bilinen de alınamadı; aşağıda unavailable döner.
-      }
-      return const PrayerLocationUnavailable();
+      // Zaman aşımı / başka hata → son-bilinen konum.
+      return await _lastKnownOrNull() ?? const PrayerLocationUnavailable();
     }
+  }
+
+  /// Son-bilinen konum varsa "yaklaşık" olarak döner; yoksa `null`.
+  Future<PrayerLocationResolved?> _lastKnownOrNull() async {
+    try {
+      final last = await Geolocator.getLastKnownPosition();
+      if (last != null) {
+        return PrayerLocationResolved(_toLocation(last, approximate: true));
+      }
+    } on Exception {
+      // Son-bilinen de alınamadı.
+    }
+    return null;
   }
 
   PrayerLocation _toLocation(Position p, {required bool approximate}) {

@@ -157,6 +157,8 @@ final class _PrayerLogView extends ConsumerWidget {
             ),
           ),
         const SizedBox(height: AppSpacing.s3),
+        const _QiblaEntryCard(),
+        const SizedBox(height: AppSpacing.s3),
         const _PrayerReminderCard(),
         const SizedBox(height: AppSpacing.s4),
         AppButton(
@@ -175,6 +177,47 @@ final class _PrayerLogView extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.s7),
       ],
+    );
+  }
+}
+
+/// Kıble yönü girişi (TASK 095). Namaz ekranı YENİDEN TASARLANMAZ: mevcut
+/// kart dilinde tek bir dokunulabilir satır eklenir ve ayrı bir ekrana
+/// gider. Ücretsizdir — kilit, rozet veya yükseltme çağrısı YOKTUR.
+final class _QiblaEntryCard extends StatelessWidget {
+  const _QiblaEntryCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+
+    return AppCard(
+      onTap: () => context.go(AppRoutes.qibla),
+      child: Row(
+        children: [
+          Icon(
+            Icons.explore_outlined,
+            size: AppSizes.iconMd,
+            color: scheme.primary,
+          ),
+          const SizedBox(width: AppSpacing.s3),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(l10n.qiblaEntryTitle, token: AppTextStyleToken.h3),
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  l10n.qiblaEntrySubtitle,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

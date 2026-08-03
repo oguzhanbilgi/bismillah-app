@@ -384,7 +384,7 @@ branch name `task/095-motion-system-foundation` is kept as-is because it is
 already published; it is a branch label, not a task number.
 
 ```text
-TASK 095 — Qibla
+TASK 095 — Qibla — IN PROGRESS (PR open, not merged; device validation pending)
 TASK 096 — Prayer calculation-method selection
 TASK 097 — Short adhan / notification sound options
 TASK 098 — TR/EN/AR real-device UX
