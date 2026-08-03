@@ -7,6 +7,9 @@ abstract final class AppRoutes {
 
   /// Son 7 gün namaz geçmişi — Prayer branch içinde push route (salt-okunur).
   static const String prayerHistory = '/prayer/history';
+
+  /// Kıble yönü (TASK 095) — Prayer branch içinde push route.
+  static const String qibla = '/prayer/qibla';
   static const String quran = '/quran';
   static const String learn = '/learn';
 
@@ -85,6 +88,7 @@ abstract final class AppRoutes {
   static const String todayName = 'today';
   static const String prayerName = 'prayer';
   static const String prayerHistoryName = 'prayerHistory';
+  static const String qiblaName = 'qibla';
   static const String quranName = 'quran';
   static const String learnName = 'learn';
   static const String learnCategoryName = 'learnCategory';

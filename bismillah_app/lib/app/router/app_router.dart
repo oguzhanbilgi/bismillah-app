@@ -18,6 +18,7 @@ import 'package:bismillah_app/features/profile/presentation/content_sources_scre
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
+import 'package:bismillah_app/features/qibla/presentation/qibla_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_screen.dart';
@@ -84,6 +85,13 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                     path: 'history',
                     name: AppRoutes.prayerHistoryName,
                     builder: (context, state) => const PrayerHistoryScreen(),
+                  ),
+                  // Kıble yönü (TASK 095): aynı biçimde Prayer branch
+                  // içinde push (relative path → /prayer/qibla).
+                  GoRoute(
+                    path: 'qibla',
+                    name: AppRoutes.qiblaName,
+                    builder: (context, state) => const QiblaScreen(),
                   ),
                 ],
               ),

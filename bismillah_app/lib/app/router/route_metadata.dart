@@ -42,6 +42,9 @@ abstract final class RouteMetadataRegistry {
       showsAssistantFab: false,
       isFullScreenModal: true,
     ),
+    // Kıble kadranı odak yüzeyidir: FAB kadranın üstüne binmemelidir
+    // (TASK 095). Alt navigasyon açık kalır — ekran akıştan kopmaz.
+    AppRoutes.qibla: RouteMetadata(showsAssistantFab: false),
     AppRoutes.subscriptionSettings: RouteMetadata(showsAssistantFab: false),
     AppRoutes.languageSettings: RouteMetadata(showsAssistantFab: false),
   };
