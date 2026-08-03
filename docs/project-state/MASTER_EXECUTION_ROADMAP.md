@@ -369,9 +369,9 @@ TASK 093 — Assistant retrieval ranking and no-source UX — DEFERRED (owner:
            until real official-answer records exist; ranking and no-source UX
            already ship, and the only new increment needs the unowned
            qualified-human-reviewer decision)
-TASK 094 — Learn/Assistant security, language and RTL checkpoint — PARTIAL
-           (F1 privacy + editorialReview definition CLOSED; language
-           verification, RTL verification and F2 STILL OPEN) <-- CURRENT
+TASK 094 — Learn/Assistant security, language and RTL checkpoint — COMPLETED
+           (F1 privacy, editorialReview definition, persistence-boundary
+           defense-in-depth, F2 source drift, TR/EN/AR and RTL all closed)
 ```
 
 ## CP12 — Prayer quality and beta

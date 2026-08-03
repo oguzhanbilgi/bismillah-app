@@ -123,19 +123,34 @@ final class SharedPrefsAssistantHistoryRepository
     }
   }
 
+  /// Mesajları kalıcı yazar.
+  ///
+  /// SAVUNMA DERİNLİĞİ (TASK 094 §A): çağıran zaten filtrelese de, bu
+  /// sınır ADI GEÇEN TEK kanonik yüklemi (`isSensitiveVerdict`) kendisi de
+  /// uygular. Böylece depoyu DOĞRUDAN çağıran bir kod yolu (yeni bir
+  /// controller, bir test yardımcısı, ileride eklenecek bir özellik)
+  /// hassas geçmişi diske YAZAMAZ. İkinci bir hassasiyet listesi
+  /// TUTULMAZ — [_pruneSensitive] `load()` ile AYNI mantığı paylaşır.
+  ///
+  /// Yazma başarısız olursa sessizce "başarılı" DENMEZ: sonuç
+  /// [ResultFuture] ile taşınır (TASK 094 §A).
   @override
-  Future<void> save(List<AssistantMessage> messages) async {
+  ResultFuture<void> save(List<AssistantMessage> messages) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final capped = messages.length > maxMessages
-          ? messages.sublist(messages.length - maxMessages)
-          : messages;
+      // Önce hassas kayıtlar düşürülür, SONRA son 20'ye kesilir: sıralama
+      // önemlidir, aksi hâlde düşen kayıtlar kotayı boşuna doldururdu.
+      final safe = _pruneSensitive(messages);
+      final capped = safe.length > maxMessages
+          ? safe.sublist(safe.length - maxMessages)
+          : safe;
       final encoded = json.encode([
         for (final message in capped) _encodeMessage(message),
       ]);
       await prefs.setString(_key, encoded);
+      return const Result.success(null);
     } on Exception {
-      // Yazma hatası sessizce yutulur; oturum içi görünüm bozulmaz.
+      return const Result.failure(StorageFailure());
     }
   }
 

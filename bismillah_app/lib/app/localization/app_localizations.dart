@@ -582,6 +582,7 @@ final class AppLocalizations {
   String get sourcesIntro => _t('sourcesIntro');
   String get sourcesOriginalLanguageLabel => _t('sourcesOriginalLanguageLabel');
   String get sourcesOpenFailed => _t('sourcesOpenFailed');
+  String get sourcesUnavailable => _t('sourcesUnavailable');
   String get sourcesCopied => _t('sourcesCopied');
   String get sourcesLangArabic => _t('sourcesLangArabic');
   String get sourcesLangTurkish => _t('sourcesLangTurkish');
@@ -1108,6 +1109,8 @@ final class AppLocalizations {
           'dayandırır. Bağlantılar sistem tarayıcısında açılır.',
       'sourcesOriginalLanguageLabel': 'Özgün dil',
       'sourcesOpenFailed': 'Bağlantı açılamadı; adres panoya kopyalandı.',
+      'sourcesUnavailable':
+          'Kaynak künyeleri şu anda yüklenemedi. Lütfen daha sonra tekrar deneyin.',
       'sourcesCopied': 'Adres panoya kopyalandı.',
       'sourcesLangArabic': 'Arapça',
       'sourcesLangTurkish': 'Türkçe',
@@ -1659,6 +1662,8 @@ final class AppLocalizations {
           'sources below. Links open in your system browser.',
       'sourcesOriginalLanguageLabel': 'Original language',
       'sourcesOpenFailed': 'Could not open the link; address copied.',
+      'sourcesUnavailable':
+          'Source details could not be loaded right now. Please try again later.',
       'sourcesCopied': 'Address copied to clipboard.',
       'sourcesLangArabic': 'Arabic',
       'sourcesLangTurkish': 'Turkish',
@@ -2190,6 +2195,8 @@ final class AppLocalizations {
           'تُفتح الروابط في متصفح النظام.',
       'sourcesOriginalLanguageLabel': 'اللغة الأصلية',
       'sourcesOpenFailed': 'تعذّر فتح الرابط؛ تم نسخ العنوان.',
+      'sourcesUnavailable':
+          'تعذّر تحميل بيانات المصادر الآن. يرجى المحاولة لاحقاً.',
       'sourcesCopied': 'تم نسخ العنوان إلى الحافظة.',
       'sourcesLangArabic': 'العربية',
       'sourcesLangTurkish': 'التركية',

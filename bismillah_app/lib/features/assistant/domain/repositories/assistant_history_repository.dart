@@ -14,9 +14,13 @@ abstract interface class AssistantHistoryRepository {
   /// Kalıcı geçmişi yükler (bozuk kayıtta boş liste — crash yok).
   Future<List<AssistantMessage>> load();
 
-  /// Verilen (zaten filtrelenmiş) mesajları kalıcı olarak yazar; en fazla
-  /// son [maxMessages] tutulur.
-  Future<void> save(List<AssistantMessage> messages);
+  /// Mesajları kalıcı olarak yazar; en fazla son `maxMessages` tutulur.
+  ///
+  /// Çağıran hassas mesajları zaten filtrelemelidir, ANCAK uygulama bu
+  /// sınırda da ZORUNLUDUR (savunma derinliği, TASK 094 §A): depoyu
+  /// doğrudan çağıran bir kod yolu hassas geçmişi diske yazamaz. Yazma
+  /// başarısız olursa sonuç sessizce yutulmaz.
+  ResultFuture<void> save(List<AssistantMessage> messages);
 
   /// Tüm geçmişi siler. Silme BAŞARISIZ olursa çağıran kullanıcıya
   /// "temizlendi" bilgisini VERMEMELİDİR (TASK 094 §E) — bu yüzden sonuç

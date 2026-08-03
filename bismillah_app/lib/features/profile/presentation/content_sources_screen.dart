@@ -37,10 +37,28 @@ class ContentSourcesScreen extends ConsumerWidget {
             secondary: true,
           ),
           const SizedBox(height: AppSpacing.s4),
-          for (final source in kAppSourceReferences) ...[
-            _SourceCard(source: source),
-            const SizedBox(height: AppSpacing.s3),
-          ],
+          // Künyeler `sources.json`'dan çözülür (TASK 094 §B). Çözülemeyen
+          // bir kimlik SESSİZCE ATLANMAZ; dürüst bir hata metni gösterilir.
+          // Kartlar liste çocuğu olarak SERPİLİR (sarmalayıcı Column YOK):
+          // ListView'ın tembel yerleşimi ve dokunma hedefleri korunur.
+          ...ref
+              .watch(resolvedAppSourcesProvider)
+              .when(
+                loading: () => const <Widget>[SizedBox(height: AppSpacing.s6)],
+                error: (_, _) => <Widget>[
+                  AppText(
+                    l10n.sourcesUnavailable,
+                    token: AppTextStyleToken.bodySmall,
+                    secondary: true,
+                  ),
+                ],
+                data: (sources) => <Widget>[
+                  for (final source in sources) ...[
+                    _SourceCard(source: source),
+                    const SizedBox(height: AppSpacing.s3),
+                  ],
+                ],
+              ),
           const SizedBox(height: AppSpacing.s3),
           const _ContentPolicyBlock(),
           const SizedBox(height: AppSpacing.s6),
@@ -53,7 +71,7 @@ class ContentSourcesScreen extends ConsumerWidget {
 class _SourceCard extends ConsumerWidget {
   const _SourceCard({required this.source});
 
-  final AppSourceReference source;
+  final ResolvedAppSource source;
 
   String _purposeText(AppLocalizations l10n) => switch (source.purpose) {
     AppSourcePurpose.tanzil => l10n.sourcePurposeTanzil,

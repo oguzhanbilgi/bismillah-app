@@ -35,16 +35,45 @@ accurate for their date and are deliberately **not** rewritten.
 - Last verified main before TASK 094: `0f69ea7`
 - Public tag: `v0.1.0-alpha.1` → `c23f490` (verified intact; must not be moved)
 - Latest task: **TASK 094** — Learn/Assistant security, language and RTL
-  checkpoint (**CP11**) — **PARTIAL / IN PROGRESS, NOT COMPLETE** by owner
-  decision. It was **pulled forward** out of roadmap order to close one real
-  privacy defect before closed alpha.
-  **Closed:** finding **F1** (Assistant sensitive-query persistence) and the
-  formal **`editorialReview`** definition.
-  **STILL OPEN under TASK 094, with no owning follow-up task:** **language
-  verification**, **RTL verification**, and finding **F2**
-  (`app_source_reference.dart` duplicates `sources.json` with no cross-check).
-  Recording TASK 094 COMPLETE would falsely close these; no `TASK 094A` was
-  invented.
+  checkpoint (**CP11**) — **COMPLETE**. Delivered in two merges: the
+  privacy/governance portion (`e8b0de7`), then the completion branch closing
+  the rest.
+  **Closed:** finding **F1** (Assistant sensitive-query persistence), the
+  formal **`editorialReview`** definition, **persistence-boundary
+  defense-in-depth**, finding **F2** (source-metadata drift), **language
+  verification** (TR/EN/AR) and **RTL verification**.
+  **Persistence boundary:** `SharedPrefsAssistantHistoryRepository.save` now
+  runs the same `_pruneSensitive` pass as `load()`, so a **direct** repository
+  call cannot write sensitive history — the controller filter is no longer the
+  only defence. Pruning runs **before** the 20-message cap, so dropped records
+  cannot consume the quota. `save` returns `ResultFuture<void>`, so a failed
+  write is no longer indistinguishable from success. **No second sensitivity
+  list** — both paths call `AssistantQueryClassifier.isSensitiveVerdict`.
+  **F2 closed:** the four registered Diyanet entries in
+  `app_source_reference.dart` now carry **only a `registrySourceId`** and
+  resolve title/language/URL from `sources.json` at runtime via the existing
+  `getSourceById` — there is nothing left to drift, and a test asserts the file
+  contains no `diyanet.gov.tr` URL and no registered source title. Tanzil,
+  QuranEnc and MP3Quran are **infrastructure** sources absent from the registry
+  (asserted), so they remain a single definition rather than a copy. A missing
+  id **fails safely and visibly** — the provider errors and the screen shows a
+  neutral message; metadata is never invented and no source is silently
+  skipped. **No religious claim, article body, locator or source record was
+  changed.**
+  **Language:** `_t()` falls back to English on a missing key, so a TR/EN/AR
+  **key-set equality** test is the real regression guard. Affected safety
+  surfaces (no-source, official-fatwa redirect, qualified guidance, source and
+  policy labels) are asserted present, distinct per locale, and Arabic values
+  are asserted to contain Arabic script. One new key `sourcesUnavailable` was
+  added in all three locales. **No copy was rewritten and no religious meaning
+  changed.**
+  **RTL:** the Assistant and content-sources screens resolve to
+  `TextDirection.rtl` under Arabic and `ltr` under Turkish; the user bubble
+  sits on the **end** side in both directions (right in LTR, mirrored left in
+  RTL — proving logical rather than hard-coded alignment); refusal and
+  no-source states render under RTL; a Latin source name stays LTR inside the
+  Arabic page; and RTL at 1.5x text scale on a narrow screen does not
+  overflow.
   **The defect:** `assistant_providers.dart` decided persistence with an inline
   duplicate list omitting **`worshipRule`**, so sensitive worship-rule query
   pairs — including the raw user question text — **were persisted** to
@@ -755,7 +784,25 @@ eligibleIds` → removed with the subset invariant **strengthened** to all
 locales; catalog-vs-library length → catalog length plus ID uniqueness; asset
 file-order comparison → restricted to the catalog's own IDs).
 
-## Tests (verified at TASK 094)
+## Tests (verified at TASK 094 completion)
+
+- Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
+- Flutter test baseline: **1705 / 1705**, 0 failed, 0 skipped
+  (1658 after the privacy/governance merge + 47 completion tests). Measured by
+  an actual run.
+- Persistence-boundary suite: **15 / 15** — command:
+  `flutter test test/features/assistant/task_094_persistence_boundary_test.dart`
+- Source-drift suite (F2): **8 / 8** — command:
+  `flutter test test/features/profile/task_094_source_drift_test.dart`
+- Assistant RTL suite: **8 / 8** — command:
+  `flutter test test/features/assistant/task_094_assistant_rtl_test.dart`
+- Profile + settings (language/RTL/source presentation): **65 / 65** — command:
+  `flutter test test/features/profile test/features/settings/task_094_language_rtl_test.dart`
+- Functions at TASK 094 completion: **not run** — no Functions file, dependency
+  or lockfile changed.
+- Device validation: **not required** (no platform or native change).
+
+## Tests (verified at TASK 094 privacy/governance merge)
 
 - Flutter analyze: **clean** (0 errors, 0 warnings, 0 infos)
 - Flutter test baseline: **1658 / 1658**, 0 failed, 0 skipped
