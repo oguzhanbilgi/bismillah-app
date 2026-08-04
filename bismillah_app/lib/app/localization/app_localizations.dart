@@ -796,6 +796,26 @@ final class AppLocalizations {
   String get assistantSourceNotDirectlyAddressing =>
       _t('assistantSourceNotDirectlyAddressing');
 
+  // Asistan iniş ekranı, güvenli sonraki adım ve dürüst hata durumları
+  // (TASK 095D). Hiçbiri dinî bir iddia taşımaz; yalnız kapsam, sınır ve
+  // hata anlatımıdır.
+  String get assistantLandingCanTitle => _t('assistantLandingCanTitle');
+  String get assistantLandingCan1 => _t('assistantLandingCan1');
+  String get assistantLandingCan2 => _t('assistantLandingCan2');
+  String get assistantLandingCan3 => _t('assistantLandingCan3');
+  String get assistantLandingLimitTitle => _t('assistantLandingLimitTitle');
+  String get assistantLandingLocalOnly => _t('assistantLandingLocalOnly');
+  String get assistantBadgeOfficialFatwa => _t('assistantBadgeOfficialFatwa');
+  String get assistantNextStepGuidance => _t('assistantNextStepGuidance');
+  String get assistantNextStepNoSource => _t('assistantNextStepNoSource');
+  String get assistantSourceLinkUnavailable =>
+      _t('assistantSourceLinkUnavailable');
+  String get assistantRetrievalFailedTitle =>
+      _t('assistantRetrievalFailedTitle');
+  String get assistantRetrievalFailedBody => _t('assistantRetrievalFailedBody');
+  String get assistantRetry => _t('assistantRetry');
+  String get assistantClearFailed => _t('assistantClearFailed');
+
   static const Map<SupportedLocale, Map<String, String>> _strings = {
     SupportedLocale.tr: {
       'appTitle': 'Bismillah',
@@ -1428,6 +1448,37 @@ final class AppLocalizations {
           'için hüküm içermez.',
       'assistantSourceNotDirectlyAddressing':
           'Bu kaynak özel durumunuzu doğrudan ele almıyor.',
+      // TASK 095D
+      'assistantLandingCanTitle': 'Neler yapabilir?',
+      'assistantLandingCan1':
+          "Sorunu Bismillah'ın yayınlanmış, kaynağı doğrulanmış içeriğinde "
+          'arar.',
+      'assistantLandingCan2':
+          'Cevabı, kaynak künyesi ve kesin sayfa/bölüm bilgisiyle birlikte '
+          'gösterir.',
+      'assistantLandingCan3':
+          'İlgili Learn içeriğine bağlar; konuyu oradan okumaya devam '
+          'edebilirsin.',
+      'assistantLandingLimitTitle': 'Sınırları',
+      'assistantLandingLocalOnly':
+          'Sorular bu cihazda işlenir; harici bir yapay zekâ servisine '
+          'gönderilmez.',
+      'assistantBadgeOfficialFatwa': 'Resmî fetva gerekir',
+      'assistantNextStepGuidance':
+          'Bunun yerine konunun genel bilgisini okuyabilir veya resmî soru '
+          'sayfasına gidebilirsin.',
+      'assistantNextStepNoSource':
+          'Soruyu farklı kelimelerle yazabilir ya da aşağıdaki ilgili '
+          'başlıklara bakabilirsin.',
+      'assistantSourceLinkUnavailable':
+          'Bu kaynağın açılabilir bir adresi kayıtlı değil.',
+      'assistantRetrievalFailedTitle': 'Arama tamamlanamadı',
+      'assistantRetrievalFailedBody':
+          'Doğrulanmış içerikte arama şu an tamamlanamadı. Cevap üretilmedi; '
+          'tekrar deneyebilirsin.',
+      'assistantRetry': 'Tekrar dene',
+      'assistantClearFailed':
+          'Sohbet geçmişi silinemedi. Tekrar deneyebilirsin.',
     },
     SupportedLocale.en: {
       'appTitle': 'Bismillah',
@@ -2081,6 +2132,35 @@ final class AppLocalizations {
           'not contain a ruling for your specific situation.',
       'assistantSourceNotDirectlyAddressing':
           'This source does not directly address your specific situation.',
+      // TASK 095D
+      'assistantLandingCanTitle': 'What it can do',
+      'assistantLandingCan1':
+          "Searches your question in Bismillah's published, source-verified "
+          'content.',
+      'assistantLandingCan2':
+          'Shows the answer together with the source details and the exact '
+          'page or section.',
+      'assistantLandingCan3':
+          'Links to the related Learn content so you can keep reading there.',
+      'assistantLandingLimitTitle': 'Its limits',
+      'assistantLandingLocalOnly':
+          'Questions are handled on this device; they are not sent to an '
+          'external AI service.',
+      'assistantBadgeOfficialFatwa': 'Official fatwa required',
+      'assistantNextStepGuidance':
+          'Instead, you can read the general information on the topic or open '
+          'the official question page.',
+      'assistantNextStepNoSource':
+          'You can rephrase the question or look at the related topics below.',
+      'assistantSourceLinkUnavailable':
+          'No openable address is recorded for this source.',
+      'assistantRetrievalFailedTitle': 'The search could not be completed',
+      'assistantRetrievalFailedBody':
+          'Searching the verified content could not be completed right now. '
+          'No answer was produced; you can try again.',
+      'assistantRetry': 'Try again',
+      'assistantClearFailed':
+          'The chat history could not be deleted. You can try again.',
     },
     SupportedLocale.ar: {
       'appTitle': 'Bismillah',
@@ -2640,7 +2720,10 @@ final class AppLocalizations {
       'assistantSuggested1': 'كيف يُؤخذ الوضوء؟',
       'assistantSuggested2': 'ما هي أركان الإيمان؟',
       'assistantSuggested3': 'ما هو التيمم؟',
-      'assistantSuggested4': 'كيف أستعدّ للصلاة؟',
+      // Anlam korunur ("namaza nasıl hazırlanırım"); yalnız retrieval'ın
+      // gerçekten döndürdüğü ifadeye yaklaştırıldı — TASK 095D, önerilen
+      // soruların kaynaksız duruma düşmemesi kuralı.
+      'assistantSuggested4': 'كيف يكون الاستعداد للصلاة؟',
       'assistantSuggested5': 'ما هو القرآن؟',
       'assistantInputHint': 'اكتب سؤالاً…',
       'assistantSendLabel': 'إرسال',
@@ -2682,6 +2765,33 @@ final class AppLocalizations {
           'حكماً لحالتك الخاصة.',
       'assistantSourceNotDirectlyAddressing':
           'هذا المصدر لا يتناول حالتك الخاصة مباشرةً.',
+      // TASK 095D
+      'assistantLandingCanTitle': 'ماذا يستطيع أن يفعل؟',
+      'assistantLandingCan1':
+          'يبحث عن سؤالك في محتوى بِسم الله المنشور والمُتحقَّق من مصادره.',
+      'assistantLandingCan2':
+          'يعرض الجواب مع بيانات المصدر والصفحة أو القسم بدقّة.',
+      'assistantLandingCan3':
+          'يربطك بمحتوى التعلّم ذي الصلة لمتابعة القراءة هناك.',
+      'assistantLandingLimitTitle': 'حدوده',
+      'assistantLandingLocalOnly':
+          'تُعالَج الأسئلة على هذا الجهاز، ولا تُرسَل إلى خدمة ذكاء اصطناعي '
+          'خارجية.',
+      'assistantBadgeOfficialFatwa': 'يلزم فتوى رسمية',
+      'assistantNextStepGuidance':
+          'بدلاً من ذلك يمكنك قراءة المعلومة العامة عن الموضوع أو فتح صفحة '
+          'السؤال الرسمية.',
+      'assistantNextStepNoSource':
+          'يمكنك إعادة صياغة السؤال أو الاطّلاع على المواضيع ذات الصلة أدناه.',
+      'assistantSourceLinkUnavailable':
+          'لا يوجد عنوان قابل للفتح مسجَّل لهذا المصدر.',
+      'assistantRetrievalFailedTitle': 'تعذّر إكمال البحث',
+      'assistantRetrievalFailedBody':
+          'تعذّر إكمال البحث في المحتوى المُتحقَّق منه الآن. لم يُنشأ أي '
+          'جواب، ويمكنك المحاولة مرة أخرى.',
+      'assistantRetry': 'حاول مرة أخرى',
+      'assistantClearFailed':
+          'تعذّر حذف سجلّ المحادثة. يمكنك المحاولة مرة أخرى.',
     },
   };
 }

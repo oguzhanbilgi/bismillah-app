@@ -1,6 +1,7 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
+import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
@@ -48,7 +49,13 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
     if (text.isEmpty) {
       return;
     }
-    // Gönderildiği an input temizlenir; kilit controller state'inden gelir.
+    // Çift gönderim koruması iki katmanlıdır: buton zaten pasiftir, ama
+    // hızlı ikinci bir dokunuş veya klavye aksiyonu buraya ulaşabilir.
+    // Cevap sürerken metin TEMİZLENMEZ — kullanıcının yazdığı kaybolmaz.
+    final current = ref.read(assistantConversationProvider).asData?.value;
+    if (current == null || current.isResponding) {
+      return;
+    }
     _input.clear();
     await ref.read(assistantConversationProvider.notifier).send(text);
   }
@@ -124,12 +131,18 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
         .clear();
     _didInitialScroll = false;
     // Silme BAŞARISIZ olursa "temizlendi" mesajı GÖSTERİLMEZ (TASK 094 §E) —
-    // kullanıcıya yanlış bir güvence verilmemiş olur.
-    if (cleared) {
-      messenger
-        ..clearSnackBars()
-        ..showSnackBar(SnackBar(content: Text(l10n.assistantCleared)));
-    }
+    // kullanıcıya yanlış bir güvence verilmez. TASK 095D: sessiz kalmak
+    // yerine AYRI ve dürüst bir başarısızlık mesajı gösterilir; başarı
+    // mesajı yalnız gerçek silmeden sonra çıkar.
+    messenger
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            cleared ? l10n.assistantCleared : l10n.assistantClearFailed,
+          ),
+        ),
+      );
   }
 
   @override
@@ -163,13 +176,17 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
           Expanded(
             child: async.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, _) => _EmptyState(onPick: _pick),
+              error: (_, _) => _LandingState(onPick: _pick),
               data: (state) => state.isEmpty && !state.isResponding
-                  ? _EmptyState(onPick: _pick)
+                  ? _LandingState(onPick: _pick)
                   : _MessageList(
                       scroll: _scroll,
                       messages: state.messages,
                       isResponding: state.isResponding,
+                      hasRetrievalFailure: state.hasRetrievalFailure,
+                      onRetry: () => ref
+                          .read(assistantConversationProvider.notifier)
+                          .retryLastFailed(),
                     ),
             ),
           ),
@@ -184,17 +201,26 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
   }
 
   void _pick(String question) {
+    // Cevap sürerken öneri kartı zaten görünmez; yine de kilit burada da
+    // kontrol edilir — iki soru aynı anda gönderilemez.
+    final current = ref.read(assistantConversationProvider).asData?.value;
+    if (current == null || current.isResponding) {
+      return;
+    }
     _input.text = question;
     _send();
   }
 }
 
 // ---------------------------------------------------------------------------
-// Boş durum — kompakt başlık + sakin uyarı + önerilen sorular
+// İniş (landing) durumu — ne yapabilir / sınırları / örnek sorular
 // ---------------------------------------------------------------------------
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.onPick});
+/// Ekranın ilk hâli (TASK 095D). Sahte bir konuşma, referans/teşekkür
+/// metni veya "yapay zekâ" iddiası YOKTUR: yalnız kapsam, sınır ve
+/// gerçekten cevaplanabilen örnek sorular.
+class _LandingState extends StatelessWidget {
+  const _LandingState({required this.onPick});
 
   final void Function(String question) onPick;
 
@@ -229,8 +255,19 @@ class _EmptyState extends StatelessWidget {
                 token: AppTextStyleToken.bodySmall,
                 secondary: true,
               ),
+              const SizedBox(height: AppSpacing.s4),
+              _BlockLabel(l10n.assistantLandingCanTitle),
+              const SizedBox(height: AppSpacing.s2),
+              _BulletLine(text: l10n.assistantLandingCan1),
+              _BulletLine(text: l10n.assistantLandingCan2),
+              _BulletLine(text: l10n.assistantLandingCan3),
               const SizedBox(height: AppSpacing.s3),
+              _BlockLabel(l10n.assistantLandingLimitTitle),
+              const SizedBox(height: AppSpacing.s2),
+              // Fetva uyarısı sınırların İLKİ ve en görünür olanıdır.
               _SafetyNotice(text: l10n.assistantNotMuftiNotice),
+              const SizedBox(height: AppSpacing.s2),
+              _SafetyNotice(text: l10n.assistantLandingLocalOnly),
             ],
           ),
         ),
@@ -323,14 +360,25 @@ class _MessageList extends StatelessWidget {
     required this.scroll,
     required this.messages,
     required this.isResponding,
+    required this.hasRetrievalFailure,
+    required this.onRetry,
   });
 
   final ScrollController scroll;
   final List<AssistantMessage> messages;
   final bool isResponding;
+  final bool hasRetrievalFailure;
+  final Future<void> Function() onRetry;
+
+  static bool _sameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 
   @override
   Widget build(BuildContext context) {
+    // Son satır ya "aranıyor" ya da geçici arama hatasıdır — ikisi aynı
+    // anda olamaz.
+    final trailing = isResponding || hasRetrievalFailure ? 1 : 0;
+
     return ListView.builder(
       controller: scroll,
       // Tek ana scroll; iç scroll YOK. Klavye açılınca Scaffold body'yi
@@ -340,54 +388,150 @@ class _MessageList extends StatelessWidget {
         horizontal: AppSpacing.screenHorizontal,
         vertical: AppSpacing.s4,
       ),
-      itemCount: messages.length + (isResponding ? 1 : 0),
+      itemCount: messages.length + trailing,
       itemBuilder: (context, index) {
         if (index >= messages.length) {
-          return const _ThinkingRow();
+          return isResponding
+              ? const _ThinkingRow()
+              : _RetrievalFailureCard(onRetry: onRetry);
         }
         final message = messages[index];
-        return Padding(
-          padding: const EdgeInsets.only(bottom: AppSpacing.s5),
-          child: message.isUser
-              ? _UserMessage(text: message.text)
-              : _AssistantAnswer(message: message),
+        // Gün ayracı: geçmiş yeniden yüklendiğinde hangi günün konuşması
+        // olduğu okunur kalsın diye (var olan `createdAt` kullanılır).
+        final showDay =
+            index == 0 ||
+            !_sameDay(messages[index - 1].createdAt, message.createdAt);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (showDay) _DaySeparator(date: message.createdAt),
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.s5),
+              child: message.isUser
+                  ? _UserMessage(
+                      text: message.text,
+                      createdAt: message.createdAt,
+                    )
+                  : _AssistantAnswer(message: message),
+            ),
+          ],
         );
       },
     );
   }
 }
 
+/// Konuşmanın hangi güne ait olduğunu gösteren sakin ayraç. Tarih biçimi
+/// platformun kendi yerelleştirmesinden gelir (yeni bağımlılık yok).
+class _DaySeparator extends StatelessWidget {
+  const _DaySeparator({required this.date});
+
+  final DateTime date;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = MaterialLocalizations.of(context).formatMediumDate(date);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+      child: Center(
+        child: AppText(
+          label,
+          token: AppTextStyleToken.caption,
+          secondary: true,
+        ),
+      ),
+    );
+  }
+}
+
 class _UserMessage extends StatelessWidget {
-  const _UserMessage({required this.text});
+  const _UserMessage({required this.text, required this.createdAt});
 
   final String text;
+  final DateTime createdAt;
 
   @override
   Widget build(BuildContext context) {
     final tokens = IslamicVisualTokens.of(context);
+    final time = MaterialLocalizations.of(
+      context,
+    ).formatTimeOfDay(TimeOfDay.fromDateTime(createdAt));
     return Semantics(
-      label: '${AppLocalizations.of(context).assistantYouLabel}: $text',
+      label: '${AppLocalizations.of(context).assistantYouLabel}, $time: $text',
       child: ExcludeSemantics(
-        child: Align(
-          alignment: AlignmentDirectional.centerEnd,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width * 0.8,
-            ),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: tokens.sandSurface,
-                borderRadius: AppRadius.mdAll,
-                border: Border.all(color: tokens.surfaceBorder),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.s4,
-                  vertical: AppSpacing.s3,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.sizeOf(context).width * 0.8,
                 ),
-                child: AppText(text, token: AppTextStyleToken.bodySmall),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: tokens.sandSurface,
+                    borderRadius: AppRadius.mdAll,
+                    border: Border.all(color: tokens.surfaceBorder),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.s4,
+                      vertical: AppSpacing.s3,
+                    ),
+                    child: AppText(text, token: AppTextStyleToken.bodySmall),
+                  ),
+                ),
               ),
             ),
+            const SizedBox(height: AppSpacing.s1),
+            AppText(time, token: AppTextStyleToken.caption, secondary: true),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Geçici arama hatası (TASK 095D). Bir CEVAP DEĞİLDİR: dinî bir sonuç,
+/// kaynak veya "kaynak bulunamadı" iddiası içermez; yalnız işlemin
+/// tamamlanamadığını söyler ve tekrar denemeyi sunar.
+class _RetrievalFailureCard extends StatelessWidget {
+  const _RetrievalFailureCard({required this.onRetry});
+
+  final Future<void> Function() onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.s5),
+      child: Semantics(
+        liveRegion: true,
+        container: true,
+        child: AppCard(
+          variant: AppCardVariant.outlined,
+          padding: const EdgeInsets.all(AppSpacing.s4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                l10n.assistantRetrievalFailedTitle,
+                token: AppTextStyleToken.bodySmall,
+              ),
+              const SizedBox(height: AppSpacing.s2),
+              AppText(
+                l10n.assistantRetrievalFailedBody,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+              const SizedBox(height: AppSpacing.s3),
+              AppButton(
+                label: l10n.assistantRetry,
+                variant: AppButtonVariant.secondary,
+                onPressed: onRetry,
+              ),
+            ],
           ),
         ),
       ),
@@ -422,10 +566,18 @@ class _ThinkingRow extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: AppSizes.iconSm,
                     height: AppSizes.iconSm,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    // Reduced-motion açıkken dönen gösterge yerine sabit bir
+                    // işaret durur; durum yine anında ve açıkça bildirilir.
+                    child: AppMotion.isReduced(context)
+                        ? Icon(
+                            Icons.hourglass_empty_rounded,
+                            size: AppSizes.iconSm,
+                            color: tokens.spiritualGreenStrong,
+                          )
+                        : const CircularProgressIndicator(strokeWidth: 2),
                   ),
                   const SizedBox(width: AppSpacing.s3),
                   Flexible(
@@ -461,6 +613,17 @@ class _AssistantAnswer extends ConsumerWidget {
       message.answerType == AssistantAnswerType.officialFatwaRequired ||
       message.answerType == AssistantAnswerType.qualifiedGuidanceRequired ||
       message.answerType == AssistantAnswerType.noVerifiedSource;
+
+  /// Güvenli sonraki adım metni. Sınıflandırma BURADA YAPILMAZ — yalnız
+  /// composer'ın verdiği kanonik [AssistantAnswerType] okunur; hassasiyet
+  /// yüklemi presentation katmanında KOPYALANMAZ (TASK 094 §A).
+  String? _nextStep(AppLocalizations l10n) => switch (message.answerType) {
+    AssistantAnswerType.officialFatwaRequired ||
+    AssistantAnswerType.qualifiedGuidanceRequired =>
+      l10n.assistantNextStepGuidance,
+    AssistantAnswerType.noVerifiedSource => l10n.assistantNextStepNoSource,
+    _ => null,
+  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -524,6 +687,17 @@ class _AssistantAnswer extends ConsumerWidget {
                 if (message.safetyNotice case final String notice) ...[
                   const SizedBox(height: AppSpacing.s4),
                   _SafetyNotice(text: notice),
+                ],
+                // Güvenli sonraki adım: reddedilen/kaynaksız durumlarda
+                // kullanıcı boşlukta bırakılmaz. Bu satır bir hüküm ya da
+                // ilmî onay iddiası TAŞIMAZ, yalnız yapılabilecekleri söyler.
+                if (_nextStep(l10n) case final String next) ...[
+                  const SizedBox(height: AppSpacing.s3),
+                  AppText(
+                    next,
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
+                  ),
                 ],
                 // Din İşleri Yüksek Kurulu yönlendirmesi — açık aksiyon.
                 if (guidanceUrl != null) ...[
@@ -595,6 +769,12 @@ class _SourceCard extends ConsumerWidget {
       ? l10n.sourcesLangArabic
       : l10n.sourcesLangTurkish;
 
+  /// Yalnız `https` adresler açılabilir sayılır (mevcut resmî kaynak
+  /// politikası); boş veya bozuk künyede buton hiç çizilmez.
+  bool get _canOpenUrl => source.canonicalUrl.startsWith('https://');
+
+  bool get _canOpenArticle => source.articleSlug.trim().isNotEmpty;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -606,83 +786,112 @@ class _SourceCard extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.s2),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: tokens.sacredSurfaceMuted,
-          borderRadius: AppRadius.mdAll,
-          border: Border.all(color: tokens.surfaceBorder),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.s3),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Diyanet resmî kaynak etiketi + kurum.
-              Row(
-                children: [
-                  Icon(
-                    Icons.verified_outlined,
-                    size: AppSizes.iconSm,
-                    color: tokens.spiritualGreenStrong,
-                  ),
-                  const SizedBox(width: AppSpacing.s2),
-                  Flexible(
-                    child: AppText(
-                      '${l10n.assistantOfficialSourceTag} · ${source.institution}',
-                      token: AppTextStyleToken.caption,
-                      secondary: true,
+      child: Semantics(
+        container: true,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: tokens.sacredSurfaceMuted,
+            borderRadius: AppRadius.mdAll,
+            border: Border.all(color: tokens.surfaceBorder),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.s3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Diyanet resmî kaynak etiketi + kurum.
+                Row(
+                  children: [
+                    Icon(
+                      Icons.verified_outlined,
+                      size: AppSizes.iconSm,
+                      color: tokens.spiritualGreenStrong,
                     ),
+                    const SizedBox(width: AppSpacing.s2),
+                    Flexible(
+                      child: AppText(
+                        '${l10n.assistantOfficialSourceTag} · ${source.institution}',
+                        token: AppTextStyleToken.caption,
+                        secondary: true,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.s2),
+                // Eser adı ve kesin konum künyedir: kendi özgün dilinin
+                // yönünde yazılır. Arapça arayüzde latin bir künye ters
+                // dönmez, Türkçe arayüzde arapça künye düz yazılmaz.
+                Directionality(
+                  textDirection: source.originalLanguage == 'ar'
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(source.title, token: AppTextStyleToken.bodySmall),
+                      if (source.sourceLocator.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.s1),
+                        AppText(
+                          source.sourceLocator,
+                          token: AppTextStyleToken.caption,
+                          secondary: true,
+                        ),
+                      ],
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.s2),
-              AppText(source.title, token: AppTextStyleToken.bodySmall),
-              if (source.sourceLocator.isNotEmpty) ...[
+                ),
                 const SizedBox(height: AppSpacing.s1),
+                // Meta tek satırda birleşir: son doğrulama · özgün dil.
                 AppText(
-                  source.sourceLocator,
+                  '${l10n.learnLastVerified}: ${source.lastVerifiedAt}'
+                  '  ·  ${l10n.sourcesOriginalLanguageLabel}: '
+                  '${_languageLabel(l10n)}',
                   token: AppTextStyleToken.caption,
                   secondary: true,
                 ),
-              ],
-              const SizedBox(height: AppSpacing.s1),
-              // Meta tek satırda birleşir: son doğrulama · özgün dil.
-              AppText(
-                '${l10n.learnLastVerified}: ${source.lastVerifiedAt}'
-                '  ·  ${l10n.sourcesOriginalLanguageLabel}: '
-                '${_languageLabel(l10n)}',
-                token: AppTextStyleToken.caption,
-                secondary: true,
-              ),
-              if (isExplanatoryTranslation) ...[
-                const SizedBox(height: AppSpacing.s1),
-                AppText(
-                  l10n.learnTranslationDisclaimer,
-                  token: AppTextStyleToken.caption,
-                  secondary: true,
-                ),
-              ],
-              const SizedBox(height: AppSpacing.s3),
-              Wrap(
-                spacing: AppSpacing.s2,
-                runSpacing: AppSpacing.s2,
-                children: [
-                  AppButton(
-                    label: l10n.learnOpenOfficialPage,
-                    variant: AppButtonVariant.secondary,
-                    onPressed: () =>
-                        _openOfficial(context, ref, source.canonicalUrl),
-                  ),
-                  AppButton(
-                    label: l10n.assistantReadInLearn,
-                    variant: AppButtonVariant.ghost,
-                    onPressed: () => context.go(
-                      AppRoutes.learnArticlePath(source.articleSlug),
-                    ),
+                if (isExplanatoryTranslation) ...[
+                  const SizedBox(height: AppSpacing.s1),
+                  AppText(
+                    l10n.learnTranslationDisclaimer,
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
                   ),
                 ],
-              ),
-            ],
+                const SizedBox(height: AppSpacing.s3),
+                // Aksiyon YALNIZ gerçekten çalışan bir hedefi varsa gösterilir.
+                // Bozuk/eksik künye (ör. eski kayıttan çözülen boş adres)
+                // tıklanabilir görünüp hiçbir şey yapmaz duruma DÜŞMEZ;
+                // eksiklik gizlenmez, açıkça yazılır.
+                if (!_canOpenUrl && !_canOpenArticle)
+                  AppText(
+                    l10n.assistantSourceLinkUnavailable,
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
+                  )
+                else
+                  Wrap(
+                    spacing: AppSpacing.s2,
+                    runSpacing: AppSpacing.s2,
+                    children: [
+                      if (_canOpenUrl)
+                        AppButton(
+                          label: l10n.learnOpenOfficialPage,
+                          variant: AppButtonVariant.secondary,
+                          onPressed: () =>
+                              _openOfficial(context, ref, source.canonicalUrl),
+                        ),
+                      if (_canOpenArticle)
+                        AppButton(
+                          label: l10n.assistantReadInLearn,
+                          variant: AppButtonVariant.ghost,
+                          onPressed: () => context.go(
+                            AppRoutes.learnArticlePath(source.articleSlug),
+                          ),
+                        ),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -745,11 +954,16 @@ class _AnswerBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final tokens = IslamicVisualTokens.of(context);
+    // Kişisel duruma yönlendirme ile resmî fetva gerekliliği AYRI
+    // rozetlerdir: ikisi aynı etiketi taşıyınca kullanıcı hangi sınırın
+    // devrede olduğunu göremiyordu (TASK 095D).
     final label = switch (answerType) {
       AssistantAnswerType.directVerifiedAnswer => l10n.assistantBadgeVerified,
       AssistantAnswerType.noVerifiedSource => l10n.assistantBadgeNoSource,
-      AssistantAnswerType.qualifiedGuidanceRequired ||
-      AssistantAnswerType.officialFatwaRequired => l10n.assistantBadgeGuidance,
+      AssistantAnswerType.officialFatwaRequired =>
+        l10n.assistantBadgeOfficialFatwa,
+      AssistantAnswerType.qualifiedGuidanceRequired =>
+        l10n.assistantBadgeGuidance,
       _ => l10n.assistantBadgeGeneral,
     };
     return DecoratedBox(
