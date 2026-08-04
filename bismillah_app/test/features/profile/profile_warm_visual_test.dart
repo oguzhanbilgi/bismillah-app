@@ -2,7 +2,7 @@ import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/theme/app_theme.dart';
-import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/profile_screen.dart';
 import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
 import 'package:bismillah_app/shared/widgets/settings_section.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ void main() {
       routes: [
         GoRoute(
           path: AppRoutes.profile,
-          builder: (context, state) => const ProfilePlaceholderScreen(),
+          builder: (context, state) => const ProfileScreen(),
         ),
         GoRoute(
           path: AppRoutes.languageSettings,

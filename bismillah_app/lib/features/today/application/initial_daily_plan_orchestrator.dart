@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:bismillah_app/core/errors/app_failure.dart';
 import 'package:bismillah_app/core/utils/clock.dart';
@@ -94,6 +94,54 @@ final class InitialDailyPlanPersistenceFailed extends InitialDailyPlanOutcome {
   final AppFailure failure;
 }
 
+/// Tercih değişikliğinden sonra planın yeniden üretilme sonucu (TASK 095C).
+///
+/// [InitialDailyPlanOutcome]'dan ayrı bir tiptir: "zaten var" burada bir
+/// sonuç DEĞİLDİR — kullanıcı açıkça yenilemeyi onaylamıştır.
+sealed class PlanRegenerationOutcome {
+  const PlanRegenerationOutcome();
+}
+
+/// Bugünden başlayan aralık yeniden üretildi ve tek yazmayla kaydedildi.
+final class PlanRegenerated extends PlanRegenerationOutcome {
+  const PlanRegenerated({
+    required this.startDay,
+    required this.dayCount,
+    required this.preservedCompletedItems,
+    required this.droppedCompletedItems,
+  });
+
+  final DayKey startDay;
+  final int dayCount;
+
+  /// Yeni planda da var olduğu için tamamlanma durumu KORUNAN öğe sayısı.
+  final int preservedCompletedItems;
+
+  /// Yeni tercihlerle artık üretilmediği için tamamlanma kaydı taşınamayan
+  /// öğe sayısı. Kullanıcıya onay öncesinde bu ihtimal açıkça söylenir.
+  final int droppedCompletedItems;
+}
+
+/// Kayıtlı tercih yok veya profil belirlemeye yetmiyor.
+final class PlanRegenerationOnboardingIncomplete
+    extends PlanRegenerationOutcome {
+  const PlanRegenerationOnboardingIncomplete();
+}
+
+/// Üretim tipli bir hatayla döndü; **depo değişmedi**.
+final class PlanRegenerationGenerationFailed extends PlanRegenerationOutcome {
+  const PlanRegenerationGenerationFailed(this.failure);
+
+  final AppFailure failure;
+}
+
+/// Okuma veya atomik yazma başarısız oldu; **depo değişmedi**.
+final class PlanRegenerationPersistenceFailed extends PlanRegenerationOutcome {
+  const PlanRegenerationPersistenceFailed(this.failure);
+
+  final AppFailure failure;
+}
+
 /// İlk 30 günlük planın uçtan uca oluşturulması (TASK 083A).
 ///
 /// Zinciri tek yerde toplar:
@@ -135,6 +183,11 @@ final class InitialDailyPlanOrchestrator {
   /// Devam eden tek oluşturma işlemi (eşzamanlı çağrı koruması).
   Future<InitialDailyPlanOutcome>? _inFlight;
 
+  /// Devam eden tek yenileme işlemi (TASK 095C). İlk oluşturmadan AYRI
+  /// tutulur, çünkü sonuç tipleri farklıdır; hızlı art arda dokunuşlar
+  /// yine tek yazma üretir.
+  Future<PlanRegenerationOutcome>? _regenerationInFlight;
+
   /// Üretilecek gün sayısı — kanonik 30 günlük çatı.
   static int get planLengthDays => DailyPlanGenerationRequest.planLengthDays;
 
@@ -153,6 +206,140 @@ final class InitialDailyPlanOrchestrator {
     _inFlight = started;
     return started;
   }
+
+  /// Kayıtlı tercihlere göre **bugünden başlayan** aralığı yeniden üretir
+  /// (TASK 095C).
+  ///
+  /// Bu, [ensureInitialPlan]'in aksine mevcut aralığın ÜZERİNE yazar —
+  /// ama yalnız kullanıcı açıkça onayladığında çağrılmalıdır. Üretici,
+  /// istek doğrulaması ve öğe kaynağı ilk oluşturmayla BİREBİR AYNIDIR;
+  /// ikinci bir üretici veya ikinci bir kural seti YOKTUR.
+  ///
+  /// ## Neyi korur
+  ///
+  /// * **Geçmiş günlere DOKUNMAZ.** Yalnız bugün ve sonrası yazılır;
+  ///   `savePlans` toplu yazmada olmayan günleri koruduğu için geçmiş
+  ///   kayıtlar olduğu gibi kalır.
+  /// * Bugün ve sonrası için, **aynı kararlı öğe kimliğine sahip**
+  ///   öğelerin tamamlanma durumu ve zaman damgası taşınır. Yeni
+  ///   tercihlerle artık üretilmeyen bir öğe yeni planda yoktur;
+  ///   tamamlanma kaydı da onunla birlikte gider ve bu sayı sonuçta
+  ///   [PlanRegenerated.droppedCompletedItems] olarak bildirilir.
+  ///
+  /// Hata durumunda **depo değişmez**: yazma yalnız üretim tamamen
+  /// başarılı olduğunda yapılır.
+  Future<PlanRegenerationOutcome> regenerateFromToday() {
+    final running = _regenerationInFlight;
+    if (running != null) {
+      return running; // hızlı çift dokunuş — ikinci işlem AÇILMAZ
+    }
+    final started = _runRegeneration().whenComplete(
+      () => _regenerationInFlight = null,
+    );
+    _regenerationInFlight = started;
+    return started;
+  }
+
+  Future<PlanRegenerationOutcome> _runRegeneration() async {
+    final loaded = await preferencesRepository.load();
+    final loadFailure = loaded.failureOrNull;
+    if (loadFailure != null) {
+      return PlanRegenerationPersistenceFailed(loadFailure);
+    }
+    final preferences = loaded.valueOrNull;
+    if (preferences == null) {
+      return const PlanRegenerationOnboardingIncomplete();
+    }
+    final mapping = OnboardingProfileMapper.map(preferences);
+    if (mapping is! ProfileMapped) {
+      return const PlanRegenerationOnboardingIncomplete();
+    }
+
+    final startDay = DayKey.fromLocal(clock.nowLocal());
+    final lastDay = DailyPlanGenerator.dayAt(startDay, planLengthDays - 1);
+
+    // Mevcut aralık ÖNCE okunur: tamamlanma taşınacaksa kaynağı budur.
+    // Okunamıyorsa üzerine yazılmaz — bozuk depo körlemesine ezilmez.
+    final existing = await planRepository.getRange(startDay, lastDay);
+    final existingFailure = existing.failureOrNull;
+    if (existingFailure != null) {
+      return PlanRegenerationPersistenceFailed(existingFailure);
+    }
+    final completedBefore = _completedItemIndex(existing.valueOrNull!);
+
+    final generated = await DailyPlanGenerator.generate(
+      DailyPlanGenerationRequest(
+        profileType: mapping.profile,
+        goals: preferences.goals,
+        dailyPace: preferences.dailyPace,
+        startDay: startDay,
+      ),
+      source: itemSource,
+    );
+    final generationFailure = generated.failureOrNull;
+    if (generationFailure != null) {
+      return PlanRegenerationGenerationFailed(generationFailure);
+    }
+    final plans = generated.valueOrNull!;
+    if (plans.length != planLengthDays) {
+      return const PlanRegenerationGenerationFailed(UnexpectedFailure());
+    }
+
+    var preserved = 0;
+    final merged = <DailyPlan>[];
+    for (final plan in plans) {
+      final items = <PlanItem>[];
+      for (final item in plan.items) {
+        final previous = completedBefore['${plan.dayKey.value}|${item.itemId}'];
+        if (previous == null) {
+          items.add(item);
+          continue;
+        }
+        preserved++;
+        items.add(
+          PlanItem(
+            itemId: item.itemId,
+            type: item.type,
+            targetRef: item.targetRef,
+            sizeParam: item.sizeParam,
+            status: previous.status,
+            completedAt: previous.completedAt,
+          ),
+        );
+      }
+      merged.add(
+        DailyPlan(
+          dayKey: plan.dayKey,
+          items: items,
+          profileType: plan.profileType,
+          sizeMinutes: plan.sizeMinutes,
+          weekIndex: plan.weekIndex,
+          generatedBy: plan.generatedBy,
+        ),
+      );
+    }
+
+    // TEK mantıksal yazma; toplu yazmada olmayan geçmiş günler korunur.
+    final saved = await planRepository.savePlans(merged);
+    final saveFailure = saved.failureOrNull;
+    if (saveFailure != null) {
+      return PlanRegenerationPersistenceFailed(saveFailure);
+    }
+    return PlanRegenerated(
+      startDay: startDay,
+      dayCount: merged.length,
+      preservedCompletedItems: preserved,
+      droppedCompletedItems: completedBefore.length - preserved,
+    );
+  }
+
+  /// `dayKey|itemId` → tamamlanmış öğe. Yalnız TAMAMLANMIŞ öğeler taşınır;
+  /// tamamlanmamış durum zaten yeni planın varsayılanıdır.
+  static Map<String, PlanItem> _completedItemIndex(List<DailyPlan> plans) => {
+    for (final plan in plans)
+      for (final item in plan.items)
+        if (item.isCompleted) '${plan.dayKey.value}|${item.itemId}': item,
+  };
 
   Future<InitialDailyPlanOutcome> _run(OnboardingPreferences? provided) async {
     final OnboardingPreferences? preferences;

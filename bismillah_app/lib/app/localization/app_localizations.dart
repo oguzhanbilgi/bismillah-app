@@ -345,6 +345,62 @@ final class AppLocalizations {
   String get profileFocusAreas => _t('profileFocusAreas');
   String get profileJourneyStage => _t('profileJourneyStage');
   String get profileDailyPace => _t('profileDailyPace');
+
+  // Profil ana ekranı — plan özeti ve yenileme (TASK 095C).
+  // Ton: sakin ve dürüst. Seri/puan/seviye/rozet dili, yarışma ve
+  // abartılı kutlama YASAKTIR; gösterilen her sayı kayıtlı gerçek
+  // veriden gelir.
+  String get profilePlanSection => _t('profilePlanSection');
+  String get profilePlanTypeLabel => _t('profilePlanTypeLabel');
+  String get profilePlanNone => _t('profilePlanNone');
+  String get profilePlanSummaryUnavailable =>
+      _t('profilePlanSummaryUnavailable');
+  String get profilePlanRecentTitle => _t('profilePlanRecentTitle');
+  String get profilePlanLoadIssue => _t('profilePlanLoadIssue');
+  String get profilePlanEditPreferences => _t('profilePlanEditPreferences');
+  String get profilePlanRegenerateAction => _t('profilePlanRegenerateAction');
+  String get profilePlanRegenerateTitle => _t('profilePlanRegenerateTitle');
+  String get profilePlanRegenerateBody => _t('profilePlanRegenerateBody');
+  String get profilePlanRegenerateConfirm => _t('profilePlanRegenerateConfirm');
+  String get profilePlanRegenerateSuccess => _t('profilePlanRegenerateSuccess');
+  String get profilePlanRegenerateFailed => _t('profilePlanRegenerateFailed');
+  String get profilePlanRegenerateIncomplete =>
+      _t('profilePlanRegenerateIncomplete');
+  String get profileLocalDataTitle => _t('profileLocalDataTitle');
+  String get profileLocalDataBody => _t('profileLocalDataBody');
+
+  /// "Gün 4 / 30" biçimli plan konumu.
+  String profilePlanDayOf(int current, int total) => _t(
+    'profilePlanDayOf',
+  ).replaceAll('{current}', '$current').replaceAll('{total}', '$total');
+
+  /// "12 / 90 görev tamamlandı" biçimli sayaç.
+  String profilePlanTasksDone(int done, int total) => _t(
+    'profilePlanTasksDone',
+  ).replaceAll('{done}', '$done').replaceAll('{total}', '$total');
+
+  /// "3 gün tamamlandı" biçimli sayaç (seri DEĞİLDİR).
+  String profilePlanDaysCompleted(int count) =>
+      _t('profilePlanDaysCompleted').replaceAll('{count}', '$count');
+
+  /// "Son 7 gün" penceresi başlığı.
+  String profilePlanRecentWindow(int days) =>
+      _t('profilePlanRecentWindow').replaceAll('{days}', '$days');
+
+  /// Tamamlanma kaydı taşınamayan öğe sayısı için dürüst not.
+  String profilePlanRegenerateDropped(int count) =>
+      _t('profilePlanRegenerateDropped').replaceAll('{count}', '$count');
+
+  /// Plan profili etiketleri — nötr tanımlardır; seviye/rütbe DEĞİL.
+  String get profilePlanTypeBeginner => _t('profilePlanTypeBeginner');
+  String get profilePlanTypeReturning => _t('profilePlanTypeReturning');
+  String get profilePlanTypePrayerFocused => _t('profilePlanTypePrayerFocused');
+  String get profilePlanTypeQuranFocused => _t('profilePlanTypeQuranFocused');
+  String get profilePlanTypeDhikrFocused => _t('profilePlanTypeDhikrFocused');
+  String get profilePlanTypeLearningFocused =>
+      _t('profilePlanTypeLearningFocused');
+  String get profilePlanTypeAdvanced => _t('profilePlanTypeAdvanced');
+  String get profilePlanTypeLowTime => _t('profilePlanTypeLowTime');
   String get profilePersonalizationEmpty => _t('profilePersonalizationEmpty');
   String get profilePersonalizationLoadIssue =>
       _t('profilePersonalizationLoadIssue');
@@ -997,6 +1053,50 @@ final class AppLocalizations {
       'profileFocusAreas': 'Odak alanların',
       'profileJourneyStage': 'Yolculuk aşaman',
       'profileDailyPace': 'Günlük tempon',
+      'profilePlanSection': '30 günlük planın',
+      'profilePlanTypeLabel': 'Plan profilin',
+      'profilePlanNone':
+          'Şu an aktif bir plan görünmüyor. Bugün için bir plan '
+          'oluşturulduğunda özet burada görünür.',
+      'profilePlanSummaryUnavailable': 'Plan özeti şu an hesaplanamadı.',
+      'profilePlanDayOf': 'Gün {current} / {total}',
+      'profilePlanTasksDone': '{done} / {total} görev tamamlandı',
+      'profilePlanDaysCompleted': '{count} gün tamamen tamamlandı',
+      'profilePlanRecentTitle': 'Son ilerleme',
+      'profilePlanRecentWindow': 'Son {days} gün',
+      'profilePlanLoadIssue': 'Profil bilgilerin şu an açılamadı.',
+      'profilePlanEditPreferences': 'Tercihleri düzenle',
+      'profilePlanRegenerateAction': 'Planı tercihlerine göre yenile',
+      'profilePlanRegenerateTitle': 'Plan yenilensin mi?',
+      'profilePlanRegenerateBody':
+          'Bugünden itibaren 30 günlük plan, kayıtlı tercihlerine göre '
+          'yeniden oluşturulur. Geçmiş günlere dokunulmaz. Yeni planda '
+          'da yer alan görevlerin tamamlanma işaretleri korunur; '
+          'tercihlerin nedeniyle artık plana girmeyen görevlerin '
+          'işaretleri onlarla birlikte kalkar.',
+      'profilePlanRegenerateConfirm': 'Planı yenile',
+      'profilePlanRegenerateSuccess': 'Plan tercihlerine göre yenilendi.',
+      'profilePlanRegenerateDropped':
+          '{count} tamamlanmış görev yeni planda yer almadığı için işareti '
+          'taşınmadı.',
+      'profilePlanRegenerateFailed':
+          'Plan yenilenemedi — planın olduğu gibi kaldı.',
+      'profilePlanRegenerateIncomplete':
+          'Önce tercihlerini tamamlaman gerekiyor.',
+      'profileLocalDataTitle': 'Verilerin bu cihazda',
+      'profileLocalDataBody':
+          'Tercihlerin, planın ve ilerlemen yalnız bu cihazda saklanır. '
+          'Bulut yedekleme ve hesap eşitlemesi şu an etkin değildir; '
+          'uygulamayı kaldırmak veya uygulama verilerini temizlemek '
+          'yerel ilerlemeni siler.',
+      'profilePlanTypeBeginner': 'Başlangıç',
+      'profilePlanTypeReturning': 'Yeniden başlama',
+      'profilePlanTypePrayerFocused': 'Namaz odaklı',
+      'profilePlanTypeQuranFocused': "Kur'an odaklı",
+      'profilePlanTypeDhikrFocused': 'Zikir odaklı',
+      'profilePlanTypeLearningFocused': 'Öğrenme odaklı',
+      'profilePlanTypeAdvanced': 'Güçlendirme',
+      'profilePlanTypeLowTime': 'Kısa zamanlı',
       'profilePersonalizationEmpty':
           'Kişiselleştirme tercihlerin henüz tamamlanmamış.',
       'profilePersonalizationLoadIssue': 'Tercihlerin şu an açılamadı.',
@@ -1594,6 +1694,52 @@ final class AppLocalizations {
       'profileFocusAreas': 'Your focus areas',
       'profileJourneyStage': 'Your journey stage',
       'profileDailyPace': 'Your daily pace',
+      'profilePlanSection': 'Your 30-day plan',
+      'profilePlanTypeLabel': 'Your plan profile',
+      'profilePlanNone':
+          'There is no active plan right now. Once a plan exists for today, '
+          'the summary appears here.',
+      'profilePlanSummaryUnavailable':
+          'The plan summary could not be calculated right now.',
+      'profilePlanDayOf': 'Day {current} of {total}',
+      'profilePlanTasksDone': '{done} of {total} tasks completed',
+      'profilePlanDaysCompleted': '{count} days fully completed',
+      'profilePlanRecentTitle': 'Recent progress',
+      'profilePlanRecentWindow': 'Last {days} days',
+      'profilePlanLoadIssue': 'Your profile could not be opened right now.',
+      'profilePlanEditPreferences': 'Edit preferences',
+      'profilePlanRegenerateAction': 'Rebuild the plan from your preferences',
+      'profilePlanRegenerateTitle': 'Rebuild the plan?',
+      'profilePlanRegenerateBody':
+          'The 30-day plan starting today will be rebuilt from your saved '
+          'preferences. Past days are left untouched. Completion marks '
+          'are kept for tasks that are still in the new plan; tasks your '
+          'preferences no longer include are removed together with their '
+          'marks.',
+      'profilePlanRegenerateConfirm': 'Rebuild plan',
+      'profilePlanRegenerateSuccess':
+          'The plan was rebuilt from your preferences.',
+      'profilePlanRegenerateDropped':
+          '{count} completed tasks are not in the new plan, so their marks '
+          'were not carried over.',
+      'profilePlanRegenerateFailed':
+          'The plan could not be rebuilt — your plan is unchanged.',
+      'profilePlanRegenerateIncomplete':
+          'Please complete your preferences first.',
+      'profileLocalDataTitle': 'Your data stays on this device',
+      'profileLocalDataBody':
+          'Your preferences, plan and progress are stored only on this '
+          'device. Cloud backup and account sync are not active; '
+          'uninstalling the app or clearing its data removes your local '
+          'progress.',
+      'profilePlanTypeBeginner': 'Getting started',
+      'profilePlanTypeReturning': 'Rebuilding a routine',
+      'profilePlanTypePrayerFocused': 'Prayer focused',
+      'profilePlanTypeQuranFocused': 'Quran focused',
+      'profilePlanTypeDhikrFocused': 'Dhikr focused',
+      'profilePlanTypeLearningFocused': 'Learning focused',
+      'profilePlanTypeAdvanced': 'Strengthening',
+      'profilePlanTypeLowTime': 'Short on time',
       'profilePersonalizationEmpty':
           'Your personalization preferences are not completed yet.',
       'profilePersonalizationLoadIssue':
@@ -2181,6 +2327,45 @@ final class AppLocalizations {
       'profileFocusAreas': 'مجالات تركيزك',
       'profileJourneyStage': 'مرحلة رحلتك',
       'profileDailyPace': 'إيقاعك اليومي',
+      'profilePlanSection': 'خطتك لثلاثين يوماً',
+      'profilePlanTypeLabel': 'نمط خطتك',
+      'profilePlanNone':
+          'لا توجد خطة نشطة الآن. عند وجود خطة لليوم سيظهر الملخّص هنا.',
+      'profilePlanSummaryUnavailable': 'تعذّر حساب ملخّص الخطة الآن.',
+      'profilePlanDayOf': 'اليوم {current} من {total}',
+      'profilePlanTasksDone': 'اكتملت {done} من {total} مهمة',
+      'profilePlanDaysCompleted': 'اكتملت {count} أيام بالكامل',
+      'profilePlanRecentTitle': 'التقدّم الأخير',
+      'profilePlanRecentWindow': 'آخر {days} أيام',
+      'profilePlanLoadIssue': 'تعذّر فتح ملفك الشخصي الآن.',
+      'profilePlanEditPreferences': 'تعديل التفضيلات',
+      'profilePlanRegenerateAction': 'أعد بناء الخطة وفق تفضيلاتك',
+      'profilePlanRegenerateTitle': 'هل نعيد بناء الخطة؟',
+      'profilePlanRegenerateBody':
+          'ستُعاد خطة الثلاثين يوماً ابتداءً من اليوم وفق تفضيلاتك '
+          'المحفوظة. ولن تُمسّ الأيام الماضية. تُحفَظ علامات الإنجاز '
+          'للمهام التي تبقى في الخطة الجديدة، أما المهام التي لم تعد '
+          'ضمن تفضيلاتك فتُزال مع علاماتها.',
+      'profilePlanRegenerateConfirm': 'أعد بناء الخطة',
+      'profilePlanRegenerateSuccess': 'أُعيد بناء الخطة وفق تفضيلاتك.',
+      'profilePlanRegenerateDropped':
+          'لم تُنقَل علامات {count} مهمة مكتملة لأنها ليست في الخطة الجديدة.',
+      'profilePlanRegenerateFailed':
+          'تعذّرت إعادة بناء الخطة — بقيت خطتك كما هي.',
+      'profilePlanRegenerateIncomplete': 'أكمل تفضيلاتك أولاً.',
+      'profileLocalDataTitle': 'بياناتك على هذا الجهاز',
+      'profileLocalDataBody':
+          'تُحفَظ تفضيلاتك وخطتك وتقدّمك على هذا الجهاز فقط. النسخ '
+          'الاحتياطي السحابي ومزامنة الحساب غير مفعّلين حالياً؛ وإزالة '
+          'التطبيق أو مسح بياناته يحذف تقدّمك المحلي.',
+      'profilePlanTypeBeginner': 'بداية',
+      'profilePlanTypeReturning': 'استئناف',
+      'profilePlanTypePrayerFocused': 'التركيز على الصلاة',
+      'profilePlanTypeQuranFocused': 'التركيز على القرآن',
+      'profilePlanTypeDhikrFocused': 'التركيز على الذكر',
+      'profilePlanTypeLearningFocused': 'التركيز على التعلّم',
+      'profilePlanTypeAdvanced': 'ترسيخ',
+      'profilePlanTypeLowTime': 'وقت محدود',
       'profilePersonalizationEmpty': 'لم تكتمل تفضيلات التخصيص بعد.',
       'profilePersonalizationLoadIssue': 'تعذّر فتح تفضيلاتك الآن.',
       'profilePersonalizationEdit': 'تعديل',
