@@ -11,6 +11,7 @@ import 'package:bismillah_app/features/onboarding/presentation/onboarding_placeh
 import 'package:bismillah_app/features/onboarding/presentation/onboarding_welcome_screen.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_history_screen.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
+import 'package:bismillah_app/features/prayer_times/presentation/prayer_calculation_method_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/premium_placeholder_screen.dart';
 import 'package:bismillah_app/features/premium/presentation/subscription_settings_placeholder_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/about_screen.dart';
@@ -92,6 +93,14 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                     path: 'qibla',
                     name: AppRoutes.qiblaName,
                     builder: (context, state) => const QiblaScreen(),
+                  ),
+                  // Hesaplama yöntemi (TASK 096) — namaz ayarı olduğu için
+                  // Prayer branch içinde push (relative → /prayer/…).
+                  GoRoute(
+                    path: 'calculation-method',
+                    name: AppRoutes.prayerCalculationMethodName,
+                    builder: (context, state) =>
+                        const PrayerCalculationMethodScreen(),
                   ),
                 ],
               ),

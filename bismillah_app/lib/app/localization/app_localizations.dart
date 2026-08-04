@@ -259,6 +259,50 @@ final class AppLocalizations {
   String get prayerTimesUnavailable => _t('prayerTimesUnavailable');
   String get prayerTimesApproximate => _t('prayerTimesApproximate');
 
+  // Hesaplama yöntemi seçimi (TASK 096).
+  //
+  // Ton kuralı: yöntem adları, parametre setinin YAYIMLANDIĞI kaynağı
+  // adlandırır — kurumun bu uygulamayı onayladığı ya da vakitleri sağladığı
+  // anlamına GELMEZ. Bu yüzden hiçbir etikette "resmî", "onaylı" ya da
+  // "Diyanet takvimi" iddiası YOKTUR; Türkiye yöntemi yalnız BÖLGE adıyla
+  // anılır ve [prayerMethodNotEndorsement] her zaman görünür.
+  String get prayerMethodEntryTitle => _t('prayerMethodEntryTitle');
+  String get prayerMethodEntrySubtitle => _t('prayerMethodEntrySubtitle');
+  String get prayerMethodTitle => _t('prayerMethodTitle');
+  String get prayerMethodIntro => _t('prayerMethodIntro');
+  String get prayerMethodNotEndorsement => _t('prayerMethodNotEndorsement');
+  String get prayerMethodCurrentLabel => _t('prayerMethodCurrentLabel');
+  String get prayerMethodSelected => _t('prayerMethodSelected');
+  String get prayerMethodAdjustmentsNote => _t('prayerMethodAdjustmentsNote');
+  String get prayerMethodConfirmTitle => _t('prayerMethodConfirmTitle');
+  String get prayerMethodConfirmApply => _t('prayerMethodConfirmApply');
+  String get prayerMethodConfirmCancel => _t('prayerMethodConfirmCancel');
+  String get prayerMethodApplying => _t('prayerMethodApplying');
+  String get prayerMethodRemindersNotUpdated =>
+      _t('prayerMethodRemindersNotUpdated');
+  String get prayerMethodRetryReminders => _t('prayerMethodRetryReminders');
+  String get prayerMethodSaveFailed => _t('prayerMethodSaveFailed');
+
+  /// Yöntem adı — anahtar `PrayerTimeCalculationMethod.stableName` ile
+  /// kurulur; localization katmanı feature domain'ini import ETMEZ.
+  String prayerMethodName(String stableId) => _t('prayerMethodName.$stableId');
+
+  /// Açı tabanlı yöntemin parametreleri (motordan okunur, metne gömülmez).
+  String prayerMethodAngles(String fajr, String isha) => _t(
+    'prayerMethodAngles',
+  ).replaceFirst('{fajr}', fajr).replaceFirst('{isha}', isha);
+
+  /// Yatsının akşamdan sabit dakika sonra hesaplandığı yöntemler.
+  String prayerMethodInterval(String fajr, int minutes) => _t(
+    'prayerMethodInterval',
+  ).replaceFirst('{fajr}', fajr).replaceFirst('{minutes}', '$minutes');
+
+  String prayerMethodConfirmBody(String method) =>
+      _t('prayerMethodConfirmBody').replaceFirst('{method}', method);
+
+  String prayerMethodChanged(String method) =>
+      _t('prayerMethodChanged').replaceFirst('{method}', method);
+
   // Kıble yönü (TASK 095 — ton: sakin ve DÜRÜST. Telefon sensörünün verdiği
   // yön yaklaşıktır; "kesin ölçüm" ya da dinî hüküm iddiası YASAKTIR.)
   String get qiblaTitle => _t('qiblaTitle');
@@ -990,8 +1034,64 @@ final class AppLocalizations {
       'prayerNameIsha': 'Yatsı',
       'prayerHistoryTitle': 'Son 7 gün',
       'prayerHistorySubtitle': 'Günlük ritmine sakin bir bakış.',
-      'prayerTimesMethodLabel': 'Türkiye hesaplama yöntemi',
+      // TASK 096: yöntem artık seçilebilir olduğundan sabit "Türkiye" etiketi
+      // KALDIRILDI — başlık nötr, seçili yöntemin adı yanında gösterilir.
+      'prayerTimesMethodLabel': 'Hesaplama yöntemi',
       'prayerTimesSunrise': 'Güneş',
+      'prayerMethodEntryTitle': 'Hesaplama yöntemi',
+      'prayerMethodEntrySubtitle':
+          'Vakitlerin hangi yönteme göre hesaplandığını seçebilirsin.',
+      'prayerMethodTitle': 'Hesaplama yöntemi',
+      'prayerMethodIntro':
+          'Namaz vakitleri, kabul görmüş farklı hesaplama yöntemleriyle '
+          'bulunabilir. Yöntemler arasında birkaç dakikalık farklar olması '
+          'olağandır. Bulunduğun bölgede yaygın olarak kullanılan yöntemi '
+          'seçebilirsin.',
+      'prayerMethodNotEndorsement':
+          'Yöntem adları, o parametre setini yayımlayan kaynağı belirtir; '
+          'ilgili kurumun bu uygulamayı onayladığı veya vakitleri sağladığı '
+          'anlamına gelmez. Vakitler cihazında hesaplanır ve resmî takvim '
+          'yerine geçmez.',
+      'prayerMethodCurrentLabel': 'Şu an kullanılan',
+      'prayerMethodSelected': 'Seçili',
+      'prayerMethodAdjustmentsNote': 'Yöntemin kendi dakika ayarlarıyla',
+      'prayerMethodAngles': 'İmsak {fajr}° · Yatsı {isha}°',
+      'prayerMethodInterval':
+          'İmsak {fajr}° · Yatsı akşamdan {minutes} dk sonra',
+      'prayerMethodConfirmTitle': 'Yöntem değiştirilsin mi?',
+      'prayerMethodConfirmBody':
+          '“{method}” yöntemine geçilecek. Namaz vakitleri yeniden hesaplanacak '
+          've açık olan namaz hatırlatıcıları yeni vakitlere göre yeniden '
+          'kurulacak. İşaretlediğin namazlar ve geçmişin değişmez.',
+      'prayerMethodConfirmApply': 'Değiştir',
+      'prayerMethodConfirmCancel': 'Vazgeç',
+      'prayerMethodApplying': 'Uygulanıyor…',
+      'prayerMethodChanged': 'Yöntem “{method}” olarak güncellendi.',
+      'prayerMethodRemindersNotUpdated':
+          'Yöntem kaydedildi ve vakitler yeniden hesaplandı, ancak '
+          'hatırlatıcılar şu an yeni vakitlere göre kurulamadı.',
+      'prayerMethodRetryReminders': 'Hatırlatıcıları yeniden kur',
+      'prayerMethodSaveFailed': 'Yöntem kaydedilemedi. Hiçbir şey değişmedi.',
+      'prayerMethodName.turkiyeDiyanet': 'Türkiye',
+      'prayerMethodName.muslimWorldLeague': 'Râbıta (Müslüman Dünya Ligi)',
+      'prayerMethodName.egyptian': 'Mısır Genel Ölçüm Kurumu',
+      'prayerMethodName.karachi': 'Karaçi İslam İlimleri Üniversitesi',
+      'prayerMethodName.northAmerica': 'Kuzey Amerika (ISNA)',
+      'prayerMethodName.ummAlQura': 'Ümmü’l-Kurâ Üniversitesi (Mekke)',
+      'prayerMethodName.dubai': 'Dubai',
+      'prayerMethodName.qatar': 'Katar',
+      'prayerMethodName.kuwait': 'Kuveyt',
+      'prayerMethodName.gulfRegion': 'Körfez bölgesi',
+      'prayerMethodName.moonsightingCommittee': 'Moonsighting Committee',
+      'prayerMethodName.singapore': 'Singapur',
+      'prayerMethodName.indonesian': 'Endonezya (KEMENAG)',
+      'prayerMethodName.morocco': 'Fas',
+      'prayerMethodName.algerian': 'Cezayir Din İşleri Bakanlığı',
+      'prayerMethodName.tunisia': 'Tunus Din İşleri Bakanlığı',
+      'prayerMethodName.jordan': 'Ürdün',
+      'prayerMethodName.france': 'Fransa (UOIF)',
+      'prayerMethodName.portugal': 'Portekiz (Lizbon İslam Cemaati)',
+      'prayerMethodName.russia': 'Rusya Müslümanları Dinî İdaresi',
       'prayerTimesUseLocation': 'Konumu kullan',
       'prayerTimesLocationInvite':
           'Vakitleri bulunduğun yere göre görmek için konumunu kullanabilirsin.',
@@ -1658,8 +1758,62 @@ final class AppLocalizations {
       'prayerNameIsha': 'Isha',
       'prayerHistoryTitle': 'Last 7 days',
       'prayerHistorySubtitle': 'A calm look at your daily rhythm.',
-      'prayerTimesMethodLabel': 'Türkiye calculation method',
+      'prayerTimesMethodLabel': 'Calculation method',
       'prayerTimesSunrise': 'Sunrise',
+      'prayerMethodEntryTitle': 'Calculation method',
+      'prayerMethodEntrySubtitle':
+          'Choose the method your prayer times are calculated with.',
+      'prayerMethodTitle': 'Calculation method',
+      'prayerMethodIntro':
+          'Prayer times can be worked out with several accepted calculation '
+          'methods. A few minutes of difference between them is normal. You '
+          'can pick the method commonly used where you are.',
+      'prayerMethodNotEndorsement':
+          'A method name identifies the source that published those '
+          'parameters; it does not mean that body endorses this app or '
+          'supplies these times. Times are calculated on your device and do '
+          'not replace an official timetable.',
+      'prayerMethodCurrentLabel': 'Currently used',
+      'prayerMethodSelected': 'Selected',
+      'prayerMethodAdjustmentsNote': 'With the method’s own minute adjustments',
+      'prayerMethodAngles': 'Fajr {fajr}° · Isha {isha}°',
+      'prayerMethodInterval': 'Fajr {fajr}° · Isha {minutes} min after Maghrib',
+      'prayerMethodConfirmTitle': 'Change the method?',
+      'prayerMethodConfirmBody':
+          'You are switching to “{method}”. Prayer times will be recalculated '
+          'and any enabled prayer reminders will be rescheduled to the new '
+          'times. Your marked prayers and history stay unchanged.',
+      'prayerMethodConfirmApply': 'Change',
+      'prayerMethodConfirmCancel': 'Cancel',
+      'prayerMethodApplying': 'Applying…',
+      'prayerMethodChanged': 'Method updated to “{method}”.',
+      'prayerMethodRemindersNotUpdated':
+          'The method was saved and times were recalculated, but reminders '
+          'could not be rescheduled to the new times right now.',
+      'prayerMethodRetryReminders': 'Reschedule reminders',
+      'prayerMethodSaveFailed':
+          'The method could not be saved. Nothing was changed.',
+      'prayerMethodName.turkiyeDiyanet': 'Türkiye',
+      'prayerMethodName.muslimWorldLeague': 'Muslim World League',
+      'prayerMethodName.egyptian': 'Egyptian General Authority of Survey',
+      'prayerMethodName.karachi': 'University of Islamic Sciences, Karachi',
+      'prayerMethodName.northAmerica': 'North America (ISNA)',
+      'prayerMethodName.ummAlQura': 'Umm al-Qura University, Makkah',
+      'prayerMethodName.dubai': 'Dubai',
+      'prayerMethodName.qatar': 'Qatar',
+      'prayerMethodName.kuwait': 'Kuwait',
+      'prayerMethodName.gulfRegion': 'Gulf Region',
+      'prayerMethodName.moonsightingCommittee': 'Moonsighting Committee',
+      'prayerMethodName.singapore': 'Singapore',
+      'prayerMethodName.indonesian': 'Indonesia (KEMENAG)',
+      'prayerMethodName.morocco': 'Morocco',
+      'prayerMethodName.algerian': 'Algerian Ministry of Religious Affairs',
+      'prayerMethodName.tunisia': 'Tunisian Ministry of Religious Affairs',
+      'prayerMethodName.jordan': 'Jordan',
+      'prayerMethodName.france': 'France (UOIF)',
+      'prayerMethodName.portugal': 'Portugal (Islamic Community of Lisbon)',
+      'prayerMethodName.russia':
+          'Spiritual Administration of Muslims of Russia',
       'prayerTimesUseLocation': 'Use location',
       'prayerTimesLocationInvite':
           'Use your location to see times for where you are.',
@@ -2336,8 +2490,59 @@ final class AppLocalizations {
       'prayerNameIsha': 'العشاء',
       'prayerHistoryTitle': 'آخر 7 أيام',
       'prayerHistorySubtitle': 'نظرة هادئة إلى إيقاعك اليومي.',
-      'prayerTimesMethodLabel': 'طريقة الحساب التركية',
+      'prayerTimesMethodLabel': 'طريقة الحساب',
       'prayerTimesSunrise': 'الشروق',
+      'prayerMethodEntryTitle': 'طريقة الحساب',
+      'prayerMethodEntrySubtitle': 'اختر الطريقة التي تُحسب بها أوقات الصلاة.',
+      'prayerMethodTitle': 'طريقة الحساب',
+      'prayerMethodIntro':
+          'يمكن استخراج أوقات الصلاة بعدّة طرق حساب معتمدة، ومن الطبيعي أن '
+          'يكون بينها فرق دقائق قليلة. يمكنك اختيار الطريقة الشائعة في '
+          'منطقتك.',
+      'prayerMethodNotEndorsement':
+          'اسم الطريقة يشير إلى الجهة التي نشرت هذه المعاملات، ولا يعني أنّ '
+          'تلك الجهة تعتمد هذا التطبيق أو توفّر هذه الأوقات. تُحسب الأوقات '
+          'على جهازك ولا تُغني عن التقويم الرسمي.',
+      'prayerMethodCurrentLabel': 'المستخدمة حالياً',
+      'prayerMethodSelected': 'مختارة',
+      'prayerMethodAdjustmentsNote': 'مع تعديلات الدقائق الخاصة بالطريقة',
+      'prayerMethodAngles': 'الفجر {fajr}° · العشاء {isha}°',
+      'prayerMethodInterval':
+          'الفجر {fajr}° · العشاء بعد المغرب بـ {minutes} دقيقة',
+      'prayerMethodConfirmTitle': 'هل تريد تغيير الطريقة؟',
+      'prayerMethodConfirmBody':
+          'سيتم التحويل إلى «{method}». ستُحسب أوقات الصلاة من جديد، وسيُعاد '
+          'ضبط تذكيرات الصلاة المفعّلة على الأوقات الجديدة. تبقى صلواتك '
+          'المسجّلة وسجلّك دون تغيير.',
+      'prayerMethodConfirmApply': 'تغيير',
+      'prayerMethodConfirmCancel': 'إلغاء',
+      'prayerMethodApplying': 'جارٍ التطبيق…',
+      'prayerMethodChanged': 'تم تحديث الطريقة إلى «{method}».',
+      'prayerMethodRemindersNotUpdated':
+          'تم حفظ الطريقة وإعادة حساب الأوقات، لكن تعذّر إعادة ضبط التذكيرات '
+          'على الأوقات الجديدة الآن.',
+      'prayerMethodRetryReminders': 'إعادة ضبط التذكيرات',
+      'prayerMethodSaveFailed': 'تعذّر حفظ الطريقة. لم يتغيّر شيء.',
+      'prayerMethodName.turkiyeDiyanet': 'تركيا',
+      'prayerMethodName.muslimWorldLeague': 'رابطة العالم الإسلامي',
+      'prayerMethodName.egyptian': 'الهيئة المصرية العامة للمساحة',
+      'prayerMethodName.karachi': 'جامعة العلوم الإسلامية بكراتشي',
+      'prayerMethodName.northAmerica': 'أمريكا الشمالية (ISNA)',
+      'prayerMethodName.ummAlQura': 'جامعة أم القرى، مكة',
+      'prayerMethodName.dubai': 'دبي',
+      'prayerMethodName.qatar': 'قطر',
+      'prayerMethodName.kuwait': 'الكويت',
+      'prayerMethodName.gulfRegion': 'منطقة الخليج',
+      'prayerMethodName.moonsightingCommittee': 'لجنة رؤية الهلال',
+      'prayerMethodName.singapore': 'سنغافورة',
+      'prayerMethodName.indonesian': 'إندونيسيا (كيمناغ)',
+      'prayerMethodName.morocco': 'المغرب',
+      'prayerMethodName.algerian': 'وزارة الشؤون الدينية الجزائرية',
+      'prayerMethodName.tunisia': 'وزارة الشؤون الدينية التونسية',
+      'prayerMethodName.jordan': 'الأردن',
+      'prayerMethodName.france': 'فرنسا (UOIF)',
+      'prayerMethodName.portugal': 'البرتغال (الجالية الإسلامية بلشبونة)',
+      'prayerMethodName.russia': 'الإدارة الدينية لمسلمي روسيا',
       'prayerTimesUseLocation': 'استخدم الموقع',
       'prayerTimesLocationInvite': 'استخدم موقعك لعرض الأوقات وفق مكانك.',
       'prayerTimesLocationDeniedForever':

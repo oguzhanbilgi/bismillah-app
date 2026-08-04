@@ -3,6 +3,7 @@ import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.d
 import 'package:bismillah_app/features/prayer_reminders/domain/local_notification_service.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/prayer_reminder.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_coordinates.dart';
+import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculation_method.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculator.dart';
 
 /// Bildirim metinleri — presentation/localization'dan enjekte edilir
@@ -41,15 +42,24 @@ final class PrayerReminderScheduler {
   final LocalNotificationService _notifications;
   final AppClock _clock;
 
-
   /// Kaç gün ileri zamanlanır (bugün dahil 7 gün).
   static const int horizonDays = 7;
 
   /// Bayat zamanları çift üretmeden yeniler: önce YALNIZ kendi
   /// hatırlatıcılarını iptal eder, sonra 7 günün gelecekteki 5 vaktini kurar.
+  ///
+  /// [method] **zorunludur** (TASK 096): hatırlatıcılar ekranda gösterilen
+  /// vakitlerle AYNI yöntemden hesaplanmalıdır. Zamanlayıcı yöntemi kendisi
+  /// çözmez — çağıran onu tek yetkili kaynaktan
+  /// (`prayerCalculationMethodProvider`) okur; parametre zorunlu olduğu için
+  /// bir çağrı yerinin bunu unutması DERLEME hatasıdır. Bu bağımlılık
+  /// bilinçli olarak kurucuya konmadı: zamanlayıcı provider'ı yöntem
+  /// provider'ını izleseydi, yöntemi değiştiren controller zamanlayıcıyı
+  /// okuduğunda dairesel bağımlılık oluşurdu.
   Future<ReminderScheduleOutcome> reschedule({
     required PrayerCoordinates coordinates,
     required PrayerReminderCopy copy,
+    required PrayerTimeCalculationMethod method,
   }) async {
     await _notifications.cancelAllPrayerReminders();
     final exact = await _notifications.canScheduleExact();
@@ -60,6 +70,7 @@ final class PrayerReminderScheduler {
       localNow: _clock.nowLocal(),
       nowUtc: _clock.nowUtc(),
       copy: copy,
+      method: method,
     );
     for (final reminder in reminders) {
       await _notifications.schedule(reminder, exact: exact);
@@ -78,6 +89,8 @@ final class PrayerReminderScheduler {
     required DateTime localNow,
     required DateTime nowUtc,
     required PrayerReminderCopy copy,
+    PrayerTimeCalculationMethod method =
+        PrayerTimeCalculationMethod.defaultMethod,
   }) {
     final reminders = <PrayerReminder>[];
     for (var day = 0; day < horizonDays; day++) {
@@ -86,6 +99,7 @@ final class PrayerReminderScheduler {
       final times = calculator.calculate(
         coordinates: coordinates,
         date: date,
+        method: method,
       );
       for (final name in PrayerName.values) {
         final instant = times.instantFor(name);

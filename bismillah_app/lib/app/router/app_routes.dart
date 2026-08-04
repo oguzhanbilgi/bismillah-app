@@ -10,6 +10,10 @@ abstract final class AppRoutes {
 
   /// Kıble yönü (TASK 095) — Prayer branch içinde push route.
   static const String qibla = '/prayer/qibla';
+
+  /// Namaz vakti hesaplama yöntemi seçimi (TASK 096) — Prayer branch içinde
+  /// push route (namaz ayarları Namaz sekmesinde kalır).
+  static const String prayerCalculationMethod = '/prayer/calculation-method';
   static const String quran = '/quran';
   static const String learn = '/learn';
 
@@ -89,6 +93,7 @@ abstract final class AppRoutes {
   static const String prayerName = 'prayer';
   static const String prayerHistoryName = 'prayerHistory';
   static const String qiblaName = 'qibla';
+  static const String prayerCalculationMethodName = 'prayerCalculationMethod';
   static const String quranName = 'quran';
   static const String learnName = 'learn';
   static const String learnCategoryName = 'learnCategory';
