@@ -70,14 +70,21 @@ abstract final class AssistantResponseComposer {
           );
         }
         // Doğrulanmış resmî cevap yok → kesin hüküm verilmez.
+        //
+        // TASK 095D: hüküm verilmemesi, ELDEKİ genel bilginin künyesiz
+        // bırakılmasını gerektirmez. Retrieval gerçekten grounded ise
+        // (exact/strong) o yayınlanmış açıklamanın kaynak künyesi de
+        // gösterilir — `personalCase` dalının zaten yaptığı şeyin AYNISI.
+        // Cevap türü, ret ve güvenlik notu DEĞİŞMEZ; hiçbir kaynak hükmün
+        // dayanağı olarak sunulmaz, `confidence` bilinçli olarak
+        // `insufficient` kalır (hüküm için delil YETERSİZDİR).
         return AssistantResponse(
           answerType: AssistantAnswerType.officialFatwaRequired,
           confidence: AssistantConfidence.insufficient,
           answer: strings.officialFatwaRequired,
           shortSummary: strings.officialFatwaRequired,
-          // Genel bilgi varsa yalnız İLGİLİ başlık olarak sunulur; hüküm
-          // uygulanmaz.
           relatedArticles: related,
+          sourceReferences: hasGrounded ? sources : const [],
           safetyNotice: strings.generalInfoNotPersonalRuling,
           shouldOfferOfficialGuidance: true,
           officialGuidanceUrl: officialGuidanceUrl,

@@ -953,6 +953,236 @@ void main() {
       expect(ar.assistantSuggested4, matches(RegExp(r'[؀-ۿ]')));
     });
   });
+  // ---------------------------------------------------------------------
+  // §9 — Hüküm sorusu, kaynaksızlıkla KARIŞTIRILMAZ (PR #48 saha bulgusu)
+  //
+  // Cihaz doğrulamasında "Zina haram mıdır?" kullanıcıya genel "kaynak yok"
+  // durumu gibi göründü. Boru hattı zaten doğru sınıflandırıyordu; ret
+  // METNİ kaynaksızlık metninden ayırt edilemiyordu ve eldeki yayınlanmış
+  // genel açıklamanın künyesi hiç gösterilmiyordu.
+  // ---------------------------------------------------------------------
+
+  group('§9a — hüküm sorusu gerçek boru hattında', () {
+    Future<AssistantResponse> askReal(String text, SupportedLocale locale) {
+      final repo = LocalSourceGroundedAssistantRepository(
+        AssetLearningKnowledgeRepository(),
+        (_) => buildAssistantResponseStrings(AppLocalizations(locale)),
+      );
+      return repo.answer(
+        AssistantQuery(
+          id: 'q',
+          text: text,
+          locale: locale.name,
+          createdAt: DateTime(2026, 8, 4),
+        ),
+      );
+    }
+
+    const phrasings = <SupportedLocale, String>{
+      SupportedLocale.tr: 'Zina haram mıdır?',
+      SupportedLocale.en: 'Is zina haram?',
+      SupportedLocale.ar: 'هل الزنا حرام؟',
+    };
+
+    for (final entry in phrasings.entries) {
+      test(
+        '${entry.key.name}: kanonik sınıf halalHaramVerdict ve hassastır',
+        () {
+          final queryClass = AssistantQueryClassifier.classify(entry.value);
+          expect(queryClass, AssistantQueryClass.halalHaramVerdict);
+          expect(
+            AssistantQueryClassifier.isSensitiveVerdict(queryClass),
+            isTrue,
+            reason: 'hassas hüküm sorusu kalıcı geçmişe yazılmamalıdır',
+          );
+        },
+      );
+
+      test(
+        '${entry.key.name}: kaynaksızlık DEĞİL, resmî fetva yönlendirmesi',
+        () async {
+          final response = await askReal(entry.value, entry.key);
+          expect(
+            response.answerType,
+            AssistantAnswerType.officialFatwaRequired,
+            reason: 'hüküm sorusu genel kaynaksızlık durumuna DÜŞMEMELİDİR',
+          );
+          expect(
+            response.answerType,
+            isNot(AssistantAnswerType.noVerifiedSource),
+          );
+          expect(response.shouldOfferOfficialGuidance, isTrue);
+          expect(response.officialGuidanceUrl, startsWith('https://'));
+          expect(response.officialGuidanceUrl, contains('diyanet.gov.tr'));
+        },
+      );
+
+      test('${entry.key.name}: YENİ bir hüküm üretilmez', () async {
+        final response = await askReal(entry.value, entry.key);
+        final text = '${response.answer} ${response.shortSummary}'
+            .toLowerCase();
+        for (final verdict in [
+          'haramdır',
+          'helaldir',
+          'caizdir',
+          'is haram',
+          'is permissible',
+        ]) {
+          expect(text.contains(verdict), isFalse, reason: verdict);
+        }
+      });
+    }
+
+    test('TR: eldeki yayınlanmış genel açıklama KÜNYESİYLE sunulur', () async {
+      final response = await askReal('Zina haram mıdır?', SupportedLocale.tr);
+      // Yayınlanmış içerikte hükmü doğrudan veren bir kayıt YOKTUR
+      // (`contentType: officialFatwa` sıfır); bu yüzden ret korunur. Ama
+      // konunun genel çerçevesini açıklayan yayınlanmış kayıt VARDIR ve
+      // künyesi artık gösterilir.
+      expect(response.sourceReferences, isNotEmpty);
+      for (final source in response.sourceReferences) {
+        expect(source.sourceLocator.trim(), isNotEmpty);
+        expect(source.lastVerifiedAt.trim(), isNotEmpty);
+        expect(source.institution, contains('Diyanet'));
+      }
+      expect(response.safetyNotice, isNotNull);
+    });
+
+    test('zayıf eşleşmede künye EKLENMEZ, ret yine de doğrudur', () async {
+      // Arapça ifade yalnız `related` düzeyinde eşleşiyor; zayıf eşleşme
+      // kaynak künyesi olarak sunulmaz — ret durumu ise korunur.
+      final response = await askReal('هل الزنا حرام؟', SupportedLocale.ar);
+      expect(response.answerType, AssistantAnswerType.officialFatwaRequired);
+      expect(response.sourceReferences, isEmpty);
+    });
+
+    test('alakasız soru GENEL kaynaksızlık yolunda kalır', () async {
+      final response = await askReal(
+        'Blockchain teknolojisi nedir?',
+        SupportedLocale.tr,
+      );
+      expect(response.answerType, AssistantAnswerType.noVerifiedSource);
+      expect(response.sourceReferences, isEmpty);
+      expect(response.answer, l10n.assistantNoVerifiedSource);
+    });
+  });
+
+  group('§9b — iki durum kullanıcıya AYNI görünmez', () {
+    for (final locale in SupportedLocale.values) {
+      test('${locale.name}: ret metni kaynaksızlık metninden farklıdır', () {
+        final localized = AppLocalizations(locale);
+        expect(
+          localized.assistantOfficialFatwaRequired,
+          isNot(localized.assistantNoVerifiedSource),
+        );
+        // Asıl kusur buydu: ret, "bilgi tabanımızda yok" diye başlıyordu.
+        for (final missPhrase in [
+          'bilgi tabanı',
+          'knowledge base',
+          'قاعدة معرفت',
+        ]) {
+          expect(
+            localized.assistantOfficialFatwaRequired.toLowerCase(),
+            isNot(contains(missPhrase.toLowerCase())),
+            reason: 'ret metni kaynak eksikliği gibi okunmamalıdır',
+          );
+        }
+      });
+    }
+
+    testWidgets('hüküm reddi: kendi rozeti, künyesi ve sınır notuyla çizilir', (
+      tester,
+    ) async {
+      await pump(
+        tester,
+        repository: _CannedAssistantRepository(
+          AssistantResponse(
+            answerType: AssistantAnswerType.officialFatwaRequired,
+            confidence: AssistantConfidence.insufficient,
+            answer: l10n.assistantOfficialFatwaRequired,
+            shortSummary: l10n.assistantOfficialFatwaRequired,
+            safetyNotice: l10n.assistantGeneralInfoNotRuling,
+            sourceReferences: const [_source],
+            shouldOfferOfficialGuidance: true,
+            officialGuidanceUrl: 'https://kurul.diyanet.gov.tr/tr/fetvalar',
+          ),
+        ),
+      );
+      await ask(tester, 'Zina haram mıdır?');
+      await tester.pumpAndSettle();
+
+      // GENEL kaynaksızlık kartı DEĞİL.
+      expect(find.text(l10n.assistantBadgeNoSource), findsNothing);
+      expect(find.text(l10n.assistantNoVerifiedSource), findsNothing);
+      expect(find.text(l10n.assistantNextStepNoSource), findsNothing);
+
+      // Kendi durumu: rozet, gerekçe, sınır notu, güvenli sonraki adım, CTA.
+      expect(find.text(l10n.assistantBadgeOfficialFatwa), findsOneWidget);
+      expect(find.text(l10n.assistantOfficialFatwaRequired), findsOneWidget);
+      expect(find.text(l10n.assistantGeneralInfoNotRuling), findsOneWidget);
+      expect(find.text(l10n.assistantNextStepGuidance), findsOneWidget);
+      expect(find.text(l10n.assistantOfficialGuidanceCta), findsOneWidget);
+
+      // Künye görünür AMA hükmün dayanağı olarak sunulmaz.
+      expect(find.text(l10n.assistantSourcesTitle), findsOneWidget);
+      expect(find.text('V. ABDEST, s. 105-107'), findsOneWidget);
+      expect(
+        find.text(l10n.assistantSourceNotDirectlyAddressing),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('alakasız soru: künye ve "doğrudan ele almıyor" notu YOK', (
+      tester,
+    ) async {
+      await pump(
+        tester,
+        repository: _CannedAssistantRepository(
+          AssistantResponse(
+            answerType: AssistantAnswerType.noVerifiedSource,
+            confidence: AssistantConfidence.insufficient,
+            answer: l10n.assistantNoVerifiedSource,
+            shortSummary: l10n.assistantNoVerifiedSource,
+          ),
+        ),
+      );
+      await ask(tester, 'Blockchain teknolojisi nedir?');
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.assistantBadgeNoSource), findsOneWidget);
+      expect(find.text(l10n.assistantNextStepNoSource), findsOneWidget);
+      expect(find.text(l10n.assistantBadgeOfficialFatwa), findsNothing);
+      expect(find.text(l10n.assistantSourcesTitle), findsNothing);
+      expect(
+        find.text(l10n.assistantSourceNotDirectlyAddressing),
+        findsNothing,
+      );
+    });
+
+    testWidgets('hüküm sorusu ve cevabı diske YAZILMAZ', (tester) async {
+      await pump(
+        tester,
+        repository: _CannedAssistantRepository(
+          AssistantResponse(
+            answerType: AssistantAnswerType.officialFatwaRequired,
+            confidence: AssistantConfidence.insufficient,
+            answer: l10n.assistantOfficialFatwaRequired,
+            shortSummary: l10n.assistantOfficialFatwaRequired,
+            sourceReferences: const [_source],
+            shouldOfferOfficialGuidance: true,
+            officialGuidanceUrl: 'https://kurul.diyanet.gov.tr/tr/fetvalar',
+          ),
+        ),
+      );
+      await ask(tester, 'Zina haram mıdır?');
+      await tester.pumpAndSettle();
+
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString('bismillah.assistant_history') ?? '[]';
+      expect(raw.toLowerCase(), isNot(contains('zina')));
+      expect(json.decode(raw), isEmpty);
+    });
+  });
 }
 
 String _landingCanTitle(AppLocalizations l) => l.assistantLandingCanTitle;

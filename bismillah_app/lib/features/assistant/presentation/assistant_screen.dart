@@ -715,6 +715,17 @@ class _AssistantAnswer extends ConsumerWidget {
           if (message.sources.isNotEmpty) ...[
             const SizedBox(height: AppSpacing.s3),
             _BlockLabel(l10n.assistantSourcesTitle),
+            // Yönlendirme/ret durumlarında künye, sorulan duruma dair bir
+            // hükmün DAYANAĞI değildir; bu ayrım açıkça yazılır (mevcut,
+            // zaten yerelleştirilmiş metin — yeni içerik eklenmez).
+            if (_isAdvisory) ...[
+              const SizedBox(height: AppSpacing.s1),
+              AppText(
+                l10n.assistantSourceNotDirectlyAddressing,
+                token: AppTextStyleToken.caption,
+                secondary: true,
+              ),
+            ],
             const SizedBox(height: AppSpacing.s2),
             for (final source in message.sources) _SourceCard(source: source),
           ],
