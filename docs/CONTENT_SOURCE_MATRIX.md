@@ -374,8 +374,8 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Consumers:** Prayer, Today
 - **Prohibited:** describing the output as official Diyanet times; adding a second precaution/offset on top of the preset; uploading location
 - **Status:** READY WITH DOCUMENTED LIMITATION
-- **Limitation:** exactly one calculation method is available and accuracy degrades outside Türkiye; Asr defaults to `standard` (Shāfiʿī shadow ratio) matching the official Turkish calendar, with `hanafi` implemented but not user-selectable
-- **Follow-up:** TASK 096 (prayer calculation-method selection)
+- **Limitation:** the method is user-selectable since TASK 096 (20 methods, each mapping to a real `adhan_dart` preset; the Türkiye preset is a documented Diyanet-*approach* parameter set, **not** official Diyanet data), but a method still applies worldwide with no regional auto-detection, so an unsuitable choice degrades accuracy; Asr remains `standard` (Shāfiʿī shadow ratio) matching the official Turkish calendar, with `hanafi` implemented but not user-selectable
+- **Follow-up:** method selection CLOSED (TASK 096, PR #49 merged); Asr/madhhab selection remains unowned
 
 ### prayer-name-labels
 
