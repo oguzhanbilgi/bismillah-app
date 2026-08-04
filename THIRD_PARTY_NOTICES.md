@@ -34,9 +34,42 @@ MPL-2.0 grant applies to the works listed in this file.
 - Version: **V1.0.4** (source version stamp `v1.0.4-xml.1`, 2025-09-28).
 - Coverage: **114 chapters / 6236 translated verse records**.
 - Source URL: <https://quranenc.com/tr/browse/turkish_rwwad>
-- The translation text and footnotes **must not be added to, deleted from, or
-  altered**; the transcript/version metadata **must be preserved**.
 - **This work is NOT covered by the MPL-2.0 license of the source code.**
+
+### Redistribution permission (official, accessed 2026-08-04)
+
+QuranEnc publishes a site-wide **"Terms and Policies"** block — identical on the
+translation page, <https://quranenc.com/en/home>, <https://quranenc.com/en/home/about>
+and <https://quranenc.com/en/home/api> — which states:
+
+> "Contents of the translations can be downloaded and re-published, with the following
+> terms and conditions:
+> 1. No modification, addition, or deletion of the content.
+> 2. Clearly referring to the publisher and the source (QuranEnc.com).
+> 3. Mentioning the version number when re-publishing the translation.
+> 4. Keeping the transcript information inside the document.
+> 5. Notifying the source (QuranEnc.com) of any note on the translation.
+> 6. Updating the translation according to the latest version issued from the source
+>    (QuranEnc.com).
+> 7. Inappropriate advertisements must not be included when displaying translations of
+>    the meanings of the Noble Quran."
+
+Accordingly, in this distribution: the translation text and footnotes are **not added to,
+deleted from, or altered**; the publisher **and** the source (QuranEnc.com) are credited;
+the version **V1.0.4** is stated; the transcript/version metadata is preserved inside the
+bundled document; **no advertisements** appear alongside the translation; and the version
+must be kept in step with the latest issued upstream version.
+
+**Fidelity evidence:** all **6236** records were compared against the official dataset
+<https://quranenc.com/downloads/sqlite/turkish_rwwad.sqlite> on 2026-08-04 using an exact
+Unicode code-point comparison — **6236 exact matches for translation text and 6236 for
+footnotes**, with no missing, extra or duplicated verses.
+
+**Commercial / freemium redistribution is not explicitly addressed** by these terms —
+neither permitted nor prohibited — and no commercial permission is inferred. This
+distribution is **free**; the translation is **not sold and not gated** behind any
+payment. Written confirmation from QuranEnc is required before it ships in an app
+offering paid features.
 
 ## MP3Quran.net (Recitation Audio)
 
