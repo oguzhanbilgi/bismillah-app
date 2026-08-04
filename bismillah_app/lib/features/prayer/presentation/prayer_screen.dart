@@ -10,6 +10,7 @@ import 'package:bismillah_app/features/prayer/presentation/widgets/prayer_entry_
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_controller.dart';
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_scheduler.dart';
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_state.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_calculation_method_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
 import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
@@ -159,6 +160,8 @@ final class _PrayerLogView extends ConsumerWidget {
         const SizedBox(height: AppSpacing.s3),
         const _QiblaEntryCard(),
         const SizedBox(height: AppSpacing.s3),
+        const _CalculationMethodEntryCard(),
+        const SizedBox(height: AppSpacing.s3),
         const _PrayerReminderCard(),
         const SizedBox(height: AppSpacing.s4),
         AppButton(
@@ -210,6 +213,52 @@ final class _QiblaEntryCard extends StatelessWidget {
                 const SizedBox(height: AppSpacing.s1),
                 AppText(
                   l10n.qiblaEntrySubtitle,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Hesaplama yöntemi girişi (TASK 096). Namaz ekranı YENİDEN TASARLANMAZ:
+/// Kıble satırıyla aynı kart dilinde tek bir dokunulabilir satır eklenir ve
+/// ayrı bir ekrana gider. Seçili yöntemin adı burada da görünür, böylece
+/// kullanıcı ekranı açmadan hangi yöntemin kullanıldığını görür. Ücretsizdir.
+final class _CalculationMethodEntryCard extends ConsumerWidget {
+  const _CalculationMethodEntryCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final method = ref.watch(prayerCalculationMethodProvider);
+
+    return AppCard(
+      onTap: () => context.go(AppRoutes.prayerCalculationMethod),
+      child: Row(
+        children: [
+          Icon(
+            Icons.tune_outlined,
+            size: AppSizes.iconMd,
+            color: scheme.primary,
+          ),
+          const SizedBox(width: AppSpacing.s3),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  l10n.prayerMethodEntryTitle,
+                  token: AppTextStyleToken.h3,
+                ),
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  l10n.prayerMethodName(method.stableName),
                   token: AppTextStyleToken.bodySmall,
                   secondary: true,
                 ),
@@ -433,6 +482,14 @@ final class _PrayerTimesSection extends ConsumerWidget {
                     l10n.prayerTimesMethodLabel,
                     token: AppTextStyleToken.caption,
                     secondary: true,
+                  ),
+                  // TASK 096: yöntem adı, vakitleri GERÇEKTEN üreten
+                  // sonuçtan (`times.method`) okunur — ayrı bir ayar
+                  // kaynağından değil; bu yüzden etiket ile hesap
+                  // ayrışamaz.
+                  AppText(
+                    l10n.prayerMethodName(times.method.stableName),
+                    token: AppTextStyleToken.bodySmall,
                   ),
                   const SizedBox(height: AppSpacing.s1),
                   Row(

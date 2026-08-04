@@ -13,8 +13,11 @@ import 'package:bismillah_app/features/prayer_reminders/application/prayer_remin
 import 'package:bismillah_app/features/prayer_reminders/application/prayer_reminder_tap_router.dart';
 import 'package:bismillah_app/features/prayer_reminders/data/prayer_reminders_providers.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_calculation_method_controller.dart';
 import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
+import 'package:bismillah_app/features/prayer_times/data/shared_prefs_prayer_calculation_method_repository.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
+import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculation_method.dart';
 import 'package:bismillah_app/features/quran/data/audio_service_quran_handler.dart';
 import 'package:bismillah_app/features/quran/data/quran_data_providers.dart';
 import 'package:bismillah_app/features/quran/domain/services/quran_audio_session_service.dart';
@@ -62,6 +65,16 @@ Future<ProviderContainer> bootstrap({
     systemLocales: WidgetsBinding.instance.platformDispatcher.locales,
   );
 
+  // TASK 096: seçili namaz vakti hesaplama yöntemi de runApp'ten ÖNCE
+  // çözülür — ilk kare doğru yöntemle çizilir ve açılışta yapılan
+  // hatırlatıcı yenilemesi de aynı yöntemi kullanır. Seçim yoksa veya
+  // saklanan değer tanınmıyorsa varsayılana düşülür ve depo YAZILMAZ:
+  // mevcut kurulumların etkin yöntemi olduğu gibi korunur.
+  final launchCalculationMethod =
+      (await const SharedPrefsPrayerCalculationMethodRepository().loadMethod())
+          .valueOrNull ??
+      PrayerTimeCalculationMethod.defaultMethod;
+
   // TASK 045: global Kur'an ses oturumu — AudioService.init uygulama
   // başına yalnız BURADA, bir kez çağrılır ve Riverpod override'ı ile
   // enjekte edilir (global mutable handler değişkeni YOK). Başarısızlık
@@ -93,6 +106,9 @@ Future<ProviderContainer> bootstrap({
         onboardingCompleted,
       ),
       appLocaleAtLaunchProvider.overrideWithValue(launchLocale),
+      prayerCalculationMethodAtLaunchProvider.overrideWithValue(
+        launchCalculationMethod,
+      ),
       ...overrides,
     ],
   );
@@ -168,6 +184,8 @@ Future<void> _rescheduleRemindersIfReady(ProviderContainer container) async {
         .read(prayerReminderSchedulerProvider)
         .reschedule(
           coordinates: location.location.coordinates,
+          // Açılış yenilemesi de tek yetkili yöntem kaynağını kullanır.
+          method: container.read(prayerCalculationMethodProvider),
           copy: PrayerReminderCopy(
             title: l10n.reminderNotificationTitle,
             bodyFor: (name) => l10n.reminderNotificationBody(

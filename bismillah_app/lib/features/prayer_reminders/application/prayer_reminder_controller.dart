@@ -3,6 +3,7 @@ import 'package:bismillah_app/features/prayer_reminders/application/prayer_remin
 import 'package:bismillah_app/features/prayer_reminders/data/prayer_reminders_providers.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/local_notification_service.dart';
 import 'package:bismillah_app/features/prayer_reminders/domain/notification_permission_status.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_calculation_method_controller.dart';
 import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -67,7 +68,11 @@ final class PrayerReminderController
 
     final outcome = await ref
         .read(prayerReminderSchedulerProvider)
-        .reschedule(coordinates: location.location.coordinates, copy: copy);
+        .reschedule(
+          coordinates: location.location.coordinates,
+          copy: copy,
+          method: ref.read(prayerCalculationMethodProvider),
+        );
     await ref.read(reminderPreferenceStoreProvider).setEnabled(true);
     state = AsyncData(ReminderEnabled(exact: outcome.exact));
   }
@@ -109,6 +114,7 @@ final class PrayerReminderController
               .reschedule(
                 coordinates: location.location.coordinates,
                 copy: copy,
+                method: ref.read(prayerCalculationMethodProvider),
               );
           exact = outcome.exact;
         }

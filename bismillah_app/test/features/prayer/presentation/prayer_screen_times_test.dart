@@ -63,7 +63,13 @@ void main() {
       (tester) async {
     await pump(tester, granted: true);
 
-    expect(find.text('Türkiye hesaplama yöntemi'), findsOneWidget);
+    // TASK 096: yöntem artık seçilebilir olduğundan başlık nötrdür ve
+    // yöntemin ADI ayrıca gösterilir. Assertion ZAYIFLATILMADI — tam tersi,
+    // artık hem etiketi hem gerçekten kullanılan yöntemin adını doğrular.
+    // Etiketi "Türkiye" olarak dondurmak, seçim eklendikten sonra yanlış
+    // bir iddiayı test etmek olurdu.
+    expect(find.text('Hesaplama yöntemi'), findsWidgets);
+    expect(find.text('Türkiye'), findsWidgets);
     expect(find.text('Güneş'), findsOneWidget);
     // "Konumu kullan" daveti GÖRÜNMEZ (izin verilmiş).
     expect(find.text('Konumu kullan'), findsNothing);

@@ -1,5 +1,6 @@
 import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:bismillah_app/core/utils/date_key.dart';
+import 'package:bismillah_app/features/prayer_times/data/adhan_calculation_method_catalog.dart';
 import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_coordinates.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculation_method.dart';
@@ -8,10 +9,15 @@ import 'package:bismillah_app/features/prayer_times/domain/prayer_time_calculato
 /// adhan_dart tabanlı hesaplayıcı — TAM OFFLINE. adhan tipleri bu dosyanın
 /// dışına SIZMAZ (domain/application/presentation adhan görmez).
 ///
-/// Türkiye preset'i (`CalculationMethodParameters.turkiye()`): fajr 18°,
-/// isha 17° + Diyanet yöntem dakika ayarları (sunrise -7, dhuhr +5, asr +4,
-/// maghrib +7) ZATEN preset içinde uygulanır — bu yüzden EK temkin/ayar
-/// EKLENMEZ (çift uygulama yasak, TASK 021). Sonuçlar UTC instant'tır.
+/// Yöntem preset'leri (ör. `CalculationMethodParameters.turkiye()`: fajr 18°,
+/// isha 17° + yöntem dakika ayarları sunrise -7, dhuhr +5, asr +4, maghrib +7)
+/// açı ve dakika ayarlarını ZATEN kendi içinde uygular — bu yüzden EK
+/// temkin/ayar EKLENMEZ (çift uygulama yasak, TASK 021). Sonuçlar UTC
+/// instant'tır.
+///
+/// TASK 096: [method] artık gerçekten UYGULANIR. Eşleme tek bir tüketici
+/// `switch` üzerinden ([adhanParametersFor]) yapılır; hesaplayıcı kendi
+/// parametre tablosunu TUTMAZ.
 final class AdhanPrayerTimeCalculator implements PrayerTimeCalculator {
   const AdhanPrayerTimeCalculator();
 
@@ -20,10 +26,10 @@ final class AdhanPrayerTimeCalculator implements PrayerTimeCalculator {
     required PrayerCoordinates coordinates,
     required DateTime date,
     PrayerTimeCalculationMethod method =
-        PrayerTimeCalculationMethod.turkiyeDiyanet,
+        PrayerTimeCalculationMethod.defaultMethod,
     AsrCalculationMethod asrMethod = AsrCalculationMethod.standard,
   }) {
-    final params = adhan.CalculationMethodParameters.turkiye()
+    final params = adhanParametersFor(method)
       // Asr yöntemi AÇIKÇA ayarlanır (Diyanet resmi takvimi = standard/Şâfiî;
       // §27.5 "madhhab-aware Asr" — ileride ayardan değiştirilebilir).
       ..madhab = switch (asrMethod) {

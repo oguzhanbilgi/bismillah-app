@@ -385,7 +385,8 @@ already published; it is a branch label, not a task number.
 
 ```text
 TASK 095 — Qibla — IN PROGRESS (PR open, not merged; device validation pending)
-TASK 096 — Prayer calculation-method selection
+TASK 096 — Prayer calculation-method selection — IN PROGRESS (PR open, not
+           merged; Samsung A36 visual validation pending)
 TASK 097 — Short adhan / notification sound options
 TASK 098 — TR/EN/AR real-device UX
 TASK 099 — Accessibility and performance

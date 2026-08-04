@@ -13,7 +13,8 @@ abstract interface class PrayerTimeCalculator {
   DailyPrayerTimes calculate({
     required PrayerCoordinates coordinates,
     required DateTime date,
-    PrayerTimeCalculationMethod method = PrayerTimeCalculationMethod.turkiyeDiyanet,
+    PrayerTimeCalculationMethod method =
+        PrayerTimeCalculationMethod.defaultMethod,
     AsrCalculationMethod asrMethod = AsrCalculationMethod.standard,
   });
 }

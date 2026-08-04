@@ -1,4 +1,5 @@
 import 'package:bismillah_app/core/utils/clock_provider.dart';
+import 'package:bismillah_app/features/prayer_times/application/prayer_calculation_method_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
 import 'package:bismillah_app/features/prayer_times/data/prayer_times_providers.dart';
 import 'package:bismillah_app/features/prayer_times/domain/prayer_location.dart';
@@ -18,6 +19,10 @@ final prayerTimesControllerProvider =
 final class PrayerTimesController extends AsyncNotifier<PrayerTimesState> {
   @override
   Future<PrayerTimesState> build() async {
+    // Seçili hesaplama yöntemi İZLENİR (TASK 096): yöntem değişince bu
+    // controller yeniden kurulur ve vakitler yeniden hesaplanır. Bu yüzden
+    // ayrı bir "önbelleği temizle" adımı yoktur — bayat vakit KALAMAZ.
+    ref.watch(prayerCalculationMethodProvider);
     // Açılışta İZİN İSTENMEZ (day-0 duvarı yok) — yalnız zaten verilmişse
     // konum alınır; aksi hâlde "Konumu kullan" daveti gösterilir.
     final result = await ref
@@ -47,6 +52,7 @@ final class PrayerTimesController extends AsyncNotifier<PrayerTimesState> {
             .calculate(
               coordinates: location.coordinates,
               date: ref.read(clockProvider).nowLocal(),
+              method: ref.read(prayerCalculationMethodProvider),
             );
         return PrayerTimesReady(
           times: times,
