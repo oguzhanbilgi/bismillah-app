@@ -1436,12 +1436,12 @@ final class AppLocalizations {
           'bakabilirsin.',
       // TASK 095D düzeltmesi: eski metin "bilgi tabanımızda bulunmuyor" ile
       // başlıyordu ve kullanıcıya "kaynak yok" durumundan AYIRT EDİLEMEZ
-      // görünüyordu. Reddin GEREKÇESİ öne alındı; ret aynen korunur, yeni
-      // bir dinî iddia eklenmez.
+      // görünüyordu. Metin, BİSMİLLAH'IN SINIRINI söyler; "yalnız resmî
+      // merci hüküm verebilir" gibi bir DIŞLAYICILIK iddiası KURMAZ.
       'assistantOfficialFatwaRequired':
-          'Bu bir hüküm sorusu; kesin hükmü ancak yetkili resmî merci '
-          'verebilir. Bu yüzden bu soruya kesin bir hükümle cevap vermem '
-          'doğru olmaz.',
+          'Bu soru dinî hüküm gerektiriyor. Bismillah bu konuda kesin bir '
+          'fetva üretmez. Doğrudan ve güvenilir bir cevap için resmî bir '
+          'fetva kaynağına veya ehil bir din âlimine başvurun.',
       'assistantQualifiedGuidance':
           'Bu konu kişisel duruma özel değerlendirme gerektiriyor. Kesin bir '
           'hüküm için yetkili bir mercie danışman en doğrusudur.',
@@ -1451,7 +1451,8 @@ final class AppLocalizations {
           'Aşağıdaki genel bilgi konuya ışık tutar; ancak senin özel durumun '
           'için hüküm içermez.',
       'assistantSourceNotDirectlyAddressing':
-          'Bu kaynak özel durumunuzu doğrudan ele almıyor.',
+          'Aşağıdaki kaynak konu hakkında genel bilgi verir; bu hüküm '
+          'sorusunu doğrudan cevaplamaz.',
       // TASK 095D
       'assistantLandingCanTitle': 'Neler yapabilir?',
       'assistantLandingCan1':
@@ -2121,12 +2122,13 @@ final class AppLocalizations {
           'I could not find a verified source on this, so it would not be '
           'right for me to give a definite answer. You can look at the '
           'related learning topics.',
-      // TASK 095D: see the Turkish note — the refusal now leads with its
-      // reason instead of reading as a knowledge-base miss.
+      // TASK 095D: see the Turkish note — states Bismillah's own limit, with
+      // no exclusivity claim about who may give religious guidance.
       'assistantOfficialFatwaRequired':
-          'This is a question of religious ruling, and only the competent '
-          'official authority can issue a definite ruling. So it would not be '
-          'right for me to answer it with a definite ruling.',
+          'This question calls for a religious ruling. Bismillah does not '
+          'issue a definite fatwa on such matters. For a direct and reliable '
+          'answer, consult an official fatwa source or a qualified religious '
+          'scholar.',
       'assistantQualifiedGuidance':
           'This depends on your personal circumstances. For a definite '
           'ruling it is best to consult a qualified authority.',
@@ -2137,7 +2139,8 @@ final class AppLocalizations {
           'The general information below sheds light on the topic, but does '
           'not contain a ruling for your specific situation.',
       'assistantSourceNotDirectlyAddressing':
-          'This source does not directly address your specific situation.',
+          'The source below provides general information about the topic; it '
+          'does not directly answer this ruling question.',
       // TASK 095D
       'assistantLandingCanTitle': 'What it can do',
       'assistantLandingCan1':
@@ -2758,10 +2761,11 @@ final class AppLocalizations {
       'assistantNoVerifiedSource':
           'لم أجد مصدراً مُتحقَّقاً منه في هذا الموضوع، لذا لا يصحّ أن أقدّم '
           'جواباً قاطعاً. يمكنك الاطّلاع على مواضيع التعلّم ذات الصلة.',
-      // TASK 095D: bkz. Türkçe not — ret, gerekçesiyle başlar.
+      // TASK 095D: bkz. Türkçe not — dışlayıcılık iddiası yoktur.
       'assistantOfficialFatwaRequired':
-          'هذا سؤال عن حكم شرعي، ولا يصدر الحكم القاطع إلا عن الجهة الرسمية '
-          'المختصّة. لذا لا يصحّ أن أُجيب عنه بحكم قاطع.',
+          'هذا السؤال يتطلّب حكماً شرعياً. ولا يُصدر تطبيق بِسم الله فتوى '
+          'قاطعة في مثل هذه المسائل. وللحصول على جواب مباشر وموثوق، يُرجى '
+          'الرجوع إلى مصدر فتوى رسمي أو إلى عالم دين مؤهَّل.',
       'assistantQualifiedGuidance':
           'هذا يعتمد على ظروفك الشخصية. للحصول على حكم قاطع يُفضَّل مراجعة '
           'جهة مختصّة معتمدة.',
@@ -2771,7 +2775,8 @@ final class AppLocalizations {
           'المعلومة العامة أدناه تُلقي الضوء على الموضوع، لكنها لا تتضمّن '
           'حكماً لحالتك الخاصة.',
       'assistantSourceNotDirectlyAddressing':
-          'هذا المصدر لا يتناول حالتك الخاصة مباشرةً.',
+          'المصدر أدناه يقدّم معلومات عامة عن الموضوع، ولا يجيب مباشرةً عن '
+          'سؤال الحكم هذا.',
       // TASK 095D
       'assistantLandingCanTitle': 'ماذا يستطيع أن يفعل؟',
       'assistantLandingCan1':
