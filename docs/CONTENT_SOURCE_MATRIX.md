@@ -141,18 +141,18 @@ REVIEW REQUIRED **1** · BLOCKED **0** · NOT IMPLEMENTED **2**.
 - **Evidence:** `bismillah_app/assets/quran/translations/quranenc_turkish_rwwad_v1_0_4.json` (metadata block; 6236 records), `bismillah_app/lib/features/quran/data/bundled_quranenc_translation_repository.dart`, `tool/generate_quranenc_translation.py`
 - **Delivery:** bundled-asset
 - **Publication status:** shipped as the single active translation source
-- **Source review:** spot-check only — 6 suras / 491 verses compared against the live QuranEnc API; whitespace-only differences
+- **Source review:** full-corpus verification (TASK 097B-B, 2026-08-04) — all **6236** records compared against the current official dataset `https://quranenc.com/downloads/sqlite/turkish_rwwad.sqlite`; **exact Unicode code-point match on every translation text and every footnote**, no normalisation applied; 0 whitespace-only, 0 representation-only, 0 punctuation/content differences, 0 missing/extra/duplicate verses; both sides carry the identical canonical key set and 29 non-empty footnotes. Supersedes the earlier 6-sura / 491-verse API spot-check whose whitespace deltas came from the web API's response formatting, not from the dataset
 - **TR:** yes
 - **EN:** none — no English translation asset exists
 - **AR:** not applicable (source text is `quran-arabic-text`)
 - **Locale rule:** Quran locale exception — changing the app language does **not** translate the meal content; only the panel title and source line follow the app language
 - **Attribution:** required — publisher Rowad Tercüme Merkezi, source QuranEnc.com, version shown in-app (`quranTranslationRowadLine`, `quranTranslationQuranEncLine`)
-- **Licensing:** UNRESOLVED — the repository records usage restrictions (no addition, deletion or alteration; version metadata preserved) but **no explicit licence grant**; do not claim one
+- **Licensing:** **explicit redistribution grant located** (TASK 097B-B, accessed 2026-08-04) — QuranEnc's site-wide "Terms and Policies" states that translation contents "can be downloaded and re-published" under **seven conditions**: (1) no modification, addition or deletion of the content; (2) clearly referring to the publisher and the source (QuranEnc.com); (3) mentioning the version number when re-publishing; (4) keeping the transcript information inside the document; (5) notifying the source of any note on the translation; (6) updating to the latest version issued from the source; (7) no inappropriate advertisements alongside the displayed translation. Conditions 1–4 and 7 are satisfied today; 6 is an **ongoing obligation** (see Limitation). **Commercial / freemium redistribution is not explicitly addressed** by the terms — it is neither permitted nor prohibited in writing, and no commercial permission may be inferred. See `docs/CONTENT_SOURCES.md` for the exact URLs and page titles
 - **Consumers:** Quran
-- **Prohibited:** altering, re-punctuating, simplifying or AI-processing the text; shipping it as an EN or AR translation
+- **Prohibited:** altering, re-punctuating, simplifying or AI-processing the text; shipping it as an EN or AR translation; placing advertisements alongside the displayed translation; selling or gating the translation itself
 - **Status:** READY WITH DOCUMENTED LIMITATION
-- **Limitation:** full-corpus upstream comparison not performed; licence terms unestablished; non-Turkish app locales have no translation in their own language
-- **Follow-up:** UNRESOLVED — owner decision; no roadmap task owns translation licensing or EN/AR meal coverage
+- **Limitation:** condition 6 obliges tracking the latest issued version and **no monitoring process exists** (bundled V1.0.4 currently equals the official version, verified 2026-08-04); commercial/freemium redistribution is **not explicitly addressed** by the terms and remains awaiting written confirmation from QuranEnc; non-Turkish app locales have no translation in their own language. The full-corpus comparison limitation is **closed** — see Source review
+- **Follow-up:** the redistribution basis for the **free** closed alpha is **CLOSED (TASK 097B-B)**. Still open, owner decision, no roadmap task: written confirmation for commercial/freemium redistribution, a version-tracking process for condition 6, and EN/AR meal coverage
 
 ### quran-search-index
 
@@ -633,13 +633,15 @@ licensing conflict for content that actually ships.
 - **Severity:** P2 — a future source URL correction in `sources.json` would silently leave the Profile screen showing a stale address.
 - **Smallest safe follow-up:** a single assertion that every Diyanet entry in the constant list matches a registry record. Owner: **TASK 094**.
 
-### F3 — Quran translation licensing is unestablished
+### F3 — Quran translation licensing is unestablished — **CLOSED (TASK 097B-B) for free distribution**
 
 - **Content area:** `quran-translation-tr`
-- **Evidence:** `THIRD_PARTY_NOTICES.md` and `CONTENT_SOURCES.md` record usage restrictions and required attribution for the QuranEnc/Rowad translation but state **no licence grant**, unlike the Tanzil text which is explicitly CC BY 3.0.
+- **Original evidence (preserved):** `THIRD_PARTY_NOTICES.md` and `CONTENT_SOURCES.md` recorded usage restrictions and required attribution for the QuranEnc/Rowad translation but stated **no licence grant**, unlike the Tanzil text which is explicitly CC BY 3.0.
 - **Affected surface:** Quran reader (the only translation shipped).
 - **Severity:** P2 — recorded as UNRESOLVED, not as a conflict; no evidence of a violation was found.
-- **Smallest safe follow-up:** obtain and record the licence or permission basis before any store release. Owner: **UNRESOLVED** — owner decision; no roadmap task owns it and none is invented here.
+- **Resolution (2026-08-04):** the original finding was **incomplete, not wrong in spirit**. QuranEnc does publish an explicit grant — "Contents of the translations can be downloaded and re-published, with the following terms and conditions" — in a site-wide "Terms and Policies" block present on the translation, home, about and API pages. The repository had transcribed four of its seven conditions while omitting the permission sentence that introduces them, which is why the grant read as bare restrictions. The grant and all seven conditions are now recorded in `docs/CONTENT_SOURCES.md`, `THIRD_PARTY_NOTICES.md` and `bismillah_app/assets/quran/NOTICE.md` with exact URLs, page titles and access date.
+- **Remaining, genuinely open:** the terms **do not address commercial or freemium redistribution** — neither permitting nor prohibiting it. No commercial permission may be inferred from the free-distribution grant. Written confirmation from QuranEnc is required before the translation ships in an app offering paid features. Owner decision; no roadmap task owns it and none is invented here.
+- **Also open:** condition 6 (track and update to the latest issued version) has no monitoring process.
 
 ### F4 — Deployed Diyanet callable is client-inactive with unresolved licensing
 
