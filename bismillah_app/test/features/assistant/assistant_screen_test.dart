@@ -257,7 +257,10 @@ void main() {
       await tester.tap(find.byIcon(Icons.send_rounded));
       await tester.pumpAndSettle();
 
-      expect(find.text(l10n.assistantBadgeGuidance), findsOneWidget);
+      // TASK 095D: resmî fetva gerekliliği artık kişisel yönlendirmeden
+      // AYRI bir rozet taşır — beklenti daraltılmadı, doğru rozete
+      // yöneltildi.
+      expect(find.text(l10n.assistantBadgeOfficialFatwa), findsOneWidget);
       expect(find.text(l10n.assistantOfficialGuidanceCta), findsOneWidget);
     });
   });
@@ -489,11 +492,27 @@ void main() {
   });
 
   group('Scroll davranışı', () {
+    /// Dar viewport'ta iniş kartı listeyi taşırabilir; testin konusu
+    /// kaydırma davranışıdır, önerinin ilk ekranda durması DEĞİL — bu
+    /// yüzden öneri önce görünür alana getirilir (TASK 095D).
+    Future<void> tapSuggestion(WidgetTester tester, String question) async {
+      await tester.scrollUntilVisible(
+        find.text(question),
+        120,
+        scrollable: find.byType(Scrollable).first,
+      );
+      // `scrollUntilVisible` öğeyi listeye getirir ama composer'ın altında
+      // kalabilir; `ensureVisible` gerçekten dokunulabilir hâle getirir.
+      await tester.ensureVisible(find.text(question));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(question));
+      await tester.pumpAndSettle();
+    }
+
     testWidgets('yeni cevap gelince otomatik aşağı kaydırır', (tester) async {
       // Kısa viewport: içerik taşsın.
       await pump(tester, size: const Size(360, 560));
-      await tester.tap(find.text(l10n.assistantSuggested1));
-      await tester.pumpAndSettle();
+      await tapSuggestion(tester, l10n.assistantSuggested1);
 
       final position = tester
           .state<ScrollableState>(find.byType(Scrollable).first)
@@ -505,8 +524,7 @@ void main() {
       tester,
     ) async {
       await pump(tester, size: const Size(360, 560));
-      await tester.tap(find.text(l10n.assistantSuggested1));
-      await tester.pumpAndSettle();
+      await tapSuggestion(tester, l10n.assistantSuggested1);
 
       final state = tester.state<ScrollableState>(
         find.byType(Scrollable).first,

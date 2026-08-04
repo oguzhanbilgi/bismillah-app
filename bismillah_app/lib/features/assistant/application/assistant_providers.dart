@@ -4,6 +4,7 @@ import 'package:bismillah_app/features/assistant/data/local_source_grounded_assi
 import 'package:bismillah_app/features/assistant/data/shared_prefs_assistant_history_repository.dart';
 import 'package:bismillah_app/features/assistant/domain/entities/assistant_message.dart';
 import 'package:bismillah_app/features/assistant/domain/entities/assistant_query.dart';
+import 'package:bismillah_app/features/assistant/domain/entities/assistant_response.dart';
 import 'package:bismillah_app/features/assistant/domain/repositories/assistant_history_repository.dart';
 import 'package:bismillah_app/features/assistant/domain/repositories/bismillah_assistant_repository.dart';
 import 'package:bismillah_app/features/assistant/domain/services/assistant_query_classifier.dart';
@@ -47,19 +48,35 @@ final class AssistantConversationState {
   const AssistantConversationState({
     this.messages = const [],
     this.isResponding = false,
+    this.failedQuery,
+    this.failedMessageId,
   });
 
   final List<AssistantMessage> messages;
   final bool isResponding;
 
+  /// Retrieval GEÇİCİ olarak tamamlanamadığında tekrar denenebilmesi için
+  /// tutulan son soru (TASK 095D). Bu bir CEVAP DEĞİLDİR: hiçbir metin
+  /// üretilmez, hiçbir kaynak iddia edilmez ve bu alan diske YAZILMAZ.
+  final String? failedQuery;
+
+  /// Başarısız denemenin kullanıcı mesajı — tekrar denerken soru ekranda
+  /// iki kez görünmesin diye listeden çıkarılır.
+  final String? failedMessageId;
+
   bool get isEmpty => messages.isEmpty;
+
+  bool get hasRetrievalFailure => failedQuery != null;
 
   AssistantConversationState copyWith({
     List<AssistantMessage>? messages,
     bool? isResponding,
+    bool clearFailure = false,
   }) => AssistantConversationState(
     messages: messages ?? this.messages,
     isResponding: isResponding ?? this.isResponding,
+    failedQuery: clearFailure ? null : failedQuery,
+    failedMessageId: clearFailure ? null : failedMessageId,
   );
 }
 
@@ -107,25 +124,48 @@ final class AssistantConversationController
     // (TASK 094 §A) — ikinci bir hassasiyet listesi burada TUTULMAZ.
     final queryClass = AssistantQueryClassifier.classify(text);
     final sensitive = AssistantQueryClassifier.isSensitiveVerdict(queryClass);
+    // Kalıcılık kararı beklemeden verilir: retrieval hata verse bile hassas
+    // soru metni diske sızamaz.
+    if (sensitive) {
+      _nonPersistableIds.add(userMessage.id);
+    }
 
     // Kullanıcı mesajını hemen göster + gönderimi kilitle.
     state = AsyncData(
       current.copyWith(
         messages: [...current.messages, userMessage],
         isResponding: true,
+        clearFailure: true,
       ),
     );
 
-    final response = await ref
-        .read(bismillahAssistantRepositoryProvider)
-        .answer(
-          AssistantQuery(
-            id: userMessage.id,
-            text: text,
-            locale: locale.name,
-            createdAt: createdAt,
-          ),
-        );
+    final AssistantResponse response;
+    try {
+      response = await ref
+          .read(bismillahAssistantRepositoryProvider)
+          .answer(
+            AssistantQuery(
+              id: userMessage.id,
+              text: text,
+              locale: locale.name,
+              createdAt: createdAt,
+            ),
+          );
+    } on Object catch (_) {
+      // Retrieval tamamlanamadı: CEVAP ÜRETİLMEZ ve "kaynak yok" gibi bir
+      // dinî sonuç iddia EDİLMEZ (TASK 095D). Soru ekranda kalır, gönderim
+      // kilidi açılır ve kullanıcı açıkça tekrar deneyebilir. Cevapsız soru
+      // kalıcı geçmişe yazılmaz. Hata metni state'e KONULMAZ.
+      _nonPersistableIds.add(userMessage.id);
+      state = AsyncData(
+        AssistantConversationState(
+          messages: [...current.messages, userMessage],
+          failedQuery: text,
+          failedMessageId: userMessage.id,
+        ),
+      );
+      return;
+    }
 
     final assistantMessage = AssistantMessage.fromResponse(
       id: _id(),
@@ -134,9 +174,7 @@ final class AssistantConversationController
     );
 
     if (sensitive) {
-      _nonPersistableIds
-        ..add(userMessage.id)
-        ..add(assistantMessage.id);
+      _nonPersistableIds.add(assistantMessage.id);
     }
 
     final updated = [...current.messages, userMessage, assistantMessage];
@@ -144,6 +182,27 @@ final class AssistantConversationController
       AssistantConversationState(messages: updated, isResponding: false),
     );
     await _persist(updated);
+  }
+
+  /// Geçici retrieval hatasından sonra AYNI soruyu tekrar dener. Başarısız
+  /// deneme balonu listeden çıkarılır, böylece soru ekranda iki kez
+  /// görünmez; yeni bir dinî içerik veya sınıflandırma üretilmez.
+  Future<void> retryLastFailed() async {
+    final current = state.value;
+    final query = current?.failedQuery;
+    if (current == null || query == null || current.isResponding) {
+      return;
+    }
+    final failedId = current.failedMessageId;
+    state = AsyncData(
+      AssistantConversationState(
+        messages: [
+          for (final m in current.messages)
+            if (m.id != failedId) m,
+        ],
+      ),
+    );
+    await send(query);
   }
 
   Future<void> _persist(List<AssistantMessage> messages) async {
