@@ -9,7 +9,7 @@ import 'package:bismillah_app/features/today/domain/services/onboarding_profile_
 import 'package:bismillah_app/features/today/domain/value_objects/daily_plan_profile_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Profil ana ekranının tek okuma modeli (TASK 096).
+/// Profil ana ekranının tek okuma modeli (TASK 095C).
 ///
 /// Tümü GERÇEK kayıtlı veriden gelir: tercihler onboarding deposundan,
 /// plan ilerlemesi kayıtlı `DailyPlan` kayıtlarından. Uydurulmuş metrik

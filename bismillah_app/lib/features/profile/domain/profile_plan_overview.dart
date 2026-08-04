@@ -2,7 +2,7 @@ import 'package:bismillah_app/core/value_objects/day_key.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/services/daily_plan_generator.dart';
 
-/// Profil ekranındaki plan özeti — SAF hesaplama (TASK 096).
+/// Profil ekranındaki plan özeti — SAF hesaplama (TASK 095C).
 ///
 /// ## Dürüstlük kuralı
 ///

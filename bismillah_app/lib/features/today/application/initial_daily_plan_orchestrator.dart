@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:bismillah_app/core/errors/app_failure.dart';
 import 'package:bismillah_app/core/utils/clock.dart';
@@ -94,7 +94,7 @@ final class InitialDailyPlanPersistenceFailed extends InitialDailyPlanOutcome {
   final AppFailure failure;
 }
 
-/// Tercih değişikliğinden sonra planın yeniden üretilme sonucu (TASK 096).
+/// Tercih değişikliğinden sonra planın yeniden üretilme sonucu (TASK 095C).
 ///
 /// [InitialDailyPlanOutcome]'dan ayrı bir tiptir: "zaten var" burada bir
 /// sonuç DEĞİLDİR — kullanıcı açıkça yenilemeyi onaylamıştır.
@@ -183,7 +183,7 @@ final class InitialDailyPlanOrchestrator {
   /// Devam eden tek oluşturma işlemi (eşzamanlı çağrı koruması).
   Future<InitialDailyPlanOutcome>? _inFlight;
 
-  /// Devam eden tek yenileme işlemi (TASK 096). İlk oluşturmadan AYRI
+  /// Devam eden tek yenileme işlemi (TASK 095C). İlk oluşturmadan AYRI
   /// tutulur, çünkü sonuç tipleri farklıdır; hızlı art arda dokunuşlar
   /// yine tek yazma üretir.
   Future<PlanRegenerationOutcome>? _regenerationInFlight;
@@ -208,7 +208,7 @@ final class InitialDailyPlanOrchestrator {
   }
 
   /// Kayıtlı tercihlere göre **bugünden başlayan** aralığı yeniden üretir
-  /// (TASK 096).
+  /// (TASK 095C).
   ///
   /// Bu, [ensureInitialPlan]'in aksine mevcut aralığın ÜZERİNE yazar —
   /// ama yalnız kullanıcı açıkça onayladığında çağrılmalıdır. Üretici,

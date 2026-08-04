@@ -346,7 +346,7 @@ final class AppLocalizations {
   String get profileJourneyStage => _t('profileJourneyStage');
   String get profileDailyPace => _t('profileDailyPace');
 
-  // Profil ana ekranı — plan özeti ve yenileme (TASK 096).
+  // Profil ana ekranı — plan özeti ve yenileme (TASK 095C).
   // Ton: sakin ve dürüst. Seri/puan/seviye/rozet dili, yarışma ve
   // abartılı kutlama YASAKTIR; gösterilen her sayı kayıtlı gerçek
   // veriden gelir.

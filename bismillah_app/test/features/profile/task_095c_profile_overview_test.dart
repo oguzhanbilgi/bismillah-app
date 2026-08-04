@@ -18,7 +18,7 @@ import 'package:bismillah_app/features/onboarding/domain/value_objects/onboardin
 import 'package:bismillah_app/features/onboarding/domain/value_objects/onboarding_focus_goal.dart';
 import 'package:bismillah_app/features/onboarding/domain/value_objects/onboarding_journey_stage.dart';
 import 'package:bismillah_app/features/profile/domain/profile_plan_overview.dart';
-import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/profile_screen.dart';
 import 'package:bismillah_app/features/today/data/today_data_providers.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/repositories/daily_plan_repository.dart';
@@ -32,7 +32,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
-/// TASK 096 — Profil ana ekranı.
+/// TASK 095C — Profil ana ekranı.
 ///
 /// Ekrandaki her sayı KAYITLI gerçek veriden gelmelidir; uydurma metrik,
 /// hesap/bulut/eşitleme ifadesi ve çalışmayan satır bulunmamalıdır.
@@ -128,7 +128,7 @@ void main() {
             ),
             child: child!,
           ),
-          home: const ProfilePlaceholderScreen(),
+          home: const ProfileScreen(),
         ),
       ),
     );

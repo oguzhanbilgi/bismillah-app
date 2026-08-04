@@ -17,7 +17,7 @@ import 'package:bismillah_app/features/profile/presentation/about_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/content_sources_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
-import 'package:bismillah_app/features/profile/presentation/profile_placeholder_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/profile_screen.dart';
 import 'package:bismillah_app/features/qibla/presentation/qibla_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_saved_verses_screen.dart';
@@ -164,7 +164,7 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
               GoRoute(
                 path: AppRoutes.profile,
                 name: AppRoutes.profileName,
-                builder: (context, state) => const ProfilePlaceholderScreen(),
+                builder: (context, state) => const ProfileScreen(),
                 routes: [
                   // Kişiselleştirme düzenleme (TASK 030): Profile branch
                   // içinde push (relative path → /profile/personalization);

@@ -19,7 +19,7 @@ import 'package:bismillah_app/features/today/domain/services/daily_plan_generato
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// TASK 096 — plan yenileme.
+/// TASK 095C — plan yenileme.
 ///
 /// Bu bir **veri bütünlüğü** testidir: yenileme yalnız açık onaydan sonra
 /// çalışır (arayüz testi ayrı dosyada), geçmiş günlere dokunmaz, hata

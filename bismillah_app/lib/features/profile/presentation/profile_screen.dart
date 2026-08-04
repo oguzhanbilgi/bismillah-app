@@ -30,8 +30,8 @@ import 'package:go_router/go_router.dart';
 /// Öğren ve Destek. Namaz/Kur'an/Öğren satırları MEVCUT çalışan route'lara
 /// gider (yeni ürün özelliği yoktur). Dinî puan/seviye ve premium baskısı
 /// EKLENMEZ; çalışmayan (abonelik/asistan/sync) satır gösterilmez.
-class ProfilePlaceholderScreen extends ConsumerWidget {
-  const ProfilePlaceholderScreen({super.key});
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -65,7 +65,7 @@ class ProfilePlaceholderScreen extends ConsumerWidget {
 }
 
 // ---------------------------------------------------------------------------
-// 30 günlük plan özeti (TASK 096) — TÜM sayılar kayıtlı plan kayıtlarından
+// 30 günlük plan özeti (TASK 095C) — TÜM sayılar kayıtlı plan kayıtlarından
 // ---------------------------------------------------------------------------
 
 /// Plan profili etiketleri. Enum `.name` GÖSTERİLMEZ; bunlar nötr
@@ -350,7 +350,7 @@ class _PlanRegenerationNote extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// Yerel veri gerçeği (TASK 096) — hesap/bulut/eşitleme İMA EDİLMEZ
+// Yerel veri gerçeği (TASK 095C) — hesap/bulut/eşitleme İMA EDİLMEZ
 // ---------------------------------------------------------------------------
 
 class _LocalDataCard extends StatelessWidget {

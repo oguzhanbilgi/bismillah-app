@@ -2,7 +2,7 @@ import 'package:bismillah_app/features/profile/application/profile_overview_prov
 import 'package:bismillah_app/features/today/application/initial_daily_plan_orchestrator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Plan yenilemenin arayüz durumu (TASK 096).
+/// Plan yenilemenin arayüz durumu (TASK 095C).
 ///
 /// Başarısızlık ASLA başarı gibi sunulmaz: yazma yapılmadıysa durum
 /// [PlanRegenerationFailureState] olur ve ekran bunu açıkça söyler.
@@ -42,7 +42,7 @@ final planRegenerationControllerProvider =
       PlanRegenerationController.new,
     );
 
-/// Plan yenileme controller'ı (TASK 096).
+/// Plan yenileme controller'ı (TASK 095C).
 ///
 /// Üretim mantığı BURADA DEĞİLDİR: iş, ilk planı da üreten
 /// [InitialDailyPlanOrchestrator.regenerateFromToday] çağrısına aittir.
