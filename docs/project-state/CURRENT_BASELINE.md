@@ -1004,15 +1004,63 @@ obfuscated and resource-shrunk, and `mapping.txt` (~33.8 MB) **is** produced at
 Plugin** (`isMinifyEnabled = true`, `isShrinkResources = isBuiltAsApp`), **not**
 from AGP defaults (`false`) and **not** from any repository configuration —
 reading `android/app/build.gradle.kts` alone suggests the opposite. No
-`proguard-rules.pro` exists and no speculative keep rules were added.
+`proguard-rules.pro` exists and no ProGuard rule has been added.
 `mapping.txt` is git-ignored build output and is the only way to deobfuscate a
 production stack trace, so it must be archived per shipped release.
+
+**Resource-shrinker keep contract (fixed by ALPHA-R2A).** Resource shrinking
+keeps a resource only when it can *see* a reference to it. Any Android resource
+resolved by **name at runtime** is therefore invisible to it and will be
+stripped from the release APK while the debug APK still contains it. This is a
+real, shipped-blocker defect class, not a theoretical one: audio_service
+resolves its media-control icons through
+`getResources().getIdentifier(name, type, package)`, so all seven
+`audio_service_*` drawables were removed and building the media control threw
+`IllegalArgumentException: You must specify an icon resource id to build a
+CustomAction`, which aborted publication of the entire `PlaybackState` — no
+media notification, no lock-screen controls, session stuck at `NONE`, and with
+no foreground media notification Samsung Freecess froze the app so background
+Quran playback died mid-surah.
+
+The fix is `android/app/src/main/res/raw/keep.xml`, preserving **only** the five
+controls the app publishes (`skipToPrevious`, `pause`, `play`, `skipToNext`,
+`stop`). `fast_forward` and `fast_rewind` are deliberately **not** kept and are
+still absent from the release APK, which is the standing proof that shrinking
+remains active. **R8 and resource shrinking stay enabled** — disabling either
+hides the next occurrence of this defect class instead of surfacing it.
+`test/features/quran/audio_service_resource_keep_test.dart` derives the required
+drawables from the handler source, so adding a `MediaControl` without adding its
+drawable fails the suite; it is a **configuration** guard only, and signed-APK
+`aapt2 dump resources` remains the real proof.
+
+Audited at ALPHA-R2A and needing nothing: flutter_local_notifications resolves
+`@mipmap/ic_launcher`, which the manifest already references via `android:icon`;
+the app configures no custom `raw` notification sound; geolocator_android
+resolves an icon only when a `ForegroundNotificationConfig` is supplied and the
+app never supplies one; just_audio and flutter_timezone resolve no resources by
+name.
 
 Verified at ALPHA-R1: signed APK **71,710,178 B** and AAB **71,069,404 B**, both
 `CN=Bismillah Upload, …, C=TR`, RSA 4096, valid **2026-08-05 → 2053-12-21**,
 identical SHA-256 fingerprints, `apksigner` reports `Verifies`, signer confirmed
-**not** `CN=Android Debug`. Release-mode **device validation is ALPHA-R2 and has
-not been performed**; the release APK has not been installed on a device.
+**not** `CN=Android Debug`.
+
+Verified at ALPHA-R2A (commit `dcde0ef`, same certificate): APK **71,724,538 B**,
+AAB **71,087,401 B**; all five required `audio_service_*` drawables packaged;
+R8 and resource shrinking still run; `mapping.txt` regenerated (byte-identical to
+ALPHA-R1 because no code changed and R8 is deterministic). On a Samsung A36 /
+Android 16 in-place release-to-release update: data preserved, prayer alarms
+unchanged at 34 with no duplicates and none past-dated, media notification and
+lock-screen controls present with working play/pause/next/previous/stop,
+`PlaybackState` `PLAYING`, and **5 minutes of screen-off background playback with
+no Freecess freeze and zero `IllegalArgumentException` /
+`MissingPluginException` / `ClassNotFoundException`**.
+
+**The full ALPHA-R2 matrix is NOT complete.** ALPHA-R2A repaired and revalidated
+only the release blocker plus in-place update behaviour. Learn, Assistant,
+Profile, EN/AR + RTL + large-text + reduced-motion, the offline/lifecycle set,
+notification-tap-opens-Prayer and reminder-disable remain **NOT TESTED** on a
+release build.
 
 ## Stack
 
