@@ -1,0 +1,31 @@
+# Bismillah — Android release (upload) signing template.
+#
+# Copy this file to `android/key.properties` and fill in the real values for
+# your restored upload keystore. `android/key.properties` is git-ignored and
+# MUST NEVER be committed. This template contains placeholders only.
+#
+# Procedure, backup and recovery: docs/setup/ANDROID_RELEASE_SIGNING.md
+#
+# Every value below can also be supplied as an environment variable instead,
+# which is the preferred form on a shared or CI machine:
+#
+#   storeFile     -> BISMILLAH_UPLOAD_STORE_FILE
+#   storePassword -> BISMILLAH_UPLOAD_STORE_PASSWORD
+#   keyAlias      -> BISMILLAH_UPLOAD_KEY_ALIAS
+#   keyPassword   -> BISMILLAH_UPLOAD_KEY_PASSWORD
+#
+# `key.properties` wins when both are present.
+
+# Absolute path to the keystore file, which must live OUTSIDE this repository.
+# A relative path is resolved against the `android/` directory.
+# Use forward slashes on Windows too.
+storeFile=/absolute/path/outside/this/repo/REPLACE_ME.jks
+
+# Keystore password. Never commit the real value.
+storePassword=REPLACE_ME
+
+# The stable upload key alias chosen when the keystore was created.
+keyAlias=REPLACE_ME
+
+# Key password. Never commit the real value.
+keyPassword=REPLACE_ME

@@ -1,0 +1,22 @@
+# Repository-root ignore rules — SIGNING AND KEY MATERIAL ONLY (ALPHA-R1).
+#
+# Deliberately narrow: this file exists so that a keystore or a local signing
+# properties file accidentally placed anywhere in the repository is ignored,
+# not just inside `bismillah_app/`. Package-level ignores stay where they are
+# (`bismillah_app/.gitignore`, `bismillah_app/android/.gitignore`,
+# `functions/.gitignore`) — do not move general build/tooling rules here.
+#
+# Setup, backup and recovery: docs/setup/ANDROID_RELEASE_SIGNING.md
+#
+# NOTE: git-ignoring cannot un-track an already committed file. If key material
+# is ever committed, the key must be treated as compromised and rotated.
+
+# Android / Java keystores
+*.jks
+*.keystore
+*.p12
+*.pepk
+
+# Local signing configuration (the tracked template is `key.properties.example`)
+key.properties
+key.properties.local

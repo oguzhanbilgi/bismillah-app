@@ -54,6 +54,9 @@ firestore-debug.log
 **/*adminsdk*.json
 *.jks
 *.keystore
+*.p12
+*.pepk
 android/key.properties
+android/key.properties.local
 .env
 .env.*

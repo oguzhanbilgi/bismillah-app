@@ -113,8 +113,8 @@ Do not edit files.
 These do not come from GitHub and must be restored from a password manager or an
 encrypted secure backup:
 
-- Android release keystore
-- Keystore passwords
+- Android release (upload) keystore, its passwords and its alias — restore
+  procedure in `ANDROID_RELEASE_SIGNING.md`
 - Apple certificates
 - App Store Connect keys
 - RevenueCat secret keys
