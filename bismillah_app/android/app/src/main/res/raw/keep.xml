@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ALPHA-R2A — Android resource-shrinker keep rules.
+
+  WHY THIS FILE EXISTS
+  Release builds run R8 with resource shrinking (enabled by the Flutter Gradle
+  Plugin, not by this repository). The shrinker keeps a resource only when it
+  can SEE a reference to it in code or in a merged resource/manifest file.
+
+  audio_service resolves its media-control icons by NAME at runtime:
+
+      AudioService.java
+        getResources().getIdentifier(resourceName, resourceType, packageName)
+
+  the name arriving from the Dart-side MediaControl constants
+  (audio_service/lib/audio_service.dart), e.g. 'drawable/audio_service_pause'.
+  A string built at runtime is invisible to the shrinker, so it removed all
+  seven audio_service drawables from the signed release APK while the debug
+  APK (no shrinking) still contained them.
+
+  The consequence was NOT a missing icon. Building the media control threw:
+
+      java.lang.IllegalArgumentException:
+        You must specify an icon resource id to build a CustomAction
+
+  which aborted publication of the whole PlaybackState. Observed on a Samsung
+  A36 / Android 16 release build: no media notification, no lock-screen
+  controls, media session state stuck at NONE, and — because there was no
+  foreground media notification to hold the process — Samsung's Freecess froze
+  the app and background Quran playback stopped mid-surah.
+
+  SCOPE — DELIBERATELY MINIMAL
+  Only the five controls the app actually publishes are kept
+  (audio_service_quran_handler.dart, _broadcastSystemState):
+    skipToPrevious · pause · play · skipToNext · stop
+  audio_service also ships audio_service_fast_forward and
+  audio_service_fast_rewind; the app never uses them, so they are NOT kept.
+
+  Adding a MediaControl without adding its drawable here would reintroduce the
+  crash, so the pairing is enforced by an automated guard which derives the
+  required set from the handler source:
+    test/features/quran/audio_service_resource_keep_test.dart
+
+  Nothing else needs keeping (audited at ALPHA-R2A):
+    * flutter_local_notifications resolves '@mipmap/ic_launcher', which the
+      manifest references via android:icon, so the shrinker already keeps it.
+      The app configures no custom raw notification sound.
+    * geolocator_android only resolves an icon when a foreground
+      ForegroundNotificationConfig is supplied; the app never supplies one,
+      and its fallback is the same manifest-referenced ic_launcher.
+    * just_audio and flutter_timezone resolve no resources by name.
+
+  Do NOT widen this to a namespace wildcard and do NOT disable resource
+  shrinking — both hide the next occurrence of this defect class instead of
+  surfacing it.
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/audio_service_skip_previous,@drawable/audio_service_pause,@drawable/audio_service_play_arrow,@drawable/audio_service_skip_next,@drawable/audio_service_stop" />
