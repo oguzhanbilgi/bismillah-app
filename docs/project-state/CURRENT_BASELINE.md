@@ -964,6 +964,56 @@ file-order comparison → restricted to the catalog's own IDs).
   This closes the reboot-delivery gap deferred by TASK 070B.
 - iOS physical-device validation: **not performed (PENDING)**
 
+## Android release signing (ALPHA-R1 — PR OPEN, NOT MERGED)
+
+Release builds are no longer signed with the Android debug certificate. That
+default (`signingConfig = signingConfigs.getByName("debug")`) was confirmed live
+— `apksigner` reported `CN=Android Debug` on the then-current release APK.
+
+Release credentials now come from the **untracked** `android/key.properties`, or
+from `BISMILLAH_UPLOAD_{STORE_FILE,STORE_PASSWORD,KEY_ALIAS,KEY_PASSWORD}`. With
+any input missing, **no release signing config is created at all** and the
+release build fails at `:app:packageRelease` with an actionable message naming
+the missing inputs but never their values — there is **no debug fallback**, and
+no release artifact is produced. Debug builds, `pub get`, analyze and test are
+unaffected, and **CI needs no signing secrets**.
+
+Fixed rules:
+
+- The keystore lives **outside the repository**; `*.jks`, `*.keystore`, `*.p12`,
+  `*.pepk`, `key.properties` and `key.properties.local` are ignored at the repo
+  root and in both `bismillah_app` ignore files. `key.properties.example` is a
+  placeholder-only tracked template.
+- **No real keystore path, alias, password or SHA-256 fingerprint may enter a
+  tracked file.** They live only in the owner's local config and encrypted
+  backups.
+- `key.properties` is parsed **literally**, not via `java.util.Properties`,
+  because `\` is an escape character there — it silently corrupts Windows
+  keystore paths and any backslash-containing password. Values are trimmed, so
+  a password must not begin or end with whitespace.
+- The upload key is **rotatable** via Play Console once Play App Signing is
+  enrolled; the Play app-signing key is not. Play Console enrollment is **not**
+  done and is not part of ALPHA-R1.
+
+Procedure, backup, recovery, second-computer setup and verification commands:
+`docs/setup/ANDROID_RELEASE_SIGNING.md`.
+
+**R8 reality (measured, not assumed):** release builds **are** minified,
+obfuscated and resource-shrunk, and `mapping.txt` (~33.8 MB) **is** produced at
+`build/app/outputs/mapping/release/`. This comes from the **Flutter Gradle
+Plugin** (`isMinifyEnabled = true`, `isShrinkResources = isBuiltAsApp`), **not**
+from AGP defaults (`false`) and **not** from any repository configuration —
+reading `android/app/build.gradle.kts` alone suggests the opposite. No
+`proguard-rules.pro` exists and no speculative keep rules were added.
+`mapping.txt` is git-ignored build output and is the only way to deobfuscate a
+production stack trace, so it must be archived per shipped release.
+
+Verified at ALPHA-R1: signed APK **71,710,178 B** and AAB **71,069,404 B**, both
+`CN=Bismillah Upload, …, C=TR`, RSA 4096, valid **2026-08-05 → 2053-12-21**,
+identical SHA-256 fingerprints, `apksigner` reports `Verifies`, signer confirmed
+**not** `CN=Android Debug`. Release-mode **device validation is ALPHA-R2 and has
+not been performed**; the release APK has not been installed on a device.
+
 ## Stack
 
 - Flutter `3.44.6` / Dart `3.12.2` (Node.js `22.22.0`, npm `10.9.4`;
