@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/localization/supported_locale.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/theme/app_theme.dart';
 import 'package:bismillah_app/features/profile/application/profile_providers.dart';
+import 'package:bismillah_app/features/profile/domain/privacy_policy_link.dart';
 import 'package:bismillah_app/features/profile/domain/support_contact.dart';
 import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/privacy_policy_screen.dart';
@@ -215,6 +216,7 @@ void main() {
     Widget screen, {
     SupportedLocale locale = SupportedLocale.tr,
     SupportContactService? supportService,
+    PrivacyPolicyLinkService? policyLinkService,
   }) async {
     SharedPreferences.setMockInitialValues(<String, Object>{
       'bismillah.app_locale': locale.name,
@@ -251,6 +253,10 @@ void main() {
           inMemoryAppDatabaseOverride(),
           if (supportService != null)
             supportContactServiceProvider.overrideWithValue(supportService),
+          if (policyLinkService != null)
+            privacyPolicyLinkServiceProvider.overrideWithValue(
+              policyLinkService,
+            ),
         ],
         child: MaterialApp.router(
           theme: AppTheme.light(),
@@ -328,6 +334,82 @@ void main() {
     });
   });
 
+  // ALPHA-R3C — yayımlanmış herkese açık politika bağlantısı.
+  group('published policy link', () {
+    test('points at the verified public HTTPS address', () {
+      expect(
+        PrivacyPolicyLink.url,
+        'https://oguzhanbilgi.github.io/bismillah-app/privacy/',
+      );
+      final uri = Uri.parse(PrivacyPolicyLink.url);
+      expect(uri.scheme, 'https');
+      expect(uri.hasQuery, isFalse);
+      expect(uri.hasFragment, isFalse);
+    });
+
+    test('is recorded in the canonical policy document', () {
+      final text = File('../docs/legal/PRIVACY_POLICY.md').readAsStringSync();
+      expect(text, contains(PrivacyPolicyLink.url));
+    });
+
+    test('the localized action label exists and is distinct per locale', () {
+      for (final l in locales) {
+        expect(l.privacyOpenWebPolicy.trim(), isNotEmpty);
+        expect(l.privacyWebPolicyUnavailable.trim(), isNotEmpty);
+      }
+      expect(tr.privacyOpenWebPolicy, isNot(en.privacyOpenWebPolicy));
+      expect(ar.privacyOpenWebPolicy, isNot(en.privacyOpenWebPolicy));
+      expect(RegExp(r'[؀-ۿ]').hasMatch(ar.privacyOpenWebPolicy), isTrue);
+    });
+
+    testWidgets('the in-app policy screen is kept alongside the web action', (
+      tester,
+    ) async {
+      await pumpScreen(tester, const PrivacyPolicyScreen());
+      // Yerel ekran KALDIRILMADI: bölümleri hâlâ burada.
+      expect(find.text(tr.privacyPolicySummaryTitle), findsOneWidget);
+      expect(find.text(tr.privacyOpenWebPolicy), findsOneWidget);
+    });
+
+    testWidgets('opening the browser shows no failure message', (tester) async {
+      final service = _FakePrivacyPolicyLinkService(result: true);
+      await pumpScreen(
+        tester,
+        const PrivacyPolicyScreen(),
+        policyLinkService: service,
+      );
+      await tester.ensureVisible(find.text(tr.privacyOpenWebPolicy));
+      await tester.tap(find.text(tr.privacyOpenWebPolicy));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      expect(service.calls, 1);
+      expect(find.byType(SnackBar), findsNothing);
+    });
+
+    testWidgets('a failed launch shows a calm message containing the URL', (
+      tester,
+    ) async {
+      final service = _FakePrivacyPolicyLinkService(result: false);
+      await pumpScreen(
+        tester,
+        const PrivacyPolicyScreen(),
+        policyLinkService: service,
+      );
+      await tester.ensureVisible(find.text(tr.privacyOpenWebPolicy));
+      await tester.tap(find.text(tr.privacyOpenWebPolicy));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      expect(service.calls, 1);
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(
+        find.textContaining(PrivacyPolicyLink.url, findRichText: true),
+        findsWidgets,
+      );
+    });
+  });
+
   group('support action', () {
     testWidgets('opening the email composer shows no failure message', (
       tester,
@@ -368,6 +450,19 @@ void main() {
       );
     });
   });
+}
+
+final class _FakePrivacyPolicyLinkService implements PrivacyPolicyLinkService {
+  _FakePrivacyPolicyLinkService({required this.result});
+
+  final bool result;
+  int calls = 0;
+
+  @override
+  Future<bool> openPublishedPolicy() async {
+    calls += 1;
+    return result;
+  }
 }
 
 final class _FakeSupportContactService implements SupportContactService {
