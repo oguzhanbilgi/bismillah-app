@@ -1,0 +1,51 @@
+name: Privacy Site Pages
+
+# ALPHA-R3B — Yalnız `privacy-site/` klasörünü GitHub Pages'e yayımlar.
+#
+# Depo kökü veya `docs/` YAYIMLANMAZ: yüklenen artefakt tam olarak
+# `privacy-site/` içeriğidir, bu yüzden iç proje dokümantasyonu
+# (docs/project-state, docs/task-reports, ...) hiçbir zaman herkese açık
+# bir adrese çıkmaz.
+#
+# Kanonik metin `docs/legal/PRIVACY_POLICY.md` dosyasıdır; bu iş akışı onu
+# değiştirmez, yalnız `privacy-site/` altındaki HTML sürümünü yayımlar.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'privacy-site/**'
+      - '.github/workflows/privacy-site-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Aynı anda tek yayım; sırada bekleyen bir çalışma iptal EDİLMEZ.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload privacy site only
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: privacy-site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
