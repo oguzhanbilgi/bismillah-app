@@ -76,15 +76,28 @@ class AppButton extends StatelessWidget {
         ),
         child: child,
       ),
+      // RDX-01B: ikincil eylem devre dışıyken KENARLIĞI da sönümlenir.
+      // Önceden yalnız etiket soluyor, çerçeve tam zümrüt kalıyordu; buton
+      // basılabilir görünüyordu. `side` durum duyarlı çözülür.
       AppButtonVariant.secondary => OutlinedButton(
         onPressed: effectiveOnPressed,
-        style: OutlinedButton.styleFrom(
-          minimumSize: minSize,
-          shape: shape,
-          padding: padding,
-          foregroundColor: scheme.primary,
-          side: BorderSide(color: scheme.primary, width: 1.5),
-        ),
+        style:
+            OutlinedButton.styleFrom(
+              minimumSize: minSize,
+              shape: shape,
+              padding: padding,
+              foregroundColor: scheme.primary,
+              disabledForegroundColor: ext.disabled,
+            ).copyWith(
+              side: WidgetStateProperty.resolveWith(
+                (states) => BorderSide(
+                  color: states.contains(WidgetState.disabled)
+                      ? ext.disabled
+                      : scheme.primary,
+                  width: 1.5,
+                ),
+              ),
+            ),
         child: child,
       ),
       AppButtonVariant.ghost => FilledButton.tonal(
@@ -95,6 +108,8 @@ class AppButton extends StatelessWidget {
           padding: padding,
           backgroundColor: ext.surfaceAlt,
           foregroundColor: ext.textPrimary,
+          disabledBackgroundColor: ext.surfaceAlt,
+          disabledForegroundColor: ext.disabled,
         ),
         child: child,
       ),
@@ -105,6 +120,7 @@ class AppButton extends StatelessWidget {
           shape: shape,
           padding: padding,
           foregroundColor: scheme.primary,
+          disabledForegroundColor: ext.disabled,
         ),
         child: child,
       ),
