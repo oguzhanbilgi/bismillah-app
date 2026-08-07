@@ -75,6 +75,18 @@ class AppCard extends StatelessWidget {
       _ => null,
     };
 
+    // RDX-01B: yükseltilmiş kart artık gölgeye EK OLARAK saç teli kalınlığında
+    // bir kenarlık taşır. İki gerekçe var: (1) koyu temada gölge neredeyse
+    // görünmezdir, kartın kenarını yalnız çizgi tanımlar; (2) referans
+    // tasarımda derinlik ağır gölgeyle değil, net kenar + çok yumuşak gölgeyle
+    // kuruluyor. `outlined` varyantı hâlâ AYRIDIR: orada gölge yoktur ve
+    // ayrımı yalnız çizgi taşır.
+    final border = switch (variant) {
+      AppCardVariant.elevated ||
+      AppCardVariant.outlined => Border.all(color: tokens.surfaceBorder),
+      _ => null,
+    };
+
     // TASK 094A: `completed` değiştiğinde zemin sert biçimde değişmez,
     // seçim süresinde yumuşar. Yapı aynıdır (dekorasyon + iç dolgu);
     // yalnız renk geçişi zamana yayılır. Reduced-motion açıkken süre
@@ -86,9 +98,7 @@ class AppCard extends StatelessWidget {
         color: background,
         borderRadius: AppRadius.lgAll,
         boxShadow: shadow,
-        border: variant == AppCardVariant.outlined
-            ? Border.all(color: tokens.surfaceBorder)
-            : null,
+        border: border,
       ),
       padding: padding,
       child: child,

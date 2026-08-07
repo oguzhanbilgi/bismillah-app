@@ -147,9 +147,7 @@ void main() {
   });
 
   group('AppCard varyantları', () {
-    testWidgets('varsayılan varyant mevcut davranışı KORUR (gölgeli)', (
-      tester,
-    ) async {
+    testWidgets('varsayılan varyant GÖLGELİ olan varyanttır', (tester) async {
       await tester.pumpWidget(host(const AppCard(child: Text('x'))));
 
       final decoration =
@@ -164,8 +162,13 @@ void main() {
                   )
                   .decoration
               as BoxDecoration;
+      // RDX-01B: bu iddia "varsayılan kartın kenarlığı YOKTUR"u donduruyordu.
+      // Bu, TASK 054'ün uygulama ayrıntısıydı; kalıcı niyet ise varsayılan
+      // varyantın GÖLGE taşıyan varyant olmasıdır. Yükseltilmiş kart artık
+      // gölgeye ek olarak saç teli bir kenarlık taşır (koyu temada kenarı
+      // yalnız çizgi tanımlar), bu yüzden iddia niyete yeniden bağlandı —
+      // `outlined` ile ayrımı bir alttaki test korumaya devam ediyor.
       expect(decoration.boxShadow, isNotNull);
-      expect(decoration.border, isNull);
     });
 
     testWidgets('tonal varyantlar gölgesizdir ve yüzeyleri farklıdır', (

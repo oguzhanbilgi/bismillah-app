@@ -16,12 +16,28 @@ enum AppTextStyleToken {
   statLarge,
 }
 
+/// Metin vurgu kademesi (RDX-01B). Referans tasarımdaki üç kademeli
+/// hiyerarşiyi (başlık → meta → sönük sayaç) token'la ifade eder; ekranlar
+/// kendi renklerini üretmez.
+enum AppTextTone {
+  /// Başlık ve gövde mürekkebi.
+  primary,
+
+  /// Açıklama, meta satırı.
+  secondary,
+
+  /// En sönük kademe — sayaç, yardımcı etiket. Dekoratiftir; TEK BAŞINA
+  /// taşınan kritik bilgi için kullanılmaz.
+  tertiary,
+}
+
 class AppText extends StatelessWidget {
   const AppText(
     this.text, {
     super.key,
     this.token = AppTextStyleToken.body,
     this.secondary = false,
+    this.tone,
     this.textAlign,
     this.maxLines,
     this.color,
@@ -31,7 +47,13 @@ class AppText extends StatelessWidget {
   final AppTextStyleToken token;
 
   /// İkincil metin rengi (`textSecondary`) kullanılsın mı?
+  ///
+  /// Korunan eski API. [tone] verildiğinde bu alan yok sayılır.
   final bool secondary;
+
+  /// Vurgu kademesi (RDX-01B). Verilmezse [secondary] ve token'ın kendi
+  /// varsayılanı kullanılır.
+  final AppTextTone? tone;
 
   final TextAlign? textAlign;
 
@@ -59,10 +81,20 @@ class AppText extends StatelessWidget {
       AppTextStyleToken.stat => AppTypography.stat,
       AppTextStyleToken.statLarge => AppTypography.statLarge,
     };
-    final effectiveColor = color ?? (secondary ? ext.textSecondary : null);
-    final style = effectiveColor == null
-        ? base
-        : base.copyWith(color: effectiveColor);
+    // RDX-01B: renk ARTIK HER ZAMAN temadan çözülür. Daha önce varsayılan
+    // durumda `AppTypography` sabitinin kendi rengi (açık tema mürekkebi)
+    // olduğu gibi kalıyordu; koyu temada bu, koyu zemin üstünde koyu metin
+    // demekti. Paylaşılan bir bileşen açık tema rengini SABİTLEYEMEZ.
+    final effectiveTone =
+        tone ?? (secondary ? AppTextTone.secondary : _defaultTone(token));
+    final effectiveColor =
+        color ??
+        switch (effectiveTone) {
+          AppTextTone.primary => ext.textPrimary,
+          AppTextTone.secondary => ext.textSecondary,
+          AppTextTone.tertiary => ext.textTertiary,
+        };
+    final style = base.copyWith(color: effectiveColor);
     return Text(
       text,
       style: style,
@@ -71,4 +103,11 @@ class AppText extends StatelessWidget {
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
     );
   }
+
+  /// `caption` zaten ikincil mürekkeple tanımlıdır (03_DESIGN_SYSTEM §5);
+  /// bu eşleme o davranışı token tarafında korur.
+  static AppTextTone _defaultTone(AppTextStyleToken token) =>
+      token == AppTextStyleToken.caption
+      ? AppTextTone.secondary
+      : AppTextTone.primary;
 }
