@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BRAND-01A — adaptive launcher icon background.
+
+  Warm cream sampled from the approved LIGHT app-icon source
+  (assets/branding/bismillah_app_icon_light.png). It is deliberately a flat
+  COLOUR rather than a bitmap: the adaptive background is parallax-shifted and
+  mask-cropped by the launcher, so a flat brand surface can never show a seam,
+  a scaling artefact or a cropped edge.
+
+  This is the icon plate cream, not the in-app AppColors.background (#F7F3EA).
+  The two are intentionally different: the launcher plate follows the approved
+  icon artwork, the app surface follows the product theme.
+-->
+<resources>
+    <color name="ic_launcher_background">#FEF2E2</color>
+</resources>
