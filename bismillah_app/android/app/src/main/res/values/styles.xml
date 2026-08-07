@@ -13,6 +13,10 @@
 
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
-        <item name="android:windowBackground">?android:colorBackground</item>
+        <!-- BRAND-01B: was ?android:colorBackground (pure white). This window
+             sits BEHIND the Flutter UI, so any colour other than the one
+             Flutter paints shows as a pale rim during the handover and during
+             window resizes. Matched to the app's own background. -->
+        <item name="android:windowBackground">@color/brand_launch_background</item>
     </style>
 </resources>

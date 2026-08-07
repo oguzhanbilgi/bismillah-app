@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BRAND-01B — Android 12+ (API 31+) system splash screen, dark mode.
+
+  This file is REQUIRED, not redundant. In Android's resource qualifier
+  precedence the night-mode qualifier ranks ABOVE the platform-version
+  qualifier, so on an API 31+ device in dark mode `values-night/styles.xml`
+  wins over `values-v31/styles.xml`. Without this file the dark-mode splash
+  would fall back to `?android:colorBackground` — black — and then hand over
+  to the cream Flutter UI.
+
+  The app wires only AppTheme.light(), so the same brand cream is correct in
+  both modes. The theme parent is left as it was in values-night; only the
+  visible surfaces are declared.
+
+  Same deliberate omissions as values-v31/styles.xml: no animated icon, no
+  icon background circle, no animation duration, no branding image, no package.
+-->
+<resources>
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowSplashScreenBackground">@color/brand_launch_background</item>
+    </style>
+</resources>

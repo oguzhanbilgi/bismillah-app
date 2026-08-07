@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Modify this file to customize your launch splash screen -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/white" />
+<!--
+  BRAND-01B — launch window background (base qualifier).
 
-    <!-- You can insert your own image assets here -->
-    <!-- <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/launch_image" />
-    </item> -->
+  Plain warm Bismillah cream. No logo bitmap is drawn here on purpose: on
+  Android 12+ the system splash already presents the approved launcher
+  identity, and stretching a second copy of the emblem into the window
+  background would produce a duplicate, differently-scaled logo underneath it.
+
+  minSdk is 24, so drawable-v21/ shadows this file on every supported device;
+  it is kept in sync only so the two never disagree.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/brand_launch_background" />
 </layer-list>

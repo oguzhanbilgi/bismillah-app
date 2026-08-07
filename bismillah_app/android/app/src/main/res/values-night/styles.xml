@@ -13,6 +13,11 @@
 
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
-        <item name="android:windowBackground">?android:colorBackground</item>
+        <!-- BRAND-01B: was ?android:colorBackground, which is BLACK under this
+             parent. The app wires only AppTheme.light(), so the Flutter UI is
+             cream even when the system is in dark mode — a black window behind
+             it flashed at launch. The theme parent is deliberately left
+             untouched; only the surface the user actually sees is corrected. -->
+        <item name="android:windowBackground">@color/brand_launch_background</item>
     </style>
 </resources>
