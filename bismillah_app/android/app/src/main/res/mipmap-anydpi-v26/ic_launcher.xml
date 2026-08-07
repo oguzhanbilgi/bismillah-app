@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BRAND-01A — Android adaptive launcher icon (API 26+).
+
+  The pre-composed rounded-square icon source is deliberately NOT used here.
+  Placing an already-rounded plate inside a launcher mask produces a visible
+  double-rounded frame and crops the plate's own border. Instead the adaptive
+  icon is built the way Android expects: a flat brand background plus the
+  transparent master emblem as the foreground layer.
+
+  The foreground emblem is scaled to 58% of the 108dp canvas height and
+  centred. Verified programmatically: zero emblem pixels (down to alpha 2)
+  fall outside Android's 66dp safe circle, so the full mihrab / star /
+  B / Allah / Kaaba composition survives circle, squircle, rounded-square and
+  teardrop masks without clipping.
+
+  API 25 and below ignore this file and use mipmap-*/ic_launcher.png, which
+  carries its own baked rounded plate (no launcher mask exists there, so there
+  is no double-rounding).
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <!--
+      Android 13+ themed icon. This layer is tinted to a single system colour,
+      so it carries the mihrab / B OUTER BRAND FORM only, taken from the
+      approved glyph's alpha silhouette. The Arabic calligraphy, the star and
+      the Kaaba are intentionally absent rather than auto-thresholded: a
+      one-colour reduction of the calligraphy would render "الله" malformed at
+      launcher size, which is not acceptable.
+    -->
+    <monochrome android:drawable="@mipmap/ic_launcher_monochrome" />
+</adaptive-icon>
