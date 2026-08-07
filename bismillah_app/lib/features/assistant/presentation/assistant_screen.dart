@@ -370,8 +370,16 @@ class _MessageList extends StatelessWidget {
   final bool hasRetrievalFailure;
   final Future<void> Function() onRetry;
 
-  static bool _sameDay(DateTime a, DateTime b) =>
-      a.year == b.year && a.month == b.month && a.day == b.day;
+  /// Gün karşılaştırması CİHAZ YEREL gününe göre yapılır. Bir `DateTime`'ın
+  /// `year/month/day` alanları UTC ise UTC duvar takvimini verir; bu yüzden
+  /// önce `toLocal()` uygulanır (yerel bir değerde etkisizdir).
+  static bool _sameDay(DateTime a, DateTime b) {
+    final localA = a.toLocal();
+    final localB = b.toLocal();
+    return localA.year == localB.year &&
+        localA.month == localB.month &&
+        localA.day == localB.day;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -430,7 +438,11 @@ class _DaySeparator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label = MaterialLocalizations.of(context).formatMediumDate(date);
+    // Cihazın kendi saat diliminde çizilir; UTC bir değer gelse bile ayraç
+    // yerel günü gösterir (yerel bir değerde `toLocal()` etkisizdir).
+    final label = MaterialLocalizations.of(
+      context,
+    ).formatMediumDate(date.toLocal());
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.s4),
       child: Center(
@@ -453,9 +465,12 @@ class _UserMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = IslamicVisualTokens.of(context);
+    // `TimeOfDay.fromDateTime` verilen `DateTime`'ın saat/dakika alanlarını
+    // olduğu gibi okur; UTC bir değer UTC duvar saatiyle çizilirdi. Saat
+    // her zaman CİHAZ YEREL saatiyle gösterilir (sabit saat dilimi yok).
     final time = MaterialLocalizations.of(
       context,
-    ).formatTimeOfDay(TimeOfDay.fromDateTime(createdAt));
+    ).formatTimeOfDay(TimeOfDay.fromDateTime(createdAt.toLocal()));
     return Semantics(
       label: '${AppLocalizations.of(context).assistantYouLabel}, $time: $text',
       child: ExcludeSemantics(

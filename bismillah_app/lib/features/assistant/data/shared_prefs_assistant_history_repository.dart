@@ -214,7 +214,14 @@ final class SharedPrefsAssistantHistoryRepository
       id: id,
       role: role,
       text: text,
-      createdAt: parsedDate,
+      // `_encodeMessage` anı UTC olarak yazar (`...Z`), bu yüzden
+      // `DateTime.tryParse` UTC bir `DateTime` döner. Canlı oturumdaki
+      // mesajlar ise `DateTime.now()` ile YEREL üretilir. Dönüşüm burada
+      // yapılmazsa yeniden açılışta aynı an UTC duvar saatiyle çizilirdi
+      // (UTC+03 cihazda 14:12 → 11:12). `toLocal()` ANI DEĞİŞTİRMEZ;
+      // yalnız cihazın kendi saat dilimine çevirir — sabit bir saat dilimi
+      // varsayılmaz. Saklanan biçim değişmedi, göç/sıfırlama gerekmez.
+      createdAt: parsedDate.toLocal(),
       answerType: _byName(AssistantAnswerType.values, entry['answerType']),
       confidence: _byName(AssistantConfidence.values, entry['confidence']),
       safetyNotice: entry['safetyNotice'] is String
