@@ -69,6 +69,10 @@ abstract final class AppRoutes {
   /// içinde push route).
   static const String profilePrivacy = '/profile/privacy';
 
+  /// Gizlilik politikasının tam metni (ALPHA-R3A; gizlilik özetinin altında
+  /// push route — ayrı bir gizlilik sistemi değil, aynı politikanın tamamı).
+  static const String profilePrivacyPolicy = '/profile/privacy/policy';
+
   /// Hakkında + lisanslar (TASK 058; Profile branch içinde push route).
   static const String profileAbout = '/profile/about';
 
@@ -111,6 +115,7 @@ abstract final class AppRoutes {
   static const String profilePersonalizationName = 'profilePersonalization';
   static const String profileSourcesName = 'profileSources';
   static const String profilePrivacyName = 'profilePrivacy';
+  static const String profilePrivacyPolicyName = 'profilePrivacyPolicy';
   static const String profileAboutName = 'profileAbout';
   static const String quranChapterName = 'quranChapter';
   static const String quranBookmarksName = 'quranBookmarks';
