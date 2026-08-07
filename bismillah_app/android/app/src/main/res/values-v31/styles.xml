@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BRAND-01B — Android 12+ (API 31+) system splash screen, light mode.
+
+  On Android 12+ the system splash is ALWAYS shown; the only question is what
+  it is made of. With nothing declared, the platform cannot derive a colour
+  from `windowBackground` (that is a layer-list, not a plain colour) and falls
+  back to `?android:colorBackground` — white here, black in dark mode.
+
+  Declared below: the warm brand cream, so the splash, the launch window and
+  the Flutter first frame are all #F7F3EA and the handover is invisible.
+
+  Deliberately NOT declared:
+  - `windowSplashScreenAnimatedIcon` — the platform default is the app's own
+    launcher icon, which is already the approved BRAND-01A identity. Supplying
+    a second bitmap would duplicate the emblem and let the two drift apart.
+    The BRAND-01A adaptive foreground keeps all ink inside the 66dp safe
+    circle, which is tighter than the splash icon's own mask, so the full
+    composition survives here as well.
+  - `windowSplashScreenIconBackgroundColor` — would draw a filled circle
+    behind the emblem. The emblem sits directly on the cream instead.
+  - `windowSplashScreenAnimationDuration` — the icon is static and the splash
+    is dismissed by Flutter's first frame. No artificial delay is introduced.
+  - `windowSplashScreenBrandingImage` — Android only shows it on some
+    configurations and it is explicitly discouraged; no extra text or mark.
+
+  These are platform attributes, so no androidx.core:core-splashscreen (or any
+  other package) is added.
+
+  This file only overrides LaunchTheme; NormalTheme continues to come from
+  values/styles.xml.
+-->
+<resources>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowSplashScreenBackground">@color/brand_launch_background</item>
+    </style>
+</resources>

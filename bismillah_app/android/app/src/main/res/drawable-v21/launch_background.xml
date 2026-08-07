@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Modify this file to customize your launch splash screen -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="?android:colorBackground" />
+<!--
+  BRAND-01B — launch window background (API 21+, i.e. every supported device).
 
-    <!-- You can insert your own image assets here -->
-    <!-- <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/launch_image" />
-    </item> -->
+  Was `?android:colorBackground`, which resolves from the LaunchTheme parent:
+  white under Theme.Light and BLACK under Theme.Black in values-night. The
+  Flutter UI always paints cream (#F7F3EA — only AppTheme.light() is wired),
+  so that produced a white -> cream shift in light mode and a hard black ->
+  cream flash in dark mode. Resolving to the brand cream directly removes both.
+
+  Still no logo bitmap here: the Android 12+ system splash owns the identity.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/brand_launch_background" />
 </layer-list>

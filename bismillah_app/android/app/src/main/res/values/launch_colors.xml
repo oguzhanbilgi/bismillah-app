@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  BRAND-01B — native launch / window background.
+
+  This is AppColors.background (#F7F3EA), the exact colour the Flutter UI
+  paints as `scaffoldBackgroundColor`. It is deliberately the RDX theme cream
+  and NOT the launcher plate cream (#FEF2E2 in ic_launcher_background.xml):
+  the launcher plate is artwork behind the emblem, this value is the surface
+  the app itself hands over to. Keeping it identical to the Flutter background
+  is what makes the native -> Flutter handover invisible.
+
+  It is intentionally used for BOTH day and night resource sets. The app wires
+  only `theme: AppTheme.light()` and no `darkTheme`, so the Flutter UI renders
+  cream regardless of the system dark-mode setting. Leaving the night window
+  background black (the Flutter template default) produced a real black ->
+  cream flash at launch on any device in dark mode.
+
+  If a dark theme is ever wired in the app, this file gains a values-night
+  counterpart; until then a second value would be a lie about what the app
+  draws.
+-->
+<resources>
+    <color name="brand_launch_background">#F7F3EA</color>
+</resources>
