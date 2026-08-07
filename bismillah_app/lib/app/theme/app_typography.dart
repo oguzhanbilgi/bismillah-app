@@ -128,15 +128,41 @@ abstract final class AppTypography {
   );
 
   /// Material TextTheme eşlemesi (03_DESIGN_SYSTEM §5 Flutter notları).
-  static TextTheme textTheme() => const TextTheme(
-    displaySmall: display,
-    headlineMedium: h1,
-    titleLarge: h2,
-    titleMedium: h3,
-    bodyLarge: body,
-    bodyMedium: bodySmall,
-    bodySmall: caption,
-    labelLarge: button,
-    labelSmall: navLabel,
-  );
+  ///
+  /// RDX-01A: yukarıdaki `const` stil sabitleri açık tema mürekkebini TAŞIMAYA
+  /// DEVAM EDER (genel kamu API'si korunur). Koyu temada okunabilirlik için
+  /// [primary]/[secondary] verilerek yalnız BU eşleme yeniden renklendirilir;
+  /// böylece `ThemeData.textTheme` iki temada da doğru olur ve tek bir özellik
+  /// dosyası değişmez.
+  static TextTheme textTheme({Color? primary, Color? secondary}) {
+    if (primary == null && secondary == null) {
+      return const TextTheme(
+        displaySmall: display,
+        headlineMedium: h1,
+        titleLarge: h2,
+        titleMedium: h3,
+        bodyLarge: body,
+        bodyMedium: bodySmall,
+        bodySmall: caption,
+        labelLarge: button,
+        labelSmall: navLabel,
+      );
+    }
+    TextStyle ink(TextStyle style) =>
+        primary == null ? style : style.copyWith(color: primary);
+    TextStyle muted(TextStyle style) =>
+        secondary == null ? style : style.copyWith(color: secondary);
+
+    return TextTheme(
+      displaySmall: ink(display),
+      headlineMedium: ink(h1),
+      titleLarge: ink(h2),
+      titleMedium: ink(h3),
+      bodyLarge: ink(body),
+      bodyMedium: ink(bodySmall),
+      bodySmall: muted(caption),
+      labelLarge: button,
+      labelSmall: navLabel,
+    );
+  }
 }
