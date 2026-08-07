@@ -151,13 +151,17 @@ void main() {
       expect(copied.accentGold, light.accentGold);
     });
 
-    testWidgets('uzantı kayıtlı değilse açık temaya düşer, crash etmez', (
-      tester,
+    /// Tek bir temayı taze bir ağaçta çözer. İki temayı AYNI `pumpWidget`
+    /// döngüsünde denemek yanıltıcıdır: `ThemeData` tema değişiminde lerp
+    /// edilir ve ara bir değer okunur.
+    Future<AppThemeExtension> resolveIn(
+      WidgetTester tester,
+      ThemeData theme,
     ) async {
       late AppThemeExtension resolved;
       await tester.pumpWidget(
         MaterialApp(
-          theme: ThemeData(useMaterial3: true),
+          theme: theme,
           home: Builder(
             builder: (context) {
               resolved = AppThemeExtension.of(context);
@@ -166,9 +170,29 @@ void main() {
           ),
         ),
       );
+      return resolved;
+    }
+
+    testWidgets('of(context) açık temada bağlı uzantıyı çözer', (tester) async {
+      final theme = AppTheme.light();
+      final resolved = await resolveIn(tester, theme);
 
       expect(tester.takeException(), isNull);
-      expect(resolved.background, AppColors.background);
+      expect(
+        resolved.background,
+        theme.extension<AppThemeExtension>()!.background,
+      );
+    });
+
+    testWidgets('of(context) koyu temada bağlı uzantıyı çözer', (tester) async {
+      final theme = AppTheme.dark();
+      final resolved = await resolveIn(tester, theme);
+
+      expect(tester.takeException(), isNull);
+      expect(
+        resolved.background,
+        theme.extension<AppThemeExtension>()!.background,
+      );
     });
   });
 }

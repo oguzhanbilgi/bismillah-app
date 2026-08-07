@@ -92,12 +92,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   );
 
   /// Kısa erişim: `AppThemeExtension.of(context)`.
-  ///
-  /// Uzantı kayıtlı değilse (ör. çıplak `ThemeData` kuran bir test) açık tema
-  /// varsayılanına düşer — widget ASLA crash etmez. Bu, kardeş uzantı
-  /// `IslamicVisualTokens.of` ile aynı davranıştır.
   static AppThemeExtension of(BuildContext context) =>
-      Theme.of(context).extension<AppThemeExtension>() ?? light();
+      Theme.of(context).extension<AppThemeExtension>()!;
 
   @override
   AppThemeExtension copyWith({
