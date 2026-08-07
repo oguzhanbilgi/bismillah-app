@@ -12,9 +12,14 @@ The Turkish text is **canonical**; the English and Arabic texts are faithful
 translations of it. The in-app policy screen renders the same content in all
 three languages.
 
-**Publication note:** this document is intended to be published at a public
-HTTPS URL for Google Play. That URL is **not yet decided** and is deliberately
-not written here.
+**Published at (verified live, ALPHA-R3B):**
+<https://oguzhanbilgi.github.io/bismillah-app/privacy/>
+
+That page is built from `privacy-site/privacy/index.html` and deployed by the
+`Privacy Site Pages` workflow, which uploads **only** the `privacy-site`
+directory. It carries this same TR/EN/AR content; when this file changes, the
+page must be updated in the same task. The in-app privacy policy screen is
+**kept** — the public page is the additional copy required by Google Play.
 
 ---
 

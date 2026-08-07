@@ -1,6 +1,8 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/features/profile/application/profile_providers.dart';
+import 'package:bismillah_app/features/profile/domain/privacy_policy_link.dart';
 import 'package:bismillah_app/features/profile/domain/support_contact.dart';
 import 'package:bismillah_app/features/profile/presentation/support_contact_action.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
@@ -20,6 +22,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PrivacyPolicyScreen extends ConsumerWidget {
   const PrivacyPolicyScreen({super.key});
 
+  /// Yayımlanmış politikayı tarayıcıda açar; açılamazsa SESSİZ KALMAZ ve
+  /// ÇÖKMEZ: adresi içeren sakin bir mesaj gösterilir, böylece kullanıcı
+  /// adrese yine de ulaşabilir.
+  Future<void> _openPublished(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+
+    final opened = await ref
+        .read(privacyPolicyLinkServiceProvider)
+        .openPublishedPolicy();
+    if (opened) {
+      return;
+    }
+
+    messenger
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            '${l10n.privacyWebPolicyUnavailable} ${PrivacyPolicyLink.url}',
+          ),
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -34,7 +61,15 @@ class PrivacyPolicyScreen extends ConsumerWidget {
             token: AppTextStyleToken.caption,
             secondary: true,
           ),
-          const SizedBox(height: AppSpacing.s4),
+          const SizedBox(height: AppSpacing.s3),
+          // Aynı metnin herkese açık web kopyası (Play için gereken adres).
+          // Uygulama içi ekran KALDIRILMAZ; bu yalnız ek bir erişim yoludur.
+          AppButton(
+            label: l10n.privacyOpenWebPolicy,
+            variant: AppButtonVariant.secondary,
+            onPressed: () => _openPublished(context, ref),
+          ),
+          const SizedBox(height: AppSpacing.s5),
           _PolicySection(
             title: l10n.privacyPolicySummaryTitle,
             body: l10n.privacyPolicySummaryBody,

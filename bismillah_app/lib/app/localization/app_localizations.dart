@@ -783,6 +783,8 @@ final class AppLocalizations {
   String get privacyNoCloudTitle => _t('privacyNoCloudTitle');
   String get privacyNoCloudBody => _t('privacyNoCloudBody');
   String get privacyOpenFullPolicy => _t('privacyOpenFullPolicy');
+  String get privacyOpenWebPolicy => _t('privacyOpenWebPolicy');
+  String get privacyWebPolicyUnavailable => _t('privacyWebPolicyUnavailable');
   String get privacyPolicyTitle => _t('privacyPolicyTitle');
   String get privacyPolicyUpdated => _t('privacyPolicyUpdated');
   String get privacyPolicySummaryTitle => _t('privacyPolicySummaryTitle');
@@ -1532,6 +1534,9 @@ final class AppLocalizations {
           'Uygulamayı kaldırırsan ya da uygulama verilerini temizlersen '
           'yerel ilerlemen kalıcı olarak silinir.',
       'privacyOpenFullPolicy': 'Gizlilik politikasının tamamı',
+      'privacyOpenWebPolicy': "Web'de gizlilik politikasını aç",
+      'privacyWebPolicyUnavailable':
+          'Tarayıcı açılamadı. Politikanın web adresi:',
       'privacyPolicyTitle': 'Gizlilik politikası',
       'privacyPolicyUpdated': 'Son güncelleme: 7 Ağustos 2026 · Android alpha',
       'privacyPolicySummaryTitle': 'Kısaca',
@@ -2366,6 +2371,9 @@ final class AppLocalizations {
           'uninstall the app or clear its app data, your local progress is '
           'permanently deleted.',
       'privacyOpenFullPolicy': 'Read the full privacy policy',
+      'privacyOpenWebPolicy': 'Open the privacy policy on the web',
+      'privacyWebPolicyUnavailable':
+          'No browser could be opened. The policy address is:',
       'privacyPolicyTitle': 'Privacy policy',
       'privacyPolicyUpdated': 'Last updated: 7 August 2026 · Android alpha',
       'privacyPolicySummaryTitle': 'In short',
@@ -3153,6 +3161,9 @@ final class AppLocalizations {
           'لا يوجد نسخ احتياطي سحابي فعّال ولا مزامنة حساب. وإذا أزلت '
           'التطبيق أو مسحت بياناته يُحذف تقدّمك المحلي نهائيًا.',
       'privacyOpenFullPolicy': 'سياسة الخصوصية كاملةً',
+      'privacyOpenWebPolicy': 'افتح سياسة الخصوصية على الويب',
+      'privacyWebPolicyUnavailable':
+          'تعذّر فتح المتصفّح. عنوان السياسة على الويب:',
       'privacyPolicyTitle': 'سياسة الخصوصية',
       'privacyPolicyUpdated': 'آخر تحديث: ٧ أغسطس ٢٠٢٦ · ألفا لأندرويد',
       'privacyPolicySummaryTitle': 'باختصار',
@@ -3217,8 +3228,7 @@ final class AppLocalizations {
       'supportContactAction': 'تواصل مع الدعم',
       'supportContactRow': 'الدعم والملاحظات',
       'supportContactRowSubtitle': 'راسِلنا بالبريد الإلكتروني',
-      'supportEmailUnavailable':
-          'تعذّر فتح تطبيق البريد. يمكنك مراسلتنا على:',
+      'supportEmailUnavailable': 'تعذّر فتح تطبيق البريد. يمكنك مراسلتنا على:',
       // إعادة تعيين البيانات (TASK 058 §7)
       'resetSectionTitle': 'إعادة تعيين البيانات',
       'resetLearningTitle': 'إعادة تعيين بيانات التعلّم',
