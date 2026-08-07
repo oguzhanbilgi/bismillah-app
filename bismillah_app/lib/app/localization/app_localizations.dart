@@ -768,6 +768,51 @@ final class AppLocalizations {
   String get privacyNetworkLinks => _t('privacyNetworkLinks');
   String get privacyNote => _t('privacyNote');
 
+  // Gizlilik özeti ve tam politika (ALPHA-R3A)
+  String get privacyLocalPlan => _t('privacyLocalPlan');
+  String get privacyLocalAssistant => _t('privacyLocalAssistant');
+  String get privacyAssistantTitle => _t('privacyAssistantTitle');
+  String get privacyAssistantOnDevice => _t('privacyAssistantOnDevice');
+  String get privacyAssistantSensitive => _t('privacyAssistantSensitive');
+  String get privacyPermissionsTitle => _t('privacyPermissionsTitle');
+  String get privacyPermissionLocation => _t('privacyPermissionLocation');
+  String get privacyPermissionNotifications =>
+      _t('privacyPermissionNotifications');
+  String get privacyPermissionExactAlarm => _t('privacyPermissionExactAlarm');
+  String get privacyNetworkFirebase => _t('privacyNetworkFirebase');
+  String get privacyNoCloudTitle => _t('privacyNoCloudTitle');
+  String get privacyNoCloudBody => _t('privacyNoCloudBody');
+  String get privacyOpenFullPolicy => _t('privacyOpenFullPolicy');
+  String get privacyPolicyTitle => _t('privacyPolicyTitle');
+  String get privacyPolicyUpdated => _t('privacyPolicyUpdated');
+  String get privacyPolicySummaryTitle => _t('privacyPolicySummaryTitle');
+  String get privacyPolicySummaryBody => _t('privacyPolicySummaryBody');
+  String get privacyPolicyStoredTitle => _t('privacyPolicyStoredTitle');
+  String get privacyPolicyStoredBody => _t('privacyPolicyStoredBody');
+  String get privacyPolicyAssistantTitle => _t('privacyPolicyAssistantTitle');
+  String get privacyPolicyAssistantBody => _t('privacyPolicyAssistantBody');
+  String get privacyPolicyCloudTitle => _t('privacyPolicyCloudTitle');
+  String get privacyPolicyCloudBody => _t('privacyPolicyCloudBody');
+  String get privacyPolicyPermissionsTitle =>
+      _t('privacyPolicyPermissionsTitle');
+  String get privacyPolicyPermissionsBody => _t('privacyPolicyPermissionsBody');
+  String get privacyPolicyNetworkTitle => _t('privacyPolicyNetworkTitle');
+  String get privacyPolicyNetworkBody => _t('privacyPolicyNetworkBody');
+  String get privacyPolicyNoTrackingTitle => _t('privacyPolicyNoTrackingTitle');
+  String get privacyPolicyNoTrackingBody => _t('privacyPolicyNoTrackingBody');
+  String get privacyPolicyChildrenTitle => _t('privacyPolicyChildrenTitle');
+  String get privacyPolicyChildrenBody => _t('privacyPolicyChildrenBody');
+  String get privacyPolicyControlTitle => _t('privacyPolicyControlTitle');
+  String get privacyPolicyControlBody => _t('privacyPolicyControlBody');
+  String get privacyPolicyContactTitle => _t('privacyPolicyContactTitle');
+  String get privacyPolicyContactBody => _t('privacyPolicyContactBody');
+
+  // Destek / geri bildirim (ALPHA-R3A)
+  String get supportContactAction => _t('supportContactAction');
+  String get supportContactRow => _t('supportContactRow');
+  String get supportContactRowSubtitle => _t('supportContactRowSubtitle');
+  String get supportEmailUnavailable => _t('supportEmailUnavailable');
+
   // Veri sıfırlama (TASK 058 §7)
   String get resetSectionTitle => _t('resetSectionTitle');
   String get resetLearningTitle => _t('resetLearningTitle');
@@ -1464,6 +1509,100 @@ final class AppLocalizations {
       'privacyNote':
           'Bu kayıtlar cihazında tutulur; yukarıda belirtilen ağ alanları '
           'dışında bir sunucuya gönderilmez.',
+      // Gizlilik özeti ve tam politika (ALPHA-R3A)
+      'privacyLocalPlan': '30 günlük plan ve görev tamamlamaların',
+      'privacyLocalAssistant': 'Asistan sohbet geçmişi (son 20 mesaj)',
+      'privacyAssistantTitle': 'Asistan',
+      'privacyAssistantOnDevice':
+          'Sorular cihazda işlenir; dış bir yapay zekâ servisine gönderilmez',
+      'privacyAssistantSensitive':
+          'Hüküm, kişisel durum ve ibadet kuralı soruları cihazda saklanmaz',
+      'privacyPermissionsTitle': 'İzinler',
+      'privacyPermissionLocation':
+          'Konum (yalnız uygulama açıkken): namaz vakti ve kıble hesabı',
+      'privacyPermissionNotifications':
+          'Bildirimler: namaz hatırlatıcıları için',
+      'privacyPermissionExactAlarm':
+          'Tam zamanlı alarm: izin yoksa yaklaşık zamanlamaya dönülür',
+      'privacyNetworkFirebase':
+          'Firebase anonim kimlik doğrulaması (Google servisleri)',
+      'privacyNoCloudTitle': 'Bulut yedeklemesi yok',
+      'privacyNoCloudBody':
+          'Etkin bir bulut yedekleme veya hesap senkronizasyonu yoktur. '
+          'Uygulamayı kaldırırsan ya da uygulama verilerini temizlersen '
+          'yerel ilerlemen kalıcı olarak silinir.',
+      'privacyOpenFullPolicy': 'Gizlilik politikasının tamamı',
+      'privacyPolicyTitle': 'Gizlilik politikası',
+      'privacyPolicyUpdated': 'Son güncelleme: 7 Ağustos 2026 · Android alpha',
+      'privacyPolicySummaryTitle': 'Kısaca',
+      'privacyPolicySummaryBody':
+          'Bismillah önce-cihaz çalışır: planın, ilerlemen, tercihlerin ve '
+          'Asistan geçmişin öncelikle kendi cihazında saklanır ve hesap '
+          'açman gerekmez. Bu, hiçbir verinin cihazdan çıkmadığı anlamına '
+          'gelmez; ağ kullanılan yerler aşağıda tek tek yazılıdır.',
+      'privacyPolicyStoredTitle': 'Cihazında saklananlar',
+      'privacyPolicyStoredBody':
+          'Onboarding tercihlerin ve türetilen plan profilin, 30 günlük plan '
+          'kayıtların ve görev tamamlamaların, namaz takip geçmişin, '
+          "Kur'an okuma konumun ve yer imlerin, öğrenme kayıtların, dil ve "
+          'hesaplama yöntemi tercihlerin, Asistan sohbet geçmişin '
+          '(en fazla son 20 mesaj).',
+      'privacyPolicyAssistantTitle': 'Asistan ve hassas sorular',
+      'privacyPolicyAssistantBody':
+          'Asistan tamamen cihaz üzerinde çalışır; soruların hiçbir dış '
+          'üretken yapay zekâ servisine gönderilmez. Hüküm, kişisel durum ve '
+          'ibadet kuralı niteliğindeki hassas sorular ile cevapları cihazda '
+          'saklanmaz. Bu ayrım anahtar kelimeye dayalıdır, bu yüzden zaman '
+          'zaman zararsız bir soru da saklanmayan gruba girebilir. Geçmişi '
+          'istediğin an uygulama içinden silebilirsin.',
+      'privacyPolicyCloudTitle': 'Bulut yedekleme ve hesap',
+      'privacyPolicyCloudBody':
+          'Şu anda etkin bir bulut yedekleme veya hesap senkronizasyonu '
+          'yoktur ve verilerin başka bir cihaza taşınmaz. Bunun doğrudan '
+          'sonucu: uygulamayı kaldırırsan veya uygulama verilerini '
+          'temizlersen yerel ilerlemen kalıcı olarak silinir.',
+      'privacyPolicyPermissionsTitle': 'İzinler',
+      'privacyPolicyPermissionsBody':
+          'Konum yalnız uygulama açıkken ve yalnız namaz vakitlerini ve '
+          'kıble yönünü cihazında hesaplamak için kullanılır; bir sunucuya '
+          'gönderilmez ve arka planda toplanmaz. Bildirim izni namaz '
+          'hatırlatıcıları içindir; hatırlatıcılar cihazda planlanır. Tam '
+          'zamanlı alarm izni yoksa uygulama yaklaşık zamanlamaya döner ve '
+          'bunu sana açıkça söyler.',
+      'privacyPolicyNetworkTitle': 'Ağ kullanılan yerler',
+      'privacyPolicyNetworkBody':
+          "Kur'an sesi MP3Quran.net üzerinden akıtılır; bir kaydı çaldığında "
+          'cihazının IP adresi teknik olarak o servise ulaşır. Tanzil, '
+          'QuranEnc ve resmî kaynak bağlantılarını açtığında sistem tarayıcın '
+          'ilgili siteye bağlanır ve o siteler kendi gizlilik politikalarına '
+          'tabidir. Uygulama Firebase anonim kimlik doğrulaması başlatır; bu '
+          'sırada cihaz Google servisleriyle iletişim kurabilir ve adına ya '
+          'da e-postana bağlı olmayan anonim bir kimlik oluşturulur. Uygulama '
+          'paketinde standart Firebase istemci yapılandırması bulunur.',
+      'privacyPolicyNoTrackingTitle': 'Reklam, ölçümleme ve ödeme',
+      'privacyPolicyNoTrackingBody':
+          'Hiçbir reklam SDK\'sı entegre değildir. Etkin bir analitik veya '
+          'çökme raporlama arka ucu yoktur. Etkin bir ödeme veya abonelik '
+          'sistemi yoktur; alpha sürümünde satın alma yapılamaz.',
+      'privacyPolicyChildrenTitle': 'Çocuklar',
+      'privacyPolicyChildrenBody':
+          'Bismillah çocuklara yönelik bir ürün olarak tasarlanmamıştır ve '
+          'çocuklara özel bir veri toplama uygulaması yürütmez. Yaşa dayalı '
+          'profilleme yapılmaz.',
+      'privacyPolicyControlTitle': 'Kontrol sende',
+      'privacyPolicyControlBody':
+          'Uygulama içinden öğrenme verilerini veya tüm yerel verilerini '
+          'sıfırlayabilir, Asistan geçmişini silebilirsin. Cihaz ayarlarından '
+          'uygulama verilerini temizlemek de aynı sonucu verir.',
+      'privacyPolicyContactTitle': 'İletişim',
+      'privacyPolicyContactBody':
+          'Soru, geri bildirim veya gizlilik talebi için bize yazabilirsin.',
+      // Destek / geri bildirim (ALPHA-R3A)
+      'supportContactAction': 'Destek ile iletişime geç',
+      'supportContactRow': 'Destek ve geri bildirim',
+      'supportContactRowSubtitle': 'E-posta ile yaz',
+      'supportEmailUnavailable':
+          'E-posta uygulaması açılamadı. Bize şu adresten yazabilirsin:',
       // Veri sıfırlama (TASK 058 §7)
       'resetSectionTitle': 'Verileri sıfırla',
       'resetLearningTitle': 'Öğrenme verilerini sıfırla',
@@ -2204,6 +2343,103 @@ final class AppLocalizations {
       'privacyNote':
           'These records are kept on your device and are not sent to a '
           'server beyond the network areas listed above.',
+      // Privacy summary and full policy (ALPHA-R3A)
+      'privacyLocalPlan': 'Your 30-day plan and task completions',
+      'privacyLocalAssistant': 'Assistant conversation history (last 20)',
+      'privacyAssistantTitle': 'Assistant',
+      'privacyAssistantOnDevice':
+          'Questions are handled on this device, not sent to an external AI',
+      'privacyAssistantSensitive':
+          'Ruling, personal-case and worship-rule questions are not stored',
+      'privacyPermissionsTitle': 'Permissions',
+      'privacyPermissionLocation':
+          'Location (foreground only): prayer times and Qibla direction',
+      'privacyPermissionNotifications':
+          'Notifications: used for prayer reminders',
+      'privacyPermissionExactAlarm':
+          'Exact alarm: without it the app falls back to inexact timing',
+      'privacyNetworkFirebase':
+          'Firebase anonymous authentication (Google services)',
+      'privacyNoCloudTitle': 'No cloud backup',
+      'privacyNoCloudBody':
+          'There is no active cloud backup and no account sync. If you '
+          'uninstall the app or clear its app data, your local progress is '
+          'permanently deleted.',
+      'privacyOpenFullPolicy': 'Read the full privacy policy',
+      'privacyPolicyTitle': 'Privacy policy',
+      'privacyPolicyUpdated': 'Last updated: 7 August 2026 · Android alpha',
+      'privacyPolicySummaryTitle': 'In short',
+      'privacyPolicySummaryBody':
+          'Bismillah is local-first: your plan, progress, preferences and '
+          'Assistant history are stored primarily on your own device, and no '
+          'account is required. This does not mean no data ever leaves the '
+          'device; every place the network is used is listed below.',
+      'privacyPolicyStoredTitle': 'Stored on your device',
+      'privacyPolicyStoredBody':
+          'Your onboarding preferences and the plan profile derived from '
+          'them, your 30-day plan records and task completions, your prayer '
+          'tracking history, your Quran reading position and bookmarks, your '
+          'learning records, your language and calculation-method '
+          'preferences, and your Assistant conversation history (at most the '
+          'last 20 messages).',
+      'privacyPolicyAssistantTitle': 'Assistant and sensitive questions',
+      'privacyPolicyAssistantBody':
+          'The Assistant runs entirely on your device; your questions are '
+          'never sent to any external generative-AI service. Sensitive '
+          'questions — rulings, personal cases and worship rules — and their '
+          'answers are not stored on the device. This distinction is made '
+          'with keyword matching, so occasionally a harmless question may '
+          'also fall into the not-stored group. You can delete your history '
+          'from inside the app at any time.',
+      'privacyPolicyCloudTitle': 'Cloud backup and accounts',
+      'privacyPolicyCloudBody':
+          'There is currently no active cloud backup and no account sync, '
+          'and your data is not carried to another device. The direct '
+          'consequence: if you uninstall the app or clear its app data, your '
+          'local progress is permanently deleted.',
+      'privacyPolicyPermissionsTitle': 'Permissions',
+      'privacyPolicyPermissionsBody':
+          'Location is used only while the app is open and only to compute '
+          'prayer times and the Qibla direction on your device; it is not '
+          'sent to a server and not collected in the background. The '
+          'notification permission is for prayer reminders, which are '
+          'scheduled on the device. Without the exact-alarm permission the '
+          'app falls back to inexact scheduling and tells you so plainly.',
+      'privacyPolicyNetworkTitle': 'Where the network is used',
+      'privacyPolicyNetworkBody':
+          'Quran audio is streamed from MP3Quran.net, so when you play a '
+          "recitation your device's IP address technically reaches that "
+          'service. When you open Tanzil, QuranEnc or official source links, '
+          'your system browser connects to that site and those sites are '
+          'governed by their own privacy policies. The app starts Firebase '
+          'anonymous authentication; during this the device may contact '
+          'Google services and an anonymous identifier is created that is '
+          'not tied to your name or e-mail. The app package contains '
+          'standard Firebase client configuration.',
+      'privacyPolicyNoTrackingTitle': 'Advertising, measurement and payments',
+      'privacyPolicyNoTrackingBody':
+          'No advertising SDK is integrated. No analytics or crash-reporting '
+          'backend is active. No payment or subscription system is active; '
+          'no purchase can be made in the alpha.',
+      'privacyPolicyChildrenTitle': 'Children',
+      'privacyPolicyChildrenBody':
+          'Bismillah is not designed as a children\'s product and does not '
+          'run any children-specific data collection. No age-based profiling '
+          'is performed.',
+      'privacyPolicyControlTitle': 'You stay in control',
+      'privacyPolicyControlBody':
+          'From inside the app you can reset your learning data or all your '
+          'local data, and delete your Assistant history. Clearing app data '
+          'from device settings has the same effect.',
+      'privacyPolicyContactTitle': 'Contact',
+      'privacyPolicyContactBody':
+          'You can write to us for questions, feedback or privacy requests.',
+      // Support / feedback (ALPHA-R3A)
+      'supportContactAction': 'Contact support',
+      'supportContactRow': 'Support and feedback',
+      'supportContactRowSubtitle': 'Write to us by e-mail',
+      'supportEmailUnavailable':
+          'No e-mail app could be opened. You can write to us at:',
       // Data reset (TASK 058 §7)
       'resetSectionTitle': 'Reset data',
       'resetLearningTitle': 'Reset learning data',
@@ -2896,6 +3132,93 @@ final class AppLocalizations {
       'privacyNote':
           'تُحفظ هذه السجلات على جهازك ولا تُرسل إلى خادم خارج المواضع '
           'الشبكية المذكورة أعلاه.',
+      // ملخّص الخصوصية والسياسة الكاملة (ALPHA-R3A)
+      'privacyLocalPlan': 'خطة الثلاثين يومًا وإتمام المهامّ',
+      'privacyLocalAssistant': 'سجل محادثة المساعد (آخر ٢٠ رسالة)',
+      'privacyAssistantTitle': 'المساعد',
+      'privacyAssistantOnDevice':
+          'تُعالَج الأسئلة على هذا الجهاز ولا تُرسل إلى خدمة ذكاء اصطناعي '
+          'خارجية',
+      'privacyAssistantSensitive':
+          'أسئلة الحكم والحالات الشخصية وأحكام العبادة لا تُحفظ على الجهاز',
+      'privacyPermissionsTitle': 'الأذونات',
+      'privacyPermissionLocation':
+          'الموقع (أثناء الاستخدام فقط): حساب أوقات الصلاة واتجاه القبلة',
+      'privacyPermissionNotifications': 'الإشعارات: لتذكيرات الصلاة',
+      'privacyPermissionExactAlarm':
+          'المنبّه الدقيق: بدونه يتحوّل التطبيق إلى جدولة تقريبية',
+      'privacyNetworkFirebase': 'مصادقة Firebase المجهولة (خدمات Google)',
+      'privacyNoCloudTitle': 'لا يوجد نسخ احتياطي سحابي',
+      'privacyNoCloudBody':
+          'لا يوجد نسخ احتياطي سحابي فعّال ولا مزامنة حساب. وإذا أزلت '
+          'التطبيق أو مسحت بياناته يُحذف تقدّمك المحلي نهائيًا.',
+      'privacyOpenFullPolicy': 'سياسة الخصوصية كاملةً',
+      'privacyPolicyTitle': 'سياسة الخصوصية',
+      'privacyPolicyUpdated': 'آخر تحديث: ٧ أغسطس ٢٠٢٦ · ألفا لأندرويد',
+      'privacyPolicySummaryTitle': 'باختصار',
+      'privacyPolicySummaryBody':
+          'يعمل Bismillah محليًا أولًا: تُحفظ خطتك وتقدّمك وتفضيلاتك وسجل '
+          'المساعد بصورة أساسية على جهازك، ولا يلزم حساب. وهذا لا يعني أنّ '
+          'أيّ بيانات لا تغادر الجهاز أبدًا؛ فكلّ موضع تُستخدم فيه الشبكة '
+          'مذكور أدناه.',
+      'privacyPolicyStoredTitle': 'ما يُحفظ على جهازك',
+      'privacyPolicyStoredBody':
+          'تفضيلات التهيئة وملفّ الخطة المشتقّ منها، وسجلات خطة الثلاثين '
+          'يومًا وإتمام المهامّ، وسجل متابعة الصلاة، وموضع القراءة في القرآن '
+          'والإشارات المرجعية، وسجلات التعلّم، وتفضيلات اللغة وطريقة الحساب، '
+          'وسجل محادثة المساعد (عشرون رسالة كحدّ أقصى).',
+      'privacyPolicyAssistantTitle': 'المساعد والأسئلة الحسّاسة',
+      'privacyPolicyAssistantBody':
+          'يعمل المساعد على جهازك بالكامل، ولا تُرسل أسئلتك إلى أيّ خدمة '
+          'ذكاء اصطناعي توليدي خارجية. أمّا الأسئلة الحسّاسة — أسئلة الحكم '
+          'والحالات الشخصية وأحكام العبادة — وإجاباتها فلا تُحفظ على الجهاز. '
+          'ويجري هذا التمييز بمطابقة كلمات مفتاحية، ولذلك قد يقع أحيانًا '
+          'سؤال غير حسّاس ضمن المجموعة التي لا تُحفظ. ويمكنك حذف السجل من '
+          'داخل التطبيق في أيّ وقت.',
+      'privacyPolicyCloudTitle': 'النسخ الاحتياطي السحابي والحسابات',
+      'privacyPolicyCloudBody':
+          'لا يوجد حاليًا نسخ احتياطي سحابي فعّال ولا مزامنة حساب، ولا تُنقل '
+          'بياناتك إلى جهاز آخر. والنتيجة المباشرة: إذا أزلت التطبيق أو مسحت '
+          'بياناته يُحذف تقدّمك المحلي نهائيًا.',
+      'privacyPolicyPermissionsTitle': 'الأذونات',
+      'privacyPolicyPermissionsBody':
+          'يُستخدم الموقع أثناء فتح التطبيق فقط، ولحساب أوقات الصلاة واتجاه '
+          'القبلة على جهازك فقط؛ ولا يُرسل إلى خادم ولا يُجمع في الخلفية. '
+          'وإذن الإشعارات لتذكيرات الصلاة، وهي تُجدوَل على الجهاز. وبدون إذن '
+          'المنبّه الدقيق يتحوّل التطبيق إلى جدولة تقريبية ويوضّح لك ذلك '
+          'صراحةً.',
+      'privacyPolicyNetworkTitle': 'مواضع استخدام الشبكة',
+      'privacyPolicyNetworkBody':
+          'يُبثّ صوت القرآن من MP3Quran.net، وعند تشغيل تلاوة يصل عنوان IP '
+          'الخاصّ بجهازك تقنيًا إلى تلك الخدمة. وعند فتح روابط Tanzil أو '
+          'QuranEnc أو روابط المصادر الرسمية يتّصل متصفّح النظام بذلك الموقع، '
+          'وتخضع تلك المواقع لسياسات الخصوصية الخاصّة بها. ويبدأ التطبيق '
+          'مصادقة Firebase المجهولة، وقد يتّصل الجهاز خلالها بخدمات Google '
+          'ويُنشأ معرّف مجهول غير مرتبط باسمك أو بريدك. ويحتوي التطبيق على '
+          'إعدادات عميل Firebase القياسية.',
+      'privacyPolicyNoTrackingTitle': 'الإعلانات والقياس والمدفوعات',
+      'privacyPolicyNoTrackingBody':
+          'لا توجد أيّ حزمة إعلانات مدمجة. ولا يوجد خادم تحليلات أو تقارير '
+          'أعطال فعّال. ولا يوجد نظام دفع أو اشتراك فعّال، ولا يمكن إجراء أيّ '
+          'شراء في نسخة ألفا.',
+      'privacyPolicyChildrenTitle': 'الأطفال',
+      'privacyPolicyChildrenBody':
+          'لم يُصمَّم Bismillah منتجًا موجَّهًا للأطفال، ولا يُجري أيّ جمع '
+          'بيانات خاصّ بالأطفال. ولا تُجرى أيّ تصنيفات قائمة على العمر.',
+      'privacyPolicyControlTitle': 'التحكّم بيدك',
+      'privacyPolicyControlBody':
+          'يمكنك من داخل التطبيق إعادة تعيين بيانات التعلّم أو جميع بياناتك '
+          'المحلية، وحذف سجل المساعد. ومسح بيانات التطبيق من إعدادات الجهاز '
+          'يؤدّي إلى النتيجة نفسها.',
+      'privacyPolicyContactTitle': 'التواصل',
+      'privacyPolicyContactBody':
+          'يمكنك مراسلتنا للأسئلة أو الملاحظات أو طلبات الخصوصية.',
+      // الدعم والملاحظات (ALPHA-R3A)
+      'supportContactAction': 'تواصل مع الدعم',
+      'supportContactRow': 'الدعم والملاحظات',
+      'supportContactRowSubtitle': 'راسِلنا بالبريد الإلكتروني',
+      'supportEmailUnavailable':
+          'تعذّر فتح تطبيق البريد. يمكنك مراسلتنا على:',
       // إعادة تعيين البيانات (TASK 058 §7)
       'resetSectionTitle': 'إعادة تعيين البيانات',
       'resetLearningTitle': 'إعادة تعيين بيانات التعلّم',

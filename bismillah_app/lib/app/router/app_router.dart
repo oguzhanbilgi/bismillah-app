@@ -18,6 +18,7 @@ import 'package:bismillah_app/features/profile/presentation/about_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/content_sources_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/personalization_edit_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/privacy_data_screen.dart';
+import 'package:bismillah_app/features/profile/presentation/privacy_policy_screen.dart';
 import 'package:bismillah_app/features/profile/presentation/profile_screen.dart';
 import 'package:bismillah_app/features/qibla/presentation/qibla_screen.dart';
 import 'package:bismillah_app/features/quran/presentation/quran_chapter_reader_screen.dart';
@@ -196,6 +197,14 @@ GoRouter buildAppRouter({bool Function()? isOnboardingCompleted}) {
                     path: 'privacy',
                     name: AppRoutes.profilePrivacyName,
                     builder: (context, state) => const PrivacyDataScreen(),
+                    routes: [
+                      GoRoute(
+                        path: 'policy',
+                        name: AppRoutes.profilePrivacyPolicyName,
+                        builder: (context, state) =>
+                            const PrivacyPolicyScreen(),
+                      ),
+                    ],
                   ),
                   GoRoute(
                     path: 'about',

@@ -11,6 +11,7 @@ import 'package:bismillah_app/features/onboarding/presentation/onboarding_option
 import 'package:bismillah_app/features/profile/application/plan_regeneration_controller.dart';
 import 'package:bismillah_app/features/profile/application/profile_overview_provider.dart';
 import 'package:bismillah_app/features/profile/domain/profile_plan_overview.dart';
+import 'package:bismillah_app/features/profile/presentation/support_contact_action.dart';
 import 'package:bismillah_app/features/settings/application/app_locale_controller.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/daily_plan_profile_type.dart';
 import 'package:bismillah_app/shared/widgets/app_badge.dart';
@@ -562,16 +563,23 @@ class _LearnSection extends ConsumerWidget {
 // Destek ve uygulama
 // ---------------------------------------------------------------------------
 
-class _SupportSection extends StatelessWidget {
+class _SupportSection extends ConsumerWidget {
   const _SupportSection();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
 
     return SettingsSection(
       title: l10n.profileSupportSection,
       rows: [
+        // Destek: hesap/giriş gerektirmez, platform e-posta ekranını açar.
+        SettingsRow(
+          leadingIcon: Icons.mail_outline,
+          title: l10n.supportContactRow,
+          value: l10n.supportContactRowSubtitle,
+          onTap: () => openSupportContact(context, ref),
+        ),
         SettingsRow(
           leadingIcon: Icons.info_outline,
           title: l10n.profileAboutRow,

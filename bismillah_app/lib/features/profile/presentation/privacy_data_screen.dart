@@ -5,7 +5,10 @@ import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
+import 'package:bismillah_app/features/profile/presentation/support_contact_action.dart';
 import 'package:bismillah_app/features/settings/application/local_data_reset_controller.dart';
+import 'package:bismillah_app/shared/widgets/app_button.dart';
+import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +47,17 @@ class PrivacyDataScreen extends ConsumerWidget {
               l10n.privacyLocalQuranPrefs,
               l10n.privacyLocalLearn,
               l10n.privacyLocalAppPrefs,
+              l10n.privacyLocalPlan,
+              l10n.privacyLocalAssistant,
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s3),
+          _DataGroup(
+            icon: Icons.chat_bubble_outline,
+            title: l10n.privacyAssistantTitle,
+            lines: [
+              l10n.privacyAssistantOnDevice,
+              l10n.privacyAssistantSensitive,
             ],
           ),
           const SizedBox(height: AppSpacing.s3),
@@ -57,9 +71,23 @@ class PrivacyDataScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.s3),
           _DataGroup(
+            icon: Icons.key_outlined,
+            title: l10n.privacyPermissionsTitle,
+            lines: [
+              l10n.privacyPermissionLocation,
+              l10n.privacyPermissionNotifications,
+              l10n.privacyPermissionExactAlarm,
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s3),
+          _DataGroup(
             icon: Icons.cloud_outlined,
             title: l10n.privacyNetworkTitle,
-            lines: [l10n.privacyNetworkAudio, l10n.privacyNetworkLinks],
+            lines: [
+              l10n.privacyNetworkAudio,
+              l10n.privacyNetworkLinks,
+              l10n.privacyNetworkFirebase,
+            ],
           ),
           const SizedBox(height: AppSpacing.s4),
           AppText(
@@ -67,10 +95,71 @@ class PrivacyDataScreen extends ConsumerWidget {
             token: AppTextStyleToken.caption,
             secondary: true,
           ),
+          const SizedBox(height: AppSpacing.s4),
+          // Yerel veri uyarısı: kaldırma/veri temizleme geri alınamaz.
+          const _LocalDataWarning(),
+          const SizedBox(height: AppSpacing.s4),
+          AppButton(
+            label: l10n.privacyOpenFullPolicy,
+            variant: AppButtonVariant.secondary,
+            onPressed: () => context.push(AppRoutes.profilePrivacyPolicy),
+          ),
+          const SizedBox(height: AppSpacing.s3),
+          AppButton(
+            label: l10n.supportContactAction,
+            variant: AppButtonVariant.secondary,
+            onPressed: () => openSupportContact(context, ref),
+          ),
           const SizedBox(height: AppSpacing.s6),
           // Destructive işlemler en altta (TASK 058 §9).
           const _ResetSection(),
           const SizedBox(height: AppSpacing.s6),
+        ],
+      ),
+    );
+  }
+}
+
+/// Bulut yedeklemesi OLMADIĞI için kaldırma/veri temizleme geri alınamaz.
+///
+/// Mutlak "veri asla cihazdan çıkmaz" iddiası KULLANILMAZ; yalnız yerel
+/// ilerlemenin kaybolacağı dürüstçe söylenir.
+class _LocalDataWarning extends StatelessWidget {
+  const _LocalDataWarning();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final tokens = IslamicVisualTokens.of(context);
+
+    return AppCard(
+      variant: AppCardVariant.outlined,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.info_outline,
+            size: AppSizes.iconMd,
+            color: tokens.spiritualGreenStrong,
+          ),
+          const SizedBox(width: AppSpacing.s3),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  l10n.privacyNoCloudTitle,
+                  token: AppTextStyleToken.body,
+                ),
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  l10n.privacyNoCloudBody,
+                  token: AppTextStyleToken.bodySmall,
+                  secondary: true,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
