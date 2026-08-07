@@ -11,6 +11,7 @@ import 'package:bismillah_app/features/today/application/today_day_controller.da
 import 'package:bismillah_app/features/today/application/today_plan_lesson_titles_provider.dart';
 import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
+import 'package:bismillah_app/features/today/presentation/today_date_format.dart';
 import 'package:bismillah_app/features/today/presentation/today_plan_item_presentation.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_task_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_recovery_note.dart';
@@ -52,6 +53,25 @@ class TodayPlanSection extends ConsumerStatefulWidget {
 /// Yükleme iskeletindeki yer tutucu satır sayısı — tipik bir çekirdek
 /// günün görev sayısına yakındır, böylece geçişte yükseklik oynamaz.
 const int _skeletonRowCount = 3;
+
+/// Görev satırları arasındaki saç teli ayraç (RDX-01C1). Renk temadan
+/// gelir; koyu temada da doğru tonda çizilir.
+///
+/// RDX-01C3: ayraç artık satırın ikon karesi kadar içeriden başlar —
+/// referanstaki liste ritmi budur ve çizgi kartı baştan sona kesip satırları
+/// "ayar listesi" gibi göstermez. `Divider` girintiyi `EdgeInsetsDirectional`
+/// ile uygular, bu yüzden Arapça'da kendiliğinden aynalanır.
+class _RowDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 1,
+      thickness: 1,
+      indent: TodayPlanTaskCard.rowContentIndent,
+      color: AppThemeExtension.of(context).divider,
+    );
+  }
+}
 
 /// Animasyonsuz, nötr yer tutucu çubuk.
 class _SkeletonBar extends StatelessWidget {
@@ -138,15 +158,55 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
         if (TodayRecoveryNote.shouldShow(recovery, state))
           TodayRecoveryNote(recovery: recovery),
         Padding(
-          padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+          padding: const EdgeInsets.only(bottom: AppSpacing.s3),
           child: AppCard(
+            // RDX-01C3: satırlar kendi dikey dolgularını taşıdığı için kartın
+            // alt/üst dolgusu `s5`ten `s4`e iner; kart ferahlığını kaybetmeden
+            // bir görev satırı kadar kısalır.
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.s5,
+              vertical: AppSpacing.s4,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(l10n.todayPlanTitle, token: AppTextStyleToken.h3),
-                const SizedBox(height: AppSpacing.s2),
-                _dateLine(l10n, state),
-                const SizedBox(height: AppSpacing.s4),
+                // RDX-01C2: başlık solda, tarih hemen altında sönük satır
+                // olarak. Referansta bölüm başlığı tek satırlık ve
+                // kompakttır; başlık ile içerik arasındaki boşluk s4'ten
+                // s3'e iner.
+                //
+                // RDX-01C3: ilerleme sayacı başlığın SAĞINA taşındı. Önceden
+                // kendi satırını kaplıyordu; başlıkla eşleşince kart bir satır
+                // kısalır ve namaz özet kartıyla aynı düzeni okur.
+                //
+                // `Row` DEĞİL `Wrap`: iki metnin de doğal genişliği vardır ve
+                // dar ekran + büyük yazı bileşiminde (320px @1.5x) tek satıra
+                // sığmazlar. `Row`da bu ya taşma ya da başlığın erkenden
+                // kırpılması demekti; `Wrap` sığdığında sayacı sağ kenara
+                // yaslar, sığmadığında sakince alt satıra indirir.
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: AppSpacing.s3,
+                  runSpacing: AppSpacing.s1,
+                  children: [
+                    AppText(
+                      l10n.todayPlanTitle,
+                      token: AppTextStyleToken.h3,
+                      maxLines: 1,
+                    ),
+                    if (_progressLabel(l10n, state) case final String label)
+                      AppText(
+                        label,
+                        token: AppTextStyleToken.caption,
+                        tone: AppTextTone.secondary,
+                        maxLines: 1,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.s1),
+                _dateLine(context, l10n, state),
+                const SizedBox(height: AppSpacing.s3),
                 switch (state) {
                   null || DailyPlanLoading() => _loading(l10n),
                   DailyPlanEmpty() => _empty(l10n),
@@ -163,16 +223,36 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
     );
   }
 
+  /// Başlık satırının sağındaki sayaç. Yalnız gerçekten bir plan varken
+  /// üretilir — yükleme, boş, bozuk ve hata durumlarında `null` döner, çünkü
+  /// o hâllerde gösterilecek bir oran YOKTUR ve "0/0" uydurulmaz.
+  String? _progressLabel(AppLocalizations l10n, DailyPlanState? state) {
+    if (state is! DailyPlanAvailable) {
+      return null;
+    }
+    final plan = state.plan;
+    if (plan.items.isEmpty) {
+      return null;
+    }
+    return l10n.todayPlanProgress(plan.completedCount, plan.items.length);
+  }
+
   /// Seçili gün satırı; gün henüz seçilmemişken gizlenir (yanıltıcı tarih
   /// gösterilmez).
-  Widget _dateLine(AppLocalizations l10n, DailyPlanState? state) {
+  Widget _dateLine(
+    BuildContext context,
+    AppLocalizations l10n,
+    DailyPlanState? state,
+  ) {
     if (state == null) {
       return const SizedBox.shrink();
     }
+    // Ham ISO tarih (`2026-08-07`) arayüzde teknik bir kaçaktır; cihazın
+    // kendi dilindeki biçim kullanılır.
     return AppText(
-      l10n.todayPlanSelectedDay(state.dayKey.value),
+      l10n.todayPlanSelectedDay(formatDayKeyForDisplay(context, state.dayKey)),
       token: AppTextStyleToken.caption,
-      secondary: true,
+      tone: AppTextTone.tertiary,
       maxLines: 2,
     );
   }
@@ -242,17 +322,17 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText(
-          l10n.todayPlanProgress(completed, total),
-          token: AppTextStyleToken.caption,
-          secondary: true,
-        ),
-        const SizedBox(height: AppSpacing.s2),
+        // RDX-01C1: ilerleme çubuğu görev listesinden ince bir boşlukla
+        // ayrılır — referansta özet üstte, satırlar altta durur.
+        //
+        // RDX-01C3: sayaç METNİ artık başlık satırındadır; burada tekrar
+        // edilmez. Erişilebilirlik kaybı YOKTUR — aynı dize çubuğun semantik
+        // etiketi olarak kalır.
         AppProgressBar(
           value: progress,
           semanticLabel: l10n.todayPlanProgress(completed, total),
         ),
-        const SizedBox(height: AppSpacing.s4),
+        const SizedBox(height: AppSpacing.s2),
         if (total == 0)
           AppText(
             l10n.todayPlanNoItems,
@@ -263,7 +343,12 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
           // Kanonik kaynak sırası (Prayer → Quran → Learn) plandaki öğe
           // sırasıdır; burada yerelleştirilmiş metne göre YENİDEN
           // SIRALANMAZ.
-          for (final item in plan.items)
+          //
+          // RDX-01C1: görevler tek kartın içinde saç teli ayraçlarla bölünmüş
+          // satırlardır — kart içinde kart yığını DEĞİL. Ayracı liste sahibi
+          // çizer, böylece son satırdan sonra sarkan bir çizgi kalmaz.
+          for (final (index, item) in plan.items.indexed) ...[
+            if (index > 0) _RowDivider(),
             TodayPlanTaskCard(
               item: item,
               presentation: TodayPlanItemPresentation.of(
@@ -274,7 +359,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
                     : lessonTitles[item.targetRef],
                 isResolvingLearnTitle: isResolvingTitles,
               ),
-              // Kaydetme sürerken kart salt-okunur olur — çift yazma
+              // Kaydetme sürerken satır salt-okunur olur — çift yazma
               // engellenir.
               onToggle: isSaving
                   ? null
@@ -282,6 +367,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
                         .read(dailyPlanControllerProvider.notifier)
                         .toggleItemCompletion(item.itemId),
             ),
+          ],
       ],
     );
   }

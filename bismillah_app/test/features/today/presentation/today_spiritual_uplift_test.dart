@@ -261,8 +261,11 @@ void main() {
 
       expect(find.byType(TodayPrayerSummaryCard), findsOneWidget);
       expect(find.byType(TodayQuranCenterCard), findsOneWidget);
-      expect(find.byType(TodaySpiritualHero), findsOneWidget);
       expect(find.byType(TodayDailyVerseCard), findsOneWidget);
+      // RDX-01C2: motive edici hero Today hiyerarşisinden çıkarıldı.
+      // Widget'ın kendi davranışı yukarıdaki `TodaySpiritualHero`
+      // grubunda doğrudan pump edilerek korunuyor.
+      expect(find.byType(TodaySpiritualHero), findsNothing);
       expect(find.text('0/5 tamamlandı'), findsOneWidget);
 
       await unmountAndFlushDriftTimers(tester);

@@ -2,11 +2,13 @@ import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/app/theme/app_theme_extension.dart';
+import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_controller.dart';
 import 'package:bismillah_app/features/today/application/today_daily_verse_provider.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_section_label.dart';
 import 'package:bismillah_app/shared/islamic/referenced_verse_card.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
-import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +42,7 @@ class TodayDailyVerseCard extends ConsumerWidget {
     final verse = async.value;
     return Column(
       children: [
-        AppSectionHeader(title: l10n.todayVerseSectionTitle),
+        TodaySectionLabel(title: l10n.todayVerseSectionTitle),
         if (verse == null)
           // Sakin fallback — teknik hata/asset yolu gösterilmez.
           AppCard(
@@ -52,7 +54,7 @@ class TodayDailyVerseCard extends ConsumerWidget {
           )
         else
           _VerseCard(verse: verse),
-        const SizedBox(height: AppSpacing.s4),
+        const SizedBox(height: AppSpacing.s3),
       ],
     );
   }
@@ -66,6 +68,8 @@ class _VerseCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final ext = AppThemeExtension.of(context);
     final bookmarked =
         ref.watch(
           quranVerseBookmarksControllerProvider.select(
@@ -93,12 +97,25 @@ class _VerseCard extends ConsumerWidget {
             translation: verse.translationText.isEmpty
                 ? null
                 : verse.translationText,
+            // RDX-01C3: kaydetme eylemi sessizleşti. Varsayılan `IconButton`
+            // 8px dolgu + 24px ikonla ayeti bir "araç çubuğu" gibi
+            // sonlandırıyordu; artık kart içeriğiyle aynı hizada başlar,
+            // işaretli değilken üçüncül mürekkeple durur ve yalnız
+            // işaretlendiğinde birincil renge geçer. Dokunma hedefi 48dp
+            // olarak KORUNUR.
             actions: Align(
               alignment: AlignmentDirectional.centerStart,
               child: IconButton(
                 tooltip: bookmarked
                     ? l10n.quranBookmarkSaved
                     : l10n.quranBookmarkAdd,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(
+                  minWidth: AppSizes.touchTarget,
+                  minHeight: AppSizes.touchTarget,
+                ),
+                iconSize: AppSizes.iconMd,
+                color: bookmarked ? scheme.primary : ext.textTertiary,
                 icon: Icon(
                   bookmarked ? Icons.bookmark : Icons.bookmark_outline,
                 ),
