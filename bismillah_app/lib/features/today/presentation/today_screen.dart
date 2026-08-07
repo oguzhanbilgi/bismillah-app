@@ -2,7 +2,9 @@ import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/features/today/application/today_greeting_provider.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_brand_header.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_daily_verse_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_next_prayer_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
@@ -30,28 +32,28 @@ class TodayScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final asyncState = ref.watch(todayPrayerSummaryControllerProvider);
+    final greeting = ref.watch(todayGreetingPeriodProvider);
 
+    // RDX-02A: AppBar KALDIRILDI. Ekranın tepesinde artık jenerik bir ekran
+    // adı ("Bugün" / "Günüm") değil, kompakt marka başlığı durur; navigasyon
+    // etiketi ile ekran başlığı ayrı kavramlardır ve ikisi birden
+    // gösterilmez. `AppScaffold` başlıksız çağrıldığında AppBar üretmez,
+    // gövde doğrudan SafeArea'nın altından başlar.
     return AppScaffold(
-      title: l10n.tabToday,
       body: switch (asyncState) {
         AsyncData(:final value) => ListView(
           children: [
-            // RDX-01C1: karşılama artık bir "bölüm başlığı" değil; AppBar'daki
-            // ekran adının altına oturan sakin bir alt satırdır. Önceki
-            // `AppSectionHeader` hiçbir bölümü başlatmadığı hâlde h3 ağırlığı
-            // ve s7 üst boşluğu getiriyordu — referanstaki başlık/alt satır
-            // hiyerarşisi bunun tersini ister.
-            //
-            // RDX-01C3: karşılama satırı bir kademe daha geri çekilir
-            // (`secondary` → `tertiary`). AppBar'daki "Bugün" başlığıyla
-            // arasındaki ağırlık farkı böylece net olur; iki satır aynı
-            // güçte iki başlık gibi okunmaz. Satır dekoratiftir — tek başına
-            // taşıdığı kritik bir bilgi yoktur.
-            const SizedBox(height: AppSpacing.s1),
+            TodayBrandHeader(
+              onOpenProfile: () => context.go(AppRoutes.profile),
+            ),
+            // Tek sakin karşılama — gerçek namaz vakitlerinden seçilir.
+            // İkinci bir başlık DEĞİLDİR: ikincil mürekkep ve gövde
+            // boyutunda kalır (h1/h2 değil).
             AppText(
-              l10n.todayGreeting,
-              token: AppTextStyleToken.caption,
-              tone: AppTextTone.tertiary,
+              l10n.greetingFor(greeting),
+              token: AppTextStyleToken.bodySmall,
+              tone: AppTextTone.secondary,
+              maxLines: 2,
             ),
             const SizedBox(height: AppSpacing.s4),
             // RDX-01C2: Today artık ÜÇ çapa etrafında kurulur — sıradaki

@@ -1,4 +1,5 @@
 import 'package:bismillah_app/app/localization/supported_locale.dart';
+import 'package:bismillah_app/features/today/domain/today_greeting.dart';
 import 'package:flutter/widgets.dart';
 
 /// Scaffold aşaması localization soyutlaması.
@@ -145,7 +146,18 @@ final class AppLocalizations {
   String get commonGotIt => _t('commonGotIt');
 
   // Today özeti (TASK 017 — ton: sakin, suçlayıcı dil YASAK)
-  String get todayGreeting => _t('todayGreeting');
+  //
+  // RDX-02A: sabit `todayGreeting` ("Bugünün ritmi") KALDIRILDI; yerini
+  // gerçek namaz vakitlerine göre seçilen beş dilimli karşılama aldı. Bunlar
+  // gündelik selamlaşma sözleridir — ayet, hadis, dua veya dinî bir vaat
+  // DEĞİLDİR ve kaynak etiketi taşımazlar.
+  String greetingFor(TodayGreetingPeriod period) => switch (period) {
+    TodayGreetingPeriod.morning => _t('todayGreetingMorning'),
+    TodayGreetingPeriod.noon => _t('todayGreetingNoon'),
+    TodayGreetingPeriod.day => _t('todayGreetingDay'),
+    TodayGreetingPeriod.evening => _t('todayGreetingEvening'),
+    TodayGreetingPeriod.night => _t('todayGreetingNight'),
+  };
   String get todayGentleLine => _t('todayGentleLine');
   String get todayPrayerCardTitle => _t('todayPrayerCardTitle');
   String get todayGoToPrayers => _t('todayGoToPrayers');
@@ -910,7 +922,9 @@ final class AppLocalizations {
   static const Map<SupportedLocale, Map<String, String>> _strings = {
     SupportedLocale.tr: {
       'appTitle': 'Bismillah',
-      'tabToday': 'Bugün',
+      // RDX-02A: yalnız GÖRÜNEN navigasyon etiketi. Rota, sınıf ve
+      // klasör adları 'Today' olarak kalır.
+      'tabToday': 'Günüm',
       'tabPrayer': 'Namaz',
       'tabQuran': "Kur'an",
       'tabLearn': 'Öğren',
@@ -1004,7 +1018,12 @@ final class AppLocalizations {
       'commonRetry': 'Tekrar dene',
       'commonClose': 'Kapat',
       'commonGotIt': 'Anladım',
-      'todayGreeting': 'Bugünün ritmi',
+      // Namaz vaktine göre seçilen karşılama (RDX-02A).
+      'todayGreetingMorning': 'Hayırlı sabahlar',
+      'todayGreetingNoon': 'Hayırlı öğlenler',
+      'todayGreetingDay': 'Hayırlı günler',
+      'todayGreetingEvening': 'Hayırlı akşamlar',
+      'todayGreetingNight': 'Hayırlı geceler',
       'todayGentleLine': 'Bugün için küçük adımlar.',
       'todayPrayerCardTitle': 'Bugünün namaz takibi',
       'todayPrayerProgress': '{completed}/{total} tamamlandı',
@@ -1731,7 +1750,7 @@ final class AppLocalizations {
     },
     SupportedLocale.en: {
       'appTitle': 'Bismillah',
-      'tabToday': 'Today',
+      'tabToday': 'My Day',
       'tabPrayer': 'Prayer',
       'tabQuran': 'Quran',
       'tabLearn': 'Learn',
@@ -1824,7 +1843,11 @@ final class AppLocalizations {
       'commonRetry': 'Try again',
       'commonClose': 'Close',
       'commonGotIt': 'Got it',
-      'todayGreeting': "Today's rhythm",
+      'todayGreetingMorning': 'Good morning',
+      'todayGreetingNoon': 'Good afternoon',
+      'todayGreetingDay': 'Have a blessed day',
+      'todayGreetingEvening': 'Good evening',
+      'todayGreetingNight': 'Good night',
       'todayGentleLine': 'Small steps for today.',
       'todayPrayerCardTitle': "Today's prayer tracking",
       'todayPrayerProgress': '{completed}/{total} completed',
@@ -2571,7 +2594,7 @@ final class AppLocalizations {
     },
     SupportedLocale.ar: {
       'appTitle': 'Bismillah',
-      'tabToday': 'اليوم',
+      'tabToday': 'يومي',
       'tabPrayer': 'الصلاة',
       'tabQuran': 'القرآن',
       'tabLearn': 'تعلّم',
@@ -2661,7 +2684,12 @@ final class AppLocalizations {
       'commonRetry': 'حاول مجدداً',
       'commonClose': 'إغلاق',
       'commonGotIt': 'حسنًا',
-      'todayGreeting': 'إيقاع اليوم',
+      // Doğal Arapça selamlaşmalar — Türkçe ifadelerin harf çevirisi DEĞİL.
+      'todayGreetingMorning': 'صباح الخير',
+      'todayGreetingNoon': 'طاب نهارك',
+      'todayGreetingDay': 'نهارك مبارك',
+      'todayGreetingEvening': 'مساء الخير',
+      'todayGreetingNight': 'تصبح على خير',
       'todayGentleLine': 'خطوات صغيرة لهذا اليوم.',
       'todayPrayerCardTitle': 'متابعة صلوات اليوم',
       'todayPrayerProgress': 'اكتملت {completed}/{total}',

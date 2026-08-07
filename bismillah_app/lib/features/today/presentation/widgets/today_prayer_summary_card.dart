@@ -46,31 +46,39 @@ class TodayPrayerSummaryCard extends StatelessWidget {
           // RDX-01C2: başlık solda, ilerleme SAĞDA aynı satırda — referansın
           // kompakt özet düzeni. Sayı artık kendi satırını kaplamaz, kart
           // belirgin biçimde kısalır.
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          //
+          // RDX-02A: `Row` → `Wrap`. Başlık ve sayaç iki AYRI doğal genişlikte
+          // metindir; 320dp genişlikte ve 1.5x yazı ölçeğinde tek satıra
+          // sığmıyorlar ve `Row` bunu 72px'lik gerçek bir taşma olarak
+          // gösteriyordu (ilk kez Today ekranının tamamı gerçek 320dp'de
+          // render edildiğinde ortaya çıktı). `Wrap` sığdığında sayacı sağ
+          // kenara yaslar, sığmadığında sakince alt satıra indirir — günlük
+          // plan kartında zaten kullanılan aynı çözüm.
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: AppSpacing.s3,
+            runSpacing: AppSpacing.s1,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      l10n.todayPrayerCardTitle,
-                      token: AppTextStyleToken.h3,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: AppSpacing.s1),
-                    // Ham `2026-08-07` yerine cihazın dilinde okunabilir
-                    // tarih; ay adı elle yazılmaz.
-                    AppText(
-                      formatDayKeyForDisplay(context, state.dayKey),
-                      token: AppTextStyleToken.caption,
-                      tone: AppTextTone.tertiary,
-                      maxLines: 1,
-                    ),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    l10n.todayPrayerCardTitle,
+                    token: AppTextStyleToken.h3,
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: AppSpacing.s1),
+                  // Ham `2026-08-07` yerine cihazın dilinde okunabilir
+                  // tarih; ay adı elle yazılmaz.
+                  AppText(
+                    formatDayKeyForDisplay(context, state.dayKey),
+                    token: AppTextStyleToken.caption,
+                    tone: AppTextTone.tertiary,
+                    maxLines: 1,
+                  ),
+                ],
               ),
-              const SizedBox(width: AppSpacing.s3),
               AppText(
                 l10n.todayPrayerProgress(
                   state.completedCount,

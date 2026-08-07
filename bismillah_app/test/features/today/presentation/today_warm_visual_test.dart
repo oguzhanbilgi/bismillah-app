@@ -139,7 +139,8 @@ void main() {
       // RDX-01C2: hero başlığı Today'den çıktığı için yerelleştirme kanıtı
       // ekranın KENDİ metinlerine bağlandı — karşılama satırı ve bölüm
       // başlığı. Amaç değişmedi: Today her locale'de kendi dilinde çizilir.
-      expect(find.text('Bugünün ritmi'), findsOneWidget);
+      // RDX-02A: karşılama artık vakte duyarlı (09:30 + izin yok → sabah).
+      expect(find.text('Hayırlı sabahlar'), findsOneWidget);
       expect(find.text('Bugünkü yolculuğun'), findsOneWidget);
 
       await unmountAndFlushDriftTimers(tester);
@@ -148,10 +149,10 @@ void main() {
     testWidgets('İngilizce locale tüm yeni metinleri çevirir', (tester) async {
       await pumpToday(tester, locale: SupportedLocale.en);
 
-      expect(find.text("Today's rhythm"), findsOneWidget);
+      expect(find.text('Good morning'), findsOneWidget);
       expect(find.text('Today’s journey'), findsOneWidget);
       expect(find.text('Bugünkü yolculuğun'), findsNothing);
-      expect(find.text('Bugünün ritmi'), findsNothing);
+      expect(find.text('Hayırlı sabahlar'), findsNothing);
 
       await unmountAndFlushDriftTimers(tester);
     });
