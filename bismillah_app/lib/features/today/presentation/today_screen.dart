@@ -58,7 +58,18 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       body: switch (asyncState) {
         AsyncData(:final value) => ListView(
           children: [
-            AppSectionHeader(title: l10n.todayGreeting),
+            // RDX-01C1: karşılama artık bir "bölüm başlığı" değil; AppBar'daki
+            // ekran adının altına oturan sakin bir alt satırdır. Önceki
+            // `AppSectionHeader` hiçbir bölümü başlatmadığı hâlde h3 ağırlığı
+            // ve s7 üst boşluğu getiriyordu — referanstaki başlık/alt satır
+            // hiyerarşisi bunun tersini ister.
+            const SizedBox(height: AppSpacing.s2),
+            AppText(
+              l10n.todayGreeting,
+              token: AppTextStyleToken.caption,
+              tone: AppTextTone.secondary,
+            ),
+            const SizedBox(height: AppSpacing.s5),
             // 1) Manevi hero — kompakt; namaz kartlarını gizlemez.
             TodaySpiritualHero(onSeeTodaysPlan: _scrollToPrayerSection),
             // 2) Sıradaki namaz ÖNCE gelir (TASK 054): Today'in en somut

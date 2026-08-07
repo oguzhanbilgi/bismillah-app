@@ -64,37 +64,24 @@ class TodayNextPrayerCard extends ConsumerWidget {
       // Beş vakit de geçti — sakin bitiş mesajı (yarın hesaplanmaz).
       return _message(l10n, l10n.todayNextPrayerAllDone);
     }
-    // TASK 054: saat ve vakit adı tek bir güçlü hiyerarşide birleşir —
-    // saat en büyük öğedir (statLarge), vakit adı hemen altında sakin bir
-    // destekleyici satırdır. Kart artık düz beyaz kutu değil, sıcak kum
-    // yüzeyidir; "sıradaki namaz" Today'in ana işlevlerinden biri olarak
-    // görsel ağırlığını korur.
+    // TASK 054: saat ve vakit adı tek bir güçlü hiyerarşide birleşir.
+    // RDX-01C1: referanstaki okuma sırası uygulanır — önce hangi vakit
+    // (ad), sonra saat en büyük öğe olarak. Kart başlığı artık bir
+    // "eyebrow"dur (küçük, sönük), böylece büyük saatle yarışmaz.
     return _card(
       title: l10n.todayNextPrayerTitle,
       variant: AppCardVariant.sand,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      _formatLocal(next.instant),
-                      token: AppTextStyleToken.statLarge,
-                    ),
-                    AppText(
-                      _prayerLabel(l10n, next.name),
-                      token: AppTextStyleToken.h3,
-                      secondary: true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          AppText(
+            _prayerLabel(l10n, next.name),
+            token: AppTextStyleToken.h3,
+            maxLines: 1,
+          ),
+          AppText(
+            _formatLocal(next.instant),
+            token: AppTextStyleToken.statLarge,
           ),
           const SizedBox(height: AppSpacing.s5),
           AppButton(
@@ -138,11 +125,19 @@ class TodayNextPrayerCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: AppText(title, token: AppTextStyleToken.h3)),
+              // Eyebrow: küçük ve sönük — kartın içeriği (vakit ve saat)
+              // görsel ağırlığı taşır.
+              Expanded(
+                child: AppText(
+                  title,
+                  token: AppTextStyleToken.caption,
+                  tone: AppTextTone.secondary,
+                ),
+              ),
               ?trailing,
             ],
           ),
-          const SizedBox(height: AppSpacing.s4),
+          const SizedBox(height: AppSpacing.s2),
           child,
         ],
       ),

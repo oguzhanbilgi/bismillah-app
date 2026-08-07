@@ -53,6 +53,19 @@ class TodayPlanSection extends ConsumerStatefulWidget {
 /// günün görev sayısına yakındır, böylece geçişte yükseklik oynamaz.
 const int _skeletonRowCount = 3;
 
+/// Görev satırları arasındaki saç teli ayraç (RDX-01C1). Renk temadan
+/// gelir; koyu temada da doğru tonda çizilir.
+class _RowDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 1,
+      thickness: 1,
+      color: AppThemeExtension.of(context).divider,
+    );
+  }
+}
+
 /// Animasyonsuz, nötr yer tutucu çubuk.
 class _SkeletonBar extends StatelessWidget {
   const _SkeletonBar({required this.widthFactor});
@@ -172,7 +185,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
     return AppText(
       l10n.todayPlanSelectedDay(state.dayKey.value),
       token: AppTextStyleToken.caption,
-      secondary: true,
+      tone: AppTextTone.tertiary,
       maxLines: 2,
     );
   }
@@ -242,17 +255,19 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // RDX-01C1: ilerleme metni ve çubuğu, görev listesinden ince bir
+        // boşlukla ayrılır — referansta özet üstte, satırlar altta durur.
         AppText(
           l10n.todayPlanProgress(completed, total),
           token: AppTextStyleToken.caption,
-          secondary: true,
+          tone: AppTextTone.secondary,
         ),
         const SizedBox(height: AppSpacing.s2),
         AppProgressBar(
           value: progress,
           semanticLabel: l10n.todayPlanProgress(completed, total),
         ),
-        const SizedBox(height: AppSpacing.s4),
+        const SizedBox(height: AppSpacing.s3),
         if (total == 0)
           AppText(
             l10n.todayPlanNoItems,
@@ -263,7 +278,12 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
           // Kanonik kaynak sırası (Prayer → Quran → Learn) plandaki öğe
           // sırasıdır; burada yerelleştirilmiş metne göre YENİDEN
           // SIRALANMAZ.
-          for (final item in plan.items)
+          //
+          // RDX-01C1: görevler tek kartın içinde saç teli ayraçlarla bölünmüş
+          // satırlardır — kart içinde kart yığını DEĞİL. Ayracı liste sahibi
+          // çizer, böylece son satırdan sonra sarkan bir çizgi kalmaz.
+          for (final (index, item) in plan.items.indexed) ...[
+            if (index > 0) _RowDivider(),
             TodayPlanTaskCard(
               item: item,
               presentation: TodayPlanItemPresentation.of(
@@ -274,7 +294,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
                     : lessonTitles[item.targetRef],
                 isResolvingLearnTitle: isResolvingTitles,
               ),
-              // Kaydetme sürerken kart salt-okunur olur — çift yazma
+              // Kaydetme sürerken satır salt-okunur olur — çift yazma
               // engellenir.
               onToggle: isSaving
                   ? null
@@ -282,6 +302,7 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
                         .read(dailyPlanControllerProvider.notifier)
                         .toggleItemCompletion(item.itemId),
             ),
+          ],
       ],
     );
   }
