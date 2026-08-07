@@ -1,7 +1,6 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
-import 'package:bismillah_app/app/theme/app_motion.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_daily_verse_card.dart';
@@ -9,9 +8,6 @@ import 'package:bismillah_app/features/today/presentation/widgets/today_next_pra
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_quran_center_card.dart';
-import 'package:bismillah_app/features/today/presentation/widgets/today_small_step_card.dart';
-import 'package:bismillah_app/features/today/presentation/widgets/today_spiritual_hero.dart';
-import 'package:bismillah_app/features/today/presentation/widgets/today_weekly_rhythm_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
 import 'package:bismillah_app/shared/widgets/app_section_header.dart';
@@ -20,36 +16,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// Today sekmesi — bugünün namaz özeti (TASK 017) + manevi hero ve günün
-/// ayeti (TASK 052). SALT-OKUNUR; yazma yalnız Prayer sekmesindedir ve iki
+/// Today sekmesi — SALT-OKUNUR; yazma yalnız Prayer sekmesindedir ve iki
 /// ekran aynı lokal kaynağı izler (tek doğruluk kaynağı, 06 §14).
-class TodayScreen extends ConsumerStatefulWidget {
+///
+/// RDX-01C2: ekran üç çapa etrafında kurulur — sıradaki namaz, günlük plan
+/// ve günün ayeti. Motive edici büyük hero, "küçük bir adım" önerisi ve
+/// haftalık ritim kutusu bu hiyerarşiden ÇIKARILDI; sıradaki namaz artık
+/// listenin başında olduğu için ona kaydıran yardımcı da gerekmiyor.
+class TodayScreen extends ConsumerWidget {
   const TodayScreen({super.key});
 
   @override
-  ConsumerState<TodayScreen> createState() => _TodayScreenState();
-}
-
-class _TodayScreenState extends ConsumerState<TodayScreen> {
-  /// Hero aksiyonunun odaklandığı namaz bölümü — yeni route AÇILMAZ,
-  /// yalnız mevcut Today içeriğine kaydırılır.
-  final GlobalKey _prayerSectionKey = GlobalKey();
-
-  void _scrollToPrayerSection() {
-    final context = _prayerSectionKey.currentContext;
-    if (context == null) {
-      return;
-    }
-    Scrollable.ensureVisible(
-      context,
-      duration: AppMotion.standard,
-      curve: Curves.easeInOut,
-      alignment: 0.05,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final asyncState = ref.watch(todayPrayerSummaryControllerProvider);
 
@@ -69,39 +47,36 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
               token: AppTextStyleToken.caption,
               tone: AppTextTone.secondary,
             ),
-            const SizedBox(height: AppSpacing.s5),
-            // 1) Manevi hero — kompakt; namaz kartlarını gizlemez.
-            TodaySpiritualHero(onSeeTodaysPlan: _scrollToPrayerSection),
-            // 2) Sıradaki namaz ÖNCE gelir (TASK 054): Today'in en somut
-            // sorusu "şimdi ne var?" — hero'nun hemen altında, ilk
-            // viewport'ta görünür. Günlük özet onu destekler.
+            const SizedBox(height: AppSpacing.s4),
+            // RDX-01C2: Today artık ÜÇ çapa etrafında kurulur — sıradaki
+            // namaz, günlük plan, günün ayeti. Onaylanan referansta motive
+            // edici büyük yeşil hero, "küçük bir adım" önerisi ve haftalık
+            // ritim kutusu YOKTUR; üçü de ilk viewport'u doldurup asıl
+            // içeriği aşağı itiyordu. Widget'lar silinmedi (RTL kabuk
+            // testleri ve olası yeniden kullanım için durur), yalnız Today
+            // hiyerarşisinden çıkarıldı.
+            //
+            // 1) Sıradaki namaz — ekranın hero'su. "Şimdi ne var?" sorusu
+            // ilk ekranda cevaplanır.
             TodayNextPrayerCard(
-              key: _prayerSectionKey,
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
-            const SizedBox(height: AppSpacing.s4),
+            const SizedBox(height: AppSpacing.s3),
+            // 2) Bugünün görevleri — DailyPlan durum makinesinin tek
+            // yüzeyi (TASK 083). Plan ÜRETMEZ; yalnız kayıtlı günü gösterir.
+            const TodayPlanSection(),
+            // 3) Namaz özeti planı DESTEKLER; hero'yla yarışmaz.
             TodayPrayerSummaryCard(
               state: value,
               onGoToPrayers: () => context.go(AppRoutes.prayer),
             ),
-            const SizedBox(height: AppSpacing.s4),
-            // 3) Bugünün görevleri — DailyPlan durum makinesinin tek
-            // yüzeyi (TASK 083). Plan ÜRETMEZ; yalnız kayıtlı günü gösterir.
-            const TodayPlanSection(),
-            // 4) Bugünün Ayeti — kaynaklı, deterministik.
+            const SizedBox(height: AppSpacing.s3),
+            // 4) Bugünün Ayeti — kaynaklı, deterministik; ekranı kapatır.
             const TodayDailyVerseCard(),
-            // 5) "Bugünkü yolculuğun": Kur'an merkezi, kişisel öneri ve
-            // haftalık ritim tek anlamlı grup altında toplanır — ekran
-            // bağlantısız kart yığını gibi okunmaz.
+            // 5) Kur'an merkezi tek destekleyici blok olarak kalır.
             AppSectionHeader(title: l10n.todayJourneyTitle),
             const TodayQuranCenterCard(),
-            // 6) Kişiselleştirilmiş öneri — kart gizliyken kendi alt
-            // boşluğunu da gizler (kartlar arası boşluk sabit kalır).
-            const TodaySmallStepCard(),
-            TodayWeeklyRhythmCard(
-              onSeeHistory: () => context.go(AppRoutes.prayerHistory),
-            ),
-            const SizedBox(height: AppSpacing.s5),
+            const SizedBox(height: AppSpacing.s4),
             Center(
               child: AppText(
                 l10n.todayLocalNote,
@@ -110,7 +85,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: AppSpacing.s7),
+            const SizedBox(height: AppSpacing.s6),
           ],
         ),
         AsyncError() => AppErrorState(

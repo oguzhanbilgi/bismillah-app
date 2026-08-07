@@ -30,6 +30,7 @@ import 'package:bismillah_app/features/today/domain/entities/daily_plan.dart';
 import 'package:bismillah_app/features/today/domain/repositories/daily_plan_repository.dart';
 import 'package:bismillah_app/features/today/domain/services/daily_plan_generator.dart';
 import 'package:bismillah_app/features/today/domain/value_objects/plan_enums.dart';
+import 'package:bismillah_app/features/today/presentation/today_date_format.dart';
 import 'package:bismillah_app/features/today/presentation/today_plan_item_presentation.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_task_card.dart';
@@ -49,6 +50,15 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final fixedLocalNow = DateTime(2026, 7, 27, 9, 30);
   final today = DayKey('2026-07-27');
+
+  /// Ekranda GERÇEKTEN görünen tarih metni. Üretimle aynı yoldan
+  /// (`formatDayKeyForDisplay`) türetilir, böylece test biçimi elle
+  /// yazmaz ve yerelleştirme değişirse kırılmaz.
+  String displayedDay(WidgetTester tester, DayKey dayKey) =>
+      formatDayKeyForDisplay(
+        tester.element(find.byType(TodayPlanSection)),
+        dayKey,
+      );
   final yesterday = DayKey('2026-07-26');
   const article = 'art-islam-nedir';
 
@@ -247,7 +257,13 @@ void main() {
       await pumpSection(tester);
 
       expect(find.text(tr.todayPlanTitle), findsOneWidget);
-      expect(find.text(tr.todayPlanSelectedDay(today.value)), findsOneWidget);
+      // RDX-01C2: arayüzde artık ham ISO tarih değil, cihazın dilindeki
+      // biçim görünür. Beklenen metin üretimle AYNI yoldan türetilir —
+      // "7 Ağu 2026" gibi bir dize teste elle yazılmaz.
+      expect(
+        find.text(tr.todayPlanSelectedDay(displayedDay(tester, today))),
+        findsOneWidget,
+      );
       expect(find.text(tr.todayPlanProgress(0, 4)), findsWidgets);
       expect(find.byType(AppProgressBar), findsOneWidget);
       expect(find.byType(TodayPlanTaskCard), findsNWidgets(4));
@@ -295,7 +311,12 @@ void main() {
       await pumpSection(tester);
 
       expect(repo.requestedDays, contains(today));
-      expect(find.text(tr.todayPlanSelectedDay('2026-07-27')), findsOneWidget);
+      expect(
+        find.text(
+          tr.todayPlanSelectedDay(displayedDay(tester, DayKey('2026-07-27'))),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('gün bir kez seçilir — çift abonelik yok', (tester) async {

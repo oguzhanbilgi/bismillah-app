@@ -80,12 +80,15 @@ void main() {
   }
 
   group('Today görsel hiyerarşisi', () {
-    testWidgets('hero, sıradaki namaz ve günlük özet birlikte render eder', (
+    testWidgets('sıradaki namaz ve günlük özet birlikte render eder', (
       tester,
     ) async {
       await pumpToday(tester);
 
-      expect(find.byType(TodaySpiritualHero), findsOneWidget);
+      // RDX-01C2: motive edici büyük hero Today hiyerarşisinden ÇIKARILDI —
+      // onaylanan referansta yok ve ilk viewport'u dolduruyordu. Widget
+      // silinmedi; yalnız bu ekranda kullanılmıyor.
+      expect(find.byType(TodaySpiritualHero), findsNothing);
       expect(find.byType(TodayNextPrayerCard), findsOneWidget);
       expect(find.byType(TodayPrayerSummaryCard), findsOneWidget);
 
@@ -115,27 +118,14 @@ void main() {
       await unmountAndFlushDriftTimers(tester);
     });
 
-    testWidgets('cami ufku dekoratiftir — semantics ve dokunma dışı', (
-      tester,
-    ) async {
+    testWidgets('dekoratif cami ufku Today ekranını DOLDURMAZ', (tester) async {
       final handle = tester.ensureSemantics();
       await pumpToday(tester);
 
-      expect(find.byType(MosqueHorizonIllustration), findsOneWidget);
-      expect(
-        find.descendant(
-          of: find.byType(MosqueHorizonIllustration),
-          matching: find.byType(ExcludeSemantics),
-        ),
-        findsOneWidget,
-      );
-      expect(
-        find.descendant(
-          of: find.byType(MosqueHorizonIllustration),
-          matching: find.byType(IgnorePointer),
-        ),
-        findsOneWidget,
-      );
+      // Ufuk illüstrasyonu hero ile birlikte geldiği için Today'de artık
+      // çizilmiyor. Dekoratif olma sözleşmesi widget'ın KENDİ testinde
+      // (`today_spiritual_uplift_test`) korunuyor.
+      expect(find.byType(MosqueHorizonIllustration), findsNothing);
       handle.dispose();
 
       await unmountAndFlushDriftTimers(tester);
@@ -143,10 +133,13 @@ void main() {
   });
 
   group('Today yerelleştirme', () {
-    testWidgets('Türkçe hero ve bölüm başlıkları', (tester) async {
+    testWidgets('Türkçe karşılama ve bölüm başlıkları', (tester) async {
       await pumpToday(tester);
 
-      expect(find.text('Bugün yeniden başlayabilirsin'), findsOneWidget);
+      // RDX-01C2: hero başlığı Today'den çıktığı için yerelleştirme kanıtı
+      // ekranın KENDİ metinlerine bağlandı — karşılama satırı ve bölüm
+      // başlığı. Amaç değişmedi: Today her locale'de kendi dilinde çizilir.
+      expect(find.text('Bugünün ritmi'), findsOneWidget);
       expect(find.text('Bugünkü yolculuğun'), findsOneWidget);
 
       await unmountAndFlushDriftTimers(tester);
@@ -155,9 +148,10 @@ void main() {
     testWidgets('İngilizce locale tüm yeni metinleri çevirir', (tester) async {
       await pumpToday(tester, locale: SupportedLocale.en);
 
-      expect(find.text('You can begin again today'), findsOneWidget);
+      expect(find.text("Today's rhythm"), findsOneWidget);
       expect(find.text('Today’s journey'), findsOneWidget);
       expect(find.text('Bugünkü yolculuğun'), findsNothing);
+      expect(find.text('Bugünün ritmi'), findsNothing);
 
       await unmountAndFlushDriftTimers(tester);
     });

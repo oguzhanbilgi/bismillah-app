@@ -79,15 +79,19 @@ class TodayNextPrayerCard extends ConsumerWidget {
             token: AppTextStyleToken.h3,
             maxLines: 1,
           ),
-          AppText(
-            _formatLocal(next.instant),
-            token: AppTextStyleToken.statLarge,
-          ),
-          const SizedBox(height: AppSpacing.s5),
-          AppButton(
-            label: l10n.todayGoToPrayers,
-            variant: AppButtonVariant.secondary,
-            onPressed: onGoToPrayers,
+          // RDX-01C2: saat `statLarge` (40) yerine `stat` (28). Referansta
+          // saat en güçlü öğedir ama kartı devirmez; 40px kartı gereksiz
+          // uzatıyordu.
+          AppText(_formatLocal(next.instant), token: AppTextStyleToken.stat),
+          // Baskın pill yerine sessiz metin eylemi — hero bir "CTA kutusu"
+          // değil, bilgi kartıdır.
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: AppButton(
+              label: l10n.todayGoToPrayers,
+              variant: AppButtonVariant.text,
+              onPressed: onGoToPrayers,
+            ),
           ),
         ],
       ),
@@ -101,11 +105,13 @@ class TodayNextPrayerCard extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(message, token: AppTextStyleToken.bodySmall, secondary: true),
-        const SizedBox(height: AppSpacing.s4),
-        AppButton(
-          label: l10n.todayGoToPrayers,
-          variant: AppButtonVariant.secondary,
-          onPressed: onGoToPrayers,
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: AppButton(
+            label: l10n.todayGoToPrayers,
+            variant: AppButtonVariant.text,
+            onPressed: onGoToPrayers,
+          ),
         ),
       ],
     ),
