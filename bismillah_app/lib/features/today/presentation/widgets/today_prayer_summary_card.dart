@@ -2,7 +2,7 @@ import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_state.dart';
 import 'package:bismillah_app/features/today/presentation/today_date_format.dart';
-import 'package:bismillah_app/shared/widgets/app_button.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_quiet_action.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
@@ -32,6 +32,14 @@ class TodayPrayerSummaryCard extends StatelessWidget {
     // iki kart art arda aynı beyaz kutu gibi görünmez. Ton baskı kurmaz.
     return AppCard(
       variant: AppCardVariant.outlined,
+      // RDX-01C3: sessiz eylem kendi 48px dokunma yüksekliğini taşıdığı
+      // için altta ikinci bir `s5` dolgu gerekmiyor.
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.s5,
+        AppSpacing.s4,
+        AppSpacing.s5,
+        AppSpacing.s2,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -81,13 +89,9 @@ class TodayPrayerSummaryCard extends StatelessWidget {
           ),
           // Baskın pill yerine sessiz metin eylemi — kart bir "CTA kutusu"
           // gibi okunmaz; eylem hâlâ tam dokunma hedefindedir.
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: AppButton(
-              label: l10n.todayGoToPrayers,
-              variant: AppButtonVariant.text,
-              onPressed: onGoToPrayers,
-            ),
+          TodayQuietAction(
+            label: l10n.todayGoToPrayers,
+            onPressed: onGoToPrayers,
           ),
         ],
       ),

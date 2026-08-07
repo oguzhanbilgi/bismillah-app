@@ -56,12 +56,18 @@ const int _skeletonRowCount = 3;
 
 /// Görev satırları arasındaki saç teli ayraç (RDX-01C1). Renk temadan
 /// gelir; koyu temada da doğru tonda çizilir.
+///
+/// RDX-01C3: ayraç artık satırın ikon karesi kadar içeriden başlar —
+/// referanstaki liste ritmi budur ve çizgi kartı baştan sona kesip satırları
+/// "ayar listesi" gibi göstermez. `Divider` girintiyi `EdgeInsetsDirectional`
+/// ile uygular, bu yüzden Arapça'da kendiliğinden aynalanır.
 class _RowDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
       height: 1,
       thickness: 1,
+      indent: TodayPlanTaskCard.rowContentIndent,
       color: AppThemeExtension.of(context).divider,
     );
   }
@@ -152,8 +158,15 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
         if (TodayRecoveryNote.shouldShow(recovery, state))
           TodayRecoveryNote(recovery: recovery),
         Padding(
-          padding: const EdgeInsets.only(bottom: AppSpacing.s4),
+          padding: const EdgeInsets.only(bottom: AppSpacing.s3),
           child: AppCard(
+            // RDX-01C3: satırlar kendi dikey dolgularını taşıdığı için kartın
+            // alt/üst dolgusu `s5`ten `s4`e iner; kart ferahlığını kaybetmeden
+            // bir görev satırı kadar kısalır.
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.s5,
+              vertical: AppSpacing.s4,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -161,10 +174,35 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
                 // olarak. Referansta bölüm başlığı tek satırlık ve
                 // kompakttır; başlık ile içerik arasındaki boşluk s4'ten
                 // s3'e iner.
-                AppText(
-                  l10n.todayPlanTitle,
-                  token: AppTextStyleToken.h3,
-                  maxLines: 1,
+                //
+                // RDX-01C3: ilerleme sayacı başlığın SAĞINA taşındı. Önceden
+                // kendi satırını kaplıyordu; başlıkla eşleşince kart bir satır
+                // kısalır ve namaz özet kartıyla aynı düzeni okur.
+                //
+                // `Row` DEĞİL `Wrap`: iki metnin de doğal genişliği vardır ve
+                // dar ekran + büyük yazı bileşiminde (320px @1.5x) tek satıra
+                // sığmazlar. `Row`da bu ya taşma ya da başlığın erkenden
+                // kırpılması demekti; `Wrap` sığdığında sayacı sağ kenara
+                // yaslar, sığmadığında sakince alt satıra indirir.
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: AppSpacing.s3,
+                  runSpacing: AppSpacing.s1,
+                  children: [
+                    AppText(
+                      l10n.todayPlanTitle,
+                      token: AppTextStyleToken.h3,
+                      maxLines: 1,
+                    ),
+                    if (_progressLabel(l10n, state) case final String label)
+                      AppText(
+                        label,
+                        token: AppTextStyleToken.caption,
+                        tone: AppTextTone.secondary,
+                        maxLines: 1,
+                      ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.s1),
                 _dateLine(context, l10n, state),
@@ -183,6 +221,20 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
         ),
       ],
     );
+  }
+
+  /// Başlık satırının sağındaki sayaç. Yalnız gerçekten bir plan varken
+  /// üretilir — yükleme, boş, bozuk ve hata durumlarında `null` döner, çünkü
+  /// o hâllerde gösterilecek bir oran YOKTUR ve "0/0" uydurulmaz.
+  String? _progressLabel(AppLocalizations l10n, DailyPlanState? state) {
+    if (state is! DailyPlanAvailable) {
+      return null;
+    }
+    final plan = state.plan;
+    if (plan.items.isEmpty) {
+      return null;
+    }
+    return l10n.todayPlanProgress(plan.completedCount, plan.items.length);
   }
 
   /// Seçili gün satırı; gün henüz seçilmemişken gizlenir (yanıltıcı tarih
@@ -270,19 +322,17 @@ class _TodayPlanSectionState extends ConsumerState<TodayPlanSection>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // RDX-01C1: ilerleme metni ve çubuğu, görev listesinden ince bir
-        // boşlukla ayrılır — referansta özet üstte, satırlar altta durur.
-        AppText(
-          l10n.todayPlanProgress(completed, total),
-          token: AppTextStyleToken.caption,
-          tone: AppTextTone.secondary,
-        ),
-        const SizedBox(height: AppSpacing.s2),
+        // RDX-01C1: ilerleme çubuğu görev listesinden ince bir boşlukla
+        // ayrılır — referansta özet üstte, satırlar altta durur.
+        //
+        // RDX-01C3: sayaç METNİ artık başlık satırındadır; burada tekrar
+        // edilmez. Erişilebilirlik kaybı YOKTUR — aynı dize çubuğun semantik
+        // etiketi olarak kalır.
         AppProgressBar(
           value: progress,
           semanticLabel: l10n.todayPlanProgress(completed, total),
         ),
-        const SizedBox(height: AppSpacing.s3),
+        const SizedBox(height: AppSpacing.s2),
         if (total == 0)
           AppText(
             l10n.todayPlanNoItems,

@@ -6,11 +6,11 @@ import 'package:bismillah_app/features/quran/application/quran_progress_summary_
 import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_controller.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_reading_goal.dart';
 import 'package:bismillah_app/features/today/application/today_quran_center_providers.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_section_label.dart';
 import 'package:bismillah_app/shared/islamic/quran_on_rehal_illustration.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
-import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,16 +48,21 @@ class TodayQuranCenterCard extends ConsumerWidget {
   }
 
   /// Bölüm kabuğu: "Bugünkü Kur'an" başlığı + opsiyonel İlerlemem eylemi +
-  /// gövde + alt boşluk. Başlık AppSectionHeader'ın üst boşluğuyla önceki
-  /// karttan ayrılır.
+  /// gövde + alt boşluk.
+  ///
+  /// RDX-01C3: bu başlık "Bugünkü yolculuğun" grup başlığının HEMEN altında
+  /// gelir. `AppSectionHeader`ın sabit `s7` üst boşluğuyla iki başlık arasında
+  /// 32px'lik ölü bir şerit oluşuyordu; `TodaySectionLabel` üst boşluğu
+  /// çağırana bıraktığı için burada `s3` yeterli.
   Widget _shell(
     AppLocalizations l10n, {
     required Widget child,
     Widget? headerTrailing,
   }) => Column(
     children: [
-      AppSectionHeader(
+      TodaySectionLabel(
         title: l10n.todayQuranSectionTitle,
+        topSpacing: AppSpacing.s3,
         trailing: headerTrailing,
       ),
       child,

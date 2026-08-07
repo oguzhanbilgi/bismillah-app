@@ -8,9 +8,9 @@ import 'package:bismillah_app/features/today/presentation/widgets/today_next_pra
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_quran_center_card.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_section_label.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
-import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,11 +41,17 @@ class TodayScreen extends ConsumerWidget {
             // `AppSectionHeader` hiçbir bölümü başlatmadığı hâlde h3 ağırlığı
             // ve s7 üst boşluğu getiriyordu — referanstaki başlık/alt satır
             // hiyerarşisi bunun tersini ister.
-            const SizedBox(height: AppSpacing.s2),
+            //
+            // RDX-01C3: karşılama satırı bir kademe daha geri çekilir
+            // (`secondary` → `tertiary`). AppBar'daki "Bugün" başlığıyla
+            // arasındaki ağırlık farkı böylece net olur; iki satır aynı
+            // güçte iki başlık gibi okunmaz. Satır dekoratiftir — tek başına
+            // taşıdığı kritik bir bilgi yoktur.
+            const SizedBox(height: AppSpacing.s1),
             AppText(
               l10n.todayGreeting,
               token: AppTextStyleToken.caption,
-              tone: AppTextTone.secondary,
+              tone: AppTextTone.tertiary,
             ),
             const SizedBox(height: AppSpacing.s4),
             // RDX-01C2: Today artık ÜÇ çapa etrafında kurulur — sıradaki
@@ -74,7 +80,7 @@ class TodayScreen extends ConsumerWidget {
             // 4) Bugünün Ayeti — kaynaklı, deterministik; ekranı kapatır.
             const TodayDailyVerseCard(),
             // 5) Kur'an merkezi tek destekleyici blok olarak kalır.
-            AppSectionHeader(title: l10n.todayJourneyTitle),
+            TodaySectionLabel(title: l10n.todayJourneyTitle),
             const TodayQuranCenterCard(),
             const SizedBox(height: AppSpacing.s4),
             Center(

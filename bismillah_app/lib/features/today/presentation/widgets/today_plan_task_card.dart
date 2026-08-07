@@ -42,6 +42,17 @@ class TodayPlanTaskCard extends StatelessWidget {
   /// (ör. kaydetme sürerken).
   final VoidCallback? onToggle;
 
+  /// Satır metninin, satırın başlangıç kenarından uzaklığı — ikon karesi +
+  /// aradaki boşluk. Ayracı çizen [TodayPlanSection] aynı değeri girinti
+  /// olarak kullanır, böylece çizgi metinle hizalanır ve iki yerde birbirinden
+  /// bağımsız sayı tutulmaz.
+  static const double rowContentIndent = _iconTileSize + AppSpacing.s3;
+
+  /// İkon karesinin kenarı. Token'lardan bileşiktir (`iconLg` + `s1`): ikonu
+  /// nefes aldıracak kadar büyük, satırı liste görünümüne çevirmeyecek kadar
+  /// küçük.
+  static const double _iconTileSize = AppSizes.iconLg + AppSpacing.s1;
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -65,7 +76,11 @@ class TodayPlanTaskCard extends StatelessWidget {
           onTap: onToggle,
           borderRadius: AppRadius.mdAll,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.s3),
+            // RDX-01C3: dikey dolgu `s3`ten `s2`ye iner. Satır hâlâ 48dp
+            // dokunma hedefinin üstündedir (`minHeight` değişmedi), yalnız
+            // kart içindeki ritim sıkışır — dört görev artık ilk ekranda
+            // birlikte okunur.
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.s2),
             child: ConstrainedBox(
               constraints: const BoxConstraints(
                 minHeight: AppSizes.touchTarget,
@@ -77,23 +92,32 @@ class TodayPlanTaskCard extends StatelessWidget {
                   // yumuşak zümrüde döner; UYARI/HATA rengi kullanılmaz.
                   _IconTile(
                     icon: presentation.icon,
-                    completed: completed,
                     background: completed ? ext.primarySoft : ext.surfaceAlt,
                     foreground: scheme.primary,
                   ),
-                  const SizedBox(width: AppSpacing.s4),
+                  const SizedBox(width: AppSpacing.s3),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Uzun/çok dilli başlıklar dar ekranda taşmaz.
-                        AppText(presentation.title, maxLines: 2),
-                        const SizedBox(height: AppSpacing.s1),
+                        //
+                        // RDX-01C3: tamamlanan görevin başlığı ikincil
+                        // mürekkebe düşer. Bu, "bitti"yi üstü çizili metin,
+                        // kırmızı renk veya rozet OLMADAN okutan en sakin
+                        // sinyaldir; sıra, konum ve metin değişmez.
+                        AppText(
+                          presentation.title,
+                          tone: completed
+                              ? AppTextTone.secondary
+                              : AppTextTone.primary,
+                          maxLines: 2,
+                        ),
                         AppText(
                           statusLabel,
                           token: AppTextStyleToken.caption,
-                          tone: AppTextTone.secondary,
+                          tone: AppTextTone.tertiary,
                           maxLines: 1,
                         ),
                       ],
@@ -131,25 +155,25 @@ class TodayPlanTaskCard extends StatelessWidget {
 class _IconTile extends StatelessWidget {
   const _IconTile({
     required this.icon,
-    required this.completed,
     required this.background,
     required this.foreground,
   });
 
   final IconData icon;
-  final bool completed;
   final Color background;
   final Color foreground;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: AppSpacing.s8,
-      height: AppSpacing.s8,
+      width: TodayPlanTaskCard._iconTileSize,
+      height: TodayPlanTaskCard._iconTileSize,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: background,
-        borderRadius: AppRadius.mdAll,
+        // RDX-01C3: `md` (12) yerine `sm` (8). Küçülen karede 12'lik yarıçap
+        // daireye yaklaşıp rozet gibi okunuyordu; 8 kareyi kare bırakır.
+        borderRadius: AppRadius.smAll,
       ),
       child: Icon(icon, size: AppSizes.iconMd, color: foreground),
     );
