@@ -56,6 +56,11 @@ flutter:
   uses-material-design: true
 
   assets:
+    # Marka (RDX-02A). YALNIZ çalışma zamanında gerçekten kullanılan,
+    # küçültülmüş glyph paketlenir. assets/branding/ altındaki büyük onaylı
+    # kaynak PNG'ler (toplam ~8.5 MB) depoda kaynak olarak durur ama APK'ya
+    # GİRMEZ — tek tek listelendikleri için klasörün tamamı bundle edilmez.
+    - assets/branding/bismillah_glyph_header.png
     - assets/quran/chapters_v1.json
     - assets/quran/verses_uthmani_v1.json
     - assets/quran/verse_pages_v1.json

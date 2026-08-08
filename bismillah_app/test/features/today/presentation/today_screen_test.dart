@@ -90,13 +90,21 @@ void main() {
     }
   }
 
-  testWidgets('Today renders summary card with 0/5 and trust note',
-      (tester) async {
+  testWidgets('Today renders summary card with 0/5 and trust note', (
+    tester,
+  ) async {
     await pumpApp(tester);
 
     expect(find.byType(TodayScreen), findsOneWidget);
     expect(find.byType(TodayPrayerSummaryCard), findsOneWidget);
-    expect(find.text('Bugünün ritmi'), findsOneWidget);
+    // RDX-02A: sabit "Bugünün ritmi" yerini vakte duyarlı karşılama aldı.
+    // Sabit saat 09:30 ve konum izni YOK → yerel-saat yedeği → sabah.
+    expect(find.text('Hayırlı sabahlar'), findsOneWidget);
+    expect(find.text('Bugünün ritmi'), findsNothing);
+    // Ekran başlığı olarak ne 'Bugün' ne 'Günüm' görünür; 'Günüm' YALNIZ
+    // alt navigasyon etiketidir.
+    expect(find.text('Bugün'), findsNothing);
+    expect(find.text('Günüm'), findsOneWidget);
     expect(find.text('Bugünün namaz takibi'), findsOneWidget);
     expect(find.text('0/5 tamamlandı'), findsOneWidget);
     // Özet kartı + sıradaki namaz kartı (TASK 023, izin yokken davet CTA'sı).
@@ -106,8 +114,9 @@ void main() {
     await unmountAndFlushDriftTimers(tester);
   });
 
-  testWidgets('Today shows persisted progress from the shared DB',
-      (tester) async {
+  testWidgets('Today shows persisted progress from the shared DB', (
+    tester,
+  ) async {
     await seedDay([PrayerName.fajr, PrayerName.dhuhr]);
     await pumpApp(tester);
 
@@ -116,8 +125,9 @@ void main() {
     await unmountAndFlushDriftTimers(tester);
   });
 
-  testWidgets('CTA navigates to Prayer tab; marking there updates Today',
-      (tester) async {
+  testWidgets('CTA navigates to Prayer tab; marking there updates Today', (
+    tester,
+  ) async {
     await pumpApp(tester);
     expect(find.text('0/5 tamamlandı'), findsOneWidget);
 
@@ -132,7 +142,7 @@ void main() {
     expect(find.text('Tamamlandı'), findsOneWidget);
 
     // Today'e dön: özet AYNI lokal durumdan güncellenmiş olmalı
-    await tester.tap(find.text('Bugün'));
+    await tester.tap(find.text('Günüm'));
     await tester.pumpAndSettle();
     expect(find.text('1/5 tamamlandı'), findsOneWidget);
 
