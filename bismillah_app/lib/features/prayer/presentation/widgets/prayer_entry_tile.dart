@@ -34,6 +34,8 @@ class PrayerEntryTile extends StatelessWidget {
     required this.actionLabel,
     required this.onToggle,
     this.time,
+    this.isNext = false,
+    this.nextLabel,
   });
 
   final String label;
@@ -52,6 +54,21 @@ class PrayerEntryTile extends StatelessWidget {
 
   final VoidCallback onToggle;
 
+  /// Bu satır, GERÇEKTEN sıradaki vakit mi? (RDX-03B)
+  ///
+  /// Yalnız bulmayı kolaylaştıran DEKORATİF bir ipucudur: yumuşak tonal bir
+  /// zemin. Yanıp sönme, geri sayım, altın dolgu, "CANLI" rozeti veya
+  /// herhangi bir oyunlaştırma YOKTUR ve tamamlanma geri bildirimi (onay
+  /// ikonu + sönümlenen mürekkep) her zaman daha baskındır. Karar bu widget'a
+  /// AİT DEĞİLDİR — çağıran, mevcut vakit verisinden hesaplar; burada yeni
+  /// bir hesap veya timer kurulmaz.
+  final bool isNext;
+
+  /// [isNext] doğruyken ekran okuyucuya eklenen etiket (ör. "Sıradaki
+  /// namaz"). Zemin rengi görülmese bile bilgi kaybolmasın diye vardır;
+  /// `null` ise semantiğe hiçbir şey eklenmez.
+  final String? nextLabel;
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -60,21 +77,33 @@ class PrayerEntryTile extends StatelessWidget {
     return Semantics(
       button: true,
       // Ekran okuyucu tek cümlede vakti, saatini, durumunu ve eylemini duyar.
+      // Sıradaki vakit ipucu SEMANTİĞE de girer: renk görülmediğinde bilgi
+      // kaybolmaz.
       label: [
         label,
         ?time,
+        if (isNext) ?nextLabel,
         if (completed) completedLabel,
         actionLabel,
       ].join(', '),
       toggled: completed,
       excludeSemantics: true,
       child: Material(
-        color: Colors.transparent,
+        // RDX-03B: sıradaki vakit YUMUŞAK tonal bir zeminle bulunması
+        // kolaylaşır. `surfaceAlt` kartın kendi yüzeyinin yalnız bir kademe
+        // altındadır — ikinci bir hero, altın dolgu veya uyarı rengi
+        // DEĞİLDİR. Tamamlanma geri bildirimi (dolu onay ikonu + sönümlenen
+        // mürekkep) bu ipucundan görsel olarak daha güçlü kalır.
+        color: isNext ? ext.surfaceAlt : Colors.transparent,
+        borderRadius: AppRadius.mdAll,
         child: InkWell(
           onTap: onToggle,
           borderRadius: AppRadius.mdAll,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.s2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.s2,
+              vertical: AppSpacing.s2,
+            ),
             child: ConstrainedBox(
               // 48dp dokunma hedefi — dikey dolgu daralsa bile korunur.
               constraints: const BoxConstraints(

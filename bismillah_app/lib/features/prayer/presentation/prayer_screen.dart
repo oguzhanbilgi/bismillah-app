@@ -109,12 +109,19 @@ final class _PrayerLogView extends ConsumerWidget {
         ? timesState.times
         : null;
 
+    // RDX-03B: "şimdi" TEK BİR KEZ okunur ve hem hero'ya hem listeye aynı an
+    // geçirilir. İki ayrı okuma, bir vakit sınırının iki yanına düşerek
+    // hero'nun bir vakti, listenin başka bir vakti işaret etmesine yol
+    // açabilirdi. Timer YOKTUR — an yalnız build sırasında okunur.
+    final nowUtc = ref.read(clockProvider).nowUtc();
+    final next = times?.nextPrayerAfter(nowUtc);
+
     return ListView(
       children: [
         const SizedBox(height: AppSpacing.s2),
-        _NextPrayerBlock(timesAsync: timesAsync),
+        _NextPrayerBlock(timesAsync: timesAsync, nowUtc: nowUtc),
         const SizedBox(height: AppSpacing.s4),
-        _DailyPrayersCard(state: state, times: times),
+        _DailyPrayersCard(state: state, times: times, nextPrayer: next?.name),
         const SizedBox(height: AppSpacing.s4),
         const _QiblaEntryCard(),
         const SizedBox(height: AppSpacing.s3),
@@ -127,15 +134,12 @@ final class _PrayerLogView extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.s3),
         const _PrayerReminderCard(),
-        const SizedBox(height: AppSpacing.s5),
-        Center(
-          child: AppText(
-            l10n.prayerLocalNote,
-            token: AppTextStyleToken.caption,
-            secondary: true,
-            textAlign: TextAlign.center,
-          ),
-        ),
+        // RDX-03B: "Kayıtlar cihazında güvenle saklanır." alt notu
+        // KALDIRILDI. Bilgi kaybolmadı — Profil > Gizlilik ve Veri ekranı
+        // "Cihazında saklananlar" başlığı altında "Namaz takip geçmişi"ni
+        // zaten listeler, orası bu bilginin doğru yeridir. Ekran, kendi
+        // kontrolleri bittiğinde temizce biter; yerine başka bir alıntı veya
+        // günün cümlesi KONULMAZ (o desen Today'e aittir).
         const SizedBox(height: AppSpacing.s7),
       ],
     );
@@ -157,9 +161,13 @@ final class _PrayerLogView extends ConsumerWidget {
 /// korunur — bunlar gerçek işlevi etkileyen açıklamalardır ve sadeleştirme
 /// adına kaldırılmaz.
 final class _NextPrayerBlock extends ConsumerWidget {
-  const _NextPrayerBlock({required this.timesAsync});
+  const _NextPrayerBlock({required this.timesAsync, required this.nowUtc});
 
   final AsyncValue<PrayerTimesState> timesAsync;
+
+  /// Ekranın tamamı için TEK an — çağıran okur ve geçirir, böylece hero ile
+  /// liste aynı "sıradaki vakit" üzerinde anlaşır.
+  final DateTime nowUtc;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -184,7 +192,6 @@ final class _NextPrayerBlock extends ConsumerWidget {
     return switch (state) {
       PrayerTimesReady(:final times, :final approximateLocation) => _ready(
         context,
-        ref,
         l10n,
         times,
         approximateLocation: approximateLocation,
@@ -213,12 +220,11 @@ final class _NextPrayerBlock extends ConsumerWidget {
 
   Widget _ready(
     BuildContext context,
-    WidgetRef ref,
     AppLocalizations l10n,
     DailyPrayerTimes times, {
     required bool approximateLocation,
   }) {
-    final next = times.nextPrayerAfter(ref.read(clockProvider).nowUtc());
+    final next = times.nextPrayerAfter(nowUtc);
     final tertiary = AppThemeExtension.of(context).textTertiary;
 
     return _NextPrayerShell(
@@ -423,10 +429,25 @@ final class _NowDot extends StatelessWidget {
 /// satırlar taşır. Hangi vakitlerin takip edildiği ve durum makinesi
 /// DEĞİŞMEDİ — `PrayerName.values` sırası ve `controller.toggle` aynıdır.
 final class _DailyPrayersCard extends ConsumerWidget {
-  const _DailyPrayersCard({required this.state, required this.times});
+  const _DailyPrayersCard({
+    required this.state,
+    required this.times,
+    required this.nextPrayer,
+  });
 
   final PrayerLogState state;
   final DailyPrayerTimes? times;
+
+  /// Gerçekten sıradaki vakit — çağıran tek bir andan hesaplar. Beş vakit de
+  /// geçtiyse (veya vakit yoksa) `null`'dır ve HİÇBİR satır işaretlenmez;
+  /// uydurma bir "sıradaki" seçilmez.
+  final PrayerName? nextPrayer;
+
+  /// Satır metninin kart kenarından uzaklığı. Satırlar kendi tonal zeminleri
+  /// için yatay dolgu taşıdığından, başlık bloğu da aynı değeri kullanır;
+  /// böylece başlık ile vakit adları TEK hizada başlar ve ayraçlar ikisinin
+  /// de biraz dışına taşarak klasik "inset divider" görünümü verir.
+  static const double _rowInset = AppSpacing.s2;
 
   static DateTime? _timeFor(DailyPrayerTimes? t, PrayerName name) {
     if (t == null) {
@@ -444,65 +465,71 @@ final class _DailyPrayersCard extends ConsumerWidget {
 
     return AppCard(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.s4,
+        horizontal: AppSpacing.s2,
         vertical: AppSpacing.s4,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText(
-            l10n.prayerTodaySubtitle,
-            token: AppTextStyleToken.h3,
-            maxLines: 2,
-          ),
-          const SizedBox(height: AppSpacing.s1),
-          // RDX-03A: ham `2026-07-11` artık gösterilmez. Tarih, platformun
-          // kendi yerelleştirmesiyle biçimlenir; TR/EN/AR üçü de kendi
-          // biçimini alır ve ay adları elle YAZILMAZ.
-          //
-          // Başlığın YANINDA değil ALTINDA durur: Arapça'da bu biçim gün
-          // adını da içerdiği için 320dp/1.5x'te başlıkla aynı satırda
-          // yarıştığında taşıyordu. Tarihi kırpmak yerine satırı ayırmak,
-          // her dilde tam ve okunur kalmasını sağlar.
-          AppText(
-            formatDayKeyForDisplay(context, state.dayKey),
-            token: AppTextStyleToken.caption,
-            tone: AppTextTone.tertiary,
-            maxLines: 1,
-          ),
-          const SizedBox(height: AppSpacing.s1),
-          AppText(
-            l10n.prayerGentleLine,
-            token: AppTextStyleToken.caption,
-            tone: AppTextTone.secondary,
-            maxLines: 2,
-          ),
-          if (state.saveIssue) ...[
-            const SizedBox(height: AppSpacing.s3),
-            Row(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _rowInset),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.info_outline,
-                  size: AppSizes.iconSm,
-                  color: scheme.primary,
+                // RDX-03B: kartın ayrı bir "Bugünün namaz takibi" başlığı
+                // KALDIRILDI. AppBar zaten "Namaz" diyor ve kartın içinde beş
+                // vakit adı ile saatleri duruyor; üçüncü bir başlık satırı,
+                // tarih ve destek cümlesiyle birlikte üst üste ÜÇ başlık
+                // benzeri satır üretiyordu. Anahtar silinmedi — Today kendi
+                // özet kartında kullanmaya devam ediyor.
+                //
+                // Kalan iki satır rol olarak AYRIDIR: tarih hangi günün
+                // takip edildiğini söyler, destek cümlesi tonu taşır.
+                //
+                // Tarih platformun kendi yerelleştirmesiyle biçimlenir; ham
+                // `2026-07-11` gösterilmez ve ay adları elle YAZILMAZ.
+                AppText(
+                  formatDayKeyForDisplay(context, state.dayKey),
+                  token: AppTextStyleToken.caption,
+                  tone: AppTextTone.tertiary,
+                  maxLines: 1,
                 ),
-                const SizedBox(width: AppSpacing.s2),
-                Expanded(
-                  child: AppText(
-                    l10n.prayerSaveIssue,
-                    token: AppTextStyleToken.caption,
-                    secondary: true,
+                const SizedBox(height: AppSpacing.s1),
+                AppText(
+                  l10n.prayerGentleLine,
+                  token: AppTextStyleToken.bodySmall,
+                  tone: AppTextTone.secondary,
+                  maxLines: 2,
+                ),
+                if (state.saveIssue) ...[
+                  const SizedBox(height: AppSpacing.s3),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        size: AppSizes.iconSm,
+                        color: scheme.primary,
+                      ),
+                      const SizedBox(width: AppSpacing.s2),
+                      Expanded(
+                        child: AppText(
+                          l10n.prayerSaveIssue,
+                          token: AppTextStyleToken.caption,
+                          secondary: true,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ],
             ),
-          ],
+          ),
           const SizedBox(height: AppSpacing.s2),
           for (final (index, name) in PrayerName.values.indexed) ...[
             if (index > 0)
-              // Saç teli ayraç — satır metniyle aynı hizada başlar, kartın
-              // kenarına dayanmaz.
+              // Saç teli ayraç — satırların tonal zemininin biraz dışına
+              // taşar, kartın kenarına dayanmaz.
               Divider(height: 1, thickness: 1, color: ext.divider),
             PrayerEntryTile(
               label: _prayerLabel(l10n, name),
@@ -515,6 +542,11 @@ final class _DailyPrayersCard extends ConsumerWidget {
               actionLabel: state.isCompleted(name)
                   ? l10n.prayerUndo
                   : l10n.prayerMark,
+              // RDX-03B: yalnız GERÇEKTEN sıradaki vakit işaretlenir. Beş
+              // vakit de geçtiyse `nextPrayer` null olur ve hiçbir satır
+              // ipucu almaz — uydurma bir "sıradaki" üretilmez.
+              isNext: nextPrayer == name,
+              nextLabel: l10n.todayNextPrayerTitle,
               onToggle: () => controller.toggle(name),
             ),
           ],

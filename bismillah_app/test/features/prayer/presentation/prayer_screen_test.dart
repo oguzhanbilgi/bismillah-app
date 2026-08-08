@@ -97,13 +97,12 @@ void main() {
     // Boş durum sakindir: "Tamamlandı" yok ama hata/uyarı da yok.
     expect(find.text('Tamamlandı'), findsNothing);
 
-    // Alt not viewport dışında (lazy ListView) — görünür olana dek kaydır.
-    await tester.scrollUntilVisible(
-      find.text('Kayıtlar cihazında güvenle saklanır.'),
-      120,
-      scrollable: find.byType(Scrollable),
-    );
-    expect(find.text('Kayıtlar cihazında güvenle saklanır.'), findsOneWidget);
+    // RDX-03B: depolama alt notu bu ekrandan KALDIRILDI. Bilgi silinmedi —
+    // Profil > Gizlilik ve Veri ekranı "Cihazında saklananlar" başlığı
+    // altında "Namaz takip geçmişi"ni listelemeye devam ediyor (o ekranın
+    // kendi testleri yerinde). Burada yalnız Namaz yüzeyinde artık
+    // tekrarlanmadığı doğrulanır.
+    expect(find.text('Kayıtlar cihazında güvenle saklanır.'), findsNothing);
 
     await unmountAndFlushDriftTimers(tester);
   });

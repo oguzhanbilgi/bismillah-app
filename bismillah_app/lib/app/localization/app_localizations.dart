@@ -1252,20 +1252,27 @@ final class AppLocalizations {
       'reminderDisable': 'Hatırlatıcıları kapat',
       'reminderEnabledState': 'Hatırlatıcılar açık',
       'reminderInexactNote':
-          'Hatırlatma zamanı cihazına göre birkaç dakika kayabilir.',
-      'reminderPermissionNeeded': 'Hatırlatıcılar için bildirim izni gerekli.',
-      'reminderLocationNeeded': 'Vakitleri hesaplamak için konum gerekli.',
-      'reminderExactTitle': 'Hatırlatmalar tam zamanında gelsin',
+          'Hatırlatmalar şu an yaklaşık zamanda geliyor; birkaç dakika '
+          'kayabilir.',
+      'reminderPermissionNeeded':
+          'Namaz vakitlerini sana hatırlatabilmemiz için bildirimlere izin '
+          'vermen gerekiyor.',
+      'reminderLocationNeeded':
+          'Vakitleri bulunduğun yere göre hesaplayabilmek için konumuna '
+          'ihtiyaç var.',
+      'reminderExactTitle': 'Hatırlatmalar tam vaktinde gelsin',
       'reminderExactBody':
-          'Android, namaz hatırlatmalarını tam vaktinde gösterebilmek için ayrı '
-          'bir “Alarmlar ve hatırlatıcılar” izni ister. İzin vermezsen '
-          'hatırlatmalar yaklaşık zamanda çalışmaya devam eder.',
+          'Hatırlatmaların tam vaktinde gelmesi için telefonunun ayrı bir '
+          'iznine ihtiyaç var; ayarlarda “Alarmlar ve hatırlatıcılar” adıyla '
+          'görünür. İzin vermezsen hatırlatmalar çalışmaya devam eder, yalnız '
+          'birkaç dakika kayabilir.',
       'reminderExactOpenSettings': 'İzin ekranını aç',
       'reminderExactNotNow': 'Şimdi değil',
-      'reminderExactGranted': 'Tam zamanlı hatırlatmalar etkinleştirildi.',
+      'reminderExactGranted': 'Tam vaktinde hatırlatma izni verildi.',
       'reminderExactNotGranted':
-          'Hatırlatmalar yaklaşık zamanda çalışmaya devam edecek.',
-      'reminderExactAction': 'Tam zamanlı hatırlatmalar',
+          'Sorun değil — hatırlatmalar çalışmaya devam edecek, birkaç dakika '
+          'kayabilir.',
+      'reminderExactAction': 'Tam vaktinde hatırlat',
       'reminderNotificationTitle': 'Namaz vakti',
       'reminderNotificationBody': '{prayer} vakti için sakin bir hatırlatma.',
       'profilePersonalizationTitle': 'Kişiselleştirme',
@@ -2105,21 +2112,27 @@ final class AppLocalizations {
       'reminderDisable': 'Turn off reminders',
       'reminderEnabledState': 'Reminders are on',
       'reminderInexactNote':
-          'Reminder timing may vary by a few minutes on your device.',
+          'Reminders currently arrive at an approximate time and may be a few '
+          'minutes off.',
       'reminderPermissionNeeded':
-          'Notification permission is needed for reminders.',
-      'reminderLocationNeeded': 'Location is needed to calculate the times.',
-      'reminderExactTitle': 'Let reminders arrive right on time',
+          'To remind you of prayer times, the app needs your permission to '
+          'show notifications.',
+      'reminderLocationNeeded':
+          'Your location is needed so the times can be calculated for where '
+          'you are.',
+      'reminderExactTitle': 'Let reminders arrive exactly on time',
       'reminderExactBody':
-          'Android asks for a separate “Alarms & reminders” permission so prayer '
-          'reminders can show exactly on time. If you don’t allow it, reminders '
-          'keep working at an approximate time.',
+          'Your phone asks for one more permission before reminders can arrive '
+          'exactly on time; you will find it as “Alarms & reminders” in '
+          'settings. If you skip it, reminders keep working — they may just '
+          'arrive a few minutes off.',
       'reminderExactOpenSettings': 'Open permission screen',
       'reminderExactNotNow': 'Not now',
-      'reminderExactGranted': 'On-time reminders enabled.',
+      'reminderExactGranted': 'On-time reminders are now allowed.',
       'reminderExactNotGranted':
-          'Reminders will keep working at an approximate time.',
-      'reminderExactAction': 'On-time reminders',
+          'No problem — reminders keep working, they may just arrive a few '
+          'minutes off.',
+      'reminderExactAction': 'Remind me exactly on time',
       'reminderNotificationTitle': 'Prayer time',
       'reminderNotificationBody': 'A calm reminder for {prayer}.',
       'profilePersonalizationTitle': 'Personalization',
@@ -2945,19 +2958,23 @@ final class AppLocalizations {
       'reminderEnable': 'تفعيل التذكيرات',
       'reminderDisable': 'إيقاف التذكيرات',
       'reminderEnabledState': 'التذكيرات مفعّلة',
-      'reminderInexactNote': 'قد يتغيّر وقت التذكير بضع دقائق حسب جهازك.',
-      'reminderPermissionNeeded': 'يلزم إذن الإشعارات للتذكيرات.',
-      'reminderLocationNeeded': 'يلزم تحديد الموقع لحساب الأوقات.',
+      'reminderInexactNote':
+          'تصل التذكيرات حاليًا في وقت تقريبي وقد تتأخر بضع دقائق.',
+      'reminderPermissionNeeded':
+          'حتى نُذكّرك بأوقات الصلاة، يحتاج التطبيق إلى إذنك بعرض الإشعارات.',
+      'reminderLocationNeeded':
+          'نحتاج إلى موقعك لحساب الأوقات حسب المكان الذي أنت فيه.',
       'reminderExactTitle': 'لتصل التذكيرات في وقتها تمامًا',
       'reminderExactBody':
-          'يطلب أندرويد إذنًا منفصلًا باسم «المنبّهات والتذكيرات» حتى تظهر تذكيرات '
-          'الصلاة في وقتها تمامًا. إن لم تسمح به، تستمر التذكيرات في العمل في وقت '
-          'تقريبي.',
+          'يحتاج هاتفك إلى إذن إضافي حتى تصل التذكيرات في وقتها تمامًا، وتجده '
+          'في الإعدادات باسم «المنبّهات والتذكيرات». إن لم تسمح به، تستمر '
+          'التذكيرات في العمل، وقد تتأخر بضع دقائق فقط.',
       'reminderExactOpenSettings': 'فتح شاشة الإذن',
       'reminderExactNotNow': 'ليس الآن',
-      'reminderExactGranted': 'تم تفعيل التذكيرات في وقتها.',
-      'reminderExactNotGranted': 'ستستمر التذكيرات في العمل في وقت تقريبي.',
-      'reminderExactAction': 'تذكيرات في وقتها',
+      'reminderExactGranted': 'تم السماح بالتذكيرات في وقتها.',
+      'reminderExactNotGranted':
+          'لا بأس — تستمر التذكيرات في العمل، وقد تتأخر بضع دقائق.',
+      'reminderExactAction': 'ذكّرني في وقتها تمامًا',
       'reminderNotificationTitle': 'وقت الصلاة',
       'reminderNotificationBody': 'تذكير هادئ لصلاة {prayer}.',
       'profilePersonalizationTitle': 'التخصيص',
