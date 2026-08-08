@@ -1,8 +1,11 @@
 import 'package:bismillah_app/app/localization/app_localizations.dart';
 import 'package:bismillah_app/app/router/app_routes.dart';
 import 'package:bismillah_app/app/shell/app_scaffold.dart';
+import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
+import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/core/constants/app_constants.dart';
+import 'package:bismillah_app/core/utils/clock_provider.dart';
 import 'package:bismillah_app/features/prayer/application/prayer_log_controller.dart';
 import 'package:bismillah_app/features/prayer/application/prayer_log_state.dart';
 import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
@@ -14,12 +17,11 @@ import 'package:bismillah_app/features/prayer_times/application/prayer_calculati
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_controller.dart';
 import 'package:bismillah_app/features/prayer_times/application/prayer_times_state.dart';
 import 'package:bismillah_app/features/prayer_times/domain/daily_prayer_times.dart';
-import 'package:bismillah_app/shared/widgets/app_badge.dart';
+import 'package:bismillah_app/features/today/presentation/today_date_format.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
-import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +30,21 @@ import 'package:go_router/go_router.dart';
 /// Namaz sekmesi — namaz kaydı (TASK 016) + hesaplanmış vakitler (TASK 021).
 ///
 /// Vakit hesabı KAYITTAN BAĞIMSIZDIR: konum reddedilse bile işaretleme/geri
-/// alma çalışır (tiles time olmadan render edilir). Görsel dil sakindir.
+/// alma çalışır (satırlar saat olmadan render edilir). Görsel dil sakindir.
+///
+/// ## RDX-03A kompozisyonu
+///
+/// Ekran üç kademeye ayrılır ve okuma sırası bu kademeleri izler:
+///
+/// 1. **Sıradaki namaz** — ekranın en güçlü bilgi bloğu. "Şimdi ne var?"
+///    sorusu ilk bakışta cevaplanır.
+/// 2. **Bugünün beş vakti** — TEK yüzey, saç teli ayraçlı satırlar.
+/// 3. **İkincil girişler** — Kıble, hesaplama yöntemi, geçmiş, hatırlatıcı.
+///    Erişilebilir kalır ama sıradaki namaz bilgisiyle YARIŞMAZ.
+///
+/// Marka başlığı burada YOKTUR: o, Günüm sekmesine özgüdür. Namaz ekranı
+/// odaklı bir özellik ekranıdır ve kimliğini yerelleştirilmiş ekran adından
+/// (`tabPrayer`) alır.
 class PrayerScreen extends ConsumerWidget {
   const PrayerScreen({super.key});
 
@@ -61,7 +77,7 @@ String _formatLocal(DateTime utc) {
   return '$h:$m';
 }
 
-/// Vakit adının yerelleştirilmiş etiketi (tile + bildirim metni ortak).
+/// Vakit adının yerelleştirilmiş etiketi (satır + bildirim metni ortak).
 String _prayerLabel(AppLocalizations l10n, PrayerName name) => switch (name) {
   PrayerName.fajr => l10n.prayerNameFajr,
   PrayerName.dhuhr => l10n.prayerNameDhuhr,
@@ -82,93 +98,35 @@ final class _PrayerLogView extends ConsumerWidget {
 
   final PrayerLogState state;
 
-  static DateTime? _timeFor(DailyPrayerTimes? t, PrayerName name) {
-    if (t == null) {
-      return null;
-    }
-    return switch (name) {
-      PrayerName.fajr => t.fajr,
-      PrayerName.dhuhr => t.dhuhr,
-      PrayerName.asr => t.asr,
-      PrayerName.maghrib => t.maghrib,
-      PrayerName.isha => t.isha,
-    };
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final scheme = Theme.of(context).colorScheme;
-    final controller = ref.read(prayerLogControllerProvider.notifier);
     final timesAsync = ref.watch(prayerTimesControllerProvider);
     final timesState = timesAsync.value;
+    // Vakitler yalnız BURADA bir kez izlenir ve aşağıya geçirilir; alt
+    // bloklar kendi başlarına aynı provider'ı izlemez.
     final DailyPrayerTimes? times = timesState is PrayerTimesReady
         ? timesState.times
         : null;
 
     return ListView(
       children: [
-        AppSectionHeader(
-          title: l10n.prayerTodaySubtitle,
-          trailing: AppBadge(label: state.dayKey.value),
-        ),
-        AppText(
-          l10n.prayerGentleLine,
-          token: AppTextStyleToken.bodySmall,
-          secondary: true,
-        ),
-        if (state.saveIssue) ...[
-          const SizedBox(height: AppSpacing.s4),
-          Row(
-            children: [
-              Icon(
-                Icons.info_outline,
-                size: AppSizes.iconSm,
-                color: scheme.primary,
-              ),
-              const SizedBox(width: AppSpacing.s2),
-              Expanded(
-                child: AppText(
-                  l10n.prayerSaveIssue,
-                  token: AppTextStyleToken.caption,
-                  secondary: true,
-                ),
-              ),
-            ],
-          ),
-        ],
+        const SizedBox(height: AppSpacing.s2),
+        _NextPrayerBlock(timesAsync: timesAsync),
         const SizedBox(height: AppSpacing.s4),
-        _PrayerTimesSection(timesAsync: timesAsync),
-        const SizedBox(height: AppSpacing.s5),
-        for (final name in PrayerName.values)
-          Padding(
-            padding: const EdgeInsets.only(bottom: AppSpacing.s3),
-            child: PrayerEntryTile(
-              label: _prayerLabel(l10n, name),
-              time: switch (_timeFor(times, name)) {
-                final t? => _formatLocal(t),
-                _ => null,
-              },
-              completed: state.isCompleted(name),
-              completedLabel: l10n.prayerCompleted,
-              actionLabel: state.isCompleted(name)
-                  ? l10n.prayerUndo
-                  : l10n.prayerMark,
-              onToggle: () => controller.toggle(name),
-            ),
-          ),
-        const SizedBox(height: AppSpacing.s3),
+        _DailyPrayersCard(state: state, times: times),
+        const SizedBox(height: AppSpacing.s4),
         const _QiblaEntryCard(),
         const SizedBox(height: AppSpacing.s3),
-        const _CalculationMethodEntryCard(),
+        _CalculationMethodEntryCard(times: times),
+        const SizedBox(height: AppSpacing.s3),
+        _SecondaryEntryCard(
+          icon: Icons.history_outlined,
+          title: l10n.prayerHistoryTitle,
+          onTap: () => context.go(AppRoutes.prayerHistory),
+        ),
         const SizedBox(height: AppSpacing.s3),
         const _PrayerReminderCard(),
-        const SizedBox(height: AppSpacing.s4),
-        AppButton(
-          label: l10n.prayerHistoryTitle,
-          variant: AppButtonVariant.secondary,
-          onPressed: () => context.go(AppRoutes.prayerHistory),
-        ),
         const SizedBox(height: AppSpacing.s5),
         Center(
           child: AppText(
@@ -184,95 +142,514 @@ final class _PrayerLogView extends ConsumerWidget {
   }
 }
 
-/// Kıble yönü girişi (TASK 095). Namaz ekranı YENİDEN TASARLANMAZ: mevcut
-/// kart dilinde tek bir dokunulabilir satır eklenir ve ayrı bir ekrana
-/// gider. Ücretsizdir — kilit, rozet veya yükseltme çağrısı YOKTUR.
+// ---------------------------------------------------------------------------
+// 1) Sıradaki namaz
+// ---------------------------------------------------------------------------
+
+/// Ekranın en güçlü bilgi bloğu (RDX-03A).
+///
+/// YENİ HESAP YOKTUR: sıradaki vakit, TASK 021 vakit motorunun zaten sunduğu
+/// [DailyPrayerTimes.nextPrayerAfter] ile seçilir — Güneş namaz değildir ve
+/// seçilmez. Canlı geri sayım / timer YOKTUR: an, `clockProvider` üzerinden
+/// bir kez okunur, böylece sahte bir sayaç ekranda dönmez.
+///
+/// Konum izni ve "uygun değil" durumlarının metni ve eylemleri AYNEN
+/// korunur — bunlar gerçek işlevi etkileyen açıklamalardır ve sadeleştirme
+/// adına kaldırılmaz.
+final class _NextPrayerBlock extends ConsumerWidget {
+  const _NextPrayerBlock({required this.timesAsync});
+
+  final AsyncValue<PrayerTimesState> timesAsync;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final controller = ref.read(prayerTimesControllerProvider.notifier);
+    final state = timesAsync.value;
+
+    if (timesAsync.isLoading && state == null) {
+      // ListView içinde sınırsız yükseklik istememek için kompakt gösterge
+      // (`AppLoading` burada `Center` ile sonsuz yükseklik ister).
+      return const _NextPrayerShell(
+        eyebrowKey: null,
+        showAccent: false,
+        child: SizedBox(
+          height: AppSizes.iconMd,
+          width: AppSizes.iconMd,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      );
+    }
+
+    return switch (state) {
+      PrayerTimesReady(:final times, :final approximateLocation) => _ready(
+        context,
+        ref,
+        l10n,
+        times,
+        approximateLocation: approximateLocation,
+      ),
+      PrayerTimesNeedsPermission(:final permanentlyDenied) => _message(
+        l10n,
+        message: permanentlyDenied
+            ? l10n.prayerTimesLocationDeniedForever
+            : l10n.prayerTimesLocationInvite,
+        actionLabel: permanentlyDenied
+            ? l10n.prayerTimesOpenSettings
+            : l10n.prayerTimesUseLocation,
+        onAction: permanentlyDenied
+            ? controller.openSettings
+            : controller.useLocation,
+      ),
+      PrayerTimesUnavailable() => _message(
+        l10n,
+        message: l10n.prayerTimesUnavailable,
+        actionLabel: l10n.commonRetry,
+        onAction: controller.useLocation,
+      ),
+      null => const SizedBox.shrink(),
+    };
+  }
+
+  Widget _ready(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+    DailyPrayerTimes times, {
+    required bool approximateLocation,
+  }) {
+    final next = times.nextPrayerAfter(ref.read(clockProvider).nowUtc());
+    final tertiary = AppThemeExtension.of(context).textTertiary;
+
+    return _NextPrayerShell(
+      eyebrowKey: l10n.todayNextPrayerTitle,
+      // Altın nokta yalnız GERÇEK bir sıradaki vakit varken yanar.
+      showAccent: next != null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (next == null)
+            // Beş vakit de geçti — sakin bitiş cümlesi. Yarının programı
+            // BURADA hesaplanmaz.
+            AppText(
+              l10n.todayNextPrayerAllDone,
+              token: AppTextStyleToken.bodySmall,
+              secondary: true,
+            )
+          else
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: AppText(
+                    _prayerLabel(l10n, next.name),
+                    token: AppTextStyleToken.h3,
+                    maxLines: 1,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.s3),
+                // Ekrandaki TEK `stat` — saat, blokun çapasıdır. Beş vakit
+                // listesi bilinçli olarak bir kademe altta (`h3`) kalır.
+                AppText(
+                  _formatLocal(next.instant),
+                  token: AppTextStyleToken.stat,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          const SizedBox(height: AppSpacing.s2),
+          // Bağlam satırı yalnız GERÇEK mevcut veriden kurulur: Güneş vakti
+          // ve konum kesinliği. "Güneş" ayrı bir metindir (etiket ile saat
+          // birleştirilmez), böylece çeviri ve okuma sırası korunur.
+          Row(
+            children: [
+              Icon(
+                Icons.wb_twilight_outlined,
+                size: AppSizes.iconSm,
+                color: tertiary,
+              ),
+              const SizedBox(width: AppSpacing.s2),
+              // `Flexible`: 320dp genişlikte 1.5x metin ölçeğinde uzun
+              // etiket ("Sunrise" / "الشروق") satırı taşırmak yerine
+              // kırpılır — saat her zaman okunur kalır.
+              Flexible(
+                child: AppText(
+                  l10n.prayerTimesSunrise,
+                  token: AppTextStyleToken.caption,
+                  tone: AppTextTone.tertiary,
+                  maxLines: 1,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.s2),
+              AppText(
+                _formatLocal(times.sunrise),
+                token: AppTextStyleToken.caption,
+                tone: AppTextTone.tertiary,
+                maxLines: 1,
+              ),
+            ],
+          ),
+          if (approximateLocation) ...[
+            const SizedBox(height: AppSpacing.s1),
+            AppText(
+              l10n.prayerTimesApproximate,
+              token: AppTextStyleToken.caption,
+              tone: AppTextTone.tertiary,
+              maxLines: 2,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// Sakin durum metni + mevcut eylem (izin / uygun değil). Metin ve eylem
+  /// TASK 021'deki hâliyle korunur; yalnız yüzey dili güncellenir.
+  Widget _message(
+    AppLocalizations l10n, {
+    required String message,
+    required String actionLabel,
+    required VoidCallback onAction,
+  }) {
+    return _NextPrayerShell(
+      eyebrowKey: l10n.todayNextPrayerTitle,
+      showAccent: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(message, token: AppTextStyleToken.bodySmall, secondary: true),
+          const SizedBox(height: AppSpacing.s3),
+          AppButton(
+            label: actionLabel,
+            variant: AppButtonVariant.secondary,
+            onPressed: onAction,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Sıradaki-namaz blokunun ortak kabuğu: sıcak kum yüzeyi + küçük "eyebrow".
+///
+/// Dev bir yeşil dikdörtgen, gradient hero veya dekoratif cami zemini
+/// KULLANILMAZ — blok kompakt bir bilgi kartıdır.
+final class _NextPrayerShell extends StatelessWidget {
+  const _NextPrayerShell({
+    required this.eyebrowKey,
+    required this.showAccent,
+    required this.child,
+  });
+
+  /// Blok başlığı ("Sıradaki namaz"). Yükleme durumunda `null` — henüz
+  /// hiçbir şey iddia edilmez.
+  final String? eyebrowKey;
+
+  /// Küçük altın nokta gösterilsin mi? Yalnız gerçek bir "şu an sıradaki"
+  /// bilgisi varken yanar.
+  final bool showAccent;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      variant: AppCardVariant.sand,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.s5,
+        AppSpacing.s4,
+        AppSpacing.s5,
+        AppSpacing.s4,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (eyebrowKey case final title?) ...[
+            Row(
+              children: [
+                if (showAccent) ...[
+                  const _NowDot(),
+                  const SizedBox(width: AppSpacing.s2),
+                ],
+                Expanded(
+                  child: AppText(
+                    title,
+                    token: AppTextStyleToken.caption,
+                    tone: AppTextTone.secondary,
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.s2),
+          ],
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+/// Eyebrow'un başındaki küçük altın nokta.
+///
+/// Altının Namaz ekranında göründüğü TEK yerdir. Buton, kenarlık, kart zemini
+/// veya metin rengi olarak altın KULLANILMAZ. Tamamen dekoratiftir — taşıdığı
+/// hiçbir bilgi yoktur, metin tek başına da eksiksiz okunur.
+final class _NowDot extends StatelessWidget {
+  const _NowDot();
+
+  static const double _size = 6;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppThemeExtension.of(context).accentGold,
+        borderRadius: AppRadius.pillAll,
+      ),
+      child: const SizedBox(width: _size, height: _size),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 2) Bugünün beş vakti
+// ---------------------------------------------------------------------------
+
+/// Beş vakit TEK yüzeyde (RDX-03A).
+///
+/// Önceden her vakit ayrı bir `AppCard` idi; ekran birbiriyle ilişkisiz beş
+/// beyaz kutuya bölünüyordu. Artık tek kart, saç teli ayraçlarla bölünmüş
+/// satırlar taşır. Hangi vakitlerin takip edildiği ve durum makinesi
+/// DEĞİŞMEDİ — `PrayerName.values` sırası ve `controller.toggle` aynıdır.
+final class _DailyPrayersCard extends ConsumerWidget {
+  const _DailyPrayersCard({required this.state, required this.times});
+
+  final PrayerLogState state;
+  final DailyPrayerTimes? times;
+
+  static DateTime? _timeFor(DailyPrayerTimes? t, PrayerName name) {
+    if (t == null) {
+      return null;
+    }
+    return t.instantFor(name);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final ext = AppThemeExtension.of(context);
+    final controller = ref.read(prayerLogControllerProvider.notifier);
+
+    return AppCard(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.s4,
+        vertical: AppSpacing.s4,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            l10n.prayerTodaySubtitle,
+            token: AppTextStyleToken.h3,
+            maxLines: 2,
+          ),
+          const SizedBox(height: AppSpacing.s1),
+          // RDX-03A: ham `2026-07-11` artık gösterilmez. Tarih, platformun
+          // kendi yerelleştirmesiyle biçimlenir; TR/EN/AR üçü de kendi
+          // biçimini alır ve ay adları elle YAZILMAZ.
+          //
+          // Başlığın YANINDA değil ALTINDA durur: Arapça'da bu biçim gün
+          // adını da içerdiği için 320dp/1.5x'te başlıkla aynı satırda
+          // yarıştığında taşıyordu. Tarihi kırpmak yerine satırı ayırmak,
+          // her dilde tam ve okunur kalmasını sağlar.
+          AppText(
+            formatDayKeyForDisplay(context, state.dayKey),
+            token: AppTextStyleToken.caption,
+            tone: AppTextTone.tertiary,
+            maxLines: 1,
+          ),
+          const SizedBox(height: AppSpacing.s1),
+          AppText(
+            l10n.prayerGentleLine,
+            token: AppTextStyleToken.caption,
+            tone: AppTextTone.secondary,
+            maxLines: 2,
+          ),
+          if (state.saveIssue) ...[
+            const SizedBox(height: AppSpacing.s3),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  size: AppSizes.iconSm,
+                  color: scheme.primary,
+                ),
+                const SizedBox(width: AppSpacing.s2),
+                Expanded(
+                  child: AppText(
+                    l10n.prayerSaveIssue,
+                    token: AppTextStyleToken.caption,
+                    secondary: true,
+                  ),
+                ),
+              ],
+            ),
+          ],
+          const SizedBox(height: AppSpacing.s2),
+          for (final (index, name) in PrayerName.values.indexed) ...[
+            if (index > 0)
+              // Saç teli ayraç — satır metniyle aynı hizada başlar, kartın
+              // kenarına dayanmaz.
+              Divider(height: 1, thickness: 1, color: ext.divider),
+            PrayerEntryTile(
+              label: _prayerLabel(l10n, name),
+              time: switch (_timeFor(times, name)) {
+                final t? => _formatLocal(t),
+                _ => null,
+              },
+              completed: state.isCompleted(name),
+              completedLabel: l10n.prayerCompleted,
+              actionLabel: state.isCompleted(name)
+                  ? l10n.prayerUndo
+                  : l10n.prayerMark,
+              onToggle: () => controller.toggle(name),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 3) İkincil girişler
+// ---------------------------------------------------------------------------
+
+/// Kompakt ikincil giriş satırı (RDX-03A).
+///
+/// Kıble, hesaplama yöntemi ve geçmiş aynı sakin dili paylaşır: gölgesiz,
+/// ince kenarlıklı yüzey + küçük ikon + yön duyarlı chevron. Sıradaki namaz
+/// bloğunun sıcak kum yüzeyiyle YARIŞMAZ. Ücretsizdir — kilit, rozet veya
+/// yükseltme çağrısı YOKTUR.
+final class _SecondaryEntryCard extends StatelessWidget {
+  const _SecondaryEntryCard({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+    this.subtitle,
+  });
+
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final ext = AppThemeExtension.of(context);
+    // `Icons.chevron_right` kendiliğinden aynalanmaz; yön AÇIKÇA çözülür.
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+
+    return AppCard(
+      variant: AppCardVariant.outlined,
+      onTap: onTap,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.s4,
+        vertical: AppSpacing.s3,
+      ),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
+        child: Row(
+          children: [
+            Icon(icon, size: AppSizes.iconMd, color: scheme.primary),
+            const SizedBox(width: AppSpacing.s3),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(title, token: AppTextStyleToken.h3, maxLines: 2),
+                  if (subtitle case final s?) ...[
+                    const SizedBox(height: AppSpacing.s1),
+                    AppText(
+                      s,
+                      token: AppTextStyleToken.caption,
+                      tone: AppTextTone.secondary,
+                      maxLines: 2,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(width: AppSpacing.s2),
+            Icon(
+              isRtl ? Icons.chevron_left : Icons.chevron_right,
+              size: AppSizes.iconSm,
+              color: ext.textTertiary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Kıble yönü girişi (TASK 095). Ücretsizdir — kilit, rozet veya yükseltme
+/// çağrısı YOKTUR; rota ve davranış değişmedi.
 final class _QiblaEntryCard extends StatelessWidget {
   const _QiblaEntryCard();
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final scheme = Theme.of(context).colorScheme;
 
-    return AppCard(
+    return _SecondaryEntryCard(
+      icon: Icons.explore_outlined,
+      title: l10n.qiblaEntryTitle,
+      subtitle: l10n.qiblaEntrySubtitle,
       onTap: () => context.go(AppRoutes.qibla),
-      child: Row(
-        children: [
-          Icon(
-            Icons.explore_outlined,
-            size: AppSizes.iconMd,
-            color: scheme.primary,
-          ),
-          const SizedBox(width: AppSpacing.s3),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(l10n.qiblaEntryTitle, token: AppTextStyleToken.h3),
-                const SizedBox(height: AppSpacing.s1),
-                AppText(
-                  l10n.qiblaEntrySubtitle,
-                  token: AppTextStyleToken.bodySmall,
-                  secondary: true,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
 
-/// Hesaplama yöntemi girişi (TASK 096). Namaz ekranı YENİDEN TASARLANMAZ:
-/// Kıble satırıyla aynı kart dilinde tek bir dokunulabilir satır eklenir ve
-/// ayrı bir ekrana gider. Seçili yöntemin adı burada da görünür, böylece
-/// kullanıcı ekranı açmadan hangi yöntemin kullanıldığını görür. Ücretsizdir.
+/// Hesaplama yöntemi girişi (TASK 096).
+///
+/// **TASK 096 dürüstlük kuralı korunur:** yöntem adı, vakitleri GERÇEKTEN
+/// üreten sonuçtan (`times.method`) okunur — ayrı bir ayar kaynağından
+/// değil; bu yüzden ekrandaki etiket ile hesap ayrışamaz. Önceden bu bilgi
+/// ekranda İKİ yerde (vakit kartı + bu satır) duruyordu ve ikisi farklı
+/// kaynaktan besleniyordu; RDX-03A ikisini TEK satırda birleştirir ve
+/// sonucu tercih eder. Vakit henüz yoksa (konum reddi vb.) çelişecek bir
+/// sonuç da yoktur, o durumda saklanmış seçim gösterilir.
 final class _CalculationMethodEntryCard extends ConsumerWidget {
-  const _CalculationMethodEntryCard();
+  const _CalculationMethodEntryCard({required this.times});
+
+  final DailyPrayerTimes? times;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final scheme = Theme.of(context).colorScheme;
-    final method = ref.watch(prayerCalculationMethodProvider);
+    final selected = ref.watch(prayerCalculationMethodProvider);
+    final shown = times?.method ?? selected;
 
-    return AppCard(
+    return _SecondaryEntryCard(
+      icon: Icons.tune_outlined,
+      title: l10n.prayerMethodEntryTitle,
+      subtitle: l10n.prayerMethodName(shown.stableName),
       onTap: () => context.go(AppRoutes.prayerCalculationMethod),
-      child: Row(
-        children: [
-          Icon(
-            Icons.tune_outlined,
-            size: AppSizes.iconMd,
-            color: scheme.primary,
-          ),
-          const SizedBox(width: AppSpacing.s3),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(
-                  l10n.prayerMethodEntryTitle,
-                  token: AppTextStyleToken.h3,
-                ),
-                const SizedBox(height: AppSpacing.s1),
-                AppText(
-                  l10n.prayerMethodName(method.stableName),
-                  token: AppTextStyleToken.bodySmall,
-                  secondary: true,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
 
 /// Namaz hatırlatıcıları kartı — sakin aç/kapat. Namaz kaydından bağımsız;
 /// izin reddedilse bile işaretleme çalışır (kart yalnız hatırlatıcıyı yönetir).
+///
+/// RDX-03A: izin akışları, kesin-alarm diyaloğu ve metinler AYNEN korunur —
+/// yalnız kart yüzeyi ekranın geri kalanıyla aynı sakin dile alınır.
 final class _PrayerReminderCard extends ConsumerWidget {
   const _PrayerReminderCard();
 
@@ -284,10 +661,31 @@ final class _PrayerReminderCard extends ConsumerWidget {
     final state = async.value;
 
     Widget card(Widget child) => AppCard(
+      variant: AppCardVariant.outlined,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.s4,
+        vertical: AppSpacing.s4,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText(l10n.reminderCardTitle, token: AppTextStyleToken.h3),
+          Row(
+            children: [
+              Icon(
+                Icons.notifications_none_outlined,
+                size: AppSizes.iconMd,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(width: AppSpacing.s3),
+              Expanded(
+                child: AppText(
+                  l10n.reminderCardTitle,
+                  token: AppTextStyleToken.h3,
+                  maxLines: 2,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: AppSpacing.s3),
           child,
         ],
@@ -447,118 +845,5 @@ final class _PrayerReminderCard extends ConsumerWidget {
           ),
         ),
       );
-  }
-}
-
-/// Vakit üst bilgisi: yöntem etiketi + Güneş; ya da konum daveti / sakin
-/// hata durumu. Ham koordinat ASLA gösterilmez (yalnız durum metni).
-final class _PrayerTimesSection extends ConsumerWidget {
-  const _PrayerTimesSection({required this.timesAsync});
-
-  final AsyncValue<PrayerTimesState> timesAsync;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
-    final controller = ref.read(prayerTimesControllerProvider.notifier);
-
-    final state = timesAsync.value;
-    if (timesAsync.isLoading && state == null) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.s3),
-        child: AppLoading(),
-      );
-    }
-
-    return switch (state) {
-      PrayerTimesReady(:final times, :final approximateLocation) => AppCard(
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    l10n.prayerTimesMethodLabel,
-                    token: AppTextStyleToken.caption,
-                    secondary: true,
-                  ),
-                  // TASK 096: yöntem adı, vakitleri GERÇEKTEN üreten
-                  // sonuçtan (`times.method`) okunur — ayrı bir ayar
-                  // kaynağından değil; bu yüzden etiket ile hesap
-                  // ayrışamaz.
-                  AppText(
-                    l10n.prayerMethodName(times.method.stableName),
-                    token: AppTextStyleToken.bodySmall,
-                  ),
-                  const SizedBox(height: AppSpacing.s1),
-                  Row(
-                    children: [
-                      AppText(l10n.prayerTimesSunrise),
-                      const SizedBox(width: AppSpacing.s2),
-                      AppText(
-                        _formatLocal(times.sunrise),
-                        token: AppTextStyleToken.stat,
-                      ),
-                    ],
-                  ),
-                  if (approximateLocation) ...[
-                    const SizedBox(height: AppSpacing.s1),
-                    AppText(
-                      l10n.prayerTimesApproximate,
-                      token: AppTextStyleToken.caption,
-                      secondary: true,
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      PrayerTimesNeedsPermission(:final permanentlyDenied) => AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              permanentlyDenied
-                  ? l10n.prayerTimesLocationDeniedForever
-                  : l10n.prayerTimesLocationInvite,
-              token: AppTextStyleToken.bodySmall,
-              secondary: true,
-            ),
-            const SizedBox(height: AppSpacing.s3),
-            AppButton(
-              label: permanentlyDenied
-                  ? l10n.prayerTimesOpenSettings
-                  : l10n.prayerTimesUseLocation,
-              variant: AppButtonVariant.secondary,
-              onPressed: permanentlyDenied
-                  ? controller.openSettings
-                  : controller.useLocation,
-            ),
-          ],
-        ),
-      ),
-      PrayerTimesUnavailable() => AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              l10n.prayerTimesUnavailable,
-              token: AppTextStyleToken.bodySmall,
-              secondary: true,
-            ),
-            const SizedBox(height: AppSpacing.s3),
-            AppButton(
-              label: l10n.commonRetry,
-              variant: AppButtonVariant.secondary,
-              onPressed: controller.useLocation,
-            ),
-          ],
-        ),
-      ),
-      null => const SizedBox.shrink(),
-    };
   }
 }
