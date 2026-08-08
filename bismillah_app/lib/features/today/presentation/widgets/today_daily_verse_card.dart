@@ -8,6 +8,7 @@ import 'package:bismillah_app/features/quran/application/quran_verse_bookmarks_c
 import 'package:bismillah_app/features/today/application/today_daily_verse_provider.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_section_label.dart';
 import 'package:bismillah_app/shared/islamic/referenced_verse_card.dart';
+import 'package:bismillah_app/shared/sacred/sacred_content_source_badge.dart';
 import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,13 @@ class _VerseCard extends ConsumerWidget {
           child: ReferencedVerseCard(
             arabicText: verse.arabicText,
             reference: verse.reference,
+            // Künye VERİSİ değişmedi ve hâlâ zorunlu; yalnız SUNUMU
+            // kompaktlaştı (RDX-02B). Today kartı artık sağlayıcı adlarını
+            // sürekli göstermez; künye sessiz bilgi eylemiyle TAM metniyle
+            // açılır ve oradan tüm kaynaklar ekranına geçilebilir.
             sourceLabel: TodayDailyVerseCard.sourceLabel,
+            sourceDisclosure: VerseSourceDisclosure.compact,
+            onShowSource: () => _showSourceSheet(context),
             translation: verse.translationText.isEmpty
                 ? null
                 : verse.translationText,
@@ -128,5 +135,43 @@ class _VerseCard extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+/// Künye diyaloğu (RDX-02B) — mevcut `AlertDialog` diliyle, yeni bir bileşen
+/// ailesi kurulmadan.
+///
+/// Atıf **kaldırılmadı, taşındı**: burada `sourceLabel`ın TAM metni gösterilir
+/// ve kullanıcı oradan mevcut "İçerik kaynakları" ekranına geçebilir; o ekran
+/// Tanzil ve QuranEnc — Rowad künyelerini kanonik adresleriyle birlikte
+/// listeler. Sağlayıcı adı burada ÜRETİLMEZ, içerik verisinden gelir.
+Future<void> _showSourceSheet(BuildContext context) async {
+  final l10n = AppLocalizations.of(context);
+  final open = await showDialog<bool>(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      title: Text(l10n.verseSourceTitle),
+      content: const SingleChildScrollView(
+        child: SacredContentSourceBadge(
+          sourceLabel: TodayDailyVerseCard.sourceLabel,
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogContext).pop(false),
+          child: Text(l10n.commonClose),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(dialogContext).pop(true),
+          child: Text(l10n.verseSourceAllSources),
+        ),
+      ],
+    ),
+  );
+  if (open ?? false) {
+    if (!context.mounted) {
+      return;
+    }
+    context.go(AppRoutes.profileSources);
   }
 }

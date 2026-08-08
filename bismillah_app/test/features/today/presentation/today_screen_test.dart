@@ -12,6 +12,7 @@ import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_comple
 import 'package:bismillah_app/features/prayer/domain/value_objects/prayer_name.dart';
 import 'package:bismillah_app/features/prayer/presentation/prayer_screen.dart';
 import 'package:bismillah_app/features/today/presentation/today_screen.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_daily_reflection.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_prayer_summary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -109,7 +110,11 @@ void main() {
     expect(find.text('0/5 tamamlandı'), findsOneWidget);
     // Özet kartı + sıradaki namaz kartı (TASK 023, izin yokken davet CTA'sı).
     expect(find.text('Namazlara git'), findsNWidgets(2));
-    expect(find.text('Kayıtların cihazında saklanır.'), findsOneWidget);
+    // RDX-02B: teknik depolama alt bilgisi Today'den KALDIRILDI (aynı bilgi
+    // Namaz ve Gizlilik ekranlarında duruyor); yerini günün sakin kapanış
+    // cümlesi aldı.
+    expect(find.text('Kayıtların cihazında saklanır.'), findsNothing);
+    expect(find.byType(TodayDailyReflection), findsOneWidget);
 
     await unmountAndFlushDriftTimers(tester);
   });

@@ -161,7 +161,24 @@ final class AppLocalizations {
   String get todayGentleLine => _t('todayGentleLine');
   String get todayPrayerCardTitle => _t('todayPrayerCardTitle');
   String get todayGoToPrayers => _t('todayGoToPrayers');
-  String get todayLocalNote => _t('todayLocalNote');
+
+  /// Günün sakin kapanış cümlesi (RDX-02B).
+  ///
+  /// **Ayet, hadis, dua veya fetva DEĞİLDİR**; Allah'a ya da Peygamber'e
+  /// atfedilmez, tırnak içine alınmaz ve kaynak künyesi taşımaz. Arayüz
+  /// metnidir. [index], `TodayReflection.indexForLocalDate` ile üretilir ve
+  /// aynı indeks üç dilde AYNI anlamı taşır.
+  String reflectionAt(int index) =>
+      _t('todayReflection${index % _todayReflectionCount}');
+
+  /// Küratörlü cümle sayısı — üç dilde de aynı olmak ZORUNDADIR.
+  static const int _todayReflectionCount = 14;
+
+  // Ayet künyesi (RDX-02B): Today'de sağlayıcı adları sürekli görünmez;
+  // künye bu sessiz eylemle açılır ve TAM metniyle gösterilir.
+  String get verseSourceAction => _t('verseSourceAction');
+  String get verseSourceTitle => _t('verseSourceTitle');
+  String get verseSourceAllSources => _t('verseSourceAllSources');
   String get todayLoadIssue => _t('todayLoadIssue');
 
   // Today haftalık ritim kartı (TASK 025 — salt-okunur; streak/puan YOK)
@@ -1060,7 +1077,31 @@ final class AppLocalizations {
       'todayRecoveryExtendedBody':
           'Buraya dönmen güzel. Bugün tek bir küçük adım yeter.',
       'todayGoToPrayers': 'Namazlara git',
-      'todayLocalNote': 'Kayıtların cihazında saklanır.',
+      // Ayet künyesi eylemi (RDX-02B).
+      'verseSourceAction': 'Kaynak bilgisi',
+      'verseSourceTitle': 'Bu ayetin kaynağı',
+      'verseSourceAllSources': 'Tüm kaynaklar',
+      // Günün sakin kapanış cümleleri — AYET/HADİS DEĞİLDİR:
+      // tırnak içine alınmaz, kaynak verilmez, sevap vaat edilmez.
+      'todayReflection0':
+          'Bugün niyetini tazele; küçük ve güzel bir adımla devam et.',
+      'todayReflection1':
+          'Kalbine iyi gelen birkaç dakikayı dua, zikir veya Kur’an’a ayır.',
+      'todayReflection2': 'Bugün şükredecek bir şeyi fark et.',
+      'todayReflection3': 'İyiliği küçük görme; bugün bir güzelliğe vesile ol.',
+      'todayReflection4':
+          'Aceleyi biraz azalt, niyetini hatırla ve gününe huzurla devam et.',
+      'todayReflection5': 'Bugün bir kişiye gönlünü ferahlatan bir söz söyle.',
+      'todayReflection6': 'Kısa da olsa sakin bir an bul; kalbini dinlendir.',
+      'todayReflection7':
+          'Bir hatayı telafi etmek için bugün küçük bir adım at.',
+      'todayReflection8': 'Bugün sabrı seç; acele etmeden ilerle.',
+      'todayReflection9': 'Elindekinin kıymetini bugün yeniden hatırla.',
+      'todayReflection10': 'Bugün bildiğin bir güzelliği yaşamaya çalış.',
+      'todayReflection11': 'Yorulduğunda dinlenmek de yolun bir parçasıdır.',
+      'todayReflection12': 'Bugün kırıcı olmayan bir dil seç.',
+      'todayReflection13':
+          'Küçük ama sürekli olan, çoğu zaman en hayırlısıdır.',
       'todayLoadIssue': 'Özet şu an açılamadı.',
       'todaySmallStepTitle': 'Bugün için küçük bir adım',
       'todaySmallStepBadge': 'Kişiselleştirilmiş öneri',
@@ -1884,7 +1925,29 @@ final class AppLocalizations {
       'todayRecoveryExtendedBody':
           'Good to see you back. One small step is enough for today.',
       'todayGoToPrayers': 'Go to prayers',
-      'todayLocalNote': 'Your records stay on your device.',
+      'verseSourceAction': 'Source details',
+      'verseSourceTitle': 'Source of this verse',
+      'verseSourceAllSources': 'All sources',
+      'todayReflection0':
+          'Renew your intention today; continue with one small, good step.',
+      'todayReflection1':
+          'Give a few kind minutes to prayer, remembrance or the Qur’an.',
+      'todayReflection2': 'Notice something to be grateful for today.',
+      'todayReflection3':
+          'No good deed is too small; be a reason for something good today.',
+      'todayReflection4':
+          'Slow down a little, remember your intention, and continue in peace.',
+      'todayReflection5': 'Say a word that lightens someone’s heart today.',
+      'todayReflection6':
+          'Find a calm moment, however short, and let your heart rest.',
+      'todayReflection7': 'Take one small step today to make something right.',
+      'todayReflection8': 'Choose patience today; move forward without hurry.',
+      'todayReflection9':
+          'Remember again today the worth of what you already have.',
+      'todayReflection10': 'Try to live one goodness you already know.',
+      'todayReflection11': 'Resting when you are tired is part of the way too.',
+      'todayReflection12': 'Choose words today that do not wound.',
+      'todayReflection13': 'Small and steady is often the most blessed.',
       'todayLoadIssue': 'The summary could not be opened right now.',
       'todaySmallStepTitle': 'A small step for today',
       'todaySmallStepBadge': 'Personalized suggestion',
@@ -2724,7 +2787,23 @@ final class AppLocalizations {
       'todayRecoveryExtendedBody':
           'سعيدون بعودتك. تكفيك اليوم خطوة صغيرة واحدة.',
       'todayGoToPrayers': 'اذهب إلى الصلوات',
-      'todayLocalNote': 'تبقى سجلاتك على جهازك.',
+      'verseSourceAction': 'معلومات المصدر',
+      'verseSourceTitle': 'مصدر هذه الآية',
+      'verseSourceAllSources': 'جميع المصادر',
+      'todayReflection0': 'جدِّد نيتك اليوم، وواصل بخطوة صغيرة طيبة.',
+      'todayReflection1': 'اجعل دقائق هادئة للدعاء أو الذكر أو القرآن.',
+      'todayReflection2': 'انتبه اليوم لنعمة تستحق الشكر.',
+      'todayReflection3': 'لا تحقرنّ معروفًا؛ كن اليوم سببًا في خير.',
+      'todayReflection4': 'خفِّف العجلة، وتذكّر نيتك، وامضِ في يومك بسكينة.',
+      'todayReflection5': 'قل اليوم كلمة تُدخل الطمأنينة على قلب أحدهم.',
+      'todayReflection6': 'التمس لحظة هدوء وإن قصرت، وأرِح قلبك.',
+      'todayReflection7': 'اخطُ اليوم خطوة صغيرة لإصلاح ما فات.',
+      'todayReflection8': 'اختر الصبر اليوم، وامضِ من غير استعجال.',
+      'todayReflection9': 'تذكّر اليوم من جديد قيمة ما بين يديك.',
+      'todayReflection10': 'اجتهد أن تعيش اليوم خيرًا تعرفه.',
+      'todayReflection11': 'الراحة عند التعب جزء من الطريق أيضًا.',
+      'todayReflection12': 'اختر اليوم كلامًا لا يجرح.',
+      'todayReflection13': 'القليل الدائم غالبًا هو أعظم بركة.',
       'todayLoadIssue': 'تعذّر فتح الملخّص الآن.',
       'todaySmallStepTitle': 'خطوة صغيرة لهذا اليوم',
       'todaySmallStepBadge': 'اقتراح مخصّص لك',
