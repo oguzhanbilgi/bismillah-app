@@ -81,7 +81,19 @@ void main() {
     expect(find.text('Akşam'), findsOneWidget);
     expect(find.text('Yatsı'), findsOneWidget);
     expect(find.text('İşaretle'), findsNWidgets(5));
-    expect(find.text('2026-07-11'), findsOneWidget); // gün rozeti
+    // RDX-03A: gün kimliği KORUNUR ama ham ISO tarih artık gösterilmez —
+    // tarih platformun kendi yerelleştirmesiyle biçimlenir. Assertion
+    // zayıflatılmadı: hem ham biçimin YOKLUĞU hem yerelleştirilmiş
+    // karşılığının VARLIĞI doğrulanır.
+    expect(find.text('2026-07-11'), findsNothing);
+    expect(
+      find.text(
+        MaterialLocalizations.of(
+          tester.element(find.byType(PrayerEntryTile).first),
+        ).formatMediumDate(DateTime(2026, 7, 11)),
+      ),
+      findsOneWidget,
+    );
     // Boş durum sakindir: "Tamamlandı" yok ama hata/uyarı da yok.
     expect(find.text('Tamamlandı'), findsNothing);
 
