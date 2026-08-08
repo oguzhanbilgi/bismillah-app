@@ -533,6 +533,15 @@ final class AppLocalizations {
   String get quranHomeHeroTitle => _t('quranHomeHeroTitle');
   String get quranHomeHeroBody => _t('quranHomeHeroBody');
   String get quranHomeContinueCta => _t('quranHomeContinueCta');
+
+  // RDX-04A: "Kaldığın yer" bloğunun küçük üst etiketi. Yalnız GERÇEK bir
+  // kayıtlı okuma konumu varken gösterilir — davet durumunda kullanılmaz.
+  String get quranHomeResumeEyebrow => _t('quranHomeResumeEyebrow');
+
+  /// RDX-04A: sure bölümünün sakin meta satırı ("114 sure"). Sayı katalogdan
+  /// gelir; sabit yazılmaz.
+  String quranSurahCount(int count) =>
+      _t('quranSurahCount').replaceAll('{count}', '$count');
   String get todayJourneyTitle => _t('todayJourneyTitle');
   String get todayKeepGoingHint => _t('todayKeepGoingHint');
 
@@ -1378,6 +1387,8 @@ final class AppLocalizations {
       'quranHomeHeroTitle': 'Kur\'an ile yeniden buluş',
       'quranHomeHeroBody': 'Kaldığın yerden sakince devam et.',
       'quranHomeContinueCta': 'Okumaya devam et',
+      'quranHomeResumeEyebrow': 'Kaldığın yer',
+      'quranSurahCount': '{count} sure',
       'todayJourneyTitle': 'Bugünkü yolculuğun',
       'todayKeepGoingHint': 'Küçük bir adımla devam et',
       'quranResumeTitle': 'Kaldığın yerden devam et',
@@ -2241,6 +2252,8 @@ final class AppLocalizations {
       'quranHomeHeroTitle': 'Return to the Quran',
       'quranHomeHeroBody': 'Continue gently from where you left off.',
       'quranHomeContinueCta': 'Continue reading',
+      'quranHomeResumeEyebrow': 'Where you left off',
+      'quranSurahCount': '{count} surahs',
       'todayJourneyTitle': 'Today’s journey',
       'todayKeepGoingHint': 'Keep going with one small step',
       'quranResumeTitle': 'Continue where you left off',
@@ -3071,6 +3084,8 @@ final class AppLocalizations {
       'quranHomeHeroTitle': 'عُد إلى القرآن',
       'quranHomeHeroBody': 'تابع بهدوء من حيث توقفت',
       'quranHomeContinueCta': 'متابعة القراءة',
+      'quranHomeResumeEyebrow': 'موضع توقفك',
+      'quranSurahCount': '{count} سورة',
       'todayJourneyTitle': 'رحلتك اليوم',
       'todayKeepGoingHint': 'واصل بخطوة صغيرة',
       'quranResumeTitle': 'تابع من حيث توقفت',

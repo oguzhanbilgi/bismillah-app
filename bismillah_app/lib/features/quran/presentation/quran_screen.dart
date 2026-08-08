@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/theme/app_radius.dart';
 import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/app/theme/app_theme_extension.dart';
 import 'package:bismillah_app/app/theme/islamic_visual_tokens.dart';
+import 'package:bismillah_app/core/constants/app_constants.dart';
 import 'package:bismillah_app/features/onboarding/presentation/widgets/onboarding_option_card.dart';
 import 'package:bismillah_app/features/quran/application/quran_chapters_provider.dart';
 import 'package:bismillah_app/features/quran/application/quran_home_tab_controller.dart';
@@ -16,6 +17,7 @@ import 'package:bismillah_app/features/quran/domain/entities/quran_chapter.dart'
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_arabic_script.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_reading_goal.dart';
 import 'package:bismillah_app/features/quran/domain/value_objects/quran_translation_preference.dart';
+import 'package:bismillah_app/shared/islamic/gentle_empty_state.dart';
 import 'package:bismillah_app/shared/islamic/quran_on_rehal_illustration.dart';
 import 'package:bismillah_app/shared/widgets/app_badge.dart';
 import 'package:bismillah_app/shared/widgets/app_button.dart';
@@ -23,6 +25,7 @@ import 'package:bismillah_app/shared/widgets/app_card.dart';
 import 'package:bismillah_app/shared/widgets/app_error_state.dart';
 import 'package:bismillah_app/shared/widgets/app_loading.dart';
 import 'package:bismillah_app/shared/widgets/app_progress_bar.dart';
+import 'package:bismillah_app/shared/widgets/app_section_header.dart';
 import 'package:bismillah_app/shared/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,9 +34,24 @@ import 'package:go_router/go_router.dart';
 /// Kur'an sekmesi (TASK 033) — profesyonel Kur'an deneyimi temeli:
 /// kurulum tamamlanmamışsa üç adımlı iç kurulum (yazı biçimi → meal →
 /// günlük hedef), tamamlanmışsa Oku / Öğren / İlerlemem iç sekmeleri.
-/// Gerçek sure/ayet/meal/ses içeriği YOK (TASK 034+); streak/puan/
-/// paywall YOK. Kurulum genel onboarding kapısına ve route stack'e
-/// DOKUNMAZ.
+/// Kurulum genel onboarding kapısına ve route stack'e DOKUNMAZ.
+///
+/// ## RDX-04A kompozisyonu
+///
+/// Oku sekmesi üç kademeye ayrılır ve okuma sırası bu kademeleri izler:
+///
+/// 1. **Arama** — ekranın üstünde sabit kalır (TASK 048 sözleşmesi aynen).
+/// 2. **Kaldığın yer** — kayıt varsa gerçek sure + tek devam aksiyonu;
+///    kayıt yoksa sakin davet. Ekranın tek sıcak yüzeyi burasıdır.
+/// 3. **Sure kataloğu** — 114 satır TEK gruplanmış yüzey gibi okunur ama
+///    `ListView.builder` sanallaştırması KORUNUR.
+///
+/// TASK 054'ün gradient hero'su kaldırıldı: tasarım yönü gradient içermez ve
+/// RDX-03A aynı kararı Namaz ekranında zaten verdi. `warmSectionGradient`
+/// token'ı silinmedi — başka yüzeyler kullanmaya devam ediyor.
+///
+/// Bu ekran ücretsizdir: kilit, rozet, paywall, sayaç veya yükseltme çağrısı
+/// YOKTUR. Arapça metin dekoratif animasyon ALMAZ.
 class QuranScreen extends ConsumerWidget {
   const QuranScreen({super.key});
 
@@ -166,29 +184,44 @@ final class _QuranHomeState extends ConsumerState<_QuranHome>
     return Column(
       children: [
         const SizedBox(height: AppSpacing.s3),
-        // TASK 054: seçili sekme dolu tonal bir "hap" alır — ince alt çizgi
-        // yerine net bir yüzey. Seçili olmayanlar silik ama okunabilirdir.
+        // RDX-04A: seçili sekmenin dolu "hap"ı artık çıplak zeminde yüzmez —
+        // tonal bir ray içinde oturur. Böylece üç sekme TEK bir kontrol
+        // olarak okunur ve seçili olmayanlar da bir yüzeye ait görünür;
+        // TASK 054'ün pil biçimi ve renk mantığı korunur.
+        //
         // `isScrollable: false` üç sekmeyi eşit paylaştırır; RTL'de sıra
         // otomatik terslenir ve dar ekranda taşma olmaz.
-        TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: l10n.quranTabRead),
-            Tab(text: l10n.quranTabLearn),
-            Tab(text: l10n.quranTabProgress),
-          ],
-          labelColor: scheme.onPrimary,
-          unselectedLabelColor: ext.textSecondary,
-          indicator: BoxDecoration(
-            color: tokens.spiritualGreen,
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: tokens.sectionSurface,
             borderRadius: AppRadius.pillAll,
           ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          dividerColor: Colors.transparent,
-          splashBorderRadius: AppRadius.pillAll,
-          // Etiket uzun dillerde (Arapça/Türkçe) sıkışmasın diye dolgu dar
-          // tutulur; dokunma alanı Tab'ın kendi yüksekliğiyle korunur.
-          labelPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.s1),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.s1),
+            child: TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(text: l10n.quranTabRead),
+                Tab(text: l10n.quranTabLearn),
+                Tab(text: l10n.quranTabProgress),
+              ],
+              labelColor: scheme.onPrimary,
+              unselectedLabelColor: ext.textSecondary,
+              indicator: BoxDecoration(
+                color: tokens.spiritualGreen,
+                borderRadius: AppRadius.pillAll,
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: Colors.transparent,
+              splashBorderRadius: AppRadius.pillAll,
+              // Etiket uzun dillerde (Arapça/Türkçe) sıkışmasın diye dolgu
+              // dar tutulur; dokunma alanı Tab'ın kendi yüksekliğiyle
+              // korunur.
+              labelPadding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.s1,
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: AppSpacing.s4),
         Expanded(
@@ -297,30 +330,49 @@ final class _ReadTabState extends ConsumerState<_ReadTab> {
     };
   }
 
+  /// RDX-04A: liste HÂLÂ `ListView.builder`'dır — 114 satır tembel kurulur.
+  ///
+  /// Satırlar "tek yüzey" gibi okunsun diye kartın içine TOPLANMAZ (bir
+  /// `Column` 114 satırın hepsini bir anda kurardı); bunun yerine her satır
+  /// aynı yüzey rengini taşır, aralarında saç teli ayraç vardır ve yalnız
+  /// ilk/son satır köşe yuvarlar. Sonuç görsel olarak tek bir gruplanmış
+  /// yüzeydir, maliyet olarak hâlâ sanallaştırılmış listedir.
   Widget _buildList(AppLocalizations l10n, List<QuranChapter> chapters) {
     return ListView.builder(
-      itemCount: chapters.length + 1,
+      itemCount: chapters.length + 2,
       itemBuilder: (context, index) {
         if (index == 0) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // TASK 054: sıcak Kur'an hero'su. "Kaldığın yerden devam"
-              // artık AYRI bir büyük kart değil — hero'nun içine alınmıştır,
-              // böylece ekranın üstünde tekrar eden iki büyük kart olmaz.
-              const _QuranHomeHero(),
+              // RDX-04A: gradient hero KALDIRILDI (RDX-03A'nın Namaz
+              // ekranında verdiği kararla aynı gerekçe — tasarım yönü
+              // gradient içermez). Yerine kompakt bir "kaldığın yer" bloğu
+              // geldi: kayıt varsa gerçek sureyi, yoksa daveti gösterir.
+              const _QuranResumeBlock(),
               const SizedBox(height: AppSpacing.s4),
               // Küçük günlük hedef özeti (TASK 047): dokunuş İlerlemem
               // sekmesine geçer; ana işlev sure listesi olarak kalır.
               const _ReadGoalSummaryCard(),
-              AppText(l10n.quranSurahsSection, token: AppTextStyleToken.h3),
-              const SizedBox(height: AppSpacing.s3),
+              // RDX-04A: çıplak `h3` yerine paylaşılan bölüm başlığı —
+              // sayı katalogdan okunur, sabit "114" YAZILMAZ.
+              AppSectionHeader(
+                title: l10n.quranSurahsSection,
+                subtitle: l10n.quranSurahCount(chapters.length),
+              ),
             ],
           );
+        }
+        // Son eleman: listenin altında nefes payı. Alt navigasyonun son
+        // sureyi kesmemesi için satırların KENDİ dolgusuna eklenmez.
+        if (index == chapters.length + 1) {
+          return const SizedBox(height: AppSpacing.s7);
         }
         final chapter = chapters[index - 1];
         return _ChapterRow(
           chapter: chapter,
+          isFirst: index == 1,
+          isLast: index == chapters.length,
           onTap: () => _openChapter(context, ref, chapter.id),
         );
       },
@@ -496,81 +548,178 @@ final class _SearchVerseCard extends ConsumerWidget {
   }
 }
 
-/// "Kaldığın yerden devam et" kartı (TASK 036): kayıtlı konum + surenin
-/// katalog bilgisi. Kayıt yoksa sakin boş durum; okuma hatasında sakin
-/// mesaj. Ayet numarası GÖSTERİLMEZ — yalnız scroll konumu saklanıyor.
-/// Kur'an ana ekranı sıcak hero'su (TASK 054).
+/// Kur'an ana ekranının açılış bloğu (RDX-04A).
 ///
-/// Rahle illüstrasyonu + tonal sıcak yüzey üzerinde davetkâr bir başlık ve
-/// "kaldığın yerden devam" aksiyonu. Metinler AYET/HADİS DEĞİLDİR: tırnak
-/// içine alınmaz, kaynak etiketi verilmez.
+/// TASK 054'ün gradient hero'sunun yerini alır. Gerekçe RDX-03A'nın Namaz
+/// ekranında verdiği kararla aynıdır: tasarım yönü gradient/parlama
+/// içermez ve blok, dekoratif bir başlık alanı değil KOMPAKT BİR BİLGİ
+/// bloğudur. `warmSectionGradient` token'ı silinmedi — başka yüzeyler
+/// kullanmaya devam ediyor.
 ///
-/// Kayıtlı konum varsa CTA doğrudan o sureyi açar; yoksa hero yalnız
-/// davet metnini gösterir ve kullanıcı aşağıdaki listeden seçer — sahte
-/// veya yanıltıcı bir "devam" aksiyonu ÜRETİLMEZ.
-final class _QuranHomeHero extends ConsumerWidget {
-  const _QuranHomeHero();
+/// İki AYRI durum vardır ve ikisi de dürüsttür:
+///
+/// - **Kayıtlı konum varsa** blok gerçek sureyi (Latin + Arapça ad) ve tek
+///   bir devam aksiyonunu taşır. Küçük altın nokta yalnız BURADA yanar.
+/// - **Kayıt yoksa** blok yalnız daveti gösterir ve rahle motifi bu sakin
+///   durumda yaşar. Sahte veya yanıltıcı bir "devam" aksiyonu ÜRETİLMEZ.
+///
+/// Metinler AYET/HADİS DEĞİLDİR: tırnak içine alınmaz, kaynak etiketi
+/// verilmez. Ayet numarası gösterilmez — yalnız scroll konumu saklanıyor.
+final class _QuranResumeBlock extends ConsumerWidget {
+  const _QuranResumeBlock();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final tokens = IslamicVisualTokens.of(context);
-    // Yükleme/hata hero'yu BLOKLAMAZ: davet metni her koşulda görünür,
+    // Yükleme/hata bloğu BLOKLAMAZ: davet metni her koşulda görünür,
     // yalnız devam satırı sessizce gizlenir.
     final resume = ref.watch(quranContinueReadingProvider).value;
 
-    return ClipRRect(
-      borderRadius: AppRadius.lgAll,
-      child: DecoratedBox(
-        decoration: BoxDecoration(gradient: tokens.warmSectionGradient),
-        child: Stack(
-          children: [
-            // Dekoratif rahle — sağ kenarda sınırlı kutuda, semantics dışı.
-            const Positioned(
-              top: 0,
-              bottom: 0,
-              right: 0,
-              width: 116,
-              child: QuranOnRehalIllustration(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.s5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(l10n.quranHomeHeroTitle, token: AppTextStyleToken.h2),
-                  const SizedBox(height: AppSpacing.s2),
-                  AppText(
-                    l10n.quranHomeHeroBody,
-                    token: AppTextStyleToken.bodySmall,
-                    secondary: true,
-                  ),
-                  if (resume != null) ...[
-                    const SizedBox(height: AppSpacing.s4),
-                    // Kaldığın yer: sure adı + tek aksiyon. Ayrı büyük kart
-                    // yerine hero'nun bir satırı olarak yaşar.
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppText(
-                            resume.chapter.transliteratedName,
-                            token: AppTextStyleToken.h3,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.s3),
-                    AppButton(
-                      label: l10n.quranHomeContinueCta,
-                      onPressed: () =>
-                          _openChapter(context, ref, resume.chapter.id),
-                    ),
-                  ],
-                ],
+    if (resume == null) {
+      return const _QuranInvitationBlock();
+    }
+
+    final tokens = IslamicVisualTokens.of(context);
+
+    return AppCard(
+      variant: AppCardVariant.sand,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.s5,
+        AppSpacing.s4,
+        AppSpacing.s5,
+        AppSpacing.s4,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const _ResumeDot(),
+              const SizedBox(width: AppSpacing.s2),
+              Expanded(
+                child: AppText(
+                  l10n.quranHomeResumeEyebrow,
+                  token: AppTextStyleToken.caption,
+                  tone: AppTextTone.secondary,
+                  maxLines: 1,
+                ),
               ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: AppText(
+                  resume.chapter.transliteratedName,
+                  token: AppTextStyleToken.h3,
+                  maxLines: 2,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.s3),
+              // Arapça ad KENDİ yönünde çizilir (uygulama dili ne olursa
+              // olsun) ve Kur'an vurgu rengini alır — sure satırlarıyla
+              // aynı kural.
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: AppText(
+                  resume.chapter.arabicName,
+                  token: AppTextStyleToken.h3,
+                  color: tokens.quranAccent,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.s4),
+          AppButton(
+            label: l10n.quranHomeContinueCta,
+            onPressed: () => _openChapter(context, ref, resume.chapter.id),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Kayıtlı konum yokken görünen sakin davet (RDX-04A).
+///
+/// Rahle motifi YALNIZ burada yaşar: kart bu durumda gerçek bir içerik
+/// taşımaz, motif de boşluğu doldurmak yerine ekrana kimlik verir. Kayıt
+/// oluştuğunda blok gerçek bilgiye döner ve dekorasyona ihtiyaç kalmaz.
+final class _QuranInvitationBlock extends StatelessWidget {
+  const _QuranInvitationBlock();
+
+  /// Motifin kapladığı sabit genişlik. Metin sütunu bu payı bırakır, böylece
+  /// dar ekranda ve büyük yazı ölçeğinde motifle metin çakışmaz.
+  static const double _motifWidth = 96;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return AppCard(
+      variant: AppCardVariant.sand,
+      padding: const EdgeInsets.all(AppSpacing.s5),
+      child: Stack(
+        children: [
+          // Dekoratif rahle — YÖN DUYARLI kenarda (RTL'de sola geçer), sınırlı
+          // kutuda, semantics dışı. `Positioned(right:)` kullanılsaydı Arapça
+          // düzende metnin başladığı kenara oturur ve onunla çakışırdı.
+          const PositionedDirectional(
+            top: 0,
+            bottom: 0,
+            end: 0,
+            width: _motifWidth,
+            child: QuranOnRehalIllustration(),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: _motifWidth),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  l10n.quranHomeHeroTitle,
+                  token: AppTextStyleToken.h3,
+                  maxLines: 2,
+                ),
+                const SizedBox(height: AppSpacing.s2),
+                AppText(
+                  l10n.quranHomeHeroBody,
+                  token: AppTextStyleToken.bodySmall,
+                  tone: AppTextTone.secondary,
+                  maxLines: 3,
+                ),
+              ],
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// "Kaldığın yer" etiketinin başındaki küçük altın nokta.
+///
+/// Altının Kur'an ana ekranında göründüğü TEK yerdir; buton, kenarlık, kart
+/// zemini veya metin rengi olarak altın KULLANILMAZ. Tamamen dekoratiftir —
+/// taşıdığı hiçbir bilgi yoktur, etiket tek başına da eksiksiz okunur.
+/// Namaz ekranındaki `_NowDot` ile aynı dili konuşur.
+final class _ResumeDot extends StatelessWidget {
+  const _ResumeDot();
+
+  static const double _size = 6;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeSemantics(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: AppThemeExtension.of(context).accentGold,
+          borderRadius: AppRadius.pillAll,
         ),
+        child: const SizedBox(width: _size, height: _size),
       ),
     );
   }
@@ -578,86 +727,147 @@ final class _QuranHomeHero extends ConsumerWidget {
 
 /// Tek sure satırı — mushaf numarası, ad, ayet sayısı + nüzul yeri ve
 /// Arapça ad. Dokunma sure okuyucusunu açar (TASK 035/036).
+///
+/// ## RDX-04A yüzeyi
+///
+/// TASK 054 satırları çıplak zemine, yalnız alt ayraçla dizmişti; liste
+/// teknik olarak sakin ama görsel olarak "yüzeysiz" duruyordu. Satırlar artık
+/// ORTAK bir yüzey rengi taşır ve yalnız [isFirst]/[isLast] köşe yuvarlar, bu
+/// yüzden 114 satır TEK gruplanmış yüzey gibi okunur.
+///
+/// Bu kasıtlı olarak satır başına çözülür, kartın içine toplanarak DEĞİL: tek
+/// bir `AppCard` + `Column` 114 satırın tamamını bir anda kurardı ve
+/// `ListView.builder`'ın sanallaştırması kaybolurdu.
 final class _ChapterRow extends StatelessWidget {
-  const _ChapterRow({required this.chapter, required this.onTap});
+  const _ChapterRow({
+    required this.chapter,
+    required this.onTap,
+    required this.isFirst,
+    required this.isLast,
+  });
 
   final QuranChapter chapter;
   final VoidCallback onTap;
 
+  /// Gruplanmış yüzeyin ilk satırı mı? Üst köşeleri yuvarlar.
+  final bool isFirst;
+
+  /// Gruplanmış yüzeyin son satırı mı? Alt köşeleri yuvarlar ve ayracı
+  /// bırakır — yüzey temizce biter.
+  final bool isLast;
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final ext = AppThemeExtension.of(context);
+    final tokens = IslamicVisualTokens.of(context);
     final placeLabel = switch (chapter.revelationPlace) {
       QuranRevelationPlace.meccan => l10n.quranRevelationMeccan,
       QuranRevelationPlace.medinan => l10n.quranRevelationMedinan,
     };
 
-    // TASK 054: 114 sure ARTIK ayrı ayrı beyaz kart değildir. Her satır
-    // gölgesiz, ince ayraçlı bir liste satırıdır — liste yoğun ama sakin
-    // okunur, ekranda gölge birikmez. Dokunma alanı korunur (minHeight 56).
-    final tokens = IslamicVisualTokens.of(context);
+    final radius = BorderRadius.vertical(
+      top: Radius.circular(isFirst ? AppRadius.lg : 0),
+      bottom: Radius.circular(isLast ? AppRadius.lg : 0),
+    );
 
     return Material(
-      color: Colors.transparent,
+      color: tokens.sacredSurface,
+      borderRadius: radius,
       child: InkWell(
         onTap: onTap,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: tokens.surfaceBorder)),
-          ),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 56),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.s2,
-                vertical: AppSpacing.s3,
-              ),
-              child: Row(
-                children: [
-                  // Mushaf numarası: sakin, dolgusuz tipografik işaret.
-                  SizedBox(
-                    width: 28,
-                    child: AppText(
-                      '${chapter.id}',
-                      token: AppTextStyleToken.caption,
-                      secondary: true,
+        borderRadius: radius,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.s4,
+              vertical: AppSpacing.s3,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    _ChapterNumber(id: chapter.id),
+                    const SizedBox(width: AppSpacing.s3),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Latin ad birincil satırdır — güçlü hiyerarşi.
+                          AppText(
+                            chapter.transliteratedName,
+                            token: AppTextStyleToken.h3,
+                            maxLines: 1,
+                          ),
+                          const SizedBox(height: AppSpacing.s1),
+                          AppText(
+                            '${l10n.quranAyahCount(chapter.verseCount)} · $placeLabel',
+                            token: AppTextStyleToken.caption,
+                            tone: AppTextTone.tertiary,
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.s2),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Latin ad birincil satırdır — güçlü hiyerarşi.
-                        AppText(
-                          chapter.transliteratedName,
-                          token: AppTextStyleToken.h3,
-                        ),
-                        const SizedBox(height: AppSpacing.s1),
-                        AppText(
-                          '${l10n.quranAyahCount(chapter.verseCount)} · $placeLabel',
-                          token: AppTextStyleToken.caption,
-                          secondary: true,
-                        ),
-                      ],
+                    const SizedBox(width: AppSpacing.s3),
+                    // Arapça ad KENDİ yönünde çizilir (uygulama dili ne
+                    // olursa olsun) ve Kur'an vurgu rengini alır.
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: AppText(
+                        chapter.arabicName,
+                        token: AppTextStyleToken.h3,
+                        color: tokens.quranAccent,
+                        maxLines: 1,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppSpacing.s3),
-                  // Arapça ad KENDİ yönünde çizilir (uygulama dili ne
-                  // olursa olsun) ve Kur'an vurgu rengini alır.
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: AppText(
-                      chapter.arabicName,
-                      token: AppTextStyleToken.h3,
-                      color: tokens.quranAccent,
-                    ),
-                  ),
+                  ],
+                ),
+                // Saç teli ayraç satırın İÇİNDE yaşar ve son satırda çizilmez,
+                // böylece yüzeyin alt kenarında çift çizgi oluşmaz. Yatay
+                // dolgunun içinde kaldığı için klasik "inset divider" verir.
+                if (!isLast) ...[
+                  const SizedBox(height: AppSpacing.s3),
+                  Divider(height: 1, thickness: 1, color: ext.divider),
                 ],
-              ),
+              ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Mushaf sıra numarası (RDX-04A).
+///
+/// Önceden 28 px genişlikte çıplak bir yazıydı ve büyük yazı ölçeğinde
+/// kırpılıyordu. Artık tonal bir çerçevede oturur: numara listedeki ritmi
+/// verir, sure adıyla YARIŞMAZ. Kutu `minWidth` ile tanımlıdır — 1.5x ölçekte
+/// "114" büyüdüğünde kutu da büyür, metin kırpılmaz.
+final class _ChapterNumber extends StatelessWidget {
+  const _ChapterNumber({required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = IslamicVisualTokens.of(context);
+
+    return Container(
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s2),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: tokens.sectionSurface,
+        borderRadius: AppRadius.smAll,
+      ),
+      child: AppText(
+        '$id',
+        token: AppTextStyleToken.caption,
+        tone: AppTextTone.secondary,
+        maxLines: 1,
       ),
     );
   }
@@ -671,24 +881,15 @@ final class _LearnTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return ListView(
-      children: [
-        const SizedBox(height: AppSpacing.s2),
-        AppCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(l10n.quranLearnTitle, token: AppTextStyleToken.h3),
-              const SizedBox(height: AppSpacing.s2),
-              AppText(
-                l10n.quranLearnBody,
-                token: AppTextStyleToken.bodySmall,
-                secondary: true,
-              ),
-            ],
-          ),
-        ),
-      ],
+    // RDX-04A: tek satırlık düz kart yerine paylaşılan nazik boş durum.
+    // Kart, ekranın üstüne yapışıp "yüklenmemiş içerik" gibi duruyordu;
+    // ortalanmış boş durum bunun bilinçli bir bekleme olduğunu söyler.
+    // METİNLER DEĞİŞMEDİ ve sahte ders/dini içerik ÜRETİLMEDİ — eylem
+    // düğmesi de yoktur, çünkü gidilecek bir yer yok.
+    return GentleEmptyState(
+      icon: Icons.auto_stories_outlined,
+      title: l10n.quranLearnTitle,
+      message: l10n.quranLearnBody,
     );
   }
 }
@@ -755,18 +956,28 @@ final class _ProgressView extends ConsumerWidget {
       ),
     };
 
+    // RDX-04A: sekme önceden ÜST ÜSTE BEŞ aynı yükseltilmiş kart idi —
+    // hiyerarşisi olmayan bir kutu yığını. Artık üç kademe var:
+    //
+    //   1. Bugünkü hedef — sıcak kum yüzeyi, sekmenin çapası.
+    //   2. Aktivite — bugünün sayıları, son 7 gün ve seri TEK kartta,
+    //      aralarında saç teli ayraçla. Üçü de "ne kadar okudum" sorusunun
+    //      parçası; ayrı kartlar bu ilişkiyi gizliyordu.
+    //   3. Okumaya devam — ince kenarlıklı giriş satırı.
+    //
+    // Hiçbir metrik, metin veya hesap DEĞİŞMEDİ; yalnız yüzeyler gruplandı.
     return ListView(
       children: [
         const SizedBox(height: AppSpacing.s2),
-        // Bugünkü hedef kartı
         AppCard(
+          variant: AppCardVariant.sand,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
                 l10n.quranTodayGoalTitle,
                 token: AppTextStyleToken.caption,
-                secondary: true,
+                tone: AppTextTone.secondary,
               ),
               const SizedBox(height: AppSpacing.s1),
               AppText(
@@ -780,7 +991,7 @@ final class _ProgressView extends ConsumerWidget {
                 AppText(
                   l10n.quranPageProgressUnavailable,
                   token: AppTextStyleToken.bodySmall,
-                  secondary: true,
+                  tone: AppTextTone.secondary,
                 )
               else ...[
                 AppProgressBar(
@@ -791,7 +1002,7 @@ final class _ProgressView extends ConsumerWidget {
                 AppText(
                   progressLabel,
                   token: AppTextStyleToken.caption,
-                  secondary: true,
+                  tone: AppTextTone.secondary,
                 ),
                 const SizedBox(height: AppSpacing.s1),
                 AppText(
@@ -799,7 +1010,7 @@ final class _ProgressView extends ConsumerWidget {
                       ? l10n.quranGoalCompletedLine
                       : remainingLabel,
                   token: AppTextStyleToken.bodySmall,
-                  secondary: true,
+                  tone: AppTextTone.secondary,
                 ),
               ],
               const SizedBox(height: AppSpacing.s4),
@@ -814,15 +1025,15 @@ final class _ProgressView extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.s4),
-        // Bugünkü aktivite
         AppCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Bugünkü aktivite
               AppText(
                 l10n.quranTodayActivityTitle,
                 token: AppTextStyleToken.caption,
-                secondary: true,
+                tone: AppTextTone.secondary,
               ),
               const SizedBox(height: AppSpacing.s3),
               _ActivityRow(
@@ -844,19 +1055,12 @@ final class _ProgressView extends ConsumerWidget {
                   value: '${summary.today.viewedPageNumbers.length}',
                 ),
               ],
-            ],
-          ),
-        ),
-        const SizedBox(height: AppSpacing.s4),
-        // Son 7 gün — token tabanlı küçük barlar; chart paketi YOK.
-        AppCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+              const _ProgressSectionDivider(),
+              // Son 7 gün — token tabanlı küçük barlar; chart paketi YOK.
               AppText(
                 l10n.quranLast7DaysTitle,
                 token: AppTextStyleToken.caption,
-                secondary: true,
+                tone: AppTextTone.secondary,
               ),
               const SizedBox(height: AppSpacing.s3),
               Row(
@@ -866,31 +1070,52 @@ final class _ProgressView extends ConsumerWidget {
                     _DayProgressColumn(point: point),
                 ],
               ),
-            ],
-          ),
-        ),
-        const SizedBox(height: AppSpacing.s4),
-        // Kur'an hedefi serisi — sakin, suçlayıcı olmayan dil.
-        AppCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                l10n.quranStreakTitle,
-                token: AppTextStyleToken.caption,
-                secondary: true,
-              ),
-              const SizedBox(height: AppSpacing.s1),
-              AppText(
-                l10n.quranDaysCount(summary.currentStreakDays),
-                token: AppTextStyleToken.h3,
+              const _ProgressSectionDivider(),
+              // Kur'an hedefi serisi — sakin, suçlayıcı olmayan dil. Kendi
+              // kartını kaybetti ama metni ve sayısı aynen korundu; seri bir
+              // ödül değil, son 7 günün okunuşudur ve oraya aittir.
+              Row(
+                children: [
+                  Expanded(
+                    child: AppText(
+                      l10n.quranStreakTitle,
+                      token: AppTextStyleToken.caption,
+                      tone: AppTextTone.secondary,
+                      maxLines: 2,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.s3),
+                  AppText(
+                    l10n.quranDaysCount(summary.currentStreakDays),
+                    token: AppTextStyleToken.h3,
+                    maxLines: 1,
+                  ),
+                ],
               ),
             ],
           ),
         ),
         const _ProgressContinueCard(),
-        const SizedBox(height: AppSpacing.s6),
+        const SizedBox(height: AppSpacing.s7),
       ],
+    );
+  }
+}
+
+/// Aktivite kartının içindeki bölüm ayracı (RDX-04A). Üç ilgili blok tek
+/// kartta yaşarken birbirine karışmasın diye kullanılır.
+final class _ProgressSectionDivider extends StatelessWidget {
+  const _ProgressSectionDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.s4),
+      child: Divider(
+        height: 1,
+        thickness: 1,
+        color: AppThemeExtension.of(context).divider,
+      ),
     );
   }
 }
@@ -1003,28 +1228,66 @@ final class _ProgressContinueCard extends ConsumerWidget {
       return const SizedBox.shrink();
     }
     final verseKey = today?.lastVerseKey;
+    final resolved = chapter;
+    // RDX-04A: ayrı başlık + ayrı buton taşıyan dolu kart yerine, kartın
+    // TAMAMI tek dokunma hedefi olan ince kenarlıklı bir giriş satırı. Aynı
+    // rota, aynı bilgi (sure adı + varsa ayet anahtarı), tek eylem.
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final tertiary = AppThemeExtension.of(context).textTertiary;
+
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.s4),
-      child: AppCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(chapter.transliteratedName, token: AppTextStyleToken.h3),
-            if (verseKey != null) ...[
-              const SizedBox(height: AppSpacing.s1),
-              AppText(
-                verseKey,
-                token: AppTextStyleToken.caption,
-                secondary: true,
-              ),
-            ],
-            const SizedBox(height: AppSpacing.s4),
-            AppButton(
-              label: l10n.quranResumeCta,
-              variant: AppButtonVariant.secondary,
-              onPressed: () => _openChapter(context, ref, chapter!.id),
+      child: Semantics(
+        button: true,
+        label: l10n.quranResumeCta,
+        child: AppCard(
+          variant: AppCardVariant.outlined,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.s4,
+            vertical: AppSpacing.s3,
+          ),
+          onTap: () => _openChapter(context, ref, resolved.id),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.menu_book_outlined,
+                  size: AppSizes.iconMd,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: AppSpacing.s3),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        l10n.quranResumeCta,
+                        token: AppTextStyleToken.h3,
+                        maxLines: 2,
+                      ),
+                      const SizedBox(height: AppSpacing.s1),
+                      AppText(
+                        verseKey == null
+                            ? resolved.transliteratedName
+                            : '${resolved.transliteratedName} · $verseKey',
+                        token: AppTextStyleToken.caption,
+                        tone: AppTextTone.secondary,
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.s2),
+                Icon(
+                  isRtl ? Icons.chevron_left : Icons.chevron_right,
+                  size: AppSizes.iconSm,
+                  color: tertiary,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -1066,43 +1329,71 @@ final class _ReadGoalSummaryCard extends ConsumerWidget {
             ),
           };
 
+    // RDX-04A: bu blok artık yükseltilmiş bir kart DEĞİL, ince kenarlıklı
+    // kompakt bir giriş satırıdır. Gerekçe: üstteki "kaldığın yer" bloğu
+    // ekranın sıcak yüzeyini zaten taşıyor; ikinci bir dolu kart, sure
+    // listesine inmeden önce üçüncü bir büyük yüzey daha üretiyordu. Yön
+    // duyarlı chevron, satırın gerçekten bir yere GÖTÜRDÜĞÜNÜ söyler —
+    // Namaz ekranının ikincil giriş satırlarıyla aynı dil.
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final tertiary = AppThemeExtension.of(context).textTertiary;
+
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.s5),
+      padding: const EdgeInsets.only(bottom: AppSpacing.s2),
       child: Semantics(
         button: true,
         label: l10n.quranTabProgress,
         child: AppCard(
+          variant: AppCardVariant.outlined,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.s4,
+            vertical: AppSpacing.s3,
+          ),
           onTap: () => ref
               .read(quranHomeTabProvider.notifier)
               .request(QuranHomeTab.progress),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              AppText(
-                l10n.quranTodayGoalTitle,
-                token: AppTextStyleToken.caption,
-                secondary: true,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      l10n.quranTodayGoalTitle,
+                      token: AppTextStyleToken.caption,
+                      tone: AppTextTone.secondary,
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: AppSpacing.s2),
+                    if (summary.pageMappingUnavailable)
+                      AppText(
+                        l10n.quranPageProgressUnavailable,
+                        token: AppTextStyleToken.bodySmall,
+                        tone: AppTextTone.secondary,
+                        maxLines: 2,
+                      )
+                    else ...[
+                      AppProgressBar(
+                        value: summary.goalProgressRatio,
+                        semanticLabel: progressLabel,
+                      ),
+                      const SizedBox(height: AppSpacing.s2),
+                      AppText(
+                        '$progressLabel · $supportLabel',
+                        token: AppTextStyleToken.caption,
+                        tone: AppTextTone.tertiary,
+                        maxLines: 1,
+                      ),
+                    ],
+                  ],
+                ),
               ),
-              const SizedBox(height: AppSpacing.s2),
-              if (summary.pageMappingUnavailable)
-                AppText(
-                  l10n.quranPageProgressUnavailable,
-                  token: AppTextStyleToken.bodySmall,
-                  secondary: true,
-                )
-              else ...[
-                AppProgressBar(
-                  value: summary.goalProgressRatio,
-                  semanticLabel: progressLabel,
-                ),
-                const SizedBox(height: AppSpacing.s2),
-                AppText(
-                  '$progressLabel · $supportLabel',
-                  token: AppTextStyleToken.caption,
-                  secondary: true,
-                  maxLines: 1,
-                ),
-              ],
+              const SizedBox(width: AppSpacing.s2),
+              Icon(
+                isRtl ? Icons.chevron_left : Icons.chevron_right,
+                size: AppSizes.iconSm,
+                color: tertiary,
+              ),
             ],
           ),
         ),
