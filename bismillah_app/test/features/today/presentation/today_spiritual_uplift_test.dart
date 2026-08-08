@@ -213,8 +213,16 @@ void main() {
 
       expect(find.text('Bugünün Ayeti'), findsOneWidget);
       expect(find.byType(ReferencedVerseCard), findsOneWidget);
-      // Kaynak künyesi her zaman gösterilir.
+      // RDX-02B: künye Today kartında artık SÜREKLİ GÖRÜNMEZ — sağlayıcı
+      // adları kartı doldurmasın diye sessiz bir bilgi eyleminin arkasındadır.
+      // Atıf KALDIRILMADI: eylem, künyeyi TAM metniyle açar.
+      expect(find.text('Tanzil · QuranEnc Rowad'), findsNothing);
+      expect(find.byIcon(Icons.info_outline), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.info_outline));
+      await tester.pumpAndSettle();
       expect(find.text('Tanzil · QuranEnc Rowad'), findsOneWidget);
+      await tester.tap(find.text('Kapat'));
+      await tester.pumpAndSettle();
 
       // Referans, günün curated seçimiyle tutarlıdır.
       final reference = DailyVerseReference.forLocalDate(fixedLocalNow);

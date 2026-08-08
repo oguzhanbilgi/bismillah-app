@@ -5,6 +5,7 @@ import 'package:bismillah_app/app/theme/app_spacing.dart';
 import 'package:bismillah_app/features/today/application/today_greeting_provider.dart';
 import 'package:bismillah_app/features/today/application/today_prayer_summary_controller.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_brand_header.dart';
+import 'package:bismillah_app/features/today/presentation/widgets/today_daily_reflection.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_daily_verse_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_next_prayer_card.dart';
 import 'package:bismillah_app/features/today/presentation/widgets/today_plan_section.dart';
@@ -84,16 +85,13 @@ class TodayScreen extends ConsumerWidget {
             // 5) Kur'an merkezi tek destekleyici blok olarak kalır.
             TodaySectionLabel(title: l10n.todayJourneyTitle),
             const TodayQuranCenterCard(),
+            // RDX-02B: teknik alt bilgi ("Kayıtların cihazında saklanır.")
+            // KALDIRILDI — depolama dili Today'in yeri değil. Aynı bilgi
+            // Namaz ekranında ve Gizlilik/Veri ekranında olduğu gibi durur.
+            // Yerini, günün yerel takvim tarihinden deterministik seçilen
+            // sakin bir kapanış cümlesi aldı.
+            const TodayDailyReflection(),
             const SizedBox(height: AppSpacing.s4),
-            Center(
-              child: AppText(
-                l10n.todayLocalNote,
-                token: AppTextStyleToken.caption,
-                secondary: true,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: AppSpacing.s6),
           ],
         ),
         AsyncError() => AppErrorState(
